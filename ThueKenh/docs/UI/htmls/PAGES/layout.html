@@ -1,0 +1,268 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="description" content="Reflect Template" />
+		<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+        <title>QUẢN LÝ KÊNH TRUYỀN DẪN</title>
+        <link rel="stylesheet" href="../css/style_all.css" type="text/css" media="screen" />
+        <link rel="stylesheet" href="../css/style1.css" type="text/css" media="screen" />
+        <link rel="stylesheet" href="../css/jquery-ui.css" type="text/css" media="screen" />
+        <link rel="stylesheet" href="../css/jquery.wysiwyg.css" type="text/css" media="screen" />
+		<link rel="stylesheet" type="text/css" href="../css/superfish.css" media="screen">
+		<link rel="stylesheet" type="text/css" href="../css/demo_table_jui.css" />
+		<link rel="stylesheet" href="../css/search_box.css" type="text/css" media="screen" />
+		<link rel="stylesheet" href="../css/CalendarControl.css" type="text/css" media="screen" />
+        <!--Internet Explorer Trancparency fix-->
+        <!--[if IE 6]>
+        <script src="/js/ie6pngfix.js"></script>
+        <script>
+          DD_belatedPNG.fix('#head, a, a span, img, .message p, .click_to_close, .ie6fix');
+        </script>
+        <![endif]--> 
+        
+        <script type='text/javascript' src='../js/jquery.js'></script>
+        <script type='text/javascript' src='../js/jquery-ui.js'></script>
+		<script type="text/javascript" src="../js/jquery_blockUI.js"></script>
+        <script type='text/javascript' src='../js/jquery.wysiwyg.js'></script>
+		<script type="text/javascript" src="../js/hoverIntent.js"></script>
+		<script type="text/javascript" src="../js/superfish.js"></script>
+		<script type="text/javascript" src="../js/validator.js"></script>
+		<script type="text/javascript" src="../js/jquery.dataTables.min.js"></script>
+		<script type="text/javascript" src="../js/jquery.hint.js"></script>
+		<script type="text/javascript" src="../js/CalendarControl.js"></script>
+		<script>
+		function byId(id) { //Viet tat cua ham document.getElementById
+			return document.getElementById(id);
+		}
+		function block(id) {
+			overlay = $(id).block({ 
+				message: '<span style="color:white">Loading...</span>', 
+				css: { 
+					border: 'none', 
+					padding: '15px', 
+					backgroundColor: '#000', 
+					'-webkit-border-radius': '10px', 
+					'-moz-border-radius': '10px', 
+					opacity: .5, 
+					color: '#fff'
+				} 
+			}); 
+			$('.blockOverlay', overlay).css('cursor', 'auto');
+		}
+		function unblock(id) {
+			$(id).unblock(); 
+		}
+		</script>
+    </head>
+    
+    <body>
+    	<div id="dialog" title="Welcome to flexy admin">
+       	<p>Xin chào admin! welcome back.<br/> You got <strong>1 new Message</strong> in your inbox</p>
+        <p>This is a messagebox, you can fill it with content of your choice ;)</p>
+        </div>
+        
+        <div id="top">
+        
+            <div id="head">
+            	<h1 class="logo">
+                	<a href="#">flexy - adjustable admin skin</a>
+                </h1>
+                
+                <div class="head_memberinfo">
+                	<div class="head_memberinfo_logo">
+                    	<span>1</span>
+                    	<img src="../images/unreadmail.png" alt=""/>
+                    </div>
+                    
+                    <span class='memberinfo_span'>
+                   		 Welcome <a href="#">Admin</a>
+                    </span>
+                    
+                    <span class='memberinfo_span'>
+                    	<a href="#">Settings</a>
+                    </span>
+                    
+                    <span>
+                    	<a href="${doLogoutURL}">Logout</a>
+                    </span>
+                    
+                    <span class='memberinfo_span2'>
+                    	<a href="#">1 Private Message recieved</a>
+                    </span>
+                </div><!--end head_memberinfo-->
+            </div><!--end head-->
+			<ul class="sf-menu"></ul>
+			<div id="bg_wrapper">
+				<div id="box_form" style="margin: 0pt auto; width: 800px; height: auto;" class="box">
+					<div class="tab">  
+						<div id="tab_0" class="tl fl"></div>
+						<div id="tab_1" class="tc fl"><div style="padding: 2px 5px 0;">QUẢN LÝ XXXXXXXX</div></div>
+						<div id="tab_2" class="fl tr"></div>
+					 </div>
+					<div class="l clb">
+						<div class="r">
+							<div class="c">
+							<div class="tboxhder"></div>
+							<div id="msg" style="padding-left: 17px;"></div>
+							</div>
+						</div>
+					</div>
+					<div class="box_leftside">
+					<div class="box_rightside">
+						<div style="width:98%">
+							<form method="post" action="" id="form">
+								<!-- Form -->
+								<div class="form">
+									<input type="hidden" name="account.id" id="id" value=""/>
+									<table width="100%">
+										<tr>
+											<td align="right" width="100px">Username :</td>
+											<td align="left">
+												<input type="text" name="account.username" id="username"/>
+												<font title="Bắt buộc nhập" color="red">(*)</font>
+											</td>
+											<td align="right" width="100px">Password :</td>
+											<td align="left">
+												<input type="password" name="account.password" id="password">
+												<font title="Bắt buộc nhập" color="red">(*)</font>
+											</td>
+										</tr>
+										<tr>
+											<td align="right">Nhóm</td>
+											<td align="left">
+												<select>
+													<option value="">Group A</option>
+													<option value="">Group B</option>
+												</select>
+											</td>
+											<td align="right">Tình trạng</td>
+											<td align="left">
+												<select>
+													<option value="">---SELECT---</option>
+													<option value="1">Hoạt động</option>
+													<option value="0">Khóa</option>
+												</select>
+											</td>
+										</tr>
+										<tr height="30px">
+											<td colspan="4" align="center">
+												<input type="button" value="Thêm mới" class="button" onclick="">
+												<input type="button" value="Cập nhật" class="button" onclick="">
+												<input type="button" value="Xóa" class="button" onclick="">
+												<input type="button" value="Reset" class="button" onclick="">
+											</td>
+										</tr>
+									</table>
+								</div>
+							</form>
+						</div>
+					</div>
+					</div>
+					<div class="foot_l"></div><div class="foot_c"></div><div class="foot_r"></div>
+				</div>
+				<div style="width: 100%; margin-bottom: 10px;" class="ovf">
+					<div class="s10">
+						<div class="fl">
+							<div class="fl tsl" id="t_1">
+							</div>
+							<div class="fl clg b tsc d" id="t_2">
+								<div class="p3t">Tìm kiếm</div>
+							</div>
+							<div class="fl tsr" id="t_3">
+							</div>
+						</div>
+						<div class="lineU"><img height="1px" alt="" class="w100" src="../images/spacer.gif"></div>
+					</div>
+					<div id="divSearch" class="ovf" style="padding-right: 0px;">
+						<div class="kc4 p5l p15t bgw">
+							<div class="bgw p5b ovf" id="tabnd_2">
+								<div class="ovf p5l p5t">
+									<div class="fl" style="padding-left:5px">
+										<select>
+											<option value="">Tình trạng</option>
+											<option value="0">Đang hoạt động</option>
+											<option value="1">Khóa</option>
+										</select>
+									</div>
+									<div class="fl" style="padding-left:5px">
+										<input type="text" id="" title="Username"/>
+									</div>
+									<div class="fl" style="padding-left:5px">
+										Ngày tạo từ <input type="text" name="date1" id="date1" onclick="onclickCalendarIcon('date1','');"/> đến <input type="text" name="date2" id="date2" onclick="onclickCalendarIcon('date2','');"/>
+									</div>
+									
+									<div class="fl p5l p5r ">
+										<input type="button" value="Tìm Kiếm" class="button" onclick="">
+									</div>
+								</div>
+							</div>
+							<div class="clearb">
+							</div>
+						</div>
+					</div>
+					<div style="height: 1px;"><img alt="" style="height: 1px;" src="App_Themes/Normal/Images/spacer.gif"></div>
+				</div>
+				<table width="100%" id="dataTable" class="display">
+				<thead>
+					<tr>
+						<th width="5%">#</th>
+						<th>Username</th>
+						<th width="30%">Nhóm</th>
+						<th width="5%">Active</th>
+						<th width="5px">Edit</th>
+						<th width="5px" align="center"><input type="checkbox" onclick="selectAll(this)"/></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>1</td>
+						<td>admin</td>
+						<td>Group A</td>
+						<td><center><div title="DeActive it!"  class="active"></div></center></td>
+						<td><center><img title="Edit" src="../images/icons/edit.png" onclick="doSelectRow()" style="cursor:pointer"></center></td>
+						<td><center><input type="checkbox" value=""/></center></td>
+					</tr>
+					<tr>
+						<td>2</td>
+						<td>user</td>
+						<td>Group B</td>
+						<td><center><div title="Active it!"  class="inactive"></div></center></td>
+						<td><center><img title="Edit" src="../images/icons/edit.png" onclick="doSelectRow()" style="cursor:pointer"></center></td>
+						<td><center><input type="checkbox" value=""/></center></td>
+					</tr>
+				</tbody>
+				</table>
+			</div><!--end bg_wrapper-->
+        </div><!-- end top -->
+        <div id="footer">
+			
+			</div><!--end footer-->
+    </body>
+</html>
+<script>
+function doReset() {
+	$("#form")[0].reset(); //Reset form cua jquery, giu lai gia tri mac dinh cua cac field
+	byId("msg").innerHTML="";
+}
+function selectAll(_this) {
+	$('#dataTable input[type=checkbox]').each(function(){
+		this.checked=_this.checked;
+	});
+}
+$(document).ready(function(){	 
+	$('ul.sf-menu').load("menu.html");
+	$('ul.sf-menu').superfish();
+	oTable = $('#dataTable').dataTable({
+		"bJQueryUI": true,
+		"bProcessing": true,
+		"sScrollY": "200px",
+		"bScrollCollapse": true,
+		"bAutoWidth": false,
+		"bSort":false,
+		"sPaginationType": "two_button"
+	});
+	$('#divSearch input[title!=""]').hint();
+});
+</script>

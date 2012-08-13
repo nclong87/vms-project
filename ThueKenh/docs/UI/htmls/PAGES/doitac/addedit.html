@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    	
+      	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      	<meta name="description" content="Reflect Template" />
+		<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+		<link rel="stylesheet" href="../../css/addedit.css" type="text/css" media="screen" />
+      	<!--Internet Explorer Trancparency fix-->
+      	<!--[if IE 6]>
+      	<script src="/js/ie6pngfix.js"></script>
+      	<script>
+        DD_belatedPNG.fix('#head, a, a span, img, .message p, .click_to_close, .ie6fix');
+      	</script>
+      	<![endif]--> 
+
+</head>
+    
+<body>
+ 	<table class="input">
+ 		<tr>
+ 			<td align="right">Tên đối tác :</td>
+ 			<td><input type="text" style="width:395px"></input><font title="Bắt buộc nhập" color="red">*</font></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td>
+ 				<div class="buttonwrapper">
+				<a class="ovalbutton" href="#"><span>Lưu</span></a>
+				<a class="ovalbutton" id="btReset" href="#"><span>Làm lại</span></a>
+				<a class="ovalbutton" id="btThoat" href="#" onclick="window.parent.CloseWindow();"><span>Thoát</span></a>
+				</div>
+			</td>
+		</tr>
+	</table>
+</body>
+</html>
+<script>
+function doReset() {
+	$("#form")[0].reset(); //Reset form cua jquery, giu lai gia tri mac dinh cua cac field
+	byId("msg").innerHTML="";
+}
+</script>

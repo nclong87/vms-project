@@ -1,0 +1,318 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="description" content="Reflect Template" />
+		<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+        <title>IMPORT TUYẾN KÊNH</title>
+        <link rel="stylesheet" href="../css/style_all.css" type="text/css" media="screen" />
+        <link rel="stylesheet" href="../css/style1.css" type="text/css" media="screen" />
+        <link rel="stylesheet" href="../css/jquery-ui.css" type="text/css" media="screen" />
+        <link rel="stylesheet" href="../css/jquery.wysiwyg.css" type="text/css" media="screen" />
+		<link rel="stylesheet" type="text/css" href="../css/superfish.css" media="screen">
+		<link rel="stylesheet" type="text/css" href="../css/demo_table_jui.css" />
+		<link rel="stylesheet" href="../css/search_box.css" type="text/css" media="screen" />
+		<link rel="stylesheet" href="../css/CalendarControl.css" type="text/css" media="screen" />
+        <!--Internet Explorer Trancparency fix-->
+        <!--[if IE 6]>
+        <script src="/js/ie6pngfix.js"></script>
+        <script>
+          DD_belatedPNG.fix('#head, a, a span, img, .message p, .click_to_close, .ie6fix');
+        </script>
+        <![endif]--> 
+        
+        <script type='text/javascript' src='../js/jquery.js'></script>
+        <script type='text/javascript' src='../js/jquery-ui.js'></script>
+		<script type="text/javascript" src="../js/jquery_blockUI.js"></script>
+        <script type='text/javascript' src='../js/jquery.wysiwyg.js'></script>
+		<script type="text/javascript" src="../js/hoverIntent.js"></script>
+		<script type="text/javascript" src="../js/superfish.js"></script>
+		<script type="text/javascript" src="../js/validator.js"></script>
+		<script type="text/javascript" src="../js/jquery.dataTables.min.js"></script>
+		<script type="text/javascript" src="../js/jquery.hint.js"></script>
+		<script type="text/javascript" src="../js/CalendarControl.js"></script>
+		<script>
+		function byId(id) { //Viet tat cua ham document.getElementById
+			return document.getElementById(id);
+		}
+		function block(id) {
+			overlay = $(id).block({ 
+				message: '<span style="color:white">Loading...</span>', 
+				css: { 
+					border: 'none', 
+					padding: '15px', 
+					backgroundColor: '#000', 
+					'-webkit-border-radius': '10px', 
+					'-moz-border-radius': '10px', 
+					opacity: .5, 
+					color: '#fff'
+				} 
+			}); 
+			$('.blockOverlay', overlay).css('cursor', 'auto');
+		}
+		function unblock(id) {
+			$(id).unblock(); 
+		}
+		</script>
+    </head>
+    
+    <body>
+    	<div id="dialog" title="Welcome to flexy admin">
+       	<p>Xin chào admin! welcome back.<br/> You got <strong>1 new Message</strong> in your inbox</p>
+        <p>This is a messagebox, you can fill it with content of your choice ;)</p>
+        </div>
+        
+        <div id="top">
+        
+            <div id="head">
+            	<h1 class="logo">
+                	<a href="#">flexy - adjustable admin skin</a>
+                </h1>
+                
+                <div class="head_memberinfo">
+                	<div class="head_memberinfo_logo">
+                    	<span>1</span>
+                    	<img src="../images/unreadmail.png" alt=""/>
+                    </div>
+                    
+                    <span class='memberinfo_span'>
+                   		 Welcome <a href="#">Admin</a>
+                    </span>
+                    
+                    <span class='memberinfo_span'>
+                    	<a href="#">Settings</a>
+                    </span>
+                    
+                    <span>
+                    	<a href="${doLogoutURL}">Logout</a>
+                    </span>
+                    
+                    <span class='memberinfo_span2'>
+                    	<a href="#">1 Private Message recieved</a>
+                    </span>
+                </div><!--end head_memberinfo-->
+            </div><!--end head-->
+			<ul class="sf-menu"></ul>
+			<div id="bg_wrapper">
+				<div id="box_form" style="margin: 0pt auto; width: 800px; height: auto;" class="box">
+					<div class="tab">  
+						<div id="tab_0" class="tl fl"></div>
+						<div id="tab_1" class="tc fl"><div style="padding: 2px 5px 0;">Import tuyến kênh</div></div>
+						<div id="tab_2" class="fl tr"></div>
+					 </div>
+					<div class="l clb">
+						<div class="r">
+							<div class="c">
+							<div class="tboxhder"></div>
+							<div id="msg" style="padding-left: 17px;"></div>
+							</div>
+						</div>
+					</div>
+					<div class="box_leftside">
+					<div class="box_rightside">
+						<div style="width:98%">
+							<form method="post" action="" id="form">
+								<!-- Form -->
+								<div class="form">
+									<input type="hidden" name="account.id" id="id" value=""/>
+									<table width="100%">
+										<tr id="tr_upload">
+											<td align="right" width="100px">Chọn file :</td>
+											<td align="left">
+												<input type="file" name="a" id=""/>
+												<font title="Bắt buộc nhập" color="red">(*)</font>
+												<input type="button" value="Upload" class="button" onclick="doUpload()">
+											</td>
+										</tr>
+										<tr height="30px" id="tr_import" style="display:none">
+											<td colspan="4" align="center">
+												<input type="button" value="Import" class="button" onclick="">
+												<input type="button" value="Cancel" class="button" onclick="">
+											</td>
+										</tr>
+									</table>
+								</div>
+							</form>
+						</div>
+					</div>
+					</div>
+					<div class="foot_l"></div><div class="foot_c"></div><div class="foot_r"></div>
+				</div>
+				<table width="100%" id="dataTable" class="display" style="display:none">
+				<thead>
+					<tr>
+						<th width="5%">#</th>
+						<th>Mã điểm đầu</th>
+						<th>Mã điểm cuối</th>
+						<th width="10px">Giao tiếp</th>
+						<th width="10px">Số lượng</th>
+						<th width="30px">Dự án</th>
+						<th width="120px">ĐV nhận kênh</th>
+						<th width="80px">Khu vực</th>
+						<th width="20px">Cảnh báo</th>
+						<th width="5px" align="center">Xóa</th>
+					</tr>
+				</thead>
+				<tbody id="tbody">
+					<tr>
+						<td align="center">1</td>
+						<td>D1</td>
+						<td>D2</td>
+						<td align="center">E1</td>
+						<td align="center">2</td>
+						<td>DA1</td>
+						<td>Đài ĐH</td>
+						<td>Vũng Tàu</td>
+						<td></td>
+						<td><center><img title="Remove" src="../images/icons/remove.png" onclick="doSelectRow()" style="cursor:pointer"></center></td>
+					</tr>
+					<tr>
+						<td align="center">2</td>
+						<td>D1</td>
+						<td>D2</td>
+						<td align="center">E1</td>
+						<td align="center">2</td>
+						<td>DA1</td>
+						<td>Đài VT</td>
+						<td>Lâm Đồng</td>
+						<td><center><img title="Trùng tuyến kênh đã có,click vào để xem chi tiết kênh này" src="../images/icons/attention.png" onclick="viewDetail()" style="cursor:pointer"></center></td>
+						<td><center><img title="Remove" src="../images/icons/remove.png" onclick="doSelectRow()" style="cursor:pointer"></center></td>
+					</tr>
+					<tr>
+						<td align="center">3</td>
+						<td>D1</td>
+						<td>D2</td>
+						<td align="center">E1</td>
+						<td align="center">2</td>
+						<td>DA1</td>
+						<td>Đài ĐH</td>
+						<td>Vũng Tàu</td>
+						<td></td>
+						<td><center><img title="Remove" src="../images/icons/remove.png" onclick="doSelectRow()" style="cursor:pointer"></center></td>
+					</tr>
+					<tr>
+						<td align="center">4</td>
+						<td>D1</td>
+						<td>D2</td>
+						<td align="center">E1</td>
+						<td align="center">2</td>
+						<td>DA1</td>
+						<td>Đài ĐH</td>
+						<td>Vũng Tàu</td>
+						<td></td>
+						<td><center><img title="Remove" src="../images/icons/remove.png" onclick="doSelectRow()" style="cursor:pointer"></center></td>
+					</tr>
+					<tr>
+						<td align="center">5</td>
+						<td>D1</td>
+						<td>D2</td>
+						<td align="center">E1</td>
+						<td align="center">2</td>
+						<td>DA1</td>
+						<td>Đài ĐH</td>
+						<td>Vũng Tàu</td>
+						<td></td>
+						<td><center><img title="Remove" src="../images/icons/remove.png" onclick="doSelectRow()" style="cursor:pointer"></center></td>
+					</tr>
+					<tr>
+						<td align="center">6</td>
+						<td>D1</td>
+						<td>D2</td>
+						<td align="center">E1</td>
+						<td align="center">2</td>
+						<td>DA1</td>
+						<td>Đài ĐH</td>
+						<td>Vũng Tàu</td>
+						<td></td>
+						<td><center><img title="Remove" src="../images/icons/remove.png" onclick="doSelectRow()" style="cursor:pointer"></center></td>
+					</tr>
+					<tr>
+						<td align="center">7</td>
+						<td>D1</td>
+						<td>D2</td>
+						<td align="center">E1</td>
+						<td align="center">2</td>
+						<td>DA1</td>
+						<td>Đài ĐH</td>
+						<td>Vũng Tàu</td>
+						<td></td>
+						<td><center><img title="Remove" src="../images/icons/remove.png" onclick="doSelectRow()" style="cursor:pointer"></center></td>
+					</tr>
+					<tr>
+						<td align="center">8</td>
+						<td>D1</td>
+						<td>D2</td>
+						<td align="center">E1</td>
+						<td align="center">2</td>
+						<td>DA1</td>
+						<td>Đài ĐH</td>
+						<td>Vũng Tàu</td>
+						<td></td>
+						<td><center><img title="Remove" src="../images/icons/remove.png" onclick="doSelectRow()" style="cursor:pointer"></center></td>
+					</tr>
+					<tr>
+						<td align="center">9</td>
+						<td>D1</td>
+						<td>D2</td>
+						<td align="center">E1</td>
+						<td align="center">2</td>
+						<td>DA1</td>
+						<td>Đài ĐH</td>
+						<td>Vũng Tàu</td>
+						<td></td>
+						<td><center><img title="Remove" src="../images/icons/remove.png" onclick="doSelectRow()" style="cursor:pointer"></center></td>
+					</tr>
+					<tr>
+						<td align="center">10</td>
+						<td>D1</td>
+						<td>D2</td>
+						<td align="center">E1</td>
+						<td align="center">2</td>
+						<td>DA1</td>
+						<td>Đài ĐH</td>
+						<td>Vũng Tàu</td>
+						<td></td>
+						<td><center><img title="Remove" src="../images/icons/remove.png" onclick="doSelectRow()" style="cursor:pointer"></center></td>
+					</tr>
+				</tbody>
+				</table>
+			</div><!--end bg_wrapper-->
+        </div><!-- end top -->
+        <div id="footer">
+			
+			</div><!--end footer-->
+    </body>
+</html>
+<script>
+function doReset() {
+	$("#form")[0].reset(); //Reset form cua jquery, giu lai gia tri mac dinh cua cac field
+	byId("msg").innerHTML="";
+}
+function selectAll(_this) {
+	$('#dataTable input[type=checkbox]').each(function(){
+		this.checked=_this.checked;
+	});
+}
+function doUpload() {
+	$("#tr_upload").hide();
+	$("#tr_import").show();
+	$("#dataTable").show();
+	oTable = $('#dataTable').dataTable({
+		"bJQueryUI": true,
+		"bProcessing": true,
+		"sScrollY": "200px",
+		"bScrollCollapse": true,
+		"bAutoWidth": false,
+		"bSort":false,
+		"sPaginationType": "two_button"
+	});
+}
+$(document).ready(function(){	 
+	$('ul.sf-menu').load("menu.html");
+	$('ul.sf-menu').superfish();
+	$('#divSearch input[title!=""]').hint();
+	
+	
+});
+</script>
