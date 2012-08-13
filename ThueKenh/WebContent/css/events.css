@@ -1,0 +1,33 @@
+#users {
+display: block;
+float: left;
+margin-bottom: 5px;
+max-height: 100px;
+overflow: auto;
+padding-bottom: 5px;
+padding-top: 5px;
+width: 100%;
+}
+#users .user_selected {
+background-color: PowderBlue;
+border: 1px solid #FFFFFF;
+color: navy;
+float: left;
+padding: 5px 25px 5px 5px;
+position: relative;
+}
+#users .user_selected a.remove {
+background-image: url("images/delete_16.png");
+background-position: 0 -21px;
+display: block;
+height: 16px;
+position: absolute;
+right: 5px;
+top: 5px;
+width: 16px;
+cursor:pointer;
+}
+#users .user_selected a.remove:hover{
+background-position: 0 -2px;
+
+}
