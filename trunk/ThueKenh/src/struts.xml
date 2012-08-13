@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+    "http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<constant name="struts.devMode" value="true" />
+    <constant name="struts.i18n.encoding" value="UTF-8"/> 
+    <constant name="struts.objectFactory" value="spring" />
+	<constant name="struts.multipart.maxSize" value="5597152" />
+	<package name="default" extends="struts-default json-default">
+		<global-results>
+			<result name="END_SESSION" type="stream">
+				<param name="inputName">inputStream</param>
+			</result>
+			<result name="index_page" type="redirect">
+				${url}
+			</result>
+			<result name="login_page" type="redirectAction">
+				<param name="actionName">index</param>
+				<param name="namespace">/login</param>
+			</result>
+			<result name="error" type="redirectAction">
+				<param name="actionName">error</param>
+				<param name="namespace">/index</param>
+			</result>
+			<result name="redirect-login" type="redirect">
+				/jsp/redirect-login.jsp
+			</result>
+	   </global-results>
+	   
+	</package>
+	<package name="index" extends="default" namespace="/index">
+		<action name="index" class="indexAction">
+			<result>/jsp/index/index.jsp</result>
+		</action>
+		<action name="error" class="indexAction" method="error">
+			<result>/jsp/index/error.jsp</result>
+		</action>
+		<action name="hello" class="testAction" method="hello">
+			<result name="success">/jsp/index/HelloWorld.jsp</result>
+		</action>
+
+	</package>  
+	<package name="login" extends="default" namespace="/login">
+		<action name="index" class="loginAction">
+			<result name="success">/jsp/login/index.jsp</result>
+		</action>
+		<action name="doLogout" class="loginAction" method="doLogout">
+       		<result name="success">/jsp/login/index.jsp</result>
+		</action>
+	</package>  	
+	<package name="user" extends="default" namespace="/user">
+		<action name="index" class="userAction">
+			<result>/jsp/user/index.jsp</result>
+		</action>
+		<action name="form" class="userAction" method="form">
+			<result>/jsp/user/form.jsp</result>
+		</action>
+		<action name="doSave" class="userAction" method="doSave">
+			<result name="success" type="redirectAction">
+				<param name="actionName">form</param>
+				<param name="id">${id}</param>
+				<param name="f">1</param>
+			</result>
+		</action>
+		<action name="lockAccounts" class="userAction" method="lockAccounts">
+			<result name="success" type="stream">
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+		<action name="ajLoadAccounts" class="userAction" method="ajLoadAccounts">
+       		<result  name="success" type="json">
+			   <param name="root">jsonData</param>
+			 </result>
+		</action>
+	</package>  
+	<package name="ajax" extends="default" namespace="/ajax">
+		<action name="uniqueUsername" class="ajaxAction" method="uniqueUsername">
+       		<result name="success" type="stream">
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+		<action name="getRootMenu" class="ajaxAction" method="getRootMenu">
+       		<result  name="success" type="json">
+			   <param name="root">jsonData</param>
+			 </result>
+		</action>
+		<action name="getMenusByRoot" class="ajaxAction" method="getMenusByRoot">
+       		<result  name="success" type="json">
+			   <param name="root">jsonData</param>
+			 </result>
+		</action>
+		<action name="getMenusByGroup" class="ajaxAction" method="getMenusByGroup">
+       		<result  name="success" type="json">
+			   <param name="root">jsonData</param>
+			 </result>
+		</action>
+		<action name="getMenusByAccount" class="ajaxAction" method="getMenusByAccount">
+       		<result  name="success" type="json">
+			   <param name="root">jsonData</param>
+			 </result>
+		</action>
+	</package>  
+	<package name="group" extends="default" namespace="/group">
+		<action name="index" class="groupAction">
+			<result>/jsp/group/index.jsp</result>
+		</action>
+		<action name="form" class="groupAction" method="form">
+			<result>/jsp/group/form.jsp</result>
+		</action>
+		<action name="doSave" class="groupAction" method="doSave">
+			<result name="success" type="redirectAction">
+				<param name="actionName">form</param>
+				<param name="id">${id}</param>
+				<param name="f">1</param>
+			</result>
+		</action>
+		<action name="doLock" class="groupAction" method="doLock">
+			<result name="success" type="stream">
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+		<action name="list" class="groupAction" method="list">
+       		<result  name="success" type="json">
+			   <param name="root">jsonData</param>
+			 </result>
+		</action>
+	</package>  
+	<package name="permission" extends="default" namespace="/permission">
+		<action name="popup" class="permissionAction" method="popup">
+			<result name="success">/jsp/permission/popup.jsp</result>
+		</action>
+		<action name="saveGroupMenu" class="permissionAction" method="saveGroupMenu">
+       		<result  name="success" type="json">
+			   <param name="root">jsonData</param>
+			 </result>
+		</action>
+		<action name="saveAccountMenu" class="permissionAction" method="saveAccountMenu">
+       		<result  name="success" type="json">
+			   <param name="root">jsonData</param>
+			 </result>
+		</action>
+	</package>  
+</struts>
