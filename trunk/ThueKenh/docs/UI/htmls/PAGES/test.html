@@ -1,0 +1,56 @@
+﻿<html>
+<head>
+	<link rel="stylesheet" href="../css/search_box.css" type="text/css" media="screen" />
+</head>
+<body>
+	<div style="padding-right: 120px" class="ovf">
+		<div class="s10">
+			<div class="fl">
+				<div class="fl tsl" id="t_1">
+				</div>
+				<div class="fl clg b tsc d" id="t_2">
+					<div class="p3t">Tìm kiếm</div>
+				</div>
+				<div class="fl tsr" id="t_3">
+				</div>
+			</div>
+			<div class="lineU"><img height="1px" alt="" class="w100" src="App_Themes/Normal/Images/spacer.gif"></div>
+		</div>
+		<div class="ovf" style="padding-right: 0px;">
+			<div class="kc4 p5l p15t bgw">
+				<div class="bgw p5b ovf" id="tabnd_2">
+					<div class="ovf p5l p5t">
+						<div class="fl tar fc">
+							Lựa chọn:</div>
+						<div style="width: 150px;" class="fl" id="vnh_combobox"><select class="w100" id="select_vnh"><option value="A0" id="A0">Tất cả</option><option value="A5" id="A5">Nhân vật</option><option value="A7" id="A7">Sự kiện</option><option value="A1" id="A1">Địa danh</option><option value="A6" id="A6">Thực vật</option><option value="A9" id="A9">Ẩm thực</option><option value="A2" id="A2">Du lịch</option></select></div>
+						<div class="fl">
+							<div class="fl tar p10l p5r fc ">
+								Từ khóa:</div>
+							<input type="text" style="width: 250px" onkeyup="Entervnh(event);" id="txtword_vnh"><input type="text" style="display: none" value=""></div>
+						<div class="fl p5l p5r ">
+							<div style="width: 70px;" class="btn">
+								<input type="button" onclick="Click_btn_vnh()" value="Tìm kiếm" style="width: 70px;" class="btnCss b"></div>
+						</div>
+					</div>
+					<div style="padding-left: 55px;" class="p3t clearl">
+						<div>
+							<input type="radio" value="0" onclick="setTypeMode(0)" checked="checked" name="switcher1" id="rdtk">
+							<span onclick="checkRadio_vnh('rdtk')" class="s9 p">
+								Từ khóa
+							</span>
+							<input type="radio" value="1" onclick="setTypeMode(1)" name="switcher1" id="rdtv">
+							<span onclick="checkRadio_vnh('rdtv')" class="s9 p">
+								Toàn văn
+							</span>
+						</div>
+					</div>
+				</div>
+				<div class="clearb">
+				</div>
+			</div>
+		</div>
+		<div style="height: 1px;">
+			<img alt="" style="height: 1px;" src="App_Themes/Normal/Images/spacer.gif"></div>
+	</div>
+</body>
+</html>

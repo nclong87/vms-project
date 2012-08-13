@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    	
+      	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      	<meta name="description" content="Reflect Template" />
+		<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+		<link rel="stylesheet" href="../../css/addedit.css" type="text/css" media="screen" />
+      	<!--Internet Explorer Trancparency fix-->
+      	<!--[if IE 6]>
+      	<script src="/js/ie6pngfix.js"></script>
+      	<script>
+        DD_belatedPNG.fix('#head, a, a span, img, .message p, .click_to_close, .ie6fix');
+      	</script>
+      	<![endif]--> 
+		<script type='text/javascript' src='../../js/jquery.js'></script>
+</head>
+    
+<body>
+	<form id="form">
+	<table class="input">
+		<tr>
+			<td align="right" width="140px"><label for="diemdau">Điểm đầu <font title="Bắt buộc nhập" color="red">*</font> : </label></td>
+			<td align="left">
+				<input type="text" name="diemdau" id="diemdau"/>
+			</td>
+			<td align="right" width="150px"><label for="diemcuoi">Điểm cuối <font title="Bắt buộc nhập" color="red">*</font> : </label></td>
+			<td align="left">
+				<input type="text" id="diemcuoi"/>
+			</td>
+		</tr>
+		<tr>
+			<td align="right"><label for="giaotiep">Giao tiếp <font title="Bắt buộc nhập" color="red">*</font> : </label></td>
+			<td align="left" name="giaotiep" id="giaotiep">
+				<select>
+					<option value="">---Chọn---</option>
+					<option value="0">E1</option>
+					<option value="1">STM1</option>
+					<option value="2">....</option>
+				</select>
+			</td>
+			<td align="right"><label for="soluong">Số lượng <font title="Bắt buộc nhập" color="red">*</font> : </label></td>
+			<td align="left">
+				<input type="text" name="soluong" id="soluong"/>
+			</td>
+		</tr>
+		<tr>
+			<td align="right" title="Ngày hẹn bàn giao"><label for="ngayhenbangiao">Ngày hẹn BG : </label></td>
+			<td align="left">
+				<input type="text" name="ngayhenbangiao" id="ngayhenbangiao"/>
+			</td>
+			<td align="right" title="Ngày đề nghị bàn giao"><label for="ngaydenghibangiao">Ngày ĐNBG : </label></td>
+			<td align="left">
+				<input type="text" name="ngaydenghibangiao" id="ngaydenghibangiao"/>
+			</td>
+		</tr>
+		<tr>
+			<td align="right"><label for="phongban">Đơn vị nhận kênh : </label></td>
+			<td align="left">
+				<select id="phongban">
+					<option value="">---Chọn---</option>
+					<option value="1">Đài ĐH</option>
+					<option value="0">Đài VT</option>
+				</select>
+			</td>
+			<td align="right"><label for="khuvuc">Khu vực : </label></td>
+			<td align="left">
+				<select id="khuvuc">
+					<option value="">---Chọn---</option>
+					<option value="0">Vũng Tàu</option>
+					<option value="1">Đồng Nai</option>
+					<option value="2">Lâm Đồng</option>
+					<option value="3">...</option>
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td align="right"><label for="duan">Dự án : </label></td>
+			<td align="left">
+				<select id="duan">
+					<option value="">---Chọn---</option>
+					<option value="0">DA1</option>
+					<option value="1">DA2</option>
+					<option value="3">...</option>
+				</select>
+			</td>
+			<td align="right"><label for="thongtinlienhe">Thông tin liên hệ : </label></td>
+			<td align="left" colspan="5">
+				<textarea rows="2" style="width:150px" id="thongtinlienhe"></textarea>
+			</td>
+		</tr>
+		<tr height="30px">
+			<td colspan="6" align="center">
+				<div class="buttonwrapper" style="padding-left: 230px;">
+				<a class="ovalbutton" href="#"><span>Lưu</span></a>
+				<a class="ovalbutton" id="btReset" href="#"><span>Làm lại</span></a>
+				<a class="ovalbutton" id="btThoat" href="#"><span>Thoát</span></a>
+				</div>
+			</td>
+		</tr>
+	</table>
+	</form>
+</body>
+</html>
+<script>
+function doReset() {
+	$("#form")[0].reset(); //Reset form cua jquery, giu lai gia tri mac dinh cua cac field
+	byId("msg").innerHTML="";
+}
+$(document).ready(function(){	 
+	$("#btThoat").click(function() {
+		window.parent.CloseWindow();
+	});
+	$("#btReset").click(function() {
+		doReset();
+	});
+});
+</script>
