@@ -1,0 +1,313 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="description" content="Reflect Template" />
+		<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+        <title>TÌM KIẾM TUYẾN KÊNH</title>
+        <link rel="stylesheet" href="../css/style_all.css" type="text/css" media="screen" />
+        <link rel="stylesheet" href="../css/style1.css" type="text/css" media="screen" />
+        <link rel="stylesheet" href="../css/jquery-ui.css" type="text/css" media="screen" />
+        <link rel="stylesheet" href="../css/jquery.wysiwyg.css" type="text/css" media="screen" />
+		<link rel="stylesheet" type="text/css" href="../css/superfish.css" media="screen">
+		<link rel="stylesheet" type="text/css" href="../css/demo_table_jui.css" />
+		<link rel="stylesheet" href="../css/search_box.css" type="text/css" media="screen" />
+		<link rel="stylesheet" href="../css/CalendarControl.css" type="text/css" media="screen" />
+        <!--Internet Explorer Trancparency fix-->
+        <!--[if IE 6]>
+        <script src="/js/ie6pngfix.js"></script>
+        <script>
+          DD_belatedPNG.fix('#head, a, a span, img, .message p, .click_to_close, .ie6fix');
+        </script>
+        <![endif]--> 
+        
+        <script type='text/javascript' src='../js/jquery.js'></script>
+        <script type='text/javascript' src='../js/jquery-ui.js'></script>
+		<script type="text/javascript" src="../js/hoverIntent.js"></script>
+		<script type="text/javascript" src="../js/superfish.js"></script>
+		<script type="text/javascript" src="../js/validator.js"></script>
+		<script type="text/javascript" src="../js/jquery.dataTables.min.js"></script>
+		<script type="text/javascript" src="../js/jquery.hint.js"></script>
+		<script type="text/javascript" src="../js/CalendarControl.js"></script>
+		<script>
+		function byId(id) { //Viet tat cua ham document.getElementById
+			return document.getElementById(id);
+		}
+		function block(id) {
+			overlay = $(id).block({ 
+				message: '<span style="color:white">Loading...</span>', 
+				css: { 
+					border: 'none', 
+					padding: '15px', 
+					backgroundColor: '#000', 
+					'-webkit-border-radius': '10px', 
+					'-moz-border-radius': '10px', 
+					opacity: .5, 
+					color: '#fff'
+				} 
+			}); 
+			$('.blockOverlay', overlay).css('cursor', 'auto');
+		}
+		function unblock(id) {
+			$(id).unblock(); 
+		}
+		</script>
+    </head>
+    
+    <body>
+	<div style="width: 100%; margin-bottom: 10px;" class="ovf">
+		<div class="s10">
+			<div class="fl">
+				<div class="fl tsl" id="t_1">
+				</div>
+				<div class="fl clg b tsc d" id="t_2">
+					<div class="p3t">Tìm kiếm tuyến kênh</div>
+				</div>
+				<div class="fl tsr" id="t_3">
+				</div>
+			</div>
+			<div class="lineU"><img height="1px" alt="" class="w100" src="../images/spacer.gif"></div>
+		</div>
+		<div id="divSearch" class="ovf" style="padding-right: 0px;">
+			<div class="kc4 p5l p15t bgw">
+				<div class="bgw p5b ovf" id="tabnd_2">
+					<div class="ovf p5l p5t">
+						<table width="100%">
+							<tr>
+								<td width="100px" align="right">
+									Tình trạng :
+								</td>
+								<td align="left">
+									<select>
+										<option value="">Tình trạng tuyến kênh</option>
+										<option SELECTED value="0">Vừa import</option>
+										<option value="1">Chưa bàn giao</option>
+										<option value="2">Đã bàn giao</option>
+										<option value="3">Đã có biên bản bàn giao</option>
+										<option value="4">Đã có hợp đồng</option>
+										<option value="5">Đã xóa</option>
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<td align="right">
+									Loại giao tiếp :
+								</td>
+								<td align="left">
+									<select>
+										<option value="">Chọn loại giao tiếp</option>
+										<option value="0">E1</option>
+										<option value="1">STM1</option>
+										<option value="2">....</option>
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<td align="right">
+									Dự án :
+								</td>
+								<td align="left">
+									<select>
+										<option value="">Chọn dự án</option>
+										<option value="0">DA1</option>
+										<option value="1">DA2</option>
+										<option value="2">....</option>
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<td align="right">
+									User nhập :
+								</td>
+								<td align="left"><input type="text" id="" title="User nhập"/></td>
+							</tr>
+							<tr>
+								<td align="right">
+									Ngày tạo từ :
+								</td>
+								<td align="left">
+									<input type="text" name="date1" id="date1" onclick="onclickCalendarIcon('date1','');"/> đến <input type="text" name="date2" id="date2" onclick="onclickCalendarIcon('date2','');"/>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="4">
+									<input type="button" value="Tìm Kiếm" class="button" onclick="">
+									<input id="btnSelect" type="button" value="Chọn" class="button" style="display:none" onclick="">
+								</td>
+							</tr>	
+							
+						</table>
+					</div>
+				</div>
+				<div class="clearb">
+				</div>
+			</div>
+		</div>
+		<div style="height: 1px;"><img alt="" style="height: 1px;" src="App_Themes/Normal/Images/spacer.gif"></div>
+	</div>
+	<table width="100%" id="dataTable" class="display">
+	<thead>
+		<tr>
+			<th width="5%">#</th>
+			<th>Mã điểm đầu</th>
+			<th>Mã điểm cuối</th>
+			<th width="10px">Giao tiếp</th>
+			<th width="10px">Số lượng</th>
+			<th width="10px">Dự án</th>
+			<th width="10px">User nhập</th>
+			<th width="50px">Ngày nhập</th>
+			<th width="5px" align="center"><input type="checkbox" onclick="selectAll(this)"/></th>
+		</tr>
+	</thead>
+	<tbody id="tbody">
+		<tr>
+			<td>1</td>
+			<td>D1</td>
+			<td>D2</td>
+			<td>E1</td>
+			<td>2</td>
+			<td>DA1</td>
+			<td>NCLONG</td>
+			<td>04/03/2012 10:22</td>
+			<td><center><input type="checkbox" value=""/></center></td>
+		</tr>
+		<tr>
+			<td>2</td>
+			<td>D1</td>
+			<td>D2</td>
+			<td>E1</td>
+			<td>2</td>
+			<td>DA1</td>
+			<td>NCLONG</td>
+			<td>04/03/2012 10:22</td>
+			<td><center><input type="checkbox" value=""/></center></td>
+		</tr>
+		<tr>
+			<td>3</td>
+			<td>D1</td>
+			<td>D2</td>
+			<td>E1</td>
+			<td>2</td>
+			<td>DA1</td>
+			<td>NCLONG</td>
+			<td>04/03/2012 10:22</td>
+			<td><center><input type="checkbox" value=""/></center></td>
+		</tr>
+		<tr>
+			<td>4</td>
+			<td>D1</td>
+			<td>D2</td>
+			<td>E1</td>
+			<td>2</td>
+			<td>DA1</td>
+			<td>NCLONG</td>
+			<td>04/03/2012 10:22</td>
+			<td><center><input type="checkbox" value=""/></center></td>
+		</tr>
+		<tr>
+			<td>5</td>
+			<td>D1</td>
+			<td>D2</td>
+			<td>E1</td>
+			<td>2</td>
+			<td>DA1</td>
+			<td>NCLONG</td>
+			<td>04/03/2012 10:22</td>
+			<td><center><input type="checkbox" value=""/></center></td>
+		</tr>
+		<tr>
+			<td>6</td>
+			<td>D1</td>
+			<td>D2</td>
+			<td>E1</td>
+			<td>2</td>
+			<td>DA1</td>
+			<td>NCLONG</td>
+			<td>04/03/2012 10:22</td>
+			<td><center><input type="checkbox" value=""/></center></td>
+		</tr>
+		<tr>
+			<td>7</td>
+			<td>D1</td>
+			<td>D2</td>
+			<td>E1</td>
+			<td>2</td>
+			<td>DA1</td>
+			<td>NCLONG</td>
+			<td>04/03/2012 10:22</td>
+			<td><center><input type="checkbox" value=""/></center></td>
+		</tr>
+		<tr>
+			<td>8</td>
+			<td>D1</td>
+			<td>D2</td>
+			<td>E1</td>
+			<td>2</td>
+			<td>DA1</td>
+			<td>NCLONG</td>
+			<td>04/03/2012 10:22</td>
+			<td><center><input type="checkbox" value=""/></center></td>
+		</tr>
+		<tr>
+			<td>9</td>
+			<td>D1</td>
+			<td>D2</td>
+			<td>E1</td>
+			<td>2</td>
+			<td>DA1</td>
+			<td>NCLONG</td>
+			<td>04/03/2012 10:22</td>
+			<td><center><input type="checkbox" value=""/></center></td>
+		</tr>
+		<tr>
+			<td>10</td>
+			<td>D1</td>
+			<td>D2</td>
+			<td>E1</td>
+			<td>2</td>
+			<td>DA1</td>
+			<td>NCLONG</td>
+			<td>04/03/2012 10:22</td>
+			<td><center><input type="checkbox" value=""/></center></td>
+		</tr>
+	</tbody>
+	</table>
+    </body>
+</html>
+<script>
+function doReset() {
+	$("#form")[0].reset(); //Reset form cua jquery, giu lai gia tri mac dinh cua cac field
+	byId("msg").innerHTML="";
+}
+function checkNumSelected() {
+	if($("#tbody input[type=checkbox]:checked").size()>0)
+		$("#btnSelect").show();
+	else
+		$("#btnSelect").hide();
+}
+function selectAll(_this) {
+	$('#dataTable input[type=checkbox]').each(function(){
+		this.checked=_this.checked;
+	});
+	checkNumSelected();
+}
+$(document).ready(function(){	 
+	$("#btnSelect").click(function(){
+		window.close();
+	});
+	oTable = $('#dataTable').dataTable({
+		"bJQueryUI": true,
+		"sScrollY": "200px",
+		"bScrollCollapse": true,
+		"bProcessing": true,
+		"bAutoWidth": false,
+		"bSort":false,
+		"sPaginationType": "two_button"
+	});
+	$('#divSearch input[title!=""]').hint();
+	$('#tbody input[type=checkbox]').click(function(){
+		checkNumSelected();
+	});
+});
+</script>

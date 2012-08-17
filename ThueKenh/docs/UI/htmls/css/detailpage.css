@@ -1,0 +1,45 @@
+body {
+font-size:12px;
+font-family: Verdana, sans-serif;
+color:#484848;
+position:relative;
+}
+
+h3 {
+color: #B22222;
+text-align: center;
+}
+dt {
+border-top: 1px dashed;
+color: #B22222;
+font-weight: bold;
+margin-top: 5px;
+padding-top: 5px;
+padding-bottom: 5px;
+}
+dd {
+	
+}
+a {
+color: blue;
+text-decoration: none;
+}
+#dataTable_filter {
+display:none;
+}
+table.display
+{
+	border-collapse: collapse;
+	width:100%;
+}
+table.display th
+{
+	background-color: #F2F2F2;
+    border: 1px solid #DDDDDD;
+    padding: 3px;
+}
+table.display td
+{
+	border:1px solid #DDD;
+	padding: 3px;
+}
