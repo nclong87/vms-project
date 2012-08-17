@@ -1,0 +1,391 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="description" content="Reflect Template" />
+		<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+        <title>QUẢN LÝ TIẾN ĐỘ BÀN GIAO KÊNH</title>
+        <link rel="stylesheet" href="../css/style_all.css" type="text/css" media="screen" />
+        <link rel="stylesheet" href="../css/style1.css" type="text/css" media="screen" />
+        <link rel="stylesheet" href="../css/jquery-ui.css" type="text/css" media="screen" />
+        <link rel="stylesheet" href="../css/jquery.wysiwyg.css" type="text/css" media="screen" />
+		<link rel="stylesheet" type="text/css" href="../css/superfish.css" media="screen">
+		<link rel="stylesheet" type="text/css" href="../css/demo_table_jui.css" />
+		<link rel="stylesheet" href="../css/search_box.css" type="text/css" media="screen" />
+		<link rel="stylesheet" href="../css/CalendarControl.css" type="text/css" media="screen" />
+        <!--Internet Explorer Trancparency fix-->
+        <!--[if IE 6]>
+        <script src="/js/ie6pngfix.js"></script>
+        <script>
+          DD_belatedPNG.fix('#head, a, a span, img, .message p, .click_to_close, .ie6fix');
+        </script>
+        <![endif]--> 
+        
+        <script type='text/javascript' src='../js/jquery.js'></script>
+        <script type='text/javascript' src='../js/jquery-ui.js'></script>
+		<script type="text/javascript" src="../js/jquery_blockUI.js"></script>
+        <script type='text/javascript' src='../js/jquery.wysiwyg.js'></script>
+		<script type="text/javascript" src="../js/hoverIntent.js"></script>
+		<script type="text/javascript" src="../js/superfish.js"></script>
+		<script type="text/javascript" src="../js/validator.js"></script>
+		<script type="text/javascript" src="../js/jquery.dataTables.min.js"></script>
+		<script type="text/javascript" src="../js/jquery.hint.js"></script>
+		<script type="text/javascript" src="../js/CalendarControl.js"></script>
+		<script>
+		function byId(id) { //Viet tat cua ham document.getElementById
+			return document.getElementById(id);
+		}
+		function block(id) {
+			overlay = $(id).block({ 
+				message: '<span style="color:white">Loading...</span>', 
+				css: { 
+					border: 'none', 
+					padding: '15px', 
+					backgroundColor: '#000', 
+					'-webkit-border-radius': '10px', 
+					'-moz-border-radius': '10px', 
+					opacity: .5, 
+					color: '#fff'
+				} 
+			}); 
+			$('.blockOverlay', overlay).css('cursor', 'auto');
+		}
+		function unblock(id) {
+			$(id).unblock(); 
+		}
+		</script>
+    </head>
+    
+    <body>
+    	<div id="dialog" title="Welcome to flexy admin">
+       	<p>Xin chào admin! welcome back.<br/> You got <strong>1 new Message</strong> in your inbox</p>
+        <p>This is a messagebox, you can fill it with content of your choice ;)</p>
+        </div>
+        <div id="top">
+        
+            <div id="head">
+            	<h1 class="logo">
+                	<a href="#">flexy - adjustable admin skin</a>
+                </h1>
+                
+                <div class="head_memberinfo">
+                	<div class="head_memberinfo_logo">
+                    	<span>1</span>
+                    	<img src="../images/unreadmail.png" alt=""/>
+                    </div>
+                    
+                    <span class='memberinfo_span'>
+                   		 Welcome <a href="#">Admin</a>
+                    </span>
+                    
+                    <span class='memberinfo_span'>
+                    	<a href="#">Settings</a>
+                    </span>
+                    
+                    <span>
+                    	<a href="${doLogoutURL}">Logout</a>
+                    </span>
+                    
+                    <span class='memberinfo_span2'>
+                    	<a href="#">1 Private Message recieved</a>
+                    </span>
+                </div><!--end head_memberinfo-->
+            </div><!--end head-->
+			<ul class="sf-menu"></ul>
+			<div id="bg_wrapper">
+				<div id="dialogUpdateProcess" title="Cập nhật tiến độ bàn giao kênh" style="display:none; cursor: default"> 
+					<table width="100%">
+						<tbody>
+							<tr height="30px">
+								<td align="left"><input type="checkbox" checked="true" id="tc1" name="tc1"/> <label for="tc1">Tiêu chuẩn 1</label></td>
+							</tr>
+							<tr height="30px">
+								<td align="left"><input type="checkbox" checked="true" id="tc2" name="tc2"/> <label for="tc2">Tiêu chuẩn 2</label></td>
+							</tr>
+							<tr height="30px">
+								<td align="left"><input type="checkbox" checked="true" id="tc3" name="tc3"/> <label for="tc3">Tiêu chuẩn 3</label></td>
+							</tr>
+							<tr height="30px">
+								<td align="left"><input type="checkbox" id="tc4" name="tc4"/> <label for="tc4">Tiêu chuẩn 4</label></td>
+							</tr>
+							<tr height="30px">
+								<td align="left"><input type="checkbox" id="tc5" name="tc5"/> <label for="tc5">Tiêu chuẩn 5</label></td>
+							</tr>
+							<tr height="30px">
+								<td align="left"><input type="checkbox" id="tc6" name="tc6"/> <label for="tc6">Tiêu chuẩn 6</label></td>
+							</tr>
+							<tr height="30px">
+								<td align="center"><input type="button" value="Lưu" class="button" onclick=""></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div id="box_form" style="margin: 0pt auto; width: 800px; height: auto;" class="box">
+					<div class="tab">  
+						<div id="tab_0" class="tl fl"></div>
+						<div id="tab_1" class="tc fl"><div style="padding: 2px 5px 0;">QUẢN LÝ TIẾN ĐỘ BÀN GIAO KÊNH</div></div>
+						<div id="tab_2" class="fl tr"></div>
+					 </div>
+					<div class="l clb">
+						<div class="r">
+							<div class="c">
+							<div class="tboxhder"></div>
+							<div id="msg" style="padding-left: 17px;"></div>
+							</div>
+						</div>
+					</div>
+					<div class="box_leftside">
+					<div class="box_rightside">
+						<div style="width:98%">
+							<form method="post" action="" id="form">
+								<!-- Form -->
+								<div class="form">
+									<input type="hidden" name="account.id" id="id" value=""/>
+									<table width="100%">
+										<tr>
+											<td align="right" width="130px">Điểm đầu :</font></td>
+											<td align="left">
+												<input type="text" name="xxxxxxx" id="xxxxxxx"/>
+											</td>
+											<td align="right" width="140px">Điểm cuối :</td>
+											<td align="left">
+												<input type="text" name="xxxxxxx" id="xxxxxxx"/>
+											</td>
+											<td align="right" width="140px">Giao tiếp :</td>
+											<td align="left">
+												<select>
+													<option value="">---Chọn---</option>
+													<option value="0">E1</option>
+													<option value="1">STM1</option>
+													<option value="2">....</option>
+												</select>
+											</td>
+										</tr>
+										<tr>
+											<td align="right" title="Ngày hẹn bàn giao">Ngày hẹn BG :</td>
+											<td align="left">
+												<input type="text" name="xxxxxxx" id="xxxxxxx"/>
+											</td>
+											<td align="right" title="Ngày đề nghị bàn giao">Ngày ĐNBG :</td>
+											<td align="left">
+												<input type="text" name="xxxxxxx" id="xxxxxxx"/>
+											</td>
+											<td align="right">Dự án :</td>
+											<td align="left">
+												<select>
+													<option value="">---Chọn---</option>
+													<option value="0">DA1</option>
+													<option value="1">DA2</option>
+													<option value="3">...</option>
+												</select>
+											</td>
+										</tr>
+										<tr>
+											<td align="right" title="Tên văn bản đề xuất">Tên VBĐX :</td>
+											<td align="left">
+												<input type="text" name="xxxxxxx" id="xxxxxxx"/>
+											</td>
+											<td align="center" colspan="2"> 
+												<input type="checkbox" id="status" name="status"/>
+												<label for="status">Đã bàn giao</label>
+											</td>
+											<td align="right"></td>
+											<td align="left">
+											</td>
+										</tr>
+										<tr height="30px">
+											<td></td>
+											<td colspan="5" align="center">
+												<div class="buttonwrapper">
+												<a class="ovalbutton" href="#"><span>Tìm Kiếm</span></a>
+												<a class="ovalbutton" href="#"><span>Reset</span></a>
+												</div>
+											</td>
+										</tr>
+									</table>
+								</div>
+							</form>
+						</div>
+					</div>
+					</div>
+					<div class="foot_l"></div><div class="foot_c"></div><div class="foot_r"></div>
+				</div>
+				<table width="100%" id="dataTable" class="display">
+				<thead>
+					<tr>
+						<th width="5%">#</th>
+						<th>Mã điểm đầu</th>
+						<th>Mã điểm cuối</th>
+						<th width="10px">Giao tiếp</th>
+						<th width="10px">Số lượng</th>
+						<th width="30px">Dự án</th>
+						<th width="80px">Văn bản đề xuất</th>
+						<th width="5px">Tiến độ</th>
+						<th width="5px" align="center">Xem</th>
+						<th width="5px" align="center">Update</th>
+					</tr>
+				</thead>
+				<tbody id="tbody">
+					<tr>
+						<td align="center">1</td>
+						<td>D1</td>
+						<td>D2</td>
+						<td align="center">E1</td>
+						<td align="center">2</td>
+						<td>DA1</td>
+						<td align="left"><span title="Xem văn bản đề xuất" class="link">VBĐX 001<span></td>
+						<td>60%</td>
+						<td><center><img title="Xem thông tin chi tiết của kênh" src="../images/icons/documents.png" onclick="viewDetail()" style="cursor:pointer"></center></td>
+						<td><center><img title="Cập nhật tiến độ" src="../images/icons/edit.png" onclick="doSelectRow()" style="cursor:pointer"></center></td>
+					</tr>
+					<tr>
+						<td align="center">2</td>
+						<td>D1</td>
+						<td>D2</td>
+						<td align="center">E1</td>
+						<td align="center">2</td>
+						<td>DA1</td>
+						<td align="left"><span title="Xem văn bản đề xuất" class="link">VBĐX 001<span></td>
+						<td>80%</td>
+						<td><center><img title="Xem thông tin chi tiết của kênh" src="../images/icons/documents.png" onclick="viewDetail()" style="cursor:pointer"></center></td>
+						<td><center><img title="Cập nhật tiến độ" src="../images/icons/edit.png" onclick="doSelectRow()" style="cursor:pointer"></center></td>
+					</tr>
+					<tr>
+						<td align="center">3</td>
+						<td>D1</td>
+						<td>D2</td>
+						<td align="center">E1</td>
+						<td align="center">2</td>
+						<td>DA1</td>
+						<td align="left"><span title="Xem văn bản đề xuất" class="link">VBĐX 001<span></td>
+						<td>100%</td>
+						<td><center><img title="Xem thông tin chi tiết của kênh" src="../images/icons/documents.png" onclick="viewDetail()" style="cursor:pointer"></center></td>
+						<td><center><img title="Cập nhật tiến độ" src="../images/icons/edit.png" onclick="doSelectRow()" style="cursor:pointer"></center></td>
+					</tr>
+					<tr>
+						<td align="center">4</td>
+						<td>D1</td>
+						<td>D2</td>
+						<td align="center">E1</td>
+						<td align="center">2</td>
+						<td>DA1</td>
+						<td align="left"><span title="Xem văn bản đề xuất" class="link">VBĐX 001<span></td>
+						<td>60%</td>
+						<td><center><img title="Xem thông tin chi tiết của kênh" src="../images/icons/documents.png" onclick="viewDetail()" style="cursor:pointer"></center></td>
+						<td><center><img title="Cập nhật tiến độ" src="../images/icons/edit.png" onclick="doSelectRow()" style="cursor:pointer"></center></td>
+					</tr>
+					<tr>
+						<td align="center">5</td>
+						<td>D1</td>
+						<td>D2</td>
+						<td align="center">E1</td>
+						<td align="center">2</td>
+						<td>DA1</td>
+						<td align="left"><span title="Xem văn bản đề xuất" class="link">VBĐX 001<span></td>
+						<td>60%</td>
+						<td><center><img title="Xem thông tin chi tiết của kênh" src="../images/icons/documents.png" onclick="viewDetail()" style="cursor:pointer"></center></td>
+						<td><center><img title="Cập nhật tiến độ" src="../images/icons/edit.png" onclick="doSelectRow()" style="cursor:pointer"></center></td>
+					</tr>
+					<tr>
+						<td align="center">6</td>
+						<td>D1</td>
+						<td>D2</td>
+						<td align="center">E1</td>
+						<td align="center">2</td>
+						<td>DA1</td>
+						<td align="left"><span title="Xem văn bản đề xuất" class="link">VBĐX 001<span></td>
+						<td>60%</td>
+						<td><center><img title="Xem thông tin chi tiết của kênh" src="../images/icons/documents.png" onclick="viewDetail()" style="cursor:pointer"></center></td>
+						<td><center><img title="Cập nhật tiến độ" src="../images/icons/edit.png" onclick="doSelectRow()" style="cursor:pointer"></center></td>
+					</tr>
+					<tr>
+						<td align="center">7</td>
+						<td>D1</td>
+						<td>D2</td>
+						<td align="center">E1</td>
+						<td align="center">2</td>
+						<td>DA1</td>
+						<td align="left"><span title="Xem văn bản đề xuất" class="link">VBĐX 001<span></td>
+						<td>60%</td>
+						<td><center><img title="Xem thông tin chi tiết của kênh" src="../images/icons/documents.png" onclick="viewDetail()" style="cursor:pointer"></center></td>
+						<td><center><img title="Cập nhật tiến độ" src="../images/icons/edit.png" onclick="doSelectRow()" style="cursor:pointer"></center></td>
+					</tr>
+					<tr>
+						<td align="center">8</td>
+						<td>D1</td>
+						<td>D2</td>
+						<td align="center">E1</td>
+						<td align="center">2</td>
+						<td>DA1</td>
+						<td align="left"><span title="Xem văn bản đề xuất" class="link">VBĐX 001<span></td>
+						<td>60%</td>
+						<td><center><img title="Xem thông tin chi tiết của kênh" src="../images/icons/documents.png" onclick="viewDetail()" style="cursor:pointer"></center></td>
+						<td><center><img title="Cập nhật tiến độ" src="../images/icons/edit.png" onclick="doSelectRow()" style="cursor:pointer"></center></td>
+					</tr>
+					<tr>
+						<td align="center">9</td>
+						<td>D1</td>
+						<td>D2</td>
+						<td align="center">E1</td>
+						<td align="center">2</td>
+						<td>DA1</td>
+						<td align="left"><span title="Xem văn bản đề xuất" class="link">VBĐX 001<span></td>
+						<td>60%</td>
+						<td><center><img title="Xem thông tin chi tiết của kênh" src="../images/icons/documents.png" onclick="viewDetail()" style="cursor:pointer"></center></td>
+						<td><center><img title="Cập nhật tiến độ" src="../images/icons/edit.png" onclick="doSelectRow()" style="cursor:pointer"></center></td>
+					</tr>
+					<tr>
+						<td align="center">10</td>
+						<td>D1</td>
+						<td>D2</td>
+						<td align="center">E1</td>
+						<td align="center">2</td>
+						<td>DA1</td>
+						<td align="left"><span title="Xem văn bản đề xuất" class="link">VBĐX 001<span></td>
+						<td>60%</td>
+						<td><center><img title="Xem thông tin chi tiết của kênh" src="../images/icons/documents.png" onclick="viewDetail()" style="cursor:pointer"></center></td>
+						<td><center><img title="Cập nhật tiến độ" src="../images/icons/edit.png" onclick="doSelectRow()" style="cursor:pointer"></center></td>
+					</tr>
+				</tbody>
+				</table>
+			</div><!--end bg_wrapper-->
+        </div><!-- end top -->
+        <div id="footer">
+			
+			</div><!--end footer-->
+    </body>
+</html>
+<script>
+function doReset() {
+	$("#form")[0].reset(); //Reset form cua jquery, giu lai gia tri mac dinh cua cac field
+	byId("msg").innerHTML="";
+}
+function selectAll(_this) {
+	$('#dataTable input[type=checkbox]').each(function(){
+		this.checked=_this.checked;
+	});
+}
+function doSelectRow() {
+	$("#dialogUpdateProcess").dialog({ 
+		modal: true
+	});
+}
+function viewDetail() {
+	//location.href="tuyenkenh/Chi tiet tuyen kenh.html";
+	window.open('tuyenkenh/Chi tiet tuyen kenh.html', '_blank');
+}
+$(document).ready(function(){	 
+	$('ul.sf-menu').load("menu.html");
+	$('ul.sf-menu').superfish();
+	oTable = $('#dataTable').dataTable({
+		"bJQueryUI": true,
+		"bProcessing": true,
+		"sScrollY": "200px",
+		"bScrollCollapse": true,
+		"bAutoWidth": false,
+		"bSort":false,
+		"sPaginationType": "two_button"
+	});
+	$('#divSearch input[title!=""]').hint();
+});
+</script>

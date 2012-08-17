@@ -1,0 +1,221 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="description" content="Reflect Template" />
+		<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+        <title>XEM CHI TIẾT VĂN BẢN : VB12345</title>
+        <link rel="stylesheet" href="../../css/detailpage.css" type="text/css" media="screen" />
+        <link rel="stylesheet" href="../../css/jquery-ui.css" type="text/css" media="screen" />
+		<link rel="stylesheet" type="text/css" href="../../css/superfish.css" media="screen">
+		<link rel="stylesheet" type="text/css" href="../../css/demo_table_jui.css" />
+        <!--Internet Explorer Trancparency fix-->
+        <!--[if IE 6]>
+        <script src="/js/ie6pngfix.js"></script>
+        <script>
+          DD_belatedPNG.fix('#head, a, a span, img, .message p, .click_to_close, .ie6fix');
+        </script>
+        <![endif]--> 
+        
+        <script type='text/javascript' src='../../js/jquery.js'></script>
+        <script type='text/javascript' src='../../js/jquery-ui.js'></script>
+		<script type="text/javascript" src="../../js/jquery_blockUI.js"></script>
+		<script type="text/javascript" src="../../js/hoverIntent.js"></script>
+		<script type="text/javascript" src="../../js/jquery.dataTables.min.js"></script>
+		<script>
+		function byId(id) { //Viet tat cua ham document.getElementById
+			return document.getElementById(id);
+		}
+		function block(id) {
+			overlay = $(id).block({ 
+				message: '<span style="color:white">Loading...</span>', 
+				css: { 
+					border: 'none', 
+					padding: '15px', 
+					backgroundColor: '#000', 
+					'-webkit-border-radius': '10px', 
+					'-moz-border-radius': '10px', 
+					opacity: .5, 
+					color: '#fff'
+				} 
+			}); 
+			$('.blockOverlay', overlay).css('cursor', 'auto');
+		}
+		function unblock(id) {
+			$(id).unblock(); 
+		}
+		</script>
+    </head>
+    
+    <body>
+		<div id="bg_wrapper">
+			<h3>THÔNG TIN CHI TIẾT VĂN BẢN ĐỀ XUẤT</h3>
+			<dt>Tên văn bản :</dt>
+			<dd>VB12345</dd>
+			<dt>Ngày gửi :</dt>
+			<dd>09/03/2012</dd>
+			<dt>Ngày đề nghị bàn giao :</dt>
+			<dd>09/04/2012</dd>
+			<dt>Đối tác :</dt>
+			<dd>Viễn Thông Đồng Nai</dd>
+			<dt>Thông tin thêm :</dt>
+			<dd>&nbsp;</dd>
+			<dt>File scan :</dt>
+			<dd><a href="#" title="Click để tải file này">VB12345.zip</a></dd>
+			<dt>Danh sách kênh :</dt>
+			<dd>
+				<table width="100%" id="dataTable" class="display">
+				<thead>
+					<tr>
+						<th width="5%">#</th>
+						<th>Mã điểm đầu</th>
+						<th>Mã điểm cuối</th>
+						<th width="10px">Giao tiếp</th>
+						<th width="10px">Số lượng</th>
+						<th width="10px">Dự án</th>
+						<th width="10px">User nhập</th>
+						<th width="120px">Ngày nhập</th>
+						<th width="5px" align="center">Chi tiết</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>1</td>
+						<td>D1</td>
+						<td>D2</td>
+						<td>E1</td>
+						<td>2</td>
+						<td>DA1</td>
+						<td>NCLONG</td>
+						<td>04/03/2012 10:22</td>
+						<td><center><img title="Xem thông tin chi tiết của kênh" src="../../images/icons/documents.png" onclick="viewDetail()" style="cursor:pointer"></center></td>
+					</tr>
+					<tr>
+						<td>2</td>
+						<td>D1</td>
+						<td>D2</td>
+						<td>E1</td>
+						<td>2</td>
+						<td>DA1</td>
+						<td>NCLONG</td>
+						<td>04/03/2012 10:22</td>
+						<td><center><img title="Xem thông tin chi tiết của kênh" src="../../images/icons/documents.png" onclick="viewDetail()" style="cursor:pointer"></center></td>
+					</tr>
+					<tr>
+						<td>3</td>
+						<td>D1</td>
+						<td>D2</td>
+						<td>E1</td>
+						<td>2</td>
+						<td>DA1</td>
+						<td>NCLONG</td>
+						<td>04/03/2012 10:22</td>
+						<td><center><img title="Xem thông tin chi tiết của kênh" src="../../images/icons/documents.png" onclick="viewDetail()" style="cursor:pointer"></center></td>
+					</tr>
+					<tr>
+						<td>4</td>
+						<td>D1</td>
+						<td>D2</td>
+						<td>E1</td>
+						<td>2</td>
+						<td>DA1</td>
+						<td>NCLONG</td>
+						<td>04/03/2012 10:22</td>
+						<td><center><img title="Xem thông tin chi tiết của kênh" src="../../images/icons/documents.png" onclick="viewDetail()" style="cursor:pointer"></center></td>
+					</tr>
+					<tr>
+						<td>5</td>
+						<td>D1</td>
+						<td>D2</td>
+						<td>E1</td>
+						<td>2</td>
+						<td>DA1</td>
+						<td>NCLONG</td>
+						<td>04/03/2012 10:22</td>
+						<td><center><img title="Xem thông tin chi tiết của kênh" src="../../images/icons/documents.png" onclick="viewDetail()" style="cursor:pointer"></center></td>
+					</tr>
+					<tr>
+						<td>6</td>
+						<td>D1</td>
+						<td>D2</td>
+						<td>E1</td>
+						<td>2</td>
+						<td>DA1</td>
+						<td>NCLONG</td>
+						<td>04/03/2012 10:22</td>
+						<td><center><img title="Xem thông tin chi tiết của kênh" src="../../images/icons/documents.png" onclick="viewDetail()" style="cursor:pointer"></center></td>
+					</tr>
+					<tr>
+						<td>7</td>
+						<td>D1</td>
+						<td>D2</td>
+						<td>E1</td>
+						<td>2</td>
+						<td>DA1</td>
+						<td>NCLONG</td>
+						<td>04/03/2012 10:22</td>
+						<td><center><img title="Xem thông tin chi tiết của kênh" src="../../images/icons/documents.png" onclick="viewDetail()" style="cursor:pointer"></center></td>
+					</tr>
+					<tr>
+						<td>8</td>
+						<td>D1</td>
+						<td>D2</td>
+						<td>E1</td>
+						<td>2</td>
+						<td>DA1</td>
+						<td>NCLONG</td>
+						<td>04/03/2012 10:22</td>
+						<td><center><img title="Xem thông tin chi tiết của kênh" src="../../images/icons/documents.png" onclick="viewDetail()" style="cursor:pointer"></center></td>
+					</tr>
+					<tr>
+						<td>9</td>
+						<td>D1</td>
+						<td>D2</td>
+						<td>E1</td>
+						<td>2</td>
+						<td>DA1</td>
+						<td>NCLONG</td>
+						<td>04/03/2012 10:22</td>
+						<td><center><img title="Xem thông tin chi tiết của kênh" src="../../images/icons/documents.png" onclick="viewDetail()" style="cursor:pointer"></center></td>
+					</tr>
+					<tr>
+						<td>10</td>
+						<td>D1</td>
+						<td>D2</td>
+						<td>E1</td>
+						<td>2</td>
+						<td>DA1</td>
+						<td>NCLONG</td>
+						<td>04/03/2012 10:22</td>
+						<td><center><img title="Xem thông tin chi tiết của kênh" src="../../images/icons/documents.png" onclick="viewDetail()" style="cursor:pointer"></center></td>
+					</tr>
+				</tbody>
+				</table>
+			</dd>
+			<dt>Thông tin lịch sử :</dt>
+			<dd>
+				- NCLONG thêm mới (09/03/2012 9h22)<br/>
+				- TNHUY chỉnh sửa (09/03/2012 13h45)<br/>
+				- ...<br/>
+			</dd>
+		</div>
+    </body>
+</html>
+<script>
+function viewDetail() {
+	//location.href="tuyenkenh/Chi tiet tuyen kenh.html";
+	window.open('../tuyenkenh/Chi tiet tuyen kenh.html', '_blank');
+}
+$(document).ready(function(){	 
+	oTable = $('#dataTable').dataTable({
+		"bJQueryUI": true,
+		"bProcessing": true,
+		"sScrollY": "200px",
+		"bScrollCollapse": true,
+		"bAutoWidth": false,
+		"bSort":false,
+		"sPaginationType": "two_button"
+	});
+});
+</script>

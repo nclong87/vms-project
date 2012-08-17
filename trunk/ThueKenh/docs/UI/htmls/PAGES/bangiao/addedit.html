@@ -1,0 +1,154 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="description" content="Reflect Template" />
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+<link rel="stylesheet" href="../../css/addedit.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../css/jquery-ui.css" type="text/css" media="screen" />
+<link rel="stylesheet" type="text/css" href="../../css/demo_table_jui.css" />
+<!--Internet Explorer Trancparency fix-->
+<!--[if IE 6]>
+<script src="/js/ie6pngfix.js"></script>
+<script>
+DD_belatedPNG.fix('#head, a, a span, img, .message p, .click_to_close, .ie6fix');
+</script>
+<![endif]--> 
+<script type='text/javascript' src='../../js/jquery.js'></script>
+<script type='text/javascript' src='../../js/jquery-ui.js'></script>
+<script type="text/javascript" src="../../js/jquery.dataTables.min.js"></script>
+<style>
+dt {
+  width: 100px;
+}
+</style>
+</head>
+    
+<body>
+	<form id="form">
+	<table class="input">
+		<tr>
+			<td align="right"><label for="sovanban">Số biên bản <font title="Bắt buộc nhập" color="red">*</font> :</label></td>
+			<td align="left">
+				<input type="text" name="sovanban" id="sovanban"/>
+			</td>
+		</tr>
+		<tr>
+			<td align="right"><label for="filescan">File scan <font title="Bắt buộc nhập" color="red">*</font> :</label></td>
+			<td align="left">
+				<input type="file" name="filescan" id="filescan"/>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+			<fieldset class="form">
+				<legend><span class="blue">Danh sách tuyến kênh bàn giao</span></legend>
+				<div style="width: 100%; padding-bottom: 5px;text-align:right"><input type="button" value="Chọn tuyến kênh" onclick="openPopupChooseTuyenkenh()"></div>
+				<table width="100%" id="dataTable" class="display">
+				<thead>
+					<tr>
+						<th width="5%">#</th>
+						<th>Mã điểm đầu</th>
+						<th>Mã điểm cuối</th>
+						<th width="10px">Giao tiếp</th>
+						<th width="10px">Số lượng</th>
+						<th width="100px">VB đề xuất</th>
+						<th width="50px" align="center">Chi tiết</th>
+						<th width="5px" align="center">Xóa</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>1</td>
+						<td>D1</td>
+						<td>D2</td>
+						<td>E1</td>
+						<td>2</td>
+						<td align="left"><span title="Xem văn bản" class="link">VB 001<span></td>
+						<td><center><img title="Xem thông tin chi tiết của kênh" src="../../images/icons/documents.png" onclick="viewDetail()" style="cursor:pointer"></center></td>
+						<td><center><img title="Remove" src="../../images/icons/remove.png" onclick="doRemoveRow()" style="cursor:pointer"></center></td>
+					</tr>
+					<tr>
+						<td>2</td>
+						<td>D1</td>
+						<td>D2</td>
+						<td>E1</td>
+						<td>2</td>
+						<td align="left"><span title="Xem văn bản" class="link">VB 001<span></td>
+						<td><center><img title="Xem thông tin chi tiết của kênh" src="../../images/icons/documents.png" onclick="viewDetail()" style="cursor:pointer"></center></td>
+						<td><center><img title="Remove" src="../../images/icons/remove.png" onclick="doRemoveRow()" style="cursor:pointer"></center></td>
+					</tr>
+					<tr>
+						<td>3</td>
+						<td>D1</td>
+						<td>D2</td>
+						<td>E1</td>
+						<td>2</td>
+						<td align="left"><span title="Xem văn bản" class="link">VB 001<span></td>
+						<td><center><img title="Xem thông tin chi tiết của kênh" src="../../images/icons/documents.png" onclick="viewDetail()" style="cursor:pointer"></center></td>
+						<td><center><img title="Remove" src="../../images/icons/remove.png" onclick="doRemoveRow()" style="cursor:pointer"></center></td>
+					</tr>
+					<tr>
+						<td>4</td>
+						<td>D1</td>
+						<td>D2</td>
+						<td>E1</td>
+						<td>2</td>
+						<td align="left"><span title="Xem văn bản" class="link">VB 001<span></td>
+						<td><center><img title="Xem thông tin chi tiết của kênh" src="../../images/icons/documents.png" onclick="viewDetail()" style="cursor:pointer"></center></td>
+						<td><center><img title="Remove" src="../../images/icons/remove.png" onclick="doRemoveRow()" style="cursor:pointer"></center></td>
+					</tr>
+					<tr>
+						<td>5</td>
+						<td>D1</td>
+						<td>D2</td>
+						<td>E1</td>
+						<td>2</td>
+						<td align="left"><span title="Xem văn bản" class="link">VB 001<span></td>
+						<td><center><img title="Xem thông tin chi tiết của kênh" src="../../images/icons/documents.png" onclick="viewDetail()" style="cursor:pointer"></center></td>
+						<td><center><img title="Remove" src="../../images/icons/remove.png" onclick="doRemoveRow()" style="cursor:pointer"></center></td>
+					</tr>
+				</tbody>
+				</table>
+			</fieldset>
+			</td>
+		</tr>
+		<tr height="30px">
+			<td colspan="4" align="center">
+				<div class="buttonwrapper">
+				<a class="ovalbutton" href="#"><span>Lưu</span></a>
+				<a class="ovalbutton" id="btReset" href="#"><span>Làm lại</span></a>
+				<a class="ovalbutton" id="btThoat" href="#"><span>Thoát</span></a>
+				</div>
+			</td>
+		</tr>
+	</table>
+	</form>
+</body>
+</html>
+<script>
+function doReset() {
+	$("#form")[0].reset(); //Reset form cua jquery, giu lai gia tri mac dinh cua cac field
+	byId("msg").innerHTML="";
+}
+function openPopupChooseTuyenkenh() {
+	window.open('Search tuyen kenh ban giao.html','STK','resizable=yes,scrollbars=yes,menubar=no,toolbar=no,status=no,width=900,height=600,screenX=100,screenY=100,top=100,left=100');
+}
+$(document).ready(function(){	 
+	$("#btThoat").click(function() {
+		window.parent.CloseWindow();
+	});
+	$("#btReset").click(function() {
+		doReset();
+	});
+	oTable = $('#dataTable').dataTable({
+		"bJQueryUI": true,
+		"bProcessing": true,
+		"sScrollY": "500px",
+		"bScrollCollapse": true,
+		"bAutoWidth": false,
+		"bSort":false,
+		"sPaginationType": "two_button"
+	});
+});
+</script>

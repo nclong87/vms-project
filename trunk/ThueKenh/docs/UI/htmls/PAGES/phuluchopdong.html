@@ -1,0 +1,340 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="description" content="Reflect Template" />
+		<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+        <title>QUẢN LÝ KÊNH TRUYỀN DẪN</title>
+        <link rel="stylesheet" href="../css/style_all.css" type="text/css"
+	media="screen" />
+<link rel="stylesheet" href="../css/style1.css" type="text/css"
+	media="screen" />
+<link rel="stylesheet" href="../css/jquery-ui.css" type="text/css"
+	media="screen" />
+<link rel="stylesheet" href="../css/jquery.wysiwyg.css" type="text/css"
+	media="screen" />
+<link rel="stylesheet" type="text/css" href="../css/superfish.css"
+	media="screen">
+	<link rel="stylesheet" type="text/css" href="../css/demo_table_jui.css" />
+	<link rel="stylesheet" href="../css/search_box.css" type="text/css"
+		media="screen" />
+	<link rel="stylesheet" href="../css/CalendarControl.css"
+		type="text/css" media="screen" />
+	<link rel="stylesheet"
+		href="../js/jquery-window-5.03/css/jquery.window.css" type="text/css"
+		media="screen" />
+	<!--Internet Explorer Trancparency fix-->
+	<!--[if IE 6]>
+        <script src="/js/ie6pngfix.js"></script>
+        <script>
+          DD_belatedPNG.fix('#head, a, a span, img, .message p, .click_to_close, .ie6fix');
+        </script>
+        <![endif]-->
+
+	<script type='text/javascript' src='../js/jquery.js'></script>
+	<script type='text/javascript' src='../js/jquery-ui.js'></script>
+	<script type="text/javascript" src="../js/jquery_blockUI.js"></script>
+	<script type='text/javascript' src='../js/jquery.wysiwyg.js'></script>
+	<script type="text/javascript" src="../js/hoverIntent.js"></script>
+	<script type="text/javascript" src="../js/superfish.js"></script>
+	<script type="text/javascript" src="../js/validator.js"></script>
+	<script type="text/javascript" src="../js/jquery.dataTables.min.js"></script>
+	<script type="text/javascript" src="../js/jquery.hint.js"></script>
+	<script type="text/javascript" src="../js/CalendarControl.js"></script>
+	<script type="text/javascript"
+		src="../js/jquery-window-5.03/jquery.window.js"></script>
+	<script type="text/javascript" src="../js/utils.js"></script>
+		
+		<script>
+		function byId(id) { //Viet tat cua ham document.getElementById
+			return document.getElementById(id);
+		}
+		function block(id) {
+			overlay = $(id).block({ 
+				message: '<span style="color:white">Loading...</span>', 
+				css: { 
+					border: 'none', 
+					padding: '15px', 
+					backgroundColor: '#000', 
+					'-webkit-border-radius': '10px', 
+					'-moz-border-radius': '10px', 
+					opacity: .5, 
+					color: '#fff'
+				} 
+			}); 
+			$('.blockOverlay', overlay).css('cursor', 'auto');
+		}
+		function unblock(id) {
+			$(id).unblock(); 
+		}
+		</script>
+    </head>
+    
+    <body>
+    	<div id="dialog" title="Welcome to flexy admin">
+       	<p>Xin chào admin! welcome back.<br/> You got <strong>1 new Message</strong> in your inbox</p>
+        <p>This is a messagebox, you can fill it with content of your choice ;)</p>
+        </div>
+        
+        <div id="top">
+        
+            <div id="head">
+            	<h1 class="logo">
+                	<a href="#">flexy - adjustable admin skin</a>
+                </h1>
+                
+                <div class="head_memberinfo">
+                	<div class="head_memberinfo_logo">
+                    	<span>1</span>
+                    	<img src="../images/unreadmail.png" alt=""/>
+                    </div>
+                    
+                    <span class='memberinfo_span'>
+                   		 Welcome <a href="#">Admin</a>
+                    </span>
+                    
+                    <span class='memberinfo_span'>
+                    	<a href="#">Settings</a>
+                    </span>
+                    
+                    <span>
+                    	<a href="${doLogoutURL}">Logout</a>
+                    </span>
+                    
+                    <span class='memberinfo_span2'>
+                    	<a href="#">1 Private Message recieved</a>
+                    </span>
+                </div><!--end head_memberinfo-->
+            </div><!--end head-->
+			<ul class="sf-menu">
+				
+			</ul>
+			<div id="bg_wrapper">
+				<div style="width: 100%" class="ovf">
+					<div class="s10">
+						<div class="fl">
+							<div class="fl tsl" id="t_1">
+							</div>
+							<div class="fl clg b tsc d" id="t_2">
+								<div class="p3t">Tìm kiếm phụ lục hợp đồng</div>
+							</div>
+							<div class="fl tsr" id="t_3">
+							</div>
+						</div>
+						<div class="lineU"><img height="1px" alt="" class="w100" src="../images/spacer.gif"></div>
+					</div>
+					<div id="divSearch" class="ovf" style="padding-right: 0px;">
+						<div class="kc4 p5l p15t bgw">
+							<div class="bgw p5b ovf" id="tabnd_2">
+								<div class="ovf p5l p5t">
+									<table class="input">
+										<tr>
+											<td align="right">Loại hợp đồng : </td>
+											<td>
+												<select style="width:168px">
+													<option value="">---Tất cả---</option>
+													<option value="1">E1</option>
+													<option value="0">HKT</option>
+													<option value="0">HKT</option>
+													<option value="0">E4</option>
+													<option value="0">E2</option>
+												</select>
+											</td>
+											<td align="right">Đối tác : </td>
+											<td>
+												<select style="width:168px">
+													<option value="">---Tất cả---</option>
+													<option value="">Đối tác A</option>
+													<option value="">Đối tác B</option>
+												</select>
+											</td>
+										</tr>
+										<tr>
+											<td align="right">Tên phụ lục hợp đồng :</td>
+											<td>
+												<input type="text" name="account.username" id="username"/>
+											</td>
+											<td align="right">Loại phụ lục :</td>
+											<td>
+												<select style="width:168px">
+													<option value="">---Tất cả---</option>
+													<option value="">Độc lập</option>
+													<option value="">Thay thế</option>
+												</select>
+											</td>
+											
+										</tr>										
+										
+										<tr>
+											<td align="right">Cước đấu nối hòa mạng :</td>
+											<td><input type="text"/></td>
+											<td align="right">Ngày ký phục lục :</td>
+											<td><input type="text"/></td>
+										</tr>
+										<tr height="30px">
+											<td></td>
+											<td colspan="3">
+												<div class="buttonwrapper">
+												
+												<a class="ovalbutton" href="#"><span>Tìm kiếm</span></a>
+												
+												</div>
+											</td>
+										</tr>
+									</table>
+								</div>
+							</div>
+							<div class="clearb">
+							</div>
+						</div>
+					</div>
+				</div>	
+				<div style="clear:both;margin:5px 0 ">
+				<div class="buttonwrapper">
+				<a class="ovalbutton" href="#" onClick="ShowWindow('Thêm phụ lục hợp đồng',900,600,'phuluchopdong/addedit.html',false);"><span>Thêm phụ lục hợp đồng</span></a>
+				<a class="ovalbutton" href="#"><span>Xóa chọn</span></a>
+				
+				</div>
+
+				</div>		
+				<table width="100%" id="dataTable" class="display">
+				<thead>
+					<tr>
+						<th width="5px">STT</th>
+						<th width="100px">Tên phụ lục</th>
+						<th width="100px">Loại hợp đồng</th>
+						<th width="100px">Đối tác</th>
+						<th width="100px">Loại phụ lục</th>
+						<th width="50px">Số lượng kênh</th>
+						<th width="100px">Thành tiền trước thuế</th>
+						<th width="100px">Thành tiền sau thuế</th>
+						<th width="100px">Giá trị phụ lục trước thuế</th>
+						<th width="100px">Giá trị phụ lục sau thuế</th>
+						<th width="100px">Cước đấu nối hòa mạng</th>
+						<th width="100px">Ngày ký phụ lục</th>
+						<th width="100px">Ngày có hiệu lực</th>
+						<th width="5px">Sửa</th>
+						<th width="5px" align="center"><input type="checkbox" onclick="selectAll(this)"/></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td align="center">1</td>
+						<td align="center"><a href="phuluchopdong/chitietphuluchopdong.html" target="_blank">Phụ lục 1</a></td>
+						<td align="center">E2</td>
+						<td align="center">Vinafone</td>
+						<td align="center">Thay thế</td>
+						<td align="center">10</td>
+						<td align="right">20.000</td>
+						<td align="right">22.000</td>
+						<td align="right">50.000</td>
+						<td align="right">55.000</td>
+						<td align="right">10.000</td>
+						<td align="center">1/2/2013</td>
+						<td align="center">1/2/2013</td>
+						<td><center><img title="Edit" src="../images/icons/edit.png" style="cursor:pointer" onclick="ShowWindow('Chỉnh sửa thông tin',900,600,'phuluchopdong/addedit.html',false);"></center></td>
+						<td align="center"><input type="checkbox" onclick="selectAll(this)"/></td>
+					</tr>
+					<tr>
+						<td align="center">1</td>
+						<td align="center"><a href="phuluchopdong/chitietphuluchopdong.html" target="_blank">Phụ lục 1</a></td>
+						<td align="center">E2</td>
+						<td align="center">Vinafone</td>
+						<td align="center">Thay thế</td>
+						<td align="center">10</td>
+						<td align="right">20.000</td>
+						<td align="right">22.000</td>
+						<td align="right">50.000</td>
+						<td align="right">55.000</td>
+						<td align="right">10.000</td>
+						<td align="center">1/2/2013</td>
+						<td align="center">1/2/2013</td>
+						<td><center><img title="Edit" src="../images/icons/edit.png" style="cursor:pointer" onclick="ShowWindow('Chỉnh sửa thông tin',900,600,'phuluchopdong/addedit.html',false);"></center></td>
+						<td align="center"><input type="checkbox" onclick="selectAll(this)"/></td>
+					</tr>
+					<tr>
+						<td align="center">1</td>
+						<td align="center"><a href="phuluchopdong/chitietphuluchopdong.html" target="_blank">Phụ lục 1</a></td>
+						<td align="center">E2</td>
+						<td align="center">Vinafone</td>
+						<td align="center">Thay thế</td>
+						<td align="center">10</td>
+						<td align="right">20.000</td>
+						<td align="right">22.000</td>
+						<td align="right">50.000</td>
+						<td align="right">55.000</td>
+						<td align="right">10.000</td>
+						<td align="center">1/2/2013</td>
+						<td align="center">1/2/2013</td>
+						<td><center><img title="Edit" src="../images/icons/edit.png" style="cursor:pointer" onclick="ShowWindow('Chỉnh sửa thông tin',900,600,'phuluchopdong/addedit.html',false);"></center></td>
+						<td align="center"><input type="checkbox" onclick="selectAll(this)"/></td>
+					</tr>
+					<tr>
+						<td align="center">1</td>
+						<td align="center"><a href="phuluchopdong/chitietphuluchopdong.html" target="_blank">Phụ lục 1</a></td>
+						<td align="center">E2</td>
+						<td align="center">Vinafone</td>
+						<td align="center">Thay thế</td>
+						<td align="center">10</td>
+						<td align="right">20.000</td>
+						<td align="right">22.000</td>
+						<td align="right">50.000</td>
+						<td align="right">55.000</td>
+						<td align="right">10.000</td>
+						<td align="center">1/2/2013</td>
+						<td align="center">1/2/2013</td>
+						<td><center><img title="Edit" src="../images/icons/edit.png" style="cursor:pointer" onclick="ShowWindow('Chỉnh sửa thông tin',900,600,'phuluchopdong/addedit.html',false);"></center></td>
+						<td align="center"><input type="checkbox" onclick="selectAll(this)"/></td>
+					</tr>
+					<tr>
+						<td align="center">1</td>
+						<td align="center"><a href="phuluchopdong/chitietphuluchopdong.html" target="_blank">Phụ lục 1</a></td>
+						<td align="center">E2</td>
+						<td align="center">Vinafone</td>
+						<td align="center">Thay thế</td>
+						<td align="center">10</td>
+						<td align="right">20.000</td>
+						<td align="right">22.000</td>
+						<td align="right">50.000</td>
+						<td align="right">55.000</td>
+						<td align="right">10.000</td>
+						<td align="center">1/2/2013</td>
+						<td align="center">1/2/2013</td>
+						<td><center><img title="Edit" src="../images/icons/edit.png" style="cursor:pointer" onclick="ShowWindow('Chỉnh sửa thông tin',900,600,'phuluchopdong/addedit.html',false);"></center></td>
+						<td align="center"><input type="checkbox" onclick="selectAll(this)"/></td>
+					</tr>
+				</table>
+			</div><!--end bg_wrapper-->
+        </div><!-- end top -->
+        <div id="footer">
+			
+			</div><!--end footer-->
+    </body>
+</html>
+<script>
+function doReset() {
+	$("#form")[0].reset(); //Reset form cua jquery, giu lai gia tri mac dinh cua cac field
+	byId("msg").innerHTML="";
+}
+function selectAll(_this) {
+	$('#dataTable input[type=checkbox]').each(function(){
+		this.checked=_this.checked;
+	});
+}
+function newPopupWindow(file, window, width, height) {
+    msgWindow = open(file, window, 'resizable=yes, width=' + width + ', height=' + height + ', titlebar=yes, toolbar=no, scrollbars=yes');
+    if (msgWindow.opener == null) msgWindow.opener = self;
+}
+$(document).ready(function(){	 
+	$('ul.sf-menu').load("menu.html");
+	$('ul.sf-menu').superfish();
+	oTable = $('#dataTable').dataTable({
+		"bJQueryUI": true,
+		"bProcessing": true,
+		"bAutoWidth": false,
+		"bSort":false,
+		"sPaginationType": "two_button"
+	});
+	$('#divSearch input[title!=""]').hint();
+});
+</script>
