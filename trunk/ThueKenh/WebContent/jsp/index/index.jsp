@@ -10,27 +10,27 @@ String contextPath = request.getContextPath();
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<%@include file="/include/header.jsp"%>
-<style>
-.td_label {
-	width:100px;
-}
-</style>
 </head>
 <body>
 	<%@include file="/include/top.jsp"%>
+	<style>
+		.td_label {
+			width: 75px;
+		}
+	</style>
 	<div id="bg_wrapper">
 		<center>
 		<fieldset style="width:600px">
 		<legend>Tìm kiếm user</legend>
 		<table style="width:100%">
 			<tr>
-				<td class="td_label">Username :</td>
+				<td class="td_label">Username</td>
 				<td>
 					<input type="text" class="field"/>
 				</td>
-				<td class="td_label">Phòng ban :</td>
+				<td class="td_label">Phòng ban</td>
 				<td>
-					<select class="field">
+					<select class="field field-cbb">
 						<option value="">-- Chọn phòng ban --</option>
 						<s:iterator value="phongbans">
 							<option value='<s:property value="id" />'><s:property value="tenphongban" /></option>									
@@ -39,18 +39,18 @@ String contextPath = request.getContextPath();
 				</td>
 			</tr>
 			<tr>
-				<td class="td_label">Khu vực :</td>
+				<td class="td_label">Khu vực</td>
 				<td>
-					<select class="field">
+					<select class="field field-cbb">
 						<option value="">-- Chọn khu vực --</option>
 						<s:iterator value="khuvucs">
 							<option value='<s:property value="id" />'><s:property value="tenkhuvuc" /></option>									
 						</s:iterator>
 					</select>
 				</td>
-				<td class="td_label">Trạng thái :</td>
+				<td class="td_label">Trạng thái</td>
 				<td>
-					<select class="field">
+					<select class="field field-cbb">
 						<option value="">-- Chọn trạng thái --</option>
 						<option value="1">Đang hoạt động</option>
 						<option value="0">Đã khóa</option>
@@ -59,7 +59,7 @@ String contextPath = request.getContextPath();
 			</tr>
 			<tr>
 				<td align="center" colspan="4">
-					<input type="button" class="button" id="btSearch" value="Tìm kiếm"/>
+					<input style="margin: 0" type="button" class="button" id="btSearch" value="Tìm kiếm"/>
 				</td>
 			</tr>
 		</table>
