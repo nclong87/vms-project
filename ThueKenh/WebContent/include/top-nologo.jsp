@@ -1,0 +1,1 @@
+<div id="top">	<div id="dialog" title="Welcome to VMS"><center>Loading...</center></div>	<div id="dialog1" title="Welcome to VMS"></div>	<div id="head">					</div><!--end head-->	<s:property value="#session.SESS_MENU" escape="false"/></div>

@@ -69,6 +69,7 @@ public class AccountDao {
 	
 	private static final String GETLISTMENU = "SELECT GETLISTMENU(?,?) AS RS FROM DUAL";
 	public String getMenu(Account account) {
+		System.out.println(account.getId()+"-"+account.getIdgroup());
 		Clob clob = (Clob) this.jdbcTemplate.queryForObject(GETLISTMENU,new Object[] {account.getId(),account.getIdgroup()}, Clob.class);
 		return StringUtil.clobToString(clob);
 	}

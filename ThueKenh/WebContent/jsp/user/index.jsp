@@ -20,6 +20,18 @@ String contextPath = request.getContextPath();
 	</script>
 	<%@include file="/include/header.jsp"%>
 	<script src="<%= request.getContextPath() %>/js/mylibs/permission_popup.js" type="text/javascript" ></script>
+	<script type="text/javascript" src="<%= request.getContextPath() %>/js/jquery-window-5.03/jquery.window.js"></script>
+	<script type="text/javascript" src="<%= request.getContextPath() %>/js/utils.js"></script>
+	<link rel="stylesheet" href="<%= request.getContextPath() %>/js/jquery-window-5.03/css/jquery.window.css" type="text/css" media="screen" />
+	
+	<script>
+	function doEdit(link) {
+		ShowWindow('Thêm tài khoản mới',800,400,link,false);
+	}
+
+	</script>
+	
+	
 <style>
 .block {
 float: left;
@@ -35,8 +47,8 @@ margin-left: 10px;
 			<fieldset class="form">
 				<legend>Quản lý tài khoản</legend>
 				<div style="float:right">
-				<a class="admin_icon" title="Thêm mới" href="${formURL}">
-					<img alt="Add" src="<%=contextPath%>/images/icons/add_32.png"/>
+				<a class="admin_icon" title="Thêm mới" href="#">
+					<img alt="Add" onclick="doEdit('${formURL}')" src="<%=contextPath%>/images/icons/add_32.png"/>
 					<span>Thêm mới</span>
 				</a>
 				<a class="admin_icon" title="Mở khóa" id="btUnlock">

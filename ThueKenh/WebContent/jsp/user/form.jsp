@@ -16,7 +16,9 @@ String contextPath = request.getContextPath();
 	<script type="text/javascript" src="<%= contextPath %>/js/mylibs/my.validate.js"></script>
 <style>
 .td_label {
-width:120px
+width:130px;
+height: 30px;
+overflow: hidden;
 }
 .field {
 width:200px
@@ -31,7 +33,7 @@ border: 1px solid red;
 </style>
 </head>
 <body>
-	<%@include file="/include/top.jsp"%>
+	<%@include file="/include/top-nologo.jsp"%>
 	<div id="bg_wrapper">
 		<center>
 		<div style="width:99%">
@@ -39,7 +41,7 @@ border: 1px solid red;
 				<legend id="title"></legend>
 				<form id="form" method="post" action="${doSaveURL}" onsubmit="return false">
 				<input type="text" style="display:none" name="user.id" id="id"/>
-				<table width="100%">
+				<table width="350px" style="float:left">
 					<tr>
 						<td colspan='2' align="left">
 						<s:if test='message != null'>
@@ -62,7 +64,7 @@ border: 1px solid red;
 						<td class="td_label">Username <span class="required" title="Yêu cầu nhập">*</span> :</td>
 						<td>
 							<input type="text" class="field" name="user.username" id="username"/>
-							<label for="user.username" generated="false" class="error"></label>
+							<label style="display:none" for="user.username" generated="false" class="error"></label>
 						</td>
 					</tr>
 					<tr>
@@ -71,6 +73,23 @@ border: 1px solid red;
 							<input type="password" class="field" name="user.password" id="password"/>
 						</td>
 					</tr>
+					<tr>
+						<td class="td_label">Xác nhận mật khẩu :</td>
+						<td>
+							<input type="password" class="field" name="" id="re-password"/>
+						</td>
+					</tr>
+					<tr>
+					<td>&nbsp;</td>
+					</tr>
+					<tr>
+						<td>
+							<input type="button" class="button" id="btSubmit" value="Lưu"/>
+							<input type="button" class="button" value="Trở về" onclick="location.href='${userIndexURL}'"/>
+						</td>
+					</tr>
+				</table>
+				<table  style="float:left">
 					<tr>
 						<td class="td_label">Phòng ban :</td>
 						<td>
@@ -111,13 +130,6 @@ border: 1px solid red;
 								<option value="1">Đang hoạt động</option>
 								<option value="0">Đã khóa</option>
 							</select>
-						</td>
-					</tr>
-					<tr>
-						<td class="td_label"></td>
-						<td>
-							<input type="button" class="button" id="btSubmit" value="Lưu"/>
-							<input type="button" class="button" value="Trở về" onclick="location.href='${userIndexURL}'"/>
 						</td>
 					</tr>
 				</table>

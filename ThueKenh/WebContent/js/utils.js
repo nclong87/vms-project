@@ -260,3 +260,41 @@ function processErrorMessage(message) {
 		alert(message);
 	}
 }
+
+
+
+var windowObj;
+var status = "closing";
+function RefreshSite() {
+    window.location.href = window.location;
+}
+function ShowWindow(_title, _width, _height, _url, _scrollable) {
+    if (status == "closing") {
+        windowObj = $.window({
+            title: _title,
+            url: _url,
+            width: _width,
+            height:_height,
+            showModal: true,
+            resizable: true,
+            scrollable: true,
+            minimizable: true,
+            bookmarkable: false,
+            scrollable:_scrollable,
+            onClose: function () {
+                status = "closing";
+                oTable.fnDraw(false);
+            }
+        });
+        status = "opening";
+    }
+}
+function MaxWindow()
+{
+    windowObj.maximize();
+}
+function CloseWindow() {
+    status == "closing";
+    windowObj.close();
+    RefreshSite();
+}
