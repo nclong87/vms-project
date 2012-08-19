@@ -1,0 +1,129 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    	
+      	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      	<meta name="description" content="Reflect Template" />
+		<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+		<link rel="stylesheet" href="../../css/addedit.css" type="text/css" media="screen" />
+		 <link rel="stylesheet" href="../../css/jquery-ui.css" type="text/css" media="screen" />
+		<link rel="stylesheet" type="text/css" href="../../css/demo_table_jui.css" />
+      	<!--Internet Explorer Trancparency fix-->
+      	<!--[if IE 6]>
+      	<script src="/js/ie6pngfix.js"></script>
+      	<script>
+        DD_belatedPNG.fix('#head, a, a span, img, .message p, .click_to_close, .ie6fix');
+      	</script>
+      	<![endif]--> 
+		<script type='text/javascript' src='../../js/jquery.js'></script>
+        <script type='text/javascript' src='../../js/jquery-ui.js'></script>
+		<script type="text/javascript" src="../../js/jquery.dataTables.min.js"></script>
+</head>
+    
+<body>
+	<form id="form">
+	<div style="background: none repeat scroll 0pt 0pt rgb(242, 242, 242); padding: 5px; width: 99%;">
+		<table class="input" style="width:600px">
+		<tr>
+			<td align="right" width="170px"><label for="xxxx">Số biên bản <font title="Bắt buộc nhập" color="red">*</font> :</label></td>
+			<td align="left">
+				<input class="field" type="text" name="vanban.tenvanban" id="username"/>
+			</td>
+			<td align="right" width="110px"><label for="xxxx">File scan <font title="Bắt buộc nhập" color="red">*</font> :</label></td>
+			<td align="left">
+				<input type="file" name="vanban.filescan" id="filescan"/>
+			</td>
+		</tr>
+		</table>
+		<div style="width: 100%; margin-top: 10px;">
+		<fieldset class="data_list">
+			<legend>Danh sách sự cố thuộc biên bản vận hành</legend>
+			<div style="width: 100%; padding-bottom: 5px;text-align: right;"><input class="button" type="button" value="Chọn sự cố" onclick="openPopupChonSuCo()"></div>
+			<table width="100%" id="dataTable" class="display">
+			<thead>
+				<tr>
+					<th width="5%">#</th>
+					<th>Mã kênh</th>
+					<th>TG bắt đầu</th>
+					<th>TG kết thúc</th>
+					<th>TG mất liên lạc</th>
+					<th>Người xác nhận</th>
+					<th width="5px" align="center">Xóa</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>1</td>
+					<td><a target="_blank" href="../tuyenkenh/Chi tiet tuyen kenh.html">123</a></td>
+					<td>04/03/2012 10:22</td>
+					<td>04/03/2012 12:22</td>
+					<td>2h</td>
+					<td>NCLONG</td>
+					<td><center><img title="Remove" src="../../images/icons/remove.png" onclick="doRemoveRow()" style="cursor:pointer"></center></td>
+				</tr>
+				<tr>
+					<td>2</td>
+					<td><a target="_blank" href="../tuyenkenh/Chi tiet tuyen kenh.html">123</a></td>
+					<td>04/03/2012 10:22</td>
+					<td>04/03/2012 12:22</td>
+					<td>2h</td>
+					<td>NCLONG</td>
+					<td><center><img title="Remove" src="../../images/icons/remove.png" onclick="doRemoveRow()" style="cursor:pointer"></center></td>
+				</tr>
+				<tr>
+					<td>3</td>
+					<td><a target="_blank" href="../tuyenkenh/Chi tiet tuyen kenh.html">123</a></td>
+					<td>04/03/2012 10:22</td>
+					<td>04/03/2012 12:22</td>
+					<td>2h</td>
+					<td>NCLONG</td>
+					<td><center><img title="Remove" src="../../images/icons/remove.png" onclick="doRemoveRow()" style="cursor:pointer"></center></td>
+				</tr>
+				<tr>
+					<td>4</td>
+					<td><a target="_blank" href="../tuyenkenh/Chi tiet tuyen kenh.html">123</a></td>
+					<td>04/03/2012 10:22</td>
+					<td>04/03/2012 12:22</td>
+					<td>2h</td>
+					<td>NCLONG</td>
+					<td><center><img title="Remove" src="../../images/icons/remove.png" onclick="doRemoveRow()" style="cursor:pointer"></center></td>
+				</tr>
+			</tbody>
+			</table>
+		</fieldset>
+		</div>
+		<div style="margin-top: 5px; margin-bottom: 5px; text-align: right;">
+			<input class="button" type="button" id="" value="Lưu"/>
+			<input class="button" type="button" id="btReset" value="Làm lại"/>
+			<input class="button" type="button" id="btThoat" onclick="window.parent.CloseWindow();" value="Thoát"/>
+		</div>
+	</div>
+	</form>
+</body>
+</html>
+<script>
+function doReset() {
+	$("#form")[0].reset(); //Reset form cua jquery, giu lai gia tri mac dinh cua cac field
+	byId("msg").innerHTML="";
+}
+function openPopupChonSuCo() {
+	window.open('../popup_timsuco.html','STK','resizable=yes,scrollbars=yes,menubar=no,toolbar=no,status=no,width=900,height=600,screenX=100,screenY=100,top=100,left=100');
+}
+$(document).ready(function(){	 
+	$("#btThoat").click(function() {
+		window.parent.CloseWindow();
+	});
+	$("#btReset").click(function() {
+		doReset();
+	});
+	oTable = $('#dataTable').dataTable({
+		"bJQueryUI": true,
+		"bProcessing": true,
+		"sScrollY": "200px",
+		"bScrollCollapse": true,
+		"bAutoWidth": false,
+		"bSort":false,
+		"sPaginationType": "two_button"
+	});
+});
+</script>
