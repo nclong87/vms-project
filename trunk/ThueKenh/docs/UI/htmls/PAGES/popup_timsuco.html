@@ -1,11 +1,11 @@
-﻿﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta name="description" content="Reflect Template" />
 		<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
-        <title>TÌM KIẾM TUYẾN KÊNH</title>
+        <title>TÌM KIẾM SỰ CỐ</title>
         <link rel="stylesheet" href="../css/style_all.css" type="text/css" media="screen" />
         <link rel="stylesheet" href="../css/style1.css" type="text/css" media="screen" />
         <link rel="stylesheet" href="../css/jquery-ui.css" type="text/css" media="screen" />
@@ -62,7 +62,7 @@
 				<div class="fl tsl" id="t_1">
 				</div>
 				<div class="fl clg b tsc d" id="t_2">
-					<div class="p3t">Tìm kiếm tuyến kênh</div>
+					<div class="p3t">Tìm kiếm sự cố</div>
 				</div>
 				<div class="fl tsr" id="t_3">
 				</div>
@@ -76,68 +76,26 @@
 						<table width="100%">
 							<tr>
 								<td align="right">
-									Mã kênh :
+									Mã điểm đầu :
 								</td>
 								<td align="left">
-									<input type="text" id="" title="Mã kênh"/>
 									<input type="text" id="" title="Mã điểm đầu"/>
+								</td>
+								<td align="right">
+									Mã điểm cuối :
+								</td>
+								<td align="left">
 									<input type="text" id="" title="Mã điểm cuối"/>
 								</td>
 							</tr>
 							<tr>
-								<td width="100px" align="right">
-									Tình trạng :
-								</td>
+								<td align="right">Thời điểm bắt đầu :</td>
 								<td align="left">
-									<select>
-										<option value="">Tình trạng tuyến kênh</option>
-										<option SELECTED value="0">Vừa import</option>
-										<option value="1">Chưa bàn giao</option>
-										<option value="2">Đã bàn giao</option>
-										<option value="3">Đã có biên bản bàn giao</option>
-										<option value="4">Đã có hợp đồng</option>
-										<option value="5">Đã xóa</option>
-									</select>
+									<input type="text" name="account.username" id="username" style="width:214px"/>
 								</td>
-							</tr>
-							<tr>
-								<td align="right">
-									Loại giao tiếp :
-								</td>
+								<td align="right">Thời điểm kết thúc :</td>
 								<td align="left">
-									<select>
-										<option value="">Chọn loại giao tiếp</option>
-										<option value="0">E1</option>
-										<option value="1">STM1</option>
-										<option value="2">....</option>
-									</select>
-								</td>
-							</tr>
-							<tr>
-								<td align="right">
-									Dự án :
-								</td>
-								<td align="left">
-									<select>
-										<option value="">Chọn dự án</option>
-										<option value="0">DA1</option>
-										<option value="1">DA2</option>
-										<option value="2">....</option>
-									</select>
-								</td>
-							</tr>
-							<tr>
-								<td align="right">
-									User nhập :
-								</td>
-								<td align="left"><input type="text" id="" title="User nhập"/></td>
-							</tr>
-							<tr>
-								<td align="right">
-									Ngày tạo từ :
-								</td>
-								<td align="left">
-									<input type="text" name="date1" id="date1" onclick="onclickCalendarIcon('date1','');"/> đến <input type="text" name="date2" id="date2" onclick="onclickCalendarIcon('date2','');"/>
+									<input type="text" name="account.username" id="username" style="width:214px"/>
 								</td>
 							</tr>
 							<tr>
@@ -161,70 +119,67 @@
 	<thead>
 		<tr>
 			<th width="5%">#</th>
-			<th width="5%">Mã kênh</th>
-			<th>Mã điểm đầu</th>
-			<th>Mã điểm cuối</th>
-			<th>Giao tiếp</th>
-			<th>Dung lượng</th>
-			<th >Số lượng</th>
-			<th>Dự án</th>
+			<th>Mã kênh</th>
+			<th>TG bắt đầu</th>
+			<th>TG kết thúc</th>
+			<th>TG mất liên lạc</th>
+			<th>Người xác nhận</th>
 			<th width="5px" align="center"><input type="checkbox" onclick="selectAll(this)"/></th>
 		</tr>
 	</thead>
 	<tbody id="tbody">
 		<tr>
 			<td>1</td>
-			<td>123</td>
-			<td>D1</td>
-			<td>D2</td>
-			<td>E1</td>
-			<td>2Mb</td>
-			<td>2</td>
-			<td>DA1</td>
+			<td><a target="_blank" href="../tuyenkenh/Chi tiet tuyen kenh.html">123</a></td>
+			<td>04/03/2012 10:22</td>
+			<td>04/03/2012 12:22</td>
+			<td>2h</td>
+			<td>NCLONG</td>
 			<td><center><input type="checkbox" value=""/></center></td>
 		</tr>
 		<tr>
 			<td>2</td>
-			<td>123</td>
-			<td>D1</td>
-			<td>D2</td>
-			<td>E1</td>
-			<td>2Mb</td>
-			<td>2</td>
-			<td>DA1</td>
+			<td><a target="_blank" href="../tuyenkenh/Chi tiet tuyen kenh.html">123</a></td>
+			<td>04/03/2012 10:22</td>
+			<td>04/03/2012 12:22</td>
+			<td>2h</td>
+			<td>NCLONG</td>
 			<td><center><input type="checkbox" value=""/></center></td>
 		</tr>
 		<tr>
 			<td>3</td>
-			<td>123</td>
-			<td>D1</td>
-			<td>D2</td>
-			<td>E1</td>
-			<td>2Mb</td>
-			<td>2</td>
-			<td>DA1</td>
+			<td><a target="_blank" href="../tuyenkenh/Chi tiet tuyen kenh.html">123</a></td>
+			<td>04/03/2012 10:22</td>
+			<td>04/03/2012 12:22</td>
+			<td>2h</td>
+			<td>NCLONG</td>
 			<td><center><input type="checkbox" value=""/></center></td>
 		</tr>
 		<tr>
 			<td>4</td>
-			<td>123</td>
-			<td>D1</td>
-			<td>D2</td>
-			<td>E1</td>
-			<td>2Mb</td>
-			<td>2</td>
-			<td>DA1</td>
+			<td><a target="_blank" href="../tuyenkenh/Chi tiet tuyen kenh.html">123</a></td>
+			<td>04/03/2012 10:22</td>
+			<td>04/03/2012 12:22</td>
+			<td>2h</td>
+			<td>NCLONG</td>
 			<td><center><input type="checkbox" value=""/></center></td>
 		</tr>
 		<tr>
 			<td>5</td>
-			<td>123</td>
-			<td>D1</td>
-			<td>D2</td>
-			<td>E1</td>
-			<td>2Mb</td>
-			<td>2</td>
-			<td>DA1</td>
+			<td><a target="_blank" href="../tuyenkenh/Chi tiet tuyen kenh.html">123</a></td>
+			<td>04/03/2012 10:22</td>
+			<td>04/03/2012 12:22</td>
+			<td>2h</td>
+			<td>NCLONG</td>
+			<td><center><input type="checkbox" value=""/></center></td>
+		</tr>
+		<tr>
+			<td>6</td>
+			<td><a target="_blank" href="../tuyenkenh/Chi tiet tuyen kenh.html">123</a></td>
+			<td>04/03/2012 10:22</td>
+			<td>04/03/2012 12:22</td>
+			<td>2h</td>
+			<td>NCLONG</td>
 			<td><center><input type="checkbox" value=""/></center></td>
 		</tr>
 	</tbody>

@@ -1,15 +1,13 @@
-body {
-	background: #fff url(../images/scheme1/bg.jpg) repeat-x;
-}
-
+body{
+	background:#fff url(../images/scheme1/bg.jpg) repeat-x;
+	}
+	
 th {
-	background: #8497BF url(../images/highlight_line.gif) repeat-x scroll 0
-		0;
+	background:#8497BF url(../images/highlight_line.gif) repeat-x scroll 0 0;
 }
 
 td.alt {
-	background: #eceff5 url(../images/highlight_line.gif) repeat-x scroll 0
-		0;
+	background: #eceff5 url(../images/highlight_line.gif) repeat-x scroll 0 0;
 	color: #797268;
 }
 
@@ -19,16 +17,13 @@ th.specalt {
 }
 
 .button {
-	background: #a8b2c5 url(../images/highlight_line.gif) repeat-x top left;
+  color: navy;
+  cursor: pointer;
+  font-weight: bold;
+  padding: 2px;
 }
-
-.button:hover {
-	background: #8497BF;
-}
-
 .up_arrows {
-	background: url("images/arrows.png") no-repeat scroll -30px 0
-		transparent;
+	background: url("images/arrows.png") no-repeat scroll -30px 0 transparent;
 	cursor: pointer;
 	float: right;
 	height: 15px;
@@ -36,11 +31,10 @@ th.specalt {
 	margin-top: 3px;
 	position: relative;
 	width: 15px;
-}
 
+}
 .down_arrows {
-	background: url("images/arrows.png") no-repeat scroll -15px 0
-		transparent;
+	background: url("images/arrows.png") no-repeat scroll -15px 0 transparent;
 	cursor: pointer;
 	float: right;
 	height: 15px;
