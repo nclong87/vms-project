@@ -19,15 +19,14 @@
 
 <body>
 	<form id="form">
-		<table class="input">
+	<div style="background: none repeat scroll 0pt 0pt rgb(242, 242, 242); padding: 5px; width: 99%;">
+		<table class="input" style="width:600px">
 			<tr>
-				<td align="right" width="140px"><label for="diemdau">Điểm
-						đầu <font title="Bắt buộc nhập" color="red">*</font> :
+				<td align="right" width="160px"><label for="diemdau">Điểm đầu <font title="Bắt buộc nhập" color="red">*</font> :
 				</label></td>
 				<td align="left"><input type="text" name="diemdau" id="diemdau" />
 				</td>
-				<td align="right" width="150px"><label for="diemcuoi">Điểm
-						cuối <font title="Bắt buộc nhập" color="red">*</font> :
+				<td align="right" width="150px"><label for="diemcuoi">Điểm cuối <font title="Bắt buộc nhập" color="red">*</font> :
 				</label></td>
 				<td align="left"><input type="text" id="diemcuoi" /></td>
 			</tr>
@@ -88,15 +87,14 @@
 						style="width: 150px" id="thongtinlienhe"></textarea></td>
 			</tr>
 			<tr height="30px">
-				<td colspan="6" align="center">
-					<div class="buttonwrapper" style="padding-left: 230px;">
-						<a class="ovalbutton" href="#"><span>Lưu</span></a> <a
-							class="ovalbutton" id="btReset" href="#"><span>Làm lại</span></a>
-						<a class="ovalbutton" id="btThoat" href="#"><span>Thoát</span></a>
-					</div>
+				<td colspan="6" align="right">
+					<input class="button" type="button" id="" value="Lưu"/>
+					<input class="button" type="button" id="btReset" value="Làm lại"/>
+					<input class="button" type="button" id="btThoat" onclick="window.parent.CloseWindow();" value="Thoát"/>
 				</td>
 			</tr>
 		</table>
+	</div>
 	</form>
 </body>
 </html>
