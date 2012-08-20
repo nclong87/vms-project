@@ -126,7 +126,7 @@
 								<table>
 									<tr>
 										<td align="right">Loại hợp đồng :</td>
-										<td><select style="width: 168px">
+										<td><select style="width: 220px">
 												<option value="">---SELECT---</option>
 												<option value="1">Có thời hạn</option>
 												<option value="0">Không thời hạn</option>
@@ -135,9 +135,9 @@
 									<tr>
 										<td align="right">Số hợp đồng :</td>
 										<td><input type="text" name="account.username"
-											id="username" /></td>
+											id="username" style="width: 214px"/></td>
 										<td align="right">Đối tác :</td>
-										<td><select style="width: 168px">
+										<td><select style="width: 220px">
 												<option value="">Đối tác A</option>
 												<option value="">Đối tác B</option>
 										</select></td>
@@ -146,18 +146,17 @@
 									<tr>
 										<td align="right">Ngày ký :</td>
 										<td><input type="text" name="account.password"
-											id="password"></td>
+											id="password" style="width: 214px"></td>
 										<td align="right">Ngày hết hạn :</td>
 										<td><input type="text" name="account.username"
-											id="username" /></td>
+											id="username" style="width: 214px"/></td>
 
 									</tr>
 									<tr>
 										<td></td>
 										<td colspan="3">
 											<div class="buttonwrapper">
-												<a class="ovalbutton" id="btSearch" href="#"><span>Tìm
-														kiếm</span></a>
+												<input type="button" class="button" id="btTimKiem" value="Tìm kiếm"></input>
 											</div>
 										</td>
 									</tr>
@@ -170,9 +169,8 @@
 			</div>
 			<div style="clear: both; margin: 5px 0">
 				<div class="buttonwrapper">
-					<a href="#" id="btThem" class="ovalbutton"
-						onclick="ShowWindow('Thêm hợp đồng',610,600,'hopdong/addedit.html',false);"><span>Thêm
-							hợp đồng</span></a> <a href="#" id="btXoa" class="ovalbutton"><span>Xóa</span></a>
+					<input type="button" id="btThem" class="button" value="Thêm" onclick="ShowWindow('Thêm hợp đồng',722,600,'hopdong/addedit.html',false);"></input>
+					<input type="button" id="btXoa" class="button" value="Xóa"></input>
 				</div>
 			</div>
 			<table width="100%" id="dataTable" class="display">

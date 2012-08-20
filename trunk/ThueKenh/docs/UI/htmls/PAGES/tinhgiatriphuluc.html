@@ -125,16 +125,9 @@
 							<div class="ovf p5l p5t">
 								<table>
 									<tr>
-										<td>
-											<div class="buttonwrapper">
-												<a class="ovalbutton" href="#"
-													onClick="ShowWindow('',800,600,'phuluchopdong/timkiemtuyenkenh.html',false);"><span>Chọn
-														kênh làm phụ lục hợp đồng</span></a> <a class="ovalbutton" href="#"><span>Xuất
-														Excel</span></a> <a class="ovalbutton" href="#"
-													onClick="ShowWindow('Import Excel',550,600,'phuluchopdong/importexcel.html',false);"><span>Import</span></a>
-												<a class="ovalbutton" href="#"><span>Tính giá trị
-														phụ lục</span></a>
-											</div>
+										<td align="left">
+											<input class="button" type="button" value="Chọn kênh cần tính giá trị" onclick="openPopupChooseTuyenkenh()">
+											<input type="button" class="button" value="Tính giá trị phụ lục" onclick="$('#frmConfirm').dialog('open');"></input>
 										</td>
 
 									</tr>
@@ -146,6 +139,7 @@
 				</div>
 			</div>
 			<div style="clear: both; margin: 5px 0"></div>
+			<input type="button" class="button" value="Xóa khỏi danh sách"></input>
 			<table id="dataTable" class="display">
 				<thead>
 					<tr>
@@ -155,6 +149,8 @@
 						<th width="200px">Điểm cuối</th>
 						<th width="150px">Giao tiếp</th>
 						<th width="150px">Số lượng</th>
+						<th width="150px">Cước cổng</th>
+						<th width="150px">Cước đấu nối hòa mạng</th>
 						<th width="150px">Đơn giá</th>
 						<th width="200px">Công thức</th>
 					</tr>
@@ -167,6 +163,8 @@
 						<td align="center">Sài gòn</td>
 						<td><center>E1</center></td>
 						<td><center>10</center></td>
+						<td align="center"><input type="text" value="200.000"/></td>
+						<td align="center"><input type="text" /></td>
 						<td align="center"><input type="text" /></td>
 						<td align="center"><select style="width: 170px">
 								<option>---SELECT---</option>
@@ -184,6 +182,8 @@
 						<td align="center">Sài gòn</td>
 						<td><center>E1</center></td>
 						<td><center>10</center></td>
+						<td align="center"><input type="text" value="200.000"/></td>
+						<td align="center"><input type="text" /></td>
 						<td align="center"><input type="text" /></td>
 						<td align="center"><select style="width: 170px">
 								<option>---SELECT---</option>
@@ -201,6 +201,8 @@
 						<td align="center">Sài gòn</td>
 						<td><center>E1</center></td>
 						<td><center>10</center></td>
+						<td align="center"><input type="text" value="200.000"/></td>
+						<td align="center"><input type="text" /></td>
 						<td align="center"><input type="text" /></td>
 						<td align="center"><select style="width: 170px">
 								<option>---SELECT---</option>
@@ -218,6 +220,8 @@
 						<td align="center">Sài gòn</td>
 						<td><center>E1</center></td>
 						<td><center>10</center></td>
+						<td align="center"><input type="text" value="200.000"/></td>
+						<td align="center"><input type="text" /></td>
 						<td align="center"><input type="text" /></td>
 						<td align="center"><select style="width: 170px">
 								<option>---SELECT---</option>
@@ -235,6 +239,8 @@
 						<td align="center">Sài gòn</td>
 						<td><center>E1</center></td>
 						<td><center>10</center></td>
+						<td align="center"><input type="text" value="200.000"/></td>
+						<td align="center"><input type="text" /></td>
 						<td align="center"><input type="text" /></td>
 						<td align="center"><select style="width: 170px">
 								<option>---SELECT---</option>
@@ -252,6 +258,8 @@
 						<td align="center">Sài gòn</td>
 						<td><center>E1</center></td>
 						<td><center>10</center></td>
+						<td align="center"><input type="text" value="200.000"/></td>
+						<td align="center"><input type="text" /></td>
 						<td align="center"><input type="text" /></td>
 						<td align="center"><select style="width: 170px">
 								<option>---SELECT---</option>
@@ -269,6 +277,8 @@
 						<td align="center">Sài gòn</td>
 						<td><center>E1</center></td>
 						<td><center>10</center></td>
+						<td align="center"><input type="text" value="200.000"/></td>
+						<td align="center"><input type="text" /></td>
 						<td align="center"><input type="text" /></td>
 						<td align="center"><select style="width: 170px">
 								<option>---SELECT---</option>
@@ -286,6 +296,8 @@
 						<td align="center">Sài gòn</td>
 						<td><center>E1</center></td>
 						<td><center>10</center></td>
+						<td align="center"><input type="text" value="200.000"/></td>
+						<td align="center"><input type="text" /></td>
 						<td align="center"><input type="text" /></td>
 						<td align="center"><select style="width: 170px">
 								<option>---SELECT---</option>
@@ -303,6 +315,8 @@
 						<td align="center">Sài gòn</td>
 						<td><center>E1</center></td>
 						<td><center>10</center></td>
+						<td align="center"><input type="text" value="200.000"/></td>
+						<td align="center"><input type="text" /></td>
 						<td align="center"><input type="text" /></td>
 						<td align="center"><select style="width: 170px">
 								<option>---SELECT---</option>
@@ -316,6 +330,22 @@
 				</tbody>
 			</table>
 		</div>
+		<div id="frmConfirm" title="Lưu giá trị phụ lục">
+			<table cellpadding="3px">
+				<tr>
+					<td>Cước đấu nối hòa mạng: </td><td><span style="font-weight: bold;">3000.000</span></td>
+				</tr>
+				<tr>
+					<td>Giá trị trước thuế: </td><td><span style="font-weight: bold;">3000.000</span></td>
+				</tr>
+				<tr>
+					<td>Giá trị sau thuế: </td><td><span style="font-weight: bold;">3000.000</span></td>
+				</tr>
+			</table>
+			<div style="clear:both; margin-top:5px;">Bạn có muốn lưu giá trị phụ lục này không ?</div>
+			<div style="cleat:both;margin-top:5px;"><input type="radio" value="yes" name="check" class="check">Có</input><input type="radio" value="no" name="check" class="check">Không</input></div>
+			<div style="clear:both;margin-top:5px;">Tên giá trị phụ lục muốn lưu: <input type="text" style="width: 200px"></input></div>
+		</div>
 		<!--end bg_wrapper-->
 	</div>
 	<!-- end top -->
@@ -327,6 +357,9 @@
 function newPopupWindow(file, window, width, height) {
     msgWindow = open(file, window, 'resizable=yes, width=' + width + ', height=' + height + ', titlebar=yes, toolbar=no, scrollbars=yes');
     if (msgWindow.opener == null) msgWindow.opener = self;
+}
+function openPopupChooseTuyenkenh() {
+	window.open('Tim kiem tuyen kenh.html','STK','resizable=yes,scrollbars=yes,menubar=no,toolbar=no,status=no,width=900,height=600,screenX=100,screenY=100,top=100,left=100');
 }
 function doReset() {
 	$("#form")[0].reset(); //Reset form cua jquery, giu lai gia tri mac dinh cua cac field
@@ -348,5 +381,27 @@ $(document).ready(function(){
 		"sPaginationType": "two_button"
 	});
 	$('#divSearch input[title!=""]').hint();
+	
+	$("#frmConfirm").dialog({
+        bgiframe: false,
+        autoOpen: false,
+        height: 250,
+        width: 400,
+        modal: true,
+        draggable: true,
+        resizable: true,
+        buttons: {
+            'Đồng ý':function(){
+            	$(this).dialog('close');
+            },
+            'Thoát':function(){
+                $(this).dialog('close');
+            }
+        },
+        open: function(event, ui) {
+           //$('#form').data('title.dialog', 'new title'); 
+        }
+        
+    });
 });
 </script>

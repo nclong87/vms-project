@@ -21,10 +21,10 @@
 	<table class="input">
 		<tr>
 			<td align="right">Tên tiêu chuẩn :</td>
-			<td><input type="text" name="account.username" id="username" />
+			<td><input type="text" name="account.username" id="username" style="width:214px"/>
 				<font title="Bắt buộc nhập" color="red">*</font></td>
 			<td align="right">Loại tiêu chuẩn :</td>
-			<td><select style="width: 200px">
+			<td><select style="width: 220px">
 					<option value="1">Bắt buộc</option>
 					<option value="0">Tùy chọn</option>
 			</select> <font title="Bắt buộc nhập" color="red">*</font></td>
@@ -32,7 +32,7 @@
 		<tr>
 			<td style="vertical-align: top;" align="right">Mô tả :</td>
 			<td colspan="3"><textarea name="account.username" id="username"
-					style="width: 480px; height: 100px"></textarea> <font
+					style="width: 561px; height: 100px"></textarea> <font
 				title="Bắt buộc nhập" color="red">*</font></td>
 			<td></td>
 			<td></td>
@@ -40,12 +40,9 @@
 		<tr>
 			<td></td>
 			<td colspan="3">
-				<div class="buttonwrapper">
-					<a class="ovalbutton" href="#"><span>Lưu</span></a> <a
-						class="ovalbutton" id="btReset" href="#"><span>Làm lại</span></a>
-					<a class="ovalbutton" id="btThoat" href="#"
-						onclick="window.parent.CloseWindow();"><span>Thoát</span></a>
-				</div>
+				<input type="button" class="button" value="Lưu"></input>
+				<input type="button" class="button" value="Làm lại"></input>
+				<input type="button" class="button" value="Thoát" onclick="window.parent.CloseWindow();"></input>
 			</td>
 		</tr>
 	</table>
