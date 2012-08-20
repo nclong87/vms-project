@@ -127,11 +127,9 @@
 									<tr>
 										<td align="right">Tên công thức :</td>
 										<td><input type="text" name="account.username"
-											id="username" /></td>
+											id="username" style="width:214px" /></td>
 										<td>
-											<div class="buttonwrapper">
-												<a class="ovalbutton" href="#"><span>Tìm kiếm</span></a>
-											</div>
+											<input type="button" class="button" value="Tìm kiếm"></input>
 										</td>
 									</tr>
 								</table>
@@ -142,13 +140,8 @@
 				</div>
 			</div>
 			<div style="clear: both; margin: 5px 0">
-				<div class="buttonwrapper">
-					<a class="ovalbutton" href="#"
-						onclick="ShowWindow('Thêm công thức',500,600,'congthuc/addedit.html',false);"><span>Thêm
-							công thức</span></a> <a class="ovalbutton" href="#"><span>Xóa
-							chọn</span></a>
-				</div>
-
+				<input type="button" class="button" value="Thêm công thức tính cước" onclick="ShowWindow('Thêm công thức tính cước',600,500,'congthuc/addedit.html',false);"></input>
+				<input type="button" class="button" value="Xóa chọn"></input>
 			</div>
 			<table width="100%" id="dataTable" class="display">
 				<thead>

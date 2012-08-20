@@ -126,7 +126,7 @@
 								<table class="input">
 									<tr>
 										<td align="right">Tên hợp đồng :</td>
-										<td><select style="width: 168px">
+										<td><select style="width: 220px">
 												<option value="">---Tất cả---</option>
 												<option value="1">E1</option>
 												<option value="0">HKT</option>
@@ -136,33 +136,31 @@
 										</select></td>
 										<td align="right">Tên phụ lục hợp đồng :</td>
 										<td><input type="text" name="account.username"
-											id="username" /></td>
+											id="username" style="width: 214px"/></td>
 									</tr>
 									<tr>
 										
 										<td align="right">Loại phụ lục :</td>
-										<td><select style="width: 168px">
+										<td><select style="width: 220px">
 												<option value="">---Tất cả---</option>
 												<option value="">Độc lập</option>
 												<option value="">Thay thế</option>
 										</select></td>
 										<td align="right">Cước đấu nối hòa mạng :</td>
-										<td><input type="text" /></td>
+										<td><input type="text" style="width: 214px"/></td>
 									</tr>
 
 									<tr>
 										<td align="right">Ngày ký phục lục :</td>
-										<td><input type="text" /></td>
+										<td><input type="text" style="width: 214px"/></td>
 										<td align="right">Ngày có hiệu lực :</td>
-										<td><input type="text" /></td>
+										<td><input type="text" style="width: 214px" /></td>
 									</tr>
 									<tr height="30px">
 										<td></td>
 										<td colspan="3">
 											<div class="buttonwrapper">
-
-												<a class="ovalbutton" href="#"><span>Tìm kiếm</span></a>
-
+												<input type="button" class="button" value="Tìm kiếm"></input>
 											</div>
 										</td>
 									</tr>
@@ -174,12 +172,10 @@
 				</div>
 			</div>
 			<div style="clear: both; margin: 5px 0">
-				<div class="buttonwrapper">
-					<a class="ovalbutton" href="#"
-						onClick="ShowWindow('Thêm phụ lục hợp đồng',900,600,'phuluchopdong/addedit.html',false);"><span>Thêm
-							phụ lục hợp đồng</span></a> <a class="ovalbutton" href="#"><span>Xóa
-							chọn</span></a>
-
+				<div class="buttonwrapper">	
+					<input type="button" id="btThêm" class="button" value="Thêm phụ lục hợp đồng" onClick="ShowWindow('Thêm phụ lục hợp đồng',1000,600,'phuluchopdong/addedit.html',false);"></input>
+					<input type="button" id="btXóa" class="button" value="Xóa chọn"></input>
+					<input type="button" id="btTinhGiaTriPhuLuc" class="button" value="Tính giá trị phụ lục" onClick="location.href='tinhgiatriphuluc.html'"></input>
 				</div>
 
 			</div>

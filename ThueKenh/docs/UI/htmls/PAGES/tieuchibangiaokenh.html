@@ -127,16 +127,14 @@
 									<tr>
 										<td>Tên tiêu chuẩn :</td>
 										<td><input type="text" name="account.username"
-											id="username" /></td>
+											id="username" style="width:214px" /></td>
 										<td>Loại tiêu chuẩn :</td>
-										<td><select style="width: 200px">
+										<td><select style="width: 220px">
 												<option value="1">Bắt buộc</option>
 												<option value="0">Tùy chọn</option>
 										</select></td>
 										<td>
-											<div class="buttonwrapper">
-												<a class="ovalbutton" href="#"><span>Tìm kiếm</span></a>
-											</div>
+											<input type="button" class="button" value="Tìm kiếm"></input>
 										</td>
 									</tr>
 								</table>
@@ -147,12 +145,8 @@
 				</div>
 			</div>
 			<div style="clear: both; margin: 5px 0">
-				<div class="buttonwrapper">
-					<a class="ovalbutton" href="#"
-						onclick="ShowWindow('Thêm tiêu chuẩn bàn giao kênh',700,600,'tieuchibangiaokenh/addedit.html',false);"><span>Thêm
-							tiêu chuẩn</span></a> <a class="ovalbutton" href="#"><span>Xóa
-							chọn</span></a>
-				</div>
+				<input type="button" class="button" value="Thêm tiêu chuẩn bàn giao kênh" onclick="ShowWindow('Thêm tiêu chuẩn bàn giao kênh',800,600,'tieuchibangiaokenh/addedit.html',false);"></input>
+				<input type="button" class="button" value="Xóa chọn"></input>
 			</div>
 			<table width="100%" id="dataTable" class="display">
 				<thead>

@@ -127,13 +127,13 @@
 									<tr>
 										<td>Tên giao tiếp :</td>
 										<td><input type="text" name="account.username"
-											id="username" /></td>
+											id="username" style="width:214px"/></td>
 										<td>Băng thông :</td>
 										<td><input type="text" name="account.username"
-											id="username" /></td>
+											id="username" style="width:214px"/></td>
 										<td>
 											<div class="buttonwrapper">
-												<a class="ovalbutton" href="#"><span>Tìm kiếm</span></a>
+												<input type="button" class="button" value="Tìm kiếm"></input>
 											</div>
 										</td>
 									</tr>
@@ -145,12 +145,8 @@
 				</div>
 			</div>
 			<div style="clear: both; margin: 5px 0">
-				<div class="buttonwrapper">
-					<a class="ovalbutton" href="#"
-						onclick="ShowWindow('Thêm loại giao tiếp',600,600,'loaigiaotiep/addedit.html',false);"><span>Thêm
-							loại giao tiếp</span></a> <a class="ovalbutton" href="#"><span>Xóa
-							chọn</span></a>
-				</div>
+				<input type="button" class="button" value="Thêm loại giao tiếp" onclick="ShowWindow('Thêm loại giao tiếp',700,600,'loaigiaotiep/addedit.html',false);"></input>
+				<input type="button" class="button" value="Xóa chọn"></input>
 			</div>
 			<table width="100%" id="dataTable" class="display">
 				<thead>
@@ -158,6 +154,7 @@
 						<th width="5px">STT</th>
 						<th width="40%">Tên giao tiếp</th>
 						<th width="30%">Băng thông</th>
+						<th width="30%">Cước cổng</th>
 						<th width="5px">Sửa</th>
 						<th width="5px" align="center"><input type="checkbox"
 							onclick="selectAll(this)" /></th>
@@ -168,6 +165,7 @@
 						<td align="center">1</td>
 						<td>E1</td>
 						<td>1250</td>
+						<td align="right">300.000</td>
 						<td><center>
 							<img title="Edit" src="../images/icons/edit.png"
 								style="cursor: pointer"
@@ -179,6 +177,7 @@
 						<td align="center">1</td>
 						<td>E1</td>
 						<td>1250</td>
+						<td align="right">300.000</td>
 						<td><center>
 							<img title="Edit" src="../images/icons/edit.png"
 								style="cursor: pointer"
@@ -190,6 +189,7 @@
 						<td align="center">1</td>
 						<td>E1</td>
 						<td>1250</td>
+						<td align="right">300.000</td>
 						<td><center>
 							<img title="Edit" src="../images/icons/edit.png"
 								style="cursor: pointer"
@@ -200,7 +200,7 @@
 					<tr>
 						<td align="center">1</td>
 						<td>E1</td>
-						<td>1250</td>
+						<td>1250</td><td align="right">300.000</td>
 						<td><center>
 							<img title="Edit" src="../images/icons/edit.png"
 								style="cursor: pointer"
@@ -211,7 +211,7 @@
 					<tr>
 						<td align="center">1</td>
 						<td>E1</td>
-						<td>1250</td>
+						<td>1250</td><td align="right">300.000</td>
 						<td><center>
 							<img title="Edit" src="../images/icons/edit.png"
 								style="cursor: pointer"
@@ -222,7 +222,7 @@
 					<tr>
 						<td align="center">1</td>
 						<td>E1</td>
-						<td>1250</td>
+						<td>1250</td><td align="right">300.000</td>
 						<td><center>
 							<img title="Edit" src="../images/icons/edit.png"
 								style="cursor: pointer"
@@ -233,7 +233,7 @@
 					<tr>
 						<td align="center">1</td>
 						<td>E1</td>
-						<td>1250</td>
+						<td>1250</td><td align="right">300.000</td>
 						<td><center>
 							<img title="Edit" src="../images/icons/edit.png"
 								style="cursor: pointer"

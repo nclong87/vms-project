@@ -127,14 +127,12 @@
 									<tr>
 										<td align="right">Tên dự án :</td>
 										<td><input type="text" name="account.username"
-											id="username" /></td>
+											id="username" style="width:214px"/></td>
 										<td align="right">Giảm giá :</td>
 										<td><input type="text" name="account.username"
-											id="username" /></td>
+											id="username" style="width:214px"/></td>
 										<td>
-											<div class="buttonwrapper">
-												<a class="ovalbutton" href="#"><span>Tìm kiếm</span></a>
-											</div>
+											<input type="button" class="button" value="Tìm kiếm"></input>
 										</td>
 									</tr>
 								</table>
@@ -145,11 +143,8 @@
 				</div>
 			</div>
 			<div style="clear: both; margin: 5px 0">
-				<div class="buttonwrapper">
-					<a class="ovalbutton" href="#"
-						onclick="ShowWindow('Thêm dự án',650,600,'duan/addedit.html',false);"><span>Thêm
-							dự án</span></a> <a class="ovalbutton" href="#"><span>Xóa chọn</span></a>
-				</div>
+				<input type="button" class="button" value="Thêm dự án" onclick="ShowWindow('Thêm dự án',650,600,'duan/addedit.html',false);"></input>
+				<input type="button" class="button" value="Xóa chọn"></input>
 			</div>
 			<table width="100%" id="dataTable" class="display">
 				<thead>
