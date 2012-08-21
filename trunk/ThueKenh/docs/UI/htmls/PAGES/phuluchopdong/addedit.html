@@ -7,6 +7,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
 <link rel="stylesheet" href="../../css/addedit.css" type="text/css"
 	media="screen" />
+
+<link rel="stylesheet" href="../../js/dropdown-check-list.1.4/css/ui.dropdownchecklist.themeroller.css" type="text/css"
+	media="screen" />
+<link rel="stylesheet" href="../../css/jquery-ui.css" type="text/css"
+	media="screen" />
 <!--Internet Explorer Trancparency fix-->
 <!--[if IE 6]>
         <script src="/js/ie6pngfix.js"></script>
@@ -16,6 +21,7 @@
         <![endif]-->
  <script type='text/javascript' src='../../js/jquery.js'></script>
  <script type='text/javascript' src='../../js/jquery-ui.js'></script>
+ <script type='text/javascript' src='../../js/dropdown-check-list.1.4/js/ui.dropdownchecklist-1.4-min.js'></script>
 </head>
 
 <body>
@@ -33,11 +39,22 @@
 		</tr>
 		<tr>
 			<td align="right">Loại phụ lục :</td>
-			<td><select style="width: 220px">
+			<td>
+				<select style="width: 220px" id="LoaiPhuLuc">
 					<option value="">---SELECT---</option>
-					<option value="">Độc lập</option>
-					<option value="">Thay thế</option>
-			</select> <font title="Bắt buộc nhập" color="red">*</font></td>
+					<option value="dl">Độc lập</option>
+					<option value="tt">Thay thế</option>
+				</select> <font title="Bắt buộc nhập" color="red">*</font>
+				<div style="clear:both;margin-top:5px"></div>
+				<select style="width: 220px" id="selectPLHD" multiple="multiple">
+					<option value="">Phụ lục 1</option>
+					<option value="">Phụ lục 2</option>
+					<option value="">Phụ lục 3</option>
+					<option value="">Phụ lục 4</option>
+					<option value="">Phụ lục 5</option>
+					<option value="">Phụ lục 6</option>
+				</select>
+			</td>
 			<td align="right">Cước đấu nối hòa mạng :</td>
 			<td><input type="text" style="width: 214px"/><font title="Bắt buộc nhập" color="red">*</font></td>
 		</tr>
@@ -167,4 +184,18 @@ function doReset() {
 function openPopupChooseTuyenkenh() {
 	window.open('timkiemgiatriphuluc.html','STK','resizable=yes,scrollbars=yes,menubar=no,toolbar=no,status=no,width=900,height=500,screenX=100,screenY=100,top=100,left=100');
 }
+$(document).ready(function(){
+	$("#selectPLHD").dropdownchecklist( {icon: {}, width: 214 } ); 
+	$("#ddcl-selectPLHD").hide();
+	$("#LoaiPhuLuc").change(function(){
+		if($(this).val()=="tt")
+		{
+			$("#ddcl-selectPLHD").show();
+		}
+		else
+		{
+			$("#ddcl-selectPLHD").hide();
+		}
+	});
+});
 </script>
