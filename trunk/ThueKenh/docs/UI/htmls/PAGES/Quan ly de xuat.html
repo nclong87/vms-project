@@ -86,20 +86,18 @@
 			<h1 class="logo">
 				<a href="#">flexy - adjustable admin skin</a>
 			</h1>
-
 			<div class="head_memberinfo">
-				<div class="head_memberinfo_logo">
-					<span>1</span> <img src="../images/unreadmail.png" alt="" />
-				</div>
-
-				<span class='memberinfo_span'> Welcome <a href="#">Admin</a>
-				</span> <span class='memberinfo_span'> <a href="#">Settings</a>
-				</span> <span> <a href="${doLogoutURL}">Logout</a>
-				</span> <span class='memberinfo_span2'> <a href="#">1 Private
-						Message recieved</a>
+				<span class='memberinfo_span'>
+					 Welcome <a href="#">Admin</a>
+				</span>
+				
+				<span class='memberinfo_span'>
+					<a href="#">Settings</a>
+				</span>
+				<span>
+					<a href="${doLogoutURL}">Logout</a>
 				</span>
 			</div>
-			<!--end head_memberinfo-->
 		</div>
 		<!--end head-->
 		<ul class="sf-menu"></ul>
@@ -146,11 +144,8 @@
 									</tr>
 									<tr>
 										<td></td>
-										<td colspan="3">
-											<div class="buttonwrapper">
-												<a class="ovalbutton" id="btSearch" href="#"><span>Tìm
-														kiếm</span></a>
-											</div>
+										<td colspan="3" align="left">
+											<input class="button" id="btSearch" type="button" value="Tìm Kiếm"/>
 										</td>
 									</tr>
 
@@ -166,10 +161,8 @@
 				</div>
 			</div>
 			<div style="clear: both; margin: 5px 0">
-				<div class="buttonwrapper">
-					<a class="ovalbutton" id="btThem" href="#"><span>Thêm
-							văn bản</span></a> <a class="ovalbutton" id="btXoa" href="#"><span>Xóa</span></a>
-				</div>
+				<input class="button" id="btThem" type="button" value="Thêm văn bản đề xuất"/>
+				<input class="button" id="btXoa" type="button" value="Xóa"/>
 			</div>
 			<table width="100%" id="dataTable" class="display">
 				<thead>

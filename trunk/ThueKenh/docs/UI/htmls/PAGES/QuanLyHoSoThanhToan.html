@@ -84,19 +84,19 @@
 
 		<div id="head">
 			<h1 class="logo">
-				<a href="#">flexy - adjustable admin skin</a>
+				<a href="#"></a>
 			</h1>
 
 			<div class="head_memberinfo">
-				<div class="head_memberinfo_logo">
-					<span>1</span> <img src="../images/unreadmail.png" alt="" />
-				</div>
-
-				<span class='memberinfo_span'> Welcome <a href="#">Admin</a>
-				</span> <span class='memberinfo_span'> <a href="#">Settings</a>
-				</span> <span> <a href="${doLogoutURL}">Logout</a>
-				</span> <span class='memberinfo_span2'> <a href="#">1 Private
-						Message recieved</a>
+				<span class='memberinfo_span'>
+					 Welcome <a href="#">Admin</a>
+				</span>
+				
+				<span class='memberinfo_span'>
+					<a href="#">Settings</a>
+				</span>
+				<span>
+					<a href="${doLogoutURL}">Logout</a>
 				</span>
 			</div>
 			<!--end head_memberinfo-->
@@ -144,11 +144,12 @@
 									<tr>
 										<td align="right" width="150px">
 											Trạng thái hồ sơ :
-										</td>z
+										</td>
 										<td align="left">
 											<select>
 												<option value="">-- Tình trạng hồ sơ --</option>
-												<option value="">Chưa thanh toán</option>
+												<option value="">Vừa nhập</option>
+												<option value="">Đã có số hồ sơ</option>
 												<option value="">Đã thanh toán</option>
 											</select>
 										</td>
@@ -157,9 +158,7 @@
 									<tfoot>
 										<td></td>
 										<td align="left">
-											<div class="buttonwrapper" style="width:90px">
-											<a class="ovalbutton" id="btSearch" href="#"><span>Tìm kiếm</span></a>
-											</div>
+											<input class="button" id="btSearch" type="button" value="Tìm Kiếm"/>
 										</td>
 									</tfoot>
 								</table>
@@ -175,9 +174,8 @@
 				</div>
 			</div>
 			<div style="clear: both; margin: 5px 0">
-				<div class="buttonwrapper">
-					<a class="ovalbutton" id="btThem" href="#"><span>Thêm hồ sơ</span></a> <a class="ovalbutton" id="btXoa" href="#"><span>Xóa</span></a>
-				</div>
+				<input class="button" id="btThem" type="button" value="Thêm hồ sơ thanh toán"/>
+				<input class="button" id="btXoa" type="button" value="Xóa"/>
 			</div>
 			<table width="100%" id="dataTable" class="display">
 				<thead>
@@ -211,13 +209,12 @@
 					</tr>
 					<tr>
 						<td>2</td>
-						<td align="left"><a href="thanhtoan/chitiet.html"
-							title="Xem chi tiết hồ sơ này" class="link" target="_blank">HSTT_20120820</a></td>
+						<td align="left"></td>
 						<td>20/08/2012</td>
 						<td>-</td>
 						<td>-</td>
 						<td>165.500.000</td>
-						<td>Chưa thanh toán</td>
+						<td>Vừa nhập</td>
 						<td><center>
 							<img title="Edit" src="../images/icons/edit.png"
 								onclick="doEdit()" style="cursor: pointer"></center></td>
@@ -232,7 +229,7 @@
 						<td>-</td>
 						<td>-</td>
 						<td>165.500.000</td>
-						<td>Chưa thanh toán</td>
+						<td>Đã có số HS</td>
 						<td><center>
 							<img title="Edit" src="../images/icons/edit.png"
 								onclick="doEdit()" style="cursor: pointer"></center></td>
@@ -247,7 +244,7 @@
 						<td>-</td>
 						<td>-</td>
 						<td>165.500.000</td>
-						<td>Chưa thanh toán</td>
+						<td>Đã có số HS</td>
 						<td><center>
 							<img title="Edit" src="../images/icons/edit.png"
 								onclick="doEdit()" style="cursor: pointer"></center></td>
@@ -276,11 +273,11 @@ function selectAll(_this) {
 	});
 }
 function doEdit() {
-	ShowWindow('Cập nhật biên bản bàn giao',800,600,'bangiao/addedit.html',false);
+	ShowWindow('Cập nhật hồ sơ thanh toán',850,600,'thanhtoan/addedit.html',false);
 }
 $(document).ready(function(){	 
 	$("#btThem").click(function(){
-		ShowWindow('Thêm mới biên bản bàn giao',800,600,'bangiao/addedit.html',false);
+		ShowWindow('Thêm mới hồ sơ thanh toán',850,600,'thanhtoan/addedit.html',false);
 	});
 	$('ul.sf-menu').load("menu.html");
 	$('ul.sf-menu').superfish();

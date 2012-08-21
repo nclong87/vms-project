@@ -25,169 +25,147 @@
 	<div style="background: none repeat scroll 0pt 0pt rgb(242, 242, 242); padding: 5px; width: 99%;">
 		<table class="input" style="width:800px">
 		<tr>
-			<td align="right" width="170px"><label for="xxxx">Số hồ sơ <font title="Bắt buộc nhập" color="red">*</font> :</label></td>
+			<td align="right" width="150px"><label for="xxxx">Số hồ sơ :</label></td>
 			<td align="left">
-				<input class="field" type="text" name="vanban.tenvanban" id="username"/>
+				<input  type="text" name="vanban.tenvanban" id="username"/>
 			</td>
-			<td align="right" width="110px"><label for="xxxx">File scan <font title="Bắt buộc nhập" color="red">*</font> :</label></td>
+			<td align="right" width="110px"><label for="xxxx">File scan :</label></td>
 			<td align="left">
 				<input type="file" name="vanban.ngaygui" id="ngaygui"/>
 			</td>
 		</tr>
 		<tr>
-			<td align="right" ><label for="xxxx">Đối tác <font title="Bắt buộc nhập" color="red">*</font> :</label></td>
+			<td align="right" ><label for="xxxx">Ngày chuyển kế toán :</label></td>
 			<td align="left" >
-				<select class="field">
-					<option value="">Chọn đối tác</option>
-					<option value="1">Viễn thông Ninh Thuận</option>
-					<option value="2">Viễn thông Vũng Tàu</option>
-					<option value="3">Viễn thông Đồng Nai</option>
-					<option value="4">....</option>
-				</select>
+				<input  type="text" name="vanban.tenvanban" id="username"/>
 			</td>
-			<td align="right" ><label for="xxxx">File scan <font title="Bắt buộc nhập" color="red">*</font> :</label></td>
-			<td align="left">
-				<input class="field" type="file" name="vanban.filescan" id="filescan"/>
+			<td align="right" ><label for="xxxx">Số tiền giảm trừ :</label></td>
+			<td align="left" >
+				<input  type="text" name="vanban.tenvanban" id="username"/>
 			</td>
 		</tr>
 		<tr>
-			<td align="right" ><label for="xxxx">Ngày đề nghị bàn giao <font title="Bắt buộc nhập" color="red">*</font> :</label></td>
+			<td align="right" ><label for="xxxx">Giá trị thanh toán <font title="Bắt buộc nhập" color="red">*</font> :</label></td>
 			<td align="left">
-				<input class="field" type="text" name="vanban.ngaydenghibangiao" id="ngaydenghibangiao"/>
-			</td>
-			<td align="right" ><label for="xxxx">Thông tin thêm :</label></td>
-			<td align="left">
-				<textarea rows="2" style="width:150px"></textarea>
+				<input  type="text" name="vanban.ngaydenghibangiao" id="ngaydenghibangiao"/>
 			</td>
 		</tr>
 		</table>
 		<div style="width: 100%; margin-top: 10px;">
 		<fieldset class="data_list">
-			<legend>Danh sách tuyến kênh thuộc văn bản đề xuất</legend>
-			<div style="width: 100%; padding-bottom: 5px;text-align: right;"><input class="button" type="button" value="Chọn tuyến kênh" onclick="openPopupChooseTuyenkenh()"></div>
-			<table width="100%" id="dataTable" class="display">
+			<legend>Danh sách hợp đồng</legend>
+			<div style="width: 100%; padding-bottom: 5px;text-align: right;"><input class="button" type="button" value="Chọn hợp đồng" onclick="openPopupChonHopDong()"></div>
+			<table width="100%" id="dataTable1" class="display dataTable">
 			<thead>
 				<tr>
 					<th width="5%">#</th>
-					<th>Mã điểm đầu</th>
-					<th>Mã điểm cuối</th>
-					<th width="10px">Giao tiếp</th>
-					<th width="10px">Số lượng</th>
-					<th width="10px">Dự án</th>
-					<th width="10px">User nhập</th>
-					<th width="50px">Ngày nhập</th>
+					<th>Số hợp đồng</th>
+					<th>Loại hợp đồng</th>
+					<th>Đối tác</th>
+					<th>Ngày ký</th>
+					<th>Ngày hết hạn</th>
 					<th width="5px" align="center">Xóa</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr>
 					<td>1</td>
-					<td>D1</td>
-					<td>D2</td>
-					<td>E1</td>
-					<td>2</td>
-					<td>DA1</td>
-					<td>NCLONG</td>
-					<td>04/03/2012 10:22</td>
+					<td><a href="../hopdong/chitiethopdong.html" target="_blank">HD_A_123456</a></td>
+					<td>Có thời hạn</td>
+					<td>A</td>
+					<td>07/08/2011</td>
+					<td>07/08/2012</td>
 					<td><center><img title="Remove" src="../../images/icons/remove.png" onclick="doRemoveRow()" style="cursor:pointer"></center></td>
 				</tr>
 				<tr>
 					<td>2</td>
-					<td>D1</td>
-					<td>D2</td>
-					<td>E1</td>
-					<td>2</td>
-					<td>DA1</td>
-					<td>NCLONG</td>
-					<td>04/03/2012 10:22</td>
+					<td><a href="../hopdong/chitiethopdong.html" target="_blank">HD_A_123456</a></td>
+					<td>Có thời hạn</td>
+					<td>A</td>
+					<td>07/08/2011</td>
+					<td>07/08/2012</td>
 					<td><center><img title="Remove" src="../../images/icons/remove.png" onclick="doRemoveRow()" style="cursor:pointer"></center></td>
 				</tr>
 				<tr>
 					<td>3</td>
-					<td>D1</td>
-					<td>D2</td>
-					<td>E1</td>
-					<td>2</td>
-					<td>DA1</td>
-					<td>NCLONG</td>
+					<td><a href="../hopdong/chitiethopdong.html" target="_blank">HD_A_123456</a></td>
+					<td>Có thời hạn</td>
+					<td>A</td>
+					<td>07/08/2011</td>
+					<td>07/08/2012</td>
+					<td><center><img title="Remove" src="../../images/icons/remove.png" onclick="doRemoveRow()" style="cursor:pointer"></center></td>
+				</tr>
+			</tbody>
+			</table>
+		</fieldset>
+		<fieldset class="data_list" style="margin-top:10px">
+			<legend>Danh sách sự cố giảm trừ</legend>
+			<div style="width: 100%; padding-bottom: 5px;text-align: right;"><input class="button" type="button" value="Chọn sự cố giảm trừ" onclick="openPopupChonSuCo()"></div>
+			<table width="100%" id="dataTable2" class="display dataTable">
+			<thead>
+				<tr>
+					<th width="5%">#</th>
+					<th>Mã kênh</th>
+					<th>TG bắt đầu</th>
+					<th>TG kết thúc</th>
+					<th>TG mất liên lạc</th>
+					<th>Người xác nhận</th>
+					<th width="5px" align="center">Xóa</th>
+				</tr>
+			</thead>
+			<tbody id="tbody">
+				<tr>
+					<td>1</td>
+					<td><a target="_blank" href="../tuyenkenh/Chi tiet tuyen kenh.html">123</a></td>
 					<td>04/03/2012 10:22</td>
+					<td>04/03/2012 12:22</td>
+					<td>2h</td>
+					<td>NCLONG</td>
+					<td><center><img title="Remove" src="../../images/icons/remove.png" onclick="doRemoveRow()" style="cursor:pointer"></center></td>
+				</tr>
+				<tr>
+					<td>2</td>
+					<td><a target="_blank" href="../tuyenkenh/Chi tiet tuyen kenh.html">123</a></td>
+					<td>04/03/2012 10:22</td>
+					<td>04/03/2012 12:22</td>
+					<td>2h</td>
+					<td>NCLONG</td>
+					<td><center><img title="Remove" src="../../images/icons/remove.png" onclick="doRemoveRow()" style="cursor:pointer"></center></td>
+				</tr>
+				<tr>
+					<td>3</td>
+					<td><a target="_blank" href="../tuyenkenh/Chi tiet tuyen kenh.html">123</a></td>
+					<td>04/03/2012 10:22</td>
+					<td>04/03/2012 12:22</td>
+					<td>2h</td>
+					<td>NCLONG</td>
 					<td><center><img title="Remove" src="../../images/icons/remove.png" onclick="doRemoveRow()" style="cursor:pointer"></center></td>
 				</tr>
 				<tr>
 					<td>4</td>
-					<td>D1</td>
-					<td>D2</td>
-					<td>E1</td>
-					<td>2</td>
-					<td>DA1</td>
-					<td>NCLONG</td>
+					<td><a target="_blank" href="../tuyenkenh/Chi tiet tuyen kenh.html">123</a></td>
 					<td>04/03/2012 10:22</td>
+					<td>04/03/2012 12:22</td>
+					<td>2h</td>
+					<td>NCLONG</td>
 					<td><center><img title="Remove" src="../../images/icons/remove.png" onclick="doRemoveRow()" style="cursor:pointer"></center></td>
 				</tr>
 				<tr>
 					<td>5</td>
-					<td>D1</td>
-					<td>D2</td>
-					<td>E1</td>
-					<td>2</td>
-					<td>DA1</td>
-					<td>NCLONG</td>
+					<td><a target="_blank" href="../tuyenkenh/Chi tiet tuyen kenh.html">123</a></td>
 					<td>04/03/2012 10:22</td>
+					<td>04/03/2012 12:22</td>
+					<td>2h</td>
+					<td>NCLONG</td>
 					<td><center><img title="Remove" src="../../images/icons/remove.png" onclick="doRemoveRow()" style="cursor:pointer"></center></td>
 				</tr>
 				<tr>
 					<td>6</td>
-					<td>D1</td>
-					<td>D2</td>
-					<td>E1</td>
-					<td>2</td>
-					<td>DA1</td>
-					<td>NCLONG</td>
+					<td><a target="_blank" href="../tuyenkenh/Chi tiet tuyen kenh.html">123</a></td>
 					<td>04/03/2012 10:22</td>
-					<td><center><img title="Remove" src="../../images/icons/remove.png" onclick="doRemoveRow()" style="cursor:pointer"></center></td>
-				</tr>
-				<tr>
-					<td>7</td>
-					<td>D1</td>
-					<td>D2</td>
-					<td>E1</td>
-					<td>2</td>
-					<td>DA1</td>
+					<td>04/03/2012 12:22</td>
+					<td>2h</td>
 					<td>NCLONG</td>
-					<td>04/03/2012 10:22</td>
-					<td><center><img title="Remove" src="../../images/icons/remove.png" onclick="doRemoveRow()" style="cursor:pointer"></center></td>
-				</tr>
-				<tr>
-					<td>8</td>
-					<td>D1</td>
-					<td>D2</td>
-					<td>E1</td>
-					<td>2</td>
-					<td>DA1</td>
-					<td>NCLONG</td>
-					<td>04/03/2012 10:22</td>
-					<td><center><img title="Remove" src="../../images/icons/remove.png" onclick="doRemoveRow()" style="cursor:pointer"></center></td>
-				</tr>
-				<tr>
-					<td>9</td>
-					<td>D1</td>
-					<td>D2</td>
-					<td>E1</td>
-					<td>2</td>
-					<td>DA1</td>
-					<td>NCLONG</td>
-					<td>04/03/2012 10:22</td>
-					<td><center><img title="Remove" src="../../images/icons/remove.png" onclick="doRemoveRow()" style="cursor:pointer"></center></td>
-				</tr>
-				<tr>
-					<td>10</td>
-					<td>D1</td>
-					<td>D2</td>
-					<td>E1</td>
-					<td>2</td>
-					<td>DA1</td>
-					<td>NCLONG</td>
-					<td>04/03/2012 10:22</td>
 					<td><center><img title="Remove" src="../../images/icons/remove.png" onclick="doRemoveRow()" style="cursor:pointer"></center></td>
 				</tr>
 			</tbody>
@@ -208,8 +186,11 @@ function doReset() {
 	$("#form")[0].reset(); //Reset form cua jquery, giu lai gia tri mac dinh cua cac field
 	byId("msg").innerHTML="";
 }
-function openPopupChooseTuyenkenh() {
-	window.open('../Tim kiem tuyen kenh.html','STK','resizable=yes,scrollbars=yes,menubar=no,toolbar=no,status=no,width=900,height=600,screenX=100,screenY=100,top=100,left=100');
+function openPopupChonHopDong() {
+	window.open('../hopdong/timkiemhopdong.html','TKHD','resizable=yes,scrollbars=yes,menubar=no,toolbar=no,status=no,width=900,height=600,screenX=100,screenY=100,top=100,left=100');
+}
+function openPopupChonSuCo() {
+	window.open('../popup_timsuco.html','TKSC','resizable=yes,scrollbars=yes,menubar=no,toolbar=no,status=no,width=900,height=600,screenX=100,screenY=100,top=100,left=100');
 }
 $(document).ready(function(){	 
 	$("#btThoat").click(function() {
@@ -218,14 +199,15 @@ $(document).ready(function(){
 	$("#btReset").click(function() {
 		doReset();
 	});
-	oTable = $('#dataTable').dataTable({
+	oTable = $('.dataTable').dataTable({
 		"bJQueryUI": true,
 		"bProcessing": true,
 		"sScrollY": "200px",
 		"bScrollCollapse": true,
 		"bAutoWidth": false,
 		"bSort":false,
-		"sPaginationType": "two_button"
+		"bFilter": false,"bInfo": false,
+		"bPaginate" : false
 	});
 });
 </script>
