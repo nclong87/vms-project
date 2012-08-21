@@ -16,7 +16,7 @@ String contextPath = request.getContextPath();
 	<script type="text/javascript" src="<%= contextPath %>/js/mylibs/my.validate.js"></script>
 <style>
 .td_label {
-width:130px;
+width:135px;
 height: 30px;
 overflow: hidden;
 }
@@ -31,6 +31,7 @@ input.error,select.error,textarea.error {
 border: 1px solid red;
 }
 </style>
+
 </head>
 <body>
 	<%@include file="/include/top-nologo.jsp"%>
@@ -39,9 +40,9 @@ border: 1px solid red;
 		<div style="width:99%">
 			<fieldset class="form">
 				<legend id="title"></legend>
-				<form id="form" method="post" action="${doSaveURL}" onsubmit="return false">
+				<form id="form" method="post" action="${doSaveURL}" onsubmit="return false;">
 				<input type="text" style="display:none" name="user.id" id="id"/>
-				<table width="350px" style="float:left">
+				<table width="370px" style="float:left">
 					<tr>
 						<td colspan='2' align="left">
 						<s:if test='message != null'>
@@ -68,15 +69,17 @@ border: 1px solid red;
 						</td>
 					</tr>
 					<tr>
-						<td class="td_label">Mật khẩu :</td>
+						<td class="td_label">Mật khẩu <span class="required" title="Yêu cầu nhập">*</span> :</td>
 						<td>
 							<input type="password" class="field" name="user.password" id="password"/>
+							<label style="display:none" for="user.password" generated="false" class="error"></label>
 						</td>
 					</tr>
 					<tr>
-						<td class="td_label">Xác nhận mật khẩu :</td>
+						<td class="td_label">Xác nhận mật khẩu <span class="required" title="Yêu cầu nhập">*</span>:</td>
 						<td>
-							<input type="password" class="field" name="" id="re-password"/>
+							<input type="password" class="field" name="user.re-password" id="re-password"/>
+							<label style="display:none" for="user.re-password" generated="false" class="error"></label>
 						</td>
 					</tr>
 					<tr>
@@ -147,6 +150,7 @@ function loadContent(url) {
 	location.href = contextPath + url;
 }
 $(document).ready(function(){	 
+	
 	$("#form").validate({
 		onkeyup: false,
 		onfocusout:false,
@@ -154,14 +158,64 @@ $(document).ready(function(){
 			"user.username": {
 				required: true,
 				regex : '^[a-zA-Z0-9]+([a-zA-Z0-9](_|-| )[a-zA-Z0-9])*[a-zA-Z0-9]+$',
-				uniqueUserName : true
+				uniqueUserName : true,
+				minlength: 6,
+	            maxlength: 25
+			},
+			"user.password": {
+				required: true,
+				regex : '^[a-zA-Z0-9]+([a-zA-Z0-9](_|-| )[a-zA-Z0-9])*[a-zA-Z0-9]+$',
+				minlength: 6,
+	            maxlength: 255
+			},
+			"user.re-password": {
+				required: true,
+				regex : '^[a-zA-Z0-9]+([a-zA-Z0-9](_|-| )[a-zA-Z0-9])*[a-zA-Z0-9]+$',
+				equalTo:'#password'
+			},
+			"user.idphongban": {
+				required: function(element) {
+	                return $("#idphongban").val() == '';
+	            }
+			},
+			"user.idgroup": {
+				required: function(element) {
+	                return $("#idgroup").val() == '';
+	            }
+			},
+			"user.idkhuvuc": {
+				required: function(element) {
+	                return $("#idkhuvuc").val() == '';
+	            }
 			}
 		},
 		messages: {
 			"user.username": {
 				required: "Vui lòng nhập username",
 				regex : "Tên đăng nhập chỉ bao gồm các ký tự từ A-z, 0-9 và các ký tự -",
-				uniqueUserName : "Username này đã được sử dụng, vui lòng chọn username khác!"
+				uniqueUserName : "Username này đã được sử dụng, vui lòng chọn username khác!",
+				minlength: "Tên đăng nhập ít nhất là 6 kí tự",
+	            maxlength: "Tên đăng nhập ít nhất là 25 kí tự",
+			},
+			"user.password": {
+				required: "Vui lòng nhập mật khẩu",
+				regex : "Mật khẩu chỉ bao gồm các ký tự từ A-z, 0-9 và các ký tự -",
+				minlength: "Mật khẩu ít nhất là 6 kí tự",
+	            maxlength: "Mật khẩu ít nhất là 25 kí tự",
+			},
+			"user.re-password": {
+				required: "Vui lòng nhập mật khẩu",
+				equalTo:'Xác nhận mật khẩu không đúng'
+			},
+			"user.idphongban": {
+				required: "",
+			}
+			,
+			"user.idgroup": {
+				required: "",
+			},
+			"user.idkhuvuc": {
+				required: "",
 			}
 		}
 	});

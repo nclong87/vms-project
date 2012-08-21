@@ -25,8 +25,21 @@ String contextPath = request.getContextPath();
 	<link rel="stylesheet" href="<%= request.getContextPath() %>/js/jquery-window-5.03/css/jquery.window.css" type="text/css" media="screen" />
 	
 	<script>
-	function doEdit(link) {
+	function doNew(link) {
 		ShowWindow('Thêm tài khoản mới',800,400,link,false);
+	}
+	function doEdit(link) {
+		ShowWindow('Cập nhật tài khoản',800,400,link,false);
+	}
+	function hasChecked(){
+		var lstCheckbox=$('#dataTable input[type=checkbox]');
+		for(i=0;i<lstCheckbox.length;i++){
+			if("checked"==$(lstCheckbox[i]).attr("checked")){
+				return true;
+			}
+		}
+		alert("Không có đối tượng nào được chọn");
+		return false;
 	}
 
 	</script>
@@ -48,7 +61,7 @@ margin-left: 10px;
 				<legend>Quản lý tài khoản</legend>
 				<div style="float:right">
 				<a class="admin_icon" title="Thêm mới" href="#">
-					<img alt="Add" onclick="doEdit('${formURL}')" src="<%=contextPath%>/images/icons/add_32.png"/>
+					<img alt="Add" onclick="doNew('${formURL}')" src="<%=contextPath%>/images/icons/add_32.png"/>
 					<span>Thêm mới</span>
 				</a>
 				<a class="admin_icon" title="Mở khóa" id="btUnlock">
@@ -136,6 +149,8 @@ function doSearch() {
 	oTable.fnFilter(dat);
 }
 function doLock(flag) {
+	if(hasChecked()==false)
+		return;
 	var dataString = '&active='+flag;
 	$('#dataTable input[type=checkbox]').each(function(){
 		if(this.checked==true) {
@@ -143,6 +158,7 @@ function doLock(flag) {
 				dataString+='&ids='+this.value;
 		}
 	});
+	
 	if(dataString=='') {
 		alert('Bạn chưa chọn dòng để khóa / mở khóa!');
 		return;
@@ -237,7 +253,7 @@ $(document).ready(function(){
 					},
 					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,
 						"fnRender": function( oObj ) {
-							return '<center><a class="edit_icon" title="Edit" href="${formURL}?id='+oObj.aData.id+'"></a></center>'; 
+							return '<center><a class="edit_icon" onclick="doEdit(\'${formURL}?id='+oObj.aData.id+'\')" title="Edit" href="#"></a></center>'; 
 						}
 					},
 					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,
