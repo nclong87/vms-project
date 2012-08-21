@@ -115,10 +115,8 @@
 									</tr>
 									<tr>
 										<td></td>
-										<td colspan="3">
-											<div class="buttonwrapper">
-											<a class="ovalbutton" id="btSearch" href="#"><span>Tìm kiếm</span></a>
-											</div>
+										<td colspan="3" align="left">
+											<input class="button" id="btSearch" type="button" value="Tìm Kiếm"/>
 										</td>
 									</tr>	
 									
@@ -132,10 +130,8 @@
 					<div style="height: 1px;"><img alt="" style="height: 1px;" src="App_Themes/Normal/Images/spacer.gif"></div>
 				</div>
 				<div style="clear:both;margin:5px 0 ">
-				<div class="buttonwrapper">
-				<a class="ovalbutton" id="btThem" href="#"><span>Thêm biên bản</span></a>
-				<a class="ovalbutton" id="btXoa" href="#"><span>Xóa</span></a>
-				</div>
+					<input class="button" id="btThem" type="button" value="Thêm biên bản vận hành kênh"/>
+					<input class="button" id="btXoa" type="button" value="Xóa"/>
 				</div>
 				<table width="100%" id="dataTable" class="display">
 				<thead>
@@ -197,11 +193,11 @@ function selectAll(_this) {
 	});
 }
 function doEdit() {
-	ShowWindow('Cập nhật biên bản vận hành kênh',650,500,'vanhanh/addedit.html',false);
+	ShowWindow('Cập nhật biên bản vận hành kênh',750,500,'vanhanh/addedit.html',false);
 }
 $(document).ready(function(){	 
 	$("#btThem").click(function(){
-		ShowWindow('Thêm mới biên bản vận hành kênh',650,500,'vanhanh/addedit.html',false);
+		ShowWindow('Thêm mới biên bản vận hành kênh',750,500,'vanhanh/addedit.html',false);
 	});
 	$('ul.sf-menu').load("menu.html");
 	$('ul.sf-menu').superfish();

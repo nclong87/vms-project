@@ -142,10 +142,9 @@ function ShowWindow(_title, _width, _height, _url, _scrollable) {
             height:_height,
             showModal: true,
             resizable: true,
-            scrollable: true,
             minimizable: true,
             bookmarkable: false,
-            scrollable:_scrollable,
+            scrollable:true,
             onClose: function () {
                 status = "closing";
                 oTable.fnDraw(false);
