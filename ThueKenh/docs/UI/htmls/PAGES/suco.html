@@ -86,20 +86,18 @@
 			<h1 class="logo">
 				<a href="#">flexy - adjustable admin skin</a>
 			</h1>
-
 			<div class="head_memberinfo">
-				<div class="head_memberinfo_logo">
-					<span>1</span> <img src="../images/unreadmail.png" alt="" />
-				</div>
-
-				<span class='memberinfo_span'> Welcome <a href="#">Admin</a>
-				</span> <span class='memberinfo_span'> <a href="#">Settings</a>
-				</span> <span> <a href="${doLogoutURL}">Logout</a>
-				</span> <span class='memberinfo_span2'> <a href="#">1 Private
-						Message recieved</a>
+				<span class='memberinfo_span'>
+					 Welcome <a href="#">Admin</a>
+				</span>
+				
+				<span class='memberinfo_span'>
+					<a href="#">Settings</a>
+				</span>
+				<span>
+					<a href="${doLogoutURL}">Logout</a>
 				</span>
 			</div>
-			<!--end head_memberinfo-->
 		</div>
 		<!--end head-->
 		<ul class="sf-menu">
@@ -192,9 +190,11 @@
 					<tr>
 						<th width="5px">STT</th>
 						<th width="50px">Mã tuyến kênh</th>
-						<th width="50px">Điểm đầu</th>
-						<th width="50px">Điểm cuối</th>
-						<th width="50px">Dung lượng</th>
+						<th>Mã điểm đầu</th>
+						<th>Mã điểm cuối</th>
+						<th>Giao tiếp</th>
+						<th>Dung lượng</th>
+						<th>Số lượng</th>
 						<th width="100px">Thời gian bắt đầu</th>
 						<th width="100px">Thời gian kết thúc</th>
 						<th width="100px">Thời gian mất liên lạc</th>
@@ -212,10 +212,12 @@
 				<tbody>
 					<tr>
 						<td align="center">1</td>
-						<td align="center">A1</td>
-						<td align="center">Vũng Tàu</td>
-						<td align="center">Đồng Nai</td>
+						<td><a target="_blank" href="tuyenkenh/Chi tiet tuyen kenh.html">123</a></td>
+						<td align="center">D1</td>
+						<td align="center">D2</td>
+						<td align="center">E1</td>
 						<td align="center">3Mb</td>
+						<td align="center">3</td>
 						<td align="center">8:00 PM</td>
 						<td align="center">9:00 PM</td>
 						<td align="center">1h</td>
@@ -233,11 +235,13 @@
 							onclick="selectAll(this)" /></td>
 					</tr>
 					<tr>
-						<td align="center">1</td>
-						<td align="center">A1</td>
-						<td align="center">Vũng Tàu</td>
-						<td align="center">Đồng Nai</td>
+						<td align="center">2</td>
+						<td><a target="_blank" href="tuyenkenh/Chi tiet tuyen kenh.html">123</a></td>
+						<td align="center">D1</td>
+						<td align="center">D2</td>
+						<td align="center">E1</td>
 						<td align="center">3Mb</td>
+						<td align="center">3</td>
 						<td align="center">8:00 PM</td>
 						<td align="center">9:00 PM</td>
 						<td align="center">1h</td>
@@ -255,11 +259,13 @@
 							onclick="selectAll(this)" /></td>
 					</tr>
 					<tr>
-						<td align="center">1</td>
-						<td align="center">A1</td>
-						<td align="center">Vũng Tàu</td>
-						<td align="center">Đồng Nai</td>
+						<td align="center">3</td>
+						<td><a target="_blank" href="tuyenkenh/Chi tiet tuyen kenh.html">123</a></td>
+						<td align="center">D1</td>
+						<td align="center">D2</td>
+						<td align="center">E1</td>
 						<td align="center">3Mb</td>
+						<td align="center">3</td>
 						<td align="center">8:00 PM</td>
 						<td align="center">9:00 PM</td>
 						<td align="center">1h</td>
@@ -277,11 +283,13 @@
 							onclick="selectAll(this)" /></td>
 					</tr>
 					<tr>
-						<td align="center">1</td>
-						<td align="center">A1</td>
-						<td align="center">Vũng Tàu</td>
-						<td align="center">Đồng Nai</td>
+						<td align="center">4</td>
+						<td><a target="_blank" href="tuyenkenh/Chi tiet tuyen kenh.html">123</a></td>
+						<td align="center">D1</td>
+						<td align="center">D2</td>
+						<td align="center">E1</td>
 						<td align="center">3Mb</td>
+						<td align="center">3</td>
 						<td align="center">8:00 PM</td>
 						<td align="center">9:00 PM</td>
 						<td align="center">1h</td>
@@ -299,33 +307,13 @@
 							onclick="selectAll(this)" /></td>
 					</tr>
 					<tr>
-						<td align="center">1</td>
-						<td align="center">A1</td>
-						<td align="center">Vũng Tàu</td>
-						<td align="center">Đồng Nai</td>
+						<td align="center">5</td>
+						<td><a target="_blank" href="tuyenkenh/Chi tiet tuyen kenh.html">123</a></td>
+						<td align="center">D1</td>
+						<td align="center">D2</td>
+						<td align="center">E1</td>
 						<td align="center">3Mb</td>
-						<td align="center">8:00 PM</td>
-						<td align="center">9:00 PM</td>
-						<td align="center">1h</td>
-						<td align="center">ko biết</td>
-						<td align="right">Chưa có phương án xử lý</td>
-						<td align="right">toannb</td>
-						<td align="right">toannb</td>
-						<td align="center">20/1/2010</td>
-						<td><center>
-							<a href='suco/chitietsuco.html' target="_blank"><img
-								title="Xem thông tin chi tiết sự cố"
-								src="../images/icons/documents.png" style="cursor: pointer"></a></center></td>
-						<td align="center">Sửa</td>
-						<td align="center"><input type="checkbox"
-							onclick="selectAll(this)" /></td>
-					</tr>
-					<tr>
-						<td align="center">1</td>
-						<td align="center">A1</td>
-						<td align="center">Vũng Tàu</td>
-						<td align="center">Đồng Nai</td>
-						<td align="center">3Mb</td>
+						<td align="center">3</td>
 						<td align="center">8:00 PM</td>
 						<td align="center">9:00 PM</td>
 						<td align="center">1h</td>
