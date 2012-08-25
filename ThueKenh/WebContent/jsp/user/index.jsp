@@ -23,7 +23,7 @@ String contextPath = request.getContextPath();
 	<script type="text/javascript" src="<%= request.getContextPath() %>/js/jquery-window-5.03/jquery.window.js"></script>
 	<script type="text/javascript" src="<%= request.getContextPath() %>/js/utils.js"></script>
 	<link rel="stylesheet" href="<%= request.getContextPath() %>/js/jquery-window-5.03/css/jquery.window.css" type="text/css" media="screen" />
-	
+	<link rel="stylesheet" href="<%= request.getContextPath() %>/css/search_box.css" type="text/css" media="screen" />
 	<script>
 	function doNew(link) {
 		ShowWindow('Thêm tài khoản mới',800,400,link,false);
@@ -56,26 +56,24 @@ margin-left: 10px;
 	<%@include file="/include/top.jsp"%>
 	<div id="bg_wrapper">
 		<center>
-		<div style="width:99%">
-			<fieldset class="form">
-				<legend>Quản lý tài khoản</legend>
-				<div style="float:right">
-				<a class="admin_icon" title="Thêm mới" href="#">
-					<img alt="Add" onclick="doNew('${formURL}')" src="<%=contextPath%>/images/icons/add_32.png"/>
-					<span>Thêm mới</span>
-				</a>
-				<a class="admin_icon" title="Mở khóa" id="btUnlock">
-					<img alt="Xóa" src="<%=contextPath%>/images/icons/unlock_32.png"/>
-					<span>Mở khóa</span>
-				</a>
-				<a class="admin_icon" title="Khóa" id="btLock">
-					<img alt="Xóa" src="<%=contextPath%>/images/icons/lock_32.png"/>
-					<span>Khóa</span>
-				</a>
+		<div class="ovf" style="width: 100%; margin-bottom: 10px;">
+				<div class="s10">
+					<div class="fl">
+						<div id="t_1" class="fl tsl"></div>
+						<div id="t_2" class="fl clg b tsc d">
+							<div class="p3t">Tìm kiếm user</div>
+						</div>
+						<div id="t_3" class="fl tsr"></div>
+					</div>
+					<div class="lineU">
+						<img height="1px" src="<%= request.getContextPath() %>/images/spacer.gif" class="w100" alt="">
+					</div>
 				</div>
-			</fieldset>
-			<form id="form">
-			<div style="float: right; padding-top: 5px; padding-bottom: 3px; display: block;">
+				<div style="padding-right: 0px;" class="ovf" id="divSearch">
+					<div class="kc4 p5l p15t bgw">
+						<div id="tabnd_2" class="bgw p5b ovf">
+						<form id="form">
+			<div style=" padding-top: 5px; padding-bottom: 3px; display: block;">
 			<div class="block">
 				Username : <input type="text" class="field" name="username" id="username"/>
 			</div>
@@ -107,6 +105,24 @@ margin-left: 10px;
 			</div>
 			</div>
 			</form>
+						</div>
+						<div class="clearb"></div>
+					</div>
+				</div>
+				<div style="height: 1px;">
+					<img src="App_Themes/Normal/Images/spacer.gif" style="height: 1px;" alt="">
+				</div>
+			</div>
+		<div style="width:99%">
+			
+			
+			<div style="float:left">
+				<input type="button" value="Thêm tài khoản" id="btThem" class="button"  onclick="doNew('${formURL}')" >
+				<input type="button" value="Mở Khóa" id="btUnlock" class="button" >
+				<input type="button" value="Khóa" id="btLock" class="button"  >
+				
+				</div>
+			
 			<div style="display: block; height: 5px;"></div>
 			<table width="100%" id="dataTable" class="display">
 			<thead>
