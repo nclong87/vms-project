@@ -273,13 +273,13 @@ function selectAll(_this) {
 	});
 }
 function doEdit() {
-	ShowWindow('Cập nhật hồ sơ thanh toán',850,600,'thanhtoan/addedit.html',false);
+	ShowWindow('Cập nhật hồ sơ thanh toán',1000,600,'thanhtoan/addedit.html',false);
 	MaxWindow();
 }
 $(document).ready(function(){	 
 	$("#btThem").click(function(){
-		ShowWindow('Thêm mới hồ sơ thanh toán',850,600,'thanhtoan/addedit.html',false);
-		MaxWindow();
+		ShowWindow('Thêm mới hồ sơ thanh toán',1000,600,'thanhtoan/addedit.html',true);
+		//MaxWindow();
 	});
 	$('ul.sf-menu').load("menu.html");
 	$('ul.sf-menu').superfish();
