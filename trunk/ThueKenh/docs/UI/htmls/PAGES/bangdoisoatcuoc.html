@@ -5,7 +5,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta name="description" content="Reflect Template" />
 <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
-<title>QUẢN LÝ KÊNH TRUYỀN DẪN</title>
+<title>XUẤT BẢNG ĐỐI SOÁT CƯỚC</title>
+<link rel="stylesheet" href="../css/addedit.css" type="text/css" media="screen" />
 <link rel="stylesheet" href="../css/style_all.css" type="text/css"
 	media="screen" />
 <link rel="stylesheet" href="../css/style1.css" type="text/css"
@@ -119,17 +120,283 @@
 							<div class="ovf p5l p5t">
 								<table>
 									<tr>
+										<td align="right">Chọn đối tác:</td>
+										<td>
+											<select class="">
+											<option value="">Chọn đối tác</option>
+											<option value="1">Viễn thông Ninh Thuận</option>
+											<option value="2">Viễn thông Vũng Tàu</option>
+											<option value="3">Viễn thông Đồng Nai</option>
+											<option value="4">....</option>
+										</select>
+										</td>
+										<td align="right"></td>
+										<td></td>
+									</tr>
+									<tr>
 										<td align="right">Từ ngày :</td>
 										<td><input type="text" /></td>
 										<td align="right">Đến ngày :</td>
 										<td><input type="text" /></td>
-										<td align="center">
-											<input type="button" class="button" value="Xuất excel"></input>
-										</td>
 									</tr>
-
 								</table>
+								<div style="width: 100%; margin-top: 10px;">
+								<fieldset class="data_list">
+									<legend>Danh sách hợp đồng</legend>
+									<div style="width: 100%; padding-bottom: 5px;text-align: right;"><input class="button" type="button" value="Chọn hợp đồng" onclick="openPopupChonHopDong()"></div>
+									<div id="accordion">
+										<h3><a href="#">Hợp đồng 1</a></h3>
+										<div>
+											<table width="100%" id="dataTable1" class="display">
+												<thead>
+													<tr>
+														<th><input type="checkbox"/></th>
+														<th width="5%">STT</th>
+														<th>Tên phụ lục</th>
+														<th>Đối tác</th>
+														<th>Loại phụ lục</th>
+														<th>Số lượng kênh</th>
+														<th>Giá trị trước thuế</th>
+														<th>Trạng thái</th>
+														<th>Thanh toán</th>
+														<th width="5px" align="center">Xóa</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td><input type="checkbox"/></td>
+														<td>1</td>	
+														<td><a href="../phuluchopdong/chitietphuluchopdong.html" target="_blank">PL_A_123456</a></td>
+														<td>Đối tác A</td>
+														<td>Thay thế</td>
+														<td>3</td>
+														<td>50.000.000</td>
+														<td>Thay thế cho phụ lục 2, phụ lục 3</td>
+														<td>Đã thanh toán đến tháng 3/2012</td>
+														<td><center><img title="Remove" src="../images/icons/remove.png" onclick="doRemoveRow()" style="cursor:pointer"></center></td>
+													</tr>
+													<tr>
+														<td><input type="checkbox"/></td>
+														<td>1</td>
+														<td><a href="../phuluchopdong/chitietphuluchopdong.html" target="_blank">PL_A_123456</a></td>
+														<td>Đối tác A</td>
+														<td>Thay thế</td>
+														<td>3</td>
+														<td>50.000.000</td>
+														<td>Thay thế cho phụ lục 2, phụ lục 3</td>
+														<td>Đã thanh toán đến tháng 3/2012</td>
+														<td><center><img title="Remove" src="../images/icons/remove.png" onclick="doRemoveRow()" style="cursor:pointer"></center></td>
+													</tr>
+													<tr>
+														<td><input type="checkbox"/></td>
+														<td>1</td>
+														<td><a href="../phuluchopdong/chitietphuluchopdong.html" target="_blank">PL_A_123456</a></td>
+														<td>Đối tác A</td>
+														<td>Thay thế</td>
+														<td>3</td>
+														<td>50.000.000</td>
+														<td>Thay thế cho phụ lục 2, phụ lục 3</td>
+														<td>Đã thanh toán đến tháng 3/2012</td>
+														<td><center><img title="Remove" src="../images/icons/remove.png" onclick="doRemoveRow()" style="cursor:pointer"></center></td>
+													</tr>
+												</tbody>
+												</table>		
+										</div>
+										<h3><a href="#">Hợp đồng 2</a></h3>
+										<div>
+											<table width="100%" id="dataTable1" class="display">
+												<thead>
+													<tr>
+														<th><input type="checkbox"/></th>
+														<th width="5%">STT</th>
+														<th>Tên phụ lục</th>
+														<th>Đối tác</th>
+														<th>Loại phụ lục</th>
+														<th>Số lượng kênh</th>
+														<th>Giá trị trước thuế</th>
+														<th>Trạng thái</th>
+														<th>Thanh toán</th>
+														<th width="5px" align="center">Xóa</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td><input type="checkbox"/></td>
+														<td>1</td>
+														<td><a href="../phuluchopdong/chitietphuluchopdong.html" target="_blank">PL_A_123456</a></td>
+														<td>Đối tác A</td>
+														<td>Thay thế</td>
+														<td>3</td>
+														<td>50.000.000</td>
+														<td>Thay thế cho phụ lục 2, phụ lục 3</td>
+														<td>Đã thanh toán đến tháng 3/2012</td>
+														<td><center><img title="Remove" src="../images/icons/remove.png" onclick="doRemoveRow()" style="cursor:pointer"></center></td>
+													</tr>
+													<tr>
+														<td><input type="checkbox"/></td>
+														<td>1</td>
+														<td><a href="../phuluchopdong/chitietphuluchopdong.html" target="_blank">PL_A_123456</a></td>
+														<td>Đối tác A</td>
+														<td>Thay thế</td>
+														<td>3</td>
+														<td>50.000.000</td>
+														<td>Thay thế cho phụ lục 2, phụ lục 3</td>
+														<td>Đã thanh toán đến tháng 3/2012</td>
+														<td><center><img title="Remove" src="../images/icons/remove.png" onclick="doRemoveRow()" style="cursor:pointer"></center></td>
+													</tr>
+													<tr>
+														<td><input type="checkbox"/></td>
+														<td>1</td>
+														<td><a href="../phuluchopdong/chitietphuluchopdong.html" target="_blank">PL_A_123456</a></td>
+														<td>Đối tác A</td>
+														<td>Thay thế</td>
+														<td>3</td>
+														<td>50.000.000</td>
+														<td>Thay thế cho phụ lục 2, phụ lục 3</td>
+														<td>Đã thanh toán đến tháng 3/2012</td>
+														<td><center><img title="Remove" src="../images/icons/remove.png" onclick="doRemoveRow()" style="cursor:pointer"></center></td>
+													</tr>
+												</tbody>
+												</table>
+										</div>
+										<h3><a href="#">Hợp đồng 3</a></h3>
+										<div>
+											<table width="100%" id="dataTable1" class="display">
+												<thead>
+													<tr>
+														<th><input type="checkbox"/></th>
+														<th width="5%">STT</th>
+														<th>Tên phụ lục</th>
+														<th>Đối tác</th>
+														<th>Loại phụ lục</th>
+														<th>Số lượng kênh</th>
+														<th>Giá trị trước thuế</th>
+														<th>Trạng thái</th>
+														<th>Thanh toán</th>
+														<th width="5px" align="center">Xóa</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td><input type="checkbox"/></td>
+														<td>1</td>
+														<td><a href="../phuluchopdong/chitietphuluchopdong.html" target="_blank">PL_A_123456</a></td>
+														<td>Đối tác A</td>
+														<td>Thay thế</td>
+														<td>3</td>
+														<td>50.000.000</td>
+														<td>Thay thế cho phụ lục 2, phụ lục 3</td>
+														<td>Đã thanh toán đến tháng 3/2012</td>
+														<td><center><img title="Remove" src="../images/icons/remove.png" onclick="doRemoveRow()" style="cursor:pointer"></center></td>
+													</tr>
+													<tr>
+														<td><input type="checkbox"/></td>
+														<td>1</td>
+														<td><a href="../phuluchopdong/chitietphuluchopdong.html" target="_blank">PL_A_123456</a></td>
+														<td>Đối tác A</td>
+														<td>Thay thế</td>
+														<td>3</td>
+														<td>50.000.000</td>
+														<td>Thay thế cho phụ lục 2, phụ lục 3</td>
+														<td>Đã thanh toán đến tháng 3/2012</td>
+														<td><center><img title="Remove" src="../images/icons/remove.png" onclick="doRemoveRow()" style="cursor:pointer"></center></td>
+													</tr>
+													<tr>
+														<td><input type="checkbox"/></td>
+														<td>1</td>
+														<td><a href="../phuluchopdong/chitietphuluchopdong.html" target="_blank">PL_A_123456</a></td>
+														<td>Đối tác A</td>
+														<td>Thay thế</td>
+														<td>3</td>
+														<td>50.000.000</td>
+														<td>Thay thế cho phụ lục 2, phụ lục 3</td>
+														<td>Đã thanh toán đến tháng 3/2012</td>
+														<td><center><img title="Remove" src="../images/icons/remove.png" onclick="doRemoveRow()" style="cursor:pointer"></center></td>
+													</tr>
+												</tbody>
+												</table>
+										</div>
+									</div>
+									
+								</fieldset>
+								<fieldset class="data_list" style="margin-top:10px">
+									<legend>Danh sách sự cố giảm trừ</legend>
+									<div style="width: 100%; padding-bottom: 5px;text-align: right;"><input class="button" type="button" value="Chọn sự cố giảm trừ" onclick="openPopupChonSuCo()"></div>
+									<table width="100%" id="dataTable2" class="display dataTable">
+									<thead>
+										<tr>
+											<th width="5%">#</th>
+											<th>Mã kênh</th>
+											<th>TG bắt đầu</th>
+											<th>TG kết thúc</th>
+											<th>TG mất liên lạc</th>
+											<th>Người xác nhận</th>
+											<th width="5px" align="center">Xóa</th>
+										</tr>
+									</thead>
+									<tbody id="tbody">
+										<tr>
+											<td>1</td>
+											<td><a target="_blank" href="../tuyenkenh/Chi tiet tuyen kenh.html">123</a></td>
+											<td>04/03/2012 10:22</td>
+											<td>04/03/2012 12:22</td>
+											<td>2h</td>
+											<td>NCLONG</td>
+											<td><center><img title="Remove" src="../images/icons/remove.png" onclick="doRemoveRow()" style="cursor:pointer"></center></td>
+										</tr>
+										<tr>
+											<td>2</td>
+											<td><a target="_blank" href="../tuyenkenh/Chi tiet tuyen kenh.html">123</a></td>
+											<td>04/03/2012 10:22</td>
+											<td>04/03/2012 12:22</td>
+											<td>2h</td>
+											<td>NCLONG</td>
+											<td><center><img title="Remove" src="../images/icons/remove.png" onclick="doRemoveRow()" style="cursor:pointer"></center></td>
+										</tr>
+										<tr>
+											<td>3</td>
+											<td><a target="_blank" href="../tuyenkenh/Chi tiet tuyen kenh.html">123</a></td>
+											<td>04/03/2012 10:22</td>
+											<td>04/03/2012 12:22</td>
+											<td>2h</td>
+											<td>NCLONG</td>
+											<td><center><img title="Remove" src="../images/icons/remove.png" onclick="doRemoveRow()" style="cursor:pointer"></center></td>
+										</tr>
+										<tr>
+											<td>4</td>
+											<td><a target="_blank" href="../tuyenkenh/Chi tiet tuyen kenh.html">123</a></td>
+											<td>04/03/2012 10:22</td>
+											<td>04/03/2012 12:22</td>
+											<td>2h</td>
+											<td>NCLONG</td>
+											<td><center><img title="Remove" src="../images/icons/remove.png" onclick="doRemoveRow()" style="cursor:pointer"></center></td>
+										</tr>
+										<tr>
+											<td>5</td>
+											<td><a target="_blank" href="../tuyenkenh/Chi tiet tuyen kenh.html">123</a></td>
+											<td>04/03/2012 10:22</td>
+											<td>04/03/2012 12:22</td>
+											<td>2h</td>
+											<td>NCLONG</td>
+											<td><center><img title="Remove" src="../images/icons/remove.png" onclick="doRemoveRow()" style="cursor:pointer"></center></td>
+										</tr>
+										<tr>
+											<td>6</td>
+											<td><a target="_blank" href="../tuyenkenh/Chi tiet tuyen kenh.html">123</a></td>
+											<td>04/03/2012 10:22</td>
+											<td>04/03/2012 12:22</td>
+											<td>2h</td>
+											<td>NCLONG</td>
+											<td><center><img title="Remove" src="../images/icons/remove.png" onclick="doRemoveRow()" style="cursor:pointer"></center></td>
+										</tr>
+									</tbody>
+									</table>
+								</fieldset>
+								</div>
 							</div>
+						</div>
+						<div style="margin-top: 5px; margin-bottom: 5px; text-align: left;">
+							<input class="button" type="button" id="" value="Xuất Excel"/>
 						</div>
 						<div class="clearb"></div>
 					</div>
@@ -153,9 +420,16 @@ function selectAll(_this) {
 		this.checked=_this.checked;
 	});
 }
+function openPopupChonHopDong() {
+	window.open('hopdong/timkiemhopdong.html','TKHD','resizable=yes,scrollbars=yes,menubar=no,toolbar=no,status=no,width=900,height=600,screenX=100,screenY=100,top=100,left=100');
+}
+function openPopupChonSuCo() {
+	window.open('popup_timsuco.html','TKSC','resizable=yes,scrollbars=yes,menubar=no,toolbar=no,status=no,width=900,height=600,screenX=100,screenY=100,top=100,left=100');
+}
 $(document).ready(function(){
 	$('ul.sf-menu').load("menu.html");
 	$('ul.sf-menu').superfish();
+	$( "#accordion" ).accordion();
 	oTable = $('#dataTable').dataTable({
 		"bJQueryUI": true,
 		"bProcessing": true,
