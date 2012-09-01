@@ -1,0 +1,2 @@
+ALTER TABLE tuyenkenh_history
+ENGINE = InnoDB 
