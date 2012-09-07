@@ -147,9 +147,10 @@ public class DanhMucDoiTacAction implements Preparable {
 	public String ajLoaddoitac() throws JSONException {
 		this.request = ServletActionContext.getRequest();
 		// DoiTacDAO DoiTacDAO = new DoiTacDAO(factory);
-		String strSearch=this.request.getParameter("sSearch");
 		
-		List<CatalogDTO> lstkhuvuc = DoiTacDAO.get();
+		
+		List<CatalogDTO> lstkhuvuc = null;
+		String strSearch=this.request.getParameter("sSearch");
 		if(strSearch.isEmpty() == false) {
 			JSONArray arrayJson = (JSONArray) new JSONObject(strSearch).get("array");
 			
@@ -157,7 +158,8 @@ public class DanhMucDoiTacAction implements Preparable {
 				lstkhuvuc = DoiTacDAO.search(name);
 				System.out.println("strSearch="+strSearch);
 			
-		}
+		}else
+			lstkhuvuc = DoiTacDAO.get();
 		
 		jsonData = new LinkedHashMap<String, Object>();
 		List<HashMap<String, Object>> items = new ArrayList<HashMap<String, Object>>();

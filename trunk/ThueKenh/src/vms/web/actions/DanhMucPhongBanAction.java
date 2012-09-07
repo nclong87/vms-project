@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.struts2.ServletActionContext;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import vms.db.dao.AccountDao;
 import vms.db.dao.DaoFactory;
@@ -112,11 +115,20 @@ public class DanhMucPhongBanAction implements Preparable {
 			if (this.opEdit.getId() > 0) {
 				if (this.phongbanDAO.update(this.opEdit.getId(), this.opEdit)) {
 					this.flag = "1";// updated
-				} else
+					System.out.println("Cập nhật thành công");
+				} else {
 					this.flag = "-1";// failure
+					System.out.println("Cập nhật lỗi");
+				}
 			} else {
 				// new
-				this.phongbanDAO.insert(this.opEdit);
+				if(this.phongbanDAO.insert(this.opEdit)){
+					this.flag = "1";// updated
+					System.out.println("Thêm thành công");
+				}else{
+					this.flag = "-1";// failure
+					System.out.println("Thêm lỗi");
+				}
 			}
 			System.out.println("result=" + flag);
 
@@ -145,10 +157,22 @@ public class DanhMucPhongBanAction implements Preparable {
 		this.request = request;
 	}
 
-	public String ajLoadPhongBan() {
+	public String ajLoadPhongBan() throws JSONException {
 		this.request = ServletActionContext.getRequest();
 		// PhongBanDao phongbanDAO = new PhongBanDao(factory);
 		List<CatalogDTO> lstPhongBan = phongbanDAO.get();
+		String strSearch = this.request.getParameter("sSearch");
+		if (strSearch.isEmpty() == false) {
+			JSONArray arrayJson = (JSONArray) new JSONObject(strSearch)
+					.get("array");
+
+			String name = arrayJson.getJSONObject(0).getString("value");
+			lstPhongBan = phongbanDAO.search(name);
+			System.out.println("strSearch=" + strSearch);
+
+		} else
+			lstPhongBan = phongbanDAO.get();
+
 		jsonData = new LinkedHashMap<String, Object>();
 		List<HashMap<String, Object>> items = new ArrayList<HashMap<String, Object>>();
 		for (int i = 0; i < lstPhongBan.size(); i++) {
