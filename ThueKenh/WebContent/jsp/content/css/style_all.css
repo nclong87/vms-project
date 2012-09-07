@@ -1,0 +1,557 @@
+/*Small reset*/
+body, ul, ol, h1,h2,h3,h4,h5,h6,form,li,p{
+	margin:0;
+	padding:0;
+}
+
+/*----------------------------------------
+2.) Styles for Admin Area
+----------------------------------------*/
+html{
+	background: none repeat scroll 0 0 transparent;
+	}
+
+body{
+	font-size:12px;
+	font-family: Tahoma, Arial,Verdana, sans-serif;
+	color:#484848;
+	position:relative;
+	margin:0 auto;
+	}
+	
+#top{
+	position:relative;
+	min-width:760px;
+	max-width:1440px;
+	margin:0 auto;
+	}
+	
+	/*----------------------------------------
+	2.1) Head
+	----------------------------------------*/
+
+	#head{
+background: url("../images/bg_head.png") no-repeat scroll 0 0 transparent;
+color: #FFFFFF;
+height: 110px;
+position: relative;
+		}
+		
+	#head a{color:#eee; text-decoration:none;}
+	#head a:hover{color:#fff;}
+
+	.logo{
+height: 70px;
+left: 0;
+position: absolute;
+width: 200px;
+z-index: 1;
+		}
+	
+	.logo a{
+		width:634px;
+		height:90px;
+		display:block;
+		position:absolute;	
+		text-indent:-99999px;
+		background:transparent url(../images/logo.png) no-repeat;
+		top:10px;
+		left:30px;
+		outline:none;
+		z-index:1;
+		}
+
+	.head_memberinfo{
+font-size: 11px;
+line-height: 13px;
+position: absolute;
+right: 20px;
+top: 10px;
+z-index: 2;
+		}
+		
+	.memberinfo_span{
+		display:block;
+		float:left;
+		padding-right:5px;
+		margin-right:5px;
+		border-right:1px solid #eee;
+		}
+		
+	.memberinfo_span2{
+		display:block;
+		clear:both;
+		padding-top:5px;
+		}
+		
+	#head .memberinfo_span2 a{
+		color:#999;	
+		}
+	.head_memberinfo_logo{
+		position:absolute;	
+		left:-40px;
+		} 
+		
+	.head_memberinfo_logo img{
+		position:absolute;
+		top:0;
+		z-index:1;
+		} 
+		
+	.head_memberinfo_logo span{
+		font-size:10px;
+		left:23px;
+		position:absolute;
+		top:2px;
+		z-index:2;
+		} 
+		
+	/*----------------------------------------
+	2.2) Main
+	----------------------------------------*/
+#bg_wrapper{
+/*border-left: 1px solid #C0C0C0;*/
+float: left;
+min-height: 400px;
+position: relative;
+width: 100%;
+		}
+/*----------------------------------------
+3.) Footer
+----------------------------------------*/
+#footer{
+clear: both;
+height: 30px;
+	}
+
+
+/*----------------------------------------
+4.) Fonts, Images basic selectors
+----------------------------------------*/
+
+p{padding:10px}
+
+a{color:#222; text-decoration:none;}
+a:hover{color:red; text-decoration:none;}
+
+blockquote{
+padding:5px 30px 0 15px;
+background-repeat:no-repeat;
+background-position:top left ;
+margin:10px 0 10px 15px;
+border-left:3px solid #fff;
+color:#fff;
+}
+
+blockquote em{
+color:#ff0000;
+padding:0px 40px  0px 0px;
+background-repeat:no-repeat;
+background-position:top right;
+display:block;
+text-align:right;
+font-style:italic;
+}
+
+#top .noborder, #top .noborder a, #top noborder ima a{
+	border:none;
+	padding:0;
+	}
+	
+/*----------------------------------------
+5.) Containers and classes created by jquery
+----------------------------------------*/	
+.closeable{
+	position:relative;
+	}
+	
+.click_to_close{
+	right:2px;
+	top:2px;
+	position:absolute;
+	height:16px;
+	width:16px;
+	background:transparent url(../images/close.png) no-repeat scroll 0 0;
+	cursor:pointer;
+	}
+
+.jquery_tab_container{
+	left:-30px;
+	position:absolute;
+	top:-35px;
+	z-index:30;
+	}
+	
+.jquery_tab{
+	width:100%;
+	float:left;
+	}
+	
+.jquery_tab_container a{
+	display: block;
+	float:left;
+	line-height:34px;
+	padding:0 15px;
+	background-color:#d5d5d5;
+	margin-right:1px;
+	text-decoration:none;
+	color:#a1a1a1;
+	font-size:13px;
+	outline:none;
+	border-left:1px solid #d5d5d5;
+	border-right:1px solid #d5d5d5;
+	border-bottom:1px solid #999;
+	}
+	
+.jquery_tab_container .active, .jquery_tab_container a:hover{
+	background:transparent url(../images/bg_tab.png) repeat-x;
+	padding-bottom:2px;
+	border-left:1px solid #fff;
+	border-right:1px solid #fff;
+	border-bottom:none;
+	color:#4a4a4a;
+	}
+	
+#top .flexy_datepicker{
+	font-size:11px;
+	margin-bottom:25px;
+	}
+	
+#top .flexy_datepicker table{
+	margin:0;
+	}
+	
+#top .ui-datepicker {
+padding:0.2em;
+}
+
+#top #sidebar .ui-datepicker{
+
+border-left:medium none;
+border-right:medium none;
+padding:0.2em;
+width:266px;}
+
+#top .wysiwyg{
+	background-color:#EAEAEA;
+	border:1px solid #959595;
+	}
+	
+#top div.wysiwyg ul.panel li a {
+	border:1px solid #959595;
+	}
+	
+#dialog, #dialog1{
+	display:none;
+	}
+	
+.clearboth{
+	clear:both;
+	}
+
+
+.tab {
+  border-bottom: 1px solid #C86F9D;
+  height: 20px;
+  margin: 0 7px 0 6px;
+  padding-left: 10px;
+}
+.tab .tl {
+  background-image: url("images/box/box_tab_title.png");
+  background-position: left 0;
+  background-repeat: no-repeat;
+  height: 21px;
+  width: 9px;
+}
+.fl {
+  float: left;
+}
+.tab .tc {
+  background-image: url("images/box/box_tab_title.png");
+  background-position: left -22px;
+  background-repeat: repeat-x;
+  font-weight: bold;
+  height: 21px;
+}
+.tab .tr {
+  background-image: url("images/box/box_tab_title.png");
+  background-position: right -44px;
+  background-repeat: no-repeat;
+  height: 21px;
+  width: 9px;
+}
+.box .l {
+  background-image: url("images/box/box_head.png");
+  background-position: left 0;
+  background-repeat: no-repeat;
+  height: 44px;
+}
+.clb {
+  clear: both;
+}
+.box .r {
+  background-image: url("images/box/box_head.png");
+  background-position: right -91px;
+  background-repeat: no-repeat;
+  height: 44px;
+  padding: 0 9px;
+}
+.box .c {
+  background-image: url("images/box/box_head.png");
+  background-position: left -45px;
+  background-repeat: repeat-x;
+  height: 45px;
+}
+.tboxhder {
+  margin: 0;
+  padding-top: 8px;
+}
+.tboxhder .l2 {
+  background-image: url("images/TextBox.png");
+  background-position: left 0;
+  background-repeat: no-repeat;
+  height: 23px;
+  margin: 0;
+  padding: 0 0 0 8px;
+}
+.box {
+  padding-top: 20px;
+}
+.box_leftside {
+background-image: url("images/box/box_center_l.png");
+background-position: 0 0;
+background-repeat: repeat-y;
+float: left;
+height: auto;
+margin-left: 0;
+margin-top: -20px;
+position: relative;
+width: 100%;
+}
+.box_rightside {
+background-image: url("images/box/box_center_r.png");
+background-position: right top;
+background-repeat: repeat-y;
+float: right;
+height: auto;
+margin-right: 0;
+margin-top: -2px;
+position: relative;
+width: 98%;
+}
+.box .foot_l {
+background-image: url("images/box/box_foot_l.png");
+background-position: left top;
+background-repeat: repeat-y;
+float: left;
+height: 15px;
+margin-left: 0;
+width: 20px;
+}
+.box .foot_c {
+background-image: url("images/box/box_foot_c.png");
+background-position: 0 -13px;
+background-repeat: repeat-x;
+float: left;
+height: 27px;
+margin-left: 9px;
+margin-top: -5px;
+width: 98%;
+}
+.box .foot_r {
+background-image: url("images/box/box_foot_r.png");
+background-position: right -3px;
+background-repeat: repeat-y;
+float: left;
+height: 16px;
+margin-left: 0;
+margin-right: -12px;
+margin-top: -15px;
+width: 7px;
+}
+/*Form input*/
+.form {
+padding: 0 10px 5px;
+}
+.form p {
+  padding-bottom: 5px;
+}
+.form .inline-field .field {
+  display: inline;
+}
+.form .field {
+}
+.field {
+  border-radius: 4px 4px 4px 4px;
+}
+.size1 {
+width: 250px;
+}
+.field:focus {
+  border-color: #857B42;
+  color: #000000;
+}
+.size2 {
+  width: 80px;
+}
+.field {
+  background: none repeat scroll 0 0 #FFFFFF;
+  border: 1px solid #D3CFC7;
+  padding: 3px;
+  width:150px;
+}
+.field-cbb {
+  width:158px;
+}
+input, textarea, select {
+  font-family: Tahoma, Arial,Verdana, sans-serif;
+  font-size: 13px;
+}
+.size3 {
+  width: 120px;
+}
+.form .req {
+  color: #999999;
+  float: right;
+  font-size: 13px;
+  white-space: nowrap;
+}
+.form label span {
+  color: #999999;
+  font-weight: normal;
+}
+textarea.size1 {
+  height: 180px;
+}
+
+.div_input_left {
+width:49%;
+float:left;
+}
+.div_input_right {
+width:49%;
+float:right;
+}
+.div_input_inline {
+float: left;
+padding-top: 10px;
+text-align: center;
+width: 100%;
+}
+.errorMessage{
+	color: red;
+	font-weight: bold;
+}  	
+.infoMessage {
+	color:green !important;
+	font-weight:bold;
+}
+.dataTables_info {
+	visibility:hidden;
+}
+.dataTables_filter {
+	visibility:hidden;
+}
+input.blur {
+  color: #999999;
+}
+.td_center {
+	text-align:center;
+}
+.td_hidden {
+display:none
+}
+.closed, .active, .inactive, .locked {
+  background-image: url("images/status.gif");
+  height: 12px;
+  width: 12px;
+}
+.active {
+  background-position: 57px 0;
+  cursor: pointer;
+}
+.inactive {
+  background-position: 12px 0;
+  cursor: pointer;
+}
+.require {
+color:red;
+}
+legend {
+color: #2779AA;
+font-size: 12px;
+font-weight: bold;
+}
+fieldset {
+-moz-border: 1px solid #CCCCCC;
+-moz-border-radius: 5px 5px 5px 5px;
+}
+.loading {
+background-image: url("images/loading.gif");
+background-repeat: no-repeat;
+height: 20px;
+width: 100%;
+}
+.td_label {
+font-weight:bold;
+}
+td {
+text-align:left;
+}
+.link {
+cursor:pointer;
+color:blue;
+}
+.searchButton {
+background-image: url("images/search.png");
+background-position: 0 -2px;
+background-repeat: no-repeat;
+cursor: pointer;
+display: block;
+height: 32px;
+position: absolute;
+right: 0;
+top: 0;
+width: 32px;
+}
+.button {
+  color: #2779AA;
+  cursor: pointer;
+  font-weight: bold;
+  padding: 2px;
+}
+.admin_icon {
+color: navy;
+cursor: pointer;
+display: block;
+float: left;
+height: 50px;
+margin-left: 20px;
+text-align: center;
+width: 100px;
+}
+.admin_icon span {
+display: block;
+font-weight: bold;
+width: 100%;
+}
+.deactive {
+color: gray;
+opacity: 0.5;
+filter:alpha(opacity=50);
+}
+.edit_icon {
+background-image: url("images/edit.png");
+display: block;
+height: 32px;
+width: 32px;
+
+}
+.required {
+color:red;
+cursor:pointer;
+}
+.disable {
+color: gray;
+cursor: default;
+}
