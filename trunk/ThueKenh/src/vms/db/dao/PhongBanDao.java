@@ -5,15 +5,19 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-import org.springframework.jdbc.core.JdbcTemplate;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.jdbc.core.RowMapper;
 
+import vms.db.dto.CatalogDTO;
 import vms.db.dto.PhongBan;
+import vms.db.dto.PhongBanDTO;
 
-public class PhongBanDao {
-	private JdbcTemplate jdbcTemplate;
+public class PhongBanDao extends CatalogDAO {
+
+
 	public PhongBanDao(DaoFactory daoFactory) {
-		this.jdbcTemplate = daoFactory.getJdbcTemplate();
+		super(daoFactory);
+		// TODO Auto-generated constructor stub
 	}
 
 	@SuppressWarnings("unchecked")
@@ -26,9 +30,72 @@ public class PhongBanDao {
 			        	phongBan.setId(rs.getLong("ID"));
 			        	phongBan.setTenphongban(rs.getString("TENPHONGBAN"));
 			        	phongBan.setDeleted(rs.getBoolean("DELETED"));
+			        
 			            return phongBan;
 			        }
 			    });
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<CatalogDTO> get() {
+		// TODO Auto-generated method stub
+		return this.jdbcTemplate.query(
+			    "select * from phongban where deleted = 0",
+			    new RowMapper() {
+			        public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
+			        	PhongBanDTO phongBan = new PhongBanDTO();
+			        	phongBan.setId(rs.getLong("ID"));
+			        	phongBan.setName(rs.getString("TENPHONGBAN"));
+			        	phongBan.setIsDeleted(rs.getBoolean("DELETED"));
+			            return phongBan;
+			        }
+			    });
+	}
+
+	@Override
+	public CatalogDTO get(long id) {
+		// TODO Auto-generated method stub
+		@SuppressWarnings("unchecked")
+		List<CatalogDTO> lst= this.jdbcTemplate.query(
+			    "select * from phongban where deleted = 0 and id="+id,
+			    new RowMapper() {
+			        public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
+			        	PhongBanDTO phongBan = new PhongBanDTO();
+			        	phongBan.setId(rs.getLong("ID"));
+			        	phongBan.setName(rs.getString("TENPHONGBAN"));
+			        	phongBan.setIsDeleted(rs.getBoolean("DELETED"));
+			            return phongBan;
+			        }
+			    });
+		if(lst.size()==0)
+			return null;
+		return lst.get(0);
+	}
+
+	@Override
+	public boolean insert(CatalogDTO cat) {
+		// TODO Auto-generated method stub
+		PhongBanDTO up=(PhongBanDTO)cat;
+		return this.jdbcTemplate.update("insert into phongban(tenphongban,deleted) values('"+up.getName()+"',0)")>0;
+	}
+
+	@Override
+	public boolean update(long id, CatalogDTO cat) {
+		// TODO Auto-generated method stub
+		PhongBanDTO up=(PhongBanDTO)cat;
+		String sql="update phongban set tenphongban='"+up.getName()+"' where id="+up.getId();
+		System.out.println(sql);
+		return this.jdbcTemplate.update(sql)>0;
+	}
+
+	@Override
+	public boolean delete(String[] ids) {
+		
+		// TODO Auto-generated method stub
+		String str = StringUtils.join(ids, ",");
+		System.out.println(ids);
+		return this.jdbcTemplate.update("update phongban set DELETED = 1 where ID in ("+str+")")>0;
 	}
 	
 }

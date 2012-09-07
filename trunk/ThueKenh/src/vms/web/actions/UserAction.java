@@ -274,6 +274,4 @@ public class UserAction implements Preparable {
 	public void setVmsgroups(List<Vmsgroup> vmsgroups) {
 		this.vmsgroups = vmsgroups;
 	}
-	
-	
 }

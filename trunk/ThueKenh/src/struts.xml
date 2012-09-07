@@ -4,8 +4,8 @@
     "http://struts.apache.org/dtds/struts-2.3.dtd">
 <struts>
 	<constant name="struts.devMode" value="true" />
-    <constant name="struts.i18n.encoding" value="UTF-8"/> 
-    <constant name="struts.objectFactory" value="spring" />
+	<constant name="struts.i18n.encoding" value="UTF-8" />
+	<constant name="struts.objectFactory" value="spring" />
 	<constant name="struts.multipart.maxSize" value="5597152" />
 	<package name="default" extends="struts-default json-default">
 		<global-results>
@@ -26,8 +26,8 @@
 			<result name="redirect-login" type="redirect">
 				/jsp/redirect-login.jsp
 			</result>
-	   </global-results>
-	   
+		</global-results>
+
 	</package>
 	<package name="index" extends="default" namespace="/index">
 		<action name="index" class="indexAction">
@@ -40,15 +40,89 @@
 			<result name="success">/jsp/index/HelloWorld.jsp</result>
 		</action>
 
-	</package>  
+	</package>
+	<package name="danhmuc" extends="default" namespace="/danhmuc">
+		<!-- khai báo phòng ban -->
+		<action name="phongban" class="phongbanAction" method="index">
+			<result name="success">/jsp/danhmuc/phongban/index.jsp</result>
+		</action>
+		<action name="ajLoadPhongBan" class="phongbanAction" method="ajLoadPhongBan">
+			<result name="success" type="json">
+				<param name="root">jsonData</param>
+			</result>
+		</action>
+		<action name="deletePhongBan" class="phongbanAction" method="delete">
+			<result name="success" type="json">
+				<param name="root">jsonData</param>
+			</result>
+		</action>
+		<action name="editPhongBan" class="phongbanAction" method="edit">
+			<result name="success">/jsp/danhmuc/phongban/form.jsp</result>
+		</action>
+		<!-- kết thúc phòng ban -->
+		<!-- khai báo khu vực -->
+		<action name="khuvuc" class="khuvucAction" method="index">
+			<result name="success">/jsp/danhmuc/khuvuc/index.jsp</result>
+		</action>
+		<action name="ajLoadkhuvuc" class="khuvucAction" method="ajLoadkhuvuc">
+			<result name="success" type="json">
+				<param name="root">jsonData</param>
+			</result>
+		</action>
+		<action name="deletekhuvuc" class="khuvucAction" method="delete">
+			<result name="success" type="json">
+				<param name="root">jsonData</param>
+			</result>
+		</action>
+		<action name="editkhuvuc" class="khuvucAction" method="edit">
+			<result name="success">/jsp/danhmuc/khuvuc/form.jsp</result>
+		</action>
+		<!-- kết thúc khu vực -->
+		<!-- khai báo đối tác -->
+		<action name="doitac" class="doitacAction" method="index">
+			<result name="success">/jsp/danhmuc/doitac/index.jsp</result>
+		</action>
+		<action name="ajLoaddoitac" class="doitacAction" method="ajLoaddoitac">
+			<result name="success" type="json">
+				<param name="root">jsonData</param>
+			</result>
+		</action>
+		<action name="deletedoitac" class="doitacAction" method="delete">
+			<result name="success" type="json">
+				<param name="root">jsonData</param>
+			</result>
+		</action>
+		<action name="editdoitac" class="doitacAction" method="edit">
+			<result name="success">/jsp/danhmuc/doitac/form.jsp</result>
+		</action>
+		<!-- kết thúc đối tác -->
+		<!-- khai báo dự án -->
+		<action name="duan" class="duanAction" method="index">
+			<result name="success">/jsp/danhmuc/duan/index.jsp</result>
+		</action>
+		<action name="ajLoadduan" class="duanAction" method="ajLoadduan">
+			<result name="success" type="json">
+				<param name="root">jsonData</param>
+			</result>
+		</action>
+		<action name="deleteduan" class="duanAction" method="delete">
+			<result name="success" type="json">
+				<param name="root">jsonData</param>
+			</result>
+		</action>
+		<action name="editduan" class="duanAction" method="edit">
+			<result name="success">/jsp/danhmuc/duan/form.jsp</result>
+		</action>
+		<!-- kết thúc dự án -->
+	</package>
 	<package name="login" extends="default" namespace="/login">
 		<action name="index" class="loginAction">
 			<result name="success">/jsp/login/index.jsp</result>
 		</action>
 		<action name="doLogout" class="loginAction" method="doLogout">
-       		<result name="success">/jsp/login/index.jsp</result>
+			<result name="success">/jsp/login/index.jsp</result>
 		</action>
-	</package>  	
+	</package>
 	<package name="user" extends="default" namespace="/user">
 		<action name="index" class="userAction">
 			<result>/jsp/user/index.jsp</result>
@@ -69,38 +143,38 @@
 			</result>
 		</action>
 		<action name="ajLoadAccounts" class="userAction" method="ajLoadAccounts">
-       		<result  name="success" type="json">
-			   <param name="root">jsonData</param>
-			 </result>
+			<result name="success" type="json">
+				<param name="root">jsonData</param>
+			</result>
 		</action>
-	</package>  
+	</package>
 	<package name="ajax" extends="default" namespace="/ajax">
 		<action name="uniqueUsername" class="ajaxAction" method="uniqueUsername">
-       		<result name="success" type="stream">
+			<result name="success" type="stream">
 				<param name="inputName">inputStream</param>
 			</result>
 		</action>
 		<action name="getRootMenu" class="ajaxAction" method="getRootMenu">
-       		<result  name="success" type="json">
-			   <param name="root">jsonData</param>
-			 </result>
+			<result name="success" type="json">
+				<param name="root">jsonData</param>
+			</result>
 		</action>
 		<action name="getMenusByRoot" class="ajaxAction" method="getMenusByRoot">
-       		<result  name="success" type="json">
-			   <param name="root">jsonData</param>
-			 </result>
+			<result name="success" type="json">
+				<param name="root">jsonData</param>
+			</result>
 		</action>
 		<action name="getMenusByGroup" class="ajaxAction" method="getMenusByGroup">
-       		<result  name="success" type="json">
-			   <param name="root">jsonData</param>
-			 </result>
+			<result name="success" type="json">
+				<param name="root">jsonData</param>
+			</result>
 		</action>
 		<action name="getMenusByAccount" class="ajaxAction" method="getMenusByAccount">
-       		<result  name="success" type="json">
-			   <param name="root">jsonData</param>
-			 </result>
+			<result name="success" type="json">
+				<param name="root">jsonData</param>
+			</result>
 		</action>
-	</package>  
+	</package>
 	<package name="group" extends="default" namespace="/group">
 		<action name="index" class="groupAction">
 			<result>/jsp/group/index.jsp</result>
@@ -121,24 +195,24 @@
 			</result>
 		</action>
 		<action name="list" class="groupAction" method="list">
-       		<result  name="success" type="json">
-			   <param name="root">jsonData</param>
-			 </result>
+			<result name="success" type="json">
+				<param name="root">jsonData</param>
+			</result>
 		</action>
-	</package>  
+	</package>
 	<package name="permission" extends="default" namespace="/permission">
 		<action name="popup" class="permissionAction" method="popup">
 			<result name="success">/jsp/permission/popup.jsp</result>
 		</action>
 		<action name="saveGroupMenu" class="permissionAction" method="saveGroupMenu">
-       		<result  name="success" type="json">
-			   <param name="root">jsonData</param>
-			 </result>
+			<result name="success" type="json">
+				<param name="root">jsonData</param>
+			</result>
 		</action>
 		<action name="saveAccountMenu" class="permissionAction" method="saveAccountMenu">
-       		<result  name="success" type="json">
-			   <param name="root">jsonData</param>
-			 </result>
+			<result name="success" type="json">
+				<param name="root">jsonData</param>
+			</result>
 		</action>
-	</package>  
+	</package>
 </struts>
