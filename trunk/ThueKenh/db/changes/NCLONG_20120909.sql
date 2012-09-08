@@ -41,3 +41,34 @@ Insert into THUEKENH.ROOTMENU (ID,NAME) values (5,'QUẢN LÝ HỒ SƠ TT');
 Insert into THUEKENH.ROOTMENU (ID,NAME) values (6,'HỆ THỐNG BÁO CÁO');
 Insert into THUEKENH.ROOTMENU (ID,NAME) values (7,'QUẢN TRỊ');
 Insert into THUEKENH.ROOTMENU (ID,NAME) values (8,'DANH  MỤC');
+
+--------------------------------------------------------
+--  File created - Sunday-September-09-2012   
+--------------------------------------------------------
+REM INSERTING into THUEKENH.GROUP_MENU
+Insert into THUEKENH.GROUP_MENU (IDGROUP,IDMENU) values (1,1);
+Insert into THUEKENH.GROUP_MENU (IDGROUP,IDMENU) values (1,2);
+Insert into THUEKENH.GROUP_MENU (IDGROUP,IDMENU) values (1,3);
+Insert into THUEKENH.GROUP_MENU (IDGROUP,IDMENU) values (1,4);
+Insert into THUEKENH.GROUP_MENU (IDGROUP,IDMENU) values (1,5);
+Insert into THUEKENH.GROUP_MENU (IDGROUP,IDMENU) values (1,6);
+Insert into THUEKENH.GROUP_MENU (IDGROUP,IDMENU) values (1,7);
+Insert into THUEKENH.GROUP_MENU (IDGROUP,IDMENU) values (1,8);
+Insert into THUEKENH.GROUP_MENU (IDGROUP,IDMENU) values (1,9);
+Insert into THUEKENH.GROUP_MENU (IDGROUP,IDMENU) values (1,10);
+Insert into THUEKENH.GROUP_MENU (IDGROUP,IDMENU) values (1,11);
+Insert into THUEKENH.GROUP_MENU (IDGROUP,IDMENU) values (1,12);
+Insert into THUEKENH.GROUP_MENU (IDGROUP,IDMENU) values (1,13);
+Insert into THUEKENH.GROUP_MENU (IDGROUP,IDMENU) values (1,14);
+Insert into THUEKENH.GROUP_MENU (IDGROUP,IDMENU) values (1,15);
+Insert into THUEKENH.GROUP_MENU (IDGROUP,IDMENU) values (1,16);
+Insert into THUEKENH.GROUP_MENU (IDGROUP,IDMENU) values (1,17);
+Insert into THUEKENH.GROUP_MENU (IDGROUP,IDMENU) values (1,18);
+Insert into THUEKENH.GROUP_MENU (IDGROUP,IDMENU) values (1,19);
+Insert into THUEKENH.GROUP_MENU (IDGROUP,IDMENU) values (1,20);
+Insert into THUEKENH.GROUP_MENU (IDGROUP,IDMENU) values (1,21);
+Insert into THUEKENH.GROUP_MENU (IDGROUP,IDMENU) values (2,1);
+Insert into THUEKENH.GROUP_MENU (IDGROUP,IDMENU) values (2,2);
+Insert into THUEKENH.GROUP_MENU (IDGROUP,IDMENU) values (3,2);
+Insert into THUEKENH.GROUP_MENU (IDGROUP,IDMENU) values (4,2);
+
