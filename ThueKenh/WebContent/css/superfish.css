@@ -66,6 +66,7 @@ z-index: 9999;
 color: #FFFFFF;
 }
 .sf-menu li {
+padding-right:20px;
 }
 .sf-menu li li {
 	background:		#8497BF;
