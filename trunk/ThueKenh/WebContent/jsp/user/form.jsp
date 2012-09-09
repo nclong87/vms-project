@@ -12,11 +12,19 @@
 %>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<%@include file="/include/header.jsp"%>
-<script type="text/javascript"
-	src="<%=contextPath%>/js/jquery.validate.js"></script>
-<script type="text/javascript"
-	src="<%=contextPath%>/js/mylibs/my.validate.js"></script>
+<link rel="stylesheet" href="<%= contextPath %>/css/addedit.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="<%= contextPath %>/css/cupertino/jquery-ui.css" type="text/css" media="screen" />
+<script type='text/javascript' src='<%= contextPath %>/js/jquery.js'></script>
+<script type='text/javascript' src='<%= contextPath %>/js/jquery-ui.js'></script>
+<script type="text/javascript" src="<%=contextPath%>/js/jquery.validate.js"></script>
+<script type="text/javascript" src="<%=contextPath%>/js/mylibs/my.validate.js"></script>
+<script>
+var contextPath = '<%= contextPath %>';
+var baseUrl = contextPath;
+function byId(id) { //Viet tat cua ham document.getElementById
+	return document.getElementById(id);
+}
+</script>
 <style>
 .td_label {
 	width: 135px;
@@ -43,110 +51,107 @@ input.error,select.error,textarea.error {
 	<div id="bg_wrapper">
 		<center>
 		<div style="width: 99%">
-			<fieldset class="form">
-				<legend id="title"></legend>
-				<form id="form" method="post" action="${doSaveURL}"
-					onsubmit="return false;">
-					<input type="text" style="display: none" name="user.id" id="id" />
-					<table width="370px" style="float: left">
-						<tr>
-							<td colspan='2' align="left"><s:if test='message != null'>
-									<s:if test='message.getType().equals(1)'>
-										<div class="ui-state-highlight ui-corner-all"
-											style="padding: 0pt 0.7em; text-align: left;">
-											<p style="padding: 5px;">
-												<span class="ui-icon ui-icon-info"
-													style="float: left; margin-right: .3em;"></span> <strong>Success!
-												</strong>
-												<s:property value="message.message" />
-											</p>
-										</div>
-									</s:if>
-									<s:elseif test='message.getType().equals(0)'>
-										<div style="padding: 0pt 0.7em; text-align: left;"
-											class="ui-state-error ui-corner-all">
-											<p style="padding: 5px;">
-												<span style="float: left; margin-right: .3em;"
-													class="ui-icon ui-icon-alert"></span> <strong>Error
-													: </strong>
-												<s:property value="message.message"
-													default="Có lỗi xảy ra, vui lòng thử lại sau." />
-											</p>
-										</div>
-									</s:elseif>
-								</s:if></td>
-						</tr>
-						<tr>
-							<td class="td_label">Username <span class="required"
-								title="Yêu cầu nhập">*</span> :
-							</td>
-							<td><input type="text" class="field" name="user.username"
-								id="username" /> <label style="display: none"
-								for="user.username" generated="false" class="error"></label></td>
-						</tr>
-						<tr>
-							<td class="td_label">Mật khẩu <span class="required"
-								title="Yêu cầu nhập">*</span> :
-							</td>
-							<td><input type="password" class="field"
-								name="user.password" id="password" /> <label
-								style="display: none" for="user.password" generated="false"
-								class="error"></label></td>
-						</tr>
+			<form id="form" method="post" action="${doSaveURL}"
+				onsubmit="return false;">
+				<input type="text" style="display: none" name="user.id" id="id" />
+				<table width="370px" style="float: left">
+					<tr>
+						<td colspan='2' align="left"><s:if test='message != null'>
+								<s:if test='message.getType().equals(1)'>
+									<div class="ui-state-highlight ui-corner-all"
+										style="padding: 0pt 0.7em; text-align: left;">
+										<p style="padding: 5px;">
+											<span class="ui-icon ui-icon-info"
+												style="float: left; margin-right: .3em;"></span> <strong>Success!
+											</strong>
+											<s:property value="message.message" />
+										</p>
+									</div>
+								</s:if>
+								<s:elseif test='message.getType().equals(0)'>
+									<div style="padding: 0pt 0.7em; text-align: left;"
+										class="ui-state-error ui-corner-all">
+										<p style="padding: 5px;">
+											<span style="float: left; margin-right: .3em;"
+												class="ui-icon ui-icon-alert"></span> <strong>Error
+												: </strong>
+											<s:property value="message.message"
+												default="Có lỗi xảy ra, vui lòng thử lại sau." />
+										</p>
+									</div>
+								</s:elseif>
+							</s:if></td>
+					</tr>
+					<tr>
+						<td class="td_label">Username <span class="required"
+							title="Yêu cầu nhập">*</span> :
+						</td>
+						<td><input type="text" class="field" name="user.username"
+							id="username" /> <label style="display: none"
+							for="user.username" generated="false" class="error"></label></td>
+					</tr>
+					<tr>
+						<td class="td_label">Mật khẩu <span class="required"
+							title="Yêu cầu nhập">*</span> :
+						</td>
+						<td><input type="password" class="field"
+							name="user.password" id="password" /> <label
+							style="display: none" for="user.password" generated="false"
+							class="error"></label></td>
+					</tr>
 
-						<tr>
-							<td>&nbsp;</td>
-						</tr>
-						<tr>
-							<td><input type="button" class="button" id="btSubmit"
-								value="Lưu" /></td>
-						</tr>
-					</table>
-					<table style="float: left">
-						<tr>
-							<td class="td_label">Phòng ban :</td>
-							<td><select class="field" name="user.idphongban"
-								id="idphongban">
-									<option value="">-- Chọn phòng ban --</option>
-									<s:iterator value="phongbans">
-										<option value='<s:property value="id" />'>
-											<s:property value="tenphongban" />
-										</option>
-									</s:iterator>
-							</select></td>
-						</tr>
-						<tr>
-							<td class="td_label">Nhóm chức năng:</td>
-							<td><select class="field" name="user.idgroup" id="idgroup">
-									<option value="">-- Chọn nhóm chức năng --</option>
-									<s:iterator value="vmsgroups">
-										<option value='<s:property value="id" />'>
-											<s:property value="namegroup" />
-										</option>
-									</s:iterator>
-							</select></td>
-						</tr>
-						<tr>
-							<td class="td_label">Khu vực :</td>
-							<td><select class="field" name="user.idkhuvuc" id="idkhuvuc">
-									<option value="">-- Chọn khu vực --</option>
-									<s:iterator value="khuvucs">
-										<option value='<s:property value="id" />'>
-											<s:property value="tenkhuvuc" />
-										</option>
-									</s:iterator>
-							</select></td>
-						</tr>
-						<tr>
-							<td class="td_label">Trạng thái :</td>
-							<td><select class="field" name="user.active" id="active">
-									<option value="1">Đang hoạt động</option>
-									<option value="0">Đã khóa</option>
-							</select></td>
-						</tr>
-					</table>
-				</form>
-			</fieldset>
+					<tr>
+						<td>&nbsp;</td>
+					</tr>
+					<tr>
+						<td><input type="button" class="button" id="btSubmit"
+							value="Lưu" /></td>
+					</tr>
+				</table>
+				<table style="float: left">
+					<tr>
+						<td class="td_label">Phòng ban :</td>
+						<td><select class="field" name="user.idphongban"
+							id="idphongban">
+								<option value="">-- Chọn phòng ban --</option>
+								<s:iterator value="phongbans">
+									<option value='<s:property value="id" />'>
+										<s:property value="tenphongban" />
+									</option>
+								</s:iterator>
+						</select></td>
+					</tr>
+					<tr>
+						<td class="td_label">Nhóm chức năng:</td>
+						<td><select class="field" name="user.idgroup" id="idgroup">
+								<option value="">-- Chọn nhóm chức năng --</option>
+								<s:iterator value="vmsgroups">
+									<option value='<s:property value="id" />'>
+										<s:property value="namegroup" />
+									</option>
+								</s:iterator>
+						</select></td>
+					</tr>
+					<tr>
+						<td class="td_label">Khu vực :</td>
+						<td><select class="field" name="user.idkhuvuc" id="idkhuvuc">
+								<option value="">-- Chọn khu vực --</option>
+								<s:iterator value="khuvucs">
+									<option value='<s:property value="id" />'>
+										<s:property value="tenkhuvuc" />
+									</option>
+								</s:iterator>
+						</select></td>
+					</tr>
+					<tr>
+						<td class="td_label">Trạng thái :</td>
+						<td><select class="field" name="user.active" id="active">
+								<option value="1">Đang hoạt động</option>
+								<option value="0">Đã khóa</option>
+						</select></td>
+					</tr>
+				</table>
+			</form>
 		</div>
 		</center>
 	</div>
@@ -225,7 +230,6 @@ input.error,select.error,textarea.error {
 												}
 											}
 										});
-						$('ul.sf-menu').superfish();
 						var form_data = '<s:property value="form_data" escape="false"/>';
 						if (form_data != '') {
 							$("legend#title").text("Cập nhật tài khoản");

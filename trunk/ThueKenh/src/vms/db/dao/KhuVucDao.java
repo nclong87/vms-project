@@ -29,11 +29,7 @@ public class KhuVucDao extends CatalogDAO {
 				"select * from khuvuc where deleted = 0", new RowMapper() {
 					public Object mapRow(ResultSet rs, int rowNum)
 							throws SQLException {
-						KhuVuc dto = new KhuVuc();
-						dto.setId(rs.getLong("ID"));
-						dto.setTenkhuvuc(rs.getString("TENKHUVUC"));
-						dto.setDeleted(rs.getBoolean("DELETED"));
-						return dto;
+						return KhuVucDTO.mapObject(rs);
 					}
 				});
 	}
@@ -48,28 +44,20 @@ public class KhuVucDao extends CatalogDAO {
 			    "select * from khuvuc where deleted = 0",
 			    new RowMapper() {
 			        public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
-			        	KhuVucDTO khuvuc = new KhuVucDTO();
-			        	khuvuc.setId(rs.getLong("ID"));
-			        	khuvuc.setName(rs.getString("TENKHUVUC"));
-			        	khuvuc.setIsDeleted(rs.getBoolean("DELETED"));
-			            return khuvuc;
+			        	return KhuVucDTO.mapObject(rs);
 			        }
 			    });
 	}
 
 	@Override
-	public CatalogDTO get(long id) {
+	public CatalogDTO get(String id) {
 		// TODO Auto-generated method stub
 		@SuppressWarnings("unchecked")
 		List<CatalogDTO> lst= this.jdbcTemplate.query(
 			    "select * from khuvuc where deleted = 0 and id="+id,
 			    new RowMapper() {
 			        public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
-			        	KhuVucDTO khuvuc = new KhuVucDTO();
-			        	khuvuc.setId(rs.getLong("ID"));
-			        	khuvuc.setName(rs.getString("TENKHUVUC"));
-			        	khuvuc.setIsDeleted(rs.getBoolean("DELETED"));
-			            return khuvuc;
+			        	return KhuVucDTO.mapObject(rs);
 			        }
 			    });
 		if(lst.size()==0)
@@ -84,15 +72,15 @@ public class KhuVucDao extends CatalogDAO {
 		Connection connection = jdbcTemplate.getDataSource().getConnection();
 		CallableStatement stmt = connection.prepareCall( "{ ? = call SAVE_KHUVUC(?,?,?) }");
 		stmt.registerOutParameter(1, OracleTypes.INTEGER);
-		stmt.setLong(2, cat.getId());
+		stmt.setString(2, cat.getId());
 		stmt.setString(3, cat.getName());
-		stmt.setLong(4, cat.getSTT());
+		stmt.setInt(4, cat.getStt());
 		stmt.execute();
 		return stmt.getLong(1)>0;
 	}
 
 	@Override
-	public boolean update(long id, CatalogDTO cat) {
+	public boolean update(String id, CatalogDTO cat) {
 		// TODO Auto-generated method stub
 		KhuVucDTO up=(KhuVucDTO)cat;
 		String sql="update khuvuc set tenkhuvuc='"+up.getName()+"' where id="+up.getId();

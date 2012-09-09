@@ -2,33 +2,33 @@ package vms.db.dto;
 
 public class CatalogDTO {
 	//properties
-	protected long Id;
-	protected String Name;
-	protected boolean IsDeleted;
-	protected long STT;
-	public long getSTT() {
-		return STT;
+	protected String id;
+	protected String name;
+	protected Integer deleted;
+	protected Integer stt;
+	public String getId() {
+		return id;
 	}
-	public void setSTT(long sTT) {
-		STT = sTT;
-	}
-	//getter & setter
-	public long getId() {
-		return Id;
-	}
-	public void setId(long l) {
-		Id = l;
+	public void setId(String id) {
+		this.id = id;
 	}
 	public String getName() {
-		return Name;
+		return name;
 	}
 	public void setName(String name) {
-		Name = name;
+		this.name = name;
 	}
-	public boolean isIsDeleted() {
-		return IsDeleted;
+	public Integer getDeleted() {
+		return deleted;
 	}
-	public void setIsDeleted(boolean isDeleted) {
-		IsDeleted = isDeleted;
+	public void setDeleted(Integer deleted) {
+		this.deleted = deleted;
 	}
+	public Integer getStt() {
+		return stt;
+	}
+	public void setStt(Integer stt) {
+		this.stt = stt;
+	}
+	
 }
