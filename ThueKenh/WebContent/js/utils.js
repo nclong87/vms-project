@@ -296,5 +296,33 @@ function MaxWindow()
 function CloseWindow() {
     status == "closing";
     windowObj.close();
-    RefreshSite();
+    oTable.fnDraw(false);
+}
+function trangThaiTuyenKenhToString(matrangthai) {
+	switch(parseInt(matrangthai)) {
+		case -1 :
+			return '<div class="chua_su_dung" title="Chưa sử dụng"></div>';
+			break;
+		case 0 :
+			return '<div class="dang_ban_giao" title="Đang bàn giao"></div>';
+			break;
+		case 1 :
+			return '<div class="dang_ban_giao" title="Đang thay đổi dung lượng"></div>';
+			break;
+		case 2 :
+			return '<div class="dang_ban_giao" title="Đang thay đổi số lượng"></div>';
+			break;
+		case 3 :
+			return '<div class="da_ban_giao" title="Đã bàn giao"></div>';
+			break;
+		case 4 :
+			return '<div class="da_co_bb_bg" title="Đã có biên bản bàn giao"></div>';
+			break;
+		case 5 :
+			return '<div class="da_co_hop_dong" title="Đã có phụ lục hợp đồng"></div>';
+			break;
+		default:
+			return '';
+			break;
+	}
 }

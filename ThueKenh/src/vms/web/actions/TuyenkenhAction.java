@@ -20,19 +20,25 @@ import org.json.simple.JSONValue;
 
 import vms.db.dao.AccountDao;
 import vms.db.dao.DaoFactory;
+import vms.db.dao.DuAnDAO;
 import vms.db.dao.KhuVucDao;
 import vms.db.dao.LoaiGiaoTiepDao;
 import vms.db.dao.PhongBanDao;
+import vms.db.dao.TuyenkenhDao;
 import vms.db.dao.VmsgroupDao;
 import vms.db.dto.Account;
+import vms.db.dto.DuAnDTO;
 import vms.db.dto.KhuVuc;
+import vms.db.dto.KhuVucDTO;
 import vms.db.dto.LoaiGiaoTiep;
 import vms.db.dto.PhongBan;
+import vms.db.dto.PhongBanDTO;
 import vms.db.dto.TuyenKenh;
 import vms.db.dto.Vmsgroup;
 import vms.utils.Constances;
 import vms.utils.VMSUtil;
 import vms.web.models.AccountExt;
+import vms.web.models.FN_FIND_TUYENKENH;
 import vms.web.models.MessageStore;
 
 import com.opensymphony.xwork2.Action;
@@ -51,9 +57,11 @@ public class TuyenkenhAction implements Preparable {
 	private String form_data;
 	
 	private List<LoaiGiaoTiep> loaiGiaoTieps;
+	private List<DuAnDTO> duAnDTOs;
+	private List<KhuVucDTO> khuVucDTOs;
+	private List<PhongBan> phongBans;
 	private String id;
 	private String[] ids;
-	private Account user;
 	public TuyenkenhAction( DaoFactory factory) {
 		daoFactory = factory;
 	}
@@ -72,6 +80,12 @@ public class TuyenkenhAction implements Preparable {
 		}
 		LoaiGiaoTiepDao loaiGiaoTiepDao = new LoaiGiaoTiepDao(daoFactory);
 		loaiGiaoTieps = loaiGiaoTiepDao.getAll();
+		DuAnDAO duAnDAO = new DuAnDAO(daoFactory);
+		duAnDTOs = duAnDAO.findAll();
+		KhuVucDao khuVucDao = new KhuVucDao(daoFactory);
+		khuVucDTOs = khuVucDao.findAll();
+		PhongBanDao phongBanDao = new PhongBanDao(daoFactory);
+		phongBans = phongBanDao.getAll();
 		return Action.SUCCESS;
 	}
 	
@@ -82,45 +96,29 @@ public class TuyenkenhAction implements Preparable {
 			Integer iDisplayLength = Integer.parseInt(request.getParameter("iDisplayLength"));
 			String sSearch = request.getParameter("sSearch").trim();
 			System.out.println("sSearch="+sSearch);
-			String username = "";
-			String phongban_id = "";
-			String khuvuc_id = "";
-			String active = "";
+			Map<String, String> conditions = new LinkedHashMap<String, String>();
 			if(sSearch.isEmpty() == false) {
 				JSONArray arrayJson = (JSONArray) new JSONObject(sSearch).get("array");
 				for(int i=0;i<arrayJson.length();i++) {
 					String name = arrayJson.getJSONObject(i).getString("name");
 					String value = arrayJson.getJSONObject(i).getString("value");
 					if(value.isEmpty()==false) {
-						if(name.equals("username"))
-							username = value;
-						if(name.equals("phongban_id"))
-							phongban_id = value;
-						if(name.equals("khuvuc_id"))
-							khuvuc_id = value;
-						if(name.equals("active"))
-							active = value;
+						conditions.put(name, value);
 					}
 				}
 			}
-			AccountDao accountDao = new AccountDao(daoFactory);
-			List<AccountExt> lstAccount = accountDao.findAccounts(iDisplayStart, iDisplayLength + 1, username, phongban_id, khuvuc_id, active);
+			TuyenkenhDao tuyenkenhDao = new TuyenkenhDao(daoFactory);
+			List<FN_FIND_TUYENKENH> lstTuyenkenh = tuyenkenhDao.findTuyenkenh(iDisplayStart, iDisplayLength, conditions);
 			jsonData = new LinkedHashMap<String, Object>();
-			List<HashMap<String, Object>> items = new ArrayList<HashMap<String, Object>>();
-			for(int i=0;i<lstAccount.size() && i<iDisplayLength;i++) {
-				HashMap<String, Object> map = new HashMap<String, Object>();
-				AccountExt account_ext = lstAccount.get(i);
-				map.put("stt", i+1);
-				map.put("id", account_ext.getId());
-				map.put("username", account_ext.getUsername());
-				map.put("phongban", account_ext.getTenphongban());
-				map.put("khuvuc", account_ext.getTenkhuvuc());
-				map.put("active", account_ext.getActive());
+			List<Map<String, String>> items = new ArrayList<Map<String, String>>();
+			for(int i=0;i<lstTuyenkenh.size() && i<iDisplayLength;i++) {
+				Map<String, String> map = lstTuyenkenh.get(i).getMap();
+				map.put("STT", String.valueOf(i+1));
 				items.add(map);
 			}
 			jsonData.put("sEcho", Integer.parseInt(request.getParameter("sEcho")));
-			jsonData.put("iTotalRecords", lstAccount.size());
-			jsonData.put("iTotalDisplayRecords", lstAccount.size());
+			jsonData.put("iTotalRecords", lstTuyenkenh.size());
+			jsonData.put("iTotalDisplayRecords", lstTuyenkenh.size());
 			jsonData.put("aaData", items);
 			return Action.SUCCESS;
 		} catch (Exception e) {
@@ -145,11 +143,17 @@ public class TuyenkenhAction implements Preparable {
 			}
 			LoaiGiaoTiepDao loaiGiaoTiepDao = new LoaiGiaoTiepDao(daoFactory);
 			loaiGiaoTieps = loaiGiaoTiepDao.getAll();
+			DuAnDAO duAnDAO = new DuAnDAO(daoFactory);
+			duAnDTOs = duAnDAO.findAll();
+			KhuVucDao khuVucDao = new KhuVucDao(daoFactory);
+			khuVucDTOs = khuVucDao.findAll();
+			PhongBanDao phongBanDao = new PhongBanDao(daoFactory);
+			phongBans = phongBanDao.getAll();
 			form_data = "";
 			if(id != null && id.isEmpty()==false) {
-				AccountDao accountDao = new AccountDao(daoFactory);
-				user = accountDao.findById(id);
-				Map<String,String> map = user.getMap();
+				TuyenkenhDao tuyenkenhDao = new TuyenkenhDao(daoFactory);
+				tuyenKenh = tuyenkenhDao.findById(id);
+				Map<String,String> map = tuyenKenh.getMap();
 				form_data = JSONValue.toJSONString(map);
 			}
 		} catch (Exception e) {
@@ -166,13 +170,14 @@ public class TuyenkenhAction implements Preparable {
 				session.setAttribute("URL", VMSUtil.getFullURL(request));
 				return "login_page";
 			}
-			AccountDao accountDao = new AccountDao(daoFactory);
-			id = String.valueOf(accountDao.save(user));
+			TuyenkenhDao tuyenkenhDao = new TuyenkenhDao(daoFactory);
+			id = tuyenkenhDao.save(tuyenKenh);
 			if(id == null) throw new Exception(Constances.MSG_ERROR);
+			setInputStream("OK");
 		} catch (Exception e) {
 			e.printStackTrace();
-			session.setAttribute("message", e.getMessage());
-			return Action.ERROR;
+			//session.setAttribute("message", e.getMessage());
+			setInputStream("ERROR");
 		}
 		return Action.SUCCESS;
 	}
@@ -215,12 +220,6 @@ public class TuyenkenhAction implements Preparable {
 	public void setId(String id) {
 		this.id = id;
 	}
-	public Account getUser() {
-		return user;
-	}
-	public void setUser(Account user) {
-		this.user = user;
-	}
 	public String getForm_data() {
 		return form_data;
 	}
@@ -245,5 +244,24 @@ public class TuyenkenhAction implements Preparable {
 	public void setLoaiGiaoTieps(List<LoaiGiaoTiep> loaiGiaoTieps) {
 		this.loaiGiaoTieps = loaiGiaoTieps;
 	}
+	public List<DuAnDTO> getDuAnDTOs() {
+		return duAnDTOs;
+	}
+	public void setDuAnDTOs(List<DuAnDTO> duAnDTOs) {
+		this.duAnDTOs = duAnDTOs;
+	}
+	public List<KhuVucDTO> getKhuVucDTOs() {
+		return khuVucDTOs;
+	}
+	public void setKhuVucDTOs(List<KhuVucDTO> khuVucDTOs) {
+		this.khuVucDTOs = khuVucDTOs;
+	}
+	public List<PhongBan> getPhongBans() {
+		return phongBans;
+	}
+	public void setPhongBans(List<PhongBan> phongBans) {
+		this.phongBans = phongBans;
+	}
+	
 	
 }

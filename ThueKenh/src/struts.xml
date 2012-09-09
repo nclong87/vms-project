@@ -223,10 +223,8 @@
 			<result>/jsp/tuyenkenh/form.jsp</result>
 		</action>
 		<action name="doSave" class="tuyenkenhAction" method="doSave">
-			<result name="success" type="redirectAction">
-				<param name="actionName">form</param>
-				<param name="id">${id}</param>
-				<param name="f">1</param>
+			<result name="success" type="stream">
+				<param name="inputName">inputStream</param>
 			</result>
 		</action>
 		<action name="ajLoadTuyenkenh" class="tuyenkenhAction" method="ajLoadTuyenkenh">

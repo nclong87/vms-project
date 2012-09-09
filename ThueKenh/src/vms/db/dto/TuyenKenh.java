@@ -12,24 +12,25 @@ import java.util.Map;
  */
 public class TuyenKenh {
 
-	private String id;
-	private String diemdau_id;
-	private String diemcuoi_id;
-	private String giaotiep_id;
-	private String duan_id;
-	private String phongban_id;
-	private String khuvuc_id;
-	private Integer dungluong;
-	private Integer soluong;
-	private String ngaydenghibangiao;
-	private String ngayhenbangiao;
-	private String thongtinlienhe;
-	private Integer trangthai;
-	private String usercreate;
-	private String timecreate;
-	private Integer deleted;
+	private String id = "";
+	private String diemdau_id = "";
+	private String diemcuoi_id = "";
+	private String giaotiep_id = "";
+	private String duan_id = "";
+	private String phongban_id = "";
+	private String khuvuc_id = "";
+	private Integer dungluong = 0;
+	private Integer soluong = 0;
+	private String ngaydenghibangiao = "";
+	private String ngayhenbangiao = "";
+	private String thongtinlienhe = "";
+	private Integer trangthai = 0;
+	private String usercreate = "";
+	private String timecreate = "";
+	private Integer deleted = 0;
 
     public TuyenKenh() {
+
     }
     
 	

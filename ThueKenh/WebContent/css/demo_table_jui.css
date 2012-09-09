@@ -26,22 +26,20 @@
  *     ../images/ - relative to this CSS file.
  */
 
-
 /*
  * jQuery UI specific styling
  */
-
 .paging_two_button .ui-button {
 	float: left;
-	cursor: pointer;
-	* cursor: hand;
+	cursor: pointer; *
+	cursor: hand;
 }
 
 .paging_full_numbers .ui-button {
 	padding: 2px 6px;
 	margin: 0;
-	cursor: pointer;
-	* cursor: hand;
+	cursor: pointer; *
+	cursor: hand;
 }
 
 .dataTables_paginate .ui-button {
@@ -65,16 +63,14 @@
 }
 
 table.display thead th {
-	padding: 3px 0px 3px 21px;
-	cursor: pointer;
-	* cursor: hand;
-	font-weight:bold;
+	padding: 3px 0px 3px 20px;
+	cursor: pointer; *
+	cursor: hand;
 }
 
 div.dataTables_wrapper .ui-widget-header {
 	font-weight: normal;
 }
-
 
 /*
  * Sort arrow icon positioning
@@ -92,9 +88,6 @@ table.display thead th div.DataTables_sort_wrapper span {
 	right: 0;
 }
 
-
-
-
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  *
  * Everything below this line is the same as demo_table.css. This file is
@@ -102,15 +95,11 @@ table.display thead th div.DataTables_sort_wrapper span {
  *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-
-
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * DataTables features
  */
-
 .dataTables_wrapper {
 	position: relative;
-	min-height: 302px;
 	_height: 302px;
 	clear: both;
 }
@@ -150,7 +139,8 @@ table.display thead th div.DataTables_sort_wrapper span {
 }
 
 /* Pagination nested */
-.paginate_disabled_previous, .paginate_enabled_previous, .paginate_disabled_next, .paginate_enabled_next {
+.paginate_disabled_previous,.paginate_enabled_previous,.paginate_disabled_next,.paginate_enabled_next
+	{
 	height: 19px;
 	width: 19px;
 	margin-left: 3px;
@@ -173,18 +163,15 @@ table.display thead th div.DataTables_sort_wrapper span {
 	background-image: url('../images/forward_enabled.jpg');
 }
 
-
-
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * DataTables display
  */
 table.display {
-border-collapse: collapse;
-border-left: 1px solid #AED0EA;
-border-right: 1px solid #AED0EA;
-clear: both;
-margin: 0 auto;
-width: 100%;
+	margin: 0 auto;
+	width: 100%;
+	clear: both;
+	border-collapse: collapse;
+	border: 1px solid #DDD;
 }
 
 table.display tfoot th {
@@ -205,12 +192,9 @@ table.display td.center {
 	text-align: center;
 }
 
-
-
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * DataTables sorting
  */
-
 .sorting_asc {
 	background: url('../images/sort_asc.png') no-repeat center right;
 }
@@ -224,15 +208,14 @@ table.display td.center {
 }
 
 .sorting_asc_disabled {
-	background: url('../images/sort_asc_disabled.png') no-repeat center right;
+	background: url('../images/sort_asc_disabled.png') no-repeat center
+		right;
 }
 
 .sorting_desc_disabled {
-	background: url('../images/sort_desc_disabled.png') no-repeat center right;
+	background: url('../images/sort_desc_disabled.png') no-repeat center
+		right;
 }
-
-
-
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * DataTables row classes
@@ -244,9 +227,6 @@ table.display tr.odd.gradeA {
 table.display tr.even.gradeA {
 	background-color: #eeffee;
 }
-
-
-
 
 table.display tr.odd.gradeA {
 	background-color: #ddffdd;
@@ -280,7 +260,6 @@ table.display tr.even.gradeU {
 	background-color: #eee;
 }
 
-
 tr.odd {
 	background-color: #E2E4FF;
 }
@@ -289,10 +268,6 @@ tr.even {
 	background-color: white;
 }
 
-
-
-
-
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * Misc
  */
@@ -300,7 +275,7 @@ tr.even {
 	clear: both;
 }
 
-.top, .bottom {
+.top,.bottom {
 	padding: 15px;
 	background-color: #F5F5F5;
 	border: 1px solid #CCCCCC;
@@ -320,7 +295,6 @@ tr.even {
 
 tfoot input {
 	margin: 0.5em 0;
-	width: 100%;
 	color: #444;
 }
 
@@ -339,13 +313,12 @@ td.details {
 	border: 2px solid #A19B9E;
 }
 
-
 .example_alt_pagination div.dataTables_info {
 	width: 40%;
 }
 
-.paging_full_numbers span.paginate_button,
- 	.paging_full_numbers span.paginate_active {
+.paging_full_numbers span.paginate_button,.paging_full_numbers span.paginate_active
+	{
 	border: 1px solid #aaa;
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
@@ -375,7 +348,6 @@ table.display tr.odd.row_selected td {
 	background-color: #9FAFD1;
 }
 
-
 /*
  * Sorting classes for columns
  */
@@ -403,7 +375,6 @@ tr.even td.sorting_2 {
 tr.even td.sorting_3 {
 	background-color: #F9F9FF;
 }
-
 
 /* For the Conditional-CSS grading rows */
 /*
@@ -511,14 +482,15 @@ tr.even.gradeU td.sorting_3 {
 	background-color: #e2e2e2;
 }
 
-
 /*
  * Row highlighting example
  */
-.ex_highlight #example tbody tr.even:hover, #example tbody tr.even td.highlighted {
+.ex_highlight #example tbody tr.even:hover,#example tbody tr.even td.highlighted
+	{
 	background-color: #ECFFB3;
 }
 
-.ex_highlight #example tbody tr.odd:hover, #example tbody tr.odd td.highlighted {
+.ex_highlight #example tbody tr.odd:hover,#example tbody tr.odd td.highlighted
+	{
 	background-color: #E6FF99;
 }

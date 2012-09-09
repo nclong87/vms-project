@@ -1,24 +1,31 @@
 package vms.db.dto;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 public class PhongBan {
 
-	private Long id;
+	private String id;
 
 	private String tenphongban;
+	
+	private Integer stt;
 
-	private Boolean deleted;
+	private Integer deleted;
 
 
     public PhongBan() {
     }
-
-
-	public Long getId() {
+    
+	
+	public String getId() {
 		return id;
 	}
 
 
-	public void setId(Long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -33,15 +40,43 @@ public class PhongBan {
 	}
 
 
-	public Boolean getDeleted() {
+	public Integer getStt() {
+		return stt;
+	}
+
+
+	public void setStt(Integer stt) {
+		this.stt = stt;
+	}
+
+
+	public Integer getDeleted() {
 		return deleted;
 	}
 
 
-	public void setDeleted(Boolean deleted) {
+	public void setDeleted(Integer deleted) {
 		this.deleted = deleted;
 	}
 
+
+	public Map<String,String> getMap() {
+		Map<String, String> map = new LinkedHashMap<String, String>();
+		map.put("ID", this.id);
+		map.put("TENPHONGBAN", this.tenphongban);
+		map.put("STT", this.stt.toString());
+		map.put("DELETED", this.deleted.toString());
+		return map;
+	}
+	
+	public static PhongBanDTO mapObject(ResultSet rs) throws SQLException {
+		PhongBanDTO dto = new PhongBanDTO();
+		dto.setId(rs.getString("ID"));
+		dto.setName(rs.getString("TENPHONGBAN"));
+		dto.setStt(rs.getInt("STT"));
+		dto.setDeleted(rs.getInt("DELETED"));
+        return dto;
+	}
 	
 	
 
