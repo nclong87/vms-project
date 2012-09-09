@@ -215,4 +215,24 @@
 			</result>
 		</action>
 	</package>
+	<package name="tuyenkenh" extends="default" namespace="/tuyenkenh">
+		<action name="index" class="tuyenkenhAction">
+			<result>/jsp/tuyenkenh/index.jsp</result>
+		</action>
+		<action name="form" class="tuyenkenhAction" method="form">
+			<result>/jsp/tuyenkenh/form.jsp</result>
+		</action>
+		<action name="doSave" class="tuyenkenhAction" method="doSave">
+			<result name="success" type="redirectAction">
+				<param name="actionName">form</param>
+				<param name="id">${id}</param>
+				<param name="f">1</param>
+			</result>
+		</action>
+		<action name="ajLoadTuyenkenh" class="tuyenkenhAction" method="ajLoadTuyenkenh">
+			<result name="success" type="json">
+				<param name="root">jsonData</param>
+			</result>
+		</action>
+	</package>
 </struts>

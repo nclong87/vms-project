@@ -54,7 +54,7 @@ margin-left: 10px;
 	<%@include file="/include/top.jsp"%>
 	<div id="bg_wrapper">
 		<center>
-		<div class="ovf" style="width: 100%; margin-bottom: 10px;">
+		<div class="ovf" style="width: 100%; margin-bottom: 5px;">
 				<div class="s10">
 					<div class="fl">
 						<div id="t_1" class="fl tsl"></div>
@@ -64,7 +64,6 @@ margin-left: 10px;
 						<div id="t_3" class="fl tsr"></div>
 					</div>
 					<div class="lineU">
-						<img height="1px" src="<%= request.getContextPath() %>/images/spacer.gif" class="w100" alt="">
 					</div>
 				</div>
 				<div style="padding-right: 0px;" class="ovf" id="divSearch">
@@ -108,13 +107,12 @@ margin-left: 10px;
 					</div>
 				</div>
 				<div style="height: 1px;">
-					<img src="App_Themes/Normal/Images/spacer.gif" style="height: 1px;" alt="">
 				</div>
 			</div>
 		<div style="width:99%">
 			
 			
-			<div style="float:left">
+			<div style="float:left;margin-bottom:5px">
 				<input type="button" value="Thêm tài khoản" id="btThem" class="button"  onclick="doNew('${formURL}')" >
 				<input type="button" value="Mở Khóa" id="btUnlock" class="button" >
 				<input type="button" value="Khóa" id="btLock" class="button"  >

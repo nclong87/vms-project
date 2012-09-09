@@ -31,12 +31,7 @@ public class PhongBanDao extends CatalogDAO {
 				"select * from phongban where deleted = 0", new RowMapper() {
 					public Object mapRow(ResultSet rs, int rowNum)
 							throws SQLException {
-						PhongBan phongBan = new PhongBan();
-						phongBan.setId(rs.getLong("ID"));
-						phongBan.setTenphongban(rs.getString("TENPHONGBAN"));
-						phongBan.setDeleted(rs.getBoolean("DELETED"));
-
-						return phongBan;
+						return PhongBanDTO.mapObject(rs);
 					}
 				});
 	}
@@ -50,11 +45,7 @@ public class PhongBanDao extends CatalogDAO {
 						+ _strSearch + "%'", new RowMapper() {
 					public Object mapRow(ResultSet rs, int rowNum)
 							throws SQLException {
-						PhongBanDTO phongBan = new PhongBanDTO();
-						phongBan.setId(rs.getLong("ID"));
-						phongBan.setName(rs.getString("TENPHONGBAN"));
-						phongBan.setIsDeleted(rs.getBoolean("DELETED"));
-						return phongBan;
+						return PhongBanDTO.mapObject(rs);
 					}
 				});
 	}
@@ -67,17 +58,13 @@ public class PhongBanDao extends CatalogDAO {
 				"select * from phongban where deleted = 0", new RowMapper() {
 					public Object mapRow(ResultSet rs, int rowNum)
 							throws SQLException {
-						PhongBanDTO phongBan = new PhongBanDTO();
-						phongBan.setId(rs.getLong("ID"));
-						phongBan.setName(rs.getString("TENPHONGBAN"));
-						phongBan.setIsDeleted(rs.getBoolean("DELETED"));
-						return phongBan;
+						return PhongBanDTO.mapObject(rs);
 					}
 				});
 	}
 
 	@Override
-	public CatalogDTO get(long id) {
+	public CatalogDTO get(String id) {
 		// TODO Auto-generated method stub
 		@SuppressWarnings("unchecked")
 		List<CatalogDTO> lst = this.jdbcTemplate.query(
@@ -85,11 +72,7 @@ public class PhongBanDao extends CatalogDAO {
 				new RowMapper() {
 					public Object mapRow(ResultSet rs, int rowNum)
 							throws SQLException {
-						PhongBanDTO phongBan = new PhongBanDTO();
-						phongBan.setId(rs.getLong("ID"));
-						phongBan.setName(rs.getString("TENPHONGBAN"));
-						phongBan.setIsDeleted(rs.getBoolean("DELETED"));
-						return phongBan;
+						return PhongBanDTO.mapObject(rs);
 					}
 				});
 		if (lst.size() == 0)
@@ -107,11 +90,11 @@ public class PhongBanDao extends CatalogDAO {
 			CallableStatement stmt = connection
 					.prepareCall("{ call PROC_SAVE_PHONGBAN(?,?,?,?) }");
 			//stmt.registerOutParameter(1, OracleTypes.INTEGER);
-			stmt.setLong(1, cat.getId());
+			stmt.setString(1, cat.getId());
 			System.out.println(cat.getId());
 			stmt.setString(2, cat.getName());
 			stmt.setInt(3, 0);
-			stmt.setLong(4, cat.getSTT());
+			stmt.setInt(4, cat.getStt());
 			System.out.println("***BEGIN PROC_SAVE_PHONGBAN***");
 			stmt.execute();
 			stmt.close();
@@ -125,7 +108,7 @@ public class PhongBanDao extends CatalogDAO {
 	}
 
 	@Override
-	public boolean update(long id, CatalogDTO cat) {
+	public boolean update(String id, CatalogDTO cat) {
 		// TODO Auto-generated method stub
 		PhongBanDTO up = (PhongBanDTO) cat;
 		String sql = "update phongban set tenphongban='" + up.getName()

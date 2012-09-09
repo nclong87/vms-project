@@ -47,7 +47,6 @@
 	<script type="text/javascript" src="<%= contextPath %>/content/js/validator.js"></script>
 	<script type="text/javascript" src="<%= contextPath %>/content/js/jquery.dataTables.min.js"></script>
 	 <script type="text/javascript" src="<%= contextPath %>/content/js/jquery.hint.js"></script>
-	<%-- <script type="text/javascript" src="<%= contextPath %>/content/js/CalendarControl.js"></script> --%>
 	<script type="text/javascript"
 		src="<%= contextPath %>/content/js/jquery-window-5.03/jquery.window.js"></script>
 	<script type="text/javascript" src="<%= contextPath %>/content/js/utils.js"></script>
@@ -94,15 +93,9 @@
 			</h1>
 
 			<div class="head_memberinfo">
-				<div class="head_memberinfo_logo">
-					<span>1</span> <img src="<%= contextPath %>/content/images/unreadmail.png" alt="" />
-				</div>
-
 				<span class='memberinfo_span'> Welcome <a href="#"><s:property value="#session.SESS_USERLOGIN.username"/></a>
 				</span> <span class='memberinfo_span'> <a href="#" onclick="loadContent('/settings/index.action')">Your Account</a>
 				</span> <span> <a href="${doLogoutURL}">Logout</a>
-				</span> <span class='memberinfo_span2'> <a href="#">1 Private
-						Message recieved</a>
 				</span>
 			</div>
 			<!--end head_memberinfo-->

@@ -30,7 +30,7 @@ public class CatalogDAO {
 	/*
 	 * Get a catalog
 	 */
-	public CatalogDTO get(long id){return null;}
+	public CatalogDTO get(String id){return null;}
 	/*
 	 * insert a catalog into database
 	 */
@@ -38,7 +38,7 @@ public class CatalogDAO {
 	/*
 	 * update a catalog into database
 	 */
-	public boolean update(long id,CatalogDTO cat){return false;}
+	public boolean update(String id,CatalogDTO cat){return false;}
 	/*
 	 * delete a catalog from database
 	 */

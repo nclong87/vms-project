@@ -27,12 +27,7 @@ public class DoiTacDAO extends CatalogDAO {
 				"select * from doitac where deleted = 0", new RowMapper() {
 					public Object mapRow(ResultSet rs, int rowNum)
 							throws SQLException {
-						DoiTacDTO doitac = new DoiTacDTO();
-						doitac.setId(rs.getLong("ID"));
-						doitac.setName(rs.getString("TENDOITAC"));
-						doitac.setIsDeleted(rs.getBoolean("DELETED"));
-						doitac.setSTT(rs.getLong("STT"));
-						return doitac;
+						return DoiTacDTO.mapObject(rs);
 					}
 				});
 	}
@@ -46,18 +41,13 @@ public class DoiTacDAO extends CatalogDAO {
 				sql, new RowMapper() {
 					public Object mapRow(ResultSet rs, int rowNum)
 							throws SQLException {
-						DoiTacDTO doitac = new DoiTacDTO(); 
-						doitac.setId(rs.getLong("ID"));
-						doitac.setName(rs.getString("TENDOITAC"));
-						doitac.setIsDeleted(rs.getBoolean("DELETED"));
-						doitac.setSTT(rs.getLong("STT"));
-						return doitac;
+						return DoiTacDTO.mapObject(rs);
 					}
 				});
 	}
 
 	@Override
-	public CatalogDTO get(long id) {
+	public CatalogDTO get(String id) {
 		// TODO Auto-generated method stub
 		@SuppressWarnings("unchecked")
 		List<CatalogDTO> lst = this.jdbcTemplate.query(
@@ -65,12 +55,7 @@ public class DoiTacDAO extends CatalogDAO {
 				new RowMapper() {
 					public Object mapRow(ResultSet rs, int rowNum)
 							throws SQLException {
-						DoiTacDTO doitac = new DoiTacDTO();
-						doitac.setId(rs.getLong("ID"));
-						doitac.setName(rs.getString("TENDOITAC"));
-						doitac.setIsDeleted(rs.getBoolean("DELETED"));
-						doitac.setSTT(rs.getLong("STT"));
-						return doitac;
+						return DoiTacDTO.mapObject(rs);
 					}
 				});
 		if (lst.size() == 0)
@@ -86,10 +71,10 @@ public class DoiTacDAO extends CatalogDAO {
 	}
 
 	@Override
-	public boolean update(long id, CatalogDTO cat) {
+	public boolean update(String id, CatalogDTO cat) {
 		// TODO Auto-generated method stub
 		DoiTacDTO up = (DoiTacDTO) cat;
-		String sql="update doitac set tendoitac='"+up.getName()+"',stt="+up.getSTT()+" where id="+up.getId();
+		String sql="update doitac set tendoitac='"+up.getName()+"',stt="+up.getStt()+" where id="+up.getId();
 		System.out.println(sql);
 		return this.jdbcTemplate.update(sql) > 0;
 	}

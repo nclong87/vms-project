@@ -99,13 +99,13 @@ public class DanhMucKhuVucAction implements Preparable {
 	}
 
 	public String edit() throws SQLException {
-		int id = 0;
+		String id = "";
 
 		// edit page post
 		if (this.opEdit != null) {
 			// edit
 			System.out.println("edit mode id=" + this.opEdit.getId());
-			if (this.opEdit.getId() > 0) {
+			if (this.opEdit.getId() != "") {
 				if (this.KhuVucDao.update(this.opEdit.getId(), this.opEdit)) {
 					this.flag = "1";// updated
 				} else
@@ -120,7 +120,7 @@ public class DanhMucKhuVucAction implements Preparable {
 			// get page
 			try {
 				this.request = ServletActionContext.getRequest();
-				id = Integer.parseInt(request.getParameter("id"));
+				id = request.getParameter("id");
 				System.out.println("load edit id=" + id);
 				this.opEdit = (KhuVucDTO) this.KhuVucDao.get(id);
 				System.out.println("finish load edit");

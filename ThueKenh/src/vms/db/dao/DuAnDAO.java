@@ -25,12 +25,7 @@ public class DuAnDAO extends CatalogDAO {
 				"select * from duan where deleted = 0", new RowMapper() {
 					public Object mapRow(ResultSet rs, int rowNum)
 							throws SQLException {
-						DuAnDTO duan = new DuAnDTO();
-						duan.setId(rs.getLong("ID"));
-						duan.setName(rs.getString("TENduan"));
-						duan.setIsDeleted(rs.getBoolean("DELETED"));
-						duan.setSTT(rs.getLong("STT"));
-						return duan;
+						return DuAnDTO.mapObject(rs);
 					}
 				});
 	}
@@ -44,18 +39,13 @@ public class DuAnDAO extends CatalogDAO {
 		System.out.println(sql);
 		return this.jdbcTemplate.query(sql, new RowMapper() {
 			public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
-				DuAnDTO duan = new DuAnDTO();
-				duan.setId(rs.getLong("ID"));
-				duan.setName(rs.getString("TENduan"));
-				duan.setIsDeleted(rs.getBoolean("DELETED"));
-				duan.setSTT(rs.getLong("STT"));
-				return duan;
+				return DuAnDTO.mapObject(rs);
 			}
 		});
 	}
 
 	@Override
-	public CatalogDTO get(long id) {
+	public CatalogDTO get(String id) {
 		// TODO Auto-generated method stub
 		@SuppressWarnings("unchecked")
 		List<CatalogDTO> lst = this.jdbcTemplate.query(
@@ -63,12 +53,7 @@ public class DuAnDAO extends CatalogDAO {
 				new RowMapper() {
 					public Object mapRow(ResultSet rs, int rowNum)
 							throws SQLException {
-						DuAnDTO duan = new DuAnDTO();
-						duan.setId(rs.getLong("ID"));
-						duan.setName(rs.getString("TENduan"));
-						duan.setIsDeleted(rs.getBoolean("DELETED"));
-						duan.setSTT(rs.getLong("STT"));
-						return duan;
+						return DuAnDTO.mapObject(rs);
 					}
 				});
 		if (lst.size() == 0)
@@ -84,11 +69,11 @@ public class DuAnDAO extends CatalogDAO {
 	}
 
 	@Override
-	public boolean update(long id, CatalogDTO cat) {
+	public boolean update(String id, CatalogDTO cat) {
 		// TODO Auto-generated method stub
 		DuAnDTO up = (DuAnDTO) cat;
 		String sql = "update duan set tenduan='" + up.getName() + "',stt="
-				+ up.getSTT() + " where id=" + up.getId();
+				+ up.getStt() + " where id=" + up.getId();
 		System.out.println(sql);
 		return this.jdbcTemplate.update(sql) > 0;
 	}

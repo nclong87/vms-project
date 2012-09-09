@@ -121,4 +121,6 @@ color: gray;
 font-weight: bold;
 }
 
-
+span.required {
+color:red;
+}

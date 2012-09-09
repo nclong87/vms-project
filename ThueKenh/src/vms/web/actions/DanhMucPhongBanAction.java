@@ -106,13 +106,13 @@ public class DanhMucPhongBanAction implements Preparable {
 	}
 
 	public String edit() {
-		int id = 0;
+		String id = "";
 
 		// edit page post
 		if (this.opEdit != null) {
 			// edit
 			System.out.println("edit mode id=" + this.opEdit.getId());
-			if (this.opEdit.getId() > 0) {
+			if (this.opEdit.getId() != "") {
 				if (this.phongbanDAO.update(this.opEdit.getId(), this.opEdit)) {
 					this.flag = "1";// updated
 					System.out.println("Cập nhật thành công");
@@ -136,7 +136,7 @@ public class DanhMucPhongBanAction implements Preparable {
 			// get page
 			try {
 				this.request = ServletActionContext.getRequest();
-				id = Integer.parseInt(request.getParameter("id"));
+				id = request.getParameter("id");
 				System.out.println("load edit id=" + id);
 				this.opEdit = (PhongBanDTO) this.phongbanDAO.get(id);
 				System.out.println("finish load edit");
