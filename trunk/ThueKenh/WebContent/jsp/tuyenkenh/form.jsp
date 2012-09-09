@@ -1,11 +1,8 @@
 ﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
-<s:url action="doLogout" namespace="/login" var="doLogoutURL" />
 <s:url action="index" namespace="/login" var="loginURL" />
-<s:url action="index" namespace="/settings" var="settingsIndexURL" />
-<s:url action="doSave" namespace="/user" id="doSaveURL" />
-<s:url action="index" namespace="/user" id="userIndexURL" />
+<s:url action="doSave" namespace="/tuyenkenh" id="doSaveURL" />
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <%
 	String contextPath = request.getContextPath();
@@ -15,7 +12,6 @@
 <link rel="stylesheet" href="<%= contextPath %>/css/addedit.css" type="text/css" media="screen" />
 <link rel="stylesheet" href="<%= contextPath %>/css/cupertino/jquery-ui.css" type="text/css" media="screen" />
 <script type='text/javascript' src='<%= contextPath %>/js/jquery.js'></script>
-<script type='text/javascript' src='<%= contextPath %>/js/jquery-ui.js'></script>
 <script type="text/javascript" src="<%=contextPath%>/js/jquery.validate.js"></script>
 <script type="text/javascript" src="<%=contextPath%>/js/mylibs/my.validate.js"></script>
 <script>
@@ -26,237 +22,183 @@ function byId(id) { //Viet tat cua ham document.getElementById
 }
 </script>
 <style>
-.td_label {
-	width: 135px;
-	height: 30px;
-	overflow: hidden;
-}
-
-.field {
-	width: 200px
-}
-
-label.error {
-	color: red;
-	margin-left: 5px;
-}
-
-input.error,select.error,textarea.error {
-	border: 1px solid red;
-}
 </style>
-
 </head>
-<body style="background: none;">
-	<div id="bg_wrapper">
-		<center>
-		<div style="width: 99%">
-			<form id="form" method="post" action="${doSaveURL}"
-				onsubmit="return false;">
-				<input type="text" style="display: none" name="user.id" id="id" />
-				<table width="370px" style="float: left">
-					<tr>
-						<td colspan='2' align="left"><s:if test='message != null'>
-								<s:if test='message.getType().equals(1)'>
-									<div class="ui-state-highlight ui-corner-all"
-										style="padding: 0pt 0.7em; text-align: left;">
-										<p style="padding: 5px;">
-											<span class="ui-icon ui-icon-info"
-												style="float: left; margin-right: .3em;"></span> <strong>Success!
-											</strong>
-											<s:property value="message.message" />
-										</p>
-									</div>
-								</s:if>
-								<s:elseif test='message.getType().equals(0)'>
-									<div style="padding: 0pt 0.7em; text-align: left;"
-										class="ui-state-error ui-corner-all">
-										<p style="padding: 5px;">
-											<span style="float: left; margin-right: .3em;"
-												class="ui-icon ui-icon-alert"></span> <strong>Error
-												: </strong>
-											<s:property value="message.message"
-												default="Có lỗi xảy ra, vui lòng thử lại sau." />
-										</p>
-									</div>
-								</s:elseif>
-							</s:if></td>
-					</tr>
-					<tr>
-						<td class="td_label">Username <span class="required"
-							title="Yêu cầu nhập">*</span> :
-						</td>
-						<td><input type="text" class="field" name="user.username"
-							id="username" /> <label style="display: none"
-							for="user.username" generated="false" class="error"></label></td>
-					</tr>
-					<tr>
-						<td class="td_label">Mật khẩu <span class="required"
-							title="Yêu cầu nhập">*</span> :
-						</td>
-						<td><input type="password" class="field"
-							name="user.password" id="password" /> <label
-							style="display: none" for="user.password" generated="false"
-							class="error"></label></td>
-					</tr>
-
-					<tr>
-						<td>&nbsp;</td>
-					</tr>
-					<tr>
-						<td><input type="button" class="button" id="btSubmit"
-							value="Lưu" /></td>
-					</tr>
-				</table>
-				<table style="float: left">
-					<tr>
-						<td class="td_label">Phòng ban :</td>
-						<td><select class="field" name="user.idphongban"
-							id="idphongban">
-								<option value="">-- Chọn phòng ban --</option>
-								<s:iterator value="phongbans">
-									<option value='<s:property value="id" />'>
-										<s:property value="tenphongban" />
-									</option>
-								</s:iterator>
-						</select></td>
-					</tr>
-					<tr>
-						<td class="td_label">Nhóm chức năng:</td>
-						<td><select class="field" name="user.idgroup" id="idgroup">
-								<option value="">-- Chọn nhóm chức năng --</option>
-								<s:iterator value="vmsgroups">
-									<option value='<s:property value="id" />'>
-										<s:property value="namegroup" />
-									</option>
-								</s:iterator>
-						</select></td>
-					</tr>
-					<tr>
-						<td class="td_label">Khu vực :</td>
-						<td><select class="field" name="user.idkhuvuc" id="idkhuvuc">
-								<option value="">-- Chọn khu vực --</option>
-								<s:iterator value="khuvucs">
-									<option value='<s:property value="id" />'>
-										<s:property value="tenkhuvuc" />
-									</option>
-								</s:iterator>
-						</select></td>
-					</tr>
-					<tr>
-						<td class="td_label">Trạng thái :</td>
-						<td><select class="field" name="user.active" id="active">
-								<option value="1">Đang hoạt động</option>
-								<option value="0">Đã khóa</option>
-						</select></td>
-					</tr>
-				</table>
-			</form>
-		</div>
-		</center>
+<body>
+	<form id="form" onsubmit="return false;">
+	<input type="text" style="display:none" name="tuyenKenh.id" id="id" />
+	<div style="background: none repeat scroll 0pt 0pt rgb(242, 242, 242); padding: 5px; width: 99%;">
+		<table class="input" style="width:700px">
+			<tr>
+				<td colspan='4' align="left" id="msg">
+				</td>
+			</tr>
+			<tr>
+				<td align="right" width="160px"><label for="diemdau_id">Điểm đầu <font title="Bắt buộc nhập" color="red">*</font> :
+				</label></td>
+				<td align="left"><input type="text" name="tuyenKenh.diemdau_id" id="diemdau_id" />
+				</td>
+				<td align="right" width="150px"><label for="diemcuoi_id">Điểm cuối <font title="Bắt buộc nhập" color="red">*</font> :
+				</label></td>
+				<td align="left"><input type="text" id="diemcuoi_id" name="tuyenKenh.diemcuoi_id" /></td>
+			</tr>
+			<tr>
+				<td align="right"><label for="giaotiep_id">Giao tiếp <font
+						title="Bắt buộc nhập" color="red">*</font> :
+				</label></td>
+				<td align="left" >
+					<select name="tuyenKenh.giaotiep_id" id="giaotiep_id">
+						<option value="">---Chọn---</option>
+						<s:iterator value="loaiGiaoTieps">
+							<option value='<s:property value="id" />'><s:property value="loaigiaotiep" /></option>									
+						</s:iterator>
+					</select>
+				</td>
+				<td align="right"><label for="duan_id">Dự án : </label></td>
+				<td align="left">
+					<select id="duan_id" name="tuyenKenh.duan_id">
+						<option value="">---Chọn---</option>
+						<s:iterator value="duAnDTOs">
+							<option value='<s:property value="id" />'><s:property value="tenduan" /></option>									
+						</s:iterator>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td align="right"><label for="dungluong">Dung lượng <font
+						title="Bắt buộc nhập" color="red">*</font> :
+				</label></td>
+				<td align="left"><input type="text" name="tuyenKenh.dungluong" id="dungluong" />
+				</td>
+				<td align="right"><label for="soluong">Số lượng <font
+						title="Bắt buộc nhập" color="red">*</font> :
+				</label></td>
+				<td align="left"><input type="text" name="tuyenKenh.soluong" id="soluong" />
+				</td>
+			</tr>
+			<tr>
+				<td align="right" title="Ngày hẹn bàn giao"><label
+					for="ngayhenbangiao">Ngày hẹn bàn giao : </label></td>
+				<td align="left"><input type="text" name="tuyenKenh.ngayhenbangiao"
+					id="ngayhenbangiao" /></td>
+				<td align="right" title="Ngày đề nghị bàn giao"><label
+					for="ngaydenghibangiao">Ngày đề nghị bàn giao : </label></td>
+				<td align="left"><input type="text" name="tuyenKenh.ngaydenghibangiao"
+					id="ngaydenghibangiao" /></td>
+			</tr>
+			<tr>
+				<td align="right"><label for="phongban_id">Đơn vị nhận
+						kênh : </label></td>
+				<td align="left">
+					<select id="phongban_id" name="tuyenKenh.phongban_id">
+						<option value="">---Chọn---</option>
+						<s:iterator value="phongBans">
+							<option value='<s:property value="id" />'><s:property value="name" /></option>									
+						</s:iterator>
+					</select>
+				</td>
+				<td align="right"><label for="khuvuc_id">Khu vực : </label></td>
+				<td align="left">
+					<select id="khuvuc_id" name="tuyenKenh.khuvuc_id">
+						<option value="">---Chọn---</option>
+						<s:iterator value="khuVucDTOs">
+							<option value='<s:property value="id" />'><s:property value="name" /></option>									
+						</s:iterator>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td align="right"><label for="thongtinlienhe">Thông tin
+						liên hệ : </label></td>
+				<td align="left" colspan="5"><textarea rows="2"
+						style="width: 495px" id="thongtinlienhe" name="tuyenKenh.thongtinlienhe"></textarea></td>
+			</tr>
+			<tr height="30px">
+				<td colspan="6" align="right">
+					<input class="button" type="button" id="btSubmit" value="Lưu"/>
+					<input class="button" type="button" id="btReset" value="Làm lại"/>
+					<input class="button" type="button" id="btThoat" onclick="window.parent.CloseWindow();" value="Thoát"/>
+				</td>
+			</tr>
+		</table>
 	</div>
-	<div id="footer"></div>
+	</form>
 </body>
 </html>
 <script>
-	var LOGIN_PATH = "${loginURL}";
-	function loadContent(url) {
-		location.href = contextPath + url;
+var LOGIN_PATH = "${loginURL}";
+function message(msg,type) {
+	if(msg == '') {
+		$("#msg").html('');
+		return;
 	}
-	$(document)
-			.ready(
-					function() {
-
-						$("#form")
-								.validate(
-										{
-											onkeyup : false,
-											onfocusout : false,
-											rules : {
-												"user.username" : {
-													required : true,
-													regex : '^[a-zA-Z0-9]+([a-zA-Z0-9](_|-| )[a-zA-Z0-9])*[a-zA-Z0-9]+$',
-													uniqueUserName : true,
-													minlength : 6,
-													maxlength : 25
-												},
-												"user.password" : {
-													required : true,
-													regex : '^[a-zA-Z0-9]+([a-zA-Z0-9](_|-| )[a-zA-Z0-9])*[a-zA-Z0-9]+$',
-													minlength : 6,
-													maxlength : 255
-												},
-												"user.idphongban" : {
-													required : function(element) {
-														return $("#idphongban")
-																.val() == '';
-													}
-												},
-												"user.idgroup" : {
-													required : function(element) {
-														return $("#idgroup")
-																.val() == '';
-													}
-												},
-												"user.idkhuvuc" : {
-													required : function(element) {
-														return $("#idkhuvuc")
-																.val() == '';
-													}
-												}
-											},
-											messages : {
-												"user.username" : {
-													required : "Vui lòng nhập username",
-													regex : "Tên đăng nhập chỉ bao gồm các ký tự từ A-z, 0-9 và các ký tự -",
-													uniqueUserName : "Username này đã được sử dụng, vui lòng chọn username khác!",
-													minlength : "Tên đăng nhập ít nhất là 6 kí tự",
-													maxlength : "Tên đăng nhập ít nhất là 25 kí tự",
-												},
-												"user.password" : {
-													required : "Vui lòng nhập mật khẩu",
-													regex : "Mật khẩu chỉ bao gồm các ký tự từ A-z, 0-9 và các ký tự -",
-													minlength : "Mật khẩu ít nhất là 6 kí tự",
-													maxlength : "Mật khẩu ít nhất là 25 kí tự",
-												},
-												"user.idphongban" : {
-													required : "",
-												},
-												"user.idgroup" : {
-													required : "",
-												},
-												"user.idkhuvuc" : {
-													required : "",
-												}
-											}
-										});
-						var form_data = '<s:property value="form_data" escape="false"/>';
-						if (form_data != '') {
-							$("legend#title").text("Cập nhật tài khoản");
-							var form_data = $.parseJSON(form_data);
-							for (key in form_data) {
-								$("#form #" + key).val(form_data[key]);
-							}
-							$('#username').attr("readonly", "true");
-							$("#username").rules("remove");
-						} else {
-							$("legend#title").text("Thêm mới tài khoản");
-						}
-						$(document)
-								.delegate(
-										"#btSubmit",
-										"click",
-										function() {
-											this.disabled = true;
-											if (!$("#form").valid()) {
-												alert("Dữ liệu nhập chưa hợp lệ, vui lòng kiểm tra lại!");
-												this.disabled = false;
-											} else {
-												byId("form").submit();
-											}
-											return false;
-										});
-					});
+	if(type == 1) {
+		$("#msg").html('<div class="ui-state-highlight ui-corner-all" style=" padding: 0pt 0.7em; text-align: left;"><p style="padding: 5px;"><span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span><strong>Success! </strong> '+msg+'</p></div>');
+	} else {
+		$("#msg").html('<div style="padding: 0pt 0.7em; text-align: left;" class="ui-state-error ui-corner-all"><p style="padding: 5px;"><span style="float: left; margin-right: .3em;" class="ui-icon ui-icon-alert"></span><strong>Error : </strong> '+msg+'</p></div>');
+	}
+}
+function loadContent(url) {
+	location.href = contextPath + url;
+}
+$(document).ready(function() {
+	$("#btReset").click(function(){
+		$("#form")[0].reset();
+		message();
+	});
+	$("#form").validate({
+		onkeyup : false,
+		onfocusout : false,
+		rules : {
+			"tuyenKenh.diemdau_id" : {
+				required : true
+			},
+			"tuyenKenh.diemcuoi_id" : {
+				required : true
+			},
+			"tuyenKenh.giaotiep_id" : {
+				required : true
+			},
+			"tuyenKenh.soluong" : {
+				required : true,
+				number : true
+			},
+			"tuyenKenh.dungluong" : {
+				required : true,
+				number : true
+			}
+		}
+	});
+	$(document).delegate("#btSubmit","click",function() {
+		this.disabled = true;
+		if (!$("#form").valid()) {
+			alert("Dữ liệu nhập chưa hợp lệ, vui lòng kiểm tra lại!");
+			this.disabled = false;
+		} else {
+			var dataString = $("#form").serialize();
+				$.ajax({
+				url: "${doSaveURL}",
+				type:'POST',
+				data:dataString,
+				success:function(response){
+					if(response == "ERROR") {
+						this.disabled = false;
+						message("Lưu không thành công, vui lòng thử lại.",0);
+						return false;
+					}
+					if(response == "OK") {
+						message("Lưu thành công!",1);
+					}
+				},
+				error:function(response){
+					this.disabled = false;
+					alert("Server is too busy, please try again!");
+				}
+			});
+		}
+		return false;
+	});
+});
 
 	
 </script>

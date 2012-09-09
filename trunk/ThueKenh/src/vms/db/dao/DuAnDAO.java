@@ -18,6 +18,18 @@ public class DuAnDAO extends CatalogDAO {
 	}
 
 	@SuppressWarnings("unchecked")
+	public List<DuAnDTO> findAll() {
+		// TODO Auto-generated method stub
+		return this.jdbcTemplate.query(
+				"select * from duan where deleted = 0", new RowMapper() {
+					public Object mapRow(ResultSet rs, int rowNum)
+							throws SQLException {
+						return DuAnDTO.mapObject(rs);
+					}
+				});
+	}
+	
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<CatalogDTO> get() {
 		// TODO Auto-generated method stub

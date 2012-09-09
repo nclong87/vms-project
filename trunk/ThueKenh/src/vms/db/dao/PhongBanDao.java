@@ -31,7 +31,7 @@ public class PhongBanDao extends CatalogDAO {
 				"select * from phongban where deleted = 0", new RowMapper() {
 					public Object mapRow(ResultSet rs, int rowNum)
 							throws SQLException {
-						return PhongBanDTO.mapObject(rs);
+						return PhongBan.mapObject(rs);
 					}
 				});
 	}

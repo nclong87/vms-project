@@ -47,6 +47,7 @@ margin-left: 10px;
 <body>
 	<%@include file="/include/top.jsp"%>
 	<div id="bg_wrapper">
+		<form id="form">
 		<div style="width: 100%; margin-bottom: 10px;" class="ovf">
 			<div class="s10">
 				<div class="fl">
@@ -71,7 +72,7 @@ margin-left: 10px;
 										Mã kênh :
 									</td>
 									<td align="left">
-										<input type="text" name="id" id="id"/>
+										<input type="text" name="makenh" id="makenh"/>
 									</td>
 									<td align="right" width="150px">
 										Loại giao tiếp :
@@ -117,7 +118,7 @@ margin-left: 10px;
 										Khu vực :
 									</td>
 									<td align="left">
-										<select>
+										<select name="khuvuc" id="khuvuc">
 											<option value="">---Chọn---</option>
 											<s:iterator value="khuVucDTOs">
 												<option value='<s:property value="id" />'><s:property value="name" /></option>									
@@ -126,10 +127,10 @@ margin-left: 10px;
 									</td>
 									<td align="right">Đ/V nhận kênh :</td>
 									<td align="left">
-										<select>
+										<select name="phongban" id="phongban">
 											<option value="">---Chọn---</option>
 											<s:iterator value="phongBans">
-												<option value='<s:property value="id" />'><s:property value="tenphongban" /></option>									
+												<option value='<s:property value="id" />'><s:property value="name" /></option>									
 											</s:iterator>
 										</select>
 									</td>
@@ -138,17 +139,18 @@ margin-left: 10px;
 									<td align="right">
 										Ngày ĐN BG :
 									</td>
-									<td align="left"><input type="text" id="" /></td>
+									<td align="left"><input type="text" name="ngaydenghibangiao" id="ngaydenghibangiao" /></td>
 									<td align="right">
 										Ngày hẹn BG :
 									</td>
-									<td align="left"><input type="text" id="" /></td>
+									<td align="left"><input type="text" name="ngayhenbangiao" id="ngayhenbangiao" /></td>
 									<td align="right">
-										Tình trạng :
+										Trạng thái kênh :
 									</td>
 									<td align="left">
-										<select>
+										<select name="trangthai" id="trangthai">
 											<option value="">---Chọn---</option>
+											<option value="-1">Chưa sử dụng</option>
 											<option value="0">Đang bàn giao</option>
 											<option value="1">Đang thay đổi dung lượng</option>
 											<option value="2">Đang thay đổi số lượng</option>
@@ -170,7 +172,7 @@ margin-left: 10px;
 								<tfoot>
 									<td></td>
 									<td align="left">
-									<input class="button" type="button" value="Tìm Kiếm"/>
+									<input class="button" type="button" value="Tìm Kiếm" onclick="doSearch()"/>
 									</td>
 								</tfoot>
 							</table>
@@ -182,9 +184,10 @@ margin-left: 10px;
 			</div>
 			<div style="height: 1px;"></div>
 		</div>
+		</form>
 		<div style="clear:both;margin:5px 0 ">
 		<input class="button" type="button" id="btThem" value="Thêm tuyến kênh"/>
-		<input class="button" type="button" id="btXoa" value="Xóa"/>
+		<input class="button" type="button" id="btXoa" value="Xóa" style="float: right; margin-right: 10px;"/>
 		</div>
 			<table width="100%" id="dataTable" class="display">
 			<thead>
@@ -198,7 +201,7 @@ margin-left: 10px;
 					<th>Số lượng</th>
 					<th width="30px">Dự án</th>
 					<th width="120px">ĐV nhận kênh</th>
-					<th width="80px">Tỉnh</th>
+					<th width="80px">Khu vực</th>
 					<th width="5px">Trạng thái</th>
 					<th width="5px" align="center">Sửa</th>
 					<th width="5px" align="center"><input type="checkbox" onclick="selectAll(this)"/></th>
@@ -273,7 +276,17 @@ function openPermissionWindow(id) {
 	showDialogUrl("${permissionPopupURL}?id="+id,'Phân quyền user',610);
 }
 $(document).ready(function(){	 
+	$("#btThem").click(function(){
+		ShowWindow('Thêm mới tuyến kênh',750,500,"${formURL}",false)
+	});
 	$('ul.sf-menu').superfish();
+	$("#chkAdvSearch").click(function(){
+		if(this.checked == true) {
+			$("#hidden").show();
+		} else {
+			$("#hidden").hide();
+		}
+	});
 	oTable = $('#dataTable').dataTable({
 		"bJQueryUI": true,
 		"bProcessing": true,
@@ -281,31 +294,29 @@ $(document).ready(function(){
 		"bAutoWidth": false,
 		"sAjaxSource": "${ajLoadTuyenkenh}",
 		"aoColumns": [
-					{ "mDataProp": "stt","bSortable": false,"bSearchable": false },
-					{ "mDataProp": "id","bSortable": false,"bSearchable": false,"sClass":'td_center'},
-					{ "mDataProp": "username","bSortable": false,"bSearchable": false},
-					{ "mDataProp": "phongban","bSortable": false,"bSearchable": false},
-					{ "mDataProp": "khuvuc","bSortable": false,"bSearchable": false},
+					{ "mDataProp": "STT","bSortable": false,"bSearchable": false },
+					{ "mDataProp": "ID","bSortable": false,"bSearchable": false,"sClass":'td_center'},
+					{ "mDataProp": "MADIEMDAU","bSortable": false,"bSearchable": false,"sClass":'td_center'},
+					{ "mDataProp": "MADIEMCUOI","bSortable": false,"bSearchable": false,"sClass":'td_center'},
+					{ "mDataProp": "LOAIGIAOTIEP","bSortable": false,"bSearchable": false},
+					{ "mDataProp": "DUNGLUONG","bSortable": false,"bSearchable": false},
+					{ "mDataProp": "SOLUONG","bSortable": false,"bSearchable": false},
+					{ "mDataProp": "TENDUAN","bSortable": false,"bSearchable": false},
+					{ "mDataProp": "TENPHONGBAN","bSortable": false,"bSearchable": false},
+					{ "mDataProp": "TENKHUVUC","bSortable": false,"bSearchable": false},
 					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,
 						"fnRender": function( oObj ) {
-							if(oObj.aData.active==1) 
-								return '<center><div title="Đang hoạt động"  class="active"></div></center>'; 
-							return '<center><div title="Đã khóa"  class="inactive"></div></center>';
+							return '<center>'+trangThaiTuyenKenhToString(oObj.aData.TRANGTHAI)+'</center>'; 
 						}
 					},
 					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,
 						"fnRender": function( oObj ) {
-							return '<center><img title="permission" src="'+contextPath+'/images/icons/permission.png" onclick="openPermissionWindow('+oObj.aData.id+')" style="cursor:pointer"></center>'; 
+							return '<center><a class="edit_icon" onclick="doEdit(\'${formURL}?id='+oObj.aData.ID+'\')" title="Edit" href="#"></a></center>'; 
 						}
 					},
 					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,
 						"fnRender": function( oObj ) {
-							return '<center><a class="edit_icon" onclick="doEdit(\'${formURL}?id='+oObj.aData.id+'\')" title="Edit" href="#"></a></center>'; 
-						}
-					},
-					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,
-						"fnRender": function( oObj ) {
-							return '<center><input type="checkbox" value="'+oObj.aData.id+'"/></center>'; 
+							return '<center><input type="checkbox" value="'+oObj.aData.ID+'"/></center>'; 
 						}
 					}
 				],

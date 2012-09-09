@@ -34,6 +34,17 @@ public class KhuVucDao extends CatalogDAO {
 				});
 	}
 
+	@SuppressWarnings("unchecked")
+	public List<KhuVucDTO> findAll() {
+		// TODO Auto-generated method stub
+		return this.jdbcTemplate.query(
+			    "select * from khuvuc where deleted = 0",
+			    new RowMapper() {
+			        public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
+			        	return KhuVucDTO.mapObject(rs);
+			        }
+			    });
+	}
 
 	
 	@SuppressWarnings("unchecked")

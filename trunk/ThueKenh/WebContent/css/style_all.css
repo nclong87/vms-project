@@ -461,18 +461,26 @@ input.blur {
 .td_hidden {
 display:none
 }
-.closed, .active, .inactive, .locked {
+.chua_su_dung,.dang_ban_giao, .da_ban_giao, .da_co_bb_bg, .da_co_hop_dong {
   background-image: url("images/status.gif");
   height: 12px;
   width: 12px;
+  background-repeat: no-repeat;
 }
-.active {
-  background-position: 57px 0;
-  cursor: pointer;
+.chua_su_dung {
+background-position: -60px 0;
 }
-.inactive {
-  background-position: 12px 0;
-  cursor: pointer;
+.dang_ban_giao {
+background-position: -45px 0;
+}
+.da_ban_giao {
+background-position: -30px 0;
+}
+.da_co_bb_bg {
+background-position: -15px 0;
+}
+.da_co_hop_dong {
+background-position: 0 0;
 }
 .require {
 color:red;
@@ -554,4 +562,13 @@ cursor:pointer;
 .disable {
 color: gray;
 cursor: default;
+}
+input[type=text], select {
+margin: 0;
+padding: 2px 0;
+width: 150px;
+}
+select {
+padding-right:1px;
+width: 152px;
 }
