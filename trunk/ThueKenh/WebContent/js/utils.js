@@ -265,10 +265,12 @@ function processErrorMessage(message) {
 
 var windowObj;
 var status = "closing";
+var reload = false;
 function RefreshSite() {
     window.location.href = window.location;
 }
 function ShowWindow(_title, _width, _height, _url, _scrollable) {
+	reload = false;
     if (status == "closing") {
         windowObj = $.window({
             title: _title,
@@ -283,7 +285,8 @@ function ShowWindow(_title, _width, _height, _url, _scrollable) {
             scrollable:_scrollable,
             onClose: function () {
                 status = "closing";
-                oTable.fnDraw(false);
+				if(reload == true)
+					oTable.fnDraw(false);
             }
         });
         status = "opening";
@@ -294,9 +297,9 @@ function MaxWindow()
     windowObj.maximize();
 }
 function CloseWindow() {
-    status == "closing";
+    //status == "closing";
     windowObj.close();
-    oTable.fnDraw(false);
+    //oTable.fnDraw(false);
 }
 function trangThaiTuyenKenhToString(matrangthai) {
 	switch(parseInt(matrangthai)) {
