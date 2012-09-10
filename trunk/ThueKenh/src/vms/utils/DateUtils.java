@@ -18,7 +18,9 @@ import java.util.Date;
 
 public class DateUtils {
 	
-	private static SimpleDateFormat SDF_SQL = new SimpleDateFormat("dd-MMM-yyyy");
+	public static SimpleDateFormat SDF_SQL = new SimpleDateFormat("dd-MMM-yyyy");
+	public static SimpleDateFormat SDF_DDMMYYYY = new SimpleDateFormat("dd/MM/yyyy");
+	public static SimpleDateFormat SDF_DDMMYYYYHHSS = new SimpleDateFormat("dd/MM/yyyy HH:ss");
 	//private static SimpleDateFormat SDF_DDMMMYYYY = new SimpleDateFormat("dd-MMM-yyyy");
 	
     public DateUtils() {
@@ -42,6 +44,10 @@ public class DateUtils {
 			System.out.println("ERROR :" + e.getMessage());
 		}
 		return null;
+    }
+    public static String formatDate(Date date,SimpleDateFormat dateFormat) {
+    	if(date == null) return "";
+    	return dateFormat.format(date);
     }
     public static String parseToSQLDate(Date date) {
     	return SDF_SQL.format(date);

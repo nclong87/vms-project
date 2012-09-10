@@ -103,16 +103,16 @@ public class FN_FIND_TUYENKENH {
 	
 	public Map<String,String> getMap() {
 		Map<String, String> map = new LinkedHashMap<String, String>();
-		map.put("ID", this.id);
-		map.put("MADIEMDAU", this.madiemdau);
-		map.put("MADIEMCUOI", this.madiemcuoi);
-		map.put("LOAIGIAOTIEP", this.loaigiaotiep);
-		map.put("DUNGLUONG", this.dungluong);
-		map.put("SOLUONG", this.soluong);
-		map.put("TENDUAN", this.tenduan);
-		map.put("TENPHONGBAN", this.tenphongban);
-		map.put("TENKHUVUC", this.tenkhuvuc);
-		map.put("TRANGTHAI", this.trangthai);
+		map.put("id", this.id);
+		map.put("madiemdau", this.madiemdau);
+		map.put("madiemcuoi", this.madiemcuoi);
+		map.put("loaigiaotiep", this.loaigiaotiep);
+		map.put("dungluong", this.dungluong);
+		map.put("soluong", this.soluong);
+		map.put("tenduan", this.tenduan);
+		map.put("tenphongban", this.tenphongban);
+		map.put("tenkhuvuc", this.tenkhuvuc);
+		map.put("trangthai", this.trangthai);
 		return map;
 	}
 
