@@ -12,8 +12,10 @@
 <link rel="stylesheet" href="<%= contextPath %>/css/addedit.css" type="text/css" media="screen" />
 <link rel="stylesheet" href="<%= contextPath %>/css/cupertino/jquery-ui.css" type="text/css" media="screen" />
 <script type='text/javascript' src='<%= contextPath %>/js/jquery.js'></script>
+<script type='text/javascript' src='<%= contextPath %>/js/jquery-ui.js'></script>
 <script type="text/javascript" src="<%=contextPath%>/js/jquery.validate.js"></script>
 <script type="text/javascript" src="<%=contextPath%>/js/mylibs/my.validate.js"></script>
+<script type="text/javascript" src="<%=contextPath%>/js/jquery-ui/jquery.ui.datepicker-vi.js"></script>
 <script>
 var contextPath = '<%= contextPath %>';
 var baseUrl = contextPath;
@@ -28,19 +30,19 @@ function byId(id) { //Viet tat cua ham document.getElementById
 	<form id="form" onsubmit="return false;">
 	<input type="text" style="display:none" name="tuyenKenh.id" id="id" />
 	<div style="background: none repeat scroll 0pt 0pt rgb(242, 242, 242); padding: 5px; width: 99%;">
-		<table class="input" style="width:700px">
+		<table class="input" style="width:725px">
 			<tr>
 				<td colspan='4' align="left" id="msg">
 				</td>
 			</tr>
 			<tr>
-				<td align="right" width="160px"><label for="diemdau_id">Điểm đầu <font title="Bắt buộc nhập" color="red">*</font> :
+				<td align="right" width="160px"><label for="madiemdau">Điểm đầu <font title="Bắt buộc nhập" color="red">*</font> :
 				</label></td>
-				<td align="left"><input type="text" name="tuyenKenh.diemdau_id" id="diemdau_id" />
+				<td align="left"><input type="text" name="tuyenKenh.madiemdau" id="madiemdau" />
 				</td>
-				<td align="right" width="150px"><label for="diemcuoi_id">Điểm cuối <font title="Bắt buộc nhập" color="red">*</font> :
+				<td align="right" width="150px"><label for="madiemcuoi">Điểm cuối <font title="Bắt buộc nhập" color="red">*</font> :
 				</label></td>
-				<td align="left"><input type="text" id="diemcuoi_id" name="tuyenKenh.diemcuoi_id" /></td>
+				<td align="left"><input type="text" id="madiemcuoi" name="tuyenKenh.madiemcuoi" /></td>
 			</tr>
 			<tr>
 				<td align="right"><label for="giaotiep_id">Giao tiếp <font
@@ -77,14 +79,15 @@ function byId(id) { //Viet tat cua ham document.getElementById
 				</td>
 			</tr>
 			<tr>
-				<td align="right" title="Ngày hẹn bàn giao"><label
+				<td align="right"><label
 					for="ngayhenbangiao">Ngày hẹn bàn giao : </label></td>
-				<td align="left"><input type="text" name="tuyenKenh.ngayhenbangiao"
-					id="ngayhenbangiao" /></td>
+				<td align="left">
+					<input type="text" name="tuyenKenh.ngayhenbangiao" id="ngayhenbangiao" class="date">
+				</td>
 				<td align="right" title="Ngày đề nghị bàn giao"><label
 					for="ngaydenghibangiao">Ngày đề nghị bàn giao : </label></td>
 				<td align="left"><input type="text" name="tuyenKenh.ngaydenghibangiao"
-					id="ngaydenghibangiao" /></td>
+					id="ngaydenghibangiao" class="date"/></td>
 			</tr>
 			<tr>
 				<td align="right"><label for="phongban_id">Đơn vị nhận
@@ -111,7 +114,7 @@ function byId(id) { //Viet tat cua ham document.getElementById
 				<td align="right"><label for="thongtinlienhe">Thông tin
 						liên hệ : </label></td>
 				<td align="left" colspan="5"><textarea rows="2"
-						style="width: 495px" id="thongtinlienhe" name="tuyenKenh.thongtinlienhe"></textarea></td>
+						style="width: 570px" id="thongtinlienhe" name="tuyenKenh.thongtinlienhe"></textarea></td>
 			</tr>
 			<tr height="30px">
 				<td colspan="6" align="right">
@@ -142,18 +145,22 @@ function loadContent(url) {
 	location.href = contextPath + url;
 }
 $(document).ready(function() {
+	$( "input.date" ).datepicker({
+		showButtonPanel: true,
+		dateFormat : "dd/mm/yy"
+	});
 	$("#btReset").click(function(){
 		$("#form")[0].reset();
-		message();
+		message('',0);
 	});
 	$("#form").validate({
 		onkeyup : false,
 		onfocusout : false,
 		rules : {
-			"tuyenKenh.diemdau_id" : {
+			"tuyenKenh.madiemdau" : {
 				required : true
 			},
-			"tuyenKenh.diemcuoi_id" : {
+			"tuyenKenh.madiemcuoi" : {
 				required : true
 			},
 			"tuyenKenh.giaotiep_id" : {
@@ -169,11 +176,22 @@ $(document).ready(function() {
 			}
 		}
 	});
+	var form_data = '<s:property value="form_data" escape="false"/>';
+	if(form_data != '') {
+		var form_data = $.parseJSON(form_data);
+		for( key in form_data) {
+			$("#form #"+key).val(form_data[key]);
+		}
+		$("#madiemdau").attr("disabled","true");
+		$("#madiemcuoi").attr("disabled","true");
+		$("#giaotiep_id").attr("disabled","true");
+	} 
 	$(document).delegate("#btSubmit","click",function() {
-		this.disabled = true;
+		var button = this;
+		button.disabled = true;
 		if (!$("#form").valid()) {
 			alert("Dữ liệu nhập chưa hợp lệ, vui lòng kiểm tra lại!");
-			this.disabled = false;
+			button.disabled = false;
 		} else {
 			var dataString = $("#form").serialize();
 				$.ajax({
@@ -181,17 +199,21 @@ $(document).ready(function() {
 				type:'POST',
 				data:dataString,
 				success:function(response){
-					if(response == "ERROR") {
-						this.disabled = false;
-						message("Lưu không thành công, vui lòng thử lại.",0);
+					button.disabled = false;
+					if(response == "EXIST") {
+						message("Đã tồn tại tuyến kênh này trong hệ thống!",0);
 						return false;
 					}
 					if(response == "OK") {
+						button.disabled = true;
 						message("Lưu thành công!",1);
+						parent.reload = true;
+						return;
 					}
+					message("Lưu không thành công, vui lòng thử lại.",0);
 				},
 				error:function(response){
-					this.disabled = false;
+					button.disabled = false;
 					alert("Server is too busy, please try again!");
 				}
 			});

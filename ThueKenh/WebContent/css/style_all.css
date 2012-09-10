@@ -553,7 +553,7 @@ background-image: url("images/edit.png");
 display: block;
 height: 32px;
 width: 32px;
-
+cursor:pointer;
 }
 .required {
 color:red;
@@ -566,9 +566,9 @@ cursor: default;
 input[type=text], select {
 margin: 0;
 padding: 2px 0;
-width: 150px;
+width: 200px;
 }
 select {
 padding-right:1px;
-width: 152px;
+width: 202px;
 }

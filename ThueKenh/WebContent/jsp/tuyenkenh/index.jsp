@@ -13,9 +13,7 @@
 	var LOGIN_PATH = "${loginURL}";
 	</script>
 	<%@include file="/include/header.jsp"%>
-	<script type="text/javascript" src="<%= request.getContextPath() %>/js/jquery-window-5.03/jquery.window.js"></script>
-	<link rel="stylesheet" href="<%= request.getContextPath() %>/js/jquery-window-5.03/css/jquery.window.css" type="text/css" media="screen" />
-	<link rel="stylesheet" href="<%= request.getContextPath() %>/css/search_box.css" type="text/css" media="screen" />
+	<script type="text/javascript" src="<%=contextPath%>/js/jquery-ui/jquery.ui.datepicker-vi.js"></script>
 	<script>
 	function doNew(link) {
 		ShowWindow('Thêm tuyến kênh mới',800,400,link,false);
@@ -47,7 +45,6 @@ margin-left: 10px;
 <body>
 	<%@include file="/include/top.jsp"%>
 	<div id="bg_wrapper">
-		<form id="form">
 		<div style="width: 100%; margin-bottom: 10px;" class="ovf">
 			<div class="s10">
 				<div class="fl">
@@ -66,6 +63,7 @@ margin-left: 10px;
 					<div class="bgw p5b ovf" id="tabnd_2">
 						<div class="ovf p5l p5t">
 							<table width="970px">
+								<form id="form">
 								<tbody id="display">
 								<tr>
 									<td width="150px" align="right">
@@ -125,6 +123,18 @@ margin-left: 10px;
 											</s:iterator>
 										</select>
 									</td>
+								</tr>
+								<tr>
+									<td align="right">
+										Ngày đề nghị bàn giao :
+									</td>
+									<td align="left"><input type="text" name="ngaydenghibangiao" id="ngaydenghibangiao" class="date"/></td>
+									<td align="right">
+										Ngày hẹn bàn giao :
+									</td>
+									<td align="left"><input type="text" name="ngayhenbangiao" id="ngayhenbangiao" class="date" /></td>
+								</tr>
+								<tr>
 									<td align="right">Đ/V nhận kênh :</td>
 									<td align="left">
 										<select name="phongban" id="phongban">
@@ -134,16 +144,6 @@ margin-left: 10px;
 											</s:iterator>
 										</select>
 									</td>
-								</tr>
-								<tr>
-									<td align="right">
-										Ngày ĐN BG :
-									</td>
-									<td align="left"><input type="text" name="ngaydenghibangiao" id="ngaydenghibangiao" /></td>
-									<td align="right">
-										Ngày hẹn BG :
-									</td>
-									<td align="left"><input type="text" name="ngayhenbangiao" id="ngayhenbangiao" /></td>
 									<td align="right">
 										Trạng thái kênh :
 									</td>
@@ -161,11 +161,12 @@ margin-left: 10px;
 									</td>
 								</tr>
 								</tbody>
+								</form>
 								<tbody id="advSearch">
 									<tr>
 										<td></td>
 										<td  align="left" colspan="5">
-											<input type="checkbox" id="chkAdvSearch" name="chkAdvSearch"><label for="chkAdvSearch">Tìm kiếm nâng cao</label>
+											<input type="checkbox" id="chkAdvSearch"><label for="chkAdvSearch">Tìm kiếm nâng cao</label>
 										</td>
 									</tr>
 								</tbody>
@@ -173,6 +174,7 @@ margin-left: 10px;
 									<td></td>
 									<td align="left">
 									<input class="button" type="button" value="Tìm Kiếm" onclick="doSearch()"/>
+									<input class="button" type="button" value="Reset" onclick="reset()"/>
 									</td>
 								</tfoot>
 							</table>
@@ -184,7 +186,6 @@ margin-left: 10px;
 			</div>
 			<div style="height: 1px;"></div>
 		</div>
-		</form>
 		<div style="clear:both;margin:5px 0 ">
 		<input class="button" type="button" id="btThem" value="Thêm tuyến kênh"/>
 		<input class="button" type="button" id="btXoa" value="Xóa" style="float: right; margin-right: 10px;"/>
@@ -199,7 +200,7 @@ margin-left: 10px;
 					<th>Giao tiếp</th>
 					<th>Dung lượng</th>
 					<th>Số lượng</th>
-					<th width="30px">Dự án</th>
+					<th>Dự án</th>
 					<th width="120px">ĐV nhận kênh</th>
 					<th width="80px">Khu vực</th>
 					<th width="5px">Trạng thái</th>
@@ -220,6 +221,9 @@ margin-left: 10px;
 <script>
 function loadContent(url) {
 	location.href = contextPath + url;
+}
+function reset(){
+	$("#form")[0].reset();
 }
 function selectAll(_this) {
 	$('#dataTable input[type=checkbox]').each(function(){
@@ -276,8 +280,16 @@ function openPermissionWindow(id) {
 	showDialogUrl("${permissionPopupURL}?id="+id,'Phân quyền user',610);
 }
 $(document).ready(function(){	 
+	$( "input.date" ).datepicker({
+		showButtonPanel: true,
+		dateFormat : "dd/mm/yy"
+	});
 	$("#btThem").click(function(){
-		ShowWindow('Thêm mới tuyến kênh',750,500,"${formURL}",false)
+		ShowWindow('Thêm mới tuyến kênh',750,500,"${formURL}",false);
+	});
+	$("span.edit_icon").live("click",function(){
+		var id = $(this).attr("data-ref-id");
+		ShowWindow('Cập nhật tuyến kênh',750,500,"${formURL}?id="+id,false);
 	});
 	$('ul.sf-menu').superfish();
 	$("#chkAdvSearch").click(function(){
@@ -294,29 +306,29 @@ $(document).ready(function(){
 		"bAutoWidth": false,
 		"sAjaxSource": "${ajLoadTuyenkenh}",
 		"aoColumns": [
-					{ "mDataProp": "STT","bSortable": false,"bSearchable": false },
-					{ "mDataProp": "ID","bSortable": false,"bSearchable": false,"sClass":'td_center'},
-					{ "mDataProp": "MADIEMDAU","bSortable": false,"bSearchable": false,"sClass":'td_center'},
-					{ "mDataProp": "MADIEMCUOI","bSortable": false,"bSearchable": false,"sClass":'td_center'},
-					{ "mDataProp": "LOAIGIAOTIEP","bSortable": false,"bSearchable": false},
-					{ "mDataProp": "DUNGLUONG","bSortable": false,"bSearchable": false},
-					{ "mDataProp": "SOLUONG","bSortable": false,"bSearchable": false},
-					{ "mDataProp": "TENDUAN","bSortable": false,"bSearchable": false},
-					{ "mDataProp": "TENPHONGBAN","bSortable": false,"bSearchable": false},
-					{ "mDataProp": "TENKHUVUC","bSortable": false,"bSearchable": false},
+					{ "mDataProp": "stt","bSortable": false,"bSearchable": false },
+					{ "mDataProp": "id","bSortable": false,"bSearchable": false,"sClass":'td_center'},
+					{ "mDataProp": "madiemdau","bSortable": false,"bSearchable": false,"sClass":'td_center'},
+					{ "mDataProp": "madiemcuoi","bSortable": false,"bSearchable": false,"sClass":'td_center'},
+					{ "mDataProp": "loaigiaotiep","bSortable": false,"bSearchable": false},
+					{ "mDataProp": "dungluong","bSortable": false,"bSearchable": false},
+					{ "mDataProp": "soluong","bSortable": false,"bSearchable": false},
+					{ "mDataProp": "tenduan","bSortable": false,"bSearchable": false},
+					{ "mDataProp": "tenphongban","bSortable": false,"bSearchable": false},
+					{ "mDataProp": "tenkhuvuc","bSortable": false,"bSearchable": false},
 					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,
 						"fnRender": function( oObj ) {
-							return '<center>'+trangThaiTuyenKenhToString(oObj.aData.TRANGTHAI)+'</center>'; 
+							return '<center>'+trangThaiTuyenKenhToString(oObj.aData.trangthai)+'</center>'; 
 						}
 					},
 					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,
 						"fnRender": function( oObj ) {
-							return '<center><a class="edit_icon" onclick="doEdit(\'${formURL}?id='+oObj.aData.ID+'\')" title="Edit" href="#"></a></center>'; 
+							return '<center><span class="edit_icon" data-ref-id="'+oObj.aData.id+'" title="Edit" href="#"></span></center>'; 
 						}
 					},
 					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,
 						"fnRender": function( oObj ) {
-							return '<center><input type="checkbox" value="'+oObj.aData.ID+'"/></center>'; 
+							return '<center><input type="checkbox" value="'+oObj.aData.id+'"/></center>'; 
 						}
 					}
 				],
