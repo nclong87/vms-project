@@ -5,6 +5,9 @@ import java.sql.SQLException;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import vms.utils.DateUtils;
+
+
 
 /**
  * The persistent class for the ACCOUNTS database table.
@@ -13,8 +16,8 @@ import java.util.Map;
 public class TuyenKenh {
 
 	private String id = "";
-	private String diemdau_id = "";
-	private String diemcuoi_id = "";
+	private String madiemdau = "";
+	private String madiemcuoi = "";
 	private String giaotiep_id = "";
 	private String duan_id = "";
 	private String phongban_id = "";
@@ -44,29 +47,27 @@ public class TuyenKenh {
 	public void setId(String id) {
 		this.id = id;
 	}
-
-
-
-	public String getDiemdau_id() {
-		return diemdau_id;
+	
+	public String getMadiemdau() {
+		return madiemdau;
 	}
 
 
 
-	public void setDiemdau_id(String diemdau_id) {
-		this.diemdau_id = diemdau_id;
+	public void setMadiemdau(String madiemdau) {
+		this.madiemdau = madiemdau;
 	}
 
 
 
-	public String getDiemcuoi_id() {
-		return diemcuoi_id;
+	public String getMadiemcuoi() {
+		return madiemcuoi;
 	}
 
 
 
-	public void setDiemcuoi_id(String diemcuoi_id) {
-		this.diemcuoi_id = diemcuoi_id;
+	public void setMadiemcuoi(String madiemcuoi) {
+		this.madiemcuoi = madiemcuoi;
 	}
 
 
@@ -193,38 +194,38 @@ public class TuyenKenh {
 
 	public Map<String,String> getMap() {
 		Map<String, String> map = new LinkedHashMap<String, String>();
-		map.put("ID", this.id);
-		map.put("DIEMDAU_ID", this.diemdau_id);
-		map.put("DIEMCUOI_ID", this.diemcuoi_id);
-		map.put("GIAOTIEP_ID", this.giaotiep_id);
-		map.put("DUAN_ID", this.duan_id.toString());
-		map.put("PHONGBAN_ID", this.phongban_id);
-		map.put("KHUVUC_ID", this.khuvuc_id);
-		map.put("DUNGLUONG", this.dungluong.toString());
-		map.put("SOLUONG", this.soluong.toString());
-		map.put("NGAYDENGHIBANGIAO", this.ngaydenghibangiao);
-		map.put("NGAYHENBANGIAO", this.ngayhenbangiao);
-		map.put("THONGTINLIENHE", this.thongtinlienhe);
-		map.put("TRANGTHAI", this.trangthai.toString());
-		map.put("USERCREATE", this.usercreate);
-		map.put("TIMECREATE", this.timecreate);
-		map.put("DELETED", this.deleted.toString());
+		map.put("id", this.id);
+		map.put("madiemdau", this.madiemdau);
+		map.put("madiemcuoi", this.madiemcuoi);
+		map.put("giaotiep_id", this.giaotiep_id);
+		map.put("duan_id", this.duan_id);
+		map.put("phongban_id", this.phongban_id);
+		map.put("khuvuc_id", this.khuvuc_id);
+		map.put("dungluong", String.valueOf(this.dungluong));
+		map.put("soluong", String.valueOf(this.soluong));
+		map.put("ngaydenghibangiao", this.ngaydenghibangiao);
+		map.put("ngayhenbangiao", this.ngayhenbangiao);
+		map.put("thongtinlienhe", this.thongtinlienhe);
+		map.put("trangthai", String.valueOf(this.trangthai));
+		map.put("usercreate", this.usercreate);
+		map.put("timecreate", this.timecreate);
+		map.put("deleted", String.valueOf(this.deleted));
 		return map;
 	}
 	
 	public static TuyenKenh mapObject(ResultSet rs) throws SQLException {
 		TuyenKenh dto = new TuyenKenh();
 		dto.setId(rs.getString("ID"));
-		dto.setDiemdau_id(rs.getString("DIEMDAU_ID"));
-		dto.setDiemcuoi_id(rs.getString("DIEMCUOI_ID"));
+		dto.setMadiemdau(rs.getString("MADIEMDAU"));
+		dto.setMadiemcuoi(rs.getString("MADIEMCUOI"));
 		dto.setGiaotiep_id(rs.getString("GIAOTIEP_ID"));
 		dto.setDuan_id(rs.getString("DUAN_ID"));
 		dto.setPhongban_id(rs.getString("PHONGBAN_ID"));
 		dto.setKhuvuc_id(rs.getString("KHUVUC_ID"));
 		dto.setDungluong(rs.getInt("DUNGLUONG"));
 		dto.setSoluong(rs.getInt("SOLUONG"));
-		dto.setNgaydenghibangiao(rs.getString("NGAYDENGHIBANGIAO"));
-		dto.setNgayhenbangiao(rs.getString("NGAYHENBANGIAO"));
+		dto.setNgaydenghibangiao(DateUtils.formatDate(rs.getDate("NGAYDENGHIBANGIAO"), DateUtils.SDF_DDMMYYYY));
+		dto.setNgayhenbangiao(DateUtils.formatDate(rs.getDate("NGAYHENBANGIAO"), DateUtils.SDF_DDMMYYYY));
 		dto.setThongtinlienhe(rs.getString("THONGTINLIENHE"));
 		dto.setTrangthai(rs.getInt("TRANGTHAI"));
 		dto.setUsercreate(rs.getString("USERCREATE"));

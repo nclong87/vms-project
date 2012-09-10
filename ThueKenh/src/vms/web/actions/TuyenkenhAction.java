@@ -36,6 +36,7 @@ import vms.db.dto.PhongBanDTO;
 import vms.db.dto.TuyenKenh;
 import vms.db.dto.Vmsgroup;
 import vms.utils.Constances;
+import vms.utils.DateUtils;
 import vms.utils.VMSUtil;
 import vms.web.models.AccountExt;
 import vms.web.models.FN_FIND_TUYENKENH;
@@ -113,7 +114,7 @@ public class TuyenkenhAction implements Preparable {
 			List<Map<String, String>> items = new ArrayList<Map<String, String>>();
 			for(int i=0;i<lstTuyenkenh.size() && i<iDisplayLength;i++) {
 				Map<String, String> map = lstTuyenkenh.get(i).getMap();
-				map.put("STT", String.valueOf(i+1));
+				map.put("stt", String.valueOf(i+1));
 				items.add(map);
 			}
 			jsonData.put("sEcho", Integer.parseInt(request.getParameter("sEcho")));
@@ -135,12 +136,6 @@ public class TuyenkenhAction implements Preparable {
 				session.setAttribute("URL", VMSUtil.getFullURL(request));
 				return "login_page";
 			}
-			String flag = request.getParameter("f");
-			if(flag != null ) {
-				message = new MessageStore();
-				message.setType(1);
-				message.setMessage(Constances.MSG_SUCCESS);
-			}
 			LoaiGiaoTiepDao loaiGiaoTiepDao = new LoaiGiaoTiepDao(daoFactory);
 			loaiGiaoTieps = loaiGiaoTiepDao.getAll();
 			DuAnDAO duAnDAO = new DuAnDAO(daoFactory);
@@ -151,14 +146,15 @@ public class TuyenkenhAction implements Preparable {
 			phongBans = phongBanDao.getAll();
 			form_data = "";
 			if(id != null && id.isEmpty()==false) {
+				System.out.println("id=" + id);
 				TuyenkenhDao tuyenkenhDao = new TuyenkenhDao(daoFactory);
 				tuyenKenh = tuyenkenhDao.findById(id);
+				System.out.println(tuyenKenh.getId());
 				Map<String,String> map = tuyenKenh.getMap();
 				form_data = JSONValue.toJSONString(map);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			session.setAttribute("message", e.getMessage());
 			return Action.ERROR;
 		}
 		return Action.SUCCESS;
@@ -171,13 +167,21 @@ public class TuyenkenhAction implements Preparable {
 				return "login_page";
 			}
 			TuyenkenhDao tuyenkenhDao = new TuyenkenhDao(daoFactory);
+			if(tuyenkenhDao.findByKey(tuyenKenh.getMadiemdau(), tuyenKenh.getMadiemcuoi(), tuyenKenh.getGiaotiep_id()) != null) {
+				throw new Exception("EXIST");
+			}
+			tuyenKenh.setNgaydenghibangiao(DateUtils.parseStringDateSQL(tuyenKenh.getNgaydenghibangiao(), "dd/MM/yyyy"));
+			tuyenKenh.setNgayhenbangiao(DateUtils.parseStringDateSQL(tuyenKenh.getNgayhenbangiao(), "dd/MM/yyyy"));
+			tuyenKenh.setUsercreate(account.getUsername());
+			tuyenKenh.setTimecreate(DateUtils.getCurrentDateSQL());
+			System.out.println(tuyenKenh.getNgaydenghibangiao());
 			id = tuyenkenhDao.save(tuyenKenh);
 			if(id == null) throw new Exception(Constances.MSG_ERROR);
 			setInputStream("OK");
 		} catch (Exception e) {
 			e.printStackTrace();
 			//session.setAttribute("message", e.getMessage());
-			setInputStream("ERROR");
+			setInputStream(e.getMessage());
 		}
 		return Action.SUCCESS;
 	}

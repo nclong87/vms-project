@@ -62,14 +62,26 @@ public class TuyenkenhDao {
 		});
 	}
 	
+	@SuppressWarnings("unchecked")
+	public TuyenKenh findByKey(String madiemdau,String madiemcuoi,String giaotiep_id) {
+		List<TuyenKenh> list =  this.jdbcTemplate.query("select * from TUYENKENH where MADIEMDAU = ? and MADIEMCUOI =? and GIAOTIEP_ID =?" ,new Object[] {madiemdau,madiemcuoi,giaotiep_id}, new RowMapper() {
+			@Override
+			public Object mapRow(ResultSet rs, int arg1) throws SQLException {
+				return TuyenKenh.mapObject(rs);
+			}
+		});
+		if(list.isEmpty()) return null;
+		return list.get(0);
+	}
+	
 	private static final String SQL_SAVE_TUYENKENH = "{ ? = call SAVE_TUYENKENH(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) }";
 	public String save(TuyenKenh dto) throws Exception {
 		Connection connection = jdbcTemplate.getDataSource().getConnection();
 		CallableStatement stmt = connection.prepareCall(SQL_SAVE_TUYENKENH);
 		stmt.registerOutParameter(1, OracleTypes.VARCHAR);
 		stmt.setString(2, dto.getId());
-		stmt.setString(3, dto.getDiemdau_id());
-		stmt.setString(4, dto.getDiemcuoi_id());
+		stmt.setString(3, dto.getMadiemdau());
+		stmt.setString(4, dto.getMadiemcuoi());
 		stmt.setString(5, dto.getGiaotiep_id());
 		stmt.setString(6, dto.getDuan_id());
 		stmt.setString(7, dto.getPhongban_id());
