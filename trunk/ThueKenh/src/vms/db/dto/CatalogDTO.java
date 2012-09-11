@@ -1,16 +1,30 @@
 package vms.db.dto;
 
+import java.sql.ResultSet;
+
 public class CatalogDTO {
 	//properties
 	protected String id;
 	protected String name;
 	protected Integer deleted;
-	protected Integer stt;
-	public String getId() {
-		return id;
+	public CatalogDTO(){
 	}
-	public void setId(String id) {
-		this.id = id;
+	public CatalogDTO(ResultSet rs){
+		try{
+		setId(rs.getLong("ID"));
+		setIsDeleted(rs.getBoolean("DELETED"));
+		}
+		catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
+
+	//getter & setter
+	public long getId() {
+		return Id;
+	}
+	public void setId(long l) {
+		Id = l;
 	}
 	public String getName() {
 		return name;
