@@ -1,10 +1,10 @@
 package vms.web.actions;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -14,17 +14,17 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import vms.db.dao.DaoFactory;
-import vms.db.dao.DuAnDAO;
+import vms.db.dao.LoaiGiaoTiepDAO;
 import vms.db.dto.Account;
 import vms.db.dto.CatalogDTO;
-import vms.db.dto.DuAnDTO;
+import vms.db.dto.LoaiGiaoTiepDTO;
 import vms.utils.Constances;
 import vms.utils.VMSUtil;
 
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.Preparable;
 
-public class DanhMucDuAnAction implements Preparable {
+public class DanhMucLoaiGiaoTiepAction implements Preparable {
 
 	private LinkedHashMap<String, Object> jsonData;
 
@@ -34,15 +34,15 @@ public class DanhMucDuAnAction implements Preparable {
 
 	private HttpServletRequest request;
 
-	private DuAnDAO DuAnDAO;
+	private LoaiGiaoTiepDAO LoaiGiaoTiepDAO;
 
-	private DuAnDTO opEdit;
+	private LoaiGiaoTiepDTO opEdit;
 
-	public DuAnDTO getOpEdit() {
+	public LoaiGiaoTiepDTO getOpEdit() {
 		return opEdit;
 	}
 
-	public void setOpEdit(DuAnDTO opEdit) {
+	public void setOpEdit(LoaiGiaoTiepDTO opEdit) {
 		this.opEdit = opEdit;
 	}
 
@@ -65,24 +65,25 @@ public class DanhMucDuAnAction implements Preparable {
 		// TODO Auto-generated method stub
 		request = ServletActionContext.getRequest();
 		this.session = request.getSession();
-		this.account = (Account) session.getAttribute(Constances.SESS_USERLOGIN);
+		this.account = (Account) session
+				.getAttribute(Constances.SESS_USERLOGIN);
 	}
 
-	public DanhMucDuAnAction(DaoFactory factory) {
+	public DanhMucLoaiGiaoTiepAction(DaoFactory factory) {
 		this.factory = factory;
-		this.DuAnDAO = new DuAnDAO(factory);
+		this.LoaiGiaoTiepDAO = new LoaiGiaoTiepDAO(factory);
 		this.jsonData = new LinkedHashMap<String, Object>();
 	}
 
 	public String index() {
-		// DuAnDAO dao = new DuAnDAO(factory);
+		// LoaiGiaoTiepDAO dao = new LoaiGiaoTiepDAO(factory);
 		// xoa
 		// dao.delete(new String[] { "1" });
 		/*
 		 * List<CatalogDTO> lst = dao.get(); for (int i = 0; i < lst.size();
 		 * i++) { System.out.println(lst.get(i).getName()); }
 		 */
-		if(account == null) {
+		if (account == null) {
 			session.setAttribute("URL", VMSUtil.getFullURL(request));
 			return "login_page";
 		}
@@ -95,37 +96,51 @@ public class DanhMucDuAnAction implements Preparable {
 		String strIds = request.getParameter("ids");
 		System.out.println(strIds);
 		jsonData = new LinkedHashMap<String, Object>();
-		isDeleted = this.DuAnDAO.delete(strIds.split(","));
+		isDeleted = this.LoaiGiaoTiepDAO.delete(strIds.split(","));
 		jsonData.put("isDeleted", isDeleted);
 
 		return Action.SUCCESS;
 	}
 
-	public String edit() throws SQLException {
-		String id = "";
+	public String edit() {
+		
+		int id = 0;
 
 		// edit page post
 		if (this.opEdit != null) {
 			// edit
+			
 			System.out.println("edit mode id=" + this.opEdit.getId());
-			if (this.opEdit.getId() != "") {
-				if (this.DuAnDAO.update(this.opEdit.getId(), this.opEdit)) {
+			if (this.opEdit.getId() > 0) {
+				System.out.println("Begin Edit");
+				if (this.LoaiGiaoTiepDAO.update(this.opEdit.getId(), this.opEdit)) {
 					this.flag = "1";// updated
-				} else
+					System.out.println("Cập nhật thành công");
+				} else {
 					this.flag = "-1";// failure
+					System.out.println("Cập nhật lỗi");
+				}
 			} else {
 				// new
-				this.DuAnDAO.insert(this.opEdit);
+				System.out.println("Begin New");
+				if(this.LoaiGiaoTiepDAO.insert(this.opEdit)){
+					this.flag = "1";// updated
+					System.out.println("Thêm thành công");
+				}else{
+					this.flag = "-1";// failure
+					System.out.println("Thêm lỗi");
+				}
 			}
 			System.out.println("result=" + flag);
 
 		} else {
 			// get page
+			System.out.println("Begin Get Page");
 			try {
 				this.request = ServletActionContext.getRequest();
-				id = request.getParameter("id");
+				id = Integer.parseInt(request.getParameter("id"));
 				System.out.println("load edit id=" + id);
-				this.opEdit = (DuAnDTO) this.DuAnDAO.get(id);
+				this.opEdit = (LoaiGiaoTiepDTO) this.LoaiGiaoTiepDAO.get(id);
 				System.out.println("finish load edit");
 			} catch (Exception e) {
 				// TODO: handle exception
@@ -144,35 +159,37 @@ public class DanhMucDuAnAction implements Preparable {
 		this.request = request;
 	}
 
-	public String ajLoadduan() throws JSONException {
+	public String ajLoadLoaiGiaoTiep() throws JSONException {
 		this.request = ServletActionContext.getRequest();
-		// DuAnDAO DuAnDAO = new DuAnDAO(factory);
-		String strSearch=this.request.getParameter("sSearch");
-		
-		List<CatalogDTO> lstkhuvuc = DuAnDAO.get();
-		if(strSearch.isEmpty() == false) {
-			JSONArray arrayJson = (JSONArray) new JSONObject(strSearch).get("array");
-			
-				String name = arrayJson.getJSONObject(0).getString("value");
-				lstkhuvuc = DuAnDAO.search(name);
-				System.out.println("strSearch="+strSearch);
-			
-		}
-		
+		// LoaiGiaoTiepDAO LoaiGiaoTiepDAO = new LoaiGiaoTiepDAO(factory);
+		List<CatalogDTO> lstPhongBan = LoaiGiaoTiepDAO.get();
+		String strSearch = this.request.getParameter("sSearch");
+		if (strSearch.isEmpty() == false) {
+			JSONArray arrayJson = (JSONArray) new JSONObject(strSearch)
+					.get("array");
+
+			String name = arrayJson.getJSONObject(0).getString("value");
+			lstPhongBan = LoaiGiaoTiepDAO.search(name);
+			System.out.println("strSearch=" + strSearch);
+
+		} else
+			lstPhongBan = LoaiGiaoTiepDAO.get();
+
 		jsonData = new LinkedHashMap<String, Object>();
 		List<HashMap<String, Object>> items = new ArrayList<HashMap<String, Object>>();
-		for (int i = 0; i < lstkhuvuc.size(); i++) {
+		for (int i = 0; i < lstPhongBan.size(); i++) {
 			HashMap<String, Object> map = new HashMap<String, Object>();
-			DuAnDTO pb = (DuAnDTO) lstkhuvuc.get(i);
+			LoaiGiaoTiepDTO pb = (LoaiGiaoTiepDTO) lstPhongBan.get(i);
 			map.put("stt", i + 1);
 			map.put("id", pb.getId());
 			map.put("name", pb.getName());
+			map.put("cuoccong", pb.getCuocCong());
 			items.add(map);
 		}
 		// jsonData.put("sEcho",
 		// Integer.parseInt(request.getParameter("sEcho")));
-		jsonData.put("iTotalRecords", lstkhuvuc.size());
-		jsonData.put("iTotalDisplayRecords", lstkhuvuc.size());
+		jsonData.put("iTotalRecords", lstPhongBan.size());
+		jsonData.put("iTotalDisplayRecords", lstPhongBan.size());
 		jsonData.put("aaData", items);
 
 		return Action.SUCCESS;

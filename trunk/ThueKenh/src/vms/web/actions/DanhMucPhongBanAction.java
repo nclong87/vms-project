@@ -111,8 +111,10 @@ public class DanhMucPhongBanAction implements Preparable {
 		// edit page post
 		if (this.opEdit != null) {
 			// edit
+			
 			System.out.println("edit mode id=" + this.opEdit.getId());
 			if (this.opEdit.getId() != "") {
+				System.out.println("Begin Edit");
 				if (this.phongbanDAO.update(this.opEdit.getId(), this.opEdit)) {
 					this.flag = "1";// updated
 					System.out.println("Cập nhật thành công");
@@ -122,6 +124,7 @@ public class DanhMucPhongBanAction implements Preparable {
 				}
 			} else {
 				// new
+				System.out.println("Begin New");
 				if(this.phongbanDAO.insert(this.opEdit)){
 					this.flag = "1";// updated
 					System.out.println("Thêm thành công");
@@ -134,6 +137,7 @@ public class DanhMucPhongBanAction implements Preparable {
 
 		} else {
 			// get page
+			System.out.println("Begin Get Page");
 			try {
 				this.request = ServletActionContext.getRequest();
 				id = request.getParameter("id");
