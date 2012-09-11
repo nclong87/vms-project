@@ -1,30 +1,48 @@
 package vms.db.dto;
 
 import java.sql.ResultSet;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class CatalogDTO {
 	//properties
 	protected String id;
 	protected String name;
 	protected Integer deleted;
+	protected Integer stt;
+	public Integer getStt() {
+		return stt;
+	}
+	public void setStt(Integer stt) {
+		this.stt = stt;
+	}
 	public CatalogDTO(){
 	}
 	public CatalogDTO(ResultSet rs){
 		try{
-		setId(rs.getLong("ID"));
-		setIsDeleted(rs.getBoolean("DELETED"));
+		setId(rs.getString("ID"));
+		setDeleted(rs.getInt("DELETED"));
 		}
 		catch (Exception e) {
 			// TODO: handle exception
 		}
 	}
+	
+	public Map<String,String> getMap() {
+		Map<String, String> map = new LinkedHashMap<String, String>();
+		map.putAll(map);
+		map.put("ID", this.id);
+		map.put("DELETED", this.deleted.toString());
+		return map;
+	}
+	
 
 	//getter & setter
-	public long getId() {
-		return Id;
+	public String getId() {
+		return id;
 	}
-	public void setId(long l) {
-		Id = l;
+	public void setId(String l) {
+		id = l;
 	}
 	public String getName() {
 		return name;
@@ -37,12 +55,6 @@ public class CatalogDTO {
 	}
 	public void setDeleted(Integer deleted) {
 		this.deleted = deleted;
-	}
-	public Integer getStt() {
-		return stt;
-	}
-	public void setStt(Integer stt) {
-		this.stt = stt;
 	}
 	
 }

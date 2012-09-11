@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -13,18 +14,20 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import vms.db.dao.AccountDao;
 import vms.db.dao.DaoFactory;
-import vms.db.dao.LoaiGiaoTiepDAO;
+import vms.db.dao.CongThucDAO;
 import vms.db.dto.Account;
 import vms.db.dto.CatalogDTO;
-import vms.db.dto.LoaiGiaoTiepDTO;
+import vms.db.dto.CongThucDTO;
 import vms.utils.Constances;
 import vms.utils.VMSUtil;
+import vms.web.models.AccountExt;
 
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.Preparable;
 
-public class DanhMucLoaiGiaoTiepAction implements Preparable {
+public class DanhMucCongThucAction implements Preparable {
 
 	private LinkedHashMap<String, Object> jsonData;
 
@@ -34,15 +37,15 @@ public class DanhMucLoaiGiaoTiepAction implements Preparable {
 
 	private HttpServletRequest request;
 
-	private LoaiGiaoTiepDAO LoaiGiaoTiepDAO;
+	private CongThucDAO congThucDAO;
 
-	private LoaiGiaoTiepDTO opEdit;
+	private CongThucDTO opEdit;
 
-	public LoaiGiaoTiepDTO getOpEdit() {
+	public CongThucDTO getOpEdit() {
 		return opEdit;
 	}
 
-	public void setOpEdit(LoaiGiaoTiepDTO opEdit) {
+	public void setOpEdit(CongThucDTO opEdit) {
 		this.opEdit = opEdit;
 	}
 
@@ -69,14 +72,14 @@ public class DanhMucLoaiGiaoTiepAction implements Preparable {
 				.getAttribute(Constances.SESS_USERLOGIN);
 	}
 
-	public DanhMucLoaiGiaoTiepAction(DaoFactory factory) {
+	public DanhMucCongThucAction(DaoFactory factory) {
 		this.factory = factory;
-		this.LoaiGiaoTiepDAO = new LoaiGiaoTiepDAO(factory);
+		this.congThucDAO = new CongThucDAO(factory);
 		this.jsonData = new LinkedHashMap<String, Object>();
 	}
 
 	public String index() {
-		// LoaiGiaoTiepDAO dao = new LoaiGiaoTiepDAO(factory);
+		// CongThucDAO dao = new CongThucDAO(factory);
 		// xoa
 		// dao.delete(new String[] { "1" });
 		/*
@@ -96,14 +99,13 @@ public class DanhMucLoaiGiaoTiepAction implements Preparable {
 		String strIds = request.getParameter("ids");
 		System.out.println(strIds);
 		jsonData = new LinkedHashMap<String, Object>();
-		isDeleted = this.LoaiGiaoTiepDAO.delete(strIds.split(","));
+		isDeleted = this.congThucDAO.delete(strIds.split(","));
 		jsonData.put("isDeleted", isDeleted);
 
 		return Action.SUCCESS;
 	}
 
 	public String edit() {
-		
 		String id = "";
 
 		// edit page post
@@ -111,9 +113,9 @@ public class DanhMucLoaiGiaoTiepAction implements Preparable {
 			// edit
 			
 			System.out.println("edit mode id=" + this.opEdit.getId());
-			if (this.opEdit.getId() !="") {
+			if (this.opEdit.getId() != "") {
 				System.out.println("Begin Edit");
-				if (this.LoaiGiaoTiepDAO.update(this.opEdit.getId(), this.opEdit)) {
+				if (this.congThucDAO.update(this.opEdit.getId(), this.opEdit)) {
 					this.flag = "1";// updated
 					System.out.println("Cập nhật thành công");
 				} else {
@@ -123,7 +125,7 @@ public class DanhMucLoaiGiaoTiepAction implements Preparable {
 			} else {
 				// new
 				System.out.println("Begin New");
-				if(this.LoaiGiaoTiepDAO.insert(this.opEdit)){
+				if(this.congThucDAO.insert(this.opEdit)){
 					this.flag = "1";// updated
 					System.out.println("Thêm thành công");
 				}else{
@@ -140,7 +142,7 @@ public class DanhMucLoaiGiaoTiepAction implements Preparable {
 				this.request = ServletActionContext.getRequest();
 				id = request.getParameter("id");
 				System.out.println("load edit id=" + id);
-				this.opEdit = (LoaiGiaoTiepDTO) this.LoaiGiaoTiepDAO.get(id);
+				this.opEdit = (CongThucDTO) this.congThucDAO.get(id);
 				System.out.println("finish load edit");
 			} catch (Exception e) {
 				// TODO: handle exception
@@ -159,31 +161,30 @@ public class DanhMucLoaiGiaoTiepAction implements Preparable {
 		this.request = request;
 	}
 
-	public String ajLoadLoaiGiaoTiep() throws JSONException {
+	public String ajLoadPhongBan() throws JSONException {
 		this.request = ServletActionContext.getRequest();
-		// LoaiGiaoTiepDAO LoaiGiaoTiepDAO = new LoaiGiaoTiepDAO(factory);
-		List<CatalogDTO> lstPhongBan = LoaiGiaoTiepDAO.get();
+		// CongThucDAO CongThucDAO = new CongThucDAO(factory);
+		List<CatalogDTO> lstPhongBan = congThucDAO.get();
 		String strSearch = this.request.getParameter("sSearch");
 		if (strSearch.isEmpty() == false) {
 			JSONArray arrayJson = (JSONArray) new JSONObject(strSearch)
 					.get("array");
 
 			String name = arrayJson.getJSONObject(0).getString("value");
-			lstPhongBan = LoaiGiaoTiepDAO.search(name);
+			lstPhongBan = congThucDAO.search(name);
 			System.out.println("strSearch=" + strSearch);
 
 		} else
-			lstPhongBan = LoaiGiaoTiepDAO.get();
+			lstPhongBan = congThucDAO.get();
 
 		jsonData = new LinkedHashMap<String, Object>();
 		List<HashMap<String, Object>> items = new ArrayList<HashMap<String, Object>>();
 		for (int i = 0; i < lstPhongBan.size(); i++) {
 			HashMap<String, Object> map = new HashMap<String, Object>();
-			LoaiGiaoTiepDTO pb = (LoaiGiaoTiepDTO) lstPhongBan.get(i);
+			CongThucDTO pb = (CongThucDTO) lstPhongBan.get(i);
 			map.put("stt", i + 1);
 			map.put("id", pb.getId());
 			map.put("name", pb.getName());
-			map.put("cuoccong", pb.getCuocCong());
 			items.add(map);
 		}
 		// jsonData.put("sEcho",
