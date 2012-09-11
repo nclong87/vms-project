@@ -74,7 +74,7 @@ public class DoiTacDAO extends CatalogDAO {
 	public boolean update(String id, CatalogDTO cat) {
 		// TODO Auto-generated method stub
 		DoiTacDTO up = (DoiTacDTO) cat;
-		String sql="update doitac set tendoitac='"+up.getName()+"',stt="+up.getStt()+" where id="+up.getId();
+		String sql="update doitac set tendoitac='"+up.getName()+"' where id="+up.getId();
 		System.out.println(sql);
 		return this.jdbcTemplate.update(sql) > 0;
 	}
