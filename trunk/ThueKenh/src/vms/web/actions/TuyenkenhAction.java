@@ -31,6 +31,7 @@ import vms.db.dto.DuAnDTO;
 import vms.db.dto.KhuVuc;
 import vms.db.dto.KhuVucDTO;
 import vms.db.dto.LoaiGiaoTiep;
+import vms.db.dto.LoaiGiaoTiepDTO;
 import vms.db.dto.PhongBan;
 import vms.db.dto.PhongBanDTO;
 import vms.db.dto.TuyenKenh;
