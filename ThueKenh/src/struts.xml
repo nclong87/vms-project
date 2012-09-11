@@ -60,6 +60,24 @@
 			<result name="success">/jsp/danhmuc/phongban/form.jsp</result>
 		</action>
 		<!-- kết thúc phòng ban -->
+		<!-- khai báo loại giao tiếp -->
+		<action name="loaigiaotiep" class="loaigiaotiepAction" method="index">
+			<result name="success">/jsp/danhmuc/loaigiaotiep/index.jsp</result>
+		</action>
+		<action name="ajLoadLoaiGiaoTiep" class="loaigiaotiepAction" method="ajLoadLoaiGiaoTiep">
+			<result name="success" type="json">
+				<param name="root">jsonData</param>
+			</result>
+		</action>
+		<action name="deleteLoaiGiaoTiep" class="loaigiaotiepAction" method="delete">
+			<result name="success" type="json">
+				<param name="root">jsonData</param>
+			</result>
+		</action>
+		<action name="editLoaiGiaoTiep" class="loaigiaotiepAction" method="edit">
+			<result name="success">/jsp/danhmuc/loaigiaotiep/form.jsp</result>
+		</action>
+		<!-- kết thúc loại giao tiếp -->
 		<!-- khai báo khu vực -->
 		<action name="khuvuc" class="khuvucAction" method="index">
 			<result name="success">/jsp/danhmuc/khuvuc/index.jsp</result>
