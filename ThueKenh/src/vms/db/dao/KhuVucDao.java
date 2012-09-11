@@ -11,7 +11,6 @@ import oracle.jdbc.OracleTypes;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.jdbc.core.RowMapper;
 
-import com.sun.crypto.provider.RSACipher;
 
 import vms.db.dto.CatalogDTO;
 import vms.db.dto.KhuVuc;

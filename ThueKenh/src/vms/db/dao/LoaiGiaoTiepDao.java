@@ -11,6 +11,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.jdbc.core.RowMapper;
 
 import vms.db.dto.CatalogDTO;
+import vms.db.dto.LoaiGiaoTiep;
 import vms.db.dto.LoaiGiaoTiepDTO;
 
 public class LoaiGiaoTiepDao extends CatalogDAO {
@@ -38,7 +39,19 @@ public class LoaiGiaoTiepDao extends CatalogDAO {
 					}
 				});
 	}
-
+	
+	@SuppressWarnings("unchecked")
+	public List<LoaiGiaoTiep> getAll() {
+		// TODO Auto-generated method stub
+		return this.jdbcTemplate.query(
+				"select * from loaigiaotiep where deleted = 0", new RowMapper() {
+					public Object mapRow(ResultSet rs, int rowNum)
+							throws SQLException {
+						return LoaiGiaoTiep.mapObject(rs);
+					}
+				});
+	}
+	
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<CatalogDTO> get() {

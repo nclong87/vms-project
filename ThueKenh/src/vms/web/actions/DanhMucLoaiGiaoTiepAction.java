@@ -14,7 +14,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import vms.db.dao.DaoFactory;
-import vms.db.dao.LoaiGiaoTiepDAO;
+import vms.db.dao.LoaiGiaoTiepDao;
 import vms.db.dto.Account;
 import vms.db.dto.CatalogDTO;
 import vms.db.dto.LoaiGiaoTiepDTO;
@@ -34,7 +34,7 @@ public class DanhMucLoaiGiaoTiepAction implements Preparable {
 
 	private HttpServletRequest request;
 
-	private LoaiGiaoTiepDAO LoaiGiaoTiepDAO;
+	private LoaiGiaoTiepDao LoaiGiaoTiepDAO;
 
 	private LoaiGiaoTiepDTO opEdit;
 
@@ -71,7 +71,7 @@ public class DanhMucLoaiGiaoTiepAction implements Preparable {
 
 	public DanhMucLoaiGiaoTiepAction(DaoFactory factory) {
 		this.factory = factory;
-		this.LoaiGiaoTiepDAO = new LoaiGiaoTiepDAO(factory);
+		this.LoaiGiaoTiepDAO = new LoaiGiaoTiepDao(factory);
 		this.jsonData = new LinkedHashMap<String, Object>();
 	}
 

@@ -10,7 +10,6 @@ import vms.db.dao.MenuDao;
 import vms.db.dao.Test2Dao;
 import vms.db.dao.VmsgroupDao;
 import vms.db.dto.Account;
-import vms.db.dto.NhanvienDto;
 import vms.web.models.MessageStore;
 
 import com.opensymphony.xwork2.Action;
