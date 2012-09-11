@@ -75,9 +75,27 @@
 			</result>
 		</action>
 		<action name="editLoaiGiaoTiep" class="loaigiaotiepAction" method="edit">
-			<result name="success">/jsp/danhmuc/loaigiaotiep/form.jsp</result>
+			<result name="success">/jsp/danhmuc/congthuc/form.jsp</result>
 		</action>
 		<!-- kết thúc loại giao tiếp -->
+		<!-- khai báo công thức -->
+		<action name="congthuc" class="congthucAction" method="index">
+			<result name="success">/jsp/danhmuc/congthuc/index.jsp</result>
+		</action>
+		<action name="ajLoadCongThuc" class="congthucAction" method="ajLoadCongThuc">
+			<result name="success" type="json">
+				<param name="root">jsonData</param>
+			</result>
+		</action>
+		<action name="deleteCongthuc" class="congthucAction" method="delete">
+			<result name="success" type="json">
+				<param name="root">jsonData</param>
+			</result>
+		</action>
+		<action name="editCongThuc" class="congthucAction" method="edit">
+			<result name="success">/jsp/danhmuc/congthuc/form.jsp</result>
+		</action>
+		<!-- kết công thức -->
 		<!-- khai báo khu vực -->
 		<action name="khuvuc" class="khuvucAction" method="index">
 			<result name="success">/jsp/danhmuc/khuvuc/index.jsp</result>

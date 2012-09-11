@@ -30,7 +30,7 @@ public class CongThucDAO extends CatalogDAO {
 					public Object mapRow(ResultSet rs, int rowNum)
 							throws SQLException {
 						
-						return new CongThucDTO(rs);
+						return null;
 					}
 				});
 	}
@@ -44,13 +44,13 @@ public class CongThucDAO extends CatalogDAO {
 					public Object mapRow(ResultSet rs, int rowNum)
 							throws SQLException {
 						
-						return new CongThucDTO(rs);
+						return null;
 					}
 				});
 	}
 
 	@Override
-	public CatalogDTO get(long id) {
+	public CatalogDTO get(String id) {
 		// TODO Auto-generated method stub
 		@SuppressWarnings("unchecked")
 		List<CatalogDTO> lst = this.jdbcTemplate.query(
@@ -58,7 +58,7 @@ public class CongThucDAO extends CatalogDAO {
 				new RowMapper() {
 					public Object mapRow(ResultSet rs, int rowNum)
 							throws SQLException {
-						return new CongThucDTO(rs);
+						return null;
 					}
 				});
 		if (lst.size() == 0)
@@ -78,10 +78,10 @@ public class CongThucDAO extends CatalogDAO {
 					.prepareCall("{ call PROC_SAVE_congthuc(?,?,?,?) }");
 			//stmt.registerOutParameter(1, OracleTypes.INTEGER);
 			System.out.println("***BEGIN PROC_SAVE_congthuc***");
-			stmt.setLong(1, congthuc.getId());
+			stmt.setString(1, congthuc.getId());
 			System.out.println(congthuc.getId());
 			stmt.setString(2, congthuc.getName());
-			stmt.setInt(3, congthuc.getChoiCongThuc());
+			stmt.setString(3, congthuc.getChoiCongThuc());
 			stmt.setLong(4, 0);//is deleted
 			System.out.println("***execute***");
 			stmt.execute();
@@ -96,7 +96,7 @@ public class CongThucDAO extends CatalogDAO {
 	}
 
 	@Override
-	public boolean update(long id, CatalogDTO cat) {
+	public boolean update(String id, CatalogDTO cat) {
 		// TODO Auto-generated method stub
 		CongThucDTO congthuc=(CongThucDTO)cat;
 		// TODO Auto-generated method stub
@@ -108,7 +108,7 @@ public class CongThucDAO extends CatalogDAO {
 					.prepareCall("{ call PROC_SAVE_CONGTHUC(?,?,?,?,?,?) }");
 			//stmt.registerOutParameter(1, OracleTypes.INTEGER);
 			System.out.println("***BEGIN PROC_SAVE_congthuc***");
-			stmt.setLong(1, congthuc.getId());
+			stmt.setString(1, congthuc.getId());
 			System.out.println(congthuc.getId());
 			stmt.setString(2, congthuc.getName());
 			stmt.setString(3, congthuc.getChoiCongThuc());

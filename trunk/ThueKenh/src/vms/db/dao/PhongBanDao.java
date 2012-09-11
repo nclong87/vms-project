@@ -6,13 +6,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-import oracle.jdbc.OracleTypes;
-import oracle.sql.ARRAY;
-import oracle.sql.ArrayDescriptor;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.core.SqlTypeValue;
 
 import vms.db.dto.CatalogDTO;
 import vms.db.dto.PhongBan;
@@ -91,7 +87,7 @@ public class PhongBanDao extends CatalogDAO {
 					.prepareCall("{ call PROC_SAVE_PHONGBAN(?,?,?,?) }");
 			//stmt.registerOutParameter(1, OracleTypes.INTEGER);
 			System.out.println("***BEGIN PROC_SAVE_PHONGBAN***");
-			stmt.setLong(1, cat.getId());
+			stmt.setString(1, cat.getId());
 			System.out.println(cat.getId());
 			stmt.setString(2, cat.getName());
 			stmt.setInt(3, 0);

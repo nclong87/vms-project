@@ -62,6 +62,7 @@ public class PhongBan {
 
 	public Map<String,String> getMap() {
 		Map<String, String> map = new LinkedHashMap<String, String>();
+		map.putAll(map);
 		map.put("ID", this.id);
 		map.put("TENPHONGBAN", this.tenphongban);
 		map.put("STT", this.stt.toString());
@@ -73,13 +74,7 @@ public class PhongBan {
 		PhongBanDTO dto = new PhongBanDTO();
 		dto.setId(rs.getString("ID"));
 		dto.setName(rs.getString("TENPHONGBAN"));
-		dto.setStt(rs.getInt("STT"));
 		dto.setDeleted(rs.getInt("DELETED"));
         return dto;
 	}
-	
-	
-
-	
-
 }
