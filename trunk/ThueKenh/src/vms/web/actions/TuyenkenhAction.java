@@ -4,7 +4,6 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,29 +16,21 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.simple.JSONValue;
 
-
-import vms.db.dao.AccountDao;
 import vms.db.dao.DaoFactory;
 import vms.db.dao.DuAnDAO;
 import vms.db.dao.KhuVucDao;
 import vms.db.dao.LoaiGiaoTiepDao;
 import vms.db.dao.PhongBanDao;
 import vms.db.dao.TuyenkenhDao;
-import vms.db.dao.VmsgroupDao;
 import vms.db.dto.Account;
 import vms.db.dto.DuAnDTO;
-import vms.db.dto.KhuVuc;
 import vms.db.dto.KhuVucDTO;
 import vms.db.dto.LoaiGiaoTiep;
-import vms.db.dto.LoaiGiaoTiepDTO;
 import vms.db.dto.PhongBan;
-import vms.db.dto.PhongBanDTO;
 import vms.db.dto.TuyenKenh;
-import vms.db.dto.Vmsgroup;
 import vms.utils.Constances;
 import vms.utils.DateUtils;
 import vms.utils.VMSUtil;
-import vms.web.models.AccountExt;
 import vms.web.models.FN_FIND_TUYENKENH;
 import vms.web.models.MessageStore;
 

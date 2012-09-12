@@ -15,6 +15,7 @@ public class CatalogDAO {
 	protected JdbcTemplate jdbcTemplate;
 
 	// deny default constructor
+	@SuppressWarnings("unused")
 	private CatalogDAO() {
 	}
 
