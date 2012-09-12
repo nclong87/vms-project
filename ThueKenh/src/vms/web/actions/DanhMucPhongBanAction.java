@@ -101,7 +101,6 @@ public class DanhMucPhongBanAction implements Preparable {
 		jsonData = new LinkedHashMap<String, Object>();
 		isDeleted = this.phongbanDAO.delete(strIds.split(","));
 		jsonData.put("isDeleted", isDeleted);
-
 		return Action.SUCCESS;
 	}
 
