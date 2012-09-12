@@ -1,0 +1,7 @@
+﻿update duan set giamgia=null, timecreate=null;
+
+ALTER TABLE DUAN  
+MODIFY (GIAMGIA NUMBER );
+
+ALTER TABLE DUAN  
+MODIFY (TIMECREATE DATE );
