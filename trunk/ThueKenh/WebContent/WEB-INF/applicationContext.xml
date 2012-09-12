@@ -50,6 +50,12 @@
     <bean id="phongbanAction" scope="prototype" class="vms.web.actions.DanhMucPhongBanAction">
         <constructor-arg ref="daoFactory" />
     </bean>
+    <bean id="loaigiaotiepAction" scope="prototype" class="vms.web.actions.DanhMucLoaiGiaoTiepAction">
+        <constructor-arg ref="daoFactory" />
+    </bean>
+    <bean id="congthucAction" scope="prototype" class="vms.web.actions.DanhMucCongThucAction">
+        <constructor-arg ref="daoFactory" />
+    </bean>
     <bean id="khuvucAction" scope="prototype" class="vms.web.actions.DanhMucKhuVucAction">
         <constructor-arg ref="daoFactory" />
     </bean>

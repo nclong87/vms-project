@@ -8,7 +8,7 @@
 <%@include file="/jsp/shared/header.jsp"%>
 
 
-
+<%-- 
 <div style="width: 100%" class="ovf">
 	<div class="s10">
 		<div class="fl">
@@ -27,7 +27,7 @@
 		<div class="kc4 p5l p15t bgw">
 			<div class="bgw p5b ovf" id="tabnd_2">
 				<div class="ovf p5l p5t">
-					<form id="fSearch">
+					<form id="fSearch" onsubmit="return false;">
 						<table>
 							<tr>
 								<td align="right">Tên phòng ban :</td>
@@ -44,10 +44,10 @@
 			<div class="clearb"></div>
 		</div>
 	</div>
-</div>
+</div> --%>
 <div style="clear: both; margin: 5px 0">
 	<input type="button" class="button" value="Thêm phòng ban"
-		onclick="ShowWindow('Thêm phòng ban',400,200,'${formURL}',false);"></input>
+		onclick="ShowWindow('Thêm phòng ban',600,300,'${formURL}',false);"></input>
 	<input type="button" id="btnDelete" class="button" value="Xóa chọn"></input>
 
 </div>
