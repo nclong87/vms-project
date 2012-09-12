@@ -166,7 +166,6 @@ input.error,select.error,textarea.error {
 	$(document)
 			.ready(
 					function() {
-
 						$("#form")
 								.validate(
 										{

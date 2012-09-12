@@ -141,11 +141,6 @@ function refresh(){
 										"bSearchable" : false
 									},
 									{
-										"mDataProp" : "stt1",
-										"bSortable" : false,
-										"bSearchable" : false
-									},
-									{
 										"mDataProp" : null,
 										"bSortable" : false,
 										"bSearchable" : false,

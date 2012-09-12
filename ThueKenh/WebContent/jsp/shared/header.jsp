@@ -51,6 +51,9 @@
 		src="<%= contextPath %>/content/js/jquery-window-5.03/jquery.window.js"></script>
 	<script type="text/javascript" src="<%= contextPath %>/content/js/utils.js"></script>
 	<script>
+	function loadContent(url) {
+		location.href = contextPath + url;
+	}
 		function byId(id) { //Viet tat cua ham document.getElementById
 			return document.getElementById(id);
 		}
@@ -78,7 +81,7 @@
 <body>
 	<div id="dialog" title="Welcome to flexy admin">
 		<p>
-			Xin chào admin! welcome back.<br /> You got <strong>1 new
+			Xin chào <s:property value="#session.SESS_USERLOGIN.username"/>! welcome back.<br /> You got <strong>1 new
 				Message</strong> in your inbox
 		</p>
 		<p>This is a messagebox, you can fill it with content of your
