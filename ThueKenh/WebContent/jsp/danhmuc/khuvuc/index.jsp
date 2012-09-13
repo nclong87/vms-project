@@ -148,7 +148,7 @@
 			$.ajax( {
 				"dataType": 'json', 
 				"type": "POST", 
-				"url":'/ThueKenh/danhmuc/deletePhongBan.action', 
+				"url":'${ajDeleteURL}', 
 				"data": "ids="+str, 
 				"success": fnCallbackDelete
 			} );
