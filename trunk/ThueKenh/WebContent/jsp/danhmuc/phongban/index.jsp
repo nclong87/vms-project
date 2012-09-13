@@ -97,6 +97,7 @@
 				<thead>
 					<tr>
 						<th width="5%">#</th>
+						<th width="5%">STT</th>
 						<th width="5%">ID</th>
 						<th>Tên phòng ban</th>
 						<th width="5px">Edit</th>
@@ -289,11 +290,18 @@
 														"bSearchable" : false
 													},
 													{
+														"mDataProp" : "stt1",
+														"bSortable" : false,
+														"bSearchable" : false,
+														"sClass" : 'td_center'
+													},
+													{
 														"mDataProp" : "id",
 														"bSortable" : false,
 														"bSearchable" : false,
 														"sClass" : 'td_center'
 													},
+													
 													{
 														"mDataProp" : "name",
 														"bSortable" : false,

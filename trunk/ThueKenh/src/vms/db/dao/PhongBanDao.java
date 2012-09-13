@@ -24,7 +24,7 @@ public class PhongBanDao extends CatalogDAO {
 	@SuppressWarnings("unchecked")
 	public List<PhongBan> getAll() {
 		return this.jdbcTemplate.query(
-				"select * from phongban where deleted = 0", new RowMapper() {
+				"select * from phongban where deleted = 0 order by stt", new RowMapper() {
 					public Object mapRow(ResultSet rs, int rowNum)
 							throws SQLException {
 						return PhongBan.mapObject(rs);
@@ -51,7 +51,7 @@ public class PhongBanDao extends CatalogDAO {
 	public List<CatalogDTO> get() {
 		// TODO Auto-generated method stub
 		return this.jdbcTemplate.query(
-				"select * from phongban where deleted = 0", new RowMapper() {
+				"select * from phongban where deleted = 0  order by stt", new RowMapper() {
 					public Object mapRow(ResultSet rs, int rowNum)
 							throws SQLException {
 						return PhongBanDTO.mapObject(rs);
@@ -90,7 +90,7 @@ public class PhongBanDao extends CatalogDAO {
 			stmt.setString(1, cat.getId());
 			System.out.println(cat.getId());
 			stmt.setString(2, cat.getName());
-			stmt.setInt(3, 0);
+			stmt.setInt(3, cat.getStt());
 			stmt.setLong(4, 0);
 			System.out.println("***execute***");
 			stmt.execute();
@@ -108,8 +108,7 @@ public class PhongBanDao extends CatalogDAO {
 	public boolean update(String id, CatalogDTO cat) {
 		// TODO Auto-generated method stub
 		PhongBanDTO up = (PhongBanDTO) cat;
-		String sql = "update phongban set tenphongban='" + up.getName()
-				+ "' where id=" + up.getId();
+		String sql = "update phongban set stt="+up.getStt()+", tenphongban='" + up.getName()+ "' where id=" + up.getId();
 		System.out.println(sql);
 		return this.jdbcTemplate.update(sql) > 0;
 	}

@@ -11,6 +11,8 @@ public class CatalogDTO {
 	protected Integer deleted;
 	protected Integer stt;
 	public Integer getStt() {
+		if(stt==null || stt<0)
+			return 0;
 		return stt;
 	}
 	public void setStt(Integer stt) {

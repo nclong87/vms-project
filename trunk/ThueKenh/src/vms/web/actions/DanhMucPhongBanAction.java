@@ -112,7 +112,7 @@ public class DanhMucPhongBanAction implements Preparable {
 			// edit
 			
 			System.out.println("edit mode id=" + this.opEdit.getId());
-			if (this.opEdit.getId() != "") {
+			if (!this.opEdit.getId().isEmpty()) {
 				System.out.println("Begin Edit");
 				if (this.phongbanDAO.update(this.opEdit.getId(), this.opEdit)) {
 					this.flag = "1";// updated
@@ -175,7 +175,7 @@ public class DanhMucPhongBanAction implements Preparable {
 
 		} else
 			lstPhongBan = phongbanDAO.get();
-
+//asd
 		jsonData = new LinkedHashMap<String, Object>();
 		List<HashMap<String, Object>> items = new ArrayList<HashMap<String, Object>>();
 		for (int i = 0; i < lstPhongBan.size(); i++) {
@@ -184,6 +184,7 @@ public class DanhMucPhongBanAction implements Preparable {
 			map.put("stt", i + 1);
 			map.put("id", pb.getId());
 			map.put("name", pb.getName());
+			map.put("stt1", pb.getStt());
 			items.add(map);
 		}
 		// jsonData.put("sEcho",

@@ -78,22 +78,39 @@ public class KhuVucDao extends CatalogDAO {
 	@Override
 	public boolean insert(CatalogDTO cat) throws SQLException {
 		// TODO Auto-generated method stub
-		System.out.println("insert khuvuc:"+cat.getName());
-		Connection connection = jdbcTemplate.getDataSource().getConnection();
-		CallableStatement stmt = connection.prepareCall( "{ ? = call SAVE_KHUVUC(?,?,?) }");
-		stmt.registerOutParameter(1, OracleTypes.INTEGER);
-		stmt.setString(2, cat.getId());
-		stmt.setString(3, cat.getName());
-		stmt.setInt(4, cat.getStt());
-		stmt.execute();
-		return stmt.getLong(1)>0;
+		try {
+			Connection connection = this.jdbcTemplate.getDataSource()
+					.getConnection();
+			System.out.println("***BEGIN PROC_SAVE_KHUVUC***");
+			CallableStatement stmt = connection
+					.prepareCall("{ call PROC_SAVE_KHUVUC(?,?,?,?) }");
+			//stmt.registerOutParameter(1, OracleTypes.INTEGER);
+			
+			System.out.println("STT : "+cat.getStt());
+			
+			stmt.setString(1, cat.getId());
+			System.out.println(cat.getId());
+			stmt.setString(2, cat.getName());
+			stmt.setInt(3, cat.getStt());
+			stmt.setLong(4, 0);
+			System.out.println("***execute***");
+			stmt.execute();
+			stmt.close();
+			connection.close();
+			System.out.println("***END PROC_SAVE_KHUVUC***");
+			return true;
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			System.out.println("***Error PROC_SAVE_KHUVUC***");
+			return false;
+		}
 	}
 
 	@Override
 	public boolean update(String id, CatalogDTO cat) {
 		// TODO Auto-generated method stub
 		KhuVucDTO up=(KhuVucDTO)cat;
-		String sql="update khuvuc set tenkhuvuc='"+up.getName()+"' where id="+up.getId();
+		String sql="update khuvuc set stt="+up.getStt()+", tenkhuvuc='"+up.getName()+"' where id="+up.getId();
 		System.out.println(sql);
 		return this.jdbcTemplate.update(sql)>0;
 	}

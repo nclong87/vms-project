@@ -7,15 +7,19 @@
 <link rel="stylesheet" href="<%=contextPath%>/content/css/style_all.css"
 	type="text/css" media="screen" />
 <form method="post">
-	<input type="hidden" name="opEdit.Id"
-		value="<s:property value="opEdit.Id" />">
+	<input type="hidden" name="opEdit.id"
+		value="<s:property value="opEdit.id" />">
 	<table>
 		<tbody>
 			<tr>
-				<td align="right">Tên phòng ban :</td>
+				<td align="right">Tên khu vực :</td>
 				<td align="left"><input type="text" name="opEdit.name"
 					value="<s:property value="opEdit.name" />" id="name"></td>
-
+			</tr>
+			<tr>
+				<td align="right">Số thứ tự : </td>
+				<td align="left"><input type="text" name="opEdit.stt"
+					value="<s:property value="opEdit.stt" />" id="stt"></td>
 			</tr>
 			<tr>
 				<td></td>
