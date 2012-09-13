@@ -124,7 +124,7 @@ public class DanhMucDuAnAction implements Preparable {
 			try {
 				this.request = ServletActionContext.getRequest();
 				id = request.getParameter("id");
-				System.out.println("load edit id=" + id);
+				System.out.println("load edit id =" + id);
 				this.opEdit = (DuAnDTO) this.DuAnDAO.get(id);
 				System.out.println("finish load edit");
 			} catch (Exception e) {
@@ -132,7 +132,6 @@ public class DanhMucDuAnAction implements Preparable {
 				System.out.println(e.getMessage());
 			}
 		}
-
 		return Action.SUCCESS;
 	}
 

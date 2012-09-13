@@ -161,7 +161,7 @@ input.error,select.error,textarea.error {
 											rules : {
 												"opEdit.name" : {
 													required : true,
-													uniqueUserName : true,
+													uniqueUserName : false,
 													minlength : 6,
 													maxlength : 25
 												}
@@ -169,7 +169,6 @@ input.error,select.error,textarea.error {
 											messages : {
 												"opEdit.name" : {
 													required : "Vui lòng nhập tên dự án ",
-													uniqueUserName : "dự án này đã được sử dụng, vui lòng chọn dự án khác!",
 													minlength : "Tên đăng nhập ít nhất là 6 kí tự",
 													maxlength : "Tên đăng nhập ít nhất là 25 kí tự",
 												}
