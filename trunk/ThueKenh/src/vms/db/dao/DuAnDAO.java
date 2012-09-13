@@ -84,7 +84,7 @@ public class DuAnDAO extends CatalogDAO {
 	public boolean update(String id, CatalogDTO cat) {
 		// TODO Auto-generated method stub
 		DuAnDTO up = (DuAnDTO) cat;
-		String sql = "update duan set tenduan='" + up.getName() + "' where id=" + up.getId();
+		String sql = "update duan set stt='"+up.getStt()+"',mota='"+up.getMota()+"',giamgia="+up.getGiamgia()+",usercreate='"+up.getUsercreate()+"', tenduan='" + up.getName() + "' where id=" + up.getId();
 		System.out.println(sql);
 		return this.jdbcTemplate.update(sql) > 0;
 	}

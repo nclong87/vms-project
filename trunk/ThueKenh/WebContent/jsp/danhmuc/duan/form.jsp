@@ -100,6 +100,34 @@ input.error,select.error,textarea.error {
 							style="display: none" for="opEdit.stt" generated="false"
 							class="error"></label></td>
 					</tr>
+					<tr>
+						<td class="td_label">Mô tả <span class="required"
+							title="Yêu cầu nhập">*</span> :
+						</td>
+						<td><input type="text" class="field"
+							name="opEdit.mota" id="opEdit.mota" value="<s:property value="opEdit.mota" />"/> <label
+							style="display: none" for="opEdit.mota" generated="false"
+							class="error"></label></td>
+					</tr>
+					<tr>
+						<td class="td_label">Giảm giá <span class="required"
+							title="Yêu cầu nhập">*</span> :
+						</td>
+						<td><input type="text" class="field"
+							name="opEdit.giamgia" id="opEdit.giamgia" value="<s:property value="opEdit.giamgia" />"/> <label
+							style="display: none" for="opEdit.giamgia" generated="false"
+							class="error"></label></td>
+					</tr>
+					<tr>
+						<td class="td_label">Người tạo <span class="required"
+							title="Yêu cầu nhập">*</span> :
+						</td>
+						<td><input type="text" class="field"
+							name="opEdit.usercreate" id="opEdit.usercreate" value="<s:property value="opEdit.usercreate" />"/> <label
+							style="display: none" for="opEdit.usercreate" generated="false"
+							class="error"></label></td>
+					</tr>
+					
 
 					<tr>
 						<td>&nbsp;</td>
