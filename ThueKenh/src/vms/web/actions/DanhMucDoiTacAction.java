@@ -108,7 +108,7 @@ public class DanhMucDoiTacAction implements Preparable {
 		if (this.opEdit != null) {
 			// edit
 			System.out.println("edit mode id=" + this.opEdit.getId());
-			if (this.opEdit.getId() !="") {
+			if (!this.opEdit.getId().isEmpty()) {
 				if (this.DoiTacDAO.update(this.opEdit.getId(), this.opEdit)) {
 					this.flag = "1";// updated
 				} else
@@ -169,6 +169,7 @@ public class DanhMucDoiTacAction implements Preparable {
 			map.put("stt", i + 1);
 			map.put("id", pb.getId());
 			map.put("name", pb.getName());
+			map.put("stt1", pb.getStt());
 			items.add(map);
 		}
 		// jsonData.put("sEcho",
