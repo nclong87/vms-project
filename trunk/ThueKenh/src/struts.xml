@@ -75,7 +75,7 @@
 			</result>
 		</action>
 		<action name="editLoaiGiaoTiep" class="loaigiaotiepAction" method="edit">
-			<result name="success">/jsp/danhmuc/congthuc/form.jsp</result>
+			<result name="success">/jsp/danhmuc/loaigiaotiep/form.jsp</result>
 		</action>
 		<!-- kết thúc loại giao tiếp -->
 		<!-- khai báo công thức -->

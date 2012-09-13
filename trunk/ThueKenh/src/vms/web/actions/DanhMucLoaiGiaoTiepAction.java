@@ -141,6 +141,7 @@ public class DanhMucLoaiGiaoTiepAction implements Preparable {
 				id = request.getParameter("id");
 				System.out.println("load edit id=" + id);
 				this.opEdit = (LoaiGiaoTiepDTO) this.lgtDAO.get(id);
+				System.out.println("Cuoc cong="+this.opEdit.getCuocCong());
 				System.out.println("finish load edit");
 			} catch (Exception e) {
 				// TODO: handle exception
