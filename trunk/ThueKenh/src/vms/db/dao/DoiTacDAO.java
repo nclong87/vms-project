@@ -1,5 +1,7 @@
 package vms.db.dao;
 
+import java.sql.CallableStatement;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -66,8 +68,34 @@ public class DoiTacDAO extends CatalogDAO {
 	@Override
 	public boolean insert(CatalogDTO cat) throws SQLException {
 		// TODO Auto-generated method stub
-		System.out.println("insert khuvuc:" + cat.getName());
-		return false;
+		System.out.println("insert doitac:" + cat.getName());
+		
+		try {
+			Connection connection = this.jdbcTemplate.getDataSource()
+					.getConnection();
+			System.out.println("***BEGIN PROC_SAVE_DOITAC***");
+			CallableStatement stmt = connection
+					.prepareCall("{ call PROC_SAVE_DOITAC(?,?,?,?) }");
+			//stmt.registerOutParameter(1, OracleTypes.INTEGER);
+			
+			System.out.println("STT : "+cat.getStt());
+			
+			stmt.setString(1, cat.getId());
+			System.out.println(cat.getId());
+			stmt.setString(2, cat.getName());
+			stmt.setInt(3, cat.getStt());
+			stmt.setLong(4, 0);
+			System.out.println("***execute***");
+			stmt.execute();
+			stmt.close();
+			connection.close();
+			System.out.println("***END PROC_SAVE_DOITAC***");
+			return true;
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			System.out.println("***Error PROC_SAVE_DOITAC***");
+			return false;
+		}
 	}
 
 	@Override
