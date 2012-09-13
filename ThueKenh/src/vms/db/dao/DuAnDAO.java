@@ -98,6 +98,7 @@ public class DuAnDAO extends CatalogDAO {
 			stmt.setString(5, d.getMota());
 			stmt.setInt(6, d.getGiamgia());
 			stmt.setString(7, d.getUsercreate());
+			System.out.println( cat.getMap().toString());
 			System.out.println("***execute***");
 			stmt.execute();
 			stmt.close();
