@@ -4,6 +4,7 @@ public class LoaiGiaoTiepDTO extends CatalogDTO{
 	private int CuocCong;
 
 	public int getCuocCong() {
+		
 		return CuocCong;
 	}
 

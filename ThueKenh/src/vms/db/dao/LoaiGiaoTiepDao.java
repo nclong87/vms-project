@@ -103,7 +103,7 @@ public class LoaiGiaoTiepDao extends CatalogDAO {
 			CallableStatement stmt = connection
 					.prepareCall("{ call PROC_SAVE_LOAIGIAOTIEP(?,?,?,?) }");
 			//stmt.registerOutParameter(1, OracleTypes.INTEGER);
-			System.out.println("***BEGIN PROC_SAVE_LOAIGIAOTIEP***");
+			System.out.println("***BEGIN PROC_SAVE_LOAIGIAOTIEP***"+loaigiaotiep.getCuocCong());
 			stmt.setString(1, loaigiaotiep.getId());
 			System.out.println(loaigiaotiep.getId());
 			stmt.setString(2, loaigiaotiep.getName());
