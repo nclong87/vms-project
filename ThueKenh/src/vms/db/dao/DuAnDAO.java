@@ -1,5 +1,7 @@
 package vms.db.dao;
 
+import java.sql.CallableStatement;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -76,8 +78,37 @@ public class DuAnDAO extends CatalogDAO {
 	@Override
 	public boolean insert(CatalogDTO cat) throws SQLException {
 		// TODO Auto-generated method stub
-		System.out.println("insert khuvuc:" + cat.getName());
-		return false;
+		DuAnDTO d=(DuAnDTO)cat;
+		System.out.println("insert du an:" + cat.getName());
+		try {
+			Connection connection = this.jdbcTemplate.getDataSource()
+					.getConnection();
+			System.out.println("***BEGIN PROC_SAVE_DUAN***");
+			CallableStatement stmt = connection
+					.prepareCall("{ call PROC_SAVE_DUAN(?,?,?,?,?,?,?) }");
+			//stmt.registerOutParameter(1, OracleTypes.INTEGER);
+			
+			//System.out.println("STT : "+d.getStt());
+			
+			stmt.setString(1, d.getId());
+			System.out.println(d.getId());
+			stmt.setString(2, d.getName());
+			stmt.setInt(3, d.getStt());
+			stmt.setLong(4, 0);
+			stmt.setString(5, d.getMota());
+			stmt.setInt(6, d.getGiamgia());
+			stmt.setString(7, d.getUsercreate());
+			System.out.println("***execute***");
+			stmt.execute();
+			stmt.close();
+			connection.close();
+			System.out.println("***END PROC_SAVE_DUAN***");
+			return true;
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			System.out.println("***Error PROC_SAVE_DUAN***");
+			return false;
+		}
 	}
 
 	@Override

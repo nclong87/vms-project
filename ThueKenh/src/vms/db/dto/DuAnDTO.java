@@ -66,7 +66,7 @@ public class DuAnDTO extends CatalogDTO{
 	}
 	
 	public static DuAnDTO mapObject(ResultSet rs) throws SQLException {
-		System.out.println("map duanDTO start");
+		//System.out.println("map duanDTO start");
 		DuAnDTO dto = new DuAnDTO();
 		dto.setId(rs.getString("ID"));
 		dto.setTenduan(rs.getString("TENDUAN"));
@@ -77,7 +77,7 @@ public class DuAnDTO extends CatalogDTO{
 		dto.setTimecreate(rs.getString("TIMECREATE"));
 		dto.setStt(rs.getInt("STT"));
 		dto.setDeleted(rs.getInt("DELETED"));
-		System.out.println("map duanDTO end");
+		//System.out.println("map duanDTO end");
         return dto;
 	}
 }
