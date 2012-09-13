@@ -149,30 +149,36 @@ public class DanhMucDuAnAction implements Preparable {
 		// DuAnDAO DuAnDAO = new DuAnDAO(factory);
 		String strSearch=this.request.getParameter("sSearch");
 		
-		List<CatalogDTO> lstkhuvuc = DuAnDAO.get();
+		List<CatalogDTO> lst = DuAnDAO.get();
+		System.out.println("So du an: "+lst.size());
 		if(strSearch.isEmpty() == false) {
 			JSONArray arrayJson = (JSONArray) new JSONObject(strSearch).get("array");
 			
 				String name = arrayJson.getJSONObject(0).getString("value");
-				lstkhuvuc = DuAnDAO.search(name);
+				lst = DuAnDAO.search(name);
 				System.out.println("strSearch="+strSearch);
 			
 		}
 		
 		jsonData = new LinkedHashMap<String, Object>();
 		List<HashMap<String, Object>> items = new ArrayList<HashMap<String, Object>>();
-		for (int i = 0; i < lstkhuvuc.size(); i++) {
+		for (int i = 0; i < lst.size(); i++) {
 			HashMap<String, Object> map = new HashMap<String, Object>();
-			DuAnDTO pb = (DuAnDTO) lstkhuvuc.get(i);
+			DuAnDTO pb = (DuAnDTO) lst.get(i);
 			map.put("stt", i + 1);
 			map.put("id", pb.getId());
-			map.put("name", pb.getName());
+			map.put("name", pb.getTenduan());
+			map.put("mota", pb.getMota());
+			map.put("giamgia", pb.getGiamgia());
+			map.put("nguoitao", pb.getUsercreate());
+			map.put("thoigian", pb.getTimecreate());
+			map.put("stt1", pb.getStt());
 			items.add(map);
 		}
 		// jsonData.put("sEcho",
 		// Integer.parseInt(request.getParameter("sEcho")));
-		jsonData.put("iTotalRecords", lstkhuvuc.size());
-		jsonData.put("iTotalDisplayRecords", lstkhuvuc.size());
+		jsonData.put("iTotalRecords", lst.size());
+		jsonData.put("iTotalDisplayRecords", lst.size());
 		jsonData.put("aaData", items);
 
 		return Action.SUCCESS;

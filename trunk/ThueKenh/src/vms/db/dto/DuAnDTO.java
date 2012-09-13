@@ -37,7 +37,7 @@ public class DuAnDTO extends CatalogDTO{
 	}
 
 	public String getTimecreate() {
-		return timecreate;
+		return timecreate.split(" ")[0];
 	}
 
 	public void setTimecreate(String timecreate) {
@@ -66,15 +66,18 @@ public class DuAnDTO extends CatalogDTO{
 	}
 	
 	public static DuAnDTO mapObject(ResultSet rs) throws SQLException {
+		System.out.println("map duanDTO start");
 		DuAnDTO dto = new DuAnDTO();
 		dto.setId(rs.getString("ID"));
 		dto.setTenduan(rs.getString("TENDUAN"));
+		dto.setName(rs.getString("TENDUAN"));
 		dto.setMota(rs.getString("MOTA"));
 		dto.setGiamgia(rs.getInt("GIAMGIA"));
 		dto.setUsercreate(rs.getString("USERCREATE"));
 		dto.setTimecreate(rs.getString("TIMECREATE"));
 		dto.setStt(rs.getInt("STT"));
 		dto.setDeleted(rs.getInt("DELETED"));
+		System.out.println("map duanDTO end");
         return dto;
 	}
 }
