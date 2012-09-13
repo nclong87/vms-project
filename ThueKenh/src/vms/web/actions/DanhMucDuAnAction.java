@@ -90,7 +90,7 @@ public class DanhMucDuAnAction implements Preparable {
 	}
 
 	public String delete() {
-		System.out.println("delete");
+		System.out.println("delete1");
 		this.request = ServletActionContext.getRequest();
 		String strIds = request.getParameter("ids");
 		System.out.println(strIds);
@@ -108,7 +108,7 @@ public class DanhMucDuAnAction implements Preparable {
 		if (this.opEdit != null) {
 			// edit
 			System.out.println("edit mode id=" + this.opEdit.getId());
-			if (this.opEdit.getId() != "") {
+			if (!this.opEdit.getId().isEmpty()) {
 				if (this.DuAnDAO.update(this.opEdit.getId(), this.opEdit)) {
 					this.flag = "1";// updated
 				} else
