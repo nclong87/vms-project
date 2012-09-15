@@ -207,9 +207,6 @@ margin-left: 10px;
 </body>
 </html>
 <script>
-function loadContent(url) {
-	location.href = contextPath + url;
-}
 function reset(){
 	$("#form")[0].reset();
 }
