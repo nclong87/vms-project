@@ -4,7 +4,6 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,27 +12,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.struts2.ServletActionContext;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.json.simple.JSONValue;
 
 
 import vms.db.dao.AccountDao;
 import vms.db.dao.DaoFactory;
-import vms.db.dao.KhuVucDao;
 import vms.db.dao.MenuDao;
-import vms.db.dao.PhongBanDao;
 import vms.db.dao.VmsgroupDao;
 import vms.db.dto.Account;
-import vms.db.dto.KhuVuc;
 import vms.db.dto.Menu;
-import vms.db.dto.PhongBan;
 import vms.db.dto.Rootmenu;
 import vms.utils.Constances;
 import vms.utils.VMSUtil;
-import vms.web.models.AccountExt;
-import vms.web.models.MessageStore;
 
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.Preparable;

@@ -3,27 +3,22 @@ package vms.web.actions;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.struts2.ServletActionContext;
-import org.json.simple.JSONValue;
 
 
-import vms.db.dao.AccountDao;
 import vms.db.dao.DaoFactory;
 import vms.db.dto.Account;
 import vms.utils.Constances;
-import vms.utils.VMSUtil;
 
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.Preparable;
 
 public class IndexAction implements Preparable {
+	@SuppressWarnings("unused")
 	private DaoFactory daoFactory;
 	private HttpServletRequest request;
 	private HttpSession session;
@@ -32,7 +27,6 @@ public class IndexAction implements Preparable {
 	private InputStream inputStream;
 	private String message;
 	private String jsonData;
-	private Map<String,String> map;
 	public IndexAction( DaoFactory factory) {
 		daoFactory = factory;
 	}

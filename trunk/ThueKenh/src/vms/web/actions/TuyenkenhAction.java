@@ -16,7 +16,6 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.simple.JSONValue;
 
-import vms.db.dao.AccountDao;
 import vms.db.dao.DaoFactory;
 import vms.db.dao.DuAnDAO;
 import vms.db.dao.KhuVucDao;

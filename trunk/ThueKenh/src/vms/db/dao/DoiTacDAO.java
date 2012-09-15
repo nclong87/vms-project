@@ -12,7 +12,6 @@ import org.springframework.jdbc.core.RowMapper;
 
 import vms.db.dto.CatalogDTO;
 import vms.db.dto.DoiTacDTO;
-import vms.db.dto.KhuVucDTO;
 
 public class DoiTacDAO extends CatalogDAO {
 

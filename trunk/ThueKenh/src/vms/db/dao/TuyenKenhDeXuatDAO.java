@@ -11,7 +11,6 @@ import java.util.Map;
 import javax.sql.DataSource;
 import oracle.jdbc.OracleTypes;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 

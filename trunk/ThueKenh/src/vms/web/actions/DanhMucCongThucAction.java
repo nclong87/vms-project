@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -14,7 +13,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import vms.db.dao.AccountDao;
 import vms.db.dao.DaoFactory;
 import vms.db.dao.CongThucDAO;
 import vms.db.dto.Account;
@@ -22,7 +20,6 @@ import vms.db.dto.CatalogDTO;
 import vms.db.dto.CongThucDTO;
 import vms.utils.Constances;
 import vms.utils.VMSUtil;
-import vms.web.models.AccountExt;
 
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.Preparable;
