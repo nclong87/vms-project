@@ -20,7 +20,6 @@ import org.springframework.jdbc.core.RowMapper;
 
 import vms.db.dto.Menu;
 import vms.db.dto.Vmsgroup;
-import vms.web.models.AccountExt;
 
 public class VmsgroupDao {
 	private JdbcTemplate jdbcTemplate;

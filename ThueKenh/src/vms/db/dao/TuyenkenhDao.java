@@ -15,7 +15,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
-import vms.db.dto.Account;
 import vms.db.dto.TuyenKenh;
 import vms.web.models.FN_FIND_TUYENKENH;
 

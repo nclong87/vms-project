@@ -2,8 +2,6 @@ package vms.web.models;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.LinkedHashMap;
-import java.util.Map;
 
 
 

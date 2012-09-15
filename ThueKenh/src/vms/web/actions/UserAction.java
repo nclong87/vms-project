@@ -14,7 +14,6 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.struts2.ServletActionContext;
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.simple.JSONValue;
 
