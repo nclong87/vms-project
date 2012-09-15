@@ -1,0 +1,1 @@
+var popup_search_tuyenkenh = {	url : '',	afterSelected : null,	init : function(params) {		$("#btPopupSearchTuyenkenh").live("click",function(){			var popup = window.open(popup_search_tuyenkenh.url,'','width=900,height=500,scrollbars=1');			popup.focus();		});		this.url = params.url;		this.afterSelected = params.afterSelected;	}}

@@ -268,5 +268,36 @@
 				<param name="root">jsonData</param>
 			</result>
 		</action>
+		<action name="delete" class="tuyenkenhAction" method="delete">
+			<result name="success" type="stream">
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+		<action name="popupSearch" class="tuyenkenhAction" method="popupSearch">
+			<result>/jsp/tuyenkenh/popupSearch.jsp</result>
+		</action>
+	</package>
+	<package name="tuyenkenhdexuat" extends="default" namespace="/tuyenkenhdexuat">
+		<action name="index" class="tuyenkenhdexuatAction">
+			<result>/jsp/tuyenkenhdexuat/index.jsp</result>
+		</action>
+		<action name="form" class="tuyenkenhdexuatAction" method="form">
+			<result>/jsp/tuyenkenhdexuat/form.jsp</result>
+		</action>
+		<action name="doSave" class="tuyenkenhdexuatAction" method="doSave">
+			<result name="success" type="stream">
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+		<action name="load" class="tuyenkenhdexuatAction" method="load">
+			<result name="success" type="json">
+				<param name="root">jsonData</param>
+			</result>
+		</action>
+		<action name="delete" class="tuyenkenhdexuatAction" method="delete">
+			<result name="success" type="stream">
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
 	</package>
 </struts>

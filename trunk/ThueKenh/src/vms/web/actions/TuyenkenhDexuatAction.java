@@ -16,12 +16,12 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.simple.JSONValue;
 
-import vms.db.dao.AccountDao;
 import vms.db.dao.DaoFactory;
 import vms.db.dao.DuAnDAO;
 import vms.db.dao.KhuVucDao;
 import vms.db.dao.LoaiGiaoTiepDao;
 import vms.db.dao.PhongBanDao;
+import vms.db.dao.TuyenKenhDeXuatDAO;
 import vms.db.dao.TuyenkenhDao;
 import vms.db.dto.Account;
 import vms.db.dto.DuAnDTO;
@@ -29,26 +29,30 @@ import vms.db.dto.KhuVucDTO;
 import vms.db.dto.LoaiGiaoTiep;
 import vms.db.dto.PhongBan;
 import vms.db.dto.TuyenKenh;
+import vms.db.dto.TuyenKenhDeXuatDTO;
 import vms.utils.Constances;
 import vms.utils.DateUtils;
+import vms.utils.NumberUtil;
 import vms.utils.VMSUtil;
-import vms.web.models.FN_FIND_TUYENKENH;
+import vms.web.models.FIND_TUYENKENHDEXUAT;
 import vms.web.models.MessageStore;
 
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.Preparable;
 
-public class TuyenkenhAction implements Preparable {
+public class TuyenkenhDexuatAction implements Preparable {
 	private DaoFactory daoFactory;
 	private HttpServletRequest request;
 	private HttpSession session;
 	private Account account;
+	private TuyenKenhDeXuatDTO tuyenKenhDeXuatDTO;
 	private TuyenKenh tuyenKenh;
 	
 	private InputStream inputStream;
 	private MessageStore message ;
 	private LinkedHashMap<String, Object> jsonData;
-	private String form_data;
+	private String tuyenKenh_data;
+	private String tuyenKenhDeXuatDTO_data;
 	
 	private List<LoaiGiaoTiep> loaiGiaoTieps;
 	private List<DuAnDTO> duAnDTOs;
@@ -56,7 +60,7 @@ public class TuyenkenhAction implements Preparable {
 	private List<PhongBan> phongBans;
 	private String id;
 	private String[] ids;
-	public TuyenkenhAction( DaoFactory factory) {
+	public TuyenkenhDexuatAction( DaoFactory factory) {
 		daoFactory = factory;
 	}
 	@Override
@@ -83,7 +87,7 @@ public class TuyenkenhAction implements Preparable {
 		return Action.SUCCESS;
 	}
 	
-	public String ajLoadTuyenkenh() {
+	public String load() {
 		try {
 			//if(account == null) throw new Exception("END_SESSION");
 			Integer iDisplayStart = Integer.parseInt(request.getParameter("iDisplayStart"));
@@ -101,23 +105,21 @@ public class TuyenkenhAction implements Preparable {
 					}
 				}
 			}
-			TuyenkenhDao tuyenkenhDao = new TuyenkenhDao(daoFactory);
-			List<FN_FIND_TUYENKENH> lstTuyenkenh = tuyenkenhDao.findTuyenkenh(iDisplayStart, iDisplayLength, conditions);
+			TuyenKenhDeXuatDAO tuyenKenhDeXuatDAO = new TuyenKenhDeXuatDAO(daoFactory);
+			List<FIND_TUYENKENHDEXUAT> list = tuyenKenhDeXuatDAO.search(iDisplayStart, iDisplayLength, conditions);
 			jsonData = new LinkedHashMap<String, Object>();
 			List<Map<String, String>> items = new ArrayList<Map<String, String>>();
-			for(int i=0;i<lstTuyenkenh.size() && i<iDisplayLength;i++) {
-				Map<String, String> map = lstTuyenkenh.get(i).getMap();
+			for(int i=0;i<list.size() && i<iDisplayLength;i++) {
+				Map<String, String> map = list.get(i).getMap();
 				map.put("stt", String.valueOf(i+1));
 				items.add(map);
 			}
 			jsonData.put("sEcho", Integer.parseInt(request.getParameter("sEcho")));
-			jsonData.put("iTotalRecords", lstTuyenkenh.size());
-			jsonData.put("iTotalDisplayRecords", lstTuyenkenh.size());
+			jsonData.put("iTotalRecords", list.size());
+			jsonData.put("iTotalDisplayRecords", list.size());
 			jsonData.put("aaData", items);
 			return Action.SUCCESS;
 		} catch (Exception e) {
-			// TODO: handle exception
-			//setInputStream(str)
 			e.printStackTrace();
 		}
 		return Action.SUCCESS;
@@ -137,14 +139,19 @@ public class TuyenkenhAction implements Preparable {
 			khuVucDTOs = khuVucDao.findAll();
 			PhongBanDao phongBanDao = new PhongBanDao(daoFactory);
 			phongBans = phongBanDao.getAll();
-			form_data = "";
+			tuyenKenh_data = "";
+			tuyenKenhDeXuatDTO_data = "";
 			if(id != null && id.isEmpty()==false) {
 				System.out.println("id=" + id);
+				TuyenKenhDeXuatDAO tuyenKenhDeXuatDAO = new TuyenKenhDeXuatDAO(daoFactory);
+				tuyenKenhDeXuatDTO = tuyenKenhDeXuatDAO.findById(id);
 				TuyenkenhDao tuyenkenhDao = new TuyenkenhDao(daoFactory);
-				tuyenKenh = tuyenkenhDao.findById(id);
-				System.out.println(tuyenKenh.getId());
-				Map<String,String> map = tuyenKenh.getMap();
-				form_data = JSONValue.toJSONString(map);
+				tuyenKenh = tuyenkenhDao.findById(tuyenKenhDeXuatDTO.getTuyenkenh_id());
+				//System.out.println(tuyenKenhDeXuatDTO.getId());
+				Map<String,String> map = tuyenKenhDeXuatDTO.getMap();
+				tuyenKenhDeXuatDTO_data = JSONValue.toJSONString(map);
+				map = tuyenKenh.getMap();
+				tuyenKenh_data = JSONValue.toJSONString(map);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -159,15 +166,20 @@ public class TuyenkenhAction implements Preparable {
 				session.setAttribute("URL", VMSUtil.getFullURL(request));
 				return "login_page";
 			}
-			TuyenkenhDao tuyenkenhDao = new TuyenkenhDao(daoFactory);
-			if(tuyenkenhDao.findByKey(tuyenKenh.getMadiemdau(), tuyenKenh.getMadiemcuoi(), tuyenKenh.getGiaotiep_id()) != null) {
-				throw new Exception("EXIST");
+			TuyenKenhDeXuatDAO tuyenKenhDeXuatDAO = new TuyenKenhDeXuatDAO(daoFactory);
+			if(tuyenKenh.getId().isEmpty()) { //add new tuyenkenh
+				TuyenkenhDao tuyenkenhDao = new TuyenkenhDao(daoFactory);
+				TuyenKenh tk = tuyenkenhDao.findByKey(tuyenKenh.getMadiemdau(), tuyenKenh.getMadiemcuoi(), tuyenKenh.getGiaotiep_id());
+				if(tk!= null) { //da ton tai tuyen kenh nay => update
+					tuyenKenh.setId(tk.getId());
+				}
 			}
-			//tuyenKenh.setNgaydenghibangiao(DateUtils.parseStringDateSQL(tuyenKenh.getNgaydenghibangiao(), "dd/MM/yyyy"));
-			//tuyenKenh.setNgayhenbangiao(DateUtils.parseStringDateSQL(tuyenKenh.getNgayhenbangiao(), "dd/MM/yyyy"));
+			int soluong_old = NumberUtil.parseInt(request.getParameter("soluong_old"));
 			tuyenKenh.setUsercreate(account.getUsername());
 			tuyenKenh.setTimecreate(DateUtils.getCurrentDateSQL());
-			id = tuyenkenhDao.save(tuyenKenh);
+			tuyenKenhDeXuatDTO.setNgaydenghibangiao(DateUtils.parseStringDateSQL(tuyenKenhDeXuatDTO.getNgaydenghibangiao(), "dd/MM/yyyy"));
+			tuyenKenhDeXuatDTO.setNgayhenbangiao(DateUtils.parseStringDateSQL(tuyenKenhDeXuatDTO.getNgayhenbangiao(), "dd/MM/yyyy"));
+			id = tuyenKenhDeXuatDAO.save(tuyenKenh,tuyenKenhDeXuatDTO,soluong_old);
 			if(id == null) throw new Exception(Constances.MSG_ERROR);
 			setInputStream("OK");
 		} catch (Exception e) {
@@ -185,26 +197,14 @@ public class TuyenkenhAction implements Preparable {
 				throw new Exception("END_SESSION");
 			}
 			if(ids != null && ids.length >0 ) {
-				TuyenkenhDao tuyenkenhDao = new TuyenkenhDao(daoFactory);
-				tuyenkenhDao.deleteByIds(ids);
+				TuyenKenhDeXuatDAO tuyenKenhDeXuatDAO = new TuyenKenhDeXuatDAO(daoFactory);
+				tuyenKenhDeXuatDAO.deleteByIds(ids);
 			}
 			setInputStream("OK");
 		} catch (Exception e) {
 			e.printStackTrace();
 			setInputStream(e.getMessage());
 		}
-		return Action.SUCCESS;
-	}
-	
-	public String popupSearch() {
-		LoaiGiaoTiepDao loaiGiaoTiepDao = new LoaiGiaoTiepDao(daoFactory);
-		loaiGiaoTieps = loaiGiaoTiepDao.getAll();
-		DuAnDAO duAnDAO = new DuAnDAO(daoFactory);
-		duAnDTOs = duAnDAO.findAll();
-		KhuVucDao khuVucDao = new KhuVucDao(daoFactory);
-		khuVucDTOs = khuVucDao.findAll();
-		PhongBanDao phongBanDao = new PhongBanDao(daoFactory);
-		phongBans = phongBanDao.getAll();
 		return Action.SUCCESS;
 	}
 	
@@ -245,11 +245,18 @@ public class TuyenkenhAction implements Preparable {
 	public void setId(String id) {
 		this.id = id;
 	}
-	public String getForm_data() {
-		return form_data;
+	
+	public String getTuyenKenh_data() {
+		return tuyenKenh_data;
 	}
-	public void setForm_data(String form_data) {
-		this.form_data = form_data;
+	public void setTuyenKenh_data(String tuyenKenh_data) {
+		this.tuyenKenh_data = tuyenKenh_data;
+	}
+	public String getTuyenKenhDeXuatDTO_data() {
+		return tuyenKenhDeXuatDTO_data;
+	}
+	public void setTuyenKenhDeXuatDTO_data(String tuyenKenhDeXuatDTO_data) {
+		this.tuyenKenhDeXuatDTO_data = tuyenKenhDeXuatDTO_data;
 	}
 	public String[] getIds() {
 		return ids;
@@ -257,11 +264,12 @@ public class TuyenkenhAction implements Preparable {
 	public void setIds(String[] ids) {
 		this.ids = ids;
 	}
-	public TuyenKenh getTuyenKenh() {
-		return tuyenKenh;
+	
+	public TuyenKenhDeXuatDTO getTuyenKenhDeXuatDTO() {
+		return tuyenKenhDeXuatDTO;
 	}
-	public void setTuyenKenh(TuyenKenh tuyenKenh) {
-		this.tuyenKenh = tuyenKenh;
+	public void setTuyenKenhDeXuatDTO(TuyenKenhDeXuatDTO tuyenKenhDeXuatDTO) {
+		this.tuyenKenhDeXuatDTO = tuyenKenhDeXuatDTO;
 	}
 	public List<LoaiGiaoTiep> getLoaiGiaoTieps() {
 		return loaiGiaoTieps;
@@ -286,6 +294,12 @@ public class TuyenkenhAction implements Preparable {
 	}
 	public void setPhongBans(List<PhongBan> phongBans) {
 		this.phongBans = phongBans;
+	}
+	public TuyenKenh getTuyenKenh() {
+		return tuyenKenh;
+	}
+	public void setTuyenKenh(TuyenKenh tuyenKenh) {
+		this.tuyenKenh = tuyenKenh;
 	}
 	
 	

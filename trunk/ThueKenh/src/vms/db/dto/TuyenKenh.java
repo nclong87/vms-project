@@ -5,9 +5,6 @@ import java.sql.SQLException;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import vms.utils.DateUtils;
-
-
 
 /**
  * The persistent class for the ACCOUNTS database table.
@@ -24,9 +21,6 @@ public class TuyenKenh {
 	private String khuvuc_id = "";
 	private Integer dungluong = 0;
 	private Integer soluong = 0;
-	private String ngaydenghibangiao = "";
-	private String ngayhenbangiao = "";
-	private String thongtinlienhe = "";
 	private Integer trangthai = 0;
 	private String usercreate = "";
 	private String timecreate = "";
@@ -136,30 +130,6 @@ public class TuyenKenh {
 		this.soluong = soluong;
 	}
 
-	public String getNgaydenghibangiao() {
-		return ngaydenghibangiao;
-	}
-
-	public void setNgaydenghibangiao(String ngaydenghibangiao) {
-		this.ngaydenghibangiao = ngaydenghibangiao;
-	}
-
-	public String getNgayhenbangiao() {
-		return ngayhenbangiao;
-	}
-
-	public void setNgayhenbangiao(String ngayhenbangiao) {
-		this.ngayhenbangiao = ngayhenbangiao;
-	}
-
-	public String getThongtinlienhe() {
-		return thongtinlienhe;
-	}
-
-	public void setThongtinlienhe(String thongtinlienhe) {
-		this.thongtinlienhe = thongtinlienhe;
-	}
-
 	public Integer getTrangthai() {
 		return trangthai;
 	}
@@ -203,9 +173,9 @@ public class TuyenKenh {
 		map.put("khuvuc_id", this.khuvuc_id);
 		map.put("dungluong", String.valueOf(this.dungluong));
 		map.put("soluong", String.valueOf(this.soluong));
-		map.put("ngaydenghibangiao", this.ngaydenghibangiao);
-		map.put("ngayhenbangiao", this.ngayhenbangiao);
-		map.put("thongtinlienhe", this.thongtinlienhe);
+		//map.put("ngaydenghibangiao", this.ngaydenghibangiao);
+		//map.put("ngayhenbangiao", this.ngayhenbangiao);
+		//map.put("thongtinlienhe", this.thongtinlienhe);
 		map.put("trangthai", String.valueOf(this.trangthai));
 		map.put("usercreate", this.usercreate);
 		map.put("timecreate", this.timecreate);
@@ -224,9 +194,9 @@ public class TuyenKenh {
 		dto.setKhuvuc_id(rs.getString("KHUVUC_ID"));
 		dto.setDungluong(rs.getInt("DUNGLUONG"));
 		dto.setSoluong(rs.getInt("SOLUONG"));
-		dto.setNgaydenghibangiao(DateUtils.formatDate(rs.getDate("NGAYDENGHIBANGIAO"), DateUtils.SDF_DDMMYYYY));
-		dto.setNgayhenbangiao(DateUtils.formatDate(rs.getDate("NGAYHENBANGIAO"), DateUtils.SDF_DDMMYYYY));
-		dto.setThongtinlienhe(rs.getString("THONGTINLIENHE"));
+		//dto.setNgaydenghibangiao(DateUtils.formatDate(rs.getDate("NGAYDENGHIBANGIAO"), DateUtils.SDF_DDMMYYYY));
+		//dto.setNgayhenbangiao(DateUtils.formatDate(rs.getDate("NGAYHENBANGIAO"), DateUtils.SDF_DDMMYYYY));
+		//dto.setThongtinlienhe(rs.getString("THONGTINLIENHE"));
 		dto.setTrangthai(rs.getInt("TRANGTHAI"));
 		dto.setUsercreate(rs.getString("USERCREATE"));
 		dto.setTimecreate(rs.getString("TIMECREATE"));
