@@ -71,5 +71,8 @@
 	<bean id="tuyenkenhdexuatAction" scope="prototype" class="vms.web.actions.TuyenkenhDexuatAction">
         <constructor-arg ref="daoFactory" />
     </bean>
+	<bean id="sucoAction" scope="prototype" class="vms.web.actions.SuCoAction">
+        <constructor-arg ref="daoFactory" />
+    </bean>
 </beans>
 
