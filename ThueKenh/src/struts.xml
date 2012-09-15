@@ -300,4 +300,12 @@
 			</result>
 		</action>
 	</package>
+	<package name="suco" extends="default" namespace="/sucokenh">
+		<action name="index" class="sucoAction">
+			<result>/jsp/sucokenh/index.jsp</result>
+		</action>
+		<action name="form" class="sucoAction" method="form">
+			<result>/jsp/sucokenh/form.jsp</result>
+		</action>
+	</package>
 </struts>
