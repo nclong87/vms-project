@@ -1,4 +1,10 @@
-﻿truncate table "THUEKENH"."MENU" drop storage;
+﻿ALTER TABLE DEXUAT 
+ADD (TRANGTHAI NUMBER );
+
+ALTER TABLE DEXUAT 
+DROP COLUMN DEXUAT_ID;
+
+truncate table "THUEKENH"."MENU" drop storage;
 Insert into THUEKENH.MENU (ID,NAMEMENU,ACTION,ACTIVE,IDROOTMENU) values (24,'Loại giao tiếp','/danhmuc/loaigiaotiep.action',1,8);
 Insert into THUEKENH.MENU (ID,NAMEMENU,ACTION,ACTIVE,IDROOTMENU) values (4,'Phòng ban','/danhmuc/phongban.action',1,8);
 Insert into THUEKENH.MENU (ID,NAMEMENU,ACTION,ACTIVE,IDROOTMENU) values (2,'Quản trị nhóm','/group/index.action',1,7);
