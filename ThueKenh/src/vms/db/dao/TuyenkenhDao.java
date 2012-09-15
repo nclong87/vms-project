@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.Map;
 import javax.sql.DataSource;
 import oracle.jdbc.OracleTypes;
+
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -74,7 +76,7 @@ public class TuyenkenhDao {
 		return list.get(0);
 	}
 	
-	private static final String SQL_SAVE_TUYENKENH = "{ ? = call SAVE_TUYENKENH(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) }";
+	private static final String SQL_SAVE_TUYENKENH = "{ ? = call SAVE_TUYENKENH(?,?,?,?,?,?,?,?,?,?,?,?,?) }";
 	public String save(TuyenKenh dto) throws Exception {
 		Connection connection = jdbcTemplate.getDataSource().getConnection();
 		CallableStatement stmt = connection.prepareCall(SQL_SAVE_TUYENKENH);
@@ -88,14 +90,19 @@ public class TuyenkenhDao {
 		stmt.setString(8, dto.getKhuvuc_id());
 		stmt.setString(9, dto.getDungluong().toString());
 		stmt.setString(10, dto.getSoluong().toString());
-		stmt.setString(11, dto.getNgaydenghibangiao());
-		stmt.setString(12, dto.getNgayhenbangiao());
-		stmt.setString(13, dto.getThongtinlienhe());
-		stmt.setString(14, dto.getTrangthai().toString());
-		stmt.setString(15, dto.getUsercreate());
-		stmt.setString(16, dto.getTimecreate());
-		stmt.setString(17, dto.getDeleted().toString());
+		//stmt.setString(11, dto.getNgaydenghibangiao());
+		//stmt.setString(12, dto.getNgayhenbangiao());
+		//stmt.setString(13, dto.getThongtinlienhe());
+		stmt.setString(11, dto.getTrangthai().toString());
+		stmt.setString(12, dto.getUsercreate());
+		stmt.setString(13, dto.getTimecreate());
+		stmt.setString(14, dto.getDeleted().toString());
 		stmt.execute();
 		return stmt.getString(1);
+	}
+	
+	public void deleteByIds(String[] ids) {
+		String str = StringUtils.join(ids, ",");
+		this.jdbcTemplate.update("update TUYENKENH set DELETED = 1 where ID in ("+str+")");
 	}
 }

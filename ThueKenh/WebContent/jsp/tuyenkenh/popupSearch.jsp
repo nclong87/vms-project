@@ -1,41 +1,10 @@
-﻿
-<%@ taglib prefix="s" uri="/struts-tags"%>
-<s:url action="doLogout" namespace="/login" var="doLogoutURL"/>
-<s:url action="index" namespace="/login" var="loginURL"/>
-<s:url action="index" namespace="/settings" var="settingsIndexURL"/>
+﻿<%@ taglib prefix="s" uri="/struts-tags"%>
 <s:url action="ajLoadTuyenkenh" namespace="/tuyenkenh" id="ajLoadTuyenkenh"/>
-<s:url action="form" namespace="/tuyenkenh" id="formURL"/>
-<s:url action="delete" namespace="/tuyenkenh" id="deleteURL"/>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<script>
-	var LOGIN_PATH = "${loginURL}";
-	</script>
 	<%@include file="/include/header.jsp"%>
-	<script type="text/javascript" src="<%=contextPath%>/js/jquery-ui/jquery.ui.datepicker-vi.js"></script>
-	<script>
-	function doNew(link) {
-		ShowWindow('Thêm tuyến kênh mới',800,400,link,false);
-	}
-	function doEdit(link) {
-		ShowWindow('Cập nhật tuyến kênh',800,400,link,false);
-	}
-	function hasChecked(){
-		var lstCheckbox=$('#dataTable input[type=checkbox]');
-		for(i=0;i<lstCheckbox.length;i++){
-			if("checked"==$(lstCheckbox[i]).attr("checked")){
-				return true;
-			}
-		}
-		alert("Không có dòng nào được chọn");
-		return false;
-	}
-
-	</script>
-	
-	
 <style>
 .block {
 float: left;
@@ -44,7 +13,6 @@ margin-left: 10px;
 </style>
 </head>
 <body>
-	<%@include file="/include/top.jsp"%>
 	<div id="bg_wrapper">
 		<div style="width: 100%; margin-bottom: 10px;" class="ovf">
 			<div class="s10">
@@ -163,6 +131,7 @@ margin-left: 10px;
 									<td align="left">
 									<input class="button" type="button" value="Tìm Kiếm" onclick="doSearch()"/>
 									<input class="button" type="button" value="Reset" onclick="reset()"/>
+									<input class="button" id="btSelect" style="display:none" type="button" value="Chọn" onclick="doClose()"/>
 									</td>
 								</tfoot>
 							</table>
@@ -174,42 +143,38 @@ margin-left: 10px;
 			</div>
 			<div style="height: 1px;"></div>
 		</div>
-		<div style="clear:both;margin:5px 0 ">
-		<input class="button" type="button" id="btThem" value="Thêm tuyến kênh"/>
-		<input class="button" type="button" id="btXoa" value="Xóa" style="float: right; margin-right: 10px;"/>
-		</div>
-			<table width="100%" id="dataTable" class="display">
-			<thead>
-				<tr>
-					<th width="5%">#</th>
-					<th>Mã kênh</th>
-					<th>Mã điểm đầu</th>
-					<th>Mã điểm cuối</th>
-					<th>Giao tiếp</th>
-					<th>Dung lượng</th>
-					<th>Số lượng</th>
-					<th>Dự án</th>
-					<th width="120px">ĐV nhận kênh</th>
-					<th width="80px">Khu vực</th>
-					<th width="5px">Trạng thái</th>
-					<th width="5px" align="center">Sửa</th>
-					<th width="5px" align="center"><input type="checkbox" onclick="selectAll(this)"/></th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td colspan="13" class="dataTables_empty">Đang tải dữ liệu...</td>
-				</tr>
-			</tbody>
-			</table>
+		<table width="100%" id="dataTable" class="display">
+		<thead>
+			<tr>
+				<th width="5%">#</th>
+				<th></th>
+				<th></th>
+				<th></th>
+				<th></th>
+				<th>Mã kênh</th>
+				<th>Mã điểm đầu</th>
+				<th>Mã điểm cuối</th>
+				<th>Giao tiếp</th>
+				<th>Dung lượng</th>
+				<th>Số lượng</th>
+				<th>Dự án</th>
+				<th width="120px">ĐV nhận kênh</th>
+				<th width="80px">Khu vực</th>
+				<th width="5px">Trạng thái</th>
+				<th width="5px" align="center"><input type="checkbox" onclick="selectAll(this)"/></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td colspan="15" class="dataTables_empty">Đang tải dữ liệu...</td>
+			</tr>
+		</tbody>
+		</table>
 	</div>
 	<div id="footer"></div>
 </body>
 </html>
 <script>
-function loadContent(url) {
-	location.href = contextPath + url;
-}
 function reset(){
 	$("#form")[0].reset();
 }
@@ -223,68 +188,23 @@ function doSearch() {
 	var dat = "{'array':"+stringify(frm.serializeArray())+"}";
 	oTable.fnFilter(dat);
 }
-var account_id = '';
-function openPermissionWindow(id) {
-	account_id = id;
-	permission_popup.url_init = "${getMenusByAccountURL}?account_id="+account_id;
-	showDialogUrl("${permissionPopupURL}?id="+id,'Phân quyền user',610);
-}
-
 $(document).ready(function(){	 
 	$( "input.date" ).datepicker({
 		showButtonPanel: true,
 		dateFormat : "dd/mm/yy"
 	});
-	$("#btThem").click(function(){
-		ShowWindow('Thêm mới tuyến kênh',750,500,"${formURL}",false);
-	});
-	$("#btXoa").click(function(){
-		var dataString = '';
-		$('#dataTable input[type=checkbox]').each(function(){
-			if(this.checked==true) {
-				if(this.value!='on')
-					dataString+='&ids='+this.value;
-			}
-		});
-		if(dataString=='') {
-			alert('Bạn chưa chọn dòng để xóa!');
-			return;
-		}
-		if(!confirm("Bạn muốn xóa dữ liệu?")) return;
-		var button = this;
-		button.disabled = true;
-		$.ajax({
-			type: "POST",
-			cache: false,
-			url : "${deleteURL}",
-			data: dataString,
-			success: function(data){
-				button.disabled = false;
-				if(data == "END_SESSION") {
-					location.href = LOGIN_PATH;
-					return;
-				}
-				if(data == "OK") {
-					unblock('#bg_wrapper');
-					oTable.fnDraw(false);
-					alert("Thao tác thành công!");
-					return;
-				}
-				alert(data);
-			},
-			error: function(data){ alert (data);button.disabled = false;}	
-		});	
-	});
-	$("span.edit_icon").live("click",function(){
-		var id = $(this).attr("data-ref-id");
-		ShowWindow('Cập nhật tuyến kênh',750,500,"${formURL}?id="+id,false);
-	});
-	$('ul.sf-menu').superfish();
 	$("#chkAdvSearch").click(function(){
 		if(this.checked == true) {
 			$("#hidden").show();
 		} else {
 			$("#hidden").hide();
+		}
+	});
+	$('#dataTable input[type=checkbox]').live("click",function(){
+		if($('#dataTable input:checked').size()>0) {
+			$("#btSelect").show();
+		} else {
+			$("#btSelect").hide();
 		}
 	});
 	oTable = $('#dataTable').dataTable({
@@ -295,6 +215,10 @@ $(document).ready(function(){
 		"sAjaxSource": "${ajLoadTuyenkenh}",
 		"aoColumns": [
 					{ "mDataProp": "stt","bSortable": false,"bSearchable": false },
+					{ "mDataProp": "duan_id","bSortable": false,"bSearchable": false,"sClass":'td_hidden'},
+					{ "mDataProp": "phongban_id","bSortable": false,"bSearchable": false,"sClass":'td_hidden'},
+					{ "mDataProp": "khuvuc_id","bSortable": false,"bSearchable": false,"sClass":'td_hidden'},
+					{ "mDataProp": "giaotiep_id","bSortable": false,"bSearchable": false,"sClass":'td_hidden'},
 					{ "mDataProp": "id","bSortable": false,"bSearchable": false,"sClass":'td_center'},
 					{ "mDataProp": "madiemdau","bSortable": false,"bSearchable": false,"sClass":'td_center'},
 					{ "mDataProp": "madiemcuoi","bSortable": false,"bSearchable": false,"sClass":'td_center'},
@@ -311,12 +235,7 @@ $(document).ready(function(){
 					},
 					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,
 						"fnRender": function( oObj ) {
-							return '<center><span class="edit_icon" data-ref-id="'+oObj.aData.id+'" title="Edit" href="#"></span></center>'; 
-						}
-					},
-					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,
-						"fnRender": function( oObj ) {
-							return '<center><input type="checkbox" value="'+oObj.aData.id+'"/></center>'; 
+							return '<center><input type="checkbox" value="'+oObj.iDataRow+'"/></center>'; 
 						}
 					}
 				],
@@ -332,4 +251,12 @@ $(document).ready(function(){
 		"sPaginationType": "two_button"
 	});
 });
+function doClose(){
+	var data = [];
+	$('#dataTable input:checked').each(function(){
+		data.push(oTable.fnGetData(this.value));
+	});
+	window.opener.popup_search_tuyenkenh.afterSelected(data);
+	window.close();
+}
 </script>

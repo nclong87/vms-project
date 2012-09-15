@@ -5,12 +5,15 @@ import java.sql.SQLException;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import vms.utils.DateUtils;
+
 /**
  * The persistent class for the ACCOUNTS database table.
  * 
  */
-public class FN_FIND_TUYENKENH {
+public class FIND_TUYENKENHDEXUAT {
 	private String id;
+	private String tuyenkenh_id;
 	private String madiemdau;
 	private String madiemcuoi;
 	private String loaigiaotiep;
@@ -20,10 +23,8 @@ public class FN_FIND_TUYENKENH {
 	private String tenphongban;
 	private String tenkhuvuc;
 	private String trangthai;
-	private String giaotiep_id = "";
-	private String duan_id = "";
-	private String phongban_id = "";
-	private String khuvuc_id = "";
+	private String ngaydenghibangiao;
+	private String ngayhenbangiao;
 	
 	public String getId() {
 		return id;
@@ -105,41 +106,34 @@ public class FN_FIND_TUYENKENH {
 		this.trangthai = trangthai;
 	}
 	
-	public String getGiaotiep_id() {
-		return giaotiep_id;
+	public String getNgaydenghibangiao() {
+		return ngaydenghibangiao;
 	}
 
-	public void setGiaotiep_id(String giaotiep_id) {
-		this.giaotiep_id = giaotiep_id;
+	public void setNgaydenghibangiao(String ngaydenghibangiao) {
+		this.ngaydenghibangiao = ngaydenghibangiao;
 	}
 
-	public String getDuan_id() {
-		return duan_id;
+	public String getNgayhenbangiao() {
+		return ngayhenbangiao;
 	}
 
-	public void setDuan_id(String duan_id) {
-		this.duan_id = duan_id;
+	public void setNgayhenbangiao(String ngayhenbangiao) {
+		this.ngayhenbangiao = ngayhenbangiao;
+	}
+	
+	public String getTuyenkenh_id() {
+		return tuyenkenh_id;
 	}
 
-	public String getPhongban_id() {
-		return phongban_id;
-	}
-
-	public void setPhongban_id(String phongban_id) {
-		this.phongban_id = phongban_id;
-	}
-
-	public String getKhuvuc_id() {
-		return khuvuc_id;
-	}
-
-	public void setKhuvuc_id(String khuvuc_id) {
-		this.khuvuc_id = khuvuc_id;
+	public void setTuyenkenh_id(String tuyenkenh_id) {
+		this.tuyenkenh_id = tuyenkenh_id;
 	}
 
 	public Map<String,String> getMap() {
 		Map<String, String> map = new LinkedHashMap<String, String>();
 		map.put("id", this.id);
+		map.put("tuyenkenh_id", this.tuyenkenh_id);
 		map.put("madiemdau", this.madiemdau);
 		map.put("madiemcuoi", this.madiemcuoi);
 		map.put("loaigiaotiep", this.loaigiaotiep);
@@ -149,16 +143,15 @@ public class FN_FIND_TUYENKENH {
 		map.put("tenphongban", this.tenphongban);
 		map.put("tenkhuvuc", this.tenkhuvuc);
 		map.put("trangthai", this.trangthai);
-		map.put("duan_id", this.duan_id);
-		map.put("phongban_id", this.phongban_id);
-		map.put("khuvuc_id", this.khuvuc_id);
-		map.put("giaotiep_id", this.giaotiep_id);
+		map.put("ngaydenghibangiao", this.ngaydenghibangiao);
+		map.put("ngayhenbangiao", this.ngayhenbangiao);
 		return map;
 	}
 
-	public static FN_FIND_TUYENKENH mapObject(ResultSet rs) throws SQLException {
-		FN_FIND_TUYENKENH dto = new FN_FIND_TUYENKENH();
+	public static FIND_TUYENKENHDEXUAT mapObject(ResultSet rs) throws SQLException {
+		FIND_TUYENKENHDEXUAT dto = new FIND_TUYENKENHDEXUAT();
 		dto.setId(rs.getString("ID"));
+		dto.setTuyenkenh_id(rs.getString("TUYENKENH_ID"));
 		dto.setMadiemdau(rs.getString("MADIEMDAU"));
 		dto.setMadiemcuoi(rs.getString("MADIEMCUOI"));
 		dto.setLoaigiaotiep(rs.getString("LOAIGIAOTIEP"));
@@ -168,10 +161,8 @@ public class FN_FIND_TUYENKENH {
 		dto.setTenphongban(rs.getString("TENPHONGBAN"));
 		dto.setTenkhuvuc(rs.getString("TENKHUVUC"));
 		dto.setTrangthai(rs.getString("TRANGTHAI"));
-		dto.setGiaotiep_id(rs.getString("GIAOTIEP_ID"));
-		dto.setDuan_id(rs.getString("DUAN_ID"));
-		dto.setPhongban_id(rs.getString("PHONGBAN_ID"));
-		dto.setKhuvuc_id(rs.getString("KHUVUC_ID"));
+		dto.setNgaydenghibangiao(DateUtils.formatDate(rs.getDate("NGAYDENGHIBANGIAO"), DateUtils.SDF_DDMMYYYY));
+		dto.setNgayhenbangiao(DateUtils.formatDate(rs.getDate("NGAYHENBANGIAO"), DateUtils.SDF_DDMMYYYY));
         return dto;
 	}
 

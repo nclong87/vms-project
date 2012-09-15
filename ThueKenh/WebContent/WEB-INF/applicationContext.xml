@@ -68,5 +68,8 @@
 	<bean id="tuyenkenhAction" scope="prototype" class="vms.web.actions.TuyenkenhAction">
         <constructor-arg ref="daoFactory" />
     </bean>
+	<bean id="tuyenkenhdexuatAction" scope="prototype" class="vms.web.actions.TuyenkenhDexuatAction">
+        <constructor-arg ref="daoFactory" />
+    </bean>
 </beans>
 
