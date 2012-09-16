@@ -74,5 +74,11 @@
 	<bean id="sucoAction" scope="prototype" class="vms.web.actions.SuCoAction">
         <constructor-arg ref="daoFactory" />
     </bean>
+	<bean id="dexuatAction" scope="prototype" class="vms.web.actions.DeXuatAction">
+        <constructor-arg ref="daoFactory" />
+    </bean>
+	<bean id="fileuploadAction" scope="prototype" class="vms.web.actions.FileUploadAction">
+        <constructor-arg ref="daoFactory" />
+    </bean>
 </beans>
 

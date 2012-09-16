@@ -153,9 +153,6 @@ function message(msg,type) {
 		$("#msg").html('<div style="padding: 0pt 0.7em; text-align: left;" class="ui-state-error ui-corner-all"><p style="padding: 5px;"><span style="float: left; margin-right: .3em;" class="ui-icon ui-icon-alert"></span><strong>Error : </strong> '+msg+'</p></div>');
 	}
 }
-function loadContent(url) {
-	location.href = contextPath + url;
-}
 $(document).ready(function() {
 	popup_search_tuyenkenh.init({
 		url : "${popupSearchURL}",
@@ -182,10 +179,6 @@ $(document).ready(function() {
 	$( "input.date" ).datepicker({
 		showButtonPanel: true,
 		dateFormat : "dd/mm/yy"
-	});
-	$("#btReset").click(function(){
-		$("#form")[0].reset();
-		message('',0);
 	});
 	$("#form").validate({
 		onkeyup : false,

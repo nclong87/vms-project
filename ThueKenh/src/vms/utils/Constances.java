@@ -11,6 +11,8 @@
  */
 package vms.utils;
 
+import java.io.IOException;
+
 public class Constances {
 	public static String DEFAULT_HOME_PAGE = "/index/index.action";
 	public static String SESS_USERLOGIN = "SESS_USERLOGIN";
@@ -23,4 +25,5 @@ public class Constances {
 	public static String MSG_LOGINFAIL = "Đăng nhập thất bại, vui lòng thử lại";
 	public static String MSG_ERROR = "Có lỗi xảy ra, vui lòng thử lại";
 	public static String MSG_SUCCESS = "Lưu dữ liệu thành công!";
+	public static String DS = System.getProperty("file.separator");
 }

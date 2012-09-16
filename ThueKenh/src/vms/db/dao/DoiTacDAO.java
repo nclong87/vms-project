@@ -12,6 +12,7 @@ import org.springframework.jdbc.core.RowMapper;
 
 import vms.db.dto.CatalogDTO;
 import vms.db.dto.DoiTacDTO;
+import vms.db.dto.LoaiGiaoTiep;
 
 public class DoiTacDAO extends CatalogDAO {
 
@@ -97,14 +98,14 @@ public class DoiTacDAO extends CatalogDAO {
 		}
 	}
 
-	@Override
+	/*@Override
 	public boolean update(String id, CatalogDTO cat) {
 		// TODO Auto-generated method stub
 		DoiTacDTO up = (DoiTacDTO) cat;
 		String sql="update doitac set tendoitac='"+up.getName()+"' where id="+up.getId();
 		System.out.println(sql);
 		return this.jdbcTemplate.update(sql) > 0;
-	}
+	}*/
 
 	@Override
 	public boolean delete(String[] ids) {
@@ -114,6 +115,17 @@ public class DoiTacDAO extends CatalogDAO {
 		System.out.println(ids);
 		return this.jdbcTemplate
 				.update("update doitac set DELETED = 1 where ID in (?)",new Object[]{str}) > 0;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<DoiTacDTO> findAll() {
+		return this.jdbcTemplate.query(
+				"select * from DOITAC where deleted = 0", new RowMapper() {
+					public Object mapRow(ResultSet rs, int rowNum)
+							throws SQLException {
+						return DoiTacDTO.mapObject(rs);
+					}
+				});
 	}
 
 }

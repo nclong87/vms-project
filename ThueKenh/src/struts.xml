@@ -6,7 +6,8 @@
 	<constant name="struts.devMode" value="true" />
 	<constant name="struts.i18n.encoding" value="UTF-8" />
 	<constant name="struts.objectFactory" value="spring" />
-	<constant name="struts.multipart.maxSize" value="5597152" />
+	<!--constant name="struts.multipart.maxSize" value="5597152" /-->
+	<!--constant name="struts.multipart.maxSize" value="7152" /-->
 	<package name="default" extends="struts-default json-default">
 		<global-results>
 			<result name="END_SESSION" type="stream">
@@ -306,6 +307,36 @@
 		</action>
 		<action name="form" class="sucoAction" method="form">
 			<result>/jsp/sucokenh/form.jsp</result>
+		</action>
+	</package>
+	<package name="dexuat" extends="default" namespace="/dexuat">
+		<action name="index" class="dexuatAction">
+			<result>/jsp/dexuat/index.jsp</result>
+		</action>
+		<action name="form" class="dexuatAction" method="form">
+			<result>/jsp/dexuat/form.jsp</result>
+		</action>
+		<action name="doSave" class="dexuatAction" method="doSave">
+			<result name="success" type="stream">
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+		<action name="load" class="dexuatAction" method="load">
+			<result name="success" type="json">
+				<param name="root">jsonData</param>
+			</result>
+		</action>
+		<action name="delete" class="dexuatAction" method="delete">
+			<result name="success" type="stream">
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+	</package>
+	<package name="fileupload" extends="default" namespace="/fileupload">
+		<action name="doUpload" class="fileuploadAction" method="doUpload">
+			<result name="success" type="json">
+				<param name="root">jsonData</param>
+			</result>
 		</action>
 	</package>
 </struts>

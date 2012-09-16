@@ -13,7 +13,7 @@ html{
 
 body{
 	font-size:12px;
-	font-family:  Arial,Tahoma,Verdana, sans-serif;
+	font-family:  Tahoma,Arial,Verdana, sans-serif;
 	color:#484848;
 	position:relative;
 	margin:0 auto;
@@ -404,7 +404,7 @@ width: 250px;
   width:158px;
 }
 input, textarea, select {
-  font-family:  Arial,Tahoma,Verdana, sans-serif;
+  font-family:  Tahoma,Arial,Verdana, sans-serif;
   font-size: 13px;
 }
 .size3 {
@@ -523,10 +523,11 @@ top: 0;
 width: 32px;
 }
 .button {
-  color: Green;
-  cursor: pointer;
-  font-weight: bold;
-  padding: 2px;
+color: Green;
+cursor: pointer;
+font-family: Arial;
+font-weight: bold;
+padding: 2px;
 }
 .admin_icon {
 color: navy;
