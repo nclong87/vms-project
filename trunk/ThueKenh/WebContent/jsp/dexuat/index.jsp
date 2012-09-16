@@ -3,9 +3,9 @@
 <s:url action="doLogout" namespace="/login" var="doLogoutURL"/>
 <s:url action="index" namespace="/login" var="loginURL"/>
 <s:url action="index" namespace="/settings" var="settingsIndexURL"/>
-<s:url action="ajLoadTuyenkenh" namespace="/tuyenkenh" id="ajLoadTuyenkenh"/>
-<s:url action="form" namespace="/tuyenkenh" id="formURL"/>
-<s:url action="delete" namespace="/tuyenkenh" id="deleteURL"/>
+<s:url action="load" namespace="/dexuat" id="loadURL"/>
+<s:url action="form" namespace="/dexuat" id="formURL"/>
+<s:url action="delete" namespace="/dexuat" id="deleteURL"/>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -15,27 +15,6 @@
 	</script>
 	<%@include file="/include/header.jsp"%>
 	<script type="text/javascript" src="<%=contextPath%>/js/jquery-ui/jquery.ui.datepicker-vi.js"></script>
-	<script>
-	function doNew(link) {
-		ShowWindow('Thêm tuyến kênh mới',800,400,link,false);
-	}
-	function doEdit(link) {
-		ShowWindow('Cập nhật tuyến kênh',800,400,link,false);
-	}
-	function hasChecked(){
-		var lstCheckbox=$('#dataTable input[type=checkbox]');
-		for(i=0;i<lstCheckbox.length;i++){
-			if("checked"==$(lstCheckbox[i]).attr("checked")){
-				return true;
-			}
-		}
-		alert("Không có dòng nào được chọn");
-		return false;
-	}
-
-	</script>
-	
-	
 <style>
 .block {
 float: left;
@@ -52,7 +31,7 @@ margin-left: 10px;
 					<div class="fl tsl" id="t_1">
 					</div>
 					<div class="fl clg b tsc d" id="t_2">
-						<div class="p3t">Tìm kiếm tuyến kênh</div>
+						<div class="p3t">Tìm kiếm văn bản đề xuất</div>
 					</div>
 					<div class="fl tsr" id="t_3">
 					</div>
@@ -68,96 +47,48 @@ margin-left: 10px;
 								<tbody id="display">
 								<tr>
 									<td width="150px" align="right">
-										Mã kênh :
+										Tên văn bản :
 									</td>
 									<td align="left">
-										<input type="text" name="makenh" id="makenh"/>
+										<input type="text" name="tenvanban" id="tenvanban"/>
 									</td>
 									<td align="right" width="150px">
-										Loại giao tiếp :
+										Đối tác :
 									</td>
 									<td align="left">
-										<select name="loaigiaotiep" id="loaigiaotiep">
+										<select name="doitac_id" id="doitac_id">
 											<option value="">---Chọn---</option>
-											<s:iterator value="loaiGiaoTieps">
-												<option value='<s:property value="id" />'><s:property value="loaigiaotiep" /></option>									
+											<s:iterator value="doiTacDTOs">
+												<option value='<s:property value="id" />'><s:property value="tendoitac" /></option>									
 											</s:iterator>
 										</select>
 									</td>
 								</tr>
 								<tr>
-									<td width="150px" align="right">
-										Mã điểm đầu :
-									</td>
+									<td align="right">Ngày gửi :</td>
 									<td align="left">
-										<input type="text" name="madiemdau" id="madiemdau"/>
+										<input type="text" name="ngaygui" id="ngaygui" class="date">
 									</td>
-									<td width="150px" align="right">
-										Mã điểm cuối :
-									</td>
-									<td align="left">
-										<input type="text" name="madiemcuoi" id="madiemcuoi"/>
-									</td>
-								</tr>
-								</tbody>
-								<tbody id="hidden" style="display:none">
-								<tr>
-									<td align="right">
-										Dự án :
-									</td>
-									<td align="left">
-										<select name="duan" id="duan">
-											<option value="">---Chọn---</option>
-											<s:iterator value="duAnDTOs">
-												<option value='<s:property value="id" />'><s:property value="tenduan" /></option>									
-											</s:iterator>
-										</select>
-									</td>
-									<td align="right">
-										Khu vực :
-									</td>
-									<td align="left">
-										<select name="khuvuc" id="khuvuc">
-											<option value="">---Chọn---</option>
-											<s:iterator value="khuVucDTOs">
-												<option value='<s:property value="id" />'><s:property value="name" /></option>									
-											</s:iterator>
-										</select>
+									<td align="right">Ngày đề nghị bàn giao :</td>
+									<td align="left"><input type="text" name="ngaydenghibangiao"
+										id="ngaydenghibangiao" class="date"/></td>
+									<td align="right" width="150px">
 									</td>
 								</tr>
 								<tr>
-									<td align="right">Đ/V nhận kênh :</td>
-									<td align="left">
-										<select name="phongban" id="phongban">
-											<option value="">---Chọn---</option>
-											<s:iterator value="phongBans">
-												<option value='<s:property value="id" />'><s:property value="name" /></option>									
-											</s:iterator>
-										</select>
-									</td>
-									<td align="right">
-										Trạng thái kênh :
+									<td align="right" width="150px">
+										Trạng thái :
 									</td>
 									<td align="left">
 										<select name="trangthai" id="trangthai">
 											<option value="">-- Chọn --</option>
-											<option value="0">Không hoạt động</option>
-											<option value="1">Đang bàn giao</option>
-											<option value="2">Đang cập nhật số lượng</option>
-											<option value="3">Đang hoạt động</option>
+											<option value="0">Đang bàn giao</option>
+											<option value="1">Đã bàn giao</option>
 										</select>
 									</td>
 								</tr>
 								</tbody>
 								</form>
-								<tbody id="advSearch">
-									<tr>
-										<td></td>
-										<td  align="left" colspan="5">
-											<input type="checkbox" id="chkAdvSearch"><label for="chkAdvSearch">Tìm kiếm nâng cao</label>
-										</td>
-									</tr>
-								</tbody>
 								<tfoot>
 									<td></td>
 									<td align="left">
@@ -175,22 +106,17 @@ margin-left: 10px;
 			<div style="height: 1px;"></div>
 		</div>
 		<div style="clear:both;margin:5px 0 ">
-		<input class="button" type="button" id="btThem" value="Thêm tuyến kênh"/>
+		<input class="button" type="button" id="btThem" value="Thêm văn bản đề xuất"/>
 		<input class="button" type="button" id="btXoa" value="Xóa" style="float: right; margin-right: 10px;"/>
 		</div>
 			<table width="100%" id="dataTable" class="display">
 			<thead>
 				<tr>
 					<th width="5%">#</th>
-					<th>Mã kênh</th>
-					<th>Mã điểm đầu</th>
-					<th>Mã điểm cuối</th>
-					<th>Giao tiếp</th>
-					<th>Dung lượng</th>
-					<th>Số lượng</th>
-					<th>Dự án</th>
-					<th width="120px">ĐV nhận kênh</th>
-					<th width="80px">Khu vực</th>
+					<th>Tên văn bản</th>
+					<th>Ngày gửi</th>
+					<th>Ngày đề nghị bàn giao</th>
+					<th>Đối tác</th>
 					<th width="5px">Trạng thái</th>
 					<th width="5px" align="center">Sửa</th>
 					<th width="5px" align="center"><input type="checkbox" onclick="selectAll(this)"/></th>
@@ -198,7 +124,7 @@ margin-left: 10px;
 			</thead>
 			<tbody>
 				<tr>
-					<td colspan="13" class="dataTables_empty">Đang tải dữ liệu...</td>
+					<td colspan="15" class="dataTables_empty">Đang tải dữ liệu...</td>
 				</tr>
 			</tbody>
 			</table>
@@ -220,20 +146,13 @@ function doSearch() {
 	var dat = "{'array':"+stringify(frm.serializeArray())+"}";
 	oTable.fnFilter(dat);
 }
-var account_id = '';
-function openPermissionWindow(id) {
-	account_id = id;
-	permission_popup.url_init = "${getMenusByAccountURL}?account_id="+account_id;
-	showDialogUrl("${permissionPopupURL}?id="+id,'Phân quyền user',610);
-}
-
 $(document).ready(function(){	 
 	$( "input.date" ).datepicker({
 		showButtonPanel: true,
 		dateFormat : "dd/mm/yy"
 	});
 	$("#btThem").click(function(){
-		ShowWindow('Thêm mới tuyến kênh',750,500,"${formURL}",false);
+		ShowWindow('Thêm mới  văn bản đề xuất',750,500,"${formURL}",false);
 	});
 	$("#btXoa").click(function(){
 		var dataString = '';
@@ -274,36 +193,24 @@ $(document).ready(function(){
 	});
 	$("span.edit_icon").live("click",function(){
 		var id = $(this).attr("data-ref-id");
-		ShowWindow('Cập nhật tuyến kênh',750,500,"${formURL}?id="+id,false);
+		ShowWindow('Cập nhật văn bản đề xuất',750,500,"${formURL}?id="+id,false);
 	});
 	$('ul.sf-menu').superfish();
-	$("#chkAdvSearch").click(function(){
-		if(this.checked == true) {
-			$("#hidden").show();
-		} else {
-			$("#hidden").hide();
-		}
-	});
 	oTable = $('#dataTable').dataTable({
 		"bJQueryUI": true,
 		"bProcessing": true,
 		"bServerSide": true,
 		"bAutoWidth": false,
-		"sAjaxSource": "${ajLoadTuyenkenh}",
+		"sAjaxSource": "${loadURL}",
 		"aoColumns": [
 					{ "mDataProp": "stt","bSortable": false,"bSearchable": false },
-					{ "mDataProp": "id","bSortable": false,"bSearchable": false,"sClass":'td_center'},
-					{ "mDataProp": "madiemdau","bSortable": false,"bSearchable": false,"sClass":'td_center'},
-					{ "mDataProp": "madiemcuoi","bSortable": false,"bSearchable": false,"sClass":'td_center'},
-					{ "mDataProp": "loaigiaotiep","bSortable": false,"bSearchable": false},
-					{ "mDataProp": "dungluong","bSortable": false,"bSearchable": false,"sClass":'td_center'},
-					{ "mDataProp": "soluong","bSortable": false,"bSearchable": false,"sClass":'td_center'},
-					{ "mDataProp": "tenduan","bSortable": false,"bSearchable": false},
-					{ "mDataProp": "tenphongban","bSortable": false,"bSearchable": false},
-					{ "mDataProp": "tenkhuvuc","bSortable": false,"bSearchable": false},
+					{ "mDataProp": "tenvanban","bSortable": false,"bSearchable": false},
+					{ "mDataProp": "ngaygui","bSortable": false,"bSearchable": false},
+					{ "mDataProp": "ngaydenghibangiao","bSortable": false,"bSearchable": false},
+					{ "mDataProp": "tendoitac","bSortable": false,"bSearchable": false},
 					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,
 						"fnRender": function( oObj ) {
-							return '<center>'+trangthai_utils.tuyenkenhDisplay(oObj.aData.trangthai)+'</center>'; 
+							return '<center>'+trangthai_utils.dexuatDisplay(oObj.aData.trangthai)+'</center>'; 
 						}
 					},
 					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,

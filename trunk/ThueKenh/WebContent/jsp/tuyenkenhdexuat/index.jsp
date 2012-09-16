@@ -194,9 +194,6 @@ margin-left: 10px;
 </body>
 </html>
 <script>
-function loadContent(url) {
-	location.href = contextPath + url;
-}
 function reset(){
 	$("#form")[0].reset();
 }
@@ -294,7 +291,7 @@ $(document).ready(function(){
 					{ "mDataProp": "ngayhenbangiao","bSortable": false,"bSearchable": false},
 					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,
 						"fnRender": function( oObj ) {
-							return '<center>'+trangThaiTuyenKenhDeXuatToString(oObj.aData.trangthai)+'</center>'; 
+							return '<center>'+trangthai_utils.tuyenkenhdexuatDisplay(oObj.aData.trangthai)+'</center>'; 
 						}
 					},
 					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,

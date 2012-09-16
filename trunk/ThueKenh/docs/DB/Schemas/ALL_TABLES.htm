@@ -46,7 +46,6 @@ BR.page {page-break-after: always}
 	<LI><A HREF="#TUYENKENH_HISTORY"><P CLASS="NORMAL">TUYENKENH_HISTORY</A></LI>
 	<LI><A HREF="#TUYENKENH_TIEUCHUAN"><P CLASS="NORMAL">TUYENKENH_TIEUCHUAN</A></LI>
 	<LI><A HREF="#TUYENKENHDEXUAT"><P CLASS="NORMAL">TUYENKENHDEXUAT</A></LI>
-	<LI><A HREF="#VANBANDEXUAT"><P CLASS="NORMAL">VANBANDEXUAT</A></LI>
 	<LI><A HREF="#VANHANH_SUCOKENH"><P CLASS="NORMAL">VANHANH_SUCOKENH</A></LI>
 </ul>
 <br class=page>
@@ -660,8 +659,68 @@ BR.page {page-break-after: always}
 	<td align="left" valign="top"><p class="normal">&nbsp;</td>
 </tr>
 <tr>
-	<td align="left" valign="top"><p class="normal">TENDEXUAT</td>
+	<td align="left" valign="top"><p class="normal">DOITAC_ID</td>
+	<td align="left" valign="top"><p class="normal">int(11)</td>
+	<td align="left" valign="top"><p class="normal">(NULL)</td>
+	<td align="left" valign="top"><p class="normal">YES</td>
+	<td align="left" valign="top"><p class="normal">MUL</td>
+	<td align="left" valign="top"><p class="normal">(NULL)</td>
+	<td align="left" valign="top"><p class="normal">&nbsp;</td>
+	<td align="left" valign="top"><p class="normal">&nbsp;</td>
+</tr>
+<tr>
+	<td align="left" valign="top"><p class="normal">FILESCAN_ID</td>
+	<td align="left" valign="top"><p class="normal">int(11)</td>
+	<td align="left" valign="top"><p class="normal">(NULL)</td>
+	<td align="left" valign="top"><p class="normal">YES</td>
+	<td align="left" valign="top"><p class="normal">MUL</td>
+	<td align="left" valign="top"><p class="normal">(NULL)</td>
+	<td align="left" valign="top"><p class="normal">&nbsp;</td>
+	<td align="left" valign="top"><p class="normal">&nbsp;</td>
+</tr>
+<tr>
+	<td align="left" valign="top"><p class="normal">TENVANBAN</td>
 	<td align="left" valign="top"><p class="normal">varchar(255)</td>
+	<td align="left" valign="top"><p class="normal">latin1_swedish_ci</td>
+	<td align="left" valign="top"><p class="normal">YES</td>
+	<td align="left" valign="top"><p class="normal">&nbsp;</td>
+	<td align="left" valign="top"><p class="normal">(NULL)</td>
+	<td align="left" valign="top"><p class="normal">&nbsp;</td>
+	<td align="left" valign="top"><p class="normal">&nbsp;</td>
+</tr>
+<tr>
+	<td align="left" valign="top"><p class="normal">NGAYGUI</td>
+	<td align="left" valign="top"><p class="normal">date</td>
+	<td align="left" valign="top"><p class="normal">(NULL)</td>
+	<td align="left" valign="top"><p class="normal">YES</td>
+	<td align="left" valign="top"><p class="normal">&nbsp;</td>
+	<td align="left" valign="top"><p class="normal">(NULL)</td>
+	<td align="left" valign="top"><p class="normal">&nbsp;</td>
+	<td align="left" valign="top"><p class="normal">&nbsp;</td>
+</tr>
+<tr>
+	<td align="left" valign="top"><p class="normal">NGAYDENGHIBANGIAO</td>
+	<td align="left" valign="top"><p class="normal">date</td>
+	<td align="left" valign="top"><p class="normal">(NULL)</td>
+	<td align="left" valign="top"><p class="normal">YES</td>
+	<td align="left" valign="top"><p class="normal">&nbsp;</td>
+	<td align="left" valign="top"><p class="normal">(NULL)</td>
+	<td align="left" valign="top"><p class="normal">&nbsp;</td>
+	<td align="left" valign="top"><p class="normal">&nbsp;</td>
+</tr>
+<tr>
+	<td align="left" valign="top"><p class="normal">THONGTINTHEM</td>
+	<td align="left" valign="top"><p class="normal">varchar(255)</td>
+	<td align="left" valign="top"><p class="normal">latin1_swedish_ci</td>
+	<td align="left" valign="top"><p class="normal">YES</td>
+	<td align="left" valign="top"><p class="normal">&nbsp;</td>
+	<td align="left" valign="top"><p class="normal">(NULL)</td>
+	<td align="left" valign="top"><p class="normal">&nbsp;</td>
+	<td align="left" valign="top"><p class="normal">&nbsp;</td>
+</tr>
+<tr>
+	<td align="left" valign="top"><p class="normal">HISTORY</td>
+	<td align="left" valign="top"><p class="normal">text</td>
 	<td align="left" valign="top"><p class="normal">latin1_swedish_ci</td>
 	<td align="left" valign="top"><p class="normal">YES</td>
 	<td align="left" valign="top"><p class="normal">&nbsp;</td>
@@ -690,6 +749,19 @@ BR.page {page-break-after: always}
 	<td align="left" valign="top"><p class="normal">&nbsp;</td>
 </tr>
 <tr>
+	<td align="left" valign="top"><p class="normal">TRANGTHAI</td>
+	<td align="left" valign="top"><p class="normal">int(11)</td>
+	<td align="left" valign="top"><p class="normal">(NULL)</td>
+	<td align="left" valign="top"><p class="normal">YES</td>
+	<td align="left" valign="top"><p class="normal">&nbsp;</td>
+	<td align="left" valign="top"><p class="normal">(NULL)</td>
+	<td align="left" valign="top"><p class="normal">&nbsp;</td>
+	<td align="left" valign="top"><p class="normal">
+		0 : Đang bàn giao<br>
+		1 : Đã bàn giao<br>
+	</td>
+</tr>
+<tr>
 	<td align="left" valign="top"><p class="normal">DELETED</td>
 	<td align="left" valign="top"><p class="normal">int(11)</td>
 	<td align="left" valign="top"><p class="normal">(NULL)</td>
@@ -700,42 +772,39 @@ BR.page {page-break-after: always}
 	<td align="left" valign="top"><p class="normal">&nbsp;</td>
 </tr>
 </table>
-
-
 <table width="100%" border="0" cellspacing="0" cellpadding="3">
 <tr>
-	<td class="fieldheader" width="100%" align="left" valign="top">Indexes</td>
+	<td class="fieldheader" width="100%" align="left" valign="top">Foreign Key Relationships</td>
 </tr>
 </table>
 <table width="100%" cellspacing="0" cellapdding="2" border="1">
 <tr>
-	<td align="left" valign="top" class="fieldcolumn">Table</td>
-	<td align="left" valign="top" class="fieldcolumn">Non<br>unique</td>
-	<td align="left" valign="top" class="fieldcolumn">Key<br>name</td>
-	<td align="left" valign="top" class="fieldcolumn">Seq<br>in<br>index</td>
-	<td align="left" valign="top" class="fieldcolumn">Column<br>name</td>
-	<td align="left" valign="top" class="fieldcolumn">Collation</td>
-	<td align="left" valign="top" class="fieldcolumn">Cardinality</td>
-	<td align="left" valign="top" class="fieldcolumn">Sub<br>part</td>
-	<td align="left" valign="top" class="fieldcolumn">Packed</td>
-	<td align="left" valign="top" class="fieldcolumn">Null</td>
-	<td align="left" valign="top" class="fieldcolumn">Index<br>type</td>
-	<td align="left" valign="top" class="fieldcolumn">Comment</td>
+	<td align="left" valign="top" class="fieldcolumn">FK Id</td>
+	<td align="left" valign="top" class="fieldcolumn">Reference Table</td>
+	<td align="left" valign="top" class="fieldcolumn">Source Column</td>
+	<td align="left" valign="top" class="fieldcolumn">Target Column</td>
+	<td align="left" valign="top" class="fieldcolumn">Extra Info</td>
 </tr>
 <tr>
-	<td align="left" valign="top"><p class="normal">dexuat</td>
-	<td align="left" valign="top"><p class="normal">0</td>
-	<td align="left" valign="top"><p class="normal">PRIMARY</td>
-	<td align="left" valign="top"><p class="normal">1</td>
-	<td align="left" valign="top"><p class="normal">ID</td>
-	<td align="left" valign="top"><p class="normal">A</td>
-	<td align="left" valign="top"><p class="normal">0</td>
-	<td align="left" valign="top"><p class="normal">(NULL)</td>
-	<td align="left" valign="top"><p class="normal">(NULL)</td>
-	<td align="left" valign="top"><p class="normal">&nbsp;</td>
-	<td align="left" valign="top"><p class="normal">BTREE</td>
-	<td align="left" valign="top"><p class="normal">&nbsp;</td>
-</tr>
+	<td align="left" valign="top"><p class="normal">FK_vanbandexuat_dexuat</td>
+	<td align="left" valign="top"><p class="normal">DEXUAT</td>
+	<td align="left" valign="top"><p class="normal">`DEXUAT_ID`</td>
+	<td align="left" valign="top"><p class="normal">`ID`</td>
+	<td align="left" valign="top"><p class="normal">,</td>
+<tr>
+<tr>
+	<td align="left" valign="top"><p class="normal">FK_vanbandexuat_doitac</td>
+	<td align="left" valign="top"><p class="normal">DOITAC</td>
+	<td align="left" valign="top"><p class="normal">`DOITAC_ID`</td>
+	<td align="left" valign="top"><p class="normal">`ID`</td>
+	<td align="left" valign="top"><p class="normal">,</td>
+<tr>
+<tr>
+	<td align="left" valign="top"><p class="normal">FK_vanbandexuat_filescan</td>
+	<td align="left" valign="top"><p class="normal">FILESCAN</td>
+	<td align="left" valign="top"><p class="normal">`FILESCAN_ID`</td>
+	<td align="left" valign="top"><p class="normal">`ID`</td>
+<tr>
 </table>
 
 
@@ -2961,190 +3030,6 @@ BR.page {page-break-after: always}
 	<td align="left" valign="top"><p class="normal">`ID`</td>
 <tr>
 </table>
-
-
-<a href="#header"><p class="normal">Back</a><br class=page>
-<p><a name='VANBANDEXUAT'>&nbsp</a>
-<table width="100%" border="0" cellspacing="0" cellpadding="3">
-<tr>
-	<td class="headtext" width="30%" align="left" valign="top">VANBANDEXUAT</td>
-	<td>&nbsp</td>
-<tr>
-</table>
-
-<table width="100%" border="0" cellspacing="0" cellpadding="3">
-<tr>
-	<td class="fieldheader" width="100%" align="left" valign="top">Fields</td>
-</tr>
-</table>
-<table width="100%" cellspacing="0" cellapdding="2" border="1">
-<tr>
-	<td align="center" valign="top" class="fieldcolumn">Field</td>
-	<td align="center" valign="top" class="fieldcolumn">Type</td>
-	<td align="center" valign="top" class="fieldcolumn">Collation</td>
-	<td align="center" valign="top" class="fieldcolumn">Null</td>
-	<td align="center" valign="top" class="fieldcolumn">Key</td>
-	<td align="center" valign="top" class="fieldcolumn">Default</td>
-	<td align="center" valign="top" class="fieldcolumn">Extra</td>
-	<td align="center" valign="top" class="fieldcolumn">Comment</td>
-</tr>
-<tr>
-	<td align="left" valign="top"><p class="normal">ID</td>
-	<td align="left" valign="top"><p class="normal">int(11)</td>
-	<td align="left" valign="top"><p class="normal">(NULL)</td>
-	<td align="left" valign="top"><p class="normal">NO</td>
-	<td align="left" valign="top"><p class="normal">PRI</td>
-	<td align="left" valign="top"><p class="normal">(NULL)</td>
-	<td align="left" valign="top"><p class="normal">&nbsp;</td>
-	<td align="left" valign="top"><p class="normal">&nbsp;</td>
-</tr>
-<tr>
-	<td align="left" valign="top"><p class="normal">DOITAC_ID</td>
-	<td align="left" valign="top"><p class="normal">int(11)</td>
-	<td align="left" valign="top"><p class="normal">(NULL)</td>
-	<td align="left" valign="top"><p class="normal">YES</td>
-	<td align="left" valign="top"><p class="normal">MUL</td>
-	<td align="left" valign="top"><p class="normal">(NULL)</td>
-	<td align="left" valign="top"><p class="normal">&nbsp;</td>
-	<td align="left" valign="top"><p class="normal">&nbsp;</td>
-</tr>
-<tr>
-	<td align="left" valign="top"><p class="normal">FILESCAN_ID</td>
-	<td align="left" valign="top"><p class="normal">int(11)</td>
-	<td align="left" valign="top"><p class="normal">(NULL)</td>
-	<td align="left" valign="top"><p class="normal">YES</td>
-	<td align="left" valign="top"><p class="normal">MUL</td>
-	<td align="left" valign="top"><p class="normal">(NULL)</td>
-	<td align="left" valign="top"><p class="normal">&nbsp;</td>
-	<td align="left" valign="top"><p class="normal">&nbsp;</td>
-</tr>
-<tr>
-	<td align="left" valign="top"><p class="normal">DEXUAT_ID</td>
-	<td align="left" valign="top"><p class="normal">int(11)</td>
-	<td align="left" valign="top"><p class="normal">(NULL)</td>
-	<td align="left" valign="top"><p class="normal">YES</td>
-	<td align="left" valign="top"><p class="normal">MUL</td>
-	<td align="left" valign="top"><p class="normal">(NULL)</td>
-	<td align="left" valign="top"><p class="normal">&nbsp;</td>
-	<td align="left" valign="top"><p class="normal">&nbsp;</td>
-</tr>
-<tr>
-	<td align="left" valign="top"><p class="normal">TENVANBAN</td>
-	<td align="left" valign="top"><p class="normal">varchar(255)</td>
-	<td align="left" valign="top"><p class="normal">latin1_swedish_ci</td>
-	<td align="left" valign="top"><p class="normal">YES</td>
-	<td align="left" valign="top"><p class="normal">&nbsp;</td>
-	<td align="left" valign="top"><p class="normal">(NULL)</td>
-	<td align="left" valign="top"><p class="normal">&nbsp;</td>
-	<td align="left" valign="top"><p class="normal">&nbsp;</td>
-</tr>
-<tr>
-	<td align="left" valign="top"><p class="normal">NGAYGUI</td>
-	<td align="left" valign="top"><p class="normal">date</td>
-	<td align="left" valign="top"><p class="normal">(NULL)</td>
-	<td align="left" valign="top"><p class="normal">YES</td>
-	<td align="left" valign="top"><p class="normal">&nbsp;</td>
-	<td align="left" valign="top"><p class="normal">(NULL)</td>
-	<td align="left" valign="top"><p class="normal">&nbsp;</td>
-	<td align="left" valign="top"><p class="normal">&nbsp;</td>
-</tr>
-<tr>
-	<td align="left" valign="top"><p class="normal">NGAYDENGHIBANGIAO</td>
-	<td align="left" valign="top"><p class="normal">date</td>
-	<td align="left" valign="top"><p class="normal">(NULL)</td>
-	<td align="left" valign="top"><p class="normal">YES</td>
-	<td align="left" valign="top"><p class="normal">&nbsp;</td>
-	<td align="left" valign="top"><p class="normal">(NULL)</td>
-	<td align="left" valign="top"><p class="normal">&nbsp;</td>
-	<td align="left" valign="top"><p class="normal">&nbsp;</td>
-</tr>
-<tr>
-	<td align="left" valign="top"><p class="normal">THONGTINTHEM</td>
-	<td align="left" valign="top"><p class="normal">varchar(255)</td>
-	<td align="left" valign="top"><p class="normal">latin1_swedish_ci</td>
-	<td align="left" valign="top"><p class="normal">YES</td>
-	<td align="left" valign="top"><p class="normal">&nbsp;</td>
-	<td align="left" valign="top"><p class="normal">(NULL)</td>
-	<td align="left" valign="top"><p class="normal">&nbsp;</td>
-	<td align="left" valign="top"><p class="normal">&nbsp;</td>
-</tr>
-<tr>
-	<td align="left" valign="top"><p class="normal">HISTORY</td>
-	<td align="left" valign="top"><p class="normal">text</td>
-	<td align="left" valign="top"><p class="normal">latin1_swedish_ci</td>
-	<td align="left" valign="top"><p class="normal">YES</td>
-	<td align="left" valign="top"><p class="normal">&nbsp;</td>
-	<td align="left" valign="top"><p class="normal">(NULL)</td>
-	<td align="left" valign="top"><p class="normal">&nbsp;</td>
-	<td align="left" valign="top"><p class="normal">&nbsp;</td>
-</tr>
-<tr>
-	<td align="left" valign="top"><p class="normal">USERCREATE</td>
-	<td align="left" valign="top"><p class="normal">varchar(255)</td>
-	<td align="left" valign="top"><p class="normal">latin1_swedish_ci</td>
-	<td align="left" valign="top"><p class="normal">YES</td>
-	<td align="left" valign="top"><p class="normal">&nbsp;</td>
-	<td align="left" valign="top"><p class="normal">(NULL)</td>
-	<td align="left" valign="top"><p class="normal">&nbsp;</td>
-	<td align="left" valign="top"><p class="normal">&nbsp;</td>
-</tr>
-<tr>
-	<td align="left" valign="top"><p class="normal">TIMECREATE</td>
-	<td align="left" valign="top"><p class="normal">datetime</td>
-	<td align="left" valign="top"><p class="normal">(NULL)</td>
-	<td align="left" valign="top"><p class="normal">YES</td>
-	<td align="left" valign="top"><p class="normal">&nbsp;</td>
-	<td align="left" valign="top"><p class="normal">(NULL)</td>
-	<td align="left" valign="top"><p class="normal">&nbsp;</td>
-	<td align="left" valign="top"><p class="normal">&nbsp;</td>
-</tr>
-<tr>
-	<td align="left" valign="top"><p class="normal">DELETED</td>
-	<td align="left" valign="top"><p class="normal">int(11)</td>
-	<td align="left" valign="top"><p class="normal">(NULL)</td>
-	<td align="left" valign="top"><p class="normal">YES</td>
-	<td align="left" valign="top"><p class="normal">&nbsp;</td>
-	<td align="left" valign="top"><p class="normal">(NULL)</td>
-	<td align="left" valign="top"><p class="normal">&nbsp;</td>
-	<td align="left" valign="top"><p class="normal">&nbsp;</td>
-</tr>
-</table>
-<table width="100%" border="0" cellspacing="0" cellpadding="3">
-<tr>
-	<td class="fieldheader" width="100%" align="left" valign="top">Foreign Key Relationships</td>
-</tr>
-</table>
-<table width="100%" cellspacing="0" cellapdding="2" border="1">
-<tr>
-	<td align="left" valign="top" class="fieldcolumn">FK Id</td>
-	<td align="left" valign="top" class="fieldcolumn">Reference Table</td>
-	<td align="left" valign="top" class="fieldcolumn">Source Column</td>
-	<td align="left" valign="top" class="fieldcolumn">Target Column</td>
-	<td align="left" valign="top" class="fieldcolumn">Extra Info</td>
-</tr>
-<tr>
-	<td align="left" valign="top"><p class="normal">FK_vanbandexuat_dexuat</td>
-	<td align="left" valign="top"><p class="normal">DEXUAT</td>
-	<td align="left" valign="top"><p class="normal">`DEXUAT_ID`</td>
-	<td align="left" valign="top"><p class="normal">`ID`</td>
-	<td align="left" valign="top"><p class="normal">,</td>
-<tr>
-<tr>
-	<td align="left" valign="top"><p class="normal">FK_vanbandexuat_doitac</td>
-	<td align="left" valign="top"><p class="normal">DOITAC</td>
-	<td align="left" valign="top"><p class="normal">`DOITAC_ID`</td>
-	<td align="left" valign="top"><p class="normal">`ID`</td>
-	<td align="left" valign="top"><p class="normal">,</td>
-<tr>
-<tr>
-	<td align="left" valign="top"><p class="normal">FK_vanbandexuat_filescan</td>
-	<td align="left" valign="top"><p class="normal">FILESCAN</td>
-	<td align="left" valign="top"><p class="normal">`FILESCAN_ID`</td>
-	<td align="left" valign="top"><p class="normal">`ID`</td>
-<tr>
-</table>
-
-
 <a href="#header"><p class="normal">Back</a><br class=page>
 <p><a name='VANHANH_SUCOKENH'>&nbsp</a>
 <table width="100%" border="0" cellspacing="0" cellpadding="3">

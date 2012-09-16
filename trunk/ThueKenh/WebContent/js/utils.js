@@ -235,7 +235,7 @@ function showDialogUrl(url,title_,width_,dialog) {
 		}
 	});
 }
-jQuery.fn.dataTableExt.oApi.fnSetFilteringPressEnter = function (oSettings) {
+/* jQuery.fn.dataTableExt.oApi.fnSetFilteringPressEnter = function (oSettings) {
     var _that = this;
     this.each(function (i) {
         $.fn.dataTableExt.iApiIndex = i;
@@ -250,7 +250,7 @@ jQuery.fn.dataTableExt.oApi.fnSetFilteringPressEnter = function (oSettings) {
         return this;
     });
     return this;
-}
+} */
 function processErrorMessage(message) {
 	if(message == 'END_SESSION') {
 		location.href = LOGIN_PATH;
@@ -301,38 +301,7 @@ function CloseWindow() {
     windowObj.close();
     //oTable.fnDraw(false);
 }
-function trangThaiTuyenKenhToString(matrangthai) {
-	switch(parseInt(matrangthai)) {
-		case 0 :
-			return '<div class="mau_xam" title="Không hoạt động"></div>';
-			break;
-		case 1 :
-			return '<div class="mau_vang" title="Đang bàn giao"></div>';
-			break;
-		case 2 :
-			return '<div class="mau_vang" title="Đang cập nhật số lượng"></div>';
-			break;
-		case 3 :
-			return '<div class="mau_xanh_la" title="Đang hoạt động"></div>';
-			break;
-		default:
-			return '';
-			break;
-	}
-}
-function trangThaiTuyenKenhDeXuatToString(matrangthai) {
-	switch(parseInt(matrangthai)) {
-		case 0 :
-			return '<div class="mau_vang" title="Đang bàn giao"></div>';
-			break;
-		case 1 :
-			return '<div class="mau_xanh_bien" title="Đã bàn giao"></div>';
-			break;
-		case 2 :
-			return '<div class="mau_xanh_la" title="Đã có biên bàn giao"></div>';
-			break;
-		default:
-			return '';
-			break;
-	}
+String.prototype.vmsSubstr=function(length) {
+	if(this.length <= length) return this;
+	return this.substr(0, length) + "...";
 }
