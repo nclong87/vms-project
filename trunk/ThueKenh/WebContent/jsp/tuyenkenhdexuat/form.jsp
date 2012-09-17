@@ -155,7 +155,6 @@ function message(msg,type) {
 }
 $(document).ready(function() {
 	popup_search_tuyenkenh.init({
-		url : "${popupSearchURL}",
 		afterSelected : function(data) {
 			data = data[0];
 			for( key in data) {
