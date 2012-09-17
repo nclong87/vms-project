@@ -7,16 +7,17 @@ import java.sql.SQLException;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
 
-import vms.db.dto.CatalogDTO;
-import vms.db.dto.KhuVuc;
 import vms.db.dto.KhuVucDTO;
+import vms.db.dto.KhuVuc;
 
-public class KhuVucDao extends CatalogDAO {
+public class KhuVucDao {
+	private JdbcTemplate jdbcTemplate;
 	public KhuVucDao(DaoFactory daoFactory) {
-		super(daoFactory);
+		this.jdbcTemplate=daoFactory.getJdbcTemplate();
 		// TODO Auto-generated constructor stub
 	}
 
@@ -45,8 +46,8 @@ public class KhuVucDao extends CatalogDAO {
 
 	
 	@SuppressWarnings("unchecked")
-	@Override
-	public List<CatalogDTO> get() {
+	
+	public List<KhuVucDTO> get() {
 		// TODO Auto-generated method stub
 		return this.jdbcTemplate.query(
 			    "select * from khuvuc where deleted = 0",
@@ -57,11 +58,11 @@ public class KhuVucDao extends CatalogDAO {
 			    });
 	}
 
-	@Override
-	public CatalogDTO get(String id) {
+	
+	public KhuVucDTO get(String id) {
 		// TODO Auto-generated method stub
 		@SuppressWarnings("unchecked")
-		List<CatalogDTO> lst= this.jdbcTemplate.query(
+		List<KhuVucDTO> lst= this.jdbcTemplate.query(
 			    "select * from khuvuc where deleted = 0 and id="+id,
 			    new RowMapper() {
 			        public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -73,8 +74,8 @@ public class KhuVucDao extends CatalogDAO {
 		return lst.get(0);
 	}
 
-	@Override
-	public boolean insert(CatalogDTO cat) throws SQLException {
+	
+	public boolean insert(KhuVucDTO cat) throws SQLException {
 		// TODO Auto-generated method stub
 		try {
 			Connection connection = this.jdbcTemplate.getDataSource()
@@ -88,7 +89,7 @@ public class KhuVucDao extends CatalogDAO {
 			
 			stmt.setString(1, cat.getId());
 			System.out.println(cat.getId());
-			stmt.setString(2, cat.getName());
+			stmt.setString(2, cat.getTenkhuvuc());
 			stmt.setInt(3, cat.getStt());
 			stmt.setLong(4, 0);
 			System.out.println("***execute***");
@@ -104,16 +105,15 @@ public class KhuVucDao extends CatalogDAO {
 		}
 	}
 
-	@Override
-	public boolean update(String id, CatalogDTO cat) {
+	
+	public boolean update(String id, KhuVucDTO up) {
 		// TODO Auto-generated method stub
-		KhuVucDTO up=(KhuVucDTO)cat;
-		String sql="update khuvuc set stt="+up.getStt()+", tenkhuvuc='"+up.getName()+"' where id="+up.getId();
+		String sql="update khuvuc set stt="+up.getStt()+", tenkhuvuc='"+up.getTenkhuvuc()+"' where id="+up.getId();
 		System.out.println(sql);
 		return this.jdbcTemplate.update(sql)>0;
 	}
 
-	@Override
+	
 	public boolean delete(String[] ids) {
 		
 		// TODO Auto-generated method stub
