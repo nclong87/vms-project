@@ -230,7 +230,7 @@ $(document).ready(function(){
 					{ "mDataProp": "tenkhuvuc","bSortable": false,"bSearchable": false},
 					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,
 						"fnRender": function( oObj ) {
-							return '<center>'+trangThaiTuyenKenhToString(oObj.aData.trangthai)+'</center>'; 
+							return '<center>'+trangthai_utils.tuyenkenhDisplay(oObj.aData.trangthai)+'</center>'; 
 						}
 					},
 					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,
