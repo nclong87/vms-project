@@ -300,6 +300,9 @@
 				<param name="inputName">inputStream</param>
 			</result>
 		</action>
+		<action name="popupSearch" class="tuyenkenhdexuatAction" method="popupSearch">
+			<result>/jsp/tuyenkenhdexuat/popupSearch.jsp</result>
+		</action>
 	</package>
 	<package name="suco" extends="default" namespace="/sucokenh">
 		<action name="index" class="sucoAction">

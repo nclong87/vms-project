@@ -19,6 +19,7 @@ import org.json.simple.JSONValue;
 import vms.db.dao.DaoFactory;
 import vms.db.dao.DeXuatDao;
 import vms.db.dao.DoiTacDAO;
+import vms.db.dao.TuyenKenhDeXuatDAO;
 import vms.db.dto.Account;
 import vms.db.dto.DeXuatDTO;
 import vms.db.dto.DoiTacDTO;
@@ -46,6 +47,7 @@ public class DeXuatAction implements Preparable {
 	private List<DoiTacDTO> doiTacDTOs;
 	private String id;
 	private String[] ids;
+	private String[] dexuat_ids;
 	
 	private DeXuatDao deXuatDao;
 	public DeXuatAction( DaoFactory factory) {
@@ -141,7 +143,11 @@ public class DeXuatAction implements Preparable {
 			deXuatDTO.setNgaygui(DateUtils.parseStringDateSQL(deXuatDTO.getNgaygui(), "dd/MM/yyyy"));
 			id = deXuatDao.save(deXuatDTO);
 			if(id == null) throw new Exception(Constances.MSG_ERROR);
-			
+			System.out.println("dexuat_ids.length" + dexuat_ids.length);
+			if(dexuat_ids!= null && dexuat_ids.length > 0) {
+				TuyenKenhDeXuatDAO tuyenKenhDeXuatDAO = new TuyenKenhDeXuatDAO(daoFactory);
+				tuyenKenhDeXuatDAO.updateDexuatByIds(dexuat_ids, id);
+			}
 			setInputStream("OK");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -230,6 +236,12 @@ public class DeXuatAction implements Preparable {
 	}
 	public void setDoiTacDTOs(List<DoiTacDTO> doiTacDTOs) {
 		this.doiTacDTOs = doiTacDTOs;
+	}
+	public String[] getDexuat_ids() {
+		return dexuat_ids;
+	}
+	public void setDexuat_ids(String[] dexuat_ids) {
+		this.dexuat_ids = dexuat_ids;
 	}
 	
 }

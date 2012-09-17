@@ -1,5 +1,5 @@
 ﻿<%@ taglib prefix="s" uri="/struts-tags"%>
-<s:url action="ajLoadTuyenkenh" namespace="/tuyenkenh" id="ajLoadTuyenkenh"/>
+<s:url action="load" namespace="/tuyenkenhdexuat" id="loadURL"/>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -20,7 +20,7 @@ margin-left: 10px;
 					<div class="fl tsl" id="t_1">
 					</div>
 					<div class="fl clg b tsc d" id="t_2">
-						<div class="p3t">Tìm kiếm tuyến kênh</div>
+						<div class="p3t">Tìm kiếm đề xuất tuyến kênh</div>
 					</div>
 					<div class="fl tsr" id="t_3">
 					</div>
@@ -70,31 +70,16 @@ margin-left: 10px;
 								</tbody>
 								<tbody id="hidden" style="display:none">
 								<tr>
-									<td align="right">
-										Dự án :
-									</td>
+									<td align="right">Ngày hẹn bàn giao :</td>
 									<td align="left">
-										<select name="duan" id="duan">
-											<option value="">---Chọn---</option>
-											<s:iterator value="duAnDTOs">
-												<option value='<s:property value="id" />'><s:property value="tenduan" /></option>									
-											</s:iterator>
-										</select>
+										<input type="text" name="ngayhenbangiao" id="ngayhenbangiao" class="date">
 									</td>
-									<td align="right">
-										Khu vực :
-									</td>
-									<td align="left">
-										<select name="khuvuc" id="khuvuc">
-											<option value="">---Chọn---</option>
-											<s:iterator value="khuVucDTOs">
-												<option value='<s:property value="id" />'><s:property value="name" /></option>									
-											</s:iterator>
-										</select>
-									</td>
+									<td align="right">Ngày đề nghị bàn giao :</td>
+									<td align="left"><input type="text" name="ngaydenghibangiao"
+										id="ngaydenghibangiao" class="date"/></td>
 								</tr>
 								<tr>
-									<td align="right">Đ/V nhận kênh :</td>
+									<td align="right">Đơn vị nhận kênh :</td>
 									<td align="left">
 										<select name="phongban" id="phongban">
 											<option value="">---Chọn---</option>
@@ -104,15 +89,14 @@ margin-left: 10px;
 										</select>
 									</td>
 									<td align="right">
-										Trạng thái kênh :
+										Trạng thái :
 									</td>
 									<td align="left">
 										<select name="trangthai" id="trangthai">
 											<option value="">-- Chọn --</option>
-											<option value="0">Không hoạt động</option>
-											<option value="1">Đang bàn giao</option>
-											<option value="2">Đang cập nhật số lượng</option>
-											<option value="3">Đang hoạt động</option>
+											<option value="0">Đang bàn giao</option>
+											<option value="1">Đã bàn giao</option>
+											<option value="2">Đã có biên bản bàn giao</option>
 										</select>
 									</td>
 								</tr>
@@ -143,33 +127,34 @@ margin-left: 10px;
 			</div>
 			<div style="height: 1px;"></div>
 		</div>
-		<table width="100%" id="dataTable" class="display">
-		<thead>
-			<tr>
-				<th width="5%">#</th>
-				<th></th>
-				<th></th>
-				<th></th>
-				<th></th>
-				<th>Mã kênh</th>
-				<th>Mã điểm đầu</th>
-				<th>Mã điểm cuối</th>
-				<th>Giao tiếp</th>
-				<th>Dung lượng</th>
-				<th>Số lượng</th>
-				<th>Dự án</th>
-				<th width="120px">ĐV nhận kênh</th>
-				<th width="80px">Khu vực</th>
-				<th width="5px">Trạng thái</th>
-				<th width="5px" align="center"><input type="checkbox" onclick="selectAll(this)"/></th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td colspan="15" class="dataTables_empty">Đang tải dữ liệu...</td>
-			</tr>
-		</tbody>
-		</table>
+		<div style="clear:both;margin:5px 0 ">
+		<input class="button" type="button" id="btThem" value="Thêm đề xuất tuyến kênh"/>
+		<input class="button" type="button" id="btXoa" value="Xóa" style="float: right; margin-right: 10px;"/>
+		</div>
+			<table width="100%" id="dataTable" class="display">
+			<thead>
+				<tr>
+					<th width="5%">#</th>
+					<th></th>
+					<th>Mã kênh</th>
+					<th>Mã điểm đầu</th>
+					<th>Mã điểm cuối</th>
+					<th>Giao tiếp</th>
+					<th>Dung lượng</th>
+					<th>Số lượng</th>
+					<th width="120px">ĐV nhận kênh</th>
+					<th>Ngày đề nghị BG</th>
+					<th>Ngày hẹn BG</th>
+					<th width="5px">Trạng thái</th>
+					<th width="5px" align="center"><input type="checkbox" onclick="selectAll(this)"/></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td colspan="15" class="dataTables_empty">Đang tải dữ liệu...</td>
+				</tr>
+			</tbody>
+			</table>
 	</div>
 	<div id="footer"></div>
 </body>
@@ -212,25 +197,22 @@ $(document).ready(function(){
 		"bProcessing": true,
 		"bServerSide": true,
 		"bAutoWidth": false,
-		"sAjaxSource": "${ajLoadTuyenkenh}",
+		"sAjaxSource": "${loadURL}",
 		"aoColumns": [
 					{ "mDataProp": "stt","bSortable": false,"bSearchable": false },
-					{ "mDataProp": "duan_id","bSortable": false,"bSearchable": false,"sClass":'td_hidden'},
-					{ "mDataProp": "phongban_id","bSortable": false,"bSearchable": false,"sClass":'td_hidden'},
-					{ "mDataProp": "khuvuc_id","bSortable": false,"bSearchable": false,"sClass":'td_hidden'},
-					{ "mDataProp": "giaotiep_id","bSortable": false,"bSearchable": false,"sClass":'td_hidden'},
-					{ "mDataProp": "id","bSortable": false,"bSearchable": false,"sClass":'td_center'},
+					{ "mDataProp": "id","bSortable": false,"bSearchable": false,"sClass":'td_hidden'},
+					{ "mDataProp": "tuyenkenh_id","bSortable": false,"bSearchable": false,"sClass":'td_center'},
 					{ "mDataProp": "madiemdau","bSortable": false,"bSearchable": false,"sClass":'td_center'},
 					{ "mDataProp": "madiemcuoi","bSortable": false,"bSearchable": false,"sClass":'td_center'},
 					{ "mDataProp": "loaigiaotiep","bSortable": false,"bSearchable": false},
 					{ "mDataProp": "dungluong","bSortable": false,"bSearchable": false,"sClass":'td_center'},
 					{ "mDataProp": "soluong","bSortable": false,"bSearchable": false,"sClass":'td_center'},
-					{ "mDataProp": "tenduan","bSortable": false,"bSearchable": false},
 					{ "mDataProp": "tenphongban","bSortable": false,"bSearchable": false},
-					{ "mDataProp": "tenkhuvuc","bSortable": false,"bSearchable": false},
+					{ "mDataProp": "ngaydenghibangiao","bSortable": false,"bSearchable": false},
+					{ "mDataProp": "ngayhenbangiao","bSortable": false,"bSearchable": false},
 					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,
 						"fnRender": function( oObj ) {
-							return '<center>'+trangthai_utils.tuyenkenhDisplay(oObj.aData.trangthai)+'</center>'; 
+							return '<center>'+trangthai_utils.tuyenkenhdexuatDisplay(oObj.aData.trangthai)+'</center>'; 
 						}
 					},
 					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,
@@ -256,7 +238,7 @@ function doClose(){
 	$('#dataTable tbody input:checked').each(function(){
 		data.push(oTable.fnGetData(this.value));
 	});
-	window.opener.popup_search_tuyenkenh.afterSelected(data);
+	window.opener.popup_search_tuyenkenhdexuat.afterSelected(data);
 	window.close();
 }
 </script>

@@ -13,16 +13,7 @@
 <head>
 <link rel="stylesheet" href="<%= contextPath %>/css/addedit.css" type="text/css" media="screen" />
 <link rel="stylesheet" href="<%= contextPath %>/css/cupertino/jquery-ui.css" type="text/css" media="screen" />
-<script type='text/javascript' src='<%= contextPath %>/js/jquery.js'></script>
-<script type='text/javascript' src='<%= contextPath %>/js/jquery-ui.js'></script>
-<script type="text/javascript" src="<%=contextPath%>/js/jquery.validate.js"></script>
-<script type="text/javascript" src="<%=contextPath%>/js/mylibs/my.validate.js"></script>
-<script type="text/javascript" src="<%=contextPath%>/js/mylibs/popup_search_tuyenkenh.js"></script>
-<script type="text/javascript" src="<%=contextPath%>/js/jquery-ui/jquery.ui.datepicker-vi.js"></script>
-<script type="text/javascript" src="<%=contextPath%>/js/jquery.form.js"></script>
-<script type="text/javascript" src="<%=contextPath%>/js/utils.js"></script>
-<script type="text/javascript" src="<%=contextPath%>/js/templates.js"></script>
-<script type="text/javascript" src="<%=contextPath%>/js/upload_utils.js"></script>
+<link rel="stylesheet" href="<%= contextPath %>/css/demo_table_jui.css" />
 <script>
 var contextPath = '<%= contextPath %>';
 var baseUrl = contextPath;
@@ -30,6 +21,19 @@ function byId(id) { //Viet tat cua ham document.getElementById
 	return document.getElementById(id);
 }
 </script>
+<script type='text/javascript' src='<%= contextPath %>/js/jquery.js'></script>
+<script type='text/javascript' src='<%= contextPath %>/js/jquery-ui.js'></script>
+<script type='text/javascript' src='<%= contextPath %>/js/jquery.dataTables.min.js'></script>
+
+<script type="text/javascript" src="<%=contextPath%>/js/jquery.validate.js"></script>
+<script type="text/javascript" src="<%=contextPath%>/js/mylibs/my.validate.js"></script>
+<script type="text/javascript" src="<%=contextPath%>/js/mylibs/popup_search_tuyenkenhdexuat.js"></script>
+<script type="text/javascript" src="<%=contextPath%>/js/jquery-ui/jquery.ui.datepicker-vi.js"></script>
+<script type="text/javascript" src="<%=contextPath%>/js/jquery.form.js"></script>
+<script type="text/javascript" src="<%=contextPath%>/js/utils.js"></script>
+<script type="text/javascript" src="<%=contextPath%>/js/templates.js"></script>
+<script type="text/javascript" src="<%=contextPath%>/js/upload_utils.js"></script>
+
 <style>
 </style>
 </head>
@@ -87,14 +91,38 @@ function byId(id) { //Viet tat cua ham document.getElementById
 					<input type="text" name="deXuatDTO.ngaydenghibangiao" id="ngaydenghibangiao" class="date">
 				</td>
 			</tr>
-			<tr height="30px">
-				<td colspan="6" align="right">
-					<input class="button" type="button" id="btSubmit" value="Lưu"/>
-					<input class="button" type="button" id="btReset" value="Làm lại"/>
-					<input class="button" type="button" id="btThoat" onclick="window.parent.CloseWindow();" value="Thoát"/>
-				</td>
-			</tr>
 		</table>
+		
+		<div style="width: 100%; margin-top: 10px;">
+		<fieldset class="data_list">
+			<legend>Danh sách đề xuất</legend>
+			<div style="width: 100%; padding-bottom: 5px;text-align: right;"><input class="button" type="button" value="Chọn đề xuất..." id="btPopupSearchTuyenkenhDexuat"></div>
+			<table width="100%" id="dataTable" class="display">
+			<thead>
+				<tr>
+					<th width="5%">#</th>
+					<th>Mã kênh</th>
+					<th>Mã điểm đầu</th>
+					<th>Mã điểm cuối</th>
+					<th>Giao tiếp</th>
+					<th>Dung lượng</th>
+					<th>Số lượng</th>
+					<th>Ngày đề nghị BG</th>
+					<th>Ngày hẹn BG</th>
+					<th width="5px" align="center">Xóa</th>
+				</tr>
+			</thead>
+			<tbody>
+				
+			</tbody>
+			</table>
+		</fieldset>
+		</div>
+		<div style="margin-top: 5px; margin-bottom: 5px; text-align: right;">
+			<input class="button" type="button" id="btSubmit" value="Lưu"/>
+			<input class="button" type="button" id="btReset" value="Làm lại"/>
+			<input class="button" type="button" id="btThoat" onclick="window.parent.CloseWindow();" value="Thoát"/>
+		</div>
 	</div>
 	</form>
 </body>
@@ -112,22 +140,22 @@ function message(msg,type) {
 		$("#msg").html('<div style="padding: 0pt 0.7em; text-align: left;" class="ui-state-error ui-corner-all"><p style="padding: 5px;"><span style="float: left; margin-right: .3em;" class="ui-icon ui-icon-alert"></span><strong>Error : </strong> '+msg+'</p></div>');
 	}
 }
+function doRemoveRow(this_){
+	var row = $(this_).closest("tr").get(0);
+	oTable.fnDeleteRow(oTable.fnGetPosition(row));
+}
 $(document).ready(function() {
-	/* popup_search_tuyenkenh.init({
-		url : "${popupSearchURL}",
-		afterSelected : function(data) {
-			data = data[0];
-			for( key in data) {
-				var input = document.forms[0]["tuyenKenh."+key];
-				if(input != null) {
-					input.value = data[key];
-				}
-			}
-			$("#madiemdau").attr("disabled","true");
-			$("#madiemcuoi").attr("disabled","true");
-			$("#giaotiep_id").attr("disabled","true");
+	popup_search_tuyenkenhdexuat.init({
+		afterSelected : function(data) {	
+			var i = 1;
+			$.each(data,function(){
+				oTable.fnAddData([
+					i,this.tuyenkenh_id,this.madiemdau,this.madiemcuoi,this.loaigiaotiep,this.dungluong,this.soluong,this.ngaydenghibangiao,this.ngayhenbangiao,'<center><input type="text" style="display:none" name="dexuat_ids" value="'+this.id+'"/><img title="Remove" src="'+baseUrl+'/images/icons/remove.png" onclick="doRemoveRow(this)" style="cursor:pointer"></center>'
+				]);
+				i++;
+			});
 		}
-	}); */
+	}); 
 	upload_utils.init();
 	$("#btReset").click(function(){
 		$("#form")[0].reset();
@@ -164,6 +192,16 @@ $(document).ready(function() {
 			filesize : form_data["filesize"]
 		});
 	} 
+	oTable = $('#dataTable').dataTable({
+		"bJQueryUI": true,
+		"bProcessing": true,
+		"sScrollY": "500px",
+		"bScrollCollapse": true,
+		"bAutoWidth": false,
+		"bSort":false,
+		"bFilter": false,"bInfo": false,
+		"bPaginate" : false
+	});
 	$(document).delegate("#btSubmit","click",function() {
 		var button = this;
 		button.disabled = true;

@@ -208,6 +208,18 @@ public class TuyenkenhDexuatAction implements Preparable {
 		return Action.SUCCESS;
 	}
 	
+	public String popupSearch() {
+		LoaiGiaoTiepDao loaiGiaoTiepDao = new LoaiGiaoTiepDao(daoFactory);
+		loaiGiaoTieps = loaiGiaoTiepDao.getAll();
+		DuAnDAO duAnDAO = new DuAnDAO(daoFactory);
+		duAnDTOs = duAnDAO.findAll();
+		KhuVucDao khuVucDao = new KhuVucDao(daoFactory);
+		khuVucDTOs = khuVucDao.findAll();
+		PhongBanDao phongBanDao = new PhongBanDao(daoFactory);
+		phongBans = phongBanDao.getAll();
+		return Action.SUCCESS;
+	}
+	
 	/* Getter and Setter */
 	
 	public MessageStore getMessage() {

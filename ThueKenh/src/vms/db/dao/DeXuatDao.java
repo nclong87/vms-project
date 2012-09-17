@@ -74,7 +74,7 @@ public class DeXuatDao {
 		stmt.setString(10, dto.getTimecreate());
 		stmt.setString(11, dto.getTrangthai().toString());
 		stmt.setString(12, dto.getFilepath());
-		stmt.setString(13, dto.getFilesize().toString());
+		stmt.setString(13, String.valueOf(dto.getFilesize()));
 		stmt.execute();
 		return stmt.getString(1);
 	}
