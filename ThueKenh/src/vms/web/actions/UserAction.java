@@ -26,6 +26,7 @@ import vms.db.dao.VmsgroupDao;
 import vms.db.dto.Account;
 import vms.db.dto.KhuVuc;
 import vms.db.dto.PhongBan;
+import vms.db.dto.PhongBanDTO;
 import vms.db.dto.Vmsgroup;
 import vms.utils.Constances;
 import vms.utils.VMSUtil;
@@ -46,7 +47,7 @@ public class UserAction implements Preparable {
 	private LinkedHashMap<String, Object> jsonData;
 	private String form_data;
 	
-	private List<PhongBan> phongbans;
+	private List<PhongBanDTO> phongbans;
 	private List<KhuVuc> khuvucs;
 	private List<Vmsgroup> vmsgroups;
 	private String id;
@@ -231,10 +232,10 @@ public class UserAction implements Preparable {
 	public void setJsonData(LinkedHashMap<String, Object> jsonData) {
 		this.jsonData = jsonData;
 	}
-	public List<PhongBan> getPhongbans() {
+	public List<PhongBanDTO> getPhongbans() {
 		return phongbans;
 	}
-	public void setPhongbans(List<PhongBan> phongbans) {
+	public void setPhongbans(List<PhongBanDTO> phongbans) {
 		this.phongbans = phongbans;
 	}
 	public List<KhuVuc> getKhuvucs() {
