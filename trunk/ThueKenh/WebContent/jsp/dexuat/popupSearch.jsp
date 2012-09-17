@@ -115,6 +115,7 @@ margin-left: 10px;
 									<td align="left">
 									<input class="button" type="button" value="Tìm Kiếm" onclick="doSearch()"/>
 									<input class="button" type="button" value="Reset" onclick="reset()"/>
+									<input class="button" id="btSelect" style="display:none" type="button" value="Chọn" onclick="doClose()"/>
 									</td>
 								</tfoot>
 							</table>
@@ -134,6 +135,7 @@ margin-left: 10px;
 			<thead>
 				<tr>
 					<th width="5%">#</th>
+					<th></th>
 					<th>Mã kênh</th>
 					<th>Mã điểm đầu</th>
 					<th>Mã điểm cuối</th>
@@ -144,7 +146,6 @@ margin-left: 10px;
 					<th>Ngày đề nghị BG</th>
 					<th>Ngày hẹn BG</th>
 					<th width="5px">Trạng thái</th>
-					<th width="5px" align="center">Sửa</th>
 					<th width="5px" align="center"><input type="checkbox" onclick="selectAll(this)"/></th>
 				</tr>
 			</thead>
@@ -196,30 +197,27 @@ $(document).ready(function(){
 		"bProcessing": true,
 		"bServerSide": true,
 		"bAutoWidth": false,
-		"sAjaxSource": "${ajLoadTuyenkenh}",
+		"sAjaxSource": "${loadURL}",
 		"aoColumns": [
 					{ "mDataProp": "stt","bSortable": false,"bSearchable": false },
-					{ "mDataProp": "duan_id","bSortable": false,"bSearchable": false,"sClass":'td_hidden'},
-					{ "mDataProp": "phongban_id","bSortable": false,"bSearchable": false,"sClass":'td_hidden'},
-					{ "mDataProp": "khuvuc_id","bSortable": false,"bSearchable": false,"sClass":'td_hidden'},
-					{ "mDataProp": "giaotiep_id","bSortable": false,"bSearchable": false,"sClass":'td_hidden'},
-					{ "mDataProp": "id","bSortable": false,"bSearchable": false,"sClass":'td_center'},
+					{ "mDataProp": "id","bSortable": false,"bSearchable": false,"sClass":'td_hidden'},
+					{ "mDataProp": "tuyenkenh_id","bSortable": false,"bSearchable": false,"sClass":'td_center'},
 					{ "mDataProp": "madiemdau","bSortable": false,"bSearchable": false,"sClass":'td_center'},
 					{ "mDataProp": "madiemcuoi","bSortable": false,"bSearchable": false,"sClass":'td_center'},
 					{ "mDataProp": "loaigiaotiep","bSortable": false,"bSearchable": false},
 					{ "mDataProp": "dungluong","bSortable": false,"bSearchable": false,"sClass":'td_center'},
 					{ "mDataProp": "soluong","bSortable": false,"bSearchable": false,"sClass":'td_center'},
-					{ "mDataProp": "tenduan","bSortable": false,"bSearchable": false},
 					{ "mDataProp": "tenphongban","bSortable": false,"bSearchable": false},
-					{ "mDataProp": "tenkhuvuc","bSortable": false,"bSearchable": false},
+					{ "mDataProp": "ngaydenghibangiao","bSortable": false,"bSearchable": false},
+					{ "mDataProp": "ngayhenbangiao","bSortable": false,"bSearchable": false},
 					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,
 						"fnRender": function( oObj ) {
-							return '<center>'+trangThaiTuyenKenhToString(oObj.aData.trangthai)+'</center>'; 
+							return '<center>'+trangthai_utils.tuyenkenhdexuatDisplay(oObj.aData.trangthai)+'</center>'; 
 						}
 					},
 					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,
 						"fnRender": function( oObj ) {
-							return '<center><input type="checkbox" value="'+oObj.iDataRow+'"/></center>'; 
+							return '<center><input type="checkbox" value="'+oObj.aData.id+'"/></center>'; 
 						}
 					}
 				],
@@ -240,7 +238,7 @@ function doClose(){
 	$('#dataTable input:checked').each(function(){
 		data.push(oTable.fnGetData(this.value));
 	});
-	window.opener.popup_search_tuyenkenh.afterSelected(data);
+	window.opener.popup_search_tuyenkenhdexuat.afterSelected(data);
 	window.close();
 }
 </script>

@@ -11,6 +11,7 @@ import java.util.Map;
 import javax.sql.DataSource;
 import oracle.jdbc.OracleTypes;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -101,5 +102,9 @@ public class TuyenKenhDeXuatDAO {
 				this.jdbcTemplate.update("update TUYENKENH set TRANGTHAI = TRANGTHAI_BAK,SOLUONG = SOLUONG - ? where ID = ?",new Object[]{soluong,dto.getTuyenkenh_id()});
 			}
 		}
+	}
+	public void updateDexuatByIds(String[] ids,String dexuat_id) {
+		String str = StringUtils.join(ids, ",");
+		this.jdbcTemplate.update("update TUYENKENHDEXUAT set DEXUAT_ID = ? where ID in ("+str+")", new Object[] {dexuat_id});
 	}
 }
