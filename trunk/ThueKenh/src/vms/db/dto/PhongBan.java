@@ -11,10 +11,20 @@ public class PhongBan {
 
 	private String tenphongban;
 	
+	public String getMa() {
+		return ma;
+	}
+
+
+	public void setMa(String ma) {
+		this.ma = ma;
+	}
+
 	private Integer stt;
 
 	private Integer deleted;
 
+	private String ma;
 
     public PhongBan() {
     }
@@ -67,13 +77,15 @@ public class PhongBan {
 		map.put("TENPHONGBAN", this.tenphongban);
 		map.put("STT", this.stt.toString());
 		map.put("DELETED", this.deleted.toString());
+		map.put("MA", this.ma);
 		return map;
 	}
 	
 	public static PhongBanDTO mapObject(ResultSet rs) throws SQLException {
 		PhongBanDTO dto = new PhongBanDTO();
 		dto.setId(rs.getString("ID"));
-		dto.setName(rs.getString("TENPHONGBAN"));
+		dto.setMa(rs.getString("MA"));
+		dto.setTenphongban(rs.getString("TENPHONGBAN"));
 		dto.setDeleted(rs.getInt("DELETED"));
         return dto;
 	}

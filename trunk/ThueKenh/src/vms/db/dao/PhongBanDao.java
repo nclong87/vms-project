@@ -8,21 +8,21 @@ import java.util.List;
 
 
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
-import vms.db.dto.CatalogDTO;
-import vms.db.dto.PhongBan;
 import vms.db.dto.PhongBanDTO;
+import vms.db.dto.PhongBan;
 
-public class PhongBanDao extends CatalogDAO {
-
+public class PhongBanDao  {
+	protected JdbcTemplate jdbcTemplate;
 	public PhongBanDao(DaoFactory daoFactory) {
-		super(daoFactory);
+		this.jdbcTemplate=daoFactory.getJdbcTemplate();
 		// TODO Auto-generated constructor stub
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<PhongBan> getAll() {
+	public List<PhongBanDTO> getAll() {
 		return this.jdbcTemplate.query(
 				"select * from phongban where deleted = 0 order by stt", new RowMapper() {
 					public Object mapRow(ResultSet rs, int rowNum)
@@ -33,8 +33,7 @@ public class PhongBanDao extends CatalogDAO {
 	}
 
 	@SuppressWarnings("unchecked")
-	@Override
-	public List<CatalogDTO> search(String _strSearch) {
+	public List<PhongBanDTO> search(String _strSearch) {
 		// TODO Auto-generated method stub
 		return this.jdbcTemplate.query(
 				"select * from phongban where deleted = 0 and tenphongban like '%"
@@ -47,8 +46,8 @@ public class PhongBanDao extends CatalogDAO {
 	}
 
 	@SuppressWarnings("unchecked")
-	@Override
-	public List<CatalogDTO> get() {
+	
+	public List<PhongBanDTO> get() {
 		// TODO Auto-generated method stub
 		return this.jdbcTemplate.query(
 				"select * from phongban where deleted = 0  order by stt", new RowMapper() {
@@ -59,11 +58,10 @@ public class PhongBanDao extends CatalogDAO {
 				});
 	}
 
-	@Override
-	public CatalogDTO get(String id) {
+	public PhongBanDTO get(String id) {
 		// TODO Auto-generated method stub
 		@SuppressWarnings("unchecked")
-		List<CatalogDTO> lst = this.jdbcTemplate.query(
+		List<PhongBanDTO> lst = this.jdbcTemplate.query(
 				"select * from phongban where deleted = 0 and id=" + id,
 				new RowMapper() {
 					public Object mapRow(ResultSet rs, int rowNum)
@@ -76,8 +74,8 @@ public class PhongBanDao extends CatalogDAO {
 		return lst.get(0);
 	}
 
-	@Override
-	public boolean insert(CatalogDTO cat) {
+	
+	public boolean insert(PhongBanDTO cat) {
 		// TODO Auto-generated method stub
 		try {
 			Connection connection = this.jdbcTemplate.getDataSource()
@@ -89,7 +87,7 @@ public class PhongBanDao extends CatalogDAO {
 			System.out.println("***BEGIN PROC_SAVE_PHONGBAN***");
 			stmt.setString(1, cat.getId());
 			System.out.println(cat.getId());
-			stmt.setString(2, cat.getName());
+			stmt.setString(2, cat.getTenphongban());
 			stmt.setInt(3, cat.getStt());
 			stmt.setLong(4, 0);
 			System.out.println("***execute***");
@@ -104,16 +102,16 @@ public class PhongBanDao extends CatalogDAO {
 		}
 	}
 
-	@Override
-	public boolean update(String id, CatalogDTO cat) {
+	
+	public boolean update(String id, PhongBanDTO cat) {
 		// TODO Auto-generated method stub
 		PhongBanDTO up = (PhongBanDTO) cat;
-		String sql = "update phongban set stt="+up.getStt()+", tenphongban='" + up.getName()+ "' where id=" + up.getId();
+		String sql = "update phongban set stt="+up.getStt()+", tenphongban='" + up.getTenphongban()+ "' where id=" + up.getId();
 		System.out.println(sql);
 		return this.jdbcTemplate.update(sql) > 0;
 	}
 
-	@Override
+	
 	public boolean delete(String[] ids) {
 
 		// TODO Auto-generated method stub

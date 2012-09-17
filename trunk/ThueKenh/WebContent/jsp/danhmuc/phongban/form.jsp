@@ -53,8 +53,8 @@ input.error,select.error,textarea.error {
 		<div style="width: 99%">
 			<form id="form" method="post"
 				onsubmit="return false;">
-				<input type="hidden" name="opEdit.id"
-		value="<s:property value="opEdit.id" />">
+				<input type="hidden" name="opEdit.Id"
+		value="<s:property value="opEdit.Id" />">
 				<table width="370px" style="float: left">
 					<tr>
 						<td colspan='2' align="left"><s:if test='message != null'>
@@ -87,17 +87,17 @@ input.error,select.error,textarea.error {
 						<td class="td_label">Tên phòng ban<span class="required"
 							title="Yêu cầu nhập">*</span> :
 						</td>
-						<td><input type="text" class="field" name="opEdit.name"
-							id="opEdit.name" value="<s:property value="opEdit.name" />"/> <label style="display: none"
-							for="opEdit.name" generated="false" class="error"></label></td>
+						<td><input type="text" class="field" name="opEdit.Tenphongban"
+							id="opEdit.Tenphongban" value="<s:property value="opEdit.Tenphongban" />"/> <label style="display: none"
+							for="opEdit.Tenphongban" generated="false" class="error"></label></td>
 					</tr>
 					<tr>
 						<td class="td_label">Số thứ tự <span class="required"
 							title="Yêu cầu nhập">*</span> :
 						</td>
 						<td><input type="text" class="field"
-							name="opEdit.stt" id="opEdit.stt" value="<s:property value="opEdit.stt" />"/> <label
-							style="display: none" for="opEdit.stt" generated="false"
+							name="opEdit.Stt" id="opEdit.Stt" value="<s:property value="opEdit.Stt" />"/> <label
+							style="display: none" for="opEdit.Stt" generated="false"
 							class="error"></label></td>
 					</tr>
 
@@ -131,7 +131,7 @@ input.error,select.error,textarea.error {
 											onkeyup : false,
 											onfocusout : false,
 											rules : {
-												"opEdit.name" : {
+												"opEdit.Tenphongban" : {
 													required : true,
 													uniqueUserName : true,
 													minlength : 6,
@@ -139,7 +139,7 @@ input.error,select.error,textarea.error {
 												}
 											},
 											messages : {
-												"opEdit.name" : {
+												"opEdit.Tenphongban" : {
 													required : "Vui lòng nhập tên phòng ban ",
 													uniqueUserName : "Username này đã được sử dụng, vui lòng chọn username khác!",
 													minlength : "Tên đăng nhập ít nhất là 6 kí tự",
