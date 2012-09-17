@@ -98,6 +98,7 @@
 					<tr>
 						<th width="5%">STT</th>
 						<th width="5%">ID</th>
+						<th width="5%">Mã</th>
 						<th>Tên phòng ban</th>
 						<th width="5px">Edit</th>
 						<th width="5px" align="center"><input type="checkbox"
@@ -147,7 +148,7 @@
 			$.ajax( {
 				"dataType": 'json', 
 				"type": "POST", 
-				"url":'/ThueKenh/danhmuc/deletePhongBan.action', 
+				"url":'${deletePhongBan}', 
 				"data": "ids="+str, 
 				"success": fnCallbackDelete
 			} );
@@ -291,6 +292,12 @@
 													},
 													{
 														"mDataProp" : "ID",
+														"bSortable" : false,
+														"bSearchable" : false,
+														"sClass" : 'td_center'
+													},
+													{
+														"mDataProp" : "MA",
 														"bSortable" : false,
 														"bSearchable" : false,
 														"sClass" : 'td_center'

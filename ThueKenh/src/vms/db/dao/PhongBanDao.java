@@ -90,6 +90,7 @@ public class PhongBanDao  {
 			stmt.setString(2, cat.getTenphongban());
 			stmt.setInt(3, cat.getStt());
 			stmt.setLong(4, 0);
+			stmt.setString(5, cat.getMa());
 			System.out.println("***execute***");
 			stmt.execute();
 			stmt.close();
@@ -106,7 +107,7 @@ public class PhongBanDao  {
 	public boolean update(String id, PhongBanDTO cat) {
 		// TODO Auto-generated method stub
 		PhongBanDTO up = (PhongBanDTO) cat;
-		String sql = "update phongban set stt="+up.getStt()+", tenphongban='" + up.getTenphongban()+ "' where id=" + up.getId();
+		String sql = "update phongban set ma='"+cat.getMa()+"' ,stt="+up.getStt()+", tenphongban='" + up.getTenphongban()+ "' where id=" + up.getId();
 		System.out.println(sql);
 		return this.jdbcTemplate.update(sql) > 0;
 	}
