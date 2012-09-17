@@ -19,6 +19,8 @@ public class LoaiGiaoTiep {
 	private String loaigiaotiep;
 
 	private Long cuoccong;
+	
+	private String ma;
 
     public LoaiGiaoTiep() {
     }

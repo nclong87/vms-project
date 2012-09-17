@@ -20,6 +20,7 @@ public class PhongBanDTO{
 		dto.setId(rs.getString("ID"));
 		dto.setTenphongban(rs.getString("TENPHONGBAN"));
 		dto.setStt(rs.getInt("STT"));
+		dto.setMa(rs.getString("MA"));
 		dto.setDeleted(rs.getInt("DELETED"));
         return dto;
 	}
@@ -29,6 +30,7 @@ public class PhongBanDTO{
 		map.put("ID", this.id);
 		map.put("TENPHONGBAN", this.tenphongban);
 		map.put("STT", this.stt.toString());
+		map.put("MA", this.ma);
 		map.put("DELETED", this.deleted.toString());
 		return map;
 	}
