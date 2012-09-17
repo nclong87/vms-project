@@ -1,20 +1,10 @@
-﻿
-<%@ taglib prefix="s" uri="/struts-tags"%>
-<s:url action="doLogout" namespace="/login" var="doLogoutURL"/>
-<s:url action="index" namespace="/login" var="loginURL"/>
-<s:url action="index" namespace="/settings" var="settingsIndexURL"/>
+﻿<%@ taglib prefix="s" uri="/struts-tags"%>
 <s:url action="load" namespace="/tuyenkenhdexuat" id="loadURL"/>
-<s:url action="form" namespace="/tuyenkenhdexuat" id="formURL"/>
-<s:url action="delete" namespace="/tuyenkenhdexuat" id="deleteURL"/>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<script>
-	var LOGIN_PATH = "${loginURL}";
-	</script>
 	<%@include file="/include/header.jsp"%>
-	<script type="text/javascript" src="<%=contextPath%>/js/jquery-ui/jquery.ui.datepicker-vi.js"></script>
 <style>
 .block {
 float: left;
@@ -23,7 +13,6 @@ margin-left: 10px;
 </style>
 </head>
 <body>
-	<%@include file="/include/top.jsp"%>
 	<div id="bg_wrapper">
 		<div style="width: 100%; margin-bottom: 10px;" class="ovf">
 			<div class="s10">
@@ -80,30 +69,6 @@ margin-left: 10px;
 								</tr>
 								</tbody>
 								<tbody id="hidden" style="display:none">
-								<!--tr>
-									<td align="right">
-										Dự án :
-									</td>
-									<td align="left">
-										<select name="duan" id="duan">
-											<option value="">---Chọn---</option>
-											<s:iterator value="duAnDTOs">
-												<option value='<s:property value="id" />'><s:property value="tenduan" /></option>									
-											</s:iterator>
-										</select>
-									</td>
-									<td align="right">
-										Khu vực :
-									</td>
-									<td align="left">
-										<select name="khuvuc" id="khuvuc">
-											<option value="">---Chọn---</option>
-											<s:iterator value="khuVucDTOs">
-												<option value='<s:property value="id" />'><s:property value="name" /></option>									
-											</s:iterator>
-										</select>
-									</td>
-								</tr-->
 								<tr>
 									<td align="right">Ngày hẹn bàn giao :</td>
 									<td align="left">
@@ -207,62 +172,11 @@ function doSearch() {
 	var dat = "{'array':"+stringify(frm.serializeArray())+"}";
 	oTable.fnFilter(dat);
 }
-var account_id = '';
-function openPermissionWindow(id) {
-	account_id = id;
-	permission_popup.url_init = "${getMenusByAccountURL}?account_id="+account_id;
-	showDialogUrl("${permissionPopupURL}?id="+id,'Phân quyền user',610);
-}
 $(document).ready(function(){	 
 	$( "input.date" ).datepicker({
 		showButtonPanel: true,
 		dateFormat : "dd/mm/yy"
 	});
-	$("#btThem").click(function(){
-		ShowWindow('Thêm mới đề xuất tuyến kênh',750,500,"${formURL}",false);
-	});
-	$("#btXoa").click(function(){
-		var dataString = '';
-		$('#dataTable input[type=checkbox]').each(function(){
-			if(this.checked==true) {
-				if(this.value!='on')
-					dataString+='&ids='+this.value;
-			}
-		});
-		if(dataString=='') {
-			alert('Bạn chưa chọn dòng để xóa!');
-			return;
-		}
-		if(!confirm("Bạn muốn xóa dữ liệu?")) return;
-		var button = this;
-		button.disabled = true;
-		$.ajax({
-			type: "POST",
-			cache: false,
-			url : "${deleteURL}",
-			data: dataString,
-			success: function(data){
-				button.disabled = false;
-				if(data == "END_SESSION") {
-					location.href = LOGIN_PATH;
-					return;
-				}
-				if(data == "OK") {
-					unblock('#bg_wrapper');
-					oTable.fnDraw(false);
-					alert("Thao tác thành công!");
-					return;
-				}
-				alert(data);
-			},
-			error: function(data){ alert (data);button.disabled = false;}	
-		});	
-	});
-	$("span.edit_icon").live("click",function(){
-		var id = $(this).attr("data-ref-id");
-		ShowWindow('Cập nhật đề xuất tuyến kênh',750,500,"${formURL}?id="+id,false);
-	});
-	$('ul.sf-menu').superfish();
 	$("#chkAdvSearch").click(function(){
 		if(this.checked == true) {
 			$("#hidden").show();
@@ -270,38 +184,42 @@ $(document).ready(function(){
 			$("#hidden").hide();
 		}
 	});
+	$('#dataTable input[type=checkbox]').live("click",function(){
+		if($('#dataTable input:checked').size()>0) {
+			$("#btSelect").show();
+		} else {
+			$("#btSelect").hide();
+		}
+	});
 	oTable = $('#dataTable').dataTable({
 		"bJQueryUI": true,
 		"bProcessing": true,
 		"bServerSide": true,
 		"bAutoWidth": false,
-		"sAjaxSource": "${loadURL}",
+		"sAjaxSource": "${ajLoadTuyenkenh}",
 		"aoColumns": [
 					{ "mDataProp": "stt","bSortable": false,"bSearchable": false },
-					{ "mDataProp": "tuyenkenh_id","bSortable": false,"bSearchable": false,"sClass":'td_center'},
+					{ "mDataProp": "duan_id","bSortable": false,"bSearchable": false,"sClass":'td_hidden'},
+					{ "mDataProp": "phongban_id","bSortable": false,"bSearchable": false,"sClass":'td_hidden'},
+					{ "mDataProp": "khuvuc_id","bSortable": false,"bSearchable": false,"sClass":'td_hidden'},
+					{ "mDataProp": "giaotiep_id","bSortable": false,"bSearchable": false,"sClass":'td_hidden'},
+					{ "mDataProp": "id","bSortable": false,"bSearchable": false,"sClass":'td_center'},
 					{ "mDataProp": "madiemdau","bSortable": false,"bSearchable": false,"sClass":'td_center'},
 					{ "mDataProp": "madiemcuoi","bSortable": false,"bSearchable": false,"sClass":'td_center'},
 					{ "mDataProp": "loaigiaotiep","bSortable": false,"bSearchable": false},
 					{ "mDataProp": "dungluong","bSortable": false,"bSearchable": false,"sClass":'td_center'},
 					{ "mDataProp": "soluong","bSortable": false,"bSearchable": false,"sClass":'td_center'},
-					//{ "mDataProp": "tenduan","bSortable": false,"bSearchable": false},
+					{ "mDataProp": "tenduan","bSortable": false,"bSearchable": false},
 					{ "mDataProp": "tenphongban","bSortable": false,"bSearchable": false},
-					//{ "mDataProp": "tenkhuvuc","bSortable": false,"bSearchable": false},
-					{ "mDataProp": "ngaydenghibangiao","bSortable": false,"bSearchable": false},
-					{ "mDataProp": "ngayhenbangiao","bSortable": false,"bSearchable": false},
+					{ "mDataProp": "tenkhuvuc","bSortable": false,"bSearchable": false},
 					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,
 						"fnRender": function( oObj ) {
-							return '<center>'+trangthai_utils.tuyenkenhdexuatDisplay(oObj.aData.trangthai)+'</center>'; 
+							return '<center>'+trangThaiTuyenKenhToString(oObj.aData.trangthai)+'</center>'; 
 						}
 					},
 					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,
 						"fnRender": function( oObj ) {
-							return '<center><span class="edit_icon" data-ref-id="'+oObj.aData.id+'" title="Edit" href="#"></span></center>'; 
-						}
-					},
-					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,
-						"fnRender": function( oObj ) {
-							return '<center><input type="checkbox" value="'+oObj.aData.id+'"/></center>'; 
+							return '<center><input type="checkbox" value="'+oObj.iDataRow+'"/></center>'; 
 						}
 					}
 				],
@@ -317,4 +235,12 @@ $(document).ready(function(){
 		"sPaginationType": "two_button"
 	});
 });
+function doClose(){
+	var data = [];
+	$('#dataTable input:checked').each(function(){
+		data.push(oTable.fnGetData(this.value));
+	});
+	window.opener.popup_search_tuyenkenh.afterSelected(data);
+	window.close();
+}
 </script>
