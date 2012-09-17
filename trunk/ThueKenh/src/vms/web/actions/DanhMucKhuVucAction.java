@@ -13,7 +13,7 @@ import org.apache.struts2.ServletActionContext;
 import vms.db.dao.DaoFactory;
 import vms.db.dao.KhuVucDao;
 import vms.db.dto.Account;
-import vms.db.dto.CatalogDTO;
+import vms.db.dto.KhuVucDTO;
 import vms.db.dto.KhuVucDTO;
 import vms.utils.Constances;
 import vms.utils.VMSUtil;
@@ -76,8 +76,8 @@ public class DanhMucKhuVucAction implements Preparable {
 		// xoa
 		// dao.delete(new String[] { "1" });
 		/*
-		 * List<CatalogDTO> lst = dao.get(); for (int i = 0; i < lst.size();
-		 * i++) { System.out.println(lst.get(i).getName()); }
+		 * List<KhuVucDTO> lst = dao.get(); for (int i = 0; i < lst.size();
+		 * i++) { System.out.println(lst.get(i).getTenkhuvuc()); }
 		 */
 		if(account == null) {
 			session.setAttribute("URL", VMSUtil.getFullURL(request));
@@ -145,16 +145,13 @@ public class DanhMucKhuVucAction implements Preparable {
 	public String ajLoadkhuvuc() {
 		this.request = ServletActionContext.getRequest();
 		// KhuVucDao KhuVucDao = new KhuVucDao(factory);
-		List<CatalogDTO> lstkhuvuc = KhuVucDao.get();
+		List<KhuVucDTO> lstkhuvuc = KhuVucDao.get();
 		jsonData = new LinkedHashMap<String, Object>();
 		List<HashMap<String, Object>> items = new ArrayList<HashMap<String, Object>>();
 		for (int i = 0; i < lstkhuvuc.size(); i++) {
 			HashMap<String, Object> map = new HashMap<String, Object>();
-			KhuVucDTO pb = (KhuVucDTO) lstkhuvuc.get(i);
-			map.put("stt", i + 1);
-			map.put("id", pb.getId());
-			map.put("name", pb.getName());
-			map.put("stt1", pb.getStt());
+			KhuVucDTO pb = lstkhuvuc.get(i);
+			map.putAll(pb.getMap());
 			items.add(map);
 		}
 		// jsonData.put("sEcho",

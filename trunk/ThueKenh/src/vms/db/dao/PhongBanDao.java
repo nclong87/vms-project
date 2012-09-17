@@ -15,7 +15,7 @@ import vms.db.dto.PhongBanDTO;
 import vms.db.dto.PhongBan;
 
 public class PhongBanDao  {
-	protected JdbcTemplate jdbcTemplate;
+	private JdbcTemplate jdbcTemplate;
 	public PhongBanDao(DaoFactory daoFactory) {
 		this.jdbcTemplate=daoFactory.getJdbcTemplate();
 		// TODO Auto-generated constructor stub
