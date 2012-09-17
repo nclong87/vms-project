@@ -87,9 +87,9 @@ input.error,select.error,textarea.error {
 						<td class="td_label">Tên khu vực<span class="required"
 							title="Yêu cầu nhập">*</span> :
 						</td>
-						<td><input type="text" class="field" name="opEdit.name"
-							id="opEdit.name" value="<s:property value="opEdit.name" />"/> <label style="display: none"
-							for="opEdit.name" generated="false" class="error"></label></td>
+						<td><input type="text" class="field" name="opEdit.Tenkhuvuc"
+							id="opEdit.Tenkhuvuc" value="<s:property value="opEdit.Tenkhuvuc" />"/> <label style="display: none"
+							for="opEdit.Tenkhuvuc" generated="false" class="error"></label></td>
 					</tr>
 					<tr>
 						<td class="td_label">Số thứ tự <span class="required"
@@ -131,7 +131,7 @@ input.error,select.error,textarea.error {
 											onkeyup : false,
 											onfocusout : false,
 											rules : {
-												"opEdit.name" : {
+												"opEdit.Tenkhuvuc" : {
 													required : true,
 													uniqueUserName : true,
 													minlength : 6,
@@ -139,7 +139,7 @@ input.error,select.error,textarea.error {
 												}
 											},
 											messages : {
-												"opEdit.name" : {
+												"opEdit.Tenkhuvuc" : {
 													required : "Vui lòng nhập tên khu vực ",
 													uniqueUserName : "khu vực này đã được sử dụng, vui lòng chọn khu vực khác!",
 													minlength : "Tên đăng nhập ít nhất là 6 kí tự",
