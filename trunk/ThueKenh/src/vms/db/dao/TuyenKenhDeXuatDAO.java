@@ -27,7 +27,7 @@ public class TuyenKenhDeXuatDAO {
 		this.jdbcDatasource = daoFactory.getJdbcDataSource();
 	}
 	
-	private static final String SQL_FIND_TUYENKENHDEXUAT = "{ ? = call FIND_TUYENKENHDEXUAT(?,?,?,?,?,?,?,?,?,?,?,?) }";
+	private static final String SQL_FIND_TUYENKENHDEXUAT = "{ ? = call FIND_TUYENKENHDEXUAT(?,?,?,?,?,?,?,?,?,?,?,?,?) }";
 	public List<FIND_TUYENKENHDEXUAT> search(int iDisplayStart,int iDisplayLength,Map<String, String> conditions) throws SQLException {
 		Connection connection = jdbcDatasource.getConnection();
 		CallableStatement stmt = connection.prepareCall(SQL_FIND_TUYENKENHDEXUAT);
@@ -44,6 +44,7 @@ public class TuyenKenhDeXuatDAO {
 		stmt.setString(11, conditions.get("ngaydenghibangiao"));
 		stmt.setString(12, conditions.get("ngayhenbangiao"));
 		stmt.setString(13, conditions.get("trangthai"));
+		stmt.setString(14, conditions.get("dexuat_id"));
 		stmt.execute();
 		ResultSet rs = (ResultSet) stmt.getObject(1);
 		List<FIND_TUYENKENHDEXUAT> result = new ArrayList<FIND_TUYENKENHDEXUAT>();
