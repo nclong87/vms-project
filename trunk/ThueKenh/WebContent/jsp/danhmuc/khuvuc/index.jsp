@@ -96,8 +96,10 @@
 			<table width="100%" id="dataTable" class="display">
 				<thead>
 					<tr>
+					<th width="5%">ID</th>
 						<th width="5%">STT</th>
-						<th width="5%">ID</th>
+						
+						<th width="5%">Mã</th>
 						<th>Tên khu vực</th>
 						<th width="5px">Edit</th>
 						<th width="5px" align="center"><input type="checkbox"
@@ -283,6 +285,13 @@
 											"bAutoWidth" : false,
 											"sAjaxSource" : "${ajLoadData}",
 											"aoColumns" : [
+													
+													{
+														"mDataProp" : "ID",
+														"bSortable" : false,
+														"bSearchable" : false,
+														"sClass" : 'td_center'
+													},
 													{
 														"mDataProp" : "STT",
 														"bSortable" : false,
@@ -290,12 +299,10 @@
 														"sClass" : 'td_center'
 													},
 													{
-														"mDataProp" : "ID",
+														"mDataProp" : "MA",
 														"bSortable" : false,
-														"bSearchable" : false,
-														"sClass" : 'td_center'
+														"bSearchable" : false
 													},
-													
 													{
 														"mDataProp" : "TENKHUVUC",
 														"bSortable" : false,
