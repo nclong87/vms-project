@@ -26,8 +26,8 @@
 	href="<%=request.getContextPath()%>/js/jquery-window-5.03/css/jquery.window.css"
 	type="text/css" media="screen" />
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/css/search_box.css"
-	type="text/css" media="screen" />
+	href="<%=request.getContextPath()%>/css/search_box.css" type="text/css"
+	media="screen" />
 <script>
 	function doNew(link) {
 		ShowWindow('Thêm phòng ban mới', 800, 400, link, false);
@@ -96,8 +96,8 @@
 			<table width="100%" id="dataTable" class="display">
 				<thead>
 					<tr>
-						<th width="5%">STT</th>
 						<th width="5%">ID</th>
+						<th width="5%">STT</th>
 						<th width="5%">Mã</th>
 						<th>Tên phòng ban</th>
 						<th width="5px">Edit</th>
@@ -131,39 +131,38 @@
 		var dat = "{'array':" + stringify(frm.serializeArray()) + "}";
 		oTable.fnFilter(dat);
 	}
-	
 
-	$("#btnDelete").click(function(){
-		
-		var str="";
-		$('#dataTable input[type=checkbox]').each(function(){
-			if(this.checked==true){
-				if(this.value>0)
-					str+=this.value+",";
+	$("#btnDelete").click(function() {
+
+		var str = "";
+		$('#dataTable input[type=checkbox]').each(function() {
+			if (this.checked == true) {
+				if (this.value > 0)
+					str += this.value + ",";
 			}
 		});
-		if(str.length>0){
-			str=str.substring(0, str.length-1);
-			
-			$.ajax( {
-				"dataType": 'json', 
-				"type": "POST", 
-				"url":'${deletePhongBan}', 
-				"data": "ids="+str, 
-				"success": fnCallbackDelete
-			} );
+		if (str.length > 0) {
+			str = str.substring(0, str.length - 1);
+
+			$.ajax({
+				"dataType" : 'json',
+				"type" : "POST",
+				"url" : '${deletePhongBan}',
+				"data" : "ids=" + str,
+				"success" : fnCallbackDelete
+			});
 			block('#bg_wrapper');
 		}
 	});
 
-	function fnCallbackDelete(data){
-		if(data.isDeleted){
+	function fnCallbackDelete(data) {
+		if (data.isDeleted) {
 			//refresh();
 			unblock('#bg_wrapper');
 			oTable.fnDraw(false);
 		}
 	}
-	
+
 	/* 
 	function doLock(flag) {
 		if (hasChecked() == false)
@@ -197,33 +196,33 @@
 				unblock('#bg_wrapper');
 			}
 		} */
-		/* $.ajax({
-			dataType: 'json', 
-			type: "POST",
-			cache: false,
-			url : "${ajDeleteURL}",
-			data: dataString,
-			success: function(data){
-				if(data.isDeleted){
-					//refresh();
-					oTable.fnDraw(false);
-				}else{
-					alert("Xóa không thành công");
-				}
-				/* if(data == "END_SESSION") {
-					location.href = LOGIN_PATH;
-					return;
-				}
-				if(data == "OK") {
-					unblock('#bg_wrapper');
-					oTable.fnDraw(false);
-					alert("Thao tác thành công!");
-					return;
-				}
-				alert(data); 
-			},
-			error: function(data){ alert (data);unblock('#bg_wrapper');}	
-		});	 
+	/* $.ajax({
+		dataType: 'json', 
+		type: "POST",
+		cache: false,
+		url : "${ajDeleteURL}",
+		data: dataString,
+		success: function(data){
+			if(data.isDeleted){
+				//refresh();
+				oTable.fnDraw(false);
+			}else{
+				alert("Xóa không thành công");
+			}
+			/* if(data == "END_SESSION") {
+				location.href = LOGIN_PATH;
+				return;
+			}
+			if(data == "OK") {
+				unblock('#bg_wrapper');
+				oTable.fnDraw(false);
+				alert("Thao tác thành công!");
+				return;
+			}
+			alert(data); 
+		},
+		error: function(data){ alert (data);unblock('#bg_wrapper');}	
+	});	 
 	}*/
 	var account_id = '';
 	function openPermissionWindow(id) {
@@ -285,24 +284,25 @@
 											"sAjaxSource" : "${ajLoadData}",
 											"aoColumns" : [
 													{
-														"mDataProp" : "STT",
-														"bSortable" : false,
-														"bSearchable" : false,
-														"sClass" : 'td_center'
-													},
-													{
 														"mDataProp" : "ID",
 														"bSortable" : false,
 														"bSearchable" : false,
 														"sClass" : 'td_center'
 													},
 													{
+														"mDataProp" : "STT",
+														"bSortable" : false,
+														"bSearchable" : false,
+														"sClass" : 'td_center'
+													},
+
+													{
 														"mDataProp" : "MA",
 														"bSortable" : false,
 														"bSearchable" : false,
 														"sClass" : 'td_center'
 													},
-													
+
 													{
 														"mDataProp" : "TENPHONGBAN",
 														"bSortable" : false,

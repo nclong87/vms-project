@@ -82,7 +82,7 @@ public class KhuVucDao {
 					.getConnection();
 			System.out.println("***BEGIN PROC_SAVE_KHUVUC***");
 			CallableStatement stmt = connection
-					.prepareCall("{ call PROC_SAVE_KHUVUC(?,?,?,?) }");
+					.prepareCall("{ call PROC_SAVE_KHUVUC(?,?,?,?,?) }");
 			//stmt.registerOutParameter(1, OracleTypes.INTEGER);
 			
 			System.out.println("STT : "+cat.getStt());
@@ -92,6 +92,7 @@ public class KhuVucDao {
 			stmt.setString(2, cat.getTenkhuvuc());
 			stmt.setInt(3, cat.getStt());
 			stmt.setLong(4, 0);
+			stmt.setString(5, cat.getMa());
 			System.out.println("***execute***");
 			stmt.execute();
 			stmt.close();
@@ -108,7 +109,7 @@ public class KhuVucDao {
 	
 	public boolean update(String id, KhuVucDTO up) {
 		// TODO Auto-generated method stub
-		String sql="update khuvuc set stt="+up.getStt()+", tenkhuvuc='"+up.getTenkhuvuc()+"' where id="+up.getId();
+		String sql="update khuvuc set ma='"+up.getMa()+"',stt="+up.getStt()+", tenkhuvuc='"+up.getTenkhuvuc()+"' where id="+up.getId();
 		System.out.println(sql);
 		return this.jdbcTemplate.update(sql)>0;
 	}
