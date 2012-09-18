@@ -82,7 +82,7 @@ public class PhongBanDao  {
 					.getConnection();
 			
 			CallableStatement stmt = connection
-					.prepareCall("{ call PROC_SAVE_PHONGBAN(?,?,?,?) }");
+					.prepareCall("{ call PROC_SAVE_PHONGBAN(?,?,?,?,?) }");
 			//stmt.registerOutParameter(1, OracleTypes.INTEGER);
 			System.out.println("***BEGIN PROC_SAVE_PHONGBAN***");
 			System.out.println(cat.getId());
