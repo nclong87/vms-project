@@ -27,6 +27,15 @@ public class LoaiGiaoTiep {
 
 	
 
+	public String getMa() {
+		return ma;
+	}
+
+
+
+	public void setMa(String ma) {
+		this.ma = ma;
+	}
 	public Integer getDeleted() {
 		return deleted;
 	}
@@ -81,6 +90,7 @@ public class LoaiGiaoTiep {
 		map.put("LOAIGIAOTIEP", this.getLoaigiaotiep());
 		map.put("CUOCCONG", this.getCuoccong().toString());
 		map.put("DELETED", this.deleted.toString());
+		map.put("MA", this.ma);
 		return map;
 	}
 	
@@ -90,8 +100,12 @@ public class LoaiGiaoTiep {
 		dto.setLoaigiaotiep(rs.getString("LOAIGIAOTIEP"));
 		dto.setCuoccong(rs.getLong("CUOCCONG"));
 		dto.setDeleted(rs.getInt("DELETED"));
+		dto.setMa(rs.getString("MA"));
         return dto;
 	}
+
+
+
 	
 
 }

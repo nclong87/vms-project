@@ -8,34 +8,34 @@ import java.util.List;
 
 
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
-import vms.db.dto.CatalogDTO;
+import vms.db.dto.LoaiGiaoTiepDTO;
 import vms.db.dto.LoaiGiaoTiep;
 import vms.db.dto.LoaiGiaoTiepDTO;
 
-public class LoaiGiaoTiepDao extends CatalogDAO {
+public class LoaiGiaoTiepDao {
+
+	private JdbcTemplate jdbcTemplate;
+
 
 	public LoaiGiaoTiepDao(DaoFactory daoFactory) {
-		super(daoFactory);
+		this.jdbcTemplate=daoFactory.getJdbcTemplate();
 		// TODO Auto-generated constructor stub
 	}
 	
 	@SuppressWarnings("unchecked")
-	@Override
-	public List<CatalogDTO> search(String _strSearch) {
+	
+	public List<LoaiGiaoTiepDTO> search(String _strSearch) {
 		// TODO Auto-generated method stub
 		return this.jdbcTemplate.query(
 				"select * from loaigiaotiep where deleted = 0 and LOAIGIAOTIEP like '%"
 						+ _strSearch + "%'", new RowMapper() {
 					public Object mapRow(ResultSet rs, int rowNum)
 							throws SQLException {
-						LoaiGiaoTiepDTO cat = new LoaiGiaoTiepDTO();
-						cat.setId(rs.getString("ID"));
-						cat.setName(rs.getString("LOAIGIAOTIEP"));
-						cat.setCuocCong(rs.getInt("CUOCCONG"));
-						cat.setDeleted(rs.getInt("DELETED"));
-						return cat;
+						
+						return LoaiGiaoTiepDTO.mapObject(rs);
 					}
 				});
 	}
@@ -53,38 +53,28 @@ public class LoaiGiaoTiepDao extends CatalogDAO {
 	}
 	
 	@SuppressWarnings("unchecked")
-	@Override
-	public List<CatalogDTO> get() {
+	
+	public List<LoaiGiaoTiepDTO> get() {
 		// TODO Auto-generated method stub
 		return this.jdbcTemplate.query(
 				"select * from loaigiaotiep where deleted = 0", new RowMapper() {
 					public Object mapRow(ResultSet rs, int rowNum)
 							throws SQLException {
-						LoaiGiaoTiepDTO cat = new LoaiGiaoTiepDTO();
-						cat.setId(rs.getString("ID"));
-						cat.setName(rs.getString("LOAIGIAOTIEP"));
-						cat.setCuocCong(rs.getInt("CUOCCONG"));
-						cat.setDeleted(rs.getInt("DELETED"));
-						return cat;
+						return LoaiGiaoTiepDTO.mapObject(rs);
 					}
 				});
 	}
 
-	@Override
-	public CatalogDTO get(String id) {
+	
+	public LoaiGiaoTiepDTO get(String id) {
 		// TODO Auto-generated method stub
 		@SuppressWarnings("unchecked")
-		List<CatalogDTO> lst = this.jdbcTemplate.query(
+		List<LoaiGiaoTiepDTO> lst = this.jdbcTemplate.query(
 				"select * from loaigiaotiep where deleted = 0 and id=" + id,
 				new RowMapper() {
 					public Object mapRow(ResultSet rs, int rowNum)
 							throws SQLException {
-						LoaiGiaoTiepDTO cat = new LoaiGiaoTiepDTO();
-						cat.setId(rs.getString("ID"));
-						cat.setName(rs.getString("LOAIGIAOTIEP"));
-						cat.setCuocCong(rs.getInt("CUOCCONG"));
-						cat.setDeleted(rs.getInt("DELETED"));
-						return cat;
+						return LoaiGiaoTiepDTO.mapObject(rs);
 					}
 				});
 		if (lst.size() == 0)
@@ -92,8 +82,8 @@ public class LoaiGiaoTiepDao extends CatalogDAO {
 		return lst.get(0);
 	}
 
-	@Override
-	public boolean insert(CatalogDTO cat) {
+	
+	public boolean insert(LoaiGiaoTiepDTO cat) {
 		LoaiGiaoTiepDTO loaigiaotiep=(LoaiGiaoTiepDTO)cat;
 		// TODO Auto-generated method stub
 		try {
@@ -101,14 +91,15 @@ public class LoaiGiaoTiepDao extends CatalogDAO {
 					.getConnection();
 			
 			CallableStatement stmt = connection
-					.prepareCall("{ call PROC_SAVE_LOAIGIAOTIEP(?,?,?,?) }");
+					.prepareCall("{ call PROC_SAVE_LOAIGIAOTIEP(?,?,?,?,?) }");
 			//stmt.registerOutParameter(1, OracleTypes.INTEGER);
-			System.out.println("***BEGIN PROC_SAVE_LOAIGIAOTIEP***"+loaigiaotiep.getCuocCong());
+			System.out.println("***BEGIN PROC_SAVE_LOAIGIAOTIEP***"+loaigiaotiep.getCuoccong());
 			stmt.setString(1, loaigiaotiep.getId());
 			System.out.println(loaigiaotiep.getId());
-			stmt.setString(2, loaigiaotiep.getName());
-			stmt.setInt(3, loaigiaotiep.getCuocCong());
+			stmt.setString(2, loaigiaotiep.getLoaigiaotiep());
+			stmt.setLong(3, loaigiaotiep.getCuoccong());
 			stmt.setLong(4, 0);//is deleted
+			stmt.setString(5, loaigiaotiep.getMa());//is deleted
 			System.out.println("***execute***");
 			stmt.execute();
 			stmt.close();
@@ -121,8 +112,8 @@ public class LoaiGiaoTiepDao extends CatalogDAO {
 		}
 	}
 
-	@Override
-	public boolean update(String id, CatalogDTO cat) {
+	
+	public boolean update(String id, LoaiGiaoTiepDTO cat) {
 		// TODO Auto-generated method stub
 		LoaiGiaoTiepDTO loaigiaotiep=(LoaiGiaoTiepDTO)cat;
 		// TODO Auto-generated method stub
@@ -131,14 +122,15 @@ public class LoaiGiaoTiepDao extends CatalogDAO {
 					.getConnection();
 			
 			CallableStatement stmt = connection
-					.prepareCall("{ call PROC_SAVE_LOAIGIAOTIEP(?,?,?,?) }");
+					.prepareCall("{ call PROC_SAVE_LOAIGIAOTIEP(?,?,?,?,?) }");
 			//stmt.registerOutParameter(1, OracleTypes.INTEGER);
-			System.out.println("***BEGIN PROC_SAVE_LOAIGIAOTIEP***");
+			System.out.println("***BEGIN PROC_SAVE_LOAIGIAOTIEP***"+loaigiaotiep.getCuoccong());
 			stmt.setString(1, loaigiaotiep.getId());
 			System.out.println(loaigiaotiep.getId());
-			stmt.setString(2, loaigiaotiep.getName());
-			stmt.setInt(3, loaigiaotiep.getCuocCong());
+			stmt.setString(2, loaigiaotiep.getLoaigiaotiep());
+			stmt.setLong(3, loaigiaotiep.getCuoccong());
 			stmt.setLong(4, 0);//is deleted
+			stmt.setString(5, loaigiaotiep.getMa());//is deleted
 			System.out.println("***execute***");
 			stmt.execute();
 			stmt.close();
@@ -151,7 +143,7 @@ public class LoaiGiaoTiepDao extends CatalogDAO {
 		}
 	}
 
-	@Override
+	
 	public boolean delete(String[] ids) {
 
 		// TODO Auto-generated method stub
