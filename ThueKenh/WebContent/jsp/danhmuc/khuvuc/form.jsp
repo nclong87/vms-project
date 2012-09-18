@@ -84,9 +84,7 @@ input.error,select.error,textarea.error {
 							</s:if></td>
 					</tr>
 					<tr>
-						<td class="td_label">Mã<span class="required"
-							title="Yêu cầu nhập">*</span> :
-						</td>
+						<td class="td_label">Mã :</td>
 						<td><input type="text" class="field" name="opEdit.Ma"
 							id="opEdit.Ma" value="<s:property value="opEdit.Ma" />"/> <label style="display: none"
 							for="opEdit.Ma" generated="false" class="error"></label></td>
@@ -100,8 +98,7 @@ input.error,select.error,textarea.error {
 							for="opEdit.Tenkhuvuc" generated="false" class="error"></label></td>
 					</tr>
 					<tr>
-						<td class="td_label">Số thứ tự <span class="required"
-							title="Yêu cầu nhập">*</span> :
+						<td class="td_label">Số thứ tự  :
 						</td>
 						<td><input type="text" class="field"
 							name="opEdit.stt" id="opEdit.stt" value="<s:property value="opEdit.stt" />"/> <label

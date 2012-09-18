@@ -16,7 +16,7 @@ import org.json.JSONObject;
 import vms.db.dao.DaoFactory;
 import vms.db.dao.LoaiGiaoTiepDao;
 import vms.db.dto.Account;
-import vms.db.dto.CatalogDTO;
+import vms.db.dto.LoaiGiaoTiepDTO;
 import vms.db.dto.LoaiGiaoTiepDTO;
 import vms.utils.Constances;
 import vms.utils.VMSUtil;
@@ -80,7 +80,7 @@ public class DanhMucLoaiGiaoTiepAction implements Preparable {
 		// xoa
 		// dao.delete(new String[] { "1" });
 		/*
-		 * List<CatalogDTO> lst = dao.get(); for (int i = 0; i < lst.size();
+		 * List<LoaiGiaoTiepDTO> lst = dao.get(); for (int i = 0; i < lst.size();
 		 * i++) { System.out.println(lst.get(i).getName()); }
 		 */
 		if (account == null) {
@@ -141,7 +141,7 @@ public class DanhMucLoaiGiaoTiepAction implements Preparable {
 				id = request.getParameter("id");
 				System.out.println("load edit id=" + id);
 				this.opEdit = (LoaiGiaoTiepDTO) this.lgtDAO.get(id);
-				System.out.println("Cuoc cong="+this.opEdit.getCuocCong());
+				System.out.println("Cuoc cong="+this.opEdit.getCuoccong());
 				System.out.println("finish load edit");
 			} catch (Exception e) {
 				// TODO: handle exception
@@ -163,7 +163,7 @@ public class DanhMucLoaiGiaoTiepAction implements Preparable {
 	public String ajLoadLoaiGiaoTiep() throws JSONException {
 		this.request = ServletActionContext.getRequest();
 		// LoaiGiaoTiepDAO LoaiGiaoTiepDAO = new LoaiGiaoTiepDAO(factory);
-		List<CatalogDTO> lstPhongBan = lgtDAO.get();
+		List<LoaiGiaoTiepDTO> lstPhongBan = lgtDAO.get();
 		String strSearch = this.request.getParameter("sSearch");
 		if (strSearch.isEmpty() == false) {
 			JSONArray arrayJson = (JSONArray) new JSONObject(strSearch)
@@ -180,12 +180,7 @@ public class DanhMucLoaiGiaoTiepAction implements Preparable {
 		List<HashMap<String, Object>> items = new ArrayList<HashMap<String, Object>>();
 		for (int i = 0; i < lstPhongBan.size(); i++) {
 			HashMap<String, Object> map = new HashMap<String, Object>();
-			LoaiGiaoTiepDTO pb = (LoaiGiaoTiepDTO) lstPhongBan.get(i);
-			map.put("stt", i + 1);
-			map.put("id", pb.getId());
-			map.put("name", pb.getName());
-			map.put("cuoccong", pb.getCuocCong());
-			map.put("stt1", pb.getStt());
+			map.putAll(lstPhongBan.get(i).getMap());
 			items.add(map);
 		}
 		// jsonData.put("sEcho",
