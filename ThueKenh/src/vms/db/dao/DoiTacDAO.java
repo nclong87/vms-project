@@ -8,22 +8,23 @@ import java.util.List;
 
 
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
-import vms.db.dto.CatalogDTO;
 import vms.db.dto.DoiTacDTO;
-import vms.db.dto.LoaiGiaoTiep;
 
-public class DoiTacDAO extends CatalogDAO {
+public class DoiTacDAO {
+
+	private JdbcTemplate jdbcTemplate;
 
 	public DoiTacDAO(DaoFactory daoFactory) {
-		super(daoFactory);
+		this.jdbcTemplate=daoFactory.getJdbcTemplate();
 		// TODO Auto-generated constructor stub
 	}
 
 	@SuppressWarnings("unchecked")
-	@Override
-	public List<CatalogDTO> get() {
+	
+	public List<DoiTacDTO> get() {
 		// TODO Auto-generated method stub
 		return this.jdbcTemplate.query(
 				"select * from doitac where deleted = 0", new RowMapper() {
@@ -34,8 +35,8 @@ public class DoiTacDAO extends CatalogDAO {
 				});
 	}
 	@SuppressWarnings("unchecked")
-	@Override
-	public List<CatalogDTO> search(String _strSearch) {
+	
+	public List<DoiTacDTO> search(String _strSearch) {
 		// TODO Auto-generated method stub
 		String sql="select * from doitac where deleted = 0 and tendoitac like '%"+_strSearch+"%'";
 		System.out.println(sql); 
@@ -48,11 +49,11 @@ public class DoiTacDAO extends CatalogDAO {
 				});
 	}
 
-	@Override
-	public CatalogDTO get(String id) {
+	
+	public DoiTacDTO get(String id) {
 		// TODO Auto-generated method stub
 		@SuppressWarnings("unchecked")
-		List<CatalogDTO> lst = this.jdbcTemplate.query(
+		List<DoiTacDTO> lst = this.jdbcTemplate.query(
 				"select * from doitac where deleted = 0 and id=" + id,
 				new RowMapper() {
 					public Object mapRow(ResultSet rs, int rowNum)
@@ -65,10 +66,10 @@ public class DoiTacDAO extends CatalogDAO {
 		return lst.get(0);
 	}
 
-	@Override
-	public boolean insert(CatalogDTO cat) throws SQLException {
+	
+	public boolean insert(DoiTacDTO cat) throws SQLException {
 		// TODO Auto-generated method stub
-		System.out.println("insert doitac:" + cat.getName());
+		System.out.println("insert doitac:" + cat.getTendoitac());
 		
 		try {
 			Connection connection = this.jdbcTemplate.getDataSource()
@@ -82,7 +83,7 @@ public class DoiTacDAO extends CatalogDAO {
 			
 			stmt.setString(1, cat.getId());
 			System.out.println(cat.getId());
-			stmt.setString(2, cat.getName());
+			stmt.setString(2, cat.getTendoitac());
 			stmt.setInt(3, cat.getStt());
 			stmt.setLong(4, 0);
 			System.out.println("***execute***");
@@ -98,16 +99,16 @@ public class DoiTacDAO extends CatalogDAO {
 		}
 	}
 
-	/*@Override
-	public boolean update(String id, CatalogDTO cat) {
+	
+	public boolean update(String id, DoiTacDTO cat) {
 		// TODO Auto-generated method stub
 		DoiTacDTO up = (DoiTacDTO) cat;
-		String sql="update doitac set tendoitac='"+up.getName()+"' where id="+up.getId();
+		String sql="update doitac set stt="+cat.getStt()+",ma='"+cat.getStt()+"' ,tendoitac='"+up.getTendoitac()+"' where id="+up.getId();
 		System.out.println(sql);
 		return this.jdbcTemplate.update(sql) > 0;
-	}*/
+	}
 
-	@Override
+	
 	public boolean delete(String[] ids) {
 
 		// TODO Auto-generated method stub

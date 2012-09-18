@@ -85,8 +85,8 @@ public class PhongBanDao  {
 					.prepareCall("{ call PROC_SAVE_PHONGBAN(?,?,?,?) }");
 			//stmt.registerOutParameter(1, OracleTypes.INTEGER);
 			System.out.println("***BEGIN PROC_SAVE_PHONGBAN***");
-			stmt.setString(1, cat.getId());
 			System.out.println(cat.getId());
+			stmt.setString(1, cat.getId());
 			stmt.setString(2, cat.getTenphongban());
 			stmt.setInt(3, cat.getStt());
 			stmt.setLong(4, 0);

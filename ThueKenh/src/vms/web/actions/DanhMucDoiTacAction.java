@@ -16,7 +16,7 @@ import org.json.JSONObject;
 import vms.db.dao.DaoFactory;
 import vms.db.dao.DoiTacDAO;
 import vms.db.dto.Account;
-import vms.db.dto.CatalogDTO;
+import vms.db.dto.DoiTacDTO;
 import vms.db.dto.DoiTacDTO;
 import vms.utils.Constances;
 import vms.utils.VMSUtil;
@@ -79,7 +79,7 @@ public class DanhMucDoiTacAction implements Preparable {
 		// xoa
 		// dao.delete(new String[] { "1" });
 		/*
-		 * List<CatalogDTO> lst = dao.get(); for (int i = 0; i < lst.size();
+		 * List<DoiTacDTO> lst = dao.get(); for (int i = 0; i < lst.size();
 		 * i++) { System.out.println(lst.get(i).getName()); }
 		 */
 		if(account == null) {
@@ -149,7 +149,7 @@ public class DanhMucDoiTacAction implements Preparable {
 		// DoiTacDAO DoiTacDAO = new DoiTacDAO(factory);
 		
 		
-		List<CatalogDTO> lstkhuvuc = null;
+		List<DoiTacDTO> lstkhuvuc = null;
 		String strSearch=this.request.getParameter("sSearch");
 		if(strSearch.isEmpty() == false) {
 			JSONArray arrayJson = (JSONArray) new JSONObject(strSearch).get("array");
@@ -168,7 +168,7 @@ public class DanhMucDoiTacAction implements Preparable {
 			DoiTacDTO pb = (DoiTacDTO) lstkhuvuc.get(i);
 			map.put("stt", i + 1);
 			map.put("id", pb.getId());
-			map.put("name", pb.getName());
+			map.put("name", pb.getTendoitac());
 			map.put("stt1", pb.getStt());
 			items.add(map);
 		}
