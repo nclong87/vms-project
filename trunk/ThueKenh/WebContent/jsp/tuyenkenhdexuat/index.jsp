@@ -119,7 +119,7 @@ margin-left: 10px;
 										<select name="phongban" id="phongban">
 											<option value="">---Chọn---</option>
 											<s:iterator value="phongBans">
-												<option value='<s:property value="id" />'><s:property value="name" /></option>									
+												<option value='<s:property value="id" />'><s:property value="tenphongban" /></option>									
 											</s:iterator>
 										</select>
 									</td>
@@ -129,6 +129,7 @@ margin-left: 10px;
 									<td align="left">
 										<select name="trangthai" id="trangthai">
 											<option value="">-- Chọn --</option>
+											<option value="-1">Chưa có biên bản đề xuất</option>
 											<option value="0">Đang bàn giao</option>
 											<option value="1">Đã bàn giao</option>
 											<option value="2">Đã có biên bản bàn giao</option>
@@ -174,7 +175,7 @@ margin-left: 10px;
 					<th>Mã điểm cuối</th>
 					<th>Giao tiếp</th>
 					<th>Dung lượng</th>
-					<th>Số lượng</th>
+					<th>Số lượng đề xuất</th>
 					<th width="120px">ĐV nhận kênh</th>
 					<th>Ngày đề nghị BG</th>
 					<th>Ngày hẹn BG</th>

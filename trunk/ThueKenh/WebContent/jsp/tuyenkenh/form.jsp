@@ -84,7 +84,7 @@ function byId(id) { //Viet tat cua ham document.getElementById
 					<select id="phongban_id" name="tuyenKenh.phongban_id">
 						<option value="">---Chọn---</option>
 						<s:iterator value="phongBans">
-							<option value='<s:property value="id" />'><s:property value="name" /></option>									
+							<option value='<s:property value="id" />'><s:property value="tenphongban" /></option>									
 						</s:iterator>
 					</select>
 				</td>
@@ -93,7 +93,7 @@ function byId(id) { //Viet tat cua ham document.getElementById
 					<select id="khuvuc_id" name="tuyenKenh.khuvuc_id">
 						<option value="">---Chọn---</option>
 						<s:iterator value="khuVucDTOs">
-							<option value='<s:property value="id" />'><s:property value="name" /></option>									
+							<option value='<s:property value="id" />'><s:property value="tenkhuvuc" /></option>									
 						</s:iterator>
 					</select>
 				</td>

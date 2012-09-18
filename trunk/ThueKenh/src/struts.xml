@@ -303,6 +303,11 @@
 		<action name="popupSearch" class="tuyenkenhdexuatAction" method="popupSearch">
 			<result>/jsp/tuyenkenhdexuat/popupSearch.jsp</result>
 		</action>
+		<action name="findByDexuat" class="tuyenkenhdexuatAction" method="findByDexuat">
+			<result name="success" type="json">
+				<param name="root">jsonData</param>
+			</result>
+		</action>
 	</package>
 	<package name="suco" extends="default" namespace="/sucokenh">
 		<action name="index" class="sucoAction">

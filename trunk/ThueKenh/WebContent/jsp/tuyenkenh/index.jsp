@@ -120,7 +120,7 @@ margin-left: 10px;
 										<select name="khuvuc" id="khuvuc">
 											<option value="">---Chọn---</option>
 											<s:iterator value="khuVucDTOs">
-												<option value='<s:property value="id" />'><s:property value="name" /></option>									
+												<option value='<s:property value="id" />'><s:property value="tenkhuvuc" /></option>									
 											</s:iterator>
 										</select>
 									</td>
@@ -131,7 +131,7 @@ margin-left: 10px;
 										<select name="phongban" id="phongban">
 											<option value="">---Chọn---</option>
 											<s:iterator value="phongBans">
-												<option value='<s:property value="id" />'><s:property value="name" /></option>									
+												<option value='<s:property value="id" />'><s:property value="tenphongban" /></option>									
 											</s:iterator>
 										</select>
 									</td>

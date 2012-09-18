@@ -125,7 +125,7 @@ public class DanhMucDoiTacAction implements Preparable {
 				this.request = ServletActionContext.getRequest();
 				id =request.getParameter("id");
 				System.out.println("load edit id=" + id);
-				this.opEdit = (DoiTacDTO) this.DoiTacDAO.get(id);
+				this.opEdit =  this.DoiTacDAO.get(id);
 				System.out.println("finish load edit");
 			} catch (Exception e) {
 				// TODO: handle exception
@@ -159,13 +159,13 @@ public class DanhMucDoiTacAction implements Preparable {
 				System.out.println("strSearch="+strSearch);
 			
 		}else
-			lstkhuvuc = DoiTacDAO.get();
+			//lstkhuvuc = DoiTacDAO.get();
 		
 		jsonData = new LinkedHashMap<String, Object>();
 		List<HashMap<String, Object>> items = new ArrayList<HashMap<String, Object>>();
 		for (int i = 0; i < lstkhuvuc.size(); i++) {
 			HashMap<String, Object> map = new HashMap<String, Object>();
-			DoiTacDTO pb = (DoiTacDTO) lstkhuvuc.get(i);
+			DoiTacDTO pb = lstkhuvuc.get(i);
 			map.put("stt", i + 1);
 			map.put("id", pb.getId());
 			map.put("name", pb.getTendoitac());

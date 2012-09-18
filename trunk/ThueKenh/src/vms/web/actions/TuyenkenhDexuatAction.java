@@ -221,6 +221,25 @@ public class TuyenkenhDexuatAction implements Preparable {
 		return Action.SUCCESS;
 	}
 	
+	public String findByDexuat() {
+		jsonData = new LinkedHashMap<String, Object>();
+		try {
+			if(id!= null) {
+				Map<String, String> conditions = new LinkedHashMap<String, String>();
+				conditions.put("dexuat_id", id);
+				TuyenKenhDeXuatDAO tuyenKenhDeXuatDAO = new TuyenKenhDeXuatDAO(daoFactory);
+				List<FIND_TUYENKENHDEXUAT> list = tuyenKenhDeXuatDAO.search(0, 1000, conditions);
+				jsonData.put("result", "OK");
+				jsonData.put("aaData", list);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			jsonData.put("result", "ERROR");
+		}
+		return Action.SUCCESS;
+	}
+	
 	/* Getter and Setter */
 	
 	public MessageStore getMessage() {
@@ -302,6 +321,7 @@ public class TuyenkenhDexuatAction implements Preparable {
 	public void setKhuVucDTOs(List<KhuVucDTO> khuVucDTOs) {
 		this.khuVucDTOs = khuVucDTOs;
 	}
+	
 	public List<PhongBanDTO> getPhongBans() {
 		return phongBans;
 	}

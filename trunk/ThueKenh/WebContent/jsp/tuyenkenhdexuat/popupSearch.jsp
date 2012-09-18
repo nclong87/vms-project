@@ -68,7 +68,7 @@ margin-left: 10px;
 									</td>
 								</tr>
 								</tbody>
-								<tbody id="hidden" style="display:none">
+								<tbody>
 								<tr>
 									<td align="right">Ngày hẹn bàn giao :</td>
 									<td align="left">
@@ -94,6 +94,7 @@ margin-left: 10px;
 									<td align="left">
 										<select name="trangthai" id="trangthai">
 											<option value="">-- Chọn --</option>
+											<option selected=true value="-1">Chưa có biên bản đề xuất</option>
 											<option value="0">Đang bàn giao</option>
 											<option value="1">Đã bàn giao</option>
 											<option value="2">Đã có biên bản bàn giao</option>
@@ -102,14 +103,6 @@ margin-left: 10px;
 								</tr>
 								</tbody>
 								</form>
-								<tbody id="advSearch">
-									<tr>
-										<td></td>
-										<td  align="left" colspan="5">
-											<input type="checkbox" id="chkAdvSearch"><label for="chkAdvSearch">Tìm kiếm nâng cao</label>
-										</td>
-									</tr>
-								</tbody>
 								<tfoot>
 									<td></td>
 									<td align="left">
@@ -141,7 +134,7 @@ margin-left: 10px;
 					<th>Mã điểm cuối</th>
 					<th>Giao tiếp</th>
 					<th>Dung lượng</th>
-					<th>Số lượng</th>
+					<th>Số lượng đề xuất</th>
 					<th width="120px">ĐV nhận kênh</th>
 					<th>Ngày đề nghị BG</th>
 					<th>Ngày hẹn BG</th>
@@ -192,6 +185,7 @@ $(document).ready(function(){
 			$("#btSelect").hide();
 		}
 	});
+	seq = 0;
 	oTable = $('#dataTable').dataTable({
 		"bJQueryUI": true,
 		"bProcessing": true,
@@ -222,6 +216,8 @@ $(document).ready(function(){
 					}
 				],
 		"fnServerData": function ( sSource, aoData, fnCallback ) {
+			seq++;
+			if(seq == 1) return;
 			$.ajax( {
 				"dataType": 'json', 
 				"type": "POST", 
@@ -232,6 +228,7 @@ $(document).ready(function(){
 		},
 		"sPaginationType": "two_button"
 	});
+	doSearch();
 });
 function doClose(){
 	var data = [];
