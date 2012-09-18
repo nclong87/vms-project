@@ -5,6 +5,7 @@
 <s:url action="doSave" namespace="/dexuat" id="doSaveURL" />
 <s:url action="popupSearch" namespace="/tuyenkenh" id="popupSearchURL" />
 <s:url action="doUpload" namespace="/fileupload" id="doUploadURL" />
+<s:url action="findByDexuat" namespace="/tuyenkenhdexuat" id="findByDexuatURL" />
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <%
 	String contextPath = request.getContextPath();
@@ -144,15 +145,20 @@ function doRemoveRow(this_){
 	var row = $(this_).closest("tr").get(0);
 	oTable.fnDeleteRow(oTable.fnGetPosition(row));
 }
+function addRow(stt,data) {
+	oTable.fnAddData([
+		stt,data.tuyenkenh_id,data.madiemdau,data.madiemcuoi,data.loaigiaotiep,data.dungluong,data.soluong,data.ngaydenghibangiao,data.ngayhenbangiao,'<center><input type="text" style="display:none" name="dexuat_ids" value="'+data.id+'" id="dexuat_id_'+data.id+'"/><img title="Remove" src="'+baseUrl+'/images/icons/remove.png" onclick="doRemoveRow(this)" style="cursor:pointer"></center>'
+	]);
+}
 $(document).ready(function() {
 	popup_search_tuyenkenhdexuat.init({
 		afterSelected : function(data) {	
 			var i = 1;
 			$.each(data,function(){
-				oTable.fnAddData([
-					i,this.tuyenkenh_id,this.madiemdau,this.madiemcuoi,this.loaigiaotiep,this.dungluong,this.soluong,this.ngaydenghibangiao,this.ngayhenbangiao,'<center><input type="text" style="display:none" name="dexuat_ids" value="'+this.id+'"/><img title="Remove" src="'+baseUrl+'/images/icons/remove.png" onclick="doRemoveRow(this)" style="cursor:pointer"></center>'
-				]);
-				i++;
+				if($("#dexuat_id_"+this.id).length == 0) {
+					addRow(i,this);
+					i++;
+				}
 			});
 		}
 	}); 
@@ -178,6 +184,7 @@ $(document).ready(function() {
 		}
 	});
 	var form_data = '<s:property value="form_data" escape="false"/>';
+	var dexuat_id = '';
 	if(form_data != '') {
 		var form_data = $.parseJSON(form_data);
 		for( key in form_data) {
@@ -191,17 +198,55 @@ $(document).ready(function() {
 			filepath : form_data["filepath"],
 			filesize : form_data["filesize"]
 		});
+		dexuat_id = form_data['id'];
 	} 
-	oTable = $('#dataTable').dataTable({
-		"bJQueryUI": true,
-		"bProcessing": true,
-		"sScrollY": "500px",
-		"bScrollCollapse": true,
-		"bAutoWidth": false,
-		"bSort":false,
-		"bFilter": false,"bInfo": false,
-		"bPaginate" : false
-	});
+	if(dexuat_id == '') {
+		oTable = $('#dataTable').dataTable({
+			"bJQueryUI": true,
+			"bProcessing": false,
+			"bScrollCollapse": true,
+			"bAutoWidth": true,
+			"bSort":false,
+			"bFilter": false,"bInfo": false,
+			"bPaginate" : false
+		})
+	} else {
+		oTable = $('#dataTable').dataTable({
+			"bJQueryUI": true,
+			"bProcessing": false,
+			"bScrollCollapse": true,
+			"bAutoWidth": true,
+			"bSort":false,
+			"bFilter": false,"bInfo": false,
+			"bPaginate" : false,
+			"sAjaxSource": "${findByDexuatURL}?id="+dexuat_id,
+			"aoColumns": null,
+			"fnServerData": function ( sSource, aoData, fnCallback ) {
+				$.ajax( {
+					"dataType": 'json', 
+					"type": "POST", 
+					"url": sSource, 
+					"data": aoData, 
+					"success": function(response){
+						if(response.result == "ERROR") {
+							alert("Lỗi kết nối server, vui lòng thử lại.");
+						} else {
+							if(response.aaData.length != 0) {
+								var i = 0;
+								$.each(response.aaData,function(){
+									addRow(i,this);
+									i++;
+								});
+							} else {
+								oTable.fnAddData([0,'','','','','','','','','']);
+								oTable.fnDeleteRow(0);
+							}
+						}
+					}
+				} );
+			},
+		});
+	}
 	$(document).delegate("#btSubmit","click",function() {
 		var button = this;
 		button.disabled = true;

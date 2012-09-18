@@ -82,7 +82,7 @@ margin-left: 10px;
 									<td align="left">
 										<select name="trangthai" id="trangthai">
 											<option value="">-- Chọn --</option>
-											<option value="0">Đang bàn giao</option>
+											<option value="0" >Đang bàn giao</option>
 											<option value="1">Đã bàn giao</option>
 										</select>
 									</td>
@@ -146,6 +146,7 @@ function doSearch() {
 	var dat = "{'array':"+stringify(frm.serializeArray())+"}";
 	oTable.fnFilter(dat);
 }
+var seq = 0;
 $(document).ready(function(){	 
 	$( "input.date" ).datepicker({
 		showButtonPanel: true,
@@ -225,6 +226,8 @@ $(document).ready(function(){
 					}
 				],
 		"fnServerData": function ( sSource, aoData, fnCallback ) {
+			seq++;
+			if(seq == 1) return;
 			$.ajax( {
 				"dataType": 'json', 
 				"type": "POST", 
@@ -235,5 +238,6 @@ $(document).ready(function(){
 		},
 		"sPaginationType": "two_button"
 	});
+	doSearch();
 });
 </script>

@@ -3,7 +3,6 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <s:url action="index" namespace="/login" var="loginURL" />
 <s:url action="doSave" namespace="/tuyenkenhdexuat" id="doSaveURL" />
-<s:url action="popupSearch" namespace="/tuyenkenh" id="popupSearchURL" />
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <%
 	String contextPath = request.getContextPath();
@@ -12,12 +11,6 @@
 <head>
 <link rel="stylesheet" href="<%= contextPath %>/css/addedit.css" type="text/css" media="screen" />
 <link rel="stylesheet" href="<%= contextPath %>/css/cupertino/jquery-ui.css" type="text/css" media="screen" />
-<script type='text/javascript' src='<%= contextPath %>/js/jquery.js'></script>
-<script type='text/javascript' src='<%= contextPath %>/js/jquery-ui.js'></script>
-<script type="text/javascript" src="<%=contextPath%>/js/jquery.validate.js"></script>
-<script type="text/javascript" src="<%=contextPath%>/js/mylibs/my.validate.js"></script>
-<script type="text/javascript" src="<%=contextPath%>/js/mylibs/popup_search_tuyenkenh.js"></script>
-<script type="text/javascript" src="<%=contextPath%>/js/jquery-ui/jquery.ui.datepicker-vi.js"></script>
 <script>
 var contextPath = '<%= contextPath %>';
 var baseUrl = contextPath;
@@ -25,6 +18,12 @@ function byId(id) { //Viet tat cua ham document.getElementById
 	return document.getElementById(id);
 }
 </script>
+<script type='text/javascript' src='<%= contextPath %>/js/jquery.js'></script>
+<script type='text/javascript' src='<%= contextPath %>/js/jquery-ui.js'></script>
+<script type="text/javascript" src="<%=contextPath%>/js/jquery.validate.js"></script>
+<script type="text/javascript" src="<%=contextPath%>/js/mylibs/my.validate.js"></script>
+<script type="text/javascript" src="<%=contextPath%>/js/mylibs/popup_search_tuyenkenh.js"></script>
+<script type="text/javascript" src="<%=contextPath%>/js/jquery-ui/jquery.ui.datepicker-vi.js"></script>
 <style>
 </style>
 </head>
@@ -83,7 +82,7 @@ function byId(id) { //Viet tat cua ham document.getElementById
 					<select id="phongban_id" name="tuyenKenh.phongban_id">
 						<option value="">---Chọn---</option>
 						<s:iterator value="phongBans">
-							<option value='<s:property value="id" />'><s:property value="name" /></option>									
+							<option value='<s:property value="id" />'><s:property value="tenphongban" /></option>									
 						</s:iterator>
 					</select>
 				</td>
@@ -92,7 +91,7 @@ function byId(id) { //Viet tat cua ham document.getElementById
 					<select id="khuvuc_id" name="tuyenKenh.khuvuc_id">
 						<option value="">---Chọn---</option>
 						<s:iterator value="khuVucDTOs">
-							<option value='<s:property value="id" />'><s:property value="name" /></option>									
+							<option value='<s:property value="id" />'><s:property value="tenkhuvuc" /></option>									
 						</s:iterator>
 					</select>
 				</td>
