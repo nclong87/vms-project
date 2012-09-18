@@ -28,6 +28,7 @@ import vms.db.dto.DuAnDTO;
 import vms.db.dto.KhuVucDTO;
 import vms.db.dto.LoaiGiaoTiep;
 import vms.db.dto.PhongBan;
+import vms.db.dto.PhongBanDTO;
 import vms.db.dto.TuyenKenh;
 import vms.db.dto.TuyenKenhDeXuatDTO;
 import vms.utils.Constances;
@@ -57,7 +58,7 @@ public class TuyenkenhDexuatAction implements Preparable {
 	private List<LoaiGiaoTiep> loaiGiaoTieps;
 	private List<DuAnDTO> duAnDTOs;
 	private List<KhuVucDTO> khuVucDTOs;
-	private List<PhongBan> phongBans;
+	private List<PhongBanDTO> phongBans;
 	private String id;
 	private String[] ids;
 	public TuyenkenhDexuatAction( DaoFactory factory) {
@@ -301,10 +302,10 @@ public class TuyenkenhDexuatAction implements Preparable {
 	public void setKhuVucDTOs(List<KhuVucDTO> khuVucDTOs) {
 		this.khuVucDTOs = khuVucDTOs;
 	}
-	public List<PhongBan> getPhongBans() {
+	public List<PhongBanDTO> getPhongBans() {
 		return phongBans;
 	}
-	public void setPhongBans(List<PhongBan> phongBans) {
+	public void setPhongBans(List<PhongBanDTO> phongBans) {
 		this.phongBans = phongBans;
 	}
 	public TuyenKenh getTuyenKenh() {
