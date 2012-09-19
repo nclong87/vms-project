@@ -81,15 +81,18 @@ public class TieuChuanDAO{
 					.getConnection();
 			
 			CallableStatement stmt = connection
-					.prepareCall("{ call PROC_SAVE_TIEUCHUAN(?,?,?,?,?) }");
+					.prepareCall("{ call PROC_SAVE_TIEUCHUAN(?,?,?,?,?,?,?,?) }");
 			//stmt.registerOutParameter(1, OracleTypes.INTEGER);
 			System.out.println("***BEGIN PROC_SAVE_TIEUCHUAN***");
 			System.out.println(cat.getId());
-			stmt.setString(1, cat.getId());
-			stmt.setString(2, cat.getTentieuchuan());
-			stmt.setInt(3, cat.getStt());
-			stmt.setLong(4, 0);
-			stmt.setString(5, cat.getMa());
+			stmt.setString(1, cat.getId());//				1 id_ in varchar2,
+			stmt.setString(2, cat.getTentieuchuan());//		2 tentieuchuan_ in varchar2,
+			stmt.setString(3, cat.getLoaitieuchuan());//	3 loaitieuchuan_ in number,
+			stmt.setString(4, cat.getMota());//				4 mota_ in varchar2,
+			stmt.setString(5, cat.getUsercreate());//		5 usercreate_ in varchar2,
+			stmt.setLong(6, cat.getStt());//				6 stt_ in number,
+			stmt.setLong(7, cat.getDeleted());//			7 deleted_ in number,
+			stmt.setString(8, cat.getMa());//				8 ma_ in varchar2
 			System.out.println("***execute***");
 			stmt.execute();
 			stmt.close();
@@ -105,8 +108,9 @@ public class TieuChuanDAO{
 	
 	public boolean update(String id, TieuChuanDTO cat) {
 		// TODO Auto-generated method stub
+		
 		TieuChuanDTO up = (TieuChuanDTO) cat;
-		String sql = "update tieuchuan set ma='"+cat.getMa()+"' ,stt="+up.getStt()+", tentieuchuan='" + up.getTentieuchuan()+ "' where id=" + up.getId();
+		String sql = "update tieuchuan set usercreate='"+cat.getUsercreate()+"',mota='"+cat.getMota()+"',loaitieuchuan='"+cat.getLoaitieuchuan()+"' ,ma='"+cat.getMa()+"' ,stt="+up.getStt()+", tentieuchuan='" + up.getTentieuchuan()+ "' where id=" + up.getId();
 		System.out.println(sql);
 		return this.jdbcTemplate.update(sql) > 0;
 	}
