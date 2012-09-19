@@ -16,7 +16,7 @@ import org.json.JSONObject;
 import vms.db.dao.DaoFactory;
 import vms.db.dao.DuAnDAO;
 import vms.db.dto.Account;
-import vms.db.dto.CatalogDTO;
+import vms.db.dto.DuAnDTO;
 import vms.db.dto.DuAnDTO;
 import vms.utils.Constances;
 import vms.utils.VMSUtil;
@@ -79,7 +79,7 @@ public class DanhMucDuAnAction implements Preparable {
 		// xoa
 		// dao.delete(new String[] { "1" });
 		/*
-		 * List<CatalogDTO> lst = dao.get(); for (int i = 0; i < lst.size();
+		 * List<DuAnDTO> lst = dao.get(); for (int i = 0; i < lst.size();
 		 * i++) { System.out.println(lst.get(i).getName()); }
 		 */
 		if(account == null) {
@@ -148,7 +148,7 @@ public class DanhMucDuAnAction implements Preparable {
 		// DuAnDAO DuAnDAO = new DuAnDAO(factory);
 		String strSearch=this.request.getParameter("sSearch");
 		
-		List<CatalogDTO> lst = DuAnDAO.get();
+		List<DuAnDTO> lst = DuAnDAO.get();
 		System.out.println("So du an: "+lst.size());
 		if(strSearch.isEmpty() == false) {
 			JSONArray arrayJson = (JSONArray) new JSONObject(strSearch).get("array");
@@ -164,14 +164,7 @@ public class DanhMucDuAnAction implements Preparable {
 		for (int i = 0; i < lst.size(); i++) {
 			HashMap<String, Object> map = new HashMap<String, Object>();
 			DuAnDTO pb = (DuAnDTO) lst.get(i);
-			map.put("stt", i + 1);
-			map.put("id", pb.getId());
-			map.put("name", pb.getTenduan());
-			map.put("mota", pb.getMota());
-			map.put("giamgia", pb.getGiamgia());
-			map.put("nguoitao", pb.getUsercreate());
-			map.put("thoigian", pb.getTimecreate());
-			map.put("stt1", pb.getStt());
+			map.putAll(pb.getMap());
 			items.add(map);
 		}
 		// jsonData.put("sEcho",

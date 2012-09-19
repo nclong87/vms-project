@@ -14,17 +14,15 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import vms.db.dao.DaoFactory;
-import vms.db.dao.CongThucDAO;
 import vms.db.dto.Account;
-import vms.db.dto.CongThucDTO;
-import vms.db.dto.CongThucDTO;
+import vms.db.dto.TieuChuanDTO;
 import vms.utils.Constances;
 import vms.utils.VMSUtil;
 
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.Preparable;
 
-public class DanhMucCongThucAction implements Preparable {
+public class DanhMucTieuChuanAction implements Preparable {
 
 	private LinkedHashMap<String, Object> jsonData;
 
@@ -34,15 +32,15 @@ public class DanhMucCongThucAction implements Preparable {
 
 	private HttpServletRequest request;
 
-	private CongThucDAO congThucDAO;
+	private vms.db.dao.TieuChuanDAO TieuChuanDAO;
 
-	private CongThucDTO opEdit;
+	private TieuChuanDTO opEdit;
 
-	public CongThucDTO getOpEdit() {
+	public TieuChuanDTO getOpEdit() {
 		return opEdit;
 	}
 
-	public void setOpEdit(CongThucDTO opEdit) {
+	public void setOpEdit(TieuChuanDTO opEdit) {
 		this.opEdit = opEdit;
 	}
 
@@ -69,18 +67,18 @@ public class DanhMucCongThucAction implements Preparable {
 				.getAttribute(Constances.SESS_USERLOGIN);
 	}
 
-	public DanhMucCongThucAction(DaoFactory factory) {
+	public DanhMucTieuChuanAction(DaoFactory factory) {
 		this.factory = factory;
-		this.congThucDAO = new CongThucDAO(factory);
+		this.TieuChuanDAO = new vms.db.dao.TieuChuanDAO(factory);
 		this.jsonData = new LinkedHashMap<String, Object>();
 	}
 
 	public String index() {
-		// CongThucDAO dao = new CongThucDAO(factory);
+		// TieuChuanDao dao = new TieuChuanDao(factory);
 		// xoa
 		// dao.delete(new String[] { "1" });
 		/*
-		 * List<CongThucDTO> lst = dao.get(); for (int i = 0; i < lst.size();
+		 * List<TieuChuanDTO> lst = dao.get(); for (int i = 0; i < lst.size();
 		 * i++) { System.out.println(lst.get(i).getName()); }
 		 */
 		if (account == null) {
@@ -96,9 +94,8 @@ public class DanhMucCongThucAction implements Preparable {
 		String strIds = request.getParameter("ids");
 		System.out.println(strIds);
 		jsonData = new LinkedHashMap<String, Object>();
-		isDeleted = this.congThucDAO.delete(strIds.split(","));
+		isDeleted = this.TieuChuanDAO.delete(strIds.split(","));
 		jsonData.put("isDeleted", isDeleted);
-
 		return Action.SUCCESS;
 	}
 
@@ -110,9 +107,9 @@ public class DanhMucCongThucAction implements Preparable {
 			// edit
 			
 			System.out.println("edit mode id=" + this.opEdit.getId());
-			if (this.opEdit.getId() != "") {
+			if (!this.opEdit.getId().isEmpty()) {
 				System.out.println("Begin Edit");
-				if (this.congThucDAO.update(this.opEdit.getId(), this.opEdit)) {
+				if (this.TieuChuanDAO.update(this.opEdit.getId(), this.opEdit)) {
 					this.flag = "1";// updated
 					System.out.println("Cập nhật thành công");
 				} else {
@@ -122,7 +119,7 @@ public class DanhMucCongThucAction implements Preparable {
 			} else {
 				// new
 				System.out.println("Begin New");
-				if(this.congThucDAO.insert(this.opEdit)){
+				if(this.TieuChuanDAO.insert(this.opEdit)){
 					this.flag = "1";// updated
 					System.out.println("Thêm thành công");
 				}else{
@@ -139,7 +136,7 @@ public class DanhMucCongThucAction implements Preparable {
 				this.request = ServletActionContext.getRequest();
 				id = request.getParameter("id");
 				System.out.println("load edit id=" + id);
-				this.opEdit = (CongThucDTO) this.congThucDAO.get(id);
+				this.opEdit = (TieuChuanDTO) this.TieuChuanDAO.get(id);
 				System.out.println("finish load edit");
 			} catch (Exception e) {
 				// TODO: handle exception
@@ -158,34 +155,34 @@ public class DanhMucCongThucAction implements Preparable {
 		this.request = request;
 	}
 
-	public String ajLoadCongThuc() throws JSONException {
+	public String ajLoadTieuChuan() throws JSONException {
 		this.request = ServletActionContext.getRequest();
-		// CongThucDAO CongThucDAO = new CongThucDAO(factory);
-		List<CongThucDTO> lstCongThuc = congThucDAO.get();
+		// TieuChuanDao TieuChuanDAO = new TieuChuanDao(factory);
+		List<TieuChuanDTO> lstTieuChuan = TieuChuanDAO.get();
 		String strSearch = this.request.getParameter("sSearch");
 		if (strSearch.isEmpty() == false) {
 			JSONArray arrayJson = (JSONArray) new JSONObject(strSearch)
 					.get("array");
 
 			String name = arrayJson.getJSONObject(0).getString("value");
-			lstCongThuc = congThucDAO.search(name);
+			lstTieuChuan = TieuChuanDAO.search(name);
 			System.out.println("strSearch=" + strSearch);
 
 		} else
-			lstCongThuc = congThucDAO.get();
-
+			lstTieuChuan = TieuChuanDAO.get();
+//asd
 		jsonData = new LinkedHashMap<String, Object>();
 		List<HashMap<String, Object>> items = new ArrayList<HashMap<String, Object>>();
-		for (int i = 0; i < lstCongThuc.size(); i++) {
+		for (int i = 0; i < lstTieuChuan.size(); i++) {
 			HashMap<String, Object> map = new HashMap<String, Object>();
-			CongThucDTO pb = lstCongThuc.get(i);
+			TieuChuanDTO pb = lstTieuChuan.get(i);
 			map.putAll(pb.getMap());
 			items.add(map);
 		}
 		// jsonData.put("sEcho",
 		// Integer.parseInt(request.getParameter("sEcho")));
-		jsonData.put("iTotalRecords", lstCongThuc.size());
-		jsonData.put("iTotalDisplayRecords", lstCongThuc.size());
+		jsonData.put("iTotalRecords", lstTieuChuan.size());
+		jsonData.put("iTotalDisplayRecords", lstTieuChuan.size());
 		jsonData.put("aaData", items);
 
 		return Action.SUCCESS;

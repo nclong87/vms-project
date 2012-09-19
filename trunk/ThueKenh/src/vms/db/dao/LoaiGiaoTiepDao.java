@@ -13,7 +13,6 @@ import org.springframework.jdbc.core.RowMapper;
 
 import vms.db.dto.LoaiGiaoTiepDTO;
 import vms.db.dto.LoaiGiaoTiep;
-import vms.db.dto.LoaiGiaoTiepDTO;
 
 public class LoaiGiaoTiepDao {
 
@@ -91,7 +90,7 @@ public class LoaiGiaoTiepDao {
 					.getConnection();
 			
 			CallableStatement stmt = connection
-					.prepareCall("{ call PROC_SAVE_LOAIGIAOTIEP(?,?,?,?,?) }");
+					.prepareCall("{ call PROC_SAVE_LOAIGIAOTIEP(?,?,?,?,?,?) }");
 			//stmt.registerOutParameter(1, OracleTypes.INTEGER);
 			System.out.println("***BEGIN PROC_SAVE_LOAIGIAOTIEP***"+loaigiaotiep.getCuoccong());
 			stmt.setString(1, loaigiaotiep.getId());
@@ -99,7 +98,8 @@ public class LoaiGiaoTiepDao {
 			stmt.setString(2, loaigiaotiep.getLoaigiaotiep());
 			stmt.setLong(3, loaigiaotiep.getCuoccong());
 			stmt.setLong(4, 0);//is deleted
-			stmt.setString(5, loaigiaotiep.getMa());//is deleted
+			stmt.setString(5, loaigiaotiep.getMa());
+			stmt.setInt(6, loaigiaotiep.getStt());
 			System.out.println("***execute***");
 			stmt.execute();
 			stmt.close();
@@ -122,7 +122,7 @@ public class LoaiGiaoTiepDao {
 					.getConnection();
 			
 			CallableStatement stmt = connection
-					.prepareCall("{ call PROC_SAVE_LOAIGIAOTIEP(?,?,?,?,?) }");
+					.prepareCall("{ call PROC_SAVE_LOAIGIAOTIEP(?,?,?,?,?,?) }");
 			//stmt.registerOutParameter(1, OracleTypes.INTEGER);
 			System.out.println("***BEGIN PROC_SAVE_LOAIGIAOTIEP***"+loaigiaotiep.getCuoccong());
 			stmt.setString(1, loaigiaotiep.getId());
@@ -130,7 +130,8 @@ public class LoaiGiaoTiepDao {
 			stmt.setString(2, loaigiaotiep.getLoaigiaotiep());
 			stmt.setLong(3, loaigiaotiep.getCuoccong());
 			stmt.setLong(4, 0);//is deleted
-			stmt.setString(5, loaigiaotiep.getMa());//is deleted
+			stmt.setString(5, loaigiaotiep.getMa());
+			stmt.setInt(6, loaigiaotiep.getStt());
 			System.out.println("***execute***");
 			stmt.execute();
 			stmt.close();

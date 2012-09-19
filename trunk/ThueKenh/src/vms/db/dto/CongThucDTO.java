@@ -1,56 +1,93 @@
 package vms.db.dto;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
-public class CongThucDTO extends CatalogDTO {
-	public CongThucDTO(ResultSet rs) {
-		super(rs);
-		try {
-			setChoiCongThuc(rs.getString("chuoicongthuc"));
-			setName(rs.getString("tencongthuc"));
-			setSTT(rs.getInt("stt"));
-			setTimeCreate(rs.getString("timecreate"));
-			setUserCreate(rs.getString("usercreate"));
-		} catch (Exception e) {
-			// TODO: handle exception
-			System.out.println("Khong tao dc doi tuong CONGTHUC");
-		}
+public class CongThucDTO {
+	private String id;
+	private String tencongthuc;
+	private String chuoicongthuc;
+	private String usercreate;
+	private String timecreate;
+	private Integer stt;
+	private Integer deleted;
+	
+	public static CongThucDTO mapObject(ResultSet rs) throws SQLException {
+		CongThucDTO dto = new CongThucDTO();
+		dto.setId(rs.getString("ID"));
+		dto.setTencongthuc(rs.getString("TENCONGTHUC"));
+		dto.setChuoicongthuc(rs.getString("CHUOICONGTHUC"));
+		dto.setUsercreate(rs.getString("USERCREATE"));
+		dto.setTimecreate(rs.getString("TIMECREATE"));
+		dto.setStt(rs.getInt("STT"));
+		dto.setMa(rs.getString("MA"));
+		dto.setDeleted(rs.getInt("DELETED"));
+        return dto;
 	}
-
-	private String ChoiCongThuc;
-	private String UserCreate;
-	private String TimeCreate;
-	private int STT;
-
-	public String getChoiCongThuc() {
-		return ChoiCongThuc;
+	
+	public Map<String,String> getMap() {
+		Map<String, String> map = new LinkedHashMap<String, String>();
+		map.put("ID", this.id);
+		map.put("TENCONGTHUC", this.tencongthuc);
+		map.put("STT", this.stt.toString());
+		map.put("MA", this.ma);
+		map.put("DELETED", this.deleted.toString());
+		map.put("CHUOICONGTHUC", this.chuoicongthuc);
+		map.put("USERCREATE", this.usercreate);
+		map.put("TIMECREATE", this.timecreate);
+		return map;
 	}
-
-	public void setChoiCongThuc(String choiCongThuc) {
-		ChoiCongThuc = choiCongThuc;
+	
+	
+	public String getId() {
+		return id;
 	}
-
-	public String getUserCreate() {
-		return UserCreate;
+	public void setId(String id) {
+		this.id = id;
 	}
-
-	public void setUserCreate(String userCreate) {
-		UserCreate = userCreate;
+	public String getTencongthuc() {
+		return tencongthuc;
 	}
-
-	public String getTimeCreate() {
-		return TimeCreate;
+	public void setTencongthuc(String tencongthuc) {
+		this.tencongthuc = tencongthuc;
 	}
-
-	public void setTimeCreate(String timeCreate) {
-		TimeCreate = timeCreate;
+	public String getChuoicongthuc() {
+		return chuoicongthuc;
 	}
-
-	public int getSTT() {
-		return STT;
+	public void setChuoicongthuc(String chuoicongthuc) {
+		this.chuoicongthuc = chuoicongthuc;
 	}
-
-	public void setSTT(int sTT) {
-		STT = sTT;
+	public String getUsercreate() {
+		return usercreate;
 	}
+	public void setUsercreate(String usercreate) {
+		this.usercreate = usercreate;
+	}
+	public String getTimecreate() {
+		return timecreate;
+	}
+	public void setTimecreate(String timecreate) {
+		this.timecreate = timecreate;
+	}
+	public Integer getStt() {
+		return stt;
+	}
+	public void setStt(Integer stt) {
+		this.stt = stt;
+	}
+	public Integer getDeleted() {
+		return deleted;
+	}
+	public void setDeleted(Integer deleted) {
+		this.deleted = deleted;
+	}
+	public String getMa() {
+		return ma;
+	}
+	public void setMa(String ma) {
+		this.ma = ma;
+	}
+	private String ma;
 }

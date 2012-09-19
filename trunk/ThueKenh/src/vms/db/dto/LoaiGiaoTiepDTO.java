@@ -14,6 +14,18 @@ public class LoaiGiaoTiepDTO{
 
 	private Long cuoccong;
 	
+	private Integer stt;
+	
+	public Integer getStt() {
+		return stt;
+	}
+
+
+
+	public void setStt(Integer stt) {
+		this.stt = stt;
+	}
+
 	private String ma;
 
 	
@@ -78,6 +90,7 @@ public class LoaiGiaoTiepDTO{
 	public Map<String,String> getMap() {
 		Map<String, String> map = new LinkedHashMap<String, String>();
 		map.put("ID", this.getId());
+		map.put("STT", this.stt.toString());
 		map.put("LOAIGIAOTIEP", this.getLoaigiaotiep());
 		map.put("CUOCCONG", this.getCuoccong().toString());
 		map.put("DELETED", this.deleted.toString());
@@ -85,13 +98,14 @@ public class LoaiGiaoTiepDTO{
 		return map;
 	}
 	
-	public static LoaiGiaoTiep mapObject(ResultSet rs) throws SQLException {
-		LoaiGiaoTiep dto = new LoaiGiaoTiep();
+	public static LoaiGiaoTiepDTO mapObject(ResultSet rs) throws SQLException {
+		LoaiGiaoTiepDTO dto = new LoaiGiaoTiepDTO();
 		dto.setId(rs.getString("ID"));
 		dto.setLoaigiaotiep(rs.getString("LOAIGIAOTIEP"));
 		dto.setCuoccong(rs.getLong("CUOCCONG"));
 		dto.setDeleted(rs.getInt("DELETED"));
 		dto.setMa(rs.getString("MA"));
+		dto.setStt(rs.getInt("STT"));
         return dto;
 	}
 
