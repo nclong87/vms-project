@@ -5,13 +5,41 @@ import java.sql.SQLException;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class DuAnDTO extends CatalogDTO{
+public class DuAnDTO{
 	private String tenduan;
 	private String mota;
 	private Integer giamgia;
 	private String usercreate;
 	private String timecreate;
+	private String ma;
+	private String id;
+	private Integer stt;
+	private Integer deleted;
 	
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public Integer getStt() {
+		return stt;
+	}
+
+	public void setStt(Integer stt) {
+		this.stt = stt;
+	}
+
+	public Integer getDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(Integer deleted) {
+		this.deleted = deleted;
+	}
+
 	public String getMota() {
 		return mota;
 	}
@@ -62,6 +90,7 @@ public class DuAnDTO extends CatalogDTO{
 		map.put("TIMECREATE", this.timecreate);
 		map.put("STT", this.stt.toString());
 		map.put("DELETED", this.deleted.toString());
+		map.put("MA", this.ma);
 		return map;
 	}
 	
@@ -70,14 +99,22 @@ public class DuAnDTO extends CatalogDTO{
 		DuAnDTO dto = new DuAnDTO();
 		dto.setId(rs.getString("ID"));
 		dto.setTenduan(rs.getString("TENDUAN"));
-		dto.setName(rs.getString("TENDUAN"));
 		dto.setMota(rs.getString("MOTA"));
 		dto.setGiamgia(rs.getInt("GIAMGIA"));
 		dto.setUsercreate(rs.getString("USERCREATE"));
 		dto.setTimecreate(rs.getString("TIMECREATE"));
 		dto.setStt(rs.getInt("STT"));
 		dto.setDeleted(rs.getInt("DELETED"));
+		dto.setMa(rs.getString("MA"));
 		//System.out.println("map duanDTO end");
         return dto;
+	}
+
+	public String getMa() {
+		return ma;
+	}
+
+	public void setMa(String ma) {
+		this.ma = ma;
 	}
 }

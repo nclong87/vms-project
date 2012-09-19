@@ -166,10 +166,7 @@ public class DanhMucDoiTacAction implements Preparable {
 		for (int i = 0; i < lstkhuvuc.size(); i++) {
 			HashMap<String, Object> map = new HashMap<String, Object>();
 			DoiTacDTO pb = lstkhuvuc.get(i);
-			map.put("stt", i + 1);
-			map.put("id", pb.getId());
-			map.put("name", pb.getTendoitac());
-			map.put("stt1", pb.getStt());
+			map.putAll(pb.getMap());
 			items.add(map);
 		}
 		// jsonData.put("sEcho",

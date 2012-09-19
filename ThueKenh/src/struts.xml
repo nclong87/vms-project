@@ -88,7 +88,7 @@
 				<param name="root">jsonData</param>
 			</result>
 		</action>
-		<action name="deleteCongthuc" class="congthucAction" method="delete">
+		<action name="deleteCongThuc" class="congthucAction" method="delete">
 			<result name="success" type="json">
 				<param name="root">jsonData</param>
 			</result>
@@ -151,6 +151,24 @@
 			<result name="success">/jsp/danhmuc/duan/form.jsp</result>
 		</action>
 		<!-- kết thúc dự án -->
+		<!-- khai báo tiêu chuẩn -->
+		<action name="tieuchuan" class="tieuchuanAction" method="index">
+			<result name="success">/jsp/danhmuc/tieuchuan/index.jsp</result>
+		</action>
+		<action name="ajLoadTieuChuan" class="tieuchuanAction" method="ajLoadTieuChuan">
+			<result name="success" type="json">
+				<param name="root">jsonData</param>
+			</result>
+		</action>
+		<action name="deletetieuchuan" class="tieuchuanAction" method="delete">
+			<result name="success" type="json">
+				<param name="root">jsonData</param>
+			</result>
+		</action>
+		<action name="edittieuchuan" class="tieuchuanAction" method="edit">
+			<result name="success">/jsp/danhmuc/tieuchuan/form.jsp</result>
+		</action>
+		<!-- kết thúc tiêu chuẩn -->
 	</package>
 	<package name="login" extends="default" namespace="/login">
 		<action name="index" class="loginAction">

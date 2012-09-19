@@ -87,9 +87,16 @@ input.error,select.error,textarea.error {
 						<td class="td_label">Tên đối tác<span class="required"
 							title="Yêu cầu nhập">*</span> :
 						</td>
-						<td><input type="text" class="field" name="opEdit.name"
-							id="opEdit.name" value="<s:property value="opEdit.name" />"/> <label style="display: none"
-							for="opEdit.name" generated="false" class="error"></label></td>
+						<td><input type="text" class="field" name="opEdit.tendoitac"
+							id="opEdit.tendoitac" value="<s:property value="opEdit.tendoitac" />"/> <label style="display: none"
+							for="opEdit.tendoitac" generated="false" class="error"></label></td>
+					</tr>
+					
+					<tr>
+						<td class="td_label">Mã :</td>
+						<td><input type="text" class="field" name="opEdit.ma"
+							id="opEdit.Ma" value="<s:property value="opEdit.ma" />"/> <label style="display: none"
+							for="opEdit.Ma" generated="false" class="error"></label></td>
 					</tr>
 
 					<tr>

@@ -96,9 +96,9 @@
 			<table width="100%" id="dataTable" class="display">
 				<thead>
 					<tr>
-						<th width="5%">#</th>
 						<th width="5%">STT</th>
 						<th width="5%">ID</th>
+						<th width="5%">Mã</th>
 						<th>Tên dự án</th>
 						<th>Mô tả</th>
 						<th>Giảm giá</th>
@@ -289,44 +289,45 @@
 											"sAjaxSource" : "${ajLoadData}",
 											"aoColumns" : [
 													{
-														"mDataProp" : "stt",
-														"bSortable" : false,
-														"bSearchable" : false
-													},
-													{
-														"mDataProp" : "stt1",
+														"mDataProp" : "STT",
 														"bSortable" : false,
 														"bSearchable" : false,
 														"sClass" : 'td_center'
 													},
 													{
-														"mDataProp" : "id",
+														"mDataProp" : "ID",
 														"bSortable" : false,
 														"bSearchable" : false,
 														"sClass" : 'td_center'
 													},
 													{
-														"mDataProp" : "name",
+														"mDataProp" : "MA",
+														"bSortable" : false,
+														"bSearchable" : false,
+														"sClass" : 'td_center'
+													},
+													{
+														"mDataProp" : "TENDUAN",
 														"bSortable" : false,
 														"bSearchable" : false
 													},
 													{
-														"mDataProp" : "mota",
+														"mDataProp" : "MOTA",
 														"bSortable" : false,
 														"bSearchable" : false
 													},
 													{
-														"mDataProp" : "giamgia",
+														"mDataProp" : "GIAMGIA",
 														"bSortable" : false,
 														"bSearchable" : false
 													},
 													{
-														"mDataProp" : "nguoitao",
+														"mDataProp" : "USERCREATE",
 														"bSortable" : false,
 														"bSearchable" : false
 													},
 													{
-														"mDataProp" : "thoigian",
+														"mDataProp" : "TIMECREATE",
 														"bSortable" : false,
 														"bSearchable" : false
 													},
@@ -337,7 +338,7 @@
 														"fnRender" : function(
 																oObj) {
 															return '<center><a class="edit_icon" onclick="doEdit(\'${formURL}?id='
-																	+ oObj.aData.id
+																	+ oObj.aData.ID
 																	+ '\')" title="Edit" href="#"></a></center>';
 														}
 													},
@@ -347,7 +348,7 @@
 														"bSearchable" : false,
 														"fnRender" : function(
 																oObj) {
-															return '<center><input type="checkbox" value="'+oObj.aData.id+'"/></center>';
+															return '<center><input type="checkbox" value="'+oObj.aData.ID+'"/></center>';
 														}
 													} ],
 											"fnServerData" : function(sSource,

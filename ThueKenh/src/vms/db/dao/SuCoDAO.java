@@ -2,17 +2,10 @@ package vms.db.dao;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 import javax.sql.DataSource;
 import oracle.jdbc.OracleTypes;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import vms.db.dto.SuCoDTO;
-import vms.db.dto.TuyenKenh;
 
 public class SuCoDAO {
 	private JdbcTemplate jdbcTemplate;

@@ -6,59 +6,66 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
-import vms.db.dto.DoiTacDTO;
+import vms.db.dto.TieuChuanDTO;
 
-public class DoiTacDAO {
+public class TieuChuanDAO{
 
 	private JdbcTemplate jdbcTemplate;
-
-	public DoiTacDAO(DaoFactory daoFactory) {
+	public TieuChuanDAO(DaoFactory daoFactory) {
 		this.jdbcTemplate=daoFactory.getJdbcTemplate();
 		// TODO Auto-generated constructor stub
 	}
 
 	@SuppressWarnings("unchecked")
-	
-	public List<DoiTacDTO> get() {
-		// TODO Auto-generated method stub
+	public List<TieuChuanDTO> getAll() {
 		return this.jdbcTemplate.query(
-				"select * from doitac where deleted = 0", new RowMapper() {
+				"select * from tieuchuan where deleted = 0 order by stt", new RowMapper() {
 					public Object mapRow(ResultSet rs, int rowNum)
 							throws SQLException {
-						return DoiTacDTO.mapObject(rs);
-					}
-				});
-	}
-	@SuppressWarnings("unchecked")
-	
-	public List<DoiTacDTO> search(String _strSearch) {
-		// TODO Auto-generated method stub
-		String sql="select * from doitac where deleted = 0 and tendoitac like '%"+_strSearch+"%'";
-		System.out.println(sql); 
-		return this.jdbcTemplate.query(
-				sql, new RowMapper() {
-					public Object mapRow(ResultSet rs, int rowNum)
-							throws SQLException {
-						return DoiTacDTO.mapObject(rs);
+						return TieuChuanDTO.mapObject(rs);
 					}
 				});
 	}
 
+	@SuppressWarnings("unchecked")
+	public List<TieuChuanDTO> search(String _strSearch) {
+		// TODO Auto-generated method stub
+		return this.jdbcTemplate.query(
+				"select * from tieuchuan where deleted = 0 and tentieuchuan like '%"
+						+ _strSearch + "%'", new RowMapper() {
+					public Object mapRow(ResultSet rs, int rowNum)
+							throws SQLException {
+						return TieuChuanDTO.mapObject(rs);
+					}
+				});
+	}
+
+	@SuppressWarnings("unchecked")
 	
-	public DoiTacDTO get(String id) {
+	public List<TieuChuanDTO> get() {
+		// TODO Auto-generated method stub
+		return this.jdbcTemplate.query(
+				"select * from tieuchuan where deleted = 0  order by stt", new RowMapper() {
+					public Object mapRow(ResultSet rs, int rowNum)
+							throws SQLException {
+						return TieuChuanDTO.mapObject(rs);
+					}
+				});
+	}
+
+	public TieuChuanDTO get(String id) {
 		// TODO Auto-generated method stub
 		@SuppressWarnings("unchecked")
-		List<DoiTacDTO> lst = this.jdbcTemplate.query(
-				"select * from doitac where deleted = 0 and id=" + id,
+		List<TieuChuanDTO> lst = this.jdbcTemplate.query(
+				"select * from tieuchuan where deleted = 0 and id=" + id,
 				new RowMapper() {
 					public Object mapRow(ResultSet rs, int rowNum)
 							throws SQLException {
-						return DoiTacDTO.mapObject(rs);
+						return TieuChuanDTO.mapObject(rs);
 					}
 				});
 		if (lst.size() == 0)
@@ -67,23 +74,19 @@ public class DoiTacDAO {
 	}
 
 	
-	public boolean insert(DoiTacDTO cat) throws SQLException {
+	public boolean insert(TieuChuanDTO cat) {
 		// TODO Auto-generated method stub
-		System.out.println("insert doitac:" + cat.getTendoitac());
-		
 		try {
 			Connection connection = this.jdbcTemplate.getDataSource()
 					.getConnection();
-			System.out.println("***BEGIN PROC_SAVE_DOITAC***");
+			
 			CallableStatement stmt = connection
-					.prepareCall("{ call PROC_SAVE_DOITAC(?,?,?,?,?) }");
+					.prepareCall("{ call PROC_SAVE_TIEUCHUAN(?,?,?,?,?) }");
 			//stmt.registerOutParameter(1, OracleTypes.INTEGER);
-			
-			System.out.println("STT : "+cat.getStt());
-			
-			stmt.setString(1, cat.getId());
+			System.out.println("***BEGIN PROC_SAVE_TIEUCHUAN***");
 			System.out.println(cat.getId());
-			stmt.setString(2, cat.getTendoitac());
+			stmt.setString(1, cat.getId());
+			stmt.setString(2, cat.getTentieuchuan());
 			stmt.setInt(3, cat.getStt());
 			stmt.setLong(4, 0);
 			stmt.setString(5, cat.getMa());
@@ -91,20 +94,19 @@ public class DoiTacDAO {
 			stmt.execute();
 			stmt.close();
 			connection.close();
-			System.out.println("***END PROC_SAVE_DOITAC***");
+			System.out.println("***END PROC_SAVE_TIEUCHUAN***");
 			return true;
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
-			System.out.println("***Error PROC_SAVE_DOITAC***");
 			return false;
 		}
 	}
 
 	
-	public boolean update(String id, DoiTacDTO cat) {
+	public boolean update(String id, TieuChuanDTO cat) {
 		// TODO Auto-generated method stub
-		DoiTacDTO up = (DoiTacDTO) cat;
-		String sql="update doitac set stt="+cat.getStt()+",ma='"+cat.getMa()+"' ,tendoitac='"+up.getTendoitac()+"' where id="+up.getId();
+		TieuChuanDTO up = (TieuChuanDTO) cat;
+		String sql = "update tieuchuan set ma='"+cat.getMa()+"' ,stt="+up.getStt()+", tentieuchuan='" + up.getTentieuchuan()+ "' where id=" + up.getId();
 		System.out.println(sql);
 		return this.jdbcTemplate.update(sql) > 0;
 	}
@@ -116,18 +118,8 @@ public class DoiTacDAO {
 		String str = StringUtils.join(ids, ",");
 		System.out.println(ids);
 		return this.jdbcTemplate
-				.update("update doitac set DELETED = 1 where ID in (?)",new Object[]{str}) > 0;
-	}
-	
-	@SuppressWarnings("unchecked")
-	public List<DoiTacDTO> findAll() {
-		return this.jdbcTemplate.query(
-				"select * from DOITAC where deleted = 0", new RowMapper() {
-					public Object mapRow(ResultSet rs, int rowNum)
-							throws SQLException {
-						return DoiTacDTO.mapObject(rs);
-					}
-				});
+				.update("update tieuchuan set DELETED = 1 where ID in (" + str
+						+ ")") > 0;
 	}
 
 }

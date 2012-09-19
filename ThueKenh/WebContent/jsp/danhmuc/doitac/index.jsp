@@ -96,8 +96,9 @@
 			<table width="100%" id="dataTable" class="display">
 				<thead>
 					<tr>
-						<th width="5%">#</th>
+						<th width="5%">STT</th>
 						<th width="5%">ID</th>
+						<th width="10%">Mã</th>
 						<th>Tên đối tác</th>
 						<th width="5px">Edit</th>
 						<th width="5px" align="center"><input type="checkbox"
@@ -223,18 +224,24 @@
 											"sAjaxSource" : "${ajLoadData}",
 											"aoColumns" : [
 													{
-														"mDataProp" : "stt",
+														"mDataProp" : "STT",
 														"bSortable" : false,
 														"bSearchable" : false
 													},
 													{
-														"mDataProp" : "id",
+														"mDataProp" : "ID",
 														"bSortable" : false,
 														"bSearchable" : false,
 														"sClass" : 'td_center'
 													},
 													{
-														"mDataProp" : "name",
+														"mDataProp" : "MA",
+														"bSortable" : false,
+														"bSearchable" : false,
+														"sClass" : 'td_center'
+													},
+													{
+														"mDataProp" : "TENDOITAC",
 														"bSortable" : false,
 														"bSearchable" : false
 													},
@@ -245,7 +252,7 @@
 														"fnRender" : function(
 																oObj) {
 															return '<center><a class="edit_icon" onclick="doEdit(\'${formURL}?id='
-																	+ oObj.aData.id
+																	+ oObj.aData.ID
 																	+ '\')" title="Edit" href="#"></a></center>';
 														}
 													},
@@ -255,7 +262,7 @@
 														"bSearchable" : false,
 														"fnRender" : function(
 																oObj) {
-															return '<center><input type="checkbox" value="'+oObj.aData.id+'"/></center>';
+															return '<center><input type="checkbox" value="'+oObj.aData.ID+'"/></center>';
 														}
 													} ],
 											"fnServerData" : function(sSource,
