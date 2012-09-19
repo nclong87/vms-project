@@ -86,13 +86,13 @@ public class TieuChuanDAO{
 			System.out.println("***BEGIN PROC_SAVE_TIEUCHUAN***");
 			System.out.println(cat.getId());
 			
-			stmt.setString(1, cat.getId());//				1 id_ in varchar2,
+			stmt.setString(1, "0");//				1 id_ in varchar2,
 			stmt.setString(2, cat.getTentieuchuan());//		2 tentieuchuan_ in varchar2,
 			stmt.setString(3, cat.getLoaitieuchuan());//	3 loaitieuchuan_ in number,
 			stmt.setString(4, cat.getMota());//				4 mota_ in varchar2,
 			stmt.setString(5, cat.getUsercreate());//		5 usercreate_ in varchar2,
 			stmt.setLong(6, cat.getStt());//				6 stt_ in number,
-			stmt.setLong(7, cat.getDeleted());//			7 deleted_ in number,
+			stmt.setLong(7, 0);//			7 deleted_ in number,
 			stmt.setString(8, cat.getMa());//				8 ma_ in varchar2
 			System.out.println("***execute***");
 			stmt.execute();
@@ -101,7 +101,8 @@ public class TieuChuanDAO{
 			System.out.println("***END PROC_SAVE_TIEUCHUAN***");
 			return true;
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			System.out.println("***ERROR PROC_SAVE_TIEUCHUAN***");
+			e.printStackTrace();
 			return false;
 		}
 	}

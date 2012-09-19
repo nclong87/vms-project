@@ -1,11 +1,8 @@
 ﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
-<s:url action="doLogout" namespace="/login" var="doLogoutURL" />
 <s:url action="index" namespace="/login" var="loginURL" />
-<s:url action="index" namespace="/settings" var="settingsIndexURL" />
-<s:url action="doSave" namespace="/user" id="doSaveURL" />
-<s:url action="index" namespace="/user" id="userIndexURL" />
+<s:url action="dosave" namespace="/danhmuc" id="doSaveURL" />
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <%
 	String contextPath = request.getContextPath();
@@ -26,162 +23,135 @@ function byId(id) { //Viet tat cua ham document.getElementById
 }
 </script>
 <style>
-.td_label {
-	width: 135px;
-	height: 30px;
-	overflow: hidden;
-}
-
-.field {
-	width: 200px
-}
-
-label.error {
-	color: red;
-	margin-left: 5px;
-}
-
-input.error,select.error,textarea.error {
-	border: 1px solid red;
-}
 </style>
-
 </head>
-<body style="background: none;">
-	<div id="bg_wrapper">
-		<center>
-		<div style="width: 99%">
-			<form id="form" method="post"
-				onsubmit="return false;">
-				<input type="hidden" name="opEdit.Id"
-		value="<s:property value="opEdit.Id" />">
-				<table width="370px" style="float: left">
-					<tr>
-						<td colspan='2' align="left"><s:if test='message != null'>
-								<s:if test='message.getType().equals(1)'>
-									<div class="ui-state-highlight ui-corner-all"
-										style="padding: 0pt 0.7em; text-align: left;">
-										<p style="padding: 5px;">
-											<span class="ui-icon ui-icon-info"
-												style="float: left; margin-right: .3em;"></span> <strong>Success!
-											</strong>
-											<s:property value="message.message" />
-										</p>
-									</div>
-								</s:if>
-								<s:elseif test='message.getType().equals(0)'>
-									<div style="padding: 0pt 0.7em; text-align: left;"
-										class="ui-state-error ui-corner-all">
-										<p style="padding: 5px;">
-											<span style="float: left; margin-right: .3em;"
-												class="ui-icon ui-icon-alert"></span> <strong>Error
-												: </strong>
-											<s:property value="message.message"
-												default="Có lỗi xảy ra, vui lòng thử lại sau." />
-										</p>
-									</div>
-								</s:elseif>
-							</s:if></td>
-					</tr>
-					<tr>
-						<td class="td_label">Tên phòng ban<span class="required"
-							title="Yêu cầu nhập">*</span> :
-						</td>
-						<td><input type="text" class="field" name="opEdit.Tenphongban"
-							id="opEdit.Tenphongban" value="<s:property value="opEdit.Tenphongban" />"/> <label style="display: none"
-							for="opEdit.Tenphongban" generated="false" class="error"></label></td>
-					</tr>
-					<tr>
-						<td class="td_label">Mã
-						</td>
-						<td><input type="text" class="field" name="opEdit.Ma"
-							id="opEdit.Ma" value="<s:property value="opEdit.Ma" />"/> <label style="display: none"
-							for="opEdit.Ma" generated="false" class="error"></label></td>
-					</tr>
-					
-					<tr>
-						<td class="td_label">Số thứ tự <span class="required"
-							title="Yêu cầu nhập">*</span> :
-						</td>
-						<td><input type="text" class="field"
-							name="opEdit.Stt" id="opEdit.Stt" value="<s:property value="opEdit.Stt" />"/> <label
-							style="display: none" for="opEdit.Stt" generated="false"
-							class="error"></label></td>
-					</tr>
-
-					<tr>
-						<td>&nbsp;</td>
-					</tr>
-					<tr>
-						<td><input type="button" class="button" id="btSubmit"
-							value="Lưu" /></td>
-					</tr>
-				</table>
+<body>
+	<form id="form" onsubmit="return false;">
+	<input type="text" style="display:none" name="opEdit.id" id="id" />
+	<div style="background: none repeat scroll 0pt 0pt rgb(242, 242, 242); padding: 5px; width: 99%;">
+		<table class="input" style="width:725px">
+			<tr>
+				<td colspan='4' align="left" id="msg">
+				</td>
+			</tr>
+			<tr>
+				<td align="right" width="160px"><label for="ma">Mã :
+				</label></td>
+				<td align="left"><input type="text" name="opEdit.ma" id="ma" value="<s:property value="opEdit.ma" />"/>
+				</td>
+				<td align="right" width="150px"><label for="stt">STT :
+				</label></td>
+				<td align="left"><input type="text" id="stt" name="opEdit.stt"  value="<s:property value="opEdit.stt" />"/></td>
+			</tr>
+			<tr>
+				<td align="right"><label for="tenphongban">Tên phòng ban <font
+						title="Bắt buộc nhập" color="red">*</font> :
+				</label></td>
+				<td align="left" >
+					<input type="text" id="tenphongban" name="opEdit.tenphongban"  value="<s:property value="opEdit.tenphongban" />"/>
+				</td>
 				
-			</form>
-		</div>
-		</center>
+			</tr>
+			
+			
+			<tr height="30px">
+				<td colspan="6" align="right">
+					<input class="button" type="button" id="btSubmit" value="Lưu"/>
+					<input class="button" type="button" id="btReset" value="Làm lại"/>
+					<input class="button" type="button" id="btThoat" onclick="window.parent.CloseWindow();" value="Thoát"/>
+				</td>
+			</tr>
+		</table>
 	</div>
-	<div id="footer"></div>
+	</form>
 </body>
 </html>
 <script>
-	var LOGIN_PATH = "${loginURL}";
-	function loadContent(url) {
-		location.href = contextPath + url;
+var LOGIN_PATH = "${loginURL}";
+function message(msg,type) {
+	if(msg == '') {
+		$("#msg").html('');
+		return;
 	}
-	$(document)
-			.ready(
-					function() {
-						$("#form")
-								.validate(
-										{
-											onkeyup : false,
-											onfocusout : false,
-											rules : {
-												"opEdit.Tenphongban" : {
-													required : true,
-													uniqueUserName : true,
-													minlength : 6,
-													maxlength : 25
-												}
-											},
-											messages : {
-												"opEdit.Tenphongban" : {
-													required : "Vui lòng nhập tên phòng ban ",
-													uniqueUserName : "Username này đã được sử dụng, vui lòng chọn username khác!",
-													minlength : "Tên đăng nhập ít nhất là 6 kí tự",
-													maxlength : "Tên đăng nhập ít nhất là 25 kí tự",
-												}
-											}
-										});
-						var form_data = '<s:property value="form_data" escape="false"/>';
-						if (form_data != '') {
-							$("legend#title").text("Cập nhật tài khoản");
-							var form_data = $.parseJSON(form_data);
-							for (key in form_data) {
-								$("#form #" + key).val(form_data[key]);
-							}
-							$('#username').attr("readonly", "true");
-							$("#username").rules("remove");
-						} else {
-							$("legend#title").text("Thêm mới tài khoản");
-						}
-						$(document)
-								.delegate(
-										"#btSubmit",
-										"click",
-										function() {
-											this.disabled = true;
-											if (!$("#form").valid()) {
-												alert("Dữ liệu nhập chưa hợp lệ, vui lòng kiểm tra lại!");
-												this.disabled = false;
-											} else {
-												byId("form").submit();
-											}
-											return false;
-										});
-					});
+	if(type == 1) {
+		$("#msg").html('<div class="ui-state-highlight ui-corner-all" style=" padding: 0pt 0.7em; text-align: left;"><p style="padding: 5px;"><span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span><strong>Success! </strong> '+msg+'</p></div>');
+	} else {
+		$("#msg").html('<div style="padding: 0pt 0.7em; text-align: left;" class="ui-state-error ui-corner-all"><p style="padding: 5px;"><span style="float: left; margin-right: .3em;" class="ui-icon ui-icon-alert"></span><strong>Error : </strong> '+msg+'</p></div>');
+	}
+}
+function loadContent(url) {
+	location.href = contextPath + url;
+}
+$(document).ready(function() {
+	$("#btReset").click(function(){
+		$("#form")[0].reset();
+		message('',0);
+	});
+	$("#form").validate({
+		onkeyup : false,
+		onfocusout : false,
+		rules : {
+			"opEdit.tenphongban" : {
+				required : true,
+			},
+			"opEdit.stt" : {
+				regex : '/^-{0,1}\d*\.{0,1}\d+$/',
+			}
+		},
+		messages:{
+			"opEdit.tenphongban" : {
+				required : "Yêu cầu nhập tên phòng ban"
+			},
+			"opEdit.stt" : {
+				regex : 'Số thứ tự phải là số'
+			}
+		}
+	});
+	var form_data = '<s:property value="form_data" escape="false"/>';
+	if(form_data != '') {
+		var form_data = $.parseJSON(form_data);
+		for( key in form_data) {
+			$("#form #"+key).val(form_data[key]);
+		}
+		$("#ma").attr("disabled","true");
+		$("#stt").attr("disabled","true");
+		$("#tenphongban").attr("disabled","true");
+	} 
+	$(document).delegate("#btSubmit","click",function() {
+		var button = this;
+		button.disabled = true;
+		if (!$("#form").valid()) {
+			alert("Dữ liệu nhập chưa hợp lệ, vui lòng kiểm tra lại!");
+			button.disabled = false;
+		} else {
+			var dataString = $("#form").serialize();
+				$.ajax({
+				url: "${doSaveURL}",
+				type:'POST',
+				data:dataString,
+				success:function(response){
+					button.disabled = false;
+					if(response == "EXIST") {
+						message("Đã tồn tại tuyến kênh này trong hệ thống!",0);
+						return false;
+					}
+					if(response == "OK") {
+						button.disabled = true;
+						message("Lưu thành công!",1);
+						parent.reload = true;
+						return;
+					}
+					message("Lưu không thành công, vui lòng thử lại.",0);
+				},
+				error:function(response){
+					button.disabled = false;
+					alert("Server is too busy, please try again!");
+				}
+			});
+		}
+		return false;
+	});
+});
 
 	
 </script>
