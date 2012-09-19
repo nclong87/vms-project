@@ -1,5 +1,8 @@
 package vms.web.actions;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -16,7 +19,6 @@ import org.json.JSONObject;
 import vms.db.dao.DaoFactory;
 import vms.db.dao.PhongBanDao;
 import vms.db.dto.Account;
-import vms.db.dto.PhongBanDTO;
 import vms.db.dto.PhongBanDTO;
 import vms.utils.Constances;
 import vms.utils.VMSUtil;
@@ -37,6 +39,20 @@ public class DanhMucPhongBanAction implements Preparable {
 	private PhongBanDao phongbanDAO;
 
 	private PhongBanDTO opEdit;
+	private InputStream inputStream;
+
+	public InputStream getInputStream() {
+		return inputStream;
+	}
+
+	public void setInputStream(String str) {
+		
+		try {
+			this.inputStream =  new ByteArrayInputStream( str.getBytes("UTF-8") );
+		} catch (UnsupportedEncodingException e) {			
+			System.out.println("ERROR :" + e.getMessage());
+		}
+	}
 
 	public PhongBanDTO getOpEdit() {
 		return opEdit;
@@ -113,7 +129,7 @@ public class DanhMucPhongBanAction implements Preparable {
 				System.out.println("Begin Edit");
 				if (this.phongbanDAO.update(this.opEdit.getId(), this.opEdit)) {
 					this.flag = "1";// updated
-					System.out.println("Cập nhật thành công");
+					setInputStream("OK");
 				} else {
 					this.flag = "-1";// failure
 					System.out.println("Cập nhật lỗi");
@@ -123,7 +139,7 @@ public class DanhMucPhongBanAction implements Preparable {
 				System.out.println("Begin New");
 				if(this.phongbanDAO.insert(this.opEdit)){
 					this.flag = "1";// updated
-					System.out.println("Thêm thành công");
+					setInputStream("OK");
 				}else{
 					this.flag = "-1";// failure
 					System.out.println("Thêm lỗi");
@@ -146,6 +162,39 @@ public class DanhMucPhongBanAction implements Preparable {
 			}
 		}
 
+		return Action.SUCCESS;
+	}
+	
+	public String dosave(){
+		// edit page post
+				if (this.opEdit != null) {
+					// edit
+					
+					System.out.println("edit mode id=" + this.opEdit.getId());
+					if (!this.opEdit.getId().isEmpty()) {
+						System.out.println("Begin Edit");
+						if (this.phongbanDAO.update(this.opEdit.getId(), this.opEdit)) {
+							this.flag = "1";// updated
+							setInputStream("OK");
+						} else {
+							this.flag = "-1";// failure
+							System.out.println("Cập nhật lỗi");
+						}
+					} else {
+						// new
+						System.out.println("Begin New");
+						if(this.phongbanDAO.insert(this.opEdit)){
+							this.flag = "1";// updated
+							setInputStream("OK");
+						}else{
+							this.flag = "-1";// failure
+							System.out.println("Thêm lỗi");
+						}
+					}
+					System.out.println("result=" + flag);
+
+				
+				}
 		return Action.SUCCESS;
 	}
 

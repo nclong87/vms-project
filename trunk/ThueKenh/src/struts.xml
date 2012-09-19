@@ -60,6 +60,11 @@
 		<action name="editPhongBan" class="phongbanAction" method="edit">
 			<result name="success">/jsp/danhmuc/phongban/form.jsp</result>
 		</action>
+		<action name="dosave" class="phongbanAction" method="dosave">
+			<result name="success" type="stream">
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
 		<!-- kết thúc phòng ban -->
 		<!-- khai báo loại giao tiếp -->
 		<action name="loaigiaotiep" class="loaigiaotiepAction" method="index">
