@@ -85,6 +85,7 @@ public class TieuChuanDAO{
 			//stmt.registerOutParameter(1, OracleTypes.INTEGER);
 			System.out.println("***BEGIN PROC_SAVE_TIEUCHUAN***");
 			System.out.println(cat.getId());
+			
 			stmt.setString(1, cat.getId());//				1 id_ in varchar2,
 			stmt.setString(2, cat.getTentieuchuan());//		2 tentieuchuan_ in varchar2,
 			stmt.setString(3, cat.getLoaitieuchuan());//	3 loaitieuchuan_ in number,

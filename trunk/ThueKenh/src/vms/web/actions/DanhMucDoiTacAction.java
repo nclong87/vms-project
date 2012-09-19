@@ -159,7 +159,7 @@ public class DanhMucDoiTacAction implements Preparable {
 				System.out.println("strSearch="+strSearch);
 			
 		}else
-			//lstkhuvuc = DoiTacDAO.get();
+			lstkhuvuc = DoiTacDAO.get();
 		
 		jsonData = new LinkedHashMap<String, Object>();
 		List<HashMap<String, Object>> items = new ArrayList<HashMap<String, Object>>();
