@@ -18,6 +18,25 @@ var trangthai_utils = {
 				break;
 		}
 	},
+	tuyenkenhText : function(matrangthai) {
+		switch(parseInt(matrangthai)) {
+			case 0 :
+				return 'Không hoạt động';
+				break;
+			case 1 :
+				return 'Đang bàn giao';
+				break;
+			case 2 :
+				return 'Đang cập nhật số lượng';
+				break;
+			case 3 :
+				return 'Đang hoạt động';
+				break;
+			default:
+				return '';
+				break;
+		}
+	},
 	tuyenkenhdexuatDisplay : function (matrangthai) {
 		switch(parseInt(matrangthai)) {
 			case 0 :

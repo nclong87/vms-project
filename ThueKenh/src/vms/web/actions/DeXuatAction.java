@@ -20,6 +20,7 @@ import vms.db.dao.DaoFactory;
 import vms.db.dao.DeXuatDao;
 import vms.db.dao.DoiTacDAO;
 import vms.db.dao.TuyenKenhDeXuatDAO;
+import vms.db.dao.TuyenkenhDao;
 import vms.db.dto.Account;
 import vms.db.dto.DeXuatDTO;
 import vms.db.dto.DoiTacDTO;
@@ -48,6 +49,7 @@ public class DeXuatAction implements Preparable {
 	private String id;
 	private String[] ids;
 	private String[] dexuat_ids;
+	private Map<String,Object> detail;
 	
 	private DeXuatDao deXuatDao;
 	public DeXuatAction( DaoFactory factory) {
@@ -174,6 +176,13 @@ public class DeXuatAction implements Preparable {
 		return Action.SUCCESS;
 	}
 	
+	public String detail() {
+		if(id == null) return Action.ERROR;
+		detail = deXuatDao.getDetail(id);
+		if(detail == null) return Action.ERROR;
+		return Action.SUCCESS;
+	}
+	
 	/* Getter and Setter */
 	
 	public MessageStore getMessage() {
@@ -242,6 +251,12 @@ public class DeXuatAction implements Preparable {
 	}
 	public void setDexuat_ids(String[] dexuat_ids) {
 		this.dexuat_ids = dexuat_ids;
+	}
+	public Map<String, Object> getDetail() {
+		return detail;
+	}
+	public void setDetail(Map<String, Object> detail) {
+		this.detail = detail;
 	}
 	
 }

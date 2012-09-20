@@ -16,6 +16,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
 import vms.db.dto.DeXuatDTO;
+import vms.utils.DateUtils;
+import vms.utils.VMSUtil;
 import vms.web.models.FIND_DEXUAT;
 
 public class DeXuatDao {
@@ -82,5 +84,21 @@ public class DeXuatDao {
 	public void deleteByIds(String[] ids) {
 		String str = StringUtils.join(ids, ",");
 		this.jdbcTemplate.update("update DEXUAT set DELETED = 1 where ID in ("+str+")");
+	}
+	
+	private static final String SQL_DETAIL_DEXUAT = "select t.*,t0.TENDOITAC from DEXUAT t left join DOITAC t0 on t.DOITAC_ID = t0.ID where t.ID=?";
+	@SuppressWarnings("unchecked")
+	public Map<String,Object> getDetail(String id) {
+		List<Map<String,Object>> list =  this.jdbcTemplate.query(SQL_DETAIL_DEXUAT ,new Object[] {id}, new RowMapper() {
+			@Override
+			public Object mapRow(ResultSet rs, int arg1) throws SQLException {
+				Map<String,Object> map = VMSUtil.resultSetToMap(rs);
+				map.put("ngaygui",DateUtils.formatDate(rs.getDate("NGAYGUI"), DateUtils.SDF_DDMMYYYY));
+				map.put("ngaydenghibangiao",DateUtils.formatDate(rs.getDate("NGAYDENGHIBANGIAO"), DateUtils.SDF_DDMMYYYY));
+				return map;
+			}
+		});
+		if(list.isEmpty()) return null;
+		return list.get(0);
 	}
 }

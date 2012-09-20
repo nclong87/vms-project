@@ -6,6 +6,7 @@
 <s:url action="load" namespace="/dexuat" id="loadURL"/>
 <s:url action="form" namespace="/dexuat" id="formURL"/>
 <s:url action="delete" namespace="/dexuat" id="deleteURL"/>
+<s:url action="detail" namespace="/dexuat" id="detailURL"/>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -205,7 +206,11 @@ $(document).ready(function(){
 		"sAjaxSource": "${loadURL}",
 		"aoColumns": [
 					{ "mDataProp": "stt","bSortable": false,"bSearchable": false },
-					{ "mDataProp": "tenvanban","bSortable": false,"bSearchable": false},
+					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,"sClass":'td_center',
+						"fnRender": function( oObj ) {
+							return '<a target="_blank" href="${detailURL}?id='+oObj.aData.id+'" title="Xem chi tiết tuyến kênh">'+oObj.aData.tenvanban+'</a>'; 
+						}
+					},
 					{ "mDataProp": "ngaygui","bSortable": false,"bSearchable": false},
 					{ "mDataProp": "ngaydenghibangiao","bSortable": false,"bSearchable": false},
 					{ "mDataProp": "tendoitac","bSortable": false,"bSearchable": false},

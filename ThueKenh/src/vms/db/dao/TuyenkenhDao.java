@@ -16,6 +16,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
 import vms.db.dto.TuyenKenh;
+import vms.utils.VMSUtil;
 import vms.web.models.FN_FIND_TUYENKENH;
 
 public class TuyenkenhDao {
@@ -97,11 +98,26 @@ public class TuyenkenhDao {
 		stmt.setString(13, dto.getTimecreate());
 		stmt.setString(14, dto.getDeleted().toString());
 		stmt.execute();
+		stmt.close();
+		connection.close();
 		return stmt.getString(1);
 	}
 	
 	public void deleteByIds(String[] ids) {
 		String str = StringUtils.join(ids, ",");
 		this.jdbcTemplate.update("update TUYENKENH set DELETED = 1 where ID in ("+str+")");
+	}
+	
+	private static final String SQL_DETAIL_TUYENKENH = "select t.*,TENDUAN,TENKHUVUC,LOAIGIAOTIEP,TENPHONGBAN from TUYENKENH t left join LOAIGIAOTIEP t0 on t.GIAOTIEP_ID = t0.ID left join DUAN t1 on t.DUAN_ID = t1.ID left join PHONGBAN t2 on t.PHONGBAN_ID = t2.ID left join KHUVUC t3 on t.KHUVUC_ID = t3.ID where t.ID = ?";
+	@SuppressWarnings("unchecked")
+	public Map<String,Object> getDetail(String id) {
+		List<Map<String,Object>> list =  this.jdbcTemplate.query(SQL_DETAIL_TUYENKENH ,new Object[] {id}, new RowMapper() {
+			@Override
+			public Object mapRow(ResultSet rs, int arg1) throws SQLException {
+				return VMSUtil.resultSetToMap(rs);
+			}
+		});
+		if(list.isEmpty()) return null;
+		return list.get(0);
 	}
 }

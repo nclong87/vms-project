@@ -26,7 +26,6 @@ import vms.db.dto.Account;
 import vms.db.dto.DuAnDTO;
 import vms.db.dto.KhuVucDTO;
 import vms.db.dto.LoaiGiaoTiep;
-import vms.db.dto.PhongBan;
 import vms.db.dto.PhongBanDTO;
 import vms.db.dto.TuyenKenh;
 import vms.utils.Constances;
@@ -56,6 +55,7 @@ public class TuyenkenhAction implements Preparable {
 	private List<PhongBanDTO> phongBans;
 	private String id;
 	private String[] ids;
+	private Map<String,Object> detail;
 	public TuyenkenhAction( DaoFactory factory) {
 		daoFactory = factory;
 	}
@@ -208,6 +208,16 @@ public class TuyenkenhAction implements Preparable {
 		return Action.SUCCESS;
 	}
 	
+	public String detail() {
+		TuyenkenhDao tuyenkenhDao = new TuyenkenhDao(daoFactory);
+		if(id == null) return Action.ERROR;
+		detail = tuyenkenhDao.getDetail(id);
+		if(detail == null) return Action.ERROR;
+		/*jsonData = new LinkedHashMap<String, Object>();
+		jsonData.put("test", "Hello world!");*/
+		return Action.SUCCESS;
+	}
+	
 	/* Getter and Setter */
 	
 	public MessageStore getMessage() {
@@ -287,6 +297,13 @@ public class TuyenkenhAction implements Preparable {
 	public void setPhongBans(List<PhongBanDTO> phongBans) {
 		this.phongBans = phongBans;
 	}
+	public Map<String, Object> getDetail() {
+		return detail;
+	}
+	public void setDetail(Map<String, Object> detail) {
+		this.detail = detail;
+	}
+	
 	
 	
 }
