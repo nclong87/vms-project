@@ -409,4 +409,9 @@
 			</result>
 		</action>
 	</package>
+	<package name="bangiao" extends="default" namespace="/bangiao">
+		<action name="index" class="bangiaoAction" method="index">
+			<result>/jsp/bangiao/index.jsp</result>
+		</action>
+	</package>
 </struts>

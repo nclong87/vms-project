@@ -83,5 +83,8 @@
 	<bean id="fileuploadAction" scope="prototype" class="vms.web.actions.FileUploadAction">
         <constructor-arg ref="daoFactory" />
     </bean>
+    <bean id="bangiaoAction" scope="prototype" class="vms.web.actions.BanGiaoAction">
+        <constructor-arg ref="daoFactory" />
+    </bean>
 </beans>
 
