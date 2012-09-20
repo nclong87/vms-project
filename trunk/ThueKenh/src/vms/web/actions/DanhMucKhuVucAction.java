@@ -1,5 +1,8 @@
 package vms.web.actions;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,7 +16,6 @@ import org.apache.struts2.ServletActionContext;
 import vms.db.dao.DaoFactory;
 import vms.db.dao.KhuVucDao;
 import vms.db.dto.Account;
-import vms.db.dto.KhuVucDTO;
 import vms.db.dto.KhuVucDTO;
 import vms.utils.Constances;
 import vms.utils.VMSUtil;
@@ -34,7 +36,21 @@ public class DanhMucKhuVucAction implements Preparable {
 	private KhuVucDao KhuVucDao;
 
 	private KhuVucDTO opEdit;
+	
+	private InputStream inputStream;
+	
+	public InputStream getInputStream() {
+		return inputStream;
+	}
 
+	public void setInputStream(String str) {
+		
+		try {
+			this.inputStream =  new ByteArrayInputStream( str.getBytes("UTF-8") );
+		} catch (UnsupportedEncodingException e) {			
+			System.out.println("ERROR :" + e.getMessage());
+		}
+	}
 	public KhuVucDTO getOpEdit() {
 		return opEdit;
 	}
@@ -130,6 +146,32 @@ public class DanhMucKhuVucAction implements Preparable {
 				System.out.println(e.getMessage());
 			}
 		}
+
+		return Action.SUCCESS;
+	}
+	
+	public String dosave() throws SQLException {
+		String id = "";
+
+		// edit page post
+		if (this.opEdit != null) {
+			
+			// edit
+			System.out.println("edit mode id=" + this.opEdit.getId());
+			if (!this.opEdit.getId().isEmpty()) {
+				if (this.KhuVucDao.update(this.opEdit.getId(), this.opEdit)) {
+					this.flag = "1";// updated
+					setInputStream("OK");
+				} else
+					this.flag = "-1";// failure
+			} else {
+				// new
+				if(this.KhuVucDao.insert(this.opEdit))
+					setInputStream("OK");
+			}
+			System.out.println("result=" + flag);
+
+		} 
 
 		return Action.SUCCESS;
 	}

@@ -60,7 +60,7 @@
 		<action name="editPhongBan" class="phongbanAction" method="edit">
 			<result name="success">/jsp/danhmuc/phongban/form.jsp</result>
 		</action>
-		<action name="dosave" class="phongbanAction" method="dosave">
+		<action name="dosavephongban" class="phongbanAction" method="dosave">
 			<result name="success" type="stream">
 				<param name="inputName">inputStream</param>
 			</result>
@@ -83,6 +83,11 @@
 		<action name="editLoaiGiaoTiep" class="loaigiaotiepAction" method="edit">
 			<result name="success">/jsp/danhmuc/loaigiaotiep/form.jsp</result>
 		</action>
+		<action name="dosaveloaigiaotiep" class="loaigiaotiepAction" method="dosave">
+			<result name="success" type="stream">
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
 		<!-- kết thúc loại giao tiếp -->
 		<!-- khai báo công thức -->
 		<action name="congthuc" class="congthucAction" method="index">
@@ -100,6 +105,11 @@
 		</action>
 		<action name="editCongThuc" class="congthucAction" method="edit">
 			<result name="success">/jsp/danhmuc/congthuc/form.jsp</result>
+		</action>
+		<action name="dosavecongthuc" class="congthucAction" method="dosave">
+			<result name="success" type="stream">
+				<param name="inputName">inputStream</param>
+			</result>
 		</action>
 		<!-- kết công thức -->
 		<!-- khai báo khu vực -->
@@ -119,6 +129,11 @@
 		<action name="editkhuvuc" class="khuvucAction" method="edit">
 			<result name="success">/jsp/danhmuc/khuvuc/form.jsp</result>
 		</action>
+		<action name="dosavekhuvuc" class="khuvucAction" method="dosave">
+			<result name="success" type="stream">
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
 		<!-- kết thúc khu vực -->
 		<!-- khai báo đối tác -->
 		<action name="doitac" class="doitacAction" method="index">
@@ -136,6 +151,11 @@
 		</action>
 		<action name="editdoitac" class="doitacAction" method="edit">
 			<result name="success">/jsp/danhmuc/doitac/form.jsp</result>
+		</action>
+		<action name="dosavedoitac" class="doitacAction" method="dosave">
+			<result name="success" type="stream">
+				<param name="inputName">inputStream</param>
+			</result>
 		</action>
 		<!-- kết thúc đối tác -->
 		<!-- khai báo dự án -->
@@ -155,6 +175,11 @@
 		<action name="editduan" class="duanAction" method="edit">
 			<result name="success">/jsp/danhmuc/duan/form.jsp</result>
 		</action>
+		<action name="dosaveduan" class="duanAction" method="dosave">
+			<result name="success" type="stream">
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
 		<!-- kết thúc dự án -->
 		<!-- khai báo tiêu chuẩn -->
 		<action name="tieuchuan" class="tieuchuanAction" method="index">
@@ -172,6 +197,11 @@
 		</action>
 		<action name="edittieuchuan" class="tieuchuanAction" method="edit">
 			<result name="success">/jsp/danhmuc/tieuchuan/form.jsp</result>
+		</action>
+		<action name="dosavetieuchuan" class="tieuchuanAction" method="dosave">
+			<result name="success" type="stream">
+				<param name="inputName">inputStream</param>
+			</result>
 		</action>
 		<!-- kết thúc tiêu chuẩn -->
 	</package>

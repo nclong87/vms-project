@@ -94,7 +94,7 @@ public class DoiTacDAO {
 			System.out.println("***END PROC_SAVE_DOITAC***");
 			return true;
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			e.printStackTrace();
 			System.out.println("***Error PROC_SAVE_DOITAC***");
 			return false;
 		}

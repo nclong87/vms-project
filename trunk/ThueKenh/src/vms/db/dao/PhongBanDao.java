@@ -98,7 +98,7 @@ public class PhongBanDao  {
 			System.out.println("***END PROC_SAVE_PHONGBAN***");
 			return true;
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			e.printStackTrace();
 			return false;
 		}
 	}

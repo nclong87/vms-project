@@ -1,5 +1,8 @@
 package vms.web.actions;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,7 +19,6 @@ import org.json.JSONObject;
 import vms.db.dao.DaoFactory;
 import vms.db.dao.DuAnDAO;
 import vms.db.dto.Account;
-import vms.db.dto.DuAnDTO;
 import vms.db.dto.DuAnDTO;
 import vms.utils.Constances;
 import vms.utils.VMSUtil;
@@ -37,7 +39,21 @@ public class DanhMucDuAnAction implements Preparable {
 	private DuAnDAO DuAnDAO;
 
 	private DuAnDTO opEdit;
+	
+	private InputStream inputStream;
+	
+	public InputStream getInputStream() {
+		return inputStream;
+	}
 
+	public void setInputStream(String str) {
+		
+		try {
+			this.inputStream =  new ByteArrayInputStream( str.getBytes("UTF-8") );
+		} catch (UnsupportedEncodingException e) {			
+			System.out.println("ERROR :" + e.getMessage());
+		}
+	}
 	public DuAnDTO getOpEdit() {
 		return opEdit;
 	}
@@ -132,6 +148,31 @@ public class DanhMucDuAnAction implements Preparable {
 				System.out.println(e.getMessage());
 			}
 		}
+		return Action.SUCCESS;
+	}
+	
+	public String dosave() throws SQLException {
+		String id = "";
+
+		// edit page post
+		if (this.opEdit != null) {
+			// edit
+			this.opEdit.setUsercreate(this.account.getUsername());
+			System.out.println("edit mode id=" + this.opEdit.getId());
+			if (!this.opEdit.getId().isEmpty()) {
+				if (this.DuAnDAO.update(this.opEdit.getId(), this.opEdit)) {
+					this.flag = "1";// updated
+					setInputStream("OK");
+				} else
+					this.flag = "-1";// failure
+			} else {
+				// new
+				if(this.DuAnDAO.insert(this.opEdit))
+					setInputStream("OK");
+			}
+			System.out.println("result=" + flag);
+
+		} 
 		return Action.SUCCESS;
 	}
 
