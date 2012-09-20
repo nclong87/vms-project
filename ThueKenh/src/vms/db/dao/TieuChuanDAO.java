@@ -112,7 +112,7 @@ public class TieuChuanDAO{
 		// TODO Auto-generated method stub
 		
 		TieuChuanDTO up = (TieuChuanDTO) cat;
-		String sql = "update tieuchuan set usercreate='"+cat.getUsercreate()+"',mota='"+cat.getMota()+"',loaitieuchuan='"+cat.getLoaitieuchuan()+"' ,ma='"+cat.getMa()+"' ,stt="+up.getStt()+", tentieuchuan='" + up.getTentieuchuan()+ "' where id=" + up.getId();
+		String sql = "update tieuchuan set mota='"+cat.getMota()+"',loaitieuchuan='"+cat.getLoaitieuchuan()+"' ,ma='"+cat.getMa()+"' ,stt="+up.getStt()+", tentieuchuan='" + up.getTentieuchuan()+ "' where id=" + up.getId();
 		System.out.println(sql);
 		return this.jdbcTemplate.update(sql) > 0;
 	}

@@ -1,5 +1,8 @@
 package vms.web.actions;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -35,7 +38,21 @@ public class DanhMucTieuChuanAction implements Preparable {
 	private vms.db.dao.TieuChuanDAO TieuChuanDAO;
 
 	private TieuChuanDTO opEdit;
+	
+	private InputStream inputStream;
+	
+	public InputStream getInputStream() {
+		return inputStream;
+	}
 
+	public void setInputStream(String str) {
+		
+		try {
+			this.inputStream =  new ByteArrayInputStream( str.getBytes("UTF-8") );
+		} catch (UnsupportedEncodingException e) {			
+			System.out.println("ERROR :" + e.getMessage());
+		}
+	}
 	public TieuChuanDTO getOpEdit() {
 		return opEdit;
 	}
@@ -105,7 +122,7 @@ public class DanhMucTieuChuanAction implements Preparable {
 		// edit page post
 		if (this.opEdit != null) {
 			// edit
-			
+			this.opEdit.setUsercreate(this.account.getUsername());
 			System.out.println("edit mode id=" + this.opEdit.getId());
 			if (!this.opEdit.getId().isEmpty()) {
 				System.out.println("Begin Edit");
@@ -142,6 +159,43 @@ public class DanhMucTieuChuanAction implements Preparable {
 				// TODO: handle exception
 				System.out.println(e.getMessage());
 			}
+		}
+
+		return Action.SUCCESS;
+	}
+	
+	public String dosave() {
+		String id = "";
+
+		// edit page post
+		if (this.opEdit != null) {
+			// edit
+			
+			System.out.println("edit mode id=" + this.opEdit.getId());
+			if (!this.opEdit.getId().isEmpty()) {
+				System.out.println("Begin Edit");
+				if (this.TieuChuanDAO.update(this.opEdit.getId(), this.opEdit)) {
+					this.flag = "1";// updated
+					System.out.println("Cập nhật thành công");
+					setInputStream("OK");
+				} else {
+					this.flag = "-1";// failure
+					System.out.println("Cập nhật lỗi");
+				}
+			} else {
+				// new
+				System.out.println("Begin New");
+				if(this.TieuChuanDAO.insert(this.opEdit)){
+					this.flag = "1";// updated
+					System.out.println("Thêm thành công");
+					setInputStream("OK");
+				}else{
+					this.flag = "-1";// failure
+					System.out.println("Thêm lỗi");
+				}
+			}
+			System.out.println("result=" + flag);
+
 		}
 
 		return Action.SUCCESS;

@@ -118,7 +118,7 @@ public class DuAnDAO {
 	public boolean update(String id, DuAnDTO cat) {
 		// TODO Auto-generated method stub
 		DuAnDTO up = (DuAnDTO) cat;
-		String sql = "update duan set ma='"+cat.getMa()+"',stt='"+up.getStt()+"',mota='"+up.getMota()+"',giamgia="+up.getGiamgia()+",usercreate='"+up.getUsercreate()+"', tenduan='" + up.getTenduan() + "' where id=" + up.getId();
+		String sql = "update duan set ma='"+cat.getMa()+"',stt='"+up.getStt()+"',mota='"+up.getMota()+"',giamgia="+up.getGiamgia()+",tenduan='" + up.getTenduan() + "' where id=" + up.getId();
 		System.out.println(sql);
 		return this.jdbcTemplate.update(sql) > 0;
 	}
