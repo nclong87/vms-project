@@ -83,6 +83,9 @@
 		<action name="editLoaiGiaoTiep" class="loaigiaotiepAction" method="edit">
 			<result name="success">/jsp/danhmuc/loaigiaotiep/form.jsp</result>
 		</action>
+		<action name="detailLoaiGiaoTiep" class="loaigiaotiepAction" method="detail">
+			<result>/jsp/danhmuc/detail_loaigiaotiep.jsp</result>
+		</action>		
 		<action name="dosaveloaigiaotiep" class="loaigiaotiepAction" method="dosave">
 			<result name="success" type="stream">
 				<param name="inputName">inputStream</param>
@@ -330,6 +333,9 @@
 		<action name="popupSearch" class="tuyenkenhAction" method="popupSearch">
 			<result>/jsp/tuyenkenh/popupSearch.jsp</result>
 		</action>
+		<action name="detail" class="tuyenkenhAction" method="detail">
+			<result>/jsp/tuyenkenh/detail.jsp</result>
+		</action>
 	</package>
 	<package name="tuyenkenhdexuat" extends="default" namespace="/tuyenkenhdexuat">
 		<action name="index" class="tuyenkenhdexuatAction">
@@ -391,6 +397,9 @@
 			<result name="success" type="stream">
 				<param name="inputName">inputStream</param>
 			</result>
+		</action>
+		<action name="detail" class="dexuatAction" method="detail">
+			<result>/jsp/dexuat/detail.jsp</result>
 		</action>
 	</package>
 	<package name="fileupload" extends="default" namespace="/fileupload">
