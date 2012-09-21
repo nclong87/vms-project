@@ -409,6 +409,16 @@
 			</result>
 		</action>
 	</package>
+	<package name="import" extends="default" namespace="/import">
+		<action name="tuyenkenh" class="importAction" method="tuyenkenh">
+			<result>/jsp/import/tuyenkenh.jsp</result>
+		</action>
+		<action name="doImportTuyenkenh" class="importAction" method="doImportTuyenkenh">
+			<result name="success" type="json">
+				<param name="root">jsonData</param>
+			</result>
+		</action>
+	</package>
 	<package name="bangiao" extends="default" namespace="/bangiao">
 		<action name="index" class="bangiaoAction" method="index">
 			<result>/jsp/bangiao/index.jsp</result>

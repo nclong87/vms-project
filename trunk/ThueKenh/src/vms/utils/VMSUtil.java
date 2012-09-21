@@ -33,6 +33,9 @@ public class VMSUtil {
     public static String getUploadFolder() throws IOException {
 		return new java.io.File("..").getCanonicalPath()+Constances.DS+"webapps"+Constances.DS+"upload"+Constances.DS;
 	}
+    public static String getUploadImportFolder() throws IOException {
+		return new java.io.File("..").getCanonicalPath()+Constances.DS+"webapps"+Constances.DS+"upload"+Constances.DS+"import"+Constances.DS;
+	}
     
     public static LinkedHashMap<String, Object> json_success(Map<String, Object> data) {
     	 LinkedHashMap<String, Object> rs = new LinkedHashMap<String, Object>();
