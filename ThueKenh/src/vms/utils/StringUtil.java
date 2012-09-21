@@ -1,5 +1,8 @@
 package vms.utils;
 
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Clob;
 import java.sql.SQLException;
 
@@ -281,6 +284,50 @@ public class StringUtil {
 		}
 		return sb.toString();
 		
+	}
+	private static String convertToHex(byte[] data) {
+		StringBuffer buf = new StringBuffer();
+		for (int i = 0; i < data.length; i++) {
+			int halfbyte = (data[i] >>> 4) & 0x0F;
+			int two_halfs = 0;
+			do {
+				if ((0 <= halfbyte) && (halfbyte <= 9))
+					buf.append((char) ('0' + halfbyte));
+				else
+					buf.append((char) ('a' + (halfbyte - 10)));
+				halfbyte = data[i] & 0x0F;
+			} while (two_halfs++ < 1);
+		}
+		return buf.toString();
+	}
+
+	public static String MD5(String text) {
+		MessageDigest md;	
+		byte[] md5hash = new byte[32];
+		try {
+			md = MessageDigest.getInstance("MD5");
+			md.update(text.getBytes("iso-8859-1"), 0, text.length());
+			md5hash = md.digest();
+		} catch (UnsupportedEncodingException e) {			
+			// FIXME
+			System.out.println("ERROR :" + e.getMessage());
+		} catch (NoSuchAlgorithmException e) {
+			
+			// FIXME
+			System.out.println("ERROR :" + e.getMessage());
+		}	
+		return convertToHex(md5hash);
+	}
+	public static String getExtension(String filename) {    // Lay phan mo rong cua file
+		int lastIndex = filename.lastIndexOf(".");
+		if(lastIndex == -1)
+			return null;
+		return filename.substring(lastIndex+1);
+	}
+	public static boolean isEmpty(String src) {
+		if(src == null || src.isEmpty())
+			return true;
+		return false;
 	}
 	public static void main(String arg[]) {
 		String src ="  Toi  a ha   Long    ";

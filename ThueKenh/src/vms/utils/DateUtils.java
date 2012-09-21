@@ -68,5 +68,8 @@ public class DateUtils {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	public static java.sql.Date convertToSQLDate(Date date) {
+		return new java.sql.Date(date.getTime());
+	}
 }
 
