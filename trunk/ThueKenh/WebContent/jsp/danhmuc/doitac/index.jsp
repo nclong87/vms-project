@@ -96,7 +96,7 @@
 			<table width="100%" id="dataTable" class="display">
 				<thead>
 					<tr>
-						<th width="5%">STT</th>
+						<th width="3px">STT</th>
 						<th width="5%">ID</th>
 						<th width="10%">Mã</th>
 						<th>Tên đối tác</th>
@@ -226,7 +226,8 @@
 													{
 														"mDataProp" : "STT",
 														"bSortable" : false,
-														"bSearchable" : false
+														"bSearchable" : false,
+														"sClass" : 'td_center'
 													},
 													{
 														"mDataProp" : "ID",

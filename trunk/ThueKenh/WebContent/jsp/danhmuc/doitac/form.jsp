@@ -50,8 +50,8 @@ var contextPath = '<%=contextPath%>
 						value="<s:property value="opEdit.stt" />" /></td>
 				</tr>
 				<tr>
-					<td align="right"><label for="tendoitac">Tên phòng
-							ban <font title="Bắt buộc nhập" color="red">*</font> :
+					<td align="right"><label for="tendoitac">Tên đối tác
+							<font title="Bắt buộc nhập" color="red">*</font> :
 					</label></td>
 					<td align="left"><input type="text" id="tendoitac"
 						name="opEdit.tendoitac"
