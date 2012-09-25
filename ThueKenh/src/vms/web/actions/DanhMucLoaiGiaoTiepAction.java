@@ -18,6 +18,7 @@ import org.json.JSONObject;
 
 import vms.db.dao.DaoFactory;
 import vms.db.dao.LoaiGiaoTiepDao;
+import vms.db.dao.TuyenkenhDao;
 import vms.db.dto.Account;
 import vms.db.dto.LoaiGiaoTiepDTO;
 import vms.utils.Constances;
@@ -67,6 +68,16 @@ public class DanhMucLoaiGiaoTiepAction implements Preparable {
 	private HttpSession session;
 
 	private Account account;
+
+	private LoaiGiaoTiepDTO detail;
+
+	public LoaiGiaoTiepDTO getDetail() {
+		return detail;
+	}
+
+	public void setDetail(LoaiGiaoTiepDTO detail) {
+		this.detail = detail;
+	}
 
 	public String getFlag() {
 		return flag;
@@ -242,6 +253,20 @@ public String dosave() {
 		jsonData.put("iTotalDisplayRecords", lstPhongBan.size());
 		jsonData.put("aaData", items);
 
+		return Action.SUCCESS;
+	}
+	
+	//detail
+	public String detail() {
+		
+		this.request = ServletActionContext.getRequest();
+		String id=this.request.getParameter("id");
+		System.out.println("laoi giao tiep id="+id);
+		if(id == null) return Action.ERROR;
+		detail = lgtDAO.get(id);
+		if(detail == null) return Action.ERROR;
+		/*jsonData = new LinkedHashMap<String, Object>();
+		jsonData.put("test", "Hello world!");*/
 		return Action.SUCCESS;
 	}
 

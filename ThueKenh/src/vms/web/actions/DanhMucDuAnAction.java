@@ -68,6 +68,16 @@ public class DanhMucDuAnAction implements Preparable {
 
 	private Account account;
 
+	private DuAnDTO detail;
+
+	public DuAnDTO getDetail() {
+		return detail;
+	}
+
+	public void setDetail(DuAnDTO detail) {
+		this.detail = detail;
+	}
+
 	public String getFlag() {
 		return flag;
 	}
@@ -214,6 +224,19 @@ public class DanhMucDuAnAction implements Preparable {
 		jsonData.put("iTotalDisplayRecords", lst.size());
 		jsonData.put("aaData", items);
 
+		return Action.SUCCESS;
+	}
+	
+	public String detail() {
+		
+		this.request = ServletActionContext.getRequest();
+		String id=this.request.getParameter("id");
+		System.out.println("dua an id="+id);
+		if(id == null) return Action.ERROR;
+		detail = DuAnDAO.get(id);
+		if(detail == null) return Action.ERROR;
+		/*jsonData = new LinkedHashMap<String, Object>();
+		jsonData.put("test", "Hello world!");*/
 		return Action.SUCCESS;
 	}
 
