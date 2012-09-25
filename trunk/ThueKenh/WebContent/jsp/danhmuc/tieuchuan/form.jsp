@@ -161,9 +161,9 @@ var contextPath = '<%=contextPath%>
 							for (key in form_data) {
 								$("#form #" + key).val(form_data[key]);
 							}
-							$("#ma").attr("disabled", "true");
-							$("#stt").attr("disabled", "true");
-							$("#tentieuchuan").attr("disabled", "true");
+							//$("#ma").attr("disabled", "true");
+							//$("#stt").attr("disabled", "true");
+					//$("#tentieuchuan").attr("disabled", "true");
 						}
 						$(document)
 								.delegate(
