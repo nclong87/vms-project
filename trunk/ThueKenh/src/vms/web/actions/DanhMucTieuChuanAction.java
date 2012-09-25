@@ -38,21 +38,49 @@ public class DanhMucTieuChuanAction implements Preparable {
 	private vms.db.dao.TieuChuanDAO TieuChuanDAO;
 
 	private TieuChuanDTO opEdit;
-	
+
 	private InputStream inputStream;
-	
+
+	private TieuChuanDTO detail;
+
+	public String detail() {
+
+		this.request = ServletActionContext.getRequest();
+		String id = this.request.getParameter("id");
+		System.out.println("tieu chuan id=" + id);
+		if (id == null)
+			return Action.ERROR;
+		detail = TieuChuanDAO.get(id);
+		if (detail == null)
+			return Action.ERROR;
+		/*
+		 * jsonData = new LinkedHashMap<String, Object>(); jsonData.put("test",
+		 * "Hello world!");
+		 */
+		return Action.SUCCESS;
+	}
+
+	public TieuChuanDTO getDetail() {
+		return detail;
+	}
+
+	public void setDetail(TieuChuanDTO detail) {
+		this.detail = detail;
+	}
+
 	public InputStream getInputStream() {
 		return inputStream;
 	}
 
 	public void setInputStream(String str) {
-		
+
 		try {
-			this.inputStream =  new ByteArrayInputStream( str.getBytes("UTF-8") );
-		} catch (UnsupportedEncodingException e) {			
+			this.inputStream = new ByteArrayInputStream(str.getBytes("UTF-8"));
+		} catch (UnsupportedEncodingException e) {
 			System.out.println("ERROR :" + e.getMessage());
 		}
 	}
+
 	public TieuChuanDTO getOpEdit() {
 		return opEdit;
 	}
@@ -136,10 +164,10 @@ public class DanhMucTieuChuanAction implements Preparable {
 			} else {
 				// new
 				System.out.println("Begin New");
-				if(this.TieuChuanDAO.insert(this.opEdit)){
+				if (this.TieuChuanDAO.insert(this.opEdit)) {
 					this.flag = "1";// updated
 					System.out.println("Thêm thành công");
-				}else{
+				} else {
 					this.flag = "-1";// failure
 					System.out.println("Thêm lỗi");
 				}
@@ -163,14 +191,14 @@ public class DanhMucTieuChuanAction implements Preparable {
 
 		return Action.SUCCESS;
 	}
-	
+
 	public String dosave() {
 		String id = "";
 
 		// edit page post
 		if (this.opEdit != null) {
 			// edit
-			
+
 			System.out.println("edit mode id=" + this.opEdit.getId());
 			if (!this.opEdit.getId().isEmpty()) {
 				System.out.println("Begin Edit");
@@ -185,11 +213,11 @@ public class DanhMucTieuChuanAction implements Preparable {
 			} else {
 				// new
 				System.out.println("Begin New");
-				if(this.TieuChuanDAO.insert(this.opEdit)){
+				if (this.TieuChuanDAO.insert(this.opEdit)) {
 					this.flag = "1";// updated
 					System.out.println("Thêm thành công");
 					setInputStream("OK");
-				}else{
+				} else {
 					this.flag = "-1";// failure
 					System.out.println("Thêm lỗi");
 				}
@@ -224,7 +252,7 @@ public class DanhMucTieuChuanAction implements Preparable {
 
 		} else
 			lstTieuChuan = TieuChuanDAO.get();
-//asd
+		// asd
 		jsonData = new LinkedHashMap<String, Object>();
 		List<HashMap<String, Object>> items = new ArrayList<HashMap<String, Object>>();
 		for (int i = 0; i < lstTieuChuan.size(); i++) {

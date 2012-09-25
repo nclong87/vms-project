@@ -84,7 +84,7 @@
 			<result name="success">/jsp/danhmuc/loaigiaotiep/form.jsp</result>
 		</action>
 		<action name="detailLoaiGiaoTiep" class="loaigiaotiepAction" method="detail">
-			<result>/jsp/danhmuc/detail_loaigiaotiep.jsp</result>
+			<result>/jsp/danhmuc/loaigiaotiep/detail.jsp</result>
 		</action>		
 		<action name="dosaveloaigiaotiep" class="loaigiaotiepAction" method="dosave">
 			<result name="success" type="stream">
@@ -114,6 +114,9 @@
 				<param name="inputName">inputStream</param>
 			</result>
 		</action>
+		<action name="detailcongthuc" class="congthucAction" method="detail">
+			<result>/jsp/danhmuc/congthuc/detail.jsp</result>
+		</action>	
 		<!-- kết công thức -->
 		<!-- khai báo khu vực -->
 		<action name="khuvuc" class="khuvucAction" method="index">
@@ -183,6 +186,9 @@
 				<param name="inputName">inputStream</param>
 			</result>
 		</action>
+		<action name="detailduan" class="duanAction" method="detail">
+			<result>/jsp/danhmuc/duan/detail.jsp</result>
+		</action>	
 		<!-- kết thúc dự án -->
 		<!-- khai báo tiêu chuẩn -->
 		<action name="tieuchuan" class="tieuchuanAction" method="index">
@@ -205,6 +211,9 @@
 			<result name="success" type="stream">
 				<param name="inputName">inputStream</param>
 			</result>
+		</action>
+		<action name="detailtieuchuan" class="tieuchuanAction" method="detail">
+			<result>/jsp/danhmuc/tieuchuan/detail.jsp</result>
 		</action>
 		<!-- kết thúc tiêu chuẩn -->
 	</package>

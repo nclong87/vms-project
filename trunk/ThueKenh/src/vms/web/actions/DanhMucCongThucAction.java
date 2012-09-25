@@ -69,6 +69,16 @@ public class DanhMucCongThucAction implements Preparable {
 
 	private Account account;
 
+	private CongThucDTO detail;
+
+	public CongThucDTO getDetail() {
+		return detail;
+	}
+
+	public void setDetail(CongThucDTO detail) {
+		this.detail = detail;
+	}
+
 	public String getFlag() {
 		return flag;
 	}
@@ -90,6 +100,19 @@ public class DanhMucCongThucAction implements Preparable {
 		this.factory = factory;
 		this.congThucDAO = new CongThucDAO(factory);
 		this.jsonData = new LinkedHashMap<String, Object>();
+	}
+	
+public String detail() {
+		
+		this.request = ServletActionContext.getRequest();
+		String id=this.request.getParameter("id");
+		System.out.println("dua an id="+id);
+		if(id == null) return Action.ERROR;
+		detail = congThucDAO.get(id);
+		if(detail == null) return Action.ERROR;
+		/*jsonData = new LinkedHashMap<String, Object>();
+		jsonData.put("test", "Hello world!");*/
+		return Action.SUCCESS;
 	}
 
 	public String index() {
