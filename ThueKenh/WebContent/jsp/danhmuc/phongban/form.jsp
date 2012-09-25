@@ -3,6 +3,11 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <s:url action="index" namespace="/login" var="loginURL" />
 <s:url action="dosavephongban" namespace="/danhmuc" id="doSaveURL" />
+
+<s:set value="opEdit.ma" var="ma"/>
+<s:set value="opEdit.stt" var="stt"/>
+<s:set value="opEdit.tenphongban" var="tenphongban"/>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <%
 	String contextPath = request.getContextPath();
@@ -98,8 +103,9 @@ var contextPath = '<%=contextPath%>
 			.ready(
 					function() {
 						$("#btReset").click(function() {
-							$("#form")[0].reset();
-							message('', 0);
+							$("#ma").attr("value","${ma}");
+							$("#stt").attr("value","${stt}");
+							$("#tenphongban").attr("value","${tenphongban}");
 						});
 						$("#form").validate({
 							onkeyup : false,

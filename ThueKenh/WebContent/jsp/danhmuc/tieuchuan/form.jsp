@@ -3,6 +3,15 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <s:url action="index" namespace="/login" var="loginURL" />
 <s:url action="dosavetieuchuan" namespace="/danhmuc" id="doSaveURL" />
+
+<s:set value="opEdit.ma" var="ma"/>
+<s:set value="opEdit.stt" var="stt"/>
+<s:set value="opEdit.tentieuchuan" var="tentieuchuan"/>
+<s:set value="opEdit.loaitieuchuan" var="loaitieuchuan"/>
+<s:set value="opEdit.giamgia" var="giamgia"/>
+<s:set value="opEdit.usecreate" var="usercreate"/>
+<s:set value="opEdit.timecreate" var="timecreate"/>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <%
 	String contextPath = request.getContextPath();
@@ -110,8 +119,13 @@ var contextPath = '<%=contextPath%>
 			.ready(
 					function() {
 						$("#btReset").click(function() {
-							$("#form")[0].reset();
-							message('', 0);
+							$("#ma").attr("value","${ma}");
+							$("#stt").attr("value","${stt}");
+							$("#tentieuchuan").attr("value","${tentieuchuan}");
+							$("#loaitieuchuan").attr("value","${loaitieuchuan}");
+							$("#mota").attr("value","${mota}");
+							$("#usecreate").attr("value","${usercreate}");
+							$("#timecreate").attr("value","${timecreate}");
 						});
 						$("#form").validate({
 							onkeyup : false,

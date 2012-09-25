@@ -3,6 +3,12 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <s:url action="index" namespace="/login" var="loginURL" />
 <s:url action="dosavecongthuc" namespace="/danhmuc" id="doSaveURL" />
+
+<s:set value="opEdit.ma" var="ma"/>
+<s:set value="opEdit.stt" var="stt"/>
+<s:set value="opEdit.tencongthuc" var="tencongthuc"/>
+<s:set value="opEdit.chuoicongthuc" var="chuoicongthuc"/>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <%
 	String contextPath = request.getContextPath();
@@ -26,6 +32,7 @@ var contextPath = '<%=contextPath%>';
 	function byId(id) { //Viet tat cua ham document.getElementById
 		return document.getElementById(id);
 	}
+
 </script>
 <style>
 </style>
@@ -74,7 +81,7 @@ var contextPath = '<%=contextPath%>';
 							width:100px;
 						}
 						.congthuc .s2 button{
-							width:74px;
+							width:50px;
 						}
 					</style>
 					
@@ -89,11 +96,10 @@ var contextPath = '<%=contextPath%>';
 							<button value="-">-</button>
 							<button value="*">*</button>
 							<button value="/">/</button>
+							<button value=")">)</button>
+							<button value="(">(</button>
 						</div>
 						<script>
-							function clickCongThuc(o){
-								alert($(o).attr("value"));
-							}
 							$(".congthuc button").click(function(o){
 								//alert($(this).attr("value"));
 								var txtCongThuc=$("#chuoicongthuc").attr("value");
@@ -144,8 +150,14 @@ var contextPath = '<%=contextPath%>';
 			.ready(
 					function() {
 						$("#btReset").click(function() {
-							$("#form")[0].reset();
-							message('', 0);
+							$('#btnSubmit').attr('disabled', false);
+							$("#ma").attr("value","${ma}");
+							$("#stt").attr("value","${stt}");
+							$("#tencongthuc").attr("value","${tencongthuc}");
+							$("#chuoicongthuc").attr("value","${chuoicongthuc}");
+							
+							
+
 						});
 						$("#form").validate({
 							onkeyup : false,
@@ -182,6 +194,8 @@ var contextPath = '<%=contextPath%>';
 							$("#ma").attr("disabled", "true");
 							$("#stt").attr("disabled", "true");
 							$("#tencongthuc").attr("disabled", "true");
+							$("#chuoicongthuc").attr("disabled", "true");
+							$("#btnSubmit").attr("disabled", true);
 						}
 						$(document)
 								.delegate(
