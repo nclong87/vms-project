@@ -32,7 +32,8 @@ var contextPath = '<%=contextPath%>';
 </head>
 <body>
 	<form id="form" onsubmit="return false ;">
-		<input type="text" style="display: none" name="opEdit.id" id="id" value="<s:property value="opEdit.id" />" />
+		<input type="text" style="display: none" name="opEdit.id" id="id"
+			value="<s:property value="opEdit.id" />" />
 		<div
 			style="background: none repeat scroll 0pt 0pt rgb(242, 242, 242); padding: 5px; width: 99%;">
 			<table class="input" style="width: 725px">
@@ -49,15 +50,59 @@ var contextPath = '<%=contextPath%>';
 						value="<s:property value="opEdit.stt" />" /></td>
 				</tr>
 				<tr>
-					<td align="right"><label for="tencongthuc">Tên công thức <font title="Bắt buộc nhập" color="red">*</font> :
+					<td align="right"><label for="tencongthuc">Tên công
+							thức <font title="Bắt buộc nhập" color="red">*</font> :
 					</label></td>
 					<td align="left"><input type="text" id="tencongthuc"
 						name="opEdit.tencongthuc"
 						value="<s:property value="opEdit.tencongthuc" />" /></td>
-<td align="right" width="150px"><label for="stt">Chuỗi công thức :
-					</label></td>
-					<td align="left"><input type="text" id="chuoicongthuc" name="opEdit.chuoicongthuc"
-						value="<s:property value="opEdit.chuoicongthuc" />" /></td>
+					<td align="right" width="150px"><label for="stt">Chuỗi
+							công thức : </label></td>
+					<td align="left"><input type="text" id="chuoicongthuc"
+						name="opEdit.chuoicongthuc"
+						value="<s:property value="opEdit.chuoicongthuc" />" />
+						</td>
+				</tr>
+				<tr>
+					<td align="right"></td>
+					<td align="left"></td>
+					<style>
+						.congthuc button{
+							float:right
+						}
+						.congthuc .s1 button{
+							width:100px;
+						}
+						.congthuc .s2 button{
+							width:74px;
+						}
+					</style>
+					
+					<td align="left" colspan="2" class="congthuc">
+						<div class="s1">
+							<button value="SL">Số lượng</button>
+							<button value="GG">Giảm giá</button>
+							<button value="CC">Cước cổng</button>
+						</div>
+						<div class="s2">
+							<button value="+">+</button>
+							<button value="-">-</button>
+							<button value="*">*</button>
+							<button value="/">/</button>
+						</div>
+						<script>
+							function clickCongThuc(o){
+								alert($(o).attr("value"));
+							}
+							$(".congthuc button").click(function(o){
+								//alert($(this).attr("value"));
+								var txtCongThuc=$("#chuoicongthuc").attr("value");
+								txtCongThuc+=$(this).attr("value")+" ";
+								$("#chuoicongthuc").attr("value",txtCongThuc);
+							});
+						</script>
+						</td>
+						
 				</tr>
 
 
@@ -110,7 +155,7 @@ var contextPath = '<%=contextPath%>';
 									required : true
 								},
 								"opEdit.stt" : {
-									number :true
+									number : true
 								},
 								"opEdit.chuoicongthuc" : {
 									required : true
@@ -149,10 +194,12 @@ var contextPath = '<%=contextPath%>';
 												alert("Dữ liệu nhập chưa hợp lệ, vui lòng kiểm tra lại!");
 												button.disabled = false;
 											} else {
-												var stt = $("#stt").attr("value");
+												var stt = $("#stt").attr(
+														"value");
 
 												if (stt == "") {
-													$("#stt").attr("value", "0");
+													$("#stt")
+															.attr("value", "0");
 													//alert(stt);
 												}
 												var dataString = $("#form")
