@@ -1,9 +1,8 @@
 ﻿<%@ taglib prefix="s" uri="/struts-tags"%>
-<s:url action="form" namespace="/sucokenh" id="formURL"/>
-<s:url action="ajLoadSuCo" namespace="/sucokenh" id="ajLoadSuCo"/>
-<s:url action="popupSearch" namespace="/tuyenkenh" id="popupSearchURL" />
-<s:url action="delete" namespace="/sucokenh" id="deleteURL"/>
-<s:url action="detail" namespace="/sucokenh" id="detailURL"/>
+<s:url action="form" namespace="/bienbanvanhanhkenh" id="formURL"/>
+<s:url action="ajLoadBienbanvanhanhkenh" namespace="/bienbanvanhanhkenh" id="ajLoadBienbanvanhanhkenh"/>
+<s:url action="delete" namespace="/bienbanvanhanhkenh" id="deleteURL"/>
+<s:url action="detail" namespace="/bienbanvanhanhkenh" id="detailURL"/>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -13,7 +12,6 @@
 	<%@include file="/include/header.jsp"%>
 	<script type="text/javascript" src="<%=contextPath%>/js/jquery-ui/jquery.ui.datepicker-vi.js"></script>
 	<script type="text/javascript" src="<%=contextPath%>/js/jquery-ui/jquery.ui.datetimepicker.js"></script>
-	<script type="text/javascript" src="<%=contextPath%>/js/mylibs/popup_search_tuyenkenh.js"></script>
 </head>
 
 <body>
@@ -24,7 +22,7 @@
 					<div class="fl">
 						<div class="fl tsl" id="t_1"></div>
 						<div class="fl clg b tsc d" id="t_2">
-							<div class="p3t">Tìm kiếm sự cố</div>
+							<div class="p3t">Tìm kiếm biên bản vận hành kênh</div>
 						</div>
 						<div class="fl tsr" id="t_3"></div>
 					</div>
@@ -39,41 +37,18 @@
 								<form id="form">
 									<table>
 										<tr>
-											<td align="right">Mã tuyến kênh</td>
-											<td><input type="text" style="width: 182px" name="tuyenkenh_id" id="tuyenkenh_id"/><input type="button" id="btPopupSearchTuyenkenh" value="..."/></td>
-											<td align="right">Dung lượng (MB) :</td>
-											<td><input type="text" style="width: 218px" name="dungluong" id="dungluong" /></td>
-											
-										</tr>
-										<tr>
-											<td align="right">Mã điểm đầu :</td>
-											<td><input type="text" style="width: 218px" name="madiemdau" id="madiemdau"/></td>
-											<td align="right">Mã điểm cuối :</td>
-											<td><input type="text" style="width: 218px" name="madiemcuoi" id="madiemcuoi"/></td>
-										</tr>
-										<tr>
-											<td align="right">Thời điểm bắt đầu :</td>
-											<td align="left"><input type="text"
-												name="thoidiembatdau" id="thoidiembatdau" style="width: 218px" class="datetimepicker"/>
+											<td width="100px" align="right">
+												Số biên bản :
 											</td>
-											<td align="right">Thời điểm kết thúc :</td>
-											<td align="left"><input type="text"
-												name="thoidiemketthuc" id="thoidiemketthuc" style="width: 218px" class="datetimepicker"/>
+											<td align="left">
+												<input type="text" name="sobienban" id="sobienban"  title="Số biên bản"/>
 											</td>
-	
 										</tr>
-										<tr>
-											<td align="right">Người xác nhận :</td>
-											<td><input type="text"
-												name="nguoixacnhan" id="nguoixacnhan" style="width: 218px"/></td>
-										</tr>
-	
 										<tr height="30px">
 											<td></td>
 											<td colspan="3">
 												<div class="buttonwrapper">
 													<input type="button" class="button" value="Tìm kiếm" onclick="doSearch()"></input>
-													<input type="button" class="button" value="Xuất excel"></input>
 												</div>
 											</td>
 										</tr>
@@ -86,30 +61,19 @@
 				</div>
 			</div>
 			<div style="clear: both; margin: 5px 0">
-				<input type="button" class="button" value="Thêm sự cố" onclick="ShowWindow('Thêm sự cố',800,600,'${formURL}',false);"></input>
-				<input type="button" class="button" value="Import Excel"></input>
+				<input type="button" class="button" value="Thêm sự cố" onclick="ShowWindow('Thêm biên bản vận hành kênh',1000,600,'${formURL}',false);"></input>
 				<input class="button" type="button" id="btXoa" value="Xóa" style="float: right; margin-right: 10px;"/>
 			</div>
 			<table width="100%" id="dataTable" class="display">
 				<thead>
 					<tr>
-						<th width="3px">STT</th>
-						<th width="30px">Mã tuyến kênh</th>
-						<th width="30px">Mã điểm đầu</th>
-						<th width="30px">Mã điểm cuối</th>
-						<th width="30px">Giao tiếp</th>
-						<th width="30px">Dung lượng</th>
-						<th width="30px">Số lượng</th>
-						<th width="50px">Thời gian bắt đầu</th>
-						<th width="50px">Thời gian kết thúc</th>
-						<th width="50px">Thời gian mất liên lạc</th>
-						<th width="50px">Nguyên nhân</th>
-						<th width="50px">Phương án xử lý</th>
-						<th width="50px">Người xác nhận</th>
-						<th width="50px">Người tạo</th>
-						<th width="50px">Chi tiết</th>
-						<th width="5px">Sửa</th>
-						<th width="5px" align="center"><input type="checkbox" onclick="selectAll(this)"/></th>
+						<th width="50px">STT</th>
+						<th width="100px">Số biên bản</th>
+						<th width="200px">Người tạo</th>
+						<th width="200px">Ngày tạo</th>
+						<th width="200px">File scan</th>
+						<th width="50px">Sửa</th>
+						<th width="50px" align="center"><input type="checkbox" onclick="selectAll(this)"/></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -146,41 +110,21 @@ function newPopupWindow(file, window, width, height) {
 $(document).ready(function(){	
 	// load datetime
 	LoadDateTimePicker(".datetimepicker");
-	// popup search tuyen kenh
-	popup_search_tuyenkenh.init({
-		url : "${popupSearchURL}",
-		afterSelected : function(data) {
-			// list tuyen kenh tra ve, sau do xu ly du lieu cho nay
-			data = data[0];
-			$("#tuyenkenh_id").val(data["id"]);
-		}
-	});
-	
 	// Load table
 	oTable = $('#dataTable').dataTable({
 		"bJQueryUI": true,
 		"bProcessing": true,
 		"bServerSide": true,
 		"bAutoWidth": false,
-		"sAjaxSource": "${ajLoadSuCo}",
+		"sAjaxSource": "${ajLoadBienbanvanhanhkenh}",
 		"aoColumns": [
 					{ "mDataProp": "stt","bSortable": false,"bSearchable": false,"sClass":'td_center' },
-					{ "mDataProp": "tuyenkenh_id","bSortable": false,"bSearchable": false,"sClass":'td_center'},
-					{ "mDataProp": "madiemdau","bSortable": false,"bSearchable": false,"sClass":'td_center'},
-					{ "mDataProp": "madiemcuoi","bSortable": false,"bSearchable": false},
-					{ "mDataProp": "loaigiaotiep","bSortable": false,"bSearchable": false,"sClass":'td_center'},
-					{ "mDataProp": "dungluong","bSortable": false,"bSearchable": false,"sClass":'td_center'},
-					{ "mDataProp": "soluong","bSortable": false,"bSearchable": false},
-					{ "mDataProp": "thoidiembatdau","bSortable": false,"bSearchable": false},
-					{ "mDataProp": "thoidiemketthuc","bSortable": false,"bSearchable": false},
-					{ "mDataProp": "thoigianmll","bSortable": false,"bSearchable": false},
-					{ "mDataProp": "nguyennhan","bSortable": false,"bSearchable": false},
-					{ "mDataProp": "phuonganxuly","bSortable": false,"bSearchable": false},
-					{ "mDataProp": "nguoixacnhan","bSortable": false,"bSearchable": false},
-					{ "mDataProp": "usercreate","bSortable": false,"bSearchable": false},
-					{ "mDataProp": null,"bSortable": false,"bSearchable": false,
+					{ "mDataProp": "sobienban","bSortable": false,"bSearchable": false,"sClass":'td_center'},
+					{ "mDataProp": "usercreate","bSortable": false,"bSearchable": false,"sClass":'td_center'},
+					{ "mDataProp": "timecreate","bSortable": false,"bSearchable": false,"sClass":'td_center'},
+					{ "mDataProp": null,"bSortable": false,"bSearchable": false,"sClass":'td_center',
 						"fnRender": function( oObj ) {
-							return '<a target="_blank" href="${detailURL}?id='+oObj.aData.id+'" title="Xem chi tiết sự cố">Chi tiết</a>';  
+							return '<a target="_blank" href="/upload/'+oObj.aData.filepath+'">'+oObj.aData.filename+'</a>';  
 						}
 					},
 					{ "mDataProp": null,"bSortable": false,"bSearchable": false,
@@ -208,7 +152,7 @@ $(document).ready(function(){
 	// edit
 	$("span.edit_icon").live("click",function(){
 		var id = $(this).attr("data-ref-id");
-		ShowWindow('Cập nhật thông tin sự cố kênh',800,600,"${formURL}?id="+id,false);
+		ShowWindow('Cập nhật thông tin biên bản vận hành kênh',1000,600,"${formURL}?id="+id,false);
 	});
 	
 	// delete

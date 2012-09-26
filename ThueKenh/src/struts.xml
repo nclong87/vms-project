@@ -384,6 +384,32 @@
 		<action name="form" class="sucoAction" method="form">
 			<result>/jsp/sucokenh/form.jsp</result>
 		</action>
+		<action name="doSave" class="sucoAction" method="doSave">
+			<result name="success" type="stream">
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+		<action name="ajLoadSuCo" class="sucoAction" method="ajLoadSuCo">
+			<result name="success" type="json">
+				<param name="root">jsonData</param>
+			</result>
+		</action>
+		<action name="delete" class="sucoAction" method="delete">
+			<result name="success" type="stream">
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+		<action name="detail" class="sucoAction" method="detail">
+			<result>/jsp/sucokenh/detail.jsp</result>
+		</action>
+		<action name="popupSearch" class="sucoAction">
+			<result>/jsp/sucokenh/popupSearch.jsp</result>
+		</action>
+		<action name="findByBienbanvanhanh" class="sucoAction" method="findByBienbanvanhanh">
+			<result name="success" type="json">
+				<param name="root">jsonData</param>
+			</result>
+		</action>
 	</package>
 	<package name="dexuat" extends="default" namespace="/dexuat">
 		<action name="index" class="dexuatAction">
@@ -431,6 +457,32 @@
 	<package name="bangiao" extends="default" namespace="/bangiao">
 		<action name="index" class="bangiaoAction" method="index">
 			<result>/jsp/bangiao/index.jsp</result>
+		</action>
+	</package>
+	<package name="bienbanvanhanhkenh" extends="default" namespace="/bienbanvanhanhkenh">
+		<action name="index" class="bienbanvanhanhkenhAction">
+			<result>/jsp/bienbanvanhanhkenh/index.jsp</result>
+		</action>
+		<action name="form" class="bienbanvanhanhkenhAction" method="form">
+			<result>/jsp/bienbanvanhanhkenh/form.jsp</result>
+		</action>
+		<action name="doSave" class="bienbanvanhanhkenhAction" method="doSave">
+			<result name="success" type="stream">
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+		<action name="ajLoadBienbanvanhanhkenh" class="bienbanvanhanhkenhAction" method="ajLoadBienbanvanhanhkenh">
+			<result name="success" type="json">
+				<param name="root">jsonData</param>
+			</result>
+		</action>
+		<action name="delete" class="bienbanvanhanhkenhAction" method="delete">
+			<result name="success" type="stream">
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+		<action name="detail" class="bienbanvanhanhkenhAction" method="detail">
+			<result>/jsp/bienbanvanhanhkenh/detail.jsp</result>
 		</action>
 	</package>
 </struts>

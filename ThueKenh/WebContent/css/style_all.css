@@ -573,3 +573,7 @@ select {
 padding-right:1px;
 width: 202px;
 }
+.ui-datepicker select
+{
+	width: 50px !important;
+}

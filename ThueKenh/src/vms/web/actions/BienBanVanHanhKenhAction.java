@@ -16,21 +16,17 @@ import org.json.JSONObject;
 import org.json.simple.JSONValue;
 
 import vms.db.dao.DaoFactory;
-import vms.db.dao.SuCoDAO;
-import vms.db.dao.TuyenKenhDeXuatDAO;
-import vms.db.dao.TuyenkenhDao;
+
+import vms.db.dao.BienBanVanHanhKenhDAO;
 import vms.db.dto.Account;
-import vms.db.dto.SuCoDTO;
-import vms.db.dto.TuyenKenh;
+import vms.db.dto.BienBanVanHanhKenhDTO;
 import vms.utils.Constances;
 import vms.utils.DateUtils;
 import vms.utils.VMSUtil;
-import vms.web.models.FIND_TUYENKENHDEXUAT;
-import vms.web.models.FN_FIND_SUCO;
 
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.Preparable;
-public class SuCoAction implements Preparable {
+public class BienBanVanHanhKenhAction implements Preparable {
 	private DaoFactory daoFactory;
 	private HttpServletRequest request;
 	private HttpSession session;
@@ -66,7 +62,7 @@ public class SuCoAction implements Preparable {
 	public void setId(String id) {
 		this.id = id;
 	}
-	private SuCoDTO sucoDTO;
+	private BienBanVanHanhKenhDTO bienbanvhkDto;
 	private LinkedHashMap<String, Object> jsonData;
 	
 	public LinkedHashMap<String, Object> getJsonData() {
@@ -75,14 +71,15 @@ public class SuCoAction implements Preparable {
 	public void setJsonData(LinkedHashMap<String, Object> jsonData) {
 		this.jsonData = jsonData;
 	}
-	public SuCoDTO getSucoDTO() {
-		return sucoDTO;
-	}
-	public void setSucoDTO(SuCoDTO sucoDTO) {
-		this.sucoDTO = sucoDTO;
-	}
 	
-	public SuCoAction( DaoFactory factory) {
+	
+	public BienBanVanHanhKenhDTO getBienbanvhkDto() {
+		return bienbanvhkDto;
+	}
+	public void setBienbanvhkDto(BienBanVanHanhKenhDTO bienbanvhkDto) {
+		this.bienbanvhkDto = bienbanvhkDto;
+	}
+	public BienBanVanHanhKenhAction( DaoFactory factory) {
 		daoFactory = factory;
 	}
 	public InputStream getInputStream() {
@@ -100,7 +97,7 @@ public class SuCoAction implements Preparable {
 	@Override
 	public void prepare() throws Exception {
 		// TODO Auto-generated method stub
-		System.out.println("SuCoAction");
+		System.out.println("BienBanVanHanhKenhAction");
 		request = ServletActionContext.getRequest();
 		session = request.getSession();
 		account = (Account) session.getAttribute(Constances.SESS_USERLOGIN);
@@ -126,10 +123,10 @@ public class SuCoAction implements Preparable {
 			System.out.println("id:"+id);
 			if(id != null && id.isEmpty()==false) {
 				System.out.println("id=" + id);
-				SuCoDAO sucoDao = new SuCoDAO(daoFactory);
-				sucoDTO = sucoDao.findById(id);
-				System.out.println(sucoDTO.getId());
-				Map<String,String> map = sucoDTO.getMap();
+				BienBanVanHanhKenhDAO bienbanvhkDao = new BienBanVanHanhKenhDAO(daoFactory);
+				bienbanvhkDto = bienbanvhkDao.findById(id);
+				System.out.println(bienbanvhkDto.getId());
+				Map<String,String> map = bienbanvhkDto.getMap();
 				form_data = JSONValue.toJSONString(map);
 			}
 		} catch (Exception e) {
@@ -139,36 +136,20 @@ public class SuCoAction implements Preparable {
 		return Action.SUCCESS;
 	}
 	
-	// save su co
+	// save bien ban van hanh kenh
 	public String doSave() {
-		
+		System.out.println("Begin save Bienbanvanhanhkenh");
 		try {
 			if(account == null) {
 				session.setAttribute("URL", VMSUtil.getFullURL(request));
 				return "login_page";
 			}
-			// validation
-			java.util.Date thoidiembatdau=DateUtils.parseDate(sucoDTO.getThoidiembatdau(), "dd/MM/yyyy HH:mm:ss");
-			java.util.Date thoidiemketthuc=DateUtils.parseDate(sucoDTO.getThoidiemketthuc(), "dd/MM/yyyy HH:mm:ss");
-			
-			if(DateUtils.compareDate(thoidiembatdau, thoidiemketthuc)==-1) // thoi diem bat dau lon hon thoi diem ket thuc
-			{
-				setInputStream("Date");
-				return Action.SUCCESS;
-			}
-			TuyenkenhDao tuyenkenhDao=new TuyenkenhDao(daoFactory);
-			TuyenKenh tuyenkenhDto=tuyenkenhDao.findById(sucoDTO.getTuyenkenh_id());
-			if(tuyenkenhDto==null)
-			{
-				setInputStream("TuyenKenhNotExist");
-				return Action.SUCCESS;
-			}
-			SuCoDAO sucoDao=new SuCoDAO(daoFactory);
-			long thoigianmatll=(thoidiemketthuc.getTime()-thoidiembatdau.getTime())/(60*1000);
-			sucoDTO.setThoigianmll((int)thoigianmatll);
-			sucoDTO.setUsercreate(account.getUsername());
-			sucoDTO.setTimecreate(DateUtils.getCurrentDateSQL());
-			String id=sucoDao.save(sucoDTO);
+			System.out.println("bienbanvhkDto:");
+			BienBanVanHanhKenhDAO bienbanvhkDao=new BienBanVanHanhKenhDAO(daoFactory);
+			bienbanvhkDto.setUsercreate(account.getUsername());
+			bienbanvhkDto.setTimecreate(DateUtils.getCurrentDateSQL());
+			System.out.println(bienbanvhkDto.getSobienban());
+			String id=bienbanvhkDao.save(bienbanvhkDto);
 			if(id==null) throw new Exception(Constances.MSG_ERROR);
 			setInputStream("OK");
 			
@@ -180,14 +161,14 @@ public class SuCoAction implements Preparable {
 		return Action.SUCCESS;
 	}
 	
-	// load su co
-	public String ajLoadSuCo() {
+	// load bien ban van hanh kenh
+	public String ajLoadBienbanvanhanhkenh() {
 		try {
+			System.out.println("begin ajLoadBienbanvanhanhkenh");
 			//if(account == null) throw new Exception("END_SESSION");
 			Integer iDisplayStart = Integer.parseInt(request.getParameter("iDisplayStart"));
 			Integer iDisplayLength = Integer.parseInt(request.getParameter("iDisplayLength"));
 			String sSearch = request.getParameter("sSearch").trim();
-			System.out.println("sSearch:"+sSearch);
 			Map<String, String> conditions = new LinkedHashMap<String, String>();
 			if(sSearch.isEmpty() == false) {
 				JSONArray arrayJson = (JSONArray) new JSONObject(sSearch).get("array");
@@ -199,19 +180,19 @@ public class SuCoAction implements Preparable {
 					}
 				}
 			}
-			SuCoDAO sucoDao = new SuCoDAO(daoFactory);
 			System.out.println("conditions="+conditions);
-			List<FN_FIND_SUCO> lstSuCo = sucoDao.findSuCo(iDisplayStart, iDisplayLength, conditions);
+			BienBanVanHanhKenhDAO bienbanvhkDao = new BienBanVanHanhKenhDAO(daoFactory);
+			List<BienBanVanHanhKenhDTO> lstBienbanvhk = bienbanvhkDao.findBienBanVanHanhKenh(iDisplayStart, iDisplayLength, conditions);
 			jsonData = new LinkedHashMap<String, Object>();
 			List<Map<String, String>> items = new ArrayList<Map<String, String>>();
-			for(int i=0;i<lstSuCo.size() && i<iDisplayLength;i++) {
-				Map<String, String> map = lstSuCo.get(i).getMap();
+			for(int i=0;i<lstBienbanvhk.size() && i<iDisplayLength;i++) {
+				Map<String, String> map = lstBienbanvhk.get(i).getMap();
 				map.put("stt", String.valueOf(i+1));
 				items.add(map);
 			}
 			jsonData.put("sEcho", Integer.parseInt(request.getParameter("sEcho")));
-			jsonData.put("iTotalRecords", lstSuCo.size());
-			jsonData.put("iTotalDisplayRecords", lstSuCo.size());
+			jsonData.put("iTotalRecords", lstBienbanvhk.size());
+			jsonData.put("iTotalDisplayRecords", lstBienbanvhk.size());
 			jsonData.put("aaData", items);
 			return Action.SUCCESS;
 		} catch (Exception e) {
@@ -229,8 +210,8 @@ public class SuCoAction implements Preparable {
 				throw new Exception("END_SESSION");
 			}
 			if(ids != null && ids.length >0 ) {
-				SuCoDAO sucoDao = new SuCoDAO(daoFactory);
-				sucoDao.deleteByIds(ids);
+				BienBanVanHanhKenhDAO bienbanvhkDao = new BienBanVanHanhKenhDAO(daoFactory);
+				bienbanvhkDao.deleteByIds(ids);
 			}
 			setInputStream("OK");
 		} catch (Exception e) {
@@ -241,31 +222,12 @@ public class SuCoAction implements Preparable {
 	}
 	
 	public String detail() {
-		SuCoDAO sucoDao = new SuCoDAO(daoFactory);
+		BienBanVanHanhKenhDAO bienbanvhkDao = new BienBanVanHanhKenhDAO(daoFactory);
 		if(id == null) return Action.ERROR;
-		detail = sucoDao.getDetail(id);
+		detail = bienbanvhkDao.getDetail(id);
 		if(detail == null) return Action.ERROR;
 		/*jsonData = new LinkedHashMap<String, Object>();
 		jsonData.put("test", "Hello world!");*/
-		return Action.SUCCESS;
-	}
-	
-	public String findByBienbanvanhanh() {
-		jsonData = new LinkedHashMap<String, Object>();
-		try {
-			if(id!= null) {
-				Map<String, String> conditions = new LinkedHashMap<String, String>();
-				conditions.put("bienbanvanhanh_id", id);
-				SuCoDAO sucoDao = new SuCoDAO(daoFactory);
-				List<FN_FIND_SUCO> list = sucoDao.findSuCo(0, 1000, conditions);
-				jsonData.put("result", "OK");
-				jsonData.put("aaData", list);
-			}
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-			jsonData.put("result", "ERROR");
-		}
 		return Action.SUCCESS;
 	}
 	
