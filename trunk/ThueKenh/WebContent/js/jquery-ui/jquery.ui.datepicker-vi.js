@@ -18,6 +18,8 @@ jQuery(function($){
 		firstDay: 0,
 		isRTL: false,
 		showMonthAfterYear: false,
+		changeMonth: true,
+        changeYear: true,
 		yearSuffix: ''};
 	$.datepicker.setDefaults($.datepicker.regional['vi']);
 });

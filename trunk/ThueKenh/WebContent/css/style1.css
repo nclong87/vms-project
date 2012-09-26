@@ -36,3 +36,7 @@ th.specalt {
 	position: relative;
 	width: 15px;
 }
+.ui-datepicker select
+{
+	width: 50px !important;
+}

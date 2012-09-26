@@ -9,24 +9,49 @@ import vms.utils.DateUtils;
 
 public class SuCoDTO {
 	//attribute
-	public String id="";
-	public String tuyenkenh_id="";
-	public String filescan_id="";
-	public String phuluc_id="";
-	public String thanhtoan_id="";
-	public String loaisuco="";
-	public String thoidiembatdau="";
-	public String thoidiemketthuc="";
-	public Integer thoigianmll=0;
-	public String nguyennhan="";
-	public String phuonganxuly="";
-	public String nguoixacnhan="";
-	public long giamtrumll=0;
-	public Integer trangthai=0;
-	public String usercreate="";
-	public String timecreate="";
-	public Integer deleted=0;
+	private String id="";
+	private String tuyenkenh_id="";
+	private String phuluc_id="";
+	private String thanhtoan_id="";
+	private String thoidiembatdau="";
+	private String thoidiemketthuc="";
+	private Integer thoigianmll=0;
+	private String nguyennhan="";
+	private String phuonganxuly="";
+	private String nguoixacnhan="";
+	private long giamtrumll=0;
+	private Integer trangthai=0;
+	private String usercreate="";
+	private String timecreate="";
+	private Integer deleted=0;
+	private String filename="";
+	public String filepath="";
+	public String filesize="";
 	
+	public String getFilename() {
+		return filename;
+	}
+
+	public void setFilename(String filename) {
+		this.filename = filename;
+	}
+
+	public String getFilepath() {
+		return filepath;
+	}
+
+	public void setFilepath(String filepath) {
+		this.filepath = filepath;
+	}
+
+	public String getFilesize() {
+		return filesize;
+	}
+
+	public void setFilesize(String filesize) {
+		this.filesize = filesize;
+	}
+
 	public String getId() {
 		return id;
 	}
@@ -43,13 +68,6 @@ public class SuCoDTO {
 		this.tuyenkenh_id = tuyenkenh_id;
 	}
 
-	public String getFilescan_id() {
-		return filescan_id;
-	}
-
-	public void setFilescan_id(String filescan_id) {
-		this.filescan_id = filescan_id;
-	}
 
 	public String getPhuluc_id() {
 		return phuluc_id;
@@ -67,14 +85,6 @@ public class SuCoDTO {
 		this.thanhtoan_id = thanhtoan_id;
 	}
 
-	public String getLoaisuco() {
-		return loaisuco;
-	}
-
-	public void setLoaisuco(String loaisuco) {
-		this.loaisuco = loaisuco;
-	}
-
 	public String getThoidiembatdau() {
 		return thoidiembatdau;
 	}
@@ -89,6 +99,7 @@ public class SuCoDTO {
 
 	public void setThoidiemketthuc(String thoidiemketthuc) {
 		this.thoidiemketthuc = thoidiemketthuc;
+		
 	}
 
 	public Integer getThoigianmll() {
@@ -167,10 +178,8 @@ public class SuCoDTO {
 		Map<String, String> map = new LinkedHashMap<String, String>();
 		map.put("id", this.id);
 		map.put("tuyenkenh_id",this.tuyenkenh_id);
-		map.put("filescan_id",this.filescan_id);
 		map.put("phuluc_id",this.phuluc_id);
 		map.put("thanhtoan_id",this.thanhtoan_id);
-		map.put("loaisuco",this.loaisuco);
 		map.put("thoidiembatdau",this.thoidiembatdau);
 		map.put("thoidiemketthuc",this.thoidiemketthuc);
 		map.put("thoigianmll",String.valueOf(this.thoigianmll));
@@ -182,6 +191,9 @@ public class SuCoDTO {
 		map.put("usercreate",this.usercreate);
 		map.put("timecreate",this.timecreate);
 		map.put("deleted",String.valueOf(this.deleted));
+		map.put("filename",this.filename);
+		map.put("filepath",this.filepath);
+		map.put("filesize",this.filesize);
 		return map;
 	}
 	
@@ -189,11 +201,9 @@ public class SuCoDTO {
 		SuCoDTO dto = new SuCoDTO();
 		dto.setId(rs.getString("ID"));
 		dto.setTuyenkenh_id(rs.getString("TUYENKENH_ID"));
-		dto.setFilescan_id(rs.getString("PHULUC_ID"));
 		dto.setThanhtoan_id(rs.getString("THANHTOAN_ID"));
-		dto.setLoaisuco(rs.getString("LOAISUCO"));
-		dto.setThoidiembatdau(DateUtils.formatDate(rs.getDate("THOIDIEMBATDAU"), DateUtils.SDF_DDMMYYYY));
-		dto.setThoidiemketthuc(DateUtils.formatDate(rs.getDate("THOIDIEMKETTHUC"), DateUtils.SDF_DDMMYYYY));
+		dto.setThoidiembatdau(DateUtils.formatDate(rs.getDate("THOIDIEMBATDAU"), DateUtils.SDF_DDMMYYYYHHMMSS2));
+		dto.setThoidiemketthuc(DateUtils.formatDate(rs.getDate("THOIDIEMKETTHUC"), DateUtils.SDF_DDMMYYYYHHMMSS2));
 		dto.setThoigianmll(rs.getInt("THOIGIANMLL"));
 		dto.setNguyennhan(rs.getString("NGUYENNHAN"));
 		dto.setPhuonganxuly(rs.getString("PHUONGANXULY"));
@@ -203,6 +213,9 @@ public class SuCoDTO {
 		dto.setUsercreate(rs.getString("USERCREATE"));
 		dto.setTimecreate(DateUtils.formatDate(rs.getDate("TIMECREATE"), DateUtils.SDF_DDMMYYYY));
 		dto.setDeleted(rs.getInt("DELETED"));
+		dto.setFilename(rs.getString("FILENAME"));
+		dto.setFilepath(rs.getString("FILEPATH"));
+		dto.setFilesize(rs.getString("FILESIZE"));
         return dto;
 	}
 }

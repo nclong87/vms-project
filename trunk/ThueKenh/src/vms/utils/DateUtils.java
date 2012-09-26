@@ -20,7 +20,8 @@ public class DateUtils {
 	
 	public static SimpleDateFormat SDF_SQL = new SimpleDateFormat("dd-MMM-yyyy");
 	public static SimpleDateFormat SDF_DDMMYYYY = new SimpleDateFormat("dd/MM/yyyy");
-	public static SimpleDateFormat SDF_DDMMYYYYHHSS = new SimpleDateFormat("dd/MM/yyyy HH:ss");
+	public static SimpleDateFormat SDF_DDMMYYYYHHMMSS = new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss");
+	public static SimpleDateFormat SDF_DDMMYYYYHHMMSS2 = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 	//private static SimpleDateFormat SDF_DDMMMYYYY = new SimpleDateFormat("dd-MMM-yyyy");
 	
     public DateUtils() {
@@ -32,16 +33,16 @@ public class DateUtils {
     		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(format);
 			return simpleDateFormat.parse(str);
 		} catch (ParseException e) {
-			System.out.println("ERROR :" + e.getMessage());
+			System.out.println("ERROR parseDate :" + e.getMessage());
 		}
 		return null;
     }
     public static String parseStringDateSQL(String str,String format) {
     	try {
     		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(format);
-			return SDF_SQL.format(simpleDateFormat.parse(str));
+			return SDF_DDMMYYYYHHMMSS.format(simpleDateFormat.parse(str));
 		} catch (ParseException e) {
-			System.out.println("ERROR :" + e.getMessage());
+			System.out.println("ERROR parseStringDateSQL :" + e.getMessage());
 		}
 		return null;
     }
@@ -68,8 +69,28 @@ public class DateUtils {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	public static java.sql.Date convertToSQLDate(Date date) {
+	
+	// created by toannguyenb
+	// Compare Date
+	public static Integer compareDate(Date date1, Date date2){
+		try
+		{
+	        if (date1.equals(date2)) // bang nhau
+	        	return 0;
+	        else if (date1.before(date2)) // date1 < date2
+	        	return 1;
+	        else if (date1.after(date2))
+	          return -1; // date1 > date2
+		}catch (Exception ex) {
+			System.out.println("ERROR compareDate :" + ex.getMessage());
+			return -2;
+		}
+		return null;
+    }
+	public static java.sql.Date convert(Date date) {
 		return new java.sql.Date(date.getTime());
 	}
-}
+	public static java.sql.Date convertToSQLDate(Date date) {
+		return new java.sql.Date(date.getTime());
+	}}
 
