@@ -1,3 +1,4 @@
+var ERROR_MESSAGE = "Có lỗi xảy ra, vui lòng liên hệ nhân viên kỹ thuật để khắc phục lỗi này!";
 function getCheckedValue(radioObj) {
 	if(!radioObj)
 		return "";

@@ -21,13 +21,13 @@ import org.json.simple.JSONValue;
 import vms.db.dao.AccountDao;
 import vms.db.dao.DaoFactory;
 import vms.db.dao.KhuVucDao;
+import vms.db.dao.MenuDao;
 import vms.db.dao.PhongBanDao;
 import vms.db.dao.VmsgroupDao;
 import vms.db.dto.Account;
 import vms.db.dto.KhuVuc;
-import vms.db.dto.PhongBan;
+import vms.db.dto.Menu;
 import vms.db.dto.PhongBanDTO;
-import vms.db.dto.Vmsgroup;
 import vms.utils.Constances;
 import vms.utils.VMSUtil;
 import vms.web.models.AccountExt;
@@ -49,7 +49,8 @@ public class UserAction implements Preparable {
 	
 	private List<PhongBanDTO> phongbans;
 	private List<KhuVuc> khuvucs;
-	private List<Vmsgroup> vmsgroups;
+	private List<Map<String, Object>> vmsgroups;
+	private List<Menu> menus;
 	private String id;
 	private String[] ids;
 	private Account user;
@@ -83,50 +84,30 @@ public class UserAction implements Preparable {
 			Integer iDisplayLength = Integer.parseInt(request.getParameter("iDisplayLength"));
 			String sSearch = request.getParameter("sSearch").trim();
 			System.out.println("sSearch="+sSearch);
-			String username = "";
-			String phongban_id = "";
-			String khuvuc_id = "";
-			String active = "";
+			Map<String, String> conditions = new LinkedHashMap<String, String>();
 			if(sSearch.isEmpty() == false) {
 				JSONArray arrayJson = (JSONArray) new JSONObject(sSearch).get("array");
 				for(int i=0;i<arrayJson.length();i++) {
 					String name = arrayJson.getJSONObject(i).getString("name");
 					String value = arrayJson.getJSONObject(i).getString("value");
 					if(value.isEmpty()==false) {
-						if(name.equals("username"))
-							username = value;
-						if(name.equals("phongban_id"))
-							phongban_id = value;
-						if(name.equals("khuvuc_id"))
-							khuvuc_id = value;
-						if(name.equals("active"))
-							active = value;
+						conditions.put(name, value);
 					}
 				}
 			}
 			AccountDao accountDao = new AccountDao(daoFactory);
-			List<AccountExt> lstAccount = accountDao.findAccounts(iDisplayStart, iDisplayLength + 1, username, phongban_id, khuvuc_id, active);
-			jsonData = new LinkedHashMap<String, Object>();
-			List<HashMap<String, Object>> items = new ArrayList<HashMap<String, Object>>();
-			for(int i=0;i<lstAccount.size() && i<iDisplayLength;i++) {
-				HashMap<String, Object> map = new HashMap<String, Object>();
-				AccountExt account_ext = lstAccount.get(i);
-				map.put("stt", i+1);
-				map.put("id", account_ext.getId());
-				map.put("username", account_ext.getUsername());
-				map.put("phongban", account_ext.getTenphongban());
-				map.put("khuvuc", account_ext.getTenkhuvuc());
-				map.put("active", account_ext.getActive());
-				items.add(map);
+			List<Map<String, Object>> items = accountDao.findAccounts(iDisplayStart, iDisplayLength + 1, conditions);
+			int iTotalRecords = items.size();
+			if(iTotalRecords > iDisplayLength) {
+				items.remove(iTotalRecords - 1);
 			}
+			jsonData = new LinkedHashMap<String, Object>();
 			jsonData.put("sEcho", Integer.parseInt(request.getParameter("sEcho")));
-			jsonData.put("iTotalRecords", lstAccount.size());
-			jsonData.put("iTotalDisplayRecords", lstAccount.size());
+			jsonData.put("iTotalRecords", iDisplayStart + iTotalRecords);
+			jsonData.put("iTotalDisplayRecords", iDisplayStart + iTotalRecords);
 			jsonData.put("aaData", items);
 			return Action.SUCCESS;
 		} catch (Exception e) {
-			// TODO: handle exception
-			//setInputStream(str)
 			e.printStackTrace();
 		}
 		return Action.SUCCESS;
@@ -138,18 +119,14 @@ public class UserAction implements Preparable {
 				session.setAttribute("URL", VMSUtil.getFullURL(request));
 				return "login_page";
 			}
-			String flag = request.getParameter("f");
-			if(flag != null ) {
-				message = new MessageStore();
-				message.setType(1);
-				message.setMessage(Constances.MSG_SUCCESS);
-			}
 			PhongBanDao phongBanDao = new PhongBanDao(daoFactory);
 			phongbans = phongBanDao.getAll();
 			KhuVucDao khuVucDao = new KhuVucDao(daoFactory);
 			khuvucs = khuVucDao.getAll();
 			VmsgroupDao vmsgroupDao = new VmsgroupDao(daoFactory);
 			vmsgroups = vmsgroupDao.getAll();
+			MenuDao menuDao = new MenuDao(daoFactory);
+			menus = menuDao.getAll();
 			form_data = "";
 			if(id != null && id.isEmpty()==false) {
 				AccountDao accountDao = new AccountDao(daoFactory);
@@ -166,6 +143,7 @@ public class UserAction implements Preparable {
 	}
 	
 	public String doSave() {
+		jsonData = new LinkedHashMap<String, Object>();
 		try {
 			if(account == null) {
 				session.setAttribute("URL", VMSUtil.getFullURL(request));
@@ -173,11 +151,12 @@ public class UserAction implements Preparable {
 			}
 			AccountDao accountDao = new AccountDao(daoFactory);
 			id = String.valueOf(accountDao.save(user));
-			if(id == null) throw new Exception(Constances.MSG_ERROR);
+			if(id == null) throw new Exception("ERROR");
+			jsonData.put("result", "OK");
 		} catch (Exception e) {
 			e.printStackTrace();
-			session.setAttribute("message", e.getMessage());
-			return Action.ERROR;
+			jsonData.put("result", "ERROR");
+			jsonData.put("data", e.getMessage());
 		}
 		return Action.SUCCESS;
 	}
@@ -268,10 +247,17 @@ public class UserAction implements Preparable {
 	public void setIds(String[] ids) {
 		this.ids = ids;
 	}
-	public List<Vmsgroup> getVmsgroups() {
+	public List<Map<String, Object>> getVmsgroups() {
 		return vmsgroups;
 	}
-	public void setVmsgroups(List<Vmsgroup> vmsgroups) {
+	public void setVmsgroups(List<Map<String, Object>> vmsgroups) {
 		this.vmsgroups = vmsgroups;
 	}
+	public List<Menu> getMenus() {
+		return menus;
+	}
+	public void setMenus(List<Menu> menus) {
+		this.menus = menus;
+	}
+	
 }

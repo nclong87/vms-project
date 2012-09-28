@@ -27,7 +27,7 @@ public class DeXuatDTO {
 	private Integer trangthai = 0;
 	private String filename = "";
 	private String filepath = "";
-	private Integer filesize = 0;
+	private String filesize = "";
 	
     public DeXuatDTO() {
 
@@ -65,11 +65,11 @@ public class DeXuatDTO {
 		this.filepath = filepath;
 	}
 
-	public Integer getFilesize() {
+	public String getFilesize() {
 		return filesize;
 	}
 
-	public void setFilesize(Integer filesize) {
+	public void setFilesize(String filesize) {
 		this.filesize = filesize;
 	}
 
@@ -151,7 +151,7 @@ public class DeXuatDTO {
 		map.put("doitac_id", this.doitac_id);
 		map.put("filename", this.filename);
 		map.put("filepath", this.filepath);
-		map.put("filesize", String.valueOf(this.filesize));
+		map.put("filesize", this.filesize);
 		map.put("tenvanban", this.tenvanban);
 		map.put("ngaygui", this.ngaygui);
 		map.put("ngaydenghibangiao", this.ngaydenghibangiao);
@@ -170,7 +170,7 @@ public class DeXuatDTO {
 		dto.setDoitac_id(rs.getString("DOITAC_ID"));
 		dto.setFilename(rs.getString("FILENAME"));
 		dto.setFilepath(rs.getString("FILEPATH"));
-		dto.setFilesize(rs.getInt("FILESIZE"));
+		dto.setFilesize(rs.getString("FILESIZE"));
 		dto.setTenvanban(rs.getString("TENVANBAN"));
 		dto.setNgaygui(DateUtils.formatDate(rs.getDate("NGAYGUI"), DateUtils.SDF_DDMMYYYY));
 		dto.setNgaydenghibangiao(DateUtils.formatDate(rs.getDate("NGAYDENGHIBANGIAO"), DateUtils.SDF_DDMMYYYY));

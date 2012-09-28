@@ -24,10 +24,10 @@
 	<link rel="stylesheet" href="<%= request.getContextPath() %>/css/search_box.css" type="text/css" media="screen" />
 	<script>
 	function doNew(link) {
-		ShowWindow('Thêm tài khoản mới',800,400,link,false);
+		ShowWindow('Thêm tài khoản mới',720,400,link,false);
 	}
 	function doEdit(link) {
-		ShowWindow('Cập nhật tài khoản',800,400,link,false);
+		ShowWindow('Cập nhật tài khoản',720,400,link,false);
 	}
 	function hasChecked(){
 		var lstCheckbox=$('#dataTable input[type=checkbox]');
@@ -128,6 +128,7 @@ margin-left: 10px;
 					<th>Username</th>
 					<th>Phòng ban</th>
 					<th>Khu vực</th>
+					<th>Menu chính</th>
 					<th width="5%">Active</th>
 					<th width="100px">Phân quyền</th>
 					<th width="5px">Edit</th>
@@ -249,13 +250,12 @@ $(document).ready(function(){
 					{ "mDataProp": "stt","bSortable": false,"bSearchable": false },
 					{ "mDataProp": "id","bSortable": false,"bSearchable": false,"sClass":'td_center'},
 					{ "mDataProp": "username","bSortable": false,"bSearchable": false},
-					{ "mDataProp": "phongban","bSortable": false,"bSearchable": false},
-					{ "mDataProp": "khuvuc","bSortable": false,"bSearchable": false},
+					{ "mDataProp": "tenphongban","bSortable": false,"bSearchable": false},
+					{ "mDataProp": "tenkhuvuc","bSortable": false,"bSearchable": false},
+					{ "mDataProp": "namemenu","bSortable": false,"bSearchable": false},
 					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,
 						"fnRender": function( oObj ) {
-							if(oObj.aData.active==1) 
-								return '<center><div title="Đang hoạt động"  class="active"></div></center>'; 
-							return '<center><div title="Đã khóa"  class="inactive"></div></center>';
+							return '<center>'+trangthai_utils.userDisplay(oObj.aData.active)+'</center>'; 
 						}
 					},
 					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,

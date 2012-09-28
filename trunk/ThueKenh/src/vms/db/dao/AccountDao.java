@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.sql.DataSource;
 
@@ -21,7 +22,7 @@ import org.springframework.jdbc.core.RowMapper;
 import vms.db.dto.Account;
 import vms.db.dto.Menu;
 import vms.utils.StringUtil;
-import vms.web.models.AccountExt;
+import vms.utils.VMSUtil;
 
 public class AccountDao {
 	private JdbcTemplate jdbcTemplate;
@@ -75,27 +76,31 @@ public class AccountDao {
 	}
 	
 	private static final String FN_FIND_ACCOUNTS = "{ ? = call FN_FIND_ACCOUNTS(?,?,?,?,?,?) }";
-	public List<AccountExt> findAccounts(int iDisplayStart,int iDisplayLength,String username,String phongban_id, String khuvuc_id, String active) throws SQLException {
+	public List<Map<String,Object>> findAccounts(int iDisplayStart,int iDisplayLength,Map<String, String> conditions) throws SQLException {
 		Connection connection = jdbcTemplate.getDataSource().getConnection();
 		CallableStatement stmt = connection.prepareCall(FN_FIND_ACCOUNTS);
 		stmt.registerOutParameter(1, OracleTypes.CURSOR);
 		stmt.setInt(2, iDisplayStart);
 		stmt.setInt(3, iDisplayLength);
-		stmt.setString(4, username);
-		stmt.setString(5, phongban_id);
-		stmt.setString(6, khuvuc_id);
-		stmt.setString(7, active);
+		stmt.setString(4, conditions.get("username"));
+		stmt.setString(5, conditions.get("phongban_id"));
+		stmt.setString(6, conditions.get("khuvuc_id"));
+		stmt.setString(7, conditions.get("active"));
 		stmt.execute();
 		ResultSet rs = (ResultSet) stmt.getObject(1);
-		List<AccountExt> result = new ArrayList<AccountExt>();
+		List<Map<String,Object>> result = new ArrayList<Map<String,Object>>();
+		int i = 1;
 		while(rs.next()) {
-			result.add(AccountExt.mapObject(rs));
+			Map<String,Object> map = VMSUtil.resultSetToMap(rs);
+			map.put("stt", i);
+			i++;
+			result.add(map);
 		}
 		stmt.close();
 		connection.close();
 		return result;
 	}
-	private static final String SAVE_ACCOUNT = "{ ? = call SAVE_ACCOUNT(?,?,?,?,?,?,?) }";
+	private static final String SAVE_ACCOUNT = "{ ? = call SAVE_ACCOUNT(?,?,?,?,?,?,?,?) }";
 	public Long save(Account account) throws Exception {
 		Connection connection = jdbcTemplate.getDataSource().getConnection();
 		CallableStatement stmt = connection.prepareCall(SAVE_ACCOUNT);
@@ -107,6 +112,7 @@ public class AccountDao {
 		stmt.setString(6, account.getIdkhuvuc());
 		stmt.setString(7, account.getIdphongban());
 		stmt.setString(8, account.getIdgroup());
+		stmt.setString(9, String.valueOf(account.getMainmenu()));
 		stmt.execute();
 		return stmt.getLong(1);
 	}

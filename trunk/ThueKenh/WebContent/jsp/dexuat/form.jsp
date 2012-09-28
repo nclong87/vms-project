@@ -193,11 +193,13 @@ $(document).ready(function() {
 				input.value = form_data[key];
 			}
 		}
-		upload_utils.createFileLabel({
-			filename : form_data["filename"],
-			filepath : form_data["filepath"],
-			filesize : form_data["filesize"]
-		});
+		if(form_data["filename"] != null) {
+			upload_utils.createFileLabel({
+				filename : form_data["filename"],
+				filepath : form_data["filepath"],
+				filesize : form_data["filesize"]
+			});
+		}
 		dexuat_id = form_data['id'];
 	} 
 	if(dexuat_id == '') {

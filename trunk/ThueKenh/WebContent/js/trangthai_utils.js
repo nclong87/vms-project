@@ -65,5 +65,18 @@ var trangthai_utils = {
 				return '';
 				break;
 		}
+	},
+	userDisplay : function(matrangthai) {
+		switch(parseInt(matrangthai)) {
+			case 0 :
+				return '<div class="mau_xam" title="Không hoạt động"></div>';
+				break;
+			case 1 :
+				return '<div class="mau_xanh_la" title="Đang hoạt động"></div>';
+				break;
+			default:
+				return '';
+				break;
+		}
 	}
 }

@@ -27,41 +27,40 @@ margin-left: 10px;
 <body>
 	<%@include file="/include/top.jsp"%>
 	<div id="bg_wrapper">
-		<center>
-		<div style="width:99%">
-			<fieldset class="form">
-				<legend>Quản lý nhóm</legend>
-				<div style="float:right">
-				<a class="admin_icon" title="Thêm mới" href="${formURL}">
-					<img alt="Add" src="<%=contextPath%>/images/icons/add_32.png"/>
-					<span>Thêm mới</span>
-				</a>
-				<a class="admin_icon" title="Xóa" id="btLock">
-					<img alt="Xóa" src="<%=contextPath%>/images/icons/delete_32.png"/>
-					<span>Xóa</span>
-				</a>
+		<div style="width: 100%; margin-bottom: 10px;" class="ovf">
+			<div class="s10">
+				<div class="fl">
+					<div class="fl tsl" id="t_1">
+					</div>
+					<div class="fl clg b tsc d" id="t_2">
+						<div class="p3t">Quản trị nhóm</div>
+					</div>
+					<div class="fl tsr" id="t_3">
+					</div>
 				</div>
-			</fieldset>
-			<div style="display: block; height: 5px;"></div>
-			<table width="100%" id="dataTable" class="display">
+				<div class="lineU"></div>
+			</div>
+			<div style="height: 1px;"></div>
+		</div>
+		<div style="clear:both;margin:5px 0 ">
+		<input class="button" type="button" id="btThem" value="Thêm nhóm"/>
+		<input class="button" type="button" id="btXoa" value="Xóa" style="float: right; margin-right: 10px;"/>
+		</div>
+		<table width="100%" id="dataTable" class="display">
 			<thead>
 				<tr>
 					<th width="5%">#</th>
 					<th width="5%">ID</th>
 					<th>Tên nhóm</th>
+					<th>Menu chính</th>
 					<th width="100px">Phân quyền</th>
 					<th width="5px">Edit</th>
 					<th width="5px" align="center"><input type="checkbox" onclick="selectAll(this)"/></th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
-					<td colspan="7" class="dataTables_empty">Đang tải dữ liệu...</td>
-				</tr>
 			</tbody>
-			</table>
-		</div>
-		</center>
+		</table>
 	</div>
 	<div id="footer"></div>
 </body>
@@ -119,8 +118,15 @@ function doLock(flag) {
 }
 $(document).ready(function(){	 
 	$('ul.sf-menu').superfish();
-	$("#btLock").click(function(){
+	$("#btXoa").click(function(){
 		doLock(0);
+	});
+	$("#btThem").click(function(){
+		ShowWindow('Thêm mới nhóm',500,300,"${formURL}",false);
+	});
+	$("span.edit_icon").live("click",function(){
+		var id = $(this).attr("data-ref-id");
+		ShowWindow('Cập nhật nhóm',500,300,"${formURL}?id="+id,false);
 	});
 	permission_popup.afterSelected = function(data){
 		var dataString = '&id='+group_id;
@@ -159,6 +165,7 @@ $(document).ready(function(){
 					{ "mDataProp": "stt","bSortable": false,"bSearchable": false },
 					{ "mDataProp": "id","bSortable": false,"bSearchable": false,"sClass":'td_center'},
 					{ "mDataProp": "namegroup","bSortable": false,"bSearchable": false},
+					{ "mDataProp": "namemenu","bSortable": false,"bSearchable": false},
 					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,
 						"fnRender": function( oObj ) {
 							return '<center><img title="permission" src="'+contextPath+'/images/icons/permission.png" onclick="openPermissionWindow('+oObj.aData.id+')" style="cursor:pointer"></center>'; 
@@ -166,7 +173,7 @@ $(document).ready(function(){
 					},
 					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,
 						"fnRender": function( oObj ) {
-							return '<center><a class="edit_icon" title="Edit" href="${formURL}?id='+oObj.aData.id+'"></a></center>'; 
+							return '<center><span class="edit_icon" data-ref-id="'+oObj.aData.id+'" title="Edit" href="#"></span></center>'; 
 						}
 					},
 					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,

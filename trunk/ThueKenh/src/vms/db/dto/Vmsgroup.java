@@ -18,6 +18,8 @@ public class Vmsgroup {
 	private Integer active;
 
 	private String namegroup;
+	
+	private Integer mainmenu;
 
     public Vmsgroup() {
     }
@@ -46,11 +48,20 @@ public class Vmsgroup {
 		this.namegroup = namegroup;
 	}
 	
+	public Integer getMainmenu() {
+		return mainmenu;
+	}
+
+	public void setMainmenu(Integer mainmenu) {
+		this.mainmenu = mainmenu;
+	}
+
 	public Map<String,String> getMap() {
 		Map<String, String> map = new LinkedHashMap<String, String>();
 		map.put("id", this.getId());
 		map.put("namegroup", this.getNamegroup());
 		map.put("active", this.getActive().toString());
+		map.put("mainmenu", String.valueOf(this.mainmenu));
 		return map;
 	}
 	
@@ -59,6 +70,7 @@ public class Vmsgroup {
 		vmsgroup.setId(rs.getString("ID"));
 		vmsgroup.setActive(rs.getInt("ACTIVE"));
 		vmsgroup.setNamegroup(rs.getString("NAMEGROUP"));
+		vmsgroup.setMainmenu(rs.getInt("MAINMENU"));
         return vmsgroup;
 	}
 

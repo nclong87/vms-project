@@ -3,6 +3,9 @@
 <s:url action="doLogout" namespace="/login" var="doLogoutURL"/>
 <s:url action="index" namespace="/login" var="loginURL"/>
 <s:url action="index" namespace="/settings" var="settingsIndexURL"/>
+<s:url action="detail" namespace="/tuyenkenh" id="tuyenkenhDetailURL"/>
+<s:url action="doUploadTuyenkenh" namespace="/import" id="doUploadTuyenkenhURL"/>
+<s:url action="loadTuyenkenhImport" namespace="/import" id="loadTuyenkenhImportURL"/>
 <s:url action="doImportTuyenkenh" namespace="/import" id="doImportTuyenkenhURL"/>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -86,6 +89,7 @@ margin-left: 10px;
 					<th>Dự án</th>
 					<th width="120px">ĐV nhận kênh</th>
 					<th width="80px">Khu vực</th>
+					<th width="80px">Trùng</th>
 					<th width="5px" align="center"><input type="checkbox" onclick="selectAll(this)"/></th>
 				</tr>
 			</thead>
@@ -114,14 +118,47 @@ function doUpload() {
 var seq = 0;
 $(document).ready(function(){	 
 	$("#btImport").click(function(){
-		
+		var dataString = '';
+		$('#dataTable input[type=checkbox]').each(function(){
+			if(this.checked==true) {
+				if(this.value!='on')
+					dataString+='&ids='+this.value;
+			}
+		});
+		if(dataString=='') {
+			alert('Bạn chưa chọn dòng để import!');
+			return;
+		}
+		if(!confirm("Bạn muốn import những dòng đã chọn?")) return;
+		var button = this;
+		button.disabled = true;
+		$.ajax({
+			type: "POST",
+			cache: false,
+			url : "${doImportTuyenkenhURL}",
+			data: dataString,
+			success: function(response){
+				button.disabled = false;
+				if(response.result == "ERROR") {
+					if(response.data == "ERROR") {
+						alert(ERROR_MESSAGE);
+						return;
+					}
+					alert(response.data);
+				} else {
+					alert("Import thành công!");
+					oTable.fnDraw(false);
+				}
+			},
+			error: function(data){ alert (data);button.disabled = false;}	
+		});	
 	});
 	$("#btXoa").click(function(){
 		
 	});
 	$('ul.sf-menu').superfish();
 	$('#frmUpload').ajaxForm({ 
-		url:  "${doImportTuyenkenhURL}",
+		url:  "${doUploadTuyenkenhURL}",
 		type: "post",
 		dataType : "json",
 		success:    function(response) { 
@@ -131,7 +168,8 @@ $(document).ready(function(){
 			}
 			if(response.result == "OK") {
 				//upload_utils.createFileLabel(response.data);
-				alert("Uplaod OK");
+				alert("Upload thành công!");
+				oTable.fnFilter();
 				return;
 			}
 			alert("Kết nối bị lỗi, vui lòng thử lại!");
@@ -140,41 +178,72 @@ $(document).ready(function(){
 			alert("Kết nối bị lỗi, vui lòng thử lại!");
 		}
 	});
-	/* oTable = $('#dataTable').dataTable({
+	oTable = $('#dataTable').dataTable({
 		"bJQueryUI": true,
 		"bProcessing": true,
 		"bServerSide": true,
 		"bAutoWidth": false,
-		"sAjaxSource": "${loadURL}",
+		"sAjaxSource": "${loadTuyenkenhImportURL}",
 		"aoColumns": [
-					{ "mDataProp": "stt","bSortable": false,"bSearchable": false },
-					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,"sClass":'td_center',
-						"fnRender": function( oObj ) {
-							return '<a target="_blank" href="${detailURL}?id='+oObj.aData.id+'" title="Xem chi tiết tuyến kênh">'+oObj.aData.tenvanban+'</a>'; 
+					{ "mDataProp": "stt","bSortable": false,"bSearchable": false,"sClass":'td_center' },
+					{ "mDataProp": "madiemdau","bSortable": false,"bSearchable": false },
+					{ "mDataProp": "madiemcuoi","bSortable": false,"bSearchable": false },
+					//{ "mDataProp": "loaigiaotiep","bSortable": false,"bSearchable": false },
+					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,
+						"fnRender": function(response) {
+							if(response.aData.loaigiaotiep != '')
+								return response.aData.loaigiaotiep;
+							else
+								return '<span title="Chưa có danh mục" class="warning">'+response.aData.giaotiep_ma+'</span>';
 						}
 					},
-					{ "mDataProp": "ngaygui","bSortable": false,"bSearchable": false},
-					{ "mDataProp": "ngaydenghibangiao","bSortable": false,"bSearchable": false},
-					{ "mDataProp": "tendoitac","bSortable": false,"bSearchable": false},
+					{ "mDataProp": "dungluong","bSortable": false,"bSearchable": false,"sClass":'td_center' },
+					{ "mDataProp": "soluong","bSortable": false,"bSearchable": false,"sClass":'td_center' },
+					//{ "mDataProp": "tenduan","bSortable": false,"bSearchable": false },
 					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,
-						"fnRender": function( oObj ) {
-							return '<center>'+trangthai_utils.dexuatDisplay(oObj.aData.trangthai)+'</center>'; 
+						"fnRender": function(response) {
+							if(response.aData.tenduan != '')
+								return response.aData.tenduan;
+							else
+								return '<span title="Chưa có danh mục" class="warning">'+response.aData.duan_ma+'</span>';
+						}
+					},
+					//{ "mDataProp": "tenphongban","bSortable": false,"bSearchable": false },
+					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,
+						"fnRender": function(response) {
+							if(response.aData.tenphongban != '')
+								return response.aData.tenphongban;
+							else
+								return '<span title="Chưa có danh mục" class="warning">'+response.aData.phongban_ma+'</span>';
+						}
+					},
+					//{ "mDataProp": "tenkhuvuc","bSortable": false,"bSearchable": false },
+					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,
+						"fnRender": function(response) {
+							if(response.aData.tenkhuvuc != '')
+								return response.aData.tenkhuvuc;
+							else
+								return '<span title="Chưa có danh mục" class="warning">'+response.aData.khuvuc_ma+'</span>';
+						}
+					},
+					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,
+						"fnRender": function(response) {
+							if(response.aData.duplicate != '0')
+								return '<a class="warning" target="_blank" title="Xem tuyến kênh trùng" href="${tuyenkenhDetailURL}?id='+response.aData.duplicate+'">'+response.aData.duplicate+'</a>';
+							else
+								return '';
 						}
 					},
 					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,
 						"fnRender": function( oObj ) {
-							return '<center><span class="edit_icon" data-ref-id="'+oObj.aData.id+'" title="Edit" href="#"></span></center>'; 
-						}
-					},
-					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,
-						"fnRender": function( oObj ) {
-							return '<center><input type="checkbox" value="'+oObj.aData.id+'"/></center>'; 
+							if(oObj.aData.loaigiaotiep == '') 
+								return ''; 
+							else 
+								return '<center><input type="checkbox" value="'+oObj.aData.id+'"/></center>';  
 						}
 					}
 				],
 		"fnServerData": function ( sSource, aoData, fnCallback ) {
-			seq++;
-			if(seq == 1) return;
 			$.ajax( {
 				"dataType": 'json', 
 				"type": "POST", 
@@ -184,6 +253,6 @@ $(document).ready(function(){
 			} );
 		},
 		"sPaginationType": "two_button"
-	}); */
+	}); 
 });
 </script>

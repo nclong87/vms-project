@@ -93,14 +93,15 @@ public class TuyenkenhDao {
 		//stmt.setString(11, dto.getNgaydenghibangiao());
 		//stmt.setString(12, dto.getNgayhenbangiao());
 		//stmt.setString(13, dto.getThongtinlienhe());
-		stmt.setString(11, dto.getTrangthai().toString());
+		stmt.setString(11, String.valueOf(dto.getTrangthai()));
 		stmt.setString(12, dto.getUsercreate());
 		stmt.setString(13, dto.getTimecreate());
-		stmt.setString(14, dto.getDeleted().toString());
+		stmt.setString(14, String.valueOf(dto.getDeleted()));
 		stmt.execute();
+		String id = stmt.getString(1);
 		stmt.close();
 		connection.close();
-		return stmt.getString(1);
+		return id;
 	}
 	
 	public void deleteByIds(String[] ids) {

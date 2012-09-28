@@ -92,7 +92,8 @@ public class DeXuatAction implements Preparable {
 					}
 				}
 			}
-			List<FIND_DEXUAT> list = deXuatDao.search(iDisplayStart, iDisplayLength, conditions);
+			List<FIND_DEXUAT> list = deXuatDao.search(iDisplayStart, iDisplayLength + 1, conditions);
+			int iTotalRecords = list.size();
 			jsonData = new LinkedHashMap<String, Object>();
 			List<Map<String, String>> items = new ArrayList<Map<String, String>>();
 			for(int i=0;i<list.size() && i<iDisplayLength;i++) {
@@ -101,8 +102,8 @@ public class DeXuatAction implements Preparable {
 				items.add(map);
 			}
 			jsonData.put("sEcho", Integer.parseInt(request.getParameter("sEcho")));
-			jsonData.put("iTotalRecords", list.size());
-			jsonData.put("iTotalDisplayRecords", list.size());
+			jsonData.put("iTotalRecords", iDisplayStart + iTotalRecords);
+			jsonData.put("iTotalDisplayRecords", iDisplayStart + iTotalRecords);
 			jsonData.put("aaData", items);
 			return Action.SUCCESS;
 		} catch (Exception e) {

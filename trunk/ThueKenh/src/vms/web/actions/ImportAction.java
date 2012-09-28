@@ -15,9 +15,12 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.struts2.ServletActionContext;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 
 import vms.db.dao.DaoFactory;
+import vms.db.dao.TuyenkenhDao;
 import vms.db.dao.TuyenkenhImportDAO;
 import vms.db.dto.Account;
 import vms.db.dto.TuyenKenhImportDTO;
@@ -25,6 +28,7 @@ import vms.utils.Constances;
 import vms.utils.DateUtils;
 import vms.utils.StringUtil;
 import vms.utils.VMSUtil;
+import vms.web.models.FN_FIND_TUYENKENH;
 
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.Preparable;
@@ -43,6 +47,8 @@ public class ImportAction implements Preparable {
 	private File fileupload;
 	private String fileuploadFileName;
 	private String fileuploadContentType;
+	
+	private String[] ids;
 	public ImportAction( DaoFactory factory) {
 		daoFactory = factory;
 	}
@@ -61,7 +67,30 @@ public class ImportAction implements Preparable {
 		}
 		return Action.SUCCESS;
 	}
-	public String doImportTuyenkenh() {
+	public String loadTuyenkenhImport() {
+		try {
+			//if(account == null) throw new Exception("END_SESSION");
+			Integer iDisplayStart = Integer.parseInt(request.getParameter("iDisplayStart"));
+			Integer iDisplayLength = Integer.parseInt(request.getParameter("iDisplayLength"));
+			
+			TuyenkenhImportDAO dao = new TuyenkenhImportDAO(daoFactory);
+			List<Map<String, Object>> items = dao.search(iDisplayStart, iDisplayLength + 1);
+			int iTotalRecords = items.size();
+			if(iTotalRecords > iDisplayLength) {
+				items.remove(iTotalRecords - 1);
+			}
+			jsonData = new LinkedHashMap<String, Object>();
+			jsonData.put("sEcho", Integer.parseInt(request.getParameter("sEcho")));
+			jsonData.put("iTotalRecords", iDisplayStart + iTotalRecords);
+			jsonData.put("iTotalDisplayRecords", iDisplayStart + iTotalRecords);
+			jsonData.put("aaData", items);
+			return Action.SUCCESS;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return Action.SUCCESS;
+	}
+	public String doUploadTuyenkenh() {
 		jsonData = new LinkedHashMap<String, Object>();
 		WorkBook workBook = new WorkBook();
 		try {
@@ -135,6 +164,22 @@ public class ImportAction implements Preparable {
 		return Action.SUCCESS;
 	}
 	
+	public String doImportTuyenkenh() {
+		jsonData = new LinkedHashMap<String, Object>();
+		try {
+			if(ids == null || ids.length==0) throw new Exception("ERROR");
+			TuyenkenhImportDAO dao = new TuyenkenhImportDAO(daoFactory);
+			dao.importTuyenkenh(ids, account.getUsername());
+			jsonData.put("result", "OK");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			jsonData.put("result", "ERROR");
+			jsonData.put("data", e.getMessage());
+		} 
+		return Action.SUCCESS;
+	}
+	
 	public String error() throws Exception {
 		message = (String) session.getAttribute("message");
 		session.removeAttribute("message");
@@ -188,6 +233,12 @@ public class ImportAction implements Preparable {
 	}
 	public void setFileuploadContentType(String fileuploadContentType) {
 		this.fileuploadContentType = fileuploadContentType;
+	}
+	public String[] getIds() {
+		return ids;
+	}
+	public void setIds(String[] ids) {
+		this.ids = ids;
 	}
 	
 }
