@@ -84,7 +84,7 @@ margin-left: 10px;
 										<select name="phongban" id="phongban">
 											<option value="">---Chọn---</option>
 											<s:iterator value="phongBans">
-												<option value='<s:property value="id" />'><s:property value="name" /></option>									
+												<option value='<s:property value="id" />'><s:property value="tenphongban" /></option>									
 											</s:iterator>
 										</select>
 									</td>
@@ -121,8 +121,6 @@ margin-left: 10px;
 			<div style="height: 1px;"></div>
 		</div>
 		<div style="clear:both;margin:5px 0 ">
-		<input class="button" type="button" id="btThem" value="Thêm đề xuất tuyến kênh"/>
-		<input class="button" type="button" id="btXoa" value="Xóa" style="float: right; margin-right: 10px;"/>
 		</div>
 			<table width="100%" id="dataTable" class="display">
 			<thead>

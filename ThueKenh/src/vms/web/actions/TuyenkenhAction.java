@@ -102,7 +102,9 @@ public class TuyenkenhAction implements Preparable {
 				}
 			}
 			TuyenkenhDao tuyenkenhDao = new TuyenkenhDao(daoFactory);
-			List<FN_FIND_TUYENKENH> lstTuyenkenh = tuyenkenhDao.findTuyenkenh(iDisplayStart, iDisplayLength, conditions);
+			List<FN_FIND_TUYENKENH> lstTuyenkenh = tuyenkenhDao.findTuyenkenh(iDisplayStart, 
+					iDisplayLength + 1, conditions);
+			int iTotalRecords = lstTuyenkenh.size();
 			jsonData = new LinkedHashMap<String, Object>();
 			List<Map<String, String>> items = new ArrayList<Map<String, String>>();
 			for(int i=0;i<lstTuyenkenh.size() && i<iDisplayLength;i++) {
@@ -111,8 +113,8 @@ public class TuyenkenhAction implements Preparable {
 				items.add(map);
 			}
 			jsonData.put("sEcho", Integer.parseInt(request.getParameter("sEcho")));
-			jsonData.put("iTotalRecords", lstTuyenkenh.size());
-			jsonData.put("iTotalDisplayRecords", lstTuyenkenh.size());
+			jsonData.put("iTotalRecords", iDisplayStart + iTotalRecords);
+			jsonData.put("iTotalDisplayRecords", iDisplayStart + iTotalRecords);
 			jsonData.put("aaData", items);
 			return Action.SUCCESS;
 		} catch (Exception e) {

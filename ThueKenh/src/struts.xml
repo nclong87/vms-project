@@ -233,10 +233,8 @@
 			<result>/jsp/user/form.jsp</result>
 		</action>
 		<action name="doSave" class="userAction" method="doSave">
-			<result name="success" type="redirectAction">
-				<param name="actionName">form</param>
-				<param name="id">${id}</param>
-				<param name="f">1</param>
+			<result name="success" type="json">
+				<param name="root">jsonData</param>
 			</result>
 		</action>
 		<action name="lockAccounts" class="userAction" method="lockAccounts">
@@ -285,10 +283,8 @@
 			<result>/jsp/group/form.jsp</result>
 		</action>
 		<action name="doSave" class="groupAction" method="doSave">
-			<result name="success" type="redirectAction">
-				<param name="actionName">form</param>
-				<param name="id">${id}</param>
-				<param name="f">1</param>
+			<result name="success" type="json">
+				<param name="root">jsonData</param>
 			</result>
 		</action>
 		<action name="doLock" class="groupAction" method="doLock">
@@ -447,6 +443,16 @@
 	<package name="import" extends="default" namespace="/import">
 		<action name="tuyenkenh" class="importAction" method="tuyenkenh">
 			<result>/jsp/import/tuyenkenh.jsp</result>
+		</action>
+		<action name="loadTuyenkenhImport" class="importAction" method="loadTuyenkenhImport">
+			<result name="success" type="json">
+				<param name="root">jsonData</param>
+			</result>
+		</action>
+		<action name="doUploadTuyenkenh" class="importAction" method="doUploadTuyenkenh">
+			<result name="success" type="json">
+				<param name="root">jsonData</param>
+			</result>
 		</action>
 		<action name="doImportTuyenkenh" class="importAction" method="doImportTuyenkenh">
 			<result name="success" type="json">

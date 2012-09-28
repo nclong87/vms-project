@@ -560,6 +560,9 @@ cursor:pointer;
 color:red;
 cursor:pointer;
 }
+.warning {
+color:red;
+}
 .disable {
 color: gray;
 cursor: default;

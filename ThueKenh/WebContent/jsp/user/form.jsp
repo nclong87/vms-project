@@ -51,67 +51,36 @@ input.error,select.error,textarea.error {
 	<div id="bg_wrapper">
 		<center>
 		<div style="width: 99%">
-			<form id="form" method="post" action="${doSaveURL}"
-				onsubmit="return false;">
+			<form id="form" onsubmit="return false;">
 				<input type="text" style="display: none" name="user.id" id="id" />
-				<table width="370px" style="float: left">
+				<table style="width:700px;float: left">
 					<tr>
-						<td colspan='2' align="left"><s:if test='message != null'>
-								<s:if test='message.getType().equals(1)'>
-									<div class="ui-state-highlight ui-corner-all"
-										style="padding: 0pt 0.7em; text-align: left;">
-										<p style="padding: 5px;">
-											<span class="ui-icon ui-icon-info"
-												style="float: left; margin-right: .3em;"></span> <strong>Success!
-											</strong>
-											<s:property value="message.message" />
-										</p>
-									</div>
-								</s:if>
-								<s:elseif test='message.getType().equals(0)'>
-									<div style="padding: 0pt 0.7em; text-align: left;"
-										class="ui-state-error ui-corner-all">
-										<p style="padding: 5px;">
-											<span style="float: left; margin-right: .3em;"
-												class="ui-icon ui-icon-alert"></span> <strong>Error
-												: </strong>
-											<s:property value="message.message"
-												default="Có lỗi xảy ra, vui lòng thử lại sau." />
-										</p>
-									</div>
-								</s:elseif>
-							</s:if></td>
+						<td colspan='4' align="left" id="msg">
+						</td>
 					</tr>
 					<tr>
-						<td class="td_label">Username <span class="required"
+						<td class="td_label" align="right">Username <span class="required"
 							title="Yêu cầu nhập">*</span> :
 						</td>
-						<td><input type="text" class="field" name="user.username"
+						<td align="left">
+							<input type="text" name="user.username"
 							id="username" /> <label style="display: none"
-							for="user.username" generated="false" class="error"></label></td>
-					</tr>
-					<tr>
-						<td class="td_label">Mật khẩu <span class="required"
+							for="user.username" generated="false" class="error"></label>
+						</td>
+						<td class="td_label" align="right">Mật khẩu <span class="required"
 							title="Yêu cầu nhập">*</span> :
 						</td>
-						<td><input type="password" class="field"
+						<td align="left">
+							<input type="password"
 							name="user.password" id="password" /> <label
 							style="display: none" for="user.password" generated="false"
-							class="error"></label></td>
-					</tr>
-
-					<tr>
-						<td>&nbsp;</td>
+							class="error"></label>
+						</td>
 					</tr>
 					<tr>
-						<td><input type="button" class="button" id="btSubmit"
-							value="Lưu" /></td>
-					</tr>
-				</table>
-				<table style="float: left">
-					<tr>
-						<td class="td_label">Phòng ban :</td>
-						<td><select class="field" name="user.idphongban"
+						<td class="td_label" align="right">Phòng ban :</td>
+						<td align="left">
+							<select name="user.idphongban"
 							id="idphongban">
 								<option value="">-- Chọn phòng ban --</option>
 								<s:iterator value="phongbans">
@@ -119,36 +88,61 @@ input.error,select.error,textarea.error {
 										<s:property value="tenphongban" />
 									</option>
 								</s:iterator>
-						</select></td>
-					</tr>
-					<tr>
-						<td class="td_label">Nhóm chức năng:</td>
-						<td><select class="field" name="user.idgroup" id="idgroup">
-								<option value="">-- Chọn nhóm chức năng --</option>
-								<s:iterator value="vmsgroups">
-									<option value='<s:property value="id" />'>
-										<s:property value="namegroup" />
-									</option>
-								</s:iterator>
-						</select></td>
-					</tr>
-					<tr>
-						<td class="td_label">Khu vực :</td>
-						<td><select class="field" name="user.idkhuvuc" id="idkhuvuc">
+							</select>
+						</td>
+						<td class="td_label" align="right">Khu vực :</td>
+						<td align="left">
+							<select name="user.idkhuvuc" id="idkhuvuc">
 								<option value="">-- Chọn khu vực --</option>
 								<s:iterator value="khuvucs">
 									<option value='<s:property value="id" />'>
 										<s:property value="tenkhuvuc" />
 									</option>
 								</s:iterator>
-						</select></td>
+							</select>
+						</td>
 					</tr>
 					<tr>
-						<td class="td_label">Trạng thái :</td>
-						<td><select class="field" name="user.active" id="active">
+						<td class="td_label" align="right">Nhóm chức năng:</td>
+						<td align="left">
+							<select name="user.idgroup" id="idgroup">
+								<option value="">-- Chọn nhóm chức năng --</option>
+								<s:iterator value="vmsgroups">
+									<option data-ref='<s:property value="mainmenu" />' value='<s:property value="id" />'>
+										<s:property value="namegroup" />
+									</option>
+								</s:iterator>
+							</select>
+						</td>
+						<td class="td_label" align="right">Menu chính:</td>
+						<td align="left">
+							<select name="user.mainmenu" id="mainmenu">
+								<option value="">-- Chọn menu chính --</option>
+								<s:iterator value="menus">
+									<option value='<s:property value="id" />'>
+										<s:property value="namemenu" />
+									</option>
+								</s:iterator>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td class="td_label" align="right">Trạng thái :</td>
+						<td align="left">
+							<select name="user.active" id="active">
 								<option value="1">Đang hoạt động</option>
-								<option value="0">Đã khóa</option>
-						</select></td>
+								<option value="0">Khóa</option>
+							</select>
+						</td>
+						<td class="td_label" align="right"></td>
+						<td align="left"></td>
+					</tr>
+					<tr height="30px">
+						<td colspan="6" align="right">
+							<input class="button" type="button" id="btSubmit" value="Lưu"/>
+							<input class="button" type="button" id="btReset" value="Làm lại"/>
+							<input class="button" type="button" id="btThoat" onclick="window.parent.CloseWindow();" value="Thoát"/>
+						</td>
 					</tr>
 				</table>
 			</form>
@@ -159,103 +153,109 @@ input.error,select.error,textarea.error {
 </body>
 </html>
 <script>
-	var LOGIN_PATH = "${loginURL}";
-	function loadContent(url) {
-		location.href = contextPath + url;
+var LOGIN_PATH = "${loginURL}";
+function message(msg,type) {
+	if(msg == '') {
+		$("#msg").html('');
+		return;
 	}
-	$(document)
-			.ready(
-					function() {
-						$("#form")
-								.validate(
-										{
-											onkeyup : false,
-											onfocusout : false,
-											rules : {
-												"user.username" : {
-													required : true,
-													regex : '^[a-zA-Z0-9]+([a-zA-Z0-9](_|-| )[a-zA-Z0-9])*[a-zA-Z0-9]+$',
-													uniqueUserName : true,
-													minlength : 6,
-													maxlength : 25
-												},
-												"user.password" : {
-													required : true,
-													regex : '^[a-zA-Z0-9]+([a-zA-Z0-9](_|-| )[a-zA-Z0-9])*[a-zA-Z0-9]+$',
-													minlength : 6,
-													maxlength : 255
-												},
-												"user.idphongban" : {
-													required : function(element) {
-														return $("#idphongban")
-																.val() == '';
-													}
-												},
-												"user.idgroup" : {
-													required : function(element) {
-														return $("#idgroup")
-																.val() == '';
-													}
-												},
-												"user.idkhuvuc" : {
-													required : function(element) {
-														return $("#idkhuvuc")
-																.val() == '';
-													}
-												}
-											},
-											messages : {
-												"user.username" : {
-													required : "Vui lòng nhập username",
-													regex : "Tên đăng nhập chỉ bao gồm các ký tự từ A-z, 0-9 và các ký tự -",
-													uniqueUserName : "Username này đã được sử dụng, vui lòng chọn username khác!",
-													minlength : "Tên đăng nhập ít nhất là 6 kí tự",
-													maxlength : "Tên đăng nhập ít nhất là 25 kí tự",
-												},
-												"user.password" : {
-													required : "Vui lòng nhập mật khẩu",
-													regex : "Mật khẩu chỉ bao gồm các ký tự từ A-z, 0-9 và các ký tự -",
-													minlength : "Mật khẩu ít nhất là 6 kí tự",
-													maxlength : "Mật khẩu ít nhất là 25 kí tự",
-												},
-												"user.idphongban" : {
-													required : "",
-												},
-												"user.idgroup" : {
-													required : "",
-												},
-												"user.idkhuvuc" : {
-													required : "",
-												}
-											}
-										});
-						var form_data = '<s:property value="form_data" escape="false"/>';
-						if (form_data != '') {
-							$("legend#title").text("Cập nhật tài khoản");
-							var form_data = $.parseJSON(form_data);
-							for (key in form_data) {
-								$("#form #" + key).val(form_data[key]);
+	if(type == 1) {
+		$("#msg").html('<div class="ui-state-highlight ui-corner-all" style=" padding: 0pt 0.7em; text-align: left;"><p style="padding: 5px;"><span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span><strong>Success! </strong> '+msg+'</p></div>');
+	} else {
+		$("#msg").html('<div style="padding: 0pt 0.7em; text-align: left;" class="ui-state-error ui-corner-all"><p style="padding: 5px;"><span style="float: left; margin-right: .3em;" class="ui-icon ui-icon-alert"></span><strong>Error : </strong> '+msg+'</p></div>');
+	}
+}
+$(document).ready(function() {
+	$("#btReset").click(function(){
+		$("#form")[0].reset();
+		message('',0);
+	});
+	$("#form #idgroup").change(function(){
+		var option = $("option:selected",this);
+		var mainmenu = option.attr("data-ref");
+		$("#form #mainmenu").val(mainmenu); 
+	});
+	$("#form")
+			.validate(
+					{
+						onkeyup : false,
+						onfocusout : false,
+						rules : {
+							"user.username" : {
+								required : true,
+								regex : '^[a-zA-Z0-9]+([a-zA-Z0-9](_|-| )[a-zA-Z0-9])*[a-zA-Z0-9]+$',
+								uniqueUserName : true,
+								minlength : 3,
+								maxlength : 25
+							},
+							"user.password" : {
+								required : true,
+								regex : '^[a-zA-Z0-9]+([a-zA-Z0-9](_|-| )[a-zA-Z0-9])*[a-zA-Z0-9]+$',
+								minlength : 3,
+								maxlength : 255
 							}
-							$('#username').attr("readonly", "true");
-							$("#username").rules("remove");
-						} else {
-							$("legend#title").text("Thêm mới tài khoản");
+						},
+						messages : {
+							"user.username" : {
+								required : "Vui lòng nhập username",
+								regex : "Tên đăng nhập chỉ bao gồm các ký tự từ A-z, 0-9 và các ký tự -",
+								uniqueUserName : "Username này đã được sử dụng, vui lòng chọn username khác!",
+								minlength : "Tên đăng nhập ít nhất là 6 kí tự",
+								maxlength : "Tên đăng nhập ít nhất là 25 kí tự",
+							},
+							"user.password" : {
+								required : "Vui lòng nhập mật khẩu",
+								regex : "Mật khẩu chỉ bao gồm các ký tự từ A-z, 0-9 và các ký tự -",
+								minlength : "Mật khẩu ít nhất là 6 kí tự",
+								maxlength : "Mật khẩu ít nhất là 25 kí tự",
+							}
 						}
-						$(document)
-								.delegate(
-										"#btSubmit",
-										"click",
-										function() {
-											this.disabled = true;
-											if (!$("#form").valid()) {
-												alert("Dữ liệu nhập chưa hợp lệ, vui lòng kiểm tra lại!");
-												this.disabled = false;
-											} else {
-												byId("form").submit();
-											}
-											return false;
-										});
 					});
+	var form_data = '<s:property value="form_data" escape="false"/>';
+	if (form_data != '') {
+		var form_data = $.parseJSON(form_data);
+		for (key in form_data) {
+			$("#form #" + key).val(form_data[key]);
+		}
+		$('#username').attr("readonly", "true");
+		$("#username").rules("remove");
+	} else {
+		$("legend#title").text("Thêm mới tài khoản");
+	}
+	$(document).delegate("#btSubmit","click",function() {
+		var button = this;
+		this.disabled = true;
+		if (!$("#form").valid()) {
+			alert("Dữ liệu nhập chưa hợp lệ, vui lòng kiểm tra lại!");
+			this.disabled = false;
+		} else {
+			var dataString = $("#form").serialize();
+			$.ajax({
+				url: "${doSaveURL}",
+				type:'POST',
+				data:dataString,
+				success:function(response){
+					button.disabled = false;
+					if(response.result == "ERROR") {
+						if(response.data == "ERROR") {
+							message(ERROR_MESSAGE,0);
+							return;
+						}
+						message(response.data,0);
+					} else {
+						message("Lưu thành công!",1);
+						parent.reload = true;
+					}
+				},
+				error:function(response){
+					button.disabled = false;
+					alert(ERROR_MESSAGE);
+				}
+			});
+		}
+		return false;
+	});
+});
 
 	
 </script>

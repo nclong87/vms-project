@@ -40,7 +40,7 @@ public class DateUtils {
     public static String parseStringDateSQL(String str,String format) {
     	try {
     		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(format);
-			return SDF_DDMMYYYYHHMMSS.format(simpleDateFormat.parse(str));
+			return SDF_SQL.format(simpleDateFormat.parse(str));
 		} catch (ParseException e) {
 			System.out.println("ERROR parseStringDateSQL :" + e.getMessage());
 		}
@@ -92,5 +92,7 @@ public class DateUtils {
 	}
 	public static java.sql.Date convertToSQLDate(Date date) {
 		return new java.sql.Date(date.getTime());
-	}}
+	}
+	
+}
 

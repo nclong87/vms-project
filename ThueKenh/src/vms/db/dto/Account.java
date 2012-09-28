@@ -25,6 +25,8 @@ public class Account {
 	private String password;
 
 	private String username;
+	
+	private Integer mainmenu;
 
     public Account() {
     }
@@ -94,6 +96,14 @@ public class Account {
 		this.idgroup = idgroup;
 	}
 
+	public Integer getMainmenu() {
+		return mainmenu;
+	}
+
+	public void setMainmenu(Integer mainmenu) {
+		this.mainmenu = mainmenu;
+	}
+
 	public Map<String,String> getMap() {
 		Map<String, String> map = new LinkedHashMap<String, String>();
 		map.put("id", this.getId());
@@ -101,7 +111,8 @@ public class Account {
 		map.put("idphongban", this.getIdphongban());
 		map.put("idgroup", this.idgroup);
 		map.put("idkhuvuc", this.getIdkhuvuc());
-		map.put("active", this.getActive().toString());
+		map.put("active", String.valueOf(this.getActive()));
+		map.put("mainmenu", String.valueOf(this.mainmenu));
 		return map;
 	}
 	
@@ -114,6 +125,7 @@ public class Account {
 		account.setIdphongban(rs.getString("IDPHONGBAN"));
 		account.setUsername(rs.getString("USERNAME"));
 		account.setIdgroup(rs.getString("IDGROUP"));
+		account.setMainmenu(rs.getInt("MAINMENU"));
 		//System.out.println(rs.getString("USERNAME"));
         return account;
 	}

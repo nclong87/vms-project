@@ -3,8 +3,6 @@ package vms.web.actions;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,10 +11,14 @@ import javax.servlet.http.HttpSession;
 import org.apache.struts2.ServletActionContext;
 import org.json.simple.JSONValue;
 import vms.db.dao.DaoFactory;
+import vms.db.dao.MenuDao;
+import vms.db.dao.TuyenkenhDao;
 import vms.db.dao.VmsgroupDao;
 import vms.db.dto.Account;
+import vms.db.dto.Menu;
 import vms.db.dto.Vmsgroup;
 import vms.utils.Constances;
+import vms.utils.DateUtils;
 import vms.utils.VMSUtil;
 import vms.web.models.MessageStore;
 import com.opensymphony.xwork2.Action;
@@ -32,6 +34,8 @@ public class GroupAction implements Preparable {
 	private MessageStore message ;
 	private LinkedHashMap<String, Object> jsonData;
 	private String form_data;
+	
+	private List<Menu> menus;
 	
 	private String id;
 	private String[] ids;
@@ -57,23 +61,14 @@ public class GroupAction implements Preparable {
 	
 	public String list() {
 		try {
-			Integer iDisplayLength = Integer.parseInt(request.getParameter("iDisplayLength"));
+			Integer iDisplayStart = Integer.parseInt(request.getParameter("iDisplayStart"));
 			VmsgroupDao vmsgroupDao = new VmsgroupDao(daoFactory);
-			List<Vmsgroup> list = vmsgroupDao.getAll();
+			List<Map<String, Object>> items = vmsgroupDao.getAll();
+			int iTotalRecords = items.size();
 			jsonData = new LinkedHashMap<String, Object>();
-			List<HashMap<String, Object>> items = new ArrayList<HashMap<String, Object>>();
-			for(int i=0;i<list.size() && i<iDisplayLength;i++) {
-				HashMap<String, Object> map = new HashMap<String, Object>();
-				Vmsgroup vmsgroup = list.get(i);
-				map.put("stt", i+1);
-				map.put("id", vmsgroup.getId());
-				map.put("namegroup", vmsgroup.getNamegroup());
-				map.put("active", vmsgroup.getActive());
-				items.add(map);
-			}
 			jsonData.put("sEcho", Integer.parseInt(request.getParameter("sEcho")));
-			jsonData.put("iTotalRecords", list.size());
-			jsonData.put("iTotalDisplayRecords", list.size());
+			jsonData.put("iTotalRecords", iDisplayStart + iTotalRecords);
+			jsonData.put("iTotalDisplayRecords", iDisplayStart + iTotalRecords);
 			jsonData.put("aaData", items);
 			return Action.SUCCESS;
 		} catch (Exception e) {
@@ -88,12 +83,8 @@ public class GroupAction implements Preparable {
 				session.setAttribute("URL", VMSUtil.getFullURL(request));
 				return "login_page";
 			}
-			String flag = request.getParameter("f");
-			if(flag != null ) {
-				message = new MessageStore();
-				message.setType(1);
-				message.setMessage(Constances.MSG_SUCCESS);
-			}
+			MenuDao menuDao = new MenuDao(daoFactory);
+			menus = menuDao.getAll();
 			form_data = "";
 			if(id != null && id.isEmpty()==false) {
 				VmsgroupDao vmsgroupDao = new VmsgroupDao(daoFactory);
@@ -103,13 +94,13 @@ public class GroupAction implements Preparable {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			session.setAttribute("message", e.getMessage());
 			return Action.ERROR;
 		}
 		return Action.SUCCESS;
 	}
 	
 	public String doSave() {
+		jsonData = new LinkedHashMap<String, Object>();
 		try {
 			if(account == null) {
 				session.setAttribute("URL", VMSUtil.getFullURL(request));
@@ -117,11 +108,12 @@ public class GroupAction implements Preparable {
 			}
 			VmsgroupDao vmsgroupDao = new VmsgroupDao(daoFactory);
 			id = String.valueOf(vmsgroupDao.save(vmsgroup));
-			if(id == null) throw new Exception(Constances.MSG_ERROR);
+			if(id == null) throw new Exception("ERROR");
+			jsonData.put("result", "OK");
 		} catch (Exception e) {
 			e.printStackTrace();
-			session.setAttribute("message", e.getMessage());
-			return Action.ERROR;
+			jsonData.put("result", "ERROR");
+			jsonData.put("data", e.getMessage());
 		}
 		return Action.SUCCESS;
 	}
@@ -198,6 +190,12 @@ public class GroupAction implements Preparable {
 	}
 	public void setVmsgroup(Vmsgroup vmsgroup) {
 		this.vmsgroup = vmsgroup;
+	}
+	public List<Menu> getMenus() {
+		return menus;
+	}
+	public void setMenus(List<Menu> menus) {
+		this.menus = menus;
 	}
 	
 	

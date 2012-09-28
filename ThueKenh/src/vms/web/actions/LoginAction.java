@@ -14,6 +14,7 @@ import org.json.simple.JSONValue;
 
 import vms.db.dao.AccountDao;
 import vms.db.dao.DaoFactory;
+import vms.db.dao.MenuDao;
 import vms.db.dto.Account;
 import vms.utils.Constances;
 import vms.utils.VMSUtil;
@@ -65,7 +66,11 @@ public class LoginAction implements Preparable {
 		if(session.getAttribute(Constances.SESS_USERLOGIN) != null) {
 			url = (String) session.getAttribute("URL");
 			if(url == null) {
-				url = Constances.DEFAULT_HOME_PAGE;
+				MenuDao menuDao = new MenuDao(daoFactory);
+				url = menuDao.getDefaultMenu((Account)session.getAttribute(Constances.SESS_USERLOGIN));
+				if(url == null) {
+					url = Constances.DEFAULT_HOME_PAGE;
+				}
 			}
 			System.out.println("url="+url);
 			return "index_page";

@@ -179,30 +179,30 @@ margin-left: 10px;
 		<input class="button" type="button" id="btThem" value="Thêm tuyến kênh"/>
 		<input class="button" type="button" id="btXoa" value="Xóa" style="float: right; margin-right: 10px;"/>
 		</div>
-			<table width="100%" id="dataTable" class="display">
-			<thead>
-				<tr>
-					<th width="5%">#</th>
-					<th>Mã kênh</th>
-					<th>Mã điểm đầu</th>
-					<th>Mã điểm cuối</th>
-					<th>Giao tiếp</th>
-					<th>Dung lượng</th>
-					<th>Số lượng</th>
-					<th>Dự án</th>
-					<th width="120px">ĐV nhận kênh</th>
-					<th width="80px">Khu vực</th>
-					<th width="5px">Trạng thái</th>
-					<th width="5px" align="center">Sửa</th>
-					<th width="5px" align="center"><input type="checkbox" onclick="selectAll(this)"/></th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td colspan="13" class="dataTables_empty">Đang tải dữ liệu...</td>
-				</tr>
-			</tbody>
-			</table>
+		<table width="100%" id="dataTable" class="display">
+		<thead>
+			<tr>
+				<th width="5%">#</th>
+				<th>Mã kênh</th>
+				<th>Mã điểm đầu</th>
+				<th>Mã điểm cuối</th>
+				<th>Giao tiếp</th>
+				<th>Dung lượng</th>
+				<th>Số lượng</th>
+				<th>Dự án</th>
+				<th width="120px">ĐV nhận kênh</th>
+				<th width="80px">Khu vực</th>
+				<th width="5px">Trạng thái</th>
+				<th width="5px" align="center">Sửa</th>
+				<th width="5px" align="center"><input type="checkbox" onclick="selectAll(this)"/></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td colspan="13" class="dataTables_empty">Đang tải dữ liệu...</td>
+			</tr>
+		</tbody>
+		</table>
 	</div>
 	<div id="footer"></div>
 </body>
