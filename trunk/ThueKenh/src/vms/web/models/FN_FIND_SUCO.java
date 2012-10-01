@@ -31,44 +31,21 @@ public class FN_FIND_SUCO {
 	private String filepath;
 	private String filesize;
 	
-	public String getFilename() {
-		return filename;
-	}
-
-	public void setFilename(String filename) {
-		this.filename = filename;
-	}
-
-	public String getFilepath() {
-		return filepath;
-	}
-
-	public void setFilepath(String filepath) {
-		this.filepath = filepath;
-	}
-
-	public String getFilesize() {
-		return filesize;
-	}
-
-	public void setFilesize(String filesize) {
-		this.filesize = filesize;
-	}
-
-	public String getId() {
+	
+	public String getSuco_id() {
 		return suco_id;
 	}
 
-	public void setId(String id) {
-		this.suco_id = id;
+	public void setSuco_id(String suco_id) {
+		this.suco_id = suco_id;
 	}
 
-	public String getTuyekenh_id() {
+	public String getTuyenkenh_id() {
 		return tuyenkenh_id;
 	}
 
-	public void setTuyekenh_id(String tuyekenh_id) {
-		this.tuyenkenh_id = tuyekenh_id;
+	public void setTuyenkenh_id(String tuyenkenh_id) {
+		this.tuyenkenh_id = tuyenkenh_id;
 	}
 
 	public String getMadiemdau() {
@@ -175,6 +152,30 @@ public class FN_FIND_SUCO {
 		this.timecreate = timecreate;
 	}
 
+	public String getFilename() {
+		return filename;
+	}
+
+	public void setFilename(String filename) {
+		this.filename = filename;
+	}
+
+	public String getFilepath() {
+		return filepath;
+	}
+
+	public void setFilepath(String filepath) {
+		this.filepath = filepath;
+	}
+
+	public String getFilesize() {
+		return filesize;
+	}
+
+	public void setFilesize(String filesize) {
+		this.filesize = filesize;
+	}
+
 	public Map<String,String> getMap() {
 		Map<String, String> map = new LinkedHashMap<String, String>();
 		map.put("id", this.suco_id);
@@ -200,8 +201,8 @@ public class FN_FIND_SUCO {
 
 	public static FN_FIND_SUCO mapObject(ResultSet rs) throws SQLException {
 		FN_FIND_SUCO dto = new FN_FIND_SUCO();
-		dto.setId(rs.getString("suco_id"));
-		dto.setTuyekenh_id(rs.getString("tuyenkenh_id"));
+		dto.setSuco_id(rs.getString("suco_id"));
+		dto.setTuyenkenh_id(rs.getString("tuyenkenh_id"));
 		dto.setMadiemdau(rs.getString("madiemdau"));
 		dto.setMadiemcuoi(rs.getString("madiemcuoi"));
 		dto.setLoaigiaotiep(rs.getString("loaigiaotiep"));

@@ -86,9 +86,7 @@ public class BienBanVanHanhKenhDAO {
 
 	public void deleteByIds(String[] ids) {
 		String str = StringUtils.join(ids, ",");
-		this.jdbcTemplate
-				.update("update BIENBANVANHANH set DELETED = 1 where ID in ("
-						+ str + ")");
+		this.jdbcTemplate.update("update BIENBANVANHANH set DELETED = 1 where ID in ("+ str + ")");
 	}
 
 	private static final String SQL_DETAIL_BIENBANVANHANHKENH = "SELECT * FROM BIENBANVANHANH "

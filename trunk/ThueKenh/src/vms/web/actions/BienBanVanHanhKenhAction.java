@@ -16,10 +16,13 @@ import org.json.JSONObject;
 import org.json.simple.JSONValue;
 
 import vms.db.dao.DaoFactory;
+import vms.db.dao.TuyenKenhDeXuatDAO;
+import vms.db.dao.VanHanhSuCoKenhDAO;
 
 import vms.db.dao.BienBanVanHanhKenhDAO;
 import vms.db.dto.Account;
 import vms.db.dto.BienBanVanHanhKenhDTO;
+import vms.db.dto.VanHanhSuCoKenhDTO;
 import vms.utils.Constances;
 import vms.utils.DateUtils;
 import vms.utils.VMSUtil;
@@ -36,7 +39,15 @@ public class BienBanVanHanhKenhAction implements Preparable {
 	private String form_data;
 	private String id;
 	private String[] ids;
+	private String[] suco_ids;
 	private Map<String,Object> detail;
+	
+	public String[] getSuco_ids() {
+		return suco_ids;
+	}
+	public void setSuco_ids(String[] suco_ids) {
+		this.suco_ids = suco_ids;
+	}
 	
 	public Map<String, Object> getDetail() {
 		return detail;
@@ -151,6 +162,21 @@ public class BienBanVanHanhKenhAction implements Preparable {
 			System.out.println(bienbanvhkDto.getSobienban());
 			String id=bienbanvhkDao.save(bienbanvhkDto);
 			if(id==null) throw new Exception(Constances.MSG_ERROR);
+			System.out.println("suco_ids.length" + suco_ids.length);
+			if(suco_ids!= null && suco_ids.length > 0) {
+				VanHanhSuCoKenhDAO vanhanhSucokenhDAO = new VanHanhSuCoKenhDAO(daoFactory);
+				// delete by bienbanid
+				vanhanhSucokenhDAO.deleteByBienBanIds(id);
+				// insert bienban_suco
+				VanHanhSuCoKenhDTO vanhanhsucoDto=null;
+				for(int i=0;i<suco_ids.length;i++)
+				{
+					vanhanhsucoDto=new VanHanhSuCoKenhDTO();
+					vanhanhsucoDto.setBienban_id(id);
+					vanhanhsucoDto.setSucokenh_id(suco_ids[i]);
+					vanhanhSucokenhDAO.save(vanhanhsucoDto);
+				}
+			}
 			setInputStream("OK");
 			
 		} catch (Exception e) {
@@ -212,6 +238,10 @@ public class BienBanVanHanhKenhAction implements Preparable {
 			if(ids != null && ids.length >0 ) {
 				BienBanVanHanhKenhDAO bienbanvhkDao = new BienBanVanHanhKenhDAO(daoFactory);
 				bienbanvhkDao.deleteByIds(ids);
+				
+				VanHanhSuCoKenhDAO vanhanhsucoDao=new VanHanhSuCoKenhDAO(daoFactory);
+				for(int i=0;i<ids.length;i++)
+					vanhanhsucoDao.deleteByBienBanIds(ids[i]);
 			}
 			setInputStream("OK");
 		} catch (Exception e) {
