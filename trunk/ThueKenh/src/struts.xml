@@ -460,9 +460,14 @@
 			</result>
 		</action>
 	</package>
-	<package name="bangiao" extends="default" namespace="/bangiao">
-		<action name="index" class="bangiaoAction" method="index">
-			<result>/jsp/bangiao/index.jsp</result>
+	<package name="tiendobangiao" extends="default" namespace="/bangiao">
+		<action name="index" class="tiendobangiaoAction" method="index">
+			<result>/jsp/tiendobangiao/index.jsp</result>
+		</action>
+		<action name="ajLoadtiendobangiao" class="tiendobangiaoAction" method="ajLoad">
+			<result name="success" type="json">
+				<param name="root">jsonData</param>
+			</result>
 		</action>
 	</package>
 	<package name="bienbanvanhanhkenh" extends="default" namespace="/bienbanvanhanhkenh">
