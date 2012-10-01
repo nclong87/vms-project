@@ -3,7 +3,7 @@
 <s:url action="doLogout" namespace="/login" var="doLogoutURL"/>
 <s:url action="index" namespace="/login" var="loginURL"/>
 <s:url action="index" namespace="/settings" var="settingsIndexURL"/>
-<s:url action="ajLoadtiendobangiao" namespace="/tiendobangiao" id="ajLoad"/>
+<s:url action="ajLoadtiendobangiao" namespace="/bangiao" id="ajLoad"/>
 <s:url action="form" namespace="/tuyenkenh" id="formURL"/>
 <s:url action="delete" namespace="/tuyenkenh" id="deleteURL"/>
 <s:url action="detail" namespace="/tuyenkenh" id="detailURL"/>
@@ -107,19 +107,19 @@ margin-left: 10px;
 										Ngày hẹn BG :
 									</td>
 									<td align="left">
-										<input type="text" name="madiemdau" id="madiemdau"/>
+										<input type="text" name="madiemdau" id="ngayhenbangiao"/>
 									</td>
 									<td align="right">
 										Ngày ĐNBG :
 									</td>
 									<td align="left">
-										<input type="text" name="madiemdau" id="madiemdau"/>
+										<input type="text" name="madiemdau" id="ngaybangiao"/>
 									</td>
 								</tr>
 								<tr>
 									<td align="right">Tên VBĐX :</td>
 									<td align="left">
-										<input type="text" name="madiemdau" id="madiemdau"/>
+										<input type="text" name="madiemdau" id="tenvanbandexuat"/>
 									</td>
 									<td align="right">
 										Trạng thái :
@@ -286,13 +286,8 @@ $(document).ready(function(){
 					{ "mDataProp": "dungluong","bSortable": false,"bSearchable": false,"sClass":'td_center'},
 					{ "mDataProp": "soluong","bSortable": false,"bSearchable": false,"sClass":'td_center'},
 					{ "mDataProp": "tenduan","bSortable": false,"bSearchable": false},
-					{ "mDataProp": "tenphongban","bSortable": false,"bSearchable": false},
-					{ "mDataProp": "tenkhuvuc","bSortable": false,"bSearchable": false},
-					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,
-						"fnRender": function( oObj ) {
-							return '<center>'+trangthai_utils.tuyenkenhDisplay(oObj.aData.trangthai)+'</center>'; 
-						}
-					},
+					{ "mDataProp": "tebvanbandexuat","bSortable": false,"bSearchable": false},
+					{ "mDataProp": "tiendo","bSortable": false,"bSearchable": false},
 					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,
 						"fnRender": function( oObj ) {
 							return '<center><span class="edit_icon" data-ref-id="'+oObj.aData.id+'" title="Edit" href="#"></span></center>'; 

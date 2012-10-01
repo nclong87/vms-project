@@ -73,10 +73,10 @@ public class BanGiaoAction implements Preparable {
 	}
 	
 	public String execute() throws Exception {
-		if(account == null) {
+		/*if(account == null) {
 			session.setAttribute("URL", VMSUtil.getFullURL(request));
 			return "login_page";
-		}
+		}*/
 		LoaiGiaoTiepDao loaiGiaoTiepDao = new LoaiGiaoTiepDao(daoFactory);
 		loaiGiaoTieps = loaiGiaoTiepDao.getAll();
 		DuAnDAO duAnDAO = new DuAnDAO(daoFactory);
@@ -88,7 +88,8 @@ public class BanGiaoAction implements Preparable {
 		return Action.SUCCESS;
 	}
 	
-	public String load() {
+	public String ajLoad() {
+		System.out.println("ajLoad");
 		try {
 			//if(account == null) throw new Exception("END_SESSION");
 			Integer iDisplayStart = Integer.parseInt(request.getParameter("iDisplayStart"));

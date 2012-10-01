@@ -92,7 +92,7 @@
     <bean id="bienbanvanhanhkenhAction" scope="prototype" class="vms.web.actions.BienBanVanHanhKenhAction">
         <constructor-arg ref="daoFactory" />
     </bean>
-    <bean id="tiendobangiaoAction" scope="prototype" class="vms.web.actions.TienDoBanGiaoAction">
+    <bean id="tiendobangiaoAction" scope="prototype" class="vms.web.actions.BanGiaoAction">
         <constructor-arg ref="daoFactory" />
     </bean>
 </beans>

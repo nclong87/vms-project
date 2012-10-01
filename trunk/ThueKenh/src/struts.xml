@@ -460,8 +460,8 @@
 			</result>
 		</action>
 	</package>
-	<package name="tiendobangiao" extends="default" namespace="/bangiao">
-		<action name="index" class="tiendobangiaoAction" method="index">
+	<package name="bangiao" extends="default" namespace="/bangiao">
+		<action name="index" class="tiendobangiaoAction">
 			<result>/jsp/tiendobangiao/index.jsp</result>
 		</action>
 		<action name="ajLoadtiendobangiao" class="tiendobangiaoAction" method="ajLoad">

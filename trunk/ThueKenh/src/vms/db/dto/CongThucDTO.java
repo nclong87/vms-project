@@ -5,6 +5,8 @@ import java.sql.SQLException;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import vms.utils.DateUtils;
+
 public class CongThucDTO {
 	private String id;
 	private String tencongthuc;
@@ -20,7 +22,8 @@ public class CongThucDTO {
 		dto.setTencongthuc(rs.getString("TENCONGTHUC"));
 		dto.setChuoicongthuc(rs.getString("CHUOICONGTHUC"));
 		dto.setUsercreate(rs.getString("USERCREATE"));
-		dto.setTimecreate(rs.getString("TIMECREATE"));
+		dto.setTimecreate(DateUtils.formatDate(rs.getDate("TIMECREATE"), DateUtils.SDF_DDMMYYYYHHMMSS2));
+		
 		dto.setStt(rs.getInt("STT"));
 		dto.setMa(rs.getString("MA"));
 		dto.setDeleted(rs.getInt("DELETED"));

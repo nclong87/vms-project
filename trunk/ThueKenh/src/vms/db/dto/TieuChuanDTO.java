@@ -5,6 +5,8 @@ import java.sql.SQLException;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import vms.utils.DateUtils;
+
 public class TieuChuanDTO {
 	private String id;
 	private String tentieuchuan;
@@ -46,7 +48,7 @@ public class TieuChuanDTO {
 		dto.setMota(rs.getString("MOTA"));
 		dto.setLoaitieuchuan(rs.getString("LOAITIEUCHUAN"));
 		dto.setUsercreate(rs.getString("USERCREATE"));
-		dto.setTimecreate(rs.getString("TIMECREATE"));
+		dto.setTimecreate(DateUtils.formatDate(rs.getDate("TIMECREATE"), DateUtils.SDF_DDMMYYYYHHMMSS2));
 		dto.setStt(rs.getInt("STT"));
 		dto.setDeleted(rs.getInt("DELETED"));
 		dto.setMa(rs.getString("MA"));
