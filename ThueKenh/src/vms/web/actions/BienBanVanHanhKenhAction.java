@@ -208,7 +208,8 @@ public class BienBanVanHanhKenhAction implements Preparable {
 			}
 			System.out.println("conditions="+conditions);
 			BienBanVanHanhKenhDAO bienbanvhkDao = new BienBanVanHanhKenhDAO(daoFactory);
-			List<BienBanVanHanhKenhDTO> lstBienbanvhk = bienbanvhkDao.findBienBanVanHanhKenh(iDisplayStart, iDisplayLength, conditions);
+			List<BienBanVanHanhKenhDTO> lstBienbanvhk = bienbanvhkDao.findBienBanVanHanhKenh(iDisplayStart, iDisplayLength+1, conditions);
+			int iTotalRecords=lstBienbanvhk.size();
 			jsonData = new LinkedHashMap<String, Object>();
 			List<Map<String, String>> items = new ArrayList<Map<String, String>>();
 			for(int i=0;i<lstBienbanvhk.size() && i<iDisplayLength;i++) {
@@ -217,8 +218,8 @@ public class BienBanVanHanhKenhAction implements Preparable {
 				items.add(map);
 			}
 			jsonData.put("sEcho", Integer.parseInt(request.getParameter("sEcho")));
-			jsonData.put("iTotalRecords", lstBienbanvhk.size());
-			jsonData.put("iTotalDisplayRecords", lstBienbanvhk.size());
+			jsonData.put("iTotalRecords", iDisplayStart+iTotalRecords);
+			jsonData.put("iTotalDisplayRecords", iDisplayStart+iTotalRecords);
 			jsonData.put("aaData", items);
 			return Action.SUCCESS;
 		} catch (Exception e) {

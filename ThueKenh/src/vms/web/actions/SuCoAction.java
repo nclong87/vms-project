@@ -201,7 +201,8 @@ public class SuCoAction implements Preparable {
 			}
 			SuCoDAO sucoDao = new SuCoDAO(daoFactory);
 			System.out.println("conditions="+conditions);
-			List<FN_FIND_SUCO> lstSuCo = sucoDao.findSuCo(iDisplayStart, iDisplayLength, conditions);
+			List<FN_FIND_SUCO> lstSuCo = sucoDao.findSuCo(iDisplayStart, iDisplayLength+1, conditions);
+			int iTotalRecords=lstSuCo.size();
 			jsonData = new LinkedHashMap<String, Object>();
 			List<Map<String, String>> items = new ArrayList<Map<String, String>>();
 			for(int i=0;i<lstSuCo.size() && i<iDisplayLength;i++) {
@@ -210,8 +211,8 @@ public class SuCoAction implements Preparable {
 				items.add(map);
 			}
 			jsonData.put("sEcho", Integer.parseInt(request.getParameter("sEcho")));
-			jsonData.put("iTotalRecords", lstSuCo.size());
-			jsonData.put("iTotalDisplayRecords", lstSuCo.size());
+			jsonData.put("iTotalRecords", iDisplayStart+iTotalRecords);
+			jsonData.put("iTotalDisplayRecords", iDisplayStart+iTotalRecords);
 			jsonData.put("aaData", items);
 			return Action.SUCCESS;
 		} catch (Exception e) {
