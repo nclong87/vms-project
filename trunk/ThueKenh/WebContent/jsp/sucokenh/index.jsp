@@ -4,6 +4,7 @@
 <s:url action="popupSearch" namespace="/tuyenkenh" id="popupSearchURL" />
 <s:url action="delete" namespace="/sucokenh" id="deleteURL"/>
 <s:url action="detail" namespace="/sucokenh" id="detailURL"/>
+<s:url action="suco" namespace="/import" id="importSuCoURL"/>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -87,7 +88,7 @@
 			</div>
 			<div style="clear: both; margin: 5px 0">
 				<input type="button" class="button" value="Thêm sự cố" onclick="ShowWindow('Thêm sự cố',800,600,'${formURL}',false);"></input>
-				<input type="button" class="button" value="Import Excel"></input>
+				<input type="button" class="button" value="Import Excel" onclick="location.href='${importSuCoURL}'"></input>
 				<input class="button" type="button" id="btXoa" value="Xóa" style="float: right; margin-right: 10px;"/>
 			</div>
 			<table width="100%" id="dataTable" class="display">

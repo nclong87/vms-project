@@ -35,7 +35,7 @@ function byId(id) { //Viet tat cua ham document.getElementById
 <body>
 	<form id="form" onsubmit="return false;">
 		<input type="text" style="display:none" name="bienbanvhkDto.id" id="id" />
-		<div style="clear: both; margin: 5px 0">
+		<div style="background: none repeat scroll 0pt 0pt rgb(242, 242, 242); padding: 5px; width: 99%;">
 			<table class="input" style="width:700px">
 				<tr>
 					<td colspan='4' align="left" id="msg"></td>
@@ -80,7 +80,7 @@ function byId(id) { //Viet tat cua ham document.getElementById
 								<th width="5px" align="center">Xóa</th>
 							</tr>
 						</thead>
-						<tbody>
+						<tbody>						
 						</tbody>
 					</table>
 				</fieldset>
@@ -173,7 +173,7 @@ $(document).ready(function(){
 			"bSort":false,
 			"bFilter": false,"bInfo": false,
 			"bPaginate" : false
-		})
+		});
 	} else {
 		oTable = $('#dataTable').dataTable({
 			"bJQueryUI": true,
@@ -198,11 +198,11 @@ $(document).ready(function(){
 							if(response.aaData.length != 0) {
 								var i = 0;
 								$.each(response.aaData,function(){
-									addRow(i,this);
+									addRow(i+1,this);
 									i++;
 								});
 							} else {
-								oTable.fnAddData([0,'','','','','','','','','']);
+								oTable.fnAddData([0,'','','','','','','','','','','','','','']);
 								oTable.fnDeleteRow(0);
 							}
 						}
