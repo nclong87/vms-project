@@ -5,6 +5,8 @@ import java.sql.SQLException;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import vms.utils.DateUtils;
+
 public class DuAnDTO{
 	private String tenduan;
 	private String mota;
@@ -102,7 +104,7 @@ public class DuAnDTO{
 		dto.setMota(rs.getString("MOTA"));
 		dto.setGiamgia(rs.getInt("GIAMGIA"));
 		dto.setUsercreate(rs.getString("USERCREATE"));
-		dto.setTimecreate(rs.getString("TIMECREATE"));
+		dto.setTimecreate(DateUtils.formatDate(rs.getDate("TIMECREATE"), DateUtils.SDF_DDMMYYYYHHMMSS2));
 		dto.setStt(rs.getInt("STT"));
 		dto.setDeleted(rs.getInt("DELETED"));
 		dto.setMa(rs.getString("MA"));
