@@ -19,7 +19,7 @@ import vms.db.dto.SuCoDTO;
 import vms.db.dto.TuyenKenh;
 import vms.utils.DateUtils;
 import vms.utils.VMSUtil;
-import vms.web.models.FN_FIND_SUCO;;
+import vms.web.models.FN_FIND_SUCO;
 
 public class SuCoDAO {
 	private JdbcTemplate jdbcTemplate;
