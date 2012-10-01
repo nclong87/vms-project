@@ -58,14 +58,13 @@ public class SuCoDAO {
 		return stmt.getString(1);
 	}
 	
-	private static final String SQL_FN_FIND_SUCO = "{ ? = call FN_FIND_SUCO(?,?,?,?,?,?,?,?,?) }";
+	private static final String SQL_FN_FIND_SUCO = "{ ? = call FN_FIND_SUCO(?,?,?,?,?,?,?,?,?,?) }";
 	public List<FN_FIND_SUCO> findSuCo(int iDisplayStart,int iDisplayLength,Map<String, String> conditions) throws SQLException {
 		Connection connection = jdbcDatasource.getConnection();
 		CallableStatement stmt = connection.prepareCall(SQL_FN_FIND_SUCO);
 		stmt.registerOutParameter(1, OracleTypes.CURSOR);
 		stmt.setInt(2, iDisplayStart);
 		stmt.setInt(3, iDisplayLength);
-		System.out.println("ma diem dau: "+conditions.get("madiemdau"));
 		stmt.setString(4, conditions.get("tuyenkenh_id"));
 		stmt.setString(5, conditions.get("madiemdau"));
 		stmt.setString(6, conditions.get("madiemcuoi"));
@@ -73,6 +72,7 @@ public class SuCoDAO {
 		stmt.setString(8, conditions.get("thoidiembatdau"));
 		stmt.setString(9, conditions.get("thoidiemketthuc"));
 		stmt.setString(10, conditions.get("nguoixacnhan"));
+		stmt.setString(11, conditions.get("bienbanvanhanh_id"));
 		stmt.execute();
 		ResultSet rs = (ResultSet) stmt.getObject(1);
 		List<FN_FIND_SUCO> result = new ArrayList<FN_FIND_SUCO>();

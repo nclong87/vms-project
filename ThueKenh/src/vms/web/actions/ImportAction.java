@@ -20,6 +20,7 @@ import org.json.JSONObject;
 
 
 import vms.db.dao.DaoFactory;
+import vms.db.dao.SuCoImportDAO;
 import vms.db.dao.TuyenkenhDao;
 import vms.db.dao.TuyenkenhImportDAO;
 import vms.db.dto.Account;
@@ -170,6 +171,55 @@ public class ImportAction implements Preparable {
 			if(ids == null || ids.length==0) throw new Exception("ERROR");
 			TuyenkenhImportDAO dao = new TuyenkenhImportDAO(daoFactory);
 			dao.importTuyenkenh(ids, account.getUsername());
+			jsonData.put("result", "OK");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			jsonData.put("result", "ERROR");
+			jsonData.put("data", e.getMessage());
+		} 
+		return Action.SUCCESS;
+	}
+	
+	// su co
+	
+	public String suco() throws Exception {
+		if(account == null) {
+			session.setAttribute("URL", VMSUtil.getFullURL(request));
+			return "login_page";
+		}
+		return Action.SUCCESS;
+	}
+	public String loadSuCoImport() {
+		try {
+			//if(account == null) throw new Exception("END_SESSION");
+			Integer iDisplayStart = Integer.parseInt(request.getParameter("iDisplayStart"));
+			Integer iDisplayLength = Integer.parseInt(request.getParameter("iDisplayLength"));
+			
+			SuCoImportDAO dao = new SuCoImportDAO(daoFactory);
+			List<Map<String, Object>> items = dao.search(iDisplayStart, iDisplayLength + 1);
+			int iTotalRecords = items.size();
+			if(iTotalRecords > iDisplayLength) {
+				items.remove(iTotalRecords - 1);
+			}
+			jsonData = new LinkedHashMap<String, Object>();
+			jsonData.put("sEcho", Integer.parseInt(request.getParameter("sEcho")));
+			jsonData.put("iTotalRecords", iDisplayStart + iTotalRecords);
+			jsonData.put("iTotalDisplayRecords", iDisplayStart + iTotalRecords);
+			jsonData.put("aaData", items);
+			return Action.SUCCESS;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return Action.SUCCESS;
+	}
+	
+	public String doImportSuCo() {
+		jsonData = new LinkedHashMap<String, Object>();
+		try {
+			if(ids == null || ids.length==0) throw new Exception("ERROR");
+			SuCoImportDAO dao = new SuCoImportDAO(daoFactory);
+			dao.importSuCo(ids, account.getUsername());
 			jsonData.put("result", "OK");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

@@ -459,6 +459,24 @@
 				<param name="root">jsonData</param>
 			</result>
 		</action>
+		<action name="suco" class="importAction" method="suco">
+			<result>/jsp/import/suco.jsp</result>
+		</action>
+		<action name="loadSuCoImport" class="importAction" method="loadSuCoImport">
+			<result name="success" type="json">
+				<param name="root">jsonData</param>
+			</result>
+		</action>
+		<action name="doUploadSuCo" class="importAction" method="doUploadSuCo">
+			<result name="success" type="json">
+				<param name="root">jsonData</param>
+			</result>
+		</action>
+		<action name="doImportSuCo" class="importAction" method="doImportSuCo">
+			<result name="success" type="json">
+				<param name="root">jsonData</param>
+			</result>
+		</action>
 	</package>
 	<package name="bangiao" extends="default" namespace="/bangiao">
 		<action name="index" class="tiendobangiaoAction">
