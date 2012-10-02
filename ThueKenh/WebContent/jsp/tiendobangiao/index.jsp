@@ -271,7 +271,7 @@ $(document).ready(function(){
 					{ "mDataProp": "stt","bSortable": false,"bSearchable": false },
 					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,"sClass":'td_center',
 						"fnRender": function( oObj ) {
-							return '<a target="_blank" href="${detailURL}?id='+oObj.aData.id+'" title="Xem chi tiết tuyến kênh">'+oObj.aData.id+'</a>'; 
+							return '<a target="_blank" href="${detailURL}?id='+oObj.aData.tuyenkenh_id+'" title="Xem chi tiết tuyến kênh">'+oObj.aData.tuyenkenh_id+'</a>'; 
 						}
 					},
 					{ "mDataProp": "madiemdau","bSortable": false,"bSearchable": false,"sClass":'td_center'},
