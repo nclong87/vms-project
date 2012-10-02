@@ -112,7 +112,7 @@ public class BanGiaoAction implements Preparable {
 			String sSearch = request.getParameter("sSearch").trim();
 			System.out.println("sSearch="+sSearch);
 			Map<String, String> conditions = new LinkedHashMap<String, String>();
-			conditions.put("username", account.getUsername());
+			conditions.put("khuvuc_id", account.getIdkhuvuc());
 			conditions.put("iDisplayStart", "0");
 			conditions.put("iDisplayLength", "10");
 			/*
