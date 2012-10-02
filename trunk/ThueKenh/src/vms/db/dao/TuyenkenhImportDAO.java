@@ -91,4 +91,8 @@ public class TuyenkenhImportDAO {
 		connection.close();
 	}
 	
+	public void deleteByIds(String[] ids) {
+		String str = StringUtils.join(ids, ",");
+		this.jdbcTemplate.update("delete from TUYENKENH_IMPORT where ID in ("+str+")");
+	}
 }

@@ -459,6 +459,12 @@
 				<param name="root">jsonData</param>
 			</result>
 		</action>
+		<action name="doDeleteTuyenkenh" class="importAction" method="doDeleteTuyenkenh">
+			<result name="success" type="json">
+				<param name="root">jsonData</param>
+			</result>
+		</action>
+		
 		<action name="suco" class="importAction" method="suco">
 			<result>/jsp/import/suco.jsp</result>
 		</action>
@@ -473,6 +479,11 @@
 			</result>
 		</action>
 		<action name="doImportSuCo" class="importAction" method="doImportSuCo">
+			<result name="success" type="json">
+				<param name="root">jsonData</param>
+			</result>
+		</action>
+		<action name="doDeleteSuCo" class="importAction" method="doDeleteSuCo">
 			<result name="success" type="json">
 				<param name="root">jsonData</param>
 			</result>

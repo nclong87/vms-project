@@ -20,10 +20,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import vms.db.dto.SuCoImportDTO;
-import vms.db.dto.TuyenKenhImportDTO;
 import vms.utils.DateUtils;
 import vms.utils.VMSUtil;
-import vms.web.models.FN_FIND_TUYENKENH;
 
 public class SuCoImportDAO {
 	private JdbcTemplate jdbcTemplate;
@@ -33,7 +31,7 @@ public class SuCoImportDAO {
 		this.jdbcDatasource = daoFactory.getJdbcDataSource();
 	}
 	
-	private static final String SQL_SAVE_SUCO_IMPORT = "{ call SAVE_SUCO_IMPORT(?,?,?,?,?,?,?,?,?) }";
+	private static final String SQL_SAVE_SUCO_IMPORT = "{ call SAVE_SUCO_IMPORT(?,?,?,?,?,?,?,?,?,?,?,?,?) }";
 	public void save(SuCoImportDTO dto) throws Exception {
 		Connection connection = jdbcTemplate.getDataSource().getConnection();
 		CallableStatement stmt = connection.prepareCall(SQL_SAVE_SUCO_IMPORT);
@@ -41,11 +39,19 @@ public class SuCoImportDAO {
 		stmt.setString(2, dto.getMadiemdau());
 		stmt.setString(3, dto.getMadiemcuoi());
 		stmt.setString(4, dto.getMagiaotiep());
-		stmt.setString(5, dto.getThoidiembatdau());
-		stmt.setString(6, dto.getThoidiemketthuc());
+		long thoidiembatdau = DateUtils.parseDate(dto.getThoidiembatdau(), "dd/MM/yyyy HH:mm:ss").getTime();
+		long thoidiemketthuc = DateUtils.parseDate(dto.getThoidiemketthuc(), "dd/MM/yyyy HH:mm:ss").getTime();
+		long thoigianmatll=(thoidiemketthuc-thoidiembatdau)/(60*1000);
+		
+		stmt.setLong(5, thoidiembatdau);
+		stmt.setLong(6, thoidiemketthuc);
 		stmt.setString(7, dto.getNguyennhan());
 		stmt.setString(8, dto.getPhuonganxuly());
-		stmt.setString(9, dto.getTuyenkenh_id());
+		stmt.setString(9, dto.getNguoixacnhan());
+		stmt.setString(10,dto.getTuyenkenh_id());
+		stmt.setString(11,dto.getPhuluc_id());
+		stmt.setString(12,String.valueOf(thoigianmatll));
+		stmt.setString(13,dto.getGiamtrumll());
 		stmt.execute();
 		stmt.close();
 		connection.close();
@@ -69,6 +75,8 @@ public class SuCoImportDAO {
 		while(rs.next()) {
 			Map<String,Object> map = VMSUtil.resultSetToMap(rs);
 			map.put("stt", i);
+			map.put("thoidiembatdau", DateUtils.formatDate(new Date(rs.getLong("THOIDIEMBATDAU")), DateUtils.SDF_DDMMYYYYHHMMSS2));
+			map.put("thoidiemketthuc", DateUtils.formatDate(new Date(rs.getLong("THOIDIEMKETTHUC")), DateUtils.SDF_DDMMYYYYHHMMSS2));
 			result.add(map);
 			i++;
 		}
@@ -103,5 +111,10 @@ public class SuCoImportDAO {
 		stmt.execute();
 		stmt.close();
 		connection.close();
+	}
+	
+	public void deleteByIds(String[] ids) {
+		String str = StringUtils.join(ids, ",");
+		this.jdbcTemplate.update("delete from SUCO_IMPORT where ID in ("+str+")");
 	}
 }

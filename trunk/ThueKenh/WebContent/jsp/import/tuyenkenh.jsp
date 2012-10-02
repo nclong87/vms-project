@@ -7,6 +7,7 @@
 <s:url action="doUploadTuyenkenh" namespace="/import" id="doUploadTuyenkenhURL"/>
 <s:url action="loadTuyenkenhImport" namespace="/import" id="loadTuyenkenhImportURL"/>
 <s:url action="doImportTuyenkenh" namespace="/import" id="doImportTuyenkenhURL"/>
+<s:url action="doDeleteTuyenkenh" namespace="/import" id="doDeleteTuyenkenhURL"/>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -53,7 +54,7 @@ margin-left: 10px;
 										<input type="file" name="fileupload" />
 									</td>
 									<td align="right" width="150px">
-										<a href="#">File mẫu</a>
+										<a href="<%=contextPath%>/files/TuyenKenhExcelMau.xls">File mẫu</a>
 									</td>
 								</tr>
 								</tbody>
@@ -154,7 +155,39 @@ $(document).ready(function(){
 		});	
 	});
 	$("#btXoa").click(function(){
-		
+		var dataString = '';
+		$('#dataTable input[type=checkbox]').each(function(){
+			if(this.checked==true) {
+				if(this.value!='on')
+					dataString+='&ids='+this.value;
+			}
+		});
+		if(dataString=='') {
+			alert('Bạn chưa chọn dòng để xóa!');
+			return;
+		}
+		if(!confirm("Bạn muốn xóa những dòng đã chọn?")) return;
+		var button = this;
+		button.disabled = true;
+		$.ajax({
+			type: "POST",
+			cache: false,
+			url : "${doDeleteTuyenkenhURL}",
+			data: dataString,
+			success: function(response){
+				button.disabled = false;
+				if(response.result == "ERROR") {
+					if(response.data == "ERROR") {
+						alert(ERROR_MESSAGE);
+						return;
+					}
+					alert(response.data);
+				} else {
+					oTable.fnDraw(false);
+				}
+			},
+			error: function(data){ alert (data);button.disabled = false;}	
+		});	
 	});
 	$('ul.sf-menu').superfish();
 	$('#frmUpload').ajaxForm({ 

@@ -24,6 +24,7 @@ public class SuCoImportDTO {
 	private String phuluc_id="";
 	private String thoigianmll="";
 	private String giamtrumll="";
+	private String nguoixacnhan = "";
 	
     public String getPhuluc_id() {
 		return phuluc_id;
@@ -131,6 +132,14 @@ public class SuCoImportDTO {
 
 	public void setTuyenkenh_id(String tuyenkenh_id) {
 		this.tuyenkenh_id = tuyenkenh_id;
+	}
+
+	public String getNguoixacnhan() {
+		return nguoixacnhan;
+	}
+
+	public void setNguoixacnhan(String nguoixacnhan) {
+		this.nguoixacnhan = nguoixacnhan;
 	}
 	
 }

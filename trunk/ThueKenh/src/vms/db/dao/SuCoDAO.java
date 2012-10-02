@@ -16,7 +16,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
 import vms.db.dto.SuCoDTO;
-import vms.db.dto.TuyenKenh;
 import vms.utils.DateUtils;
 import vms.utils.VMSUtil;
 import vms.web.models.FN_FIND_SUCO;

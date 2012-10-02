@@ -16,6 +16,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
 import vms.db.dto.TuyenKenh;
+import vms.utils.StringUtil;
 import vms.utils.VMSUtil;
 import vms.web.models.FN_FIND_TUYENKENH;
 
@@ -66,7 +67,23 @@ public class TuyenkenhDao {
 	
 	@SuppressWarnings("unchecked")
 	public TuyenKenh findByKey(String madiemdau,String madiemcuoi,String giaotiep_id) {
+		if(StringUtil.isEmpty(madiemdau) || StringUtil.isEmpty(madiemcuoi) || StringUtil.isEmpty(giaotiep_id))
+			return null;
 		List<TuyenKenh> list =  this.jdbcTemplate.query("select * from TUYENKENH where MADIEMDAU = ? and MADIEMCUOI =? and GIAOTIEP_ID =?" ,new Object[] {madiemdau,madiemcuoi,giaotiep_id}, new RowMapper() {
+			@Override
+			public Object mapRow(ResultSet rs, int arg1) throws SQLException {
+				return TuyenKenh.mapObject(rs);
+			}
+		});
+		if(list.isEmpty()) return null;
+		return list.get(0);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public TuyenKenh findByKey2(String madiemdau,String madiemcuoi,String magiaotiep) {
+		if(StringUtil.isEmpty(madiemdau) || StringUtil.isEmpty(madiemcuoi) || StringUtil.isEmpty(magiaotiep))
+			return null;
+		List<TuyenKenh> list =  this.jdbcTemplate.query("select t0.* from TUYENKENH t0 left join LOAIGIAOTIEP t1 on t0.GIAOTIEP_ID=t1.ID where MADIEMDAU = ? and MADIEMCUOI =? and t1.MA =?" ,new Object[] {madiemdau,madiemcuoi,magiaotiep}, new RowMapper() {
 			@Override
 			public Object mapRow(ResultSet rs, int arg1) throws SQLException {
 				return TuyenKenh.mapObject(rs);

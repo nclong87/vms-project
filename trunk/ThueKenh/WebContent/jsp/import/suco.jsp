@@ -4,8 +4,10 @@
 <s:url action="index" namespace="/login" var="loginURL"/>
 <s:url action="index" namespace="/settings" var="settingsIndexURL"/>
 <s:url action="detail" namespace="/tuyenkenh" id="tuyenkenhDetailURL"/>
+<s:url action="doUploadSuCo" namespace="/import" id="doUploadSuCoURL"/>
 <s:url action="loadSuCoImport" namespace="/import" id="loadSuCoImportURL"/>
 <s:url action="doImportSuCo" namespace="/import" id="doImportSuCoURL"/>
+<s:url action="doDeleteSuCo" namespace="/import" id="doDeleteSuCoURL"/>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -52,7 +54,7 @@ margin-left: 10px;
 										<input type="file" name="fileupload" />
 									</td>
 									<td align="right" width="150px">
-										<a href="#">File mẫu</a>
+										<a href="<%=contextPath%>/files/SuCoExcelMau.xls">File mẫu</a>
 									</td>
 								</tr>
 								</tbody>
@@ -153,7 +155,39 @@ $(document).ready(function(){
 		});	
 	});
 	$("#btXoa").click(function(){
-		
+		var dataString = '';
+		$('#dataTable input[type=checkbox]').each(function(){
+			if(this.checked==true) {
+				if(this.value!='on')
+					dataString+='&ids='+this.value;
+			}
+		});
+		if(dataString=='') {
+			alert('Bạn chưa chọn dòng để xóa!');
+			return;
+		}
+		if(!confirm("Bạn muốn xóa những dòng đã chọn?")) return;
+		var button = this;
+		button.disabled = true;
+		$.ajax({
+			type: "POST",
+			cache: false,
+			url : "${doDeleteSuCoURL}",
+			data: dataString,
+			success: function(response){
+				button.disabled = false;
+				if(response.result == "ERROR") {
+					if(response.data == "ERROR") {
+						alert(ERROR_MESSAGE);
+						return;
+					}
+					alert(response.data);
+				} else {
+					oTable.fnDraw(false);
+				}
+			},
+			error: function(data){ alert (data);button.disabled = false;}	
+		});	
 	});
 	$('ul.sf-menu').superfish();
 	$('#frmUpload').ajaxForm({ 
