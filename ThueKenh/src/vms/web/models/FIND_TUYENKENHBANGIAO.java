@@ -153,7 +153,7 @@ public class FIND_TUYENKENHBANGIAO {
 		map.put("tenvanbandexuat", this.tenvanbandexuat);
 		map.put("mavanbandexuat", this.mavanbandexuat);
 		map.put("tenduan", this.tenduan);
-		map.put("tiendo", this.tiendo+"%");
+		map.put("tiendo", this.tiendo+"% ");
 		return map;
 	}
 

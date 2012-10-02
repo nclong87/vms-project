@@ -4,7 +4,7 @@
 <s:url action="index" namespace="/login" var="loginURL"/>
 <s:url action="index" namespace="/settings" var="settingsIndexURL"/>
 <s:url action="ajLoadtiendobangiao" namespace="/bangiao" id="ajLoad"/>
-<s:url action="form" namespace="/tuyenkenh" id="formURL"/>
+<s:url action="form" namespace="/bangiao" id="formURL"/>
 <s:url action="delete" namespace="/tuyenkenh" id="deleteURL"/>
 <s:url action="detail" namespace="/tuyenkenh" id="detailURL"/>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -21,7 +21,7 @@
 		ShowWindow('Thêm tuyến kênh mới',800,400,link,false);
 	}
 	function doEdit(link) {
-		ShowWindow('Cập nhật tuyến kênh',800,400,link,false);
+		ShowWindow('Cập nhật tiến độ bàn giao kênh',800,400,link,false);
 	}
 	function hasChecked(){
 		var lstCheckbox=$('#dataTable input[type=checkbox]');
@@ -251,7 +251,7 @@ $(document).ready(function(){
 	});
 	$("span.edit_icon").live("click",function(){
 		var id = $(this).attr("data-ref-id");
-		ShowWindow('Cập nhật tuyến kênh',750,500,"${formURL}?id="+id,false);
+		ShowWindow('Cập nhật tiến độ bàn giao kênh',250,300,"${formURL}?id="+id,false);
 	});
 	$('ul.sf-menu').superfish();
 	$("#chkAdvSearch").click(function(){
@@ -289,7 +289,7 @@ $(document).ready(function(){
 					{ "mDataProp": "tiendo","bSortable": false,"bSearchable": false},
 					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,
 						"fnRender": function( oObj ) {
-							return '<center><span class="edit_icon" data-ref-id="'+oObj.aData.id+'" title="Edit" href="#"></span></center>'; 
+							return '<center><span class="edit_icon" data-ref-id="'+oObj.aData.id+'" title="Update" href="#"></span></center>'; 
 						}
 					},
 					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,

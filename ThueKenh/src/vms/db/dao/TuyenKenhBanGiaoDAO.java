@@ -15,6 +15,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
+import com.opensymphony.xwork2.Action;
+
+import vms.db.dto.TieuChuanDTO;
 import vms.db.dto.TuyenKenh;
 import vms.db.dto.TuyenKenhDeXuatDTO;
 import vms.web.models.FIND_TUYENKENHBANGIAO;
@@ -55,6 +58,22 @@ public class TuyenKenhBanGiaoDAO {
 		connection.close();
 		return result;
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<TieuChuanDTO> getTieuChuanDatDuoc(String id){
+		return this.jdbcTemplate.query(
+				"select tc.*  " +
+				"from tuyenkenh_tieuchuan tt,tieuchuan tc " +
+				"where tt.tieuchuan_id=tc.id  and tuyenkenhdexuat_id="+id+" and tt.deleted=0 and tc.deleted=0", new RowMapper() {
+					
+					public Object mapRow(ResultSet rs, int rowNum)
+							throws SQLException {
+						return TieuChuanDTO.mapObject(rs);
+					}
+				});
+	}
+	
+	
 	
 	public TuyenKenhDeXuatDTO findById(String id) {
 		return (TuyenKenhDeXuatDTO) this.jdbcTemplate.queryForObject("select * from TUYENKENHDEXUAT where id = ?" ,new Object[] {id}, new RowMapper() {
@@ -107,5 +126,30 @@ public class TuyenKenhBanGiaoDAO {
 	public void updateDexuatByIds(String[] ids,String dexuat_id) {
 		String str = StringUtils.join(ids, ",");
 		this.jdbcTemplate.update("update TUYENKENHDEXUAT set DEXUAT_ID = ? where ID in ("+str+")", new Object[] {dexuat_id});
+	}
+	private static final String SQL_SAVE_TUYENKENHBANGIAO = "{ ? = call CAPNHATTIENDO(?,?,?) }";
+	public void capNhatTienDo(String tuyenkenh_tieuchuan_id, String tieuchuan_id,String username)  {
+		// TODO Auto-generated method stub
+		Connection connection;
+		try {
+			connection = this.jdbcDatasource.getConnection();
+			CallableStatement stmt = connection.prepareCall(SQL_SAVE_TUYENKENHBANGIAO);
+			stmt.registerOutParameter(1, OracleTypes.NUMBER);
+			stmt.setString(2,tuyenkenh_tieuchuan_id );
+			stmt.setString(3, tieuchuan_id);
+			stmt.setString(4, username);
+			stmt.execute();
+			stmt.close();
+			connection.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+
+	public void xoaTienDo(String id, String username) {
+		// TODO Auto-generated method stub
+		this.jdbcTemplate.update("delete from TUYENKENH_TIEUCHUAN where TUYENKENHDEXUAT_ID="+id+" and USERCREATE='"+username+"'");
 	}
 }

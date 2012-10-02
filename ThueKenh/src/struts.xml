@@ -482,6 +482,9 @@
 		<action name="index" class="tiendobangiaoAction">
 			<result>/jsp/tiendobangiao/index.jsp</result>
 		</action>
+		<action name="form" class="tiendobangiaoAction" method="form">
+			<result>/jsp/tiendobangiao/form.jsp</result>
+		</action>
 		<action name="ajLoadtiendobangiao" class="tiendobangiaoAction" method="ajLoad">
 			<result name="success" type="json">
 				<param name="root">jsonData</param>
