@@ -7,6 +7,7 @@
 <s:url action="ajLoadCongThuc" namespace="/danhmuc" id="ajLoadData" />
 <s:url action="editCongThuc" namespace="/danhmuc" id="formURL" />
 <s:url action="deleteCongThuc" namespace="/danhmuc" id="ajDeleteURL" />
+<s:url action="detailcongthuc" namespace="/danhmuc" id="detailURL" />
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -287,10 +288,13 @@
 											"sAjaxSource" : "${ajLoadData}",
 											"aoColumns" : [
 													{
-														"mDataProp" : "ID",
+														"mDataProp" : null,
 														"bSortable" : false,
 														"bSearchable" : false,
-														"sClass" : 'td_center'
+														"fnRender" : function(
+																oObj) {
+															return '<a target="_blank" href="${detailURL}?id='+oObj.aData.ID+'" title="Xem chi tiết công thức">'+oObj.aData.ID+'</a>';
+														}
 													},
 													{
 														"mDataProp" : "STT",
