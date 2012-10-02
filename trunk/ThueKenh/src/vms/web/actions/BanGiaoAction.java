@@ -21,7 +21,7 @@ import vms.db.dao.DuAnDAO;
 import vms.db.dao.KhuVucDao;
 import vms.db.dao.LoaiGiaoTiepDao;
 import vms.db.dao.PhongBanDao;
-import vms.db.dao.TuyenKenhDeXuatDAO;
+import vms.db.dao.TuyenKenhBanGiaoDAO;
 import vms.db.dao.TuyenkenhDao;
 import vms.db.dto.Account;
 import vms.db.dto.DuAnDTO;
@@ -35,7 +35,7 @@ import vms.utils.Constances;
 import vms.utils.DateUtils;
 import vms.utils.NumberUtil;
 import vms.utils.VMSUtil;
-import vms.web.models.FIND_TUYENKENHDEXUAT;
+import vms.web.models.FIND_TUYENKENHBANGIAO;
 import vms.web.models.MessageStore;
 
 import com.opensymphony.xwork2.Action;
@@ -97,18 +97,27 @@ public class BanGiaoAction implements Preparable {
 			String sSearch = request.getParameter("sSearch").trim();
 			System.out.println("sSearch="+sSearch);
 			Map<String, String> conditions = new LinkedHashMap<String, String>();
+			conditions.put("username", "admin");
+			conditions.put("iDisplayStart", "0");
+			conditions.put("iDisplayLength", "10");
+			/*
+			 * 	iDisplayLength	10
+				iDisplayStart	0
+			 */
 			if(sSearch.isEmpty() == false) {
 				JSONArray arrayJson = (JSONArray) new JSONObject(sSearch).get("array");
 				for(int i=0;i<arrayJson.length();i++) {
 					String name = arrayJson.getJSONObject(i).getString("name");
 					String value = arrayJson.getJSONObject(i).getString("value");
+					System.out.println(name+":"+value);
 					if(value.isEmpty()==false) {
 						conditions.put(name, value);
+						System.out.println(name+"-:-"+value);
 					}
 				}
 			}
-			TuyenKenhDeXuatDAO tuyenKenhDeXuatDAO = new TuyenKenhDeXuatDAO(daoFactory);
-			List<FIND_TUYENKENHDEXUAT> list = tuyenKenhDeXuatDAO.search(iDisplayStart, iDisplayLength, conditions);
+			TuyenKenhBanGiaoDAO TuyenKenhBanGiaoDAO = new TuyenKenhBanGiaoDAO(daoFactory);
+			List<FIND_TUYENKENHBANGIAO> list = TuyenKenhBanGiaoDAO.search(iDisplayStart, iDisplayLength, conditions);
 			jsonData = new LinkedHashMap<String, Object>();
 			List<Map<String, String>> items = new ArrayList<Map<String, String>>();
 			for(int i=0;i<list.size() && i<iDisplayLength;i++) {
@@ -145,8 +154,8 @@ public class BanGiaoAction implements Preparable {
 			tuyenKenhDeXuatDTO_data = "";
 			if(id != null && id.isEmpty()==false) {
 				System.out.println("id=" + id);
-				TuyenKenhDeXuatDAO tuyenKenhDeXuatDAO = new TuyenKenhDeXuatDAO(daoFactory);
-				tuyenKenhDeXuatDTO = tuyenKenhDeXuatDAO.findById(id);
+				TuyenKenhBanGiaoDAO TuyenKenhBanGiaoDAO = new TuyenKenhBanGiaoDAO(daoFactory);
+				tuyenKenhDeXuatDTO = TuyenKenhBanGiaoDAO.findById(id);
 				TuyenkenhDao tuyenkenhDao = new TuyenkenhDao(daoFactory);
 				tuyenKenh = tuyenkenhDao.findById(tuyenKenhDeXuatDTO.getTuyenkenh_id());
 				//System.out.println(tuyenKenhDeXuatDTO.getId());
@@ -168,7 +177,7 @@ public class BanGiaoAction implements Preparable {
 				session.setAttribute("URL", VMSUtil.getFullURL(request));
 				return "login_page";
 			}
-			TuyenKenhDeXuatDAO tuyenKenhDeXuatDAO = new TuyenKenhDeXuatDAO(daoFactory);
+			TuyenKenhBanGiaoDAO TuyenKenhBanGiaoDAO = new TuyenKenhBanGiaoDAO(daoFactory);
 			if(tuyenKenh.getId().isEmpty()) { //add new tuyenkenh
 				TuyenkenhDao tuyenkenhDao = new TuyenkenhDao(daoFactory);
 				TuyenKenh tk = tuyenkenhDao.findByKey(tuyenKenh.getMadiemdau(), tuyenKenh.getMadiemcuoi(), tuyenKenh.getGiaotiep_id());
@@ -181,7 +190,7 @@ public class BanGiaoAction implements Preparable {
 			tuyenKenh.setTimecreate(DateUtils.getCurrentDateSQL());
 			tuyenKenhDeXuatDTO.setNgaydenghibangiao(DateUtils.parseStringDateSQL(tuyenKenhDeXuatDTO.getNgaydenghibangiao(), "dd/MM/yyyy"));
 			tuyenKenhDeXuatDTO.setNgayhenbangiao(DateUtils.parseStringDateSQL(tuyenKenhDeXuatDTO.getNgayhenbangiao(), "dd/MM/yyyy"));
-			id = tuyenKenhDeXuatDAO.save(tuyenKenh,tuyenKenhDeXuatDTO,soluong_old);
+			id = TuyenKenhBanGiaoDAO.save(tuyenKenh,tuyenKenhDeXuatDTO,soluong_old);
 			if(id == null) throw new Exception(Constances.MSG_ERROR);
 			setInputStream("OK");
 		} catch (Exception e) {
@@ -199,8 +208,8 @@ public class BanGiaoAction implements Preparable {
 				throw new Exception("END_SESSION");
 			}
 			if(ids != null && ids.length >0 ) {
-				TuyenKenhDeXuatDAO tuyenKenhDeXuatDAO = new TuyenKenhDeXuatDAO(daoFactory);
-				tuyenKenhDeXuatDAO.deleteByIds(ids);
+				TuyenKenhBanGiaoDAO TuyenKenhBanGiaoDAO = new TuyenKenhBanGiaoDAO(daoFactory);
+				TuyenKenhBanGiaoDAO.deleteByIds(ids);
 			}
 			setInputStream("OK");
 		} catch (Exception e) {
@@ -228,8 +237,8 @@ public class BanGiaoAction implements Preparable {
 			if(id!= null) {
 				Map<String, String> conditions = new LinkedHashMap<String, String>();
 				conditions.put("dexuat_id", id);
-				TuyenKenhDeXuatDAO tuyenKenhDeXuatDAO = new TuyenKenhDeXuatDAO(daoFactory);
-				List<FIND_TUYENKENHDEXUAT> list = tuyenKenhDeXuatDAO.search(0, 1000, conditions);
+				TuyenKenhBanGiaoDAO TuyenKenhBanGiaoDAO = new TuyenKenhBanGiaoDAO(daoFactory);
+				List<FIND_TUYENKENHBANGIAO> list = TuyenKenhBanGiaoDAO.search(0, 1000, conditions);
 				jsonData.put("result", "OK");
 				jsonData.put("aaData", list);
 			}
