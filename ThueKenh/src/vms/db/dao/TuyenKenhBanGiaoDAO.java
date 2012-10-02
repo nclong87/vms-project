@@ -46,7 +46,7 @@ public class TuyenKenhBanGiaoDAO {
 		stmt.setString(9, conditions.get("ngaydenghibangiao"));
 		stmt.setString(10, conditions.get("ngayhenbangiao"));
 		stmt.setString(11, conditions.get("dexuat_id"));
-		stmt.setString(12, conditions.get("username"));
+		stmt.setString(12, conditions.get("khuvuc_id"));
 		//System.out.println(SQL_FIND_TUYENKENHBANGIAO);
 		stmt.execute();
 		ResultSet rs = (ResultSet) stmt.getObject(1);
