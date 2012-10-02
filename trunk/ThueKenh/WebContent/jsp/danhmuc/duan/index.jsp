@@ -7,6 +7,7 @@
 <s:url action="ajLoadduan" namespace="/danhmuc" id="ajLoadData" />
 <s:url action="editduan" namespace="/danhmuc" id="formURL" />
 <s:url action="deleteduan" namespace="/danhmuc" id="ajDeleteURL" />
+<s:url action="detailduan" namespace="/danhmuc" id="detailURL" />
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -295,10 +296,13 @@
 														"sClass" : 'td_center'
 													},
 													{
-														"mDataProp" : "ID",
+														"mDataProp" : null,
 														"bSortable" : false,
 														"bSearchable" : false,
-														"sClass" : 'td_center'
+														"fnRender" : function(
+																oObj) {
+															return '<a target="_blank" href="${detailURL}?id='+oObj.aData.ID+'" title="Xem chi tiết dự án">'+oObj.aData.ID+'</a>';
+														}
 													},
 													{
 														"mDataProp" : "MA",

@@ -7,6 +7,7 @@
 <s:url action="ajLoadLoaiGiaoTiep" namespace="/danhmuc" id="ajLoadData" />
 <s:url action="editLoaiGiaoTiep" namespace="/danhmuc" id="formURL" />
 <s:url action="deleteLoaiGiaoTiep" namespace="/danhmuc" id="ajDeleteURL" />
+<s:url action="detailLoaiGiaoTiep" namespace="/danhmuc" id="detailURL" />
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -290,9 +291,13 @@
 														"bSearchable" : false
 													},
 													{
-														"mDataProp" : "ID",
+														"mDataProp" : null,
 														"bSortable" : false,
-														"bSearchable" : false
+														"bSearchable" : false,
+														"fnRender" : function(
+																oObj) {
+															return '<a target="_blank" href="${detailURL}?id='+oObj.aData.ID+'" title="Xem chi tiết loại giao tiếp">'+oObj.aData.ID+'</a>';
+														}
 													},
 													{
 														"mDataProp" : "MA",
