@@ -15,22 +15,17 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.struts2.ServletActionContext;
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-
 import vms.db.dao.DaoFactory;
 import vms.db.dao.SuCoImportDAO;
 import vms.db.dao.TuyenkenhDao;
 import vms.db.dao.TuyenkenhImportDAO;
 import vms.db.dto.Account;
+import vms.db.dto.SuCoImportDTO;
+import vms.db.dto.TuyenKenh;
 import vms.db.dto.TuyenKenhImportDTO;
 import vms.utils.Constances;
-import vms.utils.DateUtils;
 import vms.utils.StringUtil;
 import vms.utils.VMSUtil;
-import vms.web.models.FN_FIND_TUYENKENH;
-
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.Preparable;
 import com.smartxls.WorkBook;
@@ -181,12 +176,102 @@ public class ImportAction implements Preparable {
 		return Action.SUCCESS;
 	}
 	
+	public String doDeleteTuyenkenh() {
+		jsonData = new LinkedHashMap<String, Object>();
+		try {
+			if(ids == null || ids.length==0) throw new Exception("ERROR");
+			TuyenkenhImportDAO dao = new TuyenkenhImportDAO(daoFactory);
+			dao.deleteByIds(ids);
+			jsonData.put("result", "OK");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			jsonData.put("result", "ERROR");
+			jsonData.put("data", e.getMessage());
+		} 
+		return Action.SUCCESS;
+	}
+	
 	// su co
 	
 	public String suco() throws Exception {
 		if(account == null) {
 			session.setAttribute("URL", VMSUtil.getFullURL(request));
 			return "login_page";
+		}
+		return Action.SUCCESS;
+	}
+	public String doUploadSuCo() {
+		jsonData = new LinkedHashMap<String, Object>();
+		WorkBook workBook = new WorkBook();
+		try {
+			System.out.println("Begin upload");
+			String filetype = StringUtil.getExtension(fileuploadFileName);
+			if(filetype.equals("xls") == false && filetype.equals("xlsx") == false)
+				throw new Exception("Vui lòng chọn file excel 2003 hay excel 2007!");
+			String filename = System.currentTimeMillis()+"_"+StringUtil.getUnsignedString(fileuploadFileName);
+			String filepath = VMSUtil.getUploadImportFolder()+filename;
+	        // write file to local file system or to database as blob
+	        File newFile = new File(filepath);
+	        FileUtils.copyFile(fileupload, newFile);
+			if(StringUtil.isEmpty(fileuploadFileName)) throw new Exception("File upload bị lỗi.");
+			if(filetype.equals("xls")) {  // Excel 2003
+				workBook.read(filepath);
+			} else {  // Excel 2007
+				workBook.readXLSX(filepath);
+			}
+			int maxrow = workBook.getLastRow();
+			System.out.println("maxrow = "+maxrow);
+			int max_col = workBook.getLastCol();
+			Map<String, Integer> map = new LinkedHashMap<String, Integer>();
+			for(int i = 0;i<= max_col; i++) {
+				map.put(workBook.getText(0, i), i);
+			}
+			Integer index;
+			List<SuCoImportDTO> list = new ArrayList<SuCoImportDTO>();
+			TuyenkenhDao tuyenkenhDao = new TuyenkenhDao(daoFactory);
+			TuyenKenh tuyenKenh = null;
+			for(int i=1;i<=maxrow;i++) {
+				SuCoImportDTO dto = new SuCoImportDTO();
+				dto.setStt(i);
+				if( (index = map.get("MADIEMDAU")) != null)
+					dto.setMadiemdau(workBook.getText(i, index));
+				if( (index = map.get("MADIEMCUOI")) != null)
+					dto.setMadiemcuoi(workBook.getText(i, index));
+				if( (index = map.get("MAGIAOTIEP")) != null)
+					dto.setMagiaotiep(workBook.getText(i, index));
+				if( (index = map.get("THOIDIEMBATDAU")) != null)
+					dto.setThoidiembatdau(workBook.getFormattedText(i, index));
+				if( (index = map.get("THOIDIEMKETTHUC")) != null)
+					dto.setThoidiemketthuc(workBook.getFormattedText(i, index));
+				if( (index = map.get("NGUYENNHAN")) != null)
+					dto.setNguyennhan(workBook.getText(i, index));
+				if( (index = map.get("PHUONGANXULY")) != null)
+					dto.setPhuonganxuly(workBook.getText(i, index));
+				if( (index = map.get("NGUOIXACNHAN")) != null)
+					dto.setNguoixacnhan(workBook.getText(i, index));
+				if((tuyenKenh = tuyenkenhDao.findByKey2(dto.getMadiemdau(), dto.getMadiemcuoi(), dto.getMagiaotiep())) != null) {
+					dto.setTuyenkenh_id(tuyenKenh.getId());
+				}
+				if(	!dto.getThoidiembatdau().isEmpty() &&
+					!dto.getThoidiemketthuc().isEmpty()) {
+					list.add(dto);
+				}
+			}
+			SuCoImportDAO dao = new SuCoImportDAO(daoFactory);
+			dao.clear();
+			for(int i =0; i < list.size();i++) {
+				dao.save(list.get(i));
+			}
+			newFile.delete();
+			jsonData.put("result", "OK");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			jsonData.put("result", "ERROR");
+			jsonData.put("data", e.getMessage());
+		} finally {
+			workBook.dispose();
 		}
 		return Action.SUCCESS;
 	}
@@ -220,6 +305,22 @@ public class ImportAction implements Preparable {
 			if(ids == null || ids.length==0) throw new Exception("ERROR");
 			SuCoImportDAO dao = new SuCoImportDAO(daoFactory);
 			dao.importSuCo(ids, account.getUsername());
+			jsonData.put("result", "OK");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			jsonData.put("result", "ERROR");
+			jsonData.put("data", e.getMessage());
+		} 
+		return Action.SUCCESS;
+	}
+	
+	public String doDeleteSuCo() {
+		jsonData = new LinkedHashMap<String, Object>();
+		try {
+			if(ids == null || ids.length==0) throw new Exception("ERROR");
+			SuCoImportDAO dao = new SuCoImportDAO(daoFactory);
+			dao.deleteByIds(ids);
 			jsonData.put("result", "OK");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
