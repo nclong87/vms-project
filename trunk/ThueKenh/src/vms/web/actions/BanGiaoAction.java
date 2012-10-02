@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,6 +22,7 @@ import vms.db.dao.DuAnDAO;
 import vms.db.dao.KhuVucDao;
 import vms.db.dao.LoaiGiaoTiepDao;
 import vms.db.dao.PhongBanDao;
+import vms.db.dao.TieuChuanDAO;
 import vms.db.dao.TuyenKenhBanGiaoDAO;
 import vms.db.dao.TuyenkenhDao;
 import vms.db.dto.Account;
@@ -29,6 +31,7 @@ import vms.db.dto.KhuVucDTO;
 import vms.db.dto.LoaiGiaoTiep;
 import vms.db.dto.PhongBan;
 import vms.db.dto.PhongBanDTO;
+import vms.db.dto.TieuChuanDTO;
 import vms.db.dto.TuyenKenh;
 import vms.db.dto.TuyenKenhDeXuatDTO;
 import vms.utils.Constances;
@@ -61,6 +64,14 @@ public class BanGiaoAction implements Preparable {
 	private List<PhongBanDTO> phongBans;
 	private String id;
 	private String[] ids;
+	private List<TieuChuanDTO> listTieuChuan;
+	private List<TieuChuanDTO> listTieuChuanDatDuoc;
+	public List<TieuChuanDTO> getListTieuChuan() {
+		return listTieuChuan;
+	}
+	public void setListTieuChuan(List<TieuChuanDTO> listTieuChuan) {
+		this.listTieuChuan = listTieuChuan;
+	}
 	public BanGiaoAction( DaoFactory factory) {
 		daoFactory = factory;
 	}
@@ -73,10 +84,10 @@ public class BanGiaoAction implements Preparable {
 	}
 	
 	public String execute() throws Exception {
-		/*if(account == null) {
+		if(account == null) {
 			session.setAttribute("URL", VMSUtil.getFullURL(request));
 			return "login_page";
-		}*/
+		}
 		LoaiGiaoTiepDao loaiGiaoTiepDao = new LoaiGiaoTiepDao(daoFactory);
 		loaiGiaoTieps = loaiGiaoTiepDao.getAll();
 		DuAnDAO duAnDAO = new DuAnDAO(daoFactory);
@@ -89,6 +100,10 @@ public class BanGiaoAction implements Preparable {
 	}
 	
 	public String ajLoad() {
+		if(account == null) {
+			session.setAttribute("URL", VMSUtil.getFullURL(request));
+			return "login_page";
+		}
 		System.out.println("ajLoad");
 		try {
 			//if(account == null) throw new Exception("END_SESSION");
@@ -97,7 +112,7 @@ public class BanGiaoAction implements Preparable {
 			String sSearch = request.getParameter("sSearch").trim();
 			System.out.println("sSearch="+sSearch);
 			Map<String, String> conditions = new LinkedHashMap<String, String>();
-			conditions.put("username", "admin");
+			conditions.put("username", account.getUsername());
 			conditions.put("iDisplayStart", "0");
 			conditions.put("iDisplayLength", "10");
 			/*
@@ -137,6 +152,34 @@ public class BanGiaoAction implements Preparable {
 	}
 	
 	public String form() {
+		if(account == null) {
+			session.setAttribute("URL", VMSUtil.getFullURL(request));
+			return "login_page";
+		}
+		id=request.getParameter("id");
+		String query= request.getQueryString();
+		System.out.println(query);
+		String[] names=query.split("&");
+		TuyenKenhBanGiaoDAO TuyenKenhBanGiaoDAO = new TuyenKenhBanGiaoDAO(daoFactory);
+		boolean f=false;//chua xoa
+		for(int i=0;i<names.length;i++){
+			names[i]=names[i].substring(0,names[i].indexOf('='));
+			if(!names[i].equals("id")){
+				System.out.println(names[i]);
+				if(f==false){
+					TuyenKenhBanGiaoDAO.xoaTienDo(id,account.getUsername());
+					System.out.println("Xoa tien do");
+					f=true;
+				}
+				TuyenKenhBanGiaoDAO.capNhatTienDo(id,names[i],account.getUsername());
+			}
+		}
+		
+		TieuChuanDAO tieuChuanDAO=new TieuChuanDAO(daoFactory);
+		this.listTieuChuan= tieuChuanDAO.getAll();
+		TuyenKenhBanGiaoDAO dao=new TuyenKenhBanGiaoDAO(daoFactory);
+		this.listTieuChuanDatDuoc=dao.getTieuChuanDatDuoc(id);
+		return Action.SUCCESS;/*
 		try {
 			if(account == null) {
 				session.setAttribute("URL", VMSUtil.getFullURL(request));
@@ -168,9 +211,15 @@ public class BanGiaoAction implements Preparable {
 			e.printStackTrace();
 			return Action.ERROR;
 		}
-		return Action.SUCCESS;
+		return Action.SUCCESS;*/
 	}
 	
+	public List<TieuChuanDTO> getListTieuChuanDatDuoc() {
+		return listTieuChuanDatDuoc;
+	}
+	public void setListTieuChuanDatDuoc(List<TieuChuanDTO> listTieuChuanDatDuoc) {
+		this.listTieuChuanDatDuoc = listTieuChuanDatDuoc;
+	}
 	public String doSave() {
 		try {
 			if(account == null) {
