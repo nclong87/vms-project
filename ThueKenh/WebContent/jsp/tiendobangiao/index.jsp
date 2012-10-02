@@ -107,31 +107,25 @@ margin-left: 10px;
 										Ngày hẹn BG :
 									</td>
 									<td align="left">
-										<input type="text" name="madiemdau" id="ngayhenbangiao"/>
+										<input type="text" name="ngayhenbangiao" id="ngayhenbangiao"/>
 									</td>
 									<td align="right">
 										Ngày ĐNBG :
 									</td>
 									<td align="left">
-										<input type="text" name="madiemdau" id="ngaybangiao"/>
+										<input type="text" name="ngaybangiao" id="ngaybangiao"/>
 									</td>
 								</tr>
 								<tr>
 									<td align="right">Tên VBĐX :</td>
 									<td align="left">
-										<input type="text" name="madiemdau" id="tenvanbandexuat"/>
+										<input type="text" name="dexuat_id" id="dexuat_id"/>
 									</td>
 									<td align="right">
-										Trạng thái :
+										Dự án
 									</td>
 									<td align="left">
-										<select name="trangthai" id="trangthai">
-											<option value="">-- Chọn --</option>
-											<option value="0">Không hoạt động</option>
-											<option value="1">Đang bàn giao</option>
-											<option value="2">Đang cập nhật số lượng</option>
-											<option value="3">Đang hoạt động</option>
-										</select>
+										<input type="text" name="duan" id="duan"/>
 									</td>
 								</tr>
 								</tbody>
@@ -175,7 +169,7 @@ margin-left: 10px;
 					<th>Dự án</th>
 					<th width="120px">VB đề xuất</th>
 					<th width="80px">Tiến độ</th>
-					<th width="5px" align="center">Sửa</th>
+					<th width="5px" align="center">Update</th>
 					<th width="5px" align="center"><input type="checkbox" onclick="selectAll(this)"/></th>
 				</tr>
 			</thead>
@@ -286,7 +280,12 @@ $(document).ready(function(){
 					{ "mDataProp": "dungluong","bSortable": false,"bSearchable": false,"sClass":'td_center'},
 					{ "mDataProp": "soluong","bSortable": false,"bSearchable": false,"sClass":'td_center'},
 					{ "mDataProp": "tenduan","bSortable": false,"bSearchable": false},
-					{ "mDataProp": "tebvanbandexuat","bSortable": false,"bSearchable": false},
+					//{ "mDataProp": "tenvanbandexuat","bSortable": false,"bSearchable": false},
+					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,"sClass":'td_center',
+						"fnRender": function( oObj ) {
+							return '<a target="_blank" href="${detailVanBanDeXuatURL}?id='+oObj.aData.mavanbandexuat+'" title="Xem chi tiết văn bản đề xuất">'+oObj.aData.tenvanbandexuat+'</a>'; 
+						}
+					},
 					{ "mDataProp": "tiendo","bSortable": false,"bSearchable": false},
 					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,
 						"fnRender": function( oObj ) {
