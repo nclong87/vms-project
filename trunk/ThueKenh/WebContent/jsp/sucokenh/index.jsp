@@ -1,4 +1,6 @@
 ﻿<%@ taglib prefix="s" uri="/struts-tags"%>
+<s:url action="doLogout" namespace="/login" var="doLogoutURL"/>
+<s:url action="index" namespace="/login" var="loginURL"/>
 <s:url action="form" namespace="/sucokenh" id="formURL"/>
 <s:url action="ajLoadSuCo" namespace="/sucokenh" id="ajLoadSuCo"/>
 <s:url action="popupSearch" namespace="/tuyenkenh" id="popupSearchURL" />
@@ -53,13 +55,24 @@
 											<td><input type="text" style="width: 218px" name="madiemcuoi" id="madiemcuoi"/></td>
 										</tr>
 										<tr>
-											<td align="right">Thời điểm bắt đầu :</td>
+											<td align="right">Thời điểm bắt đầu từ:</td>
 											<td align="left"><input type="text"
-												name="thoidiembatdau" id="thoidiembatdau" style="width: 218px" class="datetimepicker"/>
+												name="thoidiembatdautu" id="thoidiembatdautu" style="width: 218px" class="datetimepicker"/>
 											</td>
-											<td align="right">Thời điểm kết thúc :</td>
+											<td align="right">Thời điểm bắt đầu đến :</td>
 											<td align="left"><input type="text"
-												name="thoidiemketthuc" id="thoidiemketthuc" style="width: 218px" class="datetimepicker"/>
+												name="thoidiembatdauden" id="thoidiembatdauden" style="width: 218px" class="datetimepicker"/>
+											</td>
+	
+										</tr>
+										<tr>
+											<td align="right">Thời điểm kết thúc từ:</td>
+											<td align="left"><input type="text"
+												name="thoidiemketthuctu" id="thoidiemketthuctu" style="width: 218px" class="datetimepicker"/>
+											</td>
+											<td align="right">Thời điểm kết thúc đến :</td>
+											<td align="left"><input type="text"
+												name="thoidiemketthucden" id="thoidiemketthucden" style="width: 218px" class="datetimepicker"/>
 											</td>
 	
 										</tr>
@@ -179,9 +192,9 @@ $(document).ready(function(){
 					{ "mDataProp": "phuonganxuly","bSortable": false,"bSearchable": false},
 					{ "mDataProp": "nguoixacnhan","bSortable": false,"bSearchable": false},
 					{ "mDataProp": "usercreate","bSortable": false,"bSearchable": false},
-					{ "mDataProp": null,"bSortable": false,"bSearchable": false,
+					{ "mDataProp": null,"bSortable": false,"bSearchable": false,"sClass":'td_center',
 						"fnRender": function( oObj ) {
-							return '<a target="_blank" href="${detailURL}?id='+oObj.aData.id+'" title="Xem chi tiết sự cố">Chi tiết</a>';  
+							return '<a target="_blank" href="${detailURL}?id='+oObj.aData.id+'" title="Xem chi tiết sự cố"><div class="detail"></div></a>';  
 						}
 					},
 					{ "mDataProp": null,"bSortable": false,"bSearchable": false,

@@ -2,6 +2,7 @@ package vms.db.dto;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -27,6 +28,7 @@ public class SuCoDTO {
 	private String filename="";
 	public String filepath="";
 	public String filesize="";
+	public String bienbanvanhanh_id="";
 	
 	public String getFilename() {
 		return filename;
@@ -174,6 +176,14 @@ public class SuCoDTO {
 		this.deleted = deleted;
 	}
 
+	public String getBienbanvanhanh_id() {
+		return bienbanvanhanh_id;
+	}
+
+	public void setBienbanvanhanh_id(String bienbanvanhanh_id) {
+		this.bienbanvanhanh_id = bienbanvanhanh_id;
+	}
+
 	public Map<String,String> getMap() {
 		Map<String, String> map = new LinkedHashMap<String, String>();
 		map.put("id", this.id);
@@ -194,6 +204,7 @@ public class SuCoDTO {
 		map.put("filename",this.filename);
 		map.put("filepath",this.filepath);
 		map.put("filesize",this.filesize);
+		map.put("bienbanvanhanh_id", this.bienbanvanhanh_id);
 		return map;
 	}
 	
@@ -202,8 +213,8 @@ public class SuCoDTO {
 		dto.setId(rs.getString("ID"));
 		dto.setTuyenkenh_id(rs.getString("TUYENKENH_ID"));
 		dto.setThanhtoan_id(rs.getString("THANHTOAN_ID"));
-		dto.setThoidiembatdau(DateUtils.formatDate(rs.getDate("THOIDIEMBATDAU"), DateUtils.SDF_DDMMYYYYHHMMSS2));
-		dto.setThoidiemketthuc(DateUtils.formatDate(rs.getDate("THOIDIEMKETTHUC"), DateUtils.SDF_DDMMYYYYHHMMSS2));
+		dto.setThoidiembatdau( DateUtils.formatDate(new Date(rs.getLong("THOIDIEMBATDAU")), DateUtils.SDF_DDMMYYYYHHMMSS2));
+		dto.setThoidiemketthuc( DateUtils.formatDate(new Date(rs.getLong("THOIDIEMKETTHUC")), DateUtils.SDF_DDMMYYYYHHMMSS2));
 		dto.setThoigianmll(rs.getInt("THOIGIANMLL"));
 		dto.setNguyennhan(rs.getString("NGUYENNHAN"));
 		dto.setPhuonganxuly(rs.getString("PHUONGANXULY"));
@@ -216,6 +227,7 @@ public class SuCoDTO {
 		dto.setFilename(rs.getString("FILENAME"));
 		dto.setFilepath(rs.getString("FILEPATH"));
 		dto.setFilesize(rs.getString("FILESIZE"));
+		dto.setBienbanvanhanh_id(rs.getString("BIENBANVANHANH_ID"));
         return dto;
 	}
 }

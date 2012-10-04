@@ -19,7 +19,7 @@ public class BienBanVanHanhKenhDTO {
 	private String sobienban="";
 	private String filename="";
 	private String filepath="";
-	private Integer filesize=0;
+	private String filesize="";
 	private String usercreate="";
 	private String timecreate="";
 	private Integer deleted=0;
@@ -64,11 +64,11 @@ public class BienBanVanHanhKenhDTO {
 		this.filepath = filepath;
 	}
 
-	public Integer getFilesize() {
+	public String getFilesize() {
 		return filesize;
 	}
 
-	public void setFilesize(Integer filesize) {
+	public void setFilesize(String filesize) {
 		this.filesize = filesize;
 	}
 
@@ -107,7 +107,7 @@ public class BienBanVanHanhKenhDTO {
 		bienbanvh.setSobienban(rs.getString("SOBIENBAN"));
 		bienbanvh.setFilename(rs.getString("FILENAME"));
 		bienbanvh.setFilepath(rs.getString("FILEPATH"));
-		bienbanvh.setFilesize(rs.getInt("FILESIZE"));
+		bienbanvh.setFilesize(rs.getString("FILESIZE"));
 		bienbanvh.setUsercreate(rs.getString("USERCREATE"));
 		bienbanvh.setTimecreate(DateUtils.formatDate(rs.getDate("TIMECREATE"), DateUtils.SDF_DDMMYYYY));
 		bienbanvh.setDeleted(rs.getInt("DELETED"));

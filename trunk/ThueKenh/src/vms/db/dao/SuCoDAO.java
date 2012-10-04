@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import javax.sql.DataSource;
@@ -28,7 +29,7 @@ public class SuCoDAO {
 		this.jdbcDatasource = daoFactory.getJdbcDataSource();
 	}
 	
-	private static final String SQL_SAVE_SUCO = "{ ? = call SAVE_SUCOKENH(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) }";
+	private static final String SQL_SAVE_SUCO = "{ ? = call SAVE_SUCOKENH(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) }";
 	public String save(SuCoDTO dto) throws Exception {
 		System.out.println("begin call SAVE_SUCOKENH");
 		Connection connection = jdbcTemplate.getDataSource().getConnection();
@@ -38,8 +39,10 @@ public class SuCoDAO {
 		stmt.setString(3, dto.getTuyenkenh_id());
 		stmt.setString(4, dto.getPhuluc_id());
 		stmt.setString(5, dto.getThanhtoan_id());
-		stmt.setDate(6,DateUtils.convert(DateUtils.parseDate(dto.getThoidiembatdau(), "dd/MM/yyyy HH:mm:ss")) );
-		stmt.setDate(7,DateUtils.convert(DateUtils.parseDate(dto.getThoidiemketthuc(), "dd/MM/yyyy HH:mm:ss")) );
+		System.out.println("dto.getThoidiembatdau(): "+dto.getThoidiembatdau());
+		stmt.setLong(6,Long.parseLong(dto.getThoidiembatdau()));
+		System.out.println("dto.getThoidiemketthuc(): "+dto.getThoidiemketthuc());
+		stmt.setLong(7,Long.parseLong(dto.getThoidiemketthuc()));
 		stmt.setString(8, dto.getThoigianmll().toString());
 		stmt.setString(9, dto.getNguyennhan());
 		stmt.setString(10, dto.getPhuonganxuly());
@@ -52,13 +55,18 @@ public class SuCoDAO {
 		stmt.setString(17, dto.getFilename());
 		stmt.setString(18, dto.getFilepath());
 		stmt.setString(19, dto.getFilesize());
+		stmt.setString(20,dto.getBienbanvanhanh_id());
 		stmt.execute();
 		System.out.println("end call SAVE_SUCOKENH");
-		return stmt.getString(1);
+		String s = stmt.getString(1);
+		stmt.close();
+		connection.close();
+		return s;
 	}
 	
-	private static final String SQL_FN_FIND_SUCO = "{ ? = call FN_FIND_SUCO(?,?,?,?,?,?,?,?,?,?) }";
+	private static final String SQL_FN_FIND_SUCO = "{ ? = call FN_FIND_SUCO(?,?,?,?,?,?,?,?,?,?,?,?) }";
 	public List<FN_FIND_SUCO> findSuCo(int iDisplayStart,int iDisplayLength,Map<String, String> conditions) throws SQLException {
+		System.out.println("Begin FindSuCo");
 		Connection connection = jdbcDatasource.getConnection();
 		CallableStatement stmt = connection.prepareCall(SQL_FN_FIND_SUCO);
 		stmt.registerOutParameter(1, OracleTypes.CURSOR);
@@ -68,10 +76,25 @@ public class SuCoDAO {
 		stmt.setString(5, conditions.get("madiemdau"));
 		stmt.setString(6, conditions.get("madiemcuoi"));
 		stmt.setString(7, conditions.get("dungluong"));
-		stmt.setString(8, conditions.get("thoidiembatdau"));
-		stmt.setString(9, conditions.get("thoidiemketthuc"));
-		stmt.setString(10, conditions.get("nguoixacnhan"));
-		stmt.setString(11, conditions.get("bienbanvanhanh_id"));
+		System.out.println("toidiembatdautu:"+conditions.get("thoidiembatdautu"));
+		String thoidiembatdautu="";
+		if(conditions.get("thoidiembatdautu")!=null)
+			thoidiembatdautu=String.valueOf(DateUtils.parseDate(conditions.get("thoidiembatdautu"), "dd/MM/yyyy HH:mm:ss").getTime());
+		stmt.setString(8, thoidiembatdautu);
+		String thoidiembatdauden="";
+		if(conditions.get("thoidiembatdauden")!=null)
+			thoidiembatdauden=String.valueOf(DateUtils.parseDate(conditions.get("thoidiembatdauden"), "dd/MM/yyyy HH:mm:ss").getTime());
+		stmt.setString(9, thoidiembatdauden);
+		String thoidiemketthuctu="";
+		if(conditions.get("thoidiemketthuctu")!=null)
+			thoidiemketthuctu=String.valueOf(DateUtils.parseDate(conditions.get("thoidiemketthuctu"), "dd/MM/yyyy HH:mm:ss").getTime());
+		stmt.setString(10, thoidiemketthuctu);
+		String thoidiemketthucden="";
+		if(conditions.get("thoidiemketthucden")!=null)
+			thoidiemketthucden=String.valueOf(DateUtils.parseDate(conditions.get("thoidiemketthucden"), "dd/MM/yyyy HH:mm:ss").getTime());
+		stmt.setString(11, thoidiemketthucden);
+		stmt.setString(12, conditions.get("nguoixacnhan"));
+		stmt.setString(13, conditions.get("bienbanvanhanh_id"));
 		stmt.execute();
 		ResultSet rs = (ResultSet) stmt.getObject(1);
 		List<FN_FIND_SUCO> result = new ArrayList<FN_FIND_SUCO>();
@@ -109,8 +132,8 @@ public class SuCoDAO {
 			@Override
 			public Object mapRow(ResultSet rs, int arg1) throws SQLException {
 				Map<String,Object> map = VMSUtil.resultSetToMap(rs);
-				map.put("thoidiembatdau",DateUtils.formatDate(rs.getDate("thoidiembatdau"), DateUtils.SDF_DDMMYYYYHHMMSS2));
-				map.put("thoidiemketthuc",DateUtils.formatDate(rs.getDate("thoidiemketthuc"), DateUtils.SDF_DDMMYYYYHHMMSS2));
+				map.put("thoidiembatdau",DateUtils.formatDate(new Date(rs.getLong("THOIDIEMBATDAU")), DateUtils.SDF_DDMMYYYYHHMMSS2));
+				map.put("thoidiemketthuc",DateUtils.formatDate(new Date(rs.getLong("THOIDIEMKETTHUC")), DateUtils.SDF_DDMMYYYYHHMMSS2));
 				map.put("timecreate",DateUtils.formatDate(rs.getDate("timecreate"), DateUtils.SDF_DDMMYYYY));
 				return map;
 			}

@@ -580,3 +580,8 @@ width: 202px;
 {
 	width: 50px !important;
 }
+.detail
+{
+	background:transparent url(../images/icons/documents.png) 23px 0 no-repeat;
+	height:16px;
+}

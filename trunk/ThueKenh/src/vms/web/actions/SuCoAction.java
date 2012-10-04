@@ -148,10 +148,10 @@ public class SuCoAction implements Preparable {
 				return "login_page";
 			}
 			// validation
-			java.util.Date thoidiembatdau=DateUtils.parseDate(sucoDTO.getThoidiembatdau(), "dd/MM/yyyy HH:mm:ss");
-			java.util.Date thoidiemketthuc=DateUtils.parseDate(sucoDTO.getThoidiemketthuc(), "dd/MM/yyyy HH:mm:ss");
+			Long thoidiembatdau=DateUtils.parseDate(sucoDTO.getThoidiembatdau(), "dd/MM/yyyy HH:mm:ss").getTime();
+			Long thoidiemketthuc=DateUtils.parseDate(sucoDTO.getThoidiemketthuc(), "dd/MM/yyyy HH:mm:ss").getTime();
 			
-			if(DateUtils.compareDate(thoidiembatdau, thoidiemketthuc)==-1) // thoi diem bat dau lon hon thoi diem ket thuc
+			if(thoidiembatdau>thoidiemketthuc) // thoi diem bat dau lon hon thoi diem ket thuc
 			{
 				setInputStream("Date");
 				return Action.SUCCESS;
@@ -164,7 +164,9 @@ public class SuCoAction implements Preparable {
 				return Action.SUCCESS;
 			}
 			SuCoDAO sucoDao=new SuCoDAO(daoFactory);
-			long thoigianmatll=(thoidiemketthuc.getTime()-thoidiembatdau.getTime())/(60*1000);
+			long thoigianmatll=(thoidiemketthuc-thoidiembatdau)/(60*1000);
+			sucoDTO.setThoidiembatdau(thoidiembatdau.toString());
+			sucoDTO.setThoidiemketthuc(thoidiemketthuc.toString());
 			sucoDTO.setThoigianmll((int)thoigianmatll);
 			sucoDTO.setUsercreate(account.getUsername());
 			sucoDTO.setTimecreate(DateUtils.getCurrentDateSQL());

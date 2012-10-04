@@ -43,10 +43,13 @@ public class BienBanVanHanhKenhDAO {
 		stmt.setInt(6, dto.getDeleted());
 		stmt.setString(7, dto.getFilename());
 		stmt.setString(8, dto.getFilepath());
-		stmt.setInt(9, dto.getFilesize());
+		stmt.setString(9, dto.getFilesize());
 		stmt.execute();
 		System.out.println("end call SAVE_BIENBANVANHANHKENH");
-		return stmt.getString(1);
+		String s = stmt.getString(1);
+		stmt.close();
+		connection.close();
+		return s;
 	}
 
 	private static final String SQL_FN_FIND_BIENBANVANHANHKENH = "{ ? = call FN_FIND_BIENBANVANHANHKENH(?,?,?) }";
