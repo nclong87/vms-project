@@ -16,12 +16,14 @@ import org.json.JSONObject;
 import org.json.simple.JSONValue;
 
 import vms.db.dao.DaoFactory;
+import vms.db.dao.SuCoDAO;
 import vms.db.dao.TuyenKenhDeXuatDAO;
 import vms.db.dao.VanHanhSuCoKenhDAO;
 
 import vms.db.dao.BienBanVanHanhKenhDAO;
 import vms.db.dto.Account;
 import vms.db.dto.BienBanVanHanhKenhDTO;
+import vms.db.dto.SuCoDTO;
 import vms.db.dto.VanHanhSuCoKenhDTO;
 import vms.utils.Constances;
 import vms.utils.DateUtils;
@@ -162,19 +164,42 @@ public class BienBanVanHanhKenhAction implements Preparable {
 			System.out.println(bienbanvhkDto.getSobienban());
 			String id=bienbanvhkDao.save(bienbanvhkDto);
 			if(id==null) throw new Exception(Constances.MSG_ERROR);
-			System.out.println("suco_ids.length" + suco_ids.length);
+			System.out.println("suco_ids.length: " + suco_ids.length);
 			if(suco_ids!= null && suco_ids.length > 0) {
-				VanHanhSuCoKenhDAO vanhanhSucokenhDAO = new VanHanhSuCoKenhDAO(daoFactory);
-				// delete by bienbanid
-				vanhanhSucokenhDAO.deleteByBienBanIds(id);
-				// insert bienban_suco
-				VanHanhSuCoKenhDTO vanhanhsucoDto=null;
+				SuCoDAO sucoDao = new SuCoDAO(daoFactory);
+				// update bienbanvanhanh_id cho suco
+				SuCoDTO sucoDto=null;
+				String ids="";
 				for(int i=0;i<suco_ids.length;i++)
 				{
-					vanhanhsucoDto=new VanHanhSuCoKenhDTO();
-					vanhanhsucoDto.setBienban_id(id);
-					vanhanhsucoDto.setSucokenh_id(suco_ids[i]);
-					vanhanhSucokenhDAO.save(vanhanhsucoDto);
+					sucoDto=sucoDao.findById(suco_ids[i]);
+					if(sucoDto!=null)
+					{
+						// co bien ban van hanh roi
+						if(sucoDto.getBienbanvanhanh_id()!=null)
+						{
+							
+							if(ids!="")
+								ids+=",";
+							else
+								ids+=suco_ids[i].toString();
+						}
+						else // chua co bien ban van hanh
+						{
+							sucoDto.setBienbanvanhanh_id(id);
+							System.out.println("sucoDto.getThoidiembatdau():"+sucoDto.getThoidiembatdau());
+							Long thoidiembatdau=DateUtils.parseDate(sucoDto.getThoidiembatdau(), "dd/MM/yyyy HH:mm:ss").getTime();
+							Long thoidiemketthuc=DateUtils.parseDate(sucoDto.getThoidiemketthuc(), "dd/MM/yyyy HH:mm:ss").getTime();
+							sucoDto.setThoidiembatdau(thoidiembatdau.toString());
+							sucoDto.setThoidiemketthuc(thoidiemketthuc.toString());
+							sucoDao.save(sucoDto);
+						}
+					}
+				}
+				if(ids!="")
+				{
+					setInputStream("ids:"+ids);
+					return Action.SUCCESS;
 				}
 			}
 			setInputStream("OK");

@@ -219,7 +219,14 @@ $(document).ready(function(){
 		"sAjaxSource": "${loadSuCoImportURL}",
 		"aoColumns": [
 					{ "mDataProp": "stt","bSortable": false,"bSearchable": false,"sClass":'td_center' },
-					{ "mDataProp": "tuyenkenh_id","bSortable": false,"bSearchable": false },
+					{ "mDataProp": "tuyenkenh_id","bSortable": false,"bSearchable": false,
+						"fnRender": function( oObj ) {
+							if(oObj.aData.tuyenkenh_id == '') 
+								return '<span style="color:red">Tuyến kênh không tồn tại</span>'; 
+							else 
+								return '<center>'+oObj.aData.tuyenkenh_id+'</center>';  
+						}
+					},
 					{ "mDataProp": "madiemdau","bSortable": false,"bSearchable": false },
 					{ "mDataProp": "madiemcuoi","bSortable": false,"bSearchable": false },
 					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,

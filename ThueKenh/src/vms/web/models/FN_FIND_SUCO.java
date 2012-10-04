@@ -2,6 +2,7 @@ package vms.web.models;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -30,7 +31,7 @@ public class FN_FIND_SUCO {
 	private String filename;
 	private String filepath;
 	private String filesize;
-	
+	private String bienbanvanhanh_id;
 	
 	public String getSuco_id() {
 		return suco_id;
@@ -176,6 +177,15 @@ public class FN_FIND_SUCO {
 		this.filesize = filesize;
 	}
 
+	
+	public String getBienbanvanhanh_id() {
+		return bienbanvanhanh_id;
+	}
+
+	public void setBienbanvanhanh_id(String bienbanvanhanh_id) {
+		this.bienbanvanhanh_id = bienbanvanhanh_id;
+	}
+
 	public Map<String,String> getMap() {
 		Map<String, String> map = new LinkedHashMap<String, String>();
 		map.put("id", this.suco_id);
@@ -196,6 +206,7 @@ public class FN_FIND_SUCO {
 		map.put("filename", this.filename);
 		map.put("filepath", this.filepath);
 		map.put("filesize", this.filesize);
+		map.put("bienbanvanhanh_id", this.bienbanvanhanh_id);
 		return map;
 	}
 
@@ -208,8 +219,8 @@ public class FN_FIND_SUCO {
 		dto.setLoaigiaotiep(rs.getString("loaigiaotiep"));
 		dto.setDungluong(rs.getString("dungluong"));
 		dto.setSoluong(rs.getString("soluong"));
-		dto.setThoidiembatdau(DateUtils.formatDate(rs.getDate("thoidiembatdau"),DateUtils.SDF_DDMMYYYYHHMMSS2));
-		dto.setThoidiemketthuc(DateUtils.formatDate(rs.getDate("thoidiemketthuc"),DateUtils.SDF_DDMMYYYYHHMMSS2));
+		dto.setThoidiembatdau( DateUtils.formatDate(new Date(rs.getLong("THOIDIEMBATDAU")), DateUtils.SDF_DDMMYYYYHHMMSS2));
+		dto.setThoidiemketthuc( DateUtils.formatDate(new Date(rs.getLong("THOIDIEMKETTHUC")), DateUtils.SDF_DDMMYYYYHHMMSS2));
 		dto.setThoigianmll(rs.getString("thoigianmll"));
 		dto.setNguyennhan(rs.getString("nguyennhan"));
 		dto.setPhuonganxuly(rs.getString("phuonganxuly"));
@@ -219,6 +230,7 @@ public class FN_FIND_SUCO {
 		dto.setFilename(rs.getString("filename"));
 		dto.setFilepath(rs.getString("filepath"));
 		dto.setFilesize(rs.getString("filesize"));
+		dto.setBienbanvanhanh_id(rs.getString("bienbanvanhanh_id"));
         return dto;
 	}
 

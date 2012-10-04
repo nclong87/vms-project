@@ -220,26 +220,39 @@ $(document).ready(function(){
 		}
 		else
 		{
-			var dataString=$("#form").serialize();
-			$.ajax({
-				url: "${doSaveURL}",
-				type:'POST',
-				data:dataString,
-				success:function(response){
-					$(this).disabled = false;
-					if(response == "OK") {
-						$(this).disabled = true;
-						message(" Lưu thành công!",1);
-						parent.reload = true;
-						return;
+			if($("#dataTable tbody").find("tr").length<1)
+			{
+				alert("Vui lòng chọn danh sách sự cố");
+				$(this).disabled = false;
+				
+			}
+			else
+			{
+				var dataString=$("#form").serialize();
+				$.ajax({
+					url: "${doSaveURL}",
+					type:'POST',
+					data:dataString,
+					success:function(response){
+						$(this).disabled = false;
+						if(response.indexOf("ids")>-1)
+						{
+							message("Các sự cố sau đã được thêm vô biên bản vận hành trước đó :"+response+". Vui lòng bỏ sự cố này ra khỏi danh sách.",0);
+						}
+						else if(response == "OK") {
+							$(this).disabled = true;
+							message(" Lưu thành công!",1);
+							parent.reload = true;
+							return;
+						}
+						message(" Lưu không thành công, vui lòng thử lại.",0);
+					},
+					error:function(response){
+						$(this).disabled = false;
+						message(" Lưu không thành công, vui lòng thử lại.",0);
 					}
-					message(" Lưu không thành công, vui lòng thử lại.",0);
-				},
-				error:function(response){
-					$(this).disabled = false;
-					message(" Lưu không thành công, vui lòng thử lại.",0);
-				}
-			});
+				});
+			}
 		}
 	});
 });
