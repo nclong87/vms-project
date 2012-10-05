@@ -407,6 +407,7 @@
 			</result>
 		</action>
 	</package>
+	
 	<package name="dexuat" extends="default" namespace="/dexuat">
 		<action name="index" class="dexuatAction">
 			<result>/jsp/dexuat/index.jsp</result>
@@ -489,19 +490,7 @@
 			</result>
 		</action>
 	</package>
-	<package name="bangiao" extends="default" namespace="/bangiao">
-		<action name="index" class="tiendobangiaoAction">
-			<result>/jsp/tiendobangiao/index.jsp</result>
-		</action>
-		<action name="form" class="tiendobangiaoAction" method="form">
-			<result>/jsp/tiendobangiao/form.jsp</result>
-		</action>
-		<action name="ajLoadtiendobangiao" class="tiendobangiaoAction" method="ajLoad">
-			<result name="success" type="json">
-				<param name="root">jsonData</param>
-			</result>
-		</action>
-	</package>
+
 	<package name="bienbanvanhanhkenh" extends="default" namespace="/bienbanvanhanhkenh">
 		<action name="index" class="bienbanvanhanhkenhAction">
 			<result>/jsp/bienbanvanhanhkenh/index.jsp</result>
@@ -526,6 +515,32 @@
 		</action>
 		<action name="detail" class="bienbanvanhanhkenhAction" method="detail">
 			<result>/jsp/bienbanvanhanhkenh/detail.jsp</result>
+		</action>
+	</package>
+	<package name="bangiao" extends="default" namespace="/bangiao">
+		<action name="index" class="bangiaoAction">
+			<result>/jsp/bangiao/index.jsp</result>
+		</action>
+		<action name="form" class="bangiaoAction" method="form">
+			<result>/jsp/bangiao/form.jsp</result>
+		</action>
+		<action name="doSave" class="bangiaoAction" method="doSave">
+			<result name="success" type="stream">
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+		<action name="load" class="bangiaoAction" method="load">
+			<result name="success" type="json">
+				<param name="root">jsonData</param>
+			</result>
+		</action>
+		<action name="delete" class="bangiaoAction" method="delete">
+			<result name="success" type="stream">
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+		<action name="detail" class="bangiaoAction" method="detail">
+			<result>/jsp/bangiao/detail.jsp</result>
 		</action>
 	</package>
 </struts>
