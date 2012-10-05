@@ -183,6 +183,13 @@ $.fn.serializeObject = function()
     });
     return o;
 };
+$.fn.serializeDisabled = function () {
+var obj = {};
+$(':disabled[name]', this).each(function () { 
+	obj[this.name] = $(this).val(); 
+});
+return $.param(obj);
+}
 function stringify (obj) {
     var t = typeof (obj);
     if (t != "object" || obj === null) {

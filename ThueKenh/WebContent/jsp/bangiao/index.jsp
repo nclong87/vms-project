@@ -48,7 +48,7 @@ margin-left: 10px;
 								<tbody id="display">
 								<tr>
 									<td width="150px" align="right">
-										Tên văn bản :
+										Số biên bản :
 									</td>
 									<td align="left">
 										<input type="text" name="tenvanban" id="tenvanban"/>
@@ -81,16 +81,12 @@ margin-left: 10px;
 				<tr>
 					<th width="5%">#</th>
 					<th>Số biên bản</th>
-					<th>Người tạo</th>
-					<th>Ngày tạo</th>
+					<th>File scan</th>
 					<th width="5px" align="center">Sửa</th>
 					<th width="5px" align="center"><input type="checkbox" onclick="selectAll(this)"/></th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
-					<td colspan="15" class="dataTables_empty">Đang tải dữ liệu...</td>
-				</tr>
 			</tbody>
 			</table>
 	</div>
@@ -171,8 +167,15 @@ $(document).ready(function(){
 		"aoColumns": [
 					{ "mDataProp": "stt","bSortable": false,"bSearchable": false },
 					{ "mDataProp": "sobienban","bSortable": false,"bSearchable": false },
-					{ "mDataProp": "usercreate","bSortable": false,"bSearchable": false},
-					{ "mDataProp": "timecreate","bSortable": false,"bSearchable": false},
+					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,
+						"fnRender": function( oObj ) {
+							if(oObj.aData.filename != null) {
+								return '<a href="/upload/'+oObj.aData.filepath+'" title="Tải file scan">'+oObj.aData.filename+'</a>';
+							} else {
+								return "";
+							}
+						}
+					},
 					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,
 						"fnRender": function( oObj ) {
 							return '<center><span class="edit_icon" data-ref-id="'+oObj.aData.id+'" title="Edit" href="#"></span></center>'; 
