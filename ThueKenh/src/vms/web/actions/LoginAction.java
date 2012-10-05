@@ -50,7 +50,7 @@ public class LoginAction implements Preparable {
 			jsonData = JSONValue.toJSONString(map);
 			if(username.isEmpty()==false) {
 				AccountDao accountDao = new AccountDao(daoFactory);
-				Account account = accountDao.checkLogin(username, password);
+				Map<String, Object> account = accountDao.checkLogin(username, password);
 				if(account==null) {
 					message = Constances.MSG_LOGINFAIL;
 					return Action.SUCCESS;
@@ -67,7 +67,7 @@ public class LoginAction implements Preparable {
 			url = (String) session.getAttribute("URL");
 			if(url == null) {
 				MenuDao menuDao = new MenuDao(daoFactory);
-				url = menuDao.getDefaultMenu((Account)session.getAttribute(Constances.SESS_USERLOGIN));
+				url = menuDao.getDefaultMenu((Map<String, Object>)session.getAttribute(Constances.SESS_USERLOGIN));
 				if(url == null) {
 					url = Constances.DEFAULT_HOME_PAGE;
 				}

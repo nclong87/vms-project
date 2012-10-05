@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -18,7 +19,6 @@ import org.json.JSONObject;
 
 import vms.db.dao.DaoFactory;
 import vms.db.dao.CongThucDAO;
-import vms.db.dto.Account;
 import vms.db.dto.CongThucDTO;
 import vms.utils.Constances;
 import vms.utils.VMSUtil;
@@ -67,7 +67,7 @@ public class DanhMucCongThucAction implements Preparable {
 
 	private HttpSession session;
 
-	private Account account;
+	private Map<String,Object> account;
 
 	private CongThucDTO detail;
 
@@ -87,12 +87,13 @@ public class DanhMucCongThucAction implements Preparable {
 		this.flag = flag;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void prepare() throws Exception {
 		// TODO Auto-generated method stub
 		request = ServletActionContext.getRequest();
 		this.session = request.getSession();
-		this.account = (Account) session
+		this.account = (Map<String, Object>) session
 				.getAttribute(Constances.SESS_USERLOGIN);
 	}
 
@@ -191,12 +192,12 @@ public String detail() {
 	}
 	
 	public String dosave() {
-		String id = "";
+		//String id = "";
 
 		// edit page post
 		if (this.opEdit != null) {
 			// edit
-			this.opEdit.setUsercreate(account.getUsername());
+			this.opEdit.setUsercreate(account.get("username").toString());
 			System.out.println("edit mode id=" + this.opEdit.getId());
 			if (this.opEdit.getId() != "") {
 				System.out.println("Begin Edit");

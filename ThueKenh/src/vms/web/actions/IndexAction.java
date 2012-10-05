@@ -3,6 +3,7 @@ package vms.web.actions;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -11,7 +12,6 @@ import org.apache.struts2.ServletActionContext;
 
 
 import vms.db.dao.DaoFactory;
-import vms.db.dto.Account;
 import vms.utils.Constances;
 
 import com.opensymphony.xwork2.Action;
@@ -22,7 +22,7 @@ public class IndexAction implements Preparable {
 	private DaoFactory daoFactory;
 	private HttpServletRequest request;
 	private HttpSession session;
-	private Account account;
+	private Map<String,Object> account;
 	
 	private InputStream inputStream;
 	private String message;
@@ -30,12 +30,13 @@ public class IndexAction implements Preparable {
 	public IndexAction( DaoFactory factory) {
 		daoFactory = factory;
 	}
+	@SuppressWarnings("unchecked")
 	@Override
 	public void prepare() throws Exception {
 		// TODO Auto-generated method stub
 		request = ServletActionContext.getRequest();
 		session = request.getSession();
-		account = (Account) session.getAttribute(Constances.SESS_USERLOGIN);
+		account = (Map<String, Object>) session.getAttribute(Constances.SESS_USERLOGIN);
 	}
 	
 	public String execute() throws Exception {

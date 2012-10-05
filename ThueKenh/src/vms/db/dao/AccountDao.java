@@ -34,13 +34,13 @@ public class AccountDao {
 	
 	
 	@SuppressWarnings("unchecked")
-	public Account checkLogin(String username, String password) {
+	public Map<String, Object> checkLogin(String username, String password) {
 		// FIXME checkLogin
 		//Connection connection = jdbcTemplate.getDataSource().getConnection();
-		List<Account> list = this.jdbcTemplate.query("select * from ACCOUNTS where active = 1 and username = ? and password = ?", new Object[] {username,password}, new RowMapper() {
+		List<Map<String, Object>> list = this.jdbcTemplate.query("select t.*,t1.MA as MAKHUVUC,t1.TENKHUVUC,t2.TENPHONGBAN,t2.MA as MAPHONGBAN from ACCOUNTS t left join KHUVUC t1 on t.IDKHUVUC = t1.ID left join PHONGBAN t2 on t.IDPHONGBAN = t2.ID where t.active = 1 and t.username = ? and t.password = ?", new Object[] {username,password}, new RowMapper() {
 			@Override
 			public Object mapRow(ResultSet rs, int arg1) throws SQLException {
-				return Account.mapObject(rs);
+				return VMSUtil.resultSetToMap(rs);
 			}
 		});
 		if(list.isEmpty()) return null;
@@ -69,9 +69,9 @@ public class AccountDao {
 	}
 	
 	private static final String GETLISTMENU = "SELECT GETLISTMENU(?,?) AS RS FROM DUAL";
-	public String getMenu(Account account) {
-		System.out.println(account.getId()+"-"+account.getIdgroup());
-		Clob clob = (Clob) this.jdbcTemplate.queryForObject(GETLISTMENU,new Object[] {account.getId(),account.getIdgroup()}, Clob.class);
+	public String getMenu(Map<String, Object> account) {
+		System.out.println(account.get("id")+"-"+account.get("idgroup"));
+		Clob clob = (Clob) this.jdbcTemplate.queryForObject(GETLISTMENU,new Object[] {account.get("id"),account.get("idgroup")}, Clob.class);
 		return StringUtil.clobToString(clob);
 	}
 	

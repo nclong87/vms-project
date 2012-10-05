@@ -12,13 +12,10 @@ import org.apache.struts2.ServletActionContext;
 import org.json.simple.JSONValue;
 import vms.db.dao.DaoFactory;
 import vms.db.dao.MenuDao;
-import vms.db.dao.TuyenkenhDao;
 import vms.db.dao.VmsgroupDao;
-import vms.db.dto.Account;
 import vms.db.dto.Menu;
 import vms.db.dto.Vmsgroup;
 import vms.utils.Constances;
-import vms.utils.DateUtils;
 import vms.utils.VMSUtil;
 import vms.web.models.MessageStore;
 import com.opensymphony.xwork2.Action;
@@ -28,7 +25,7 @@ public class GroupAction implements Preparable {
 	private DaoFactory daoFactory;
 	private HttpServletRequest request;
 	private HttpSession session;
-	private Account account;
+	private Map<String,Object> account;
 	
 	private InputStream inputStream;
 	private MessageStore message ;
@@ -43,12 +40,13 @@ public class GroupAction implements Preparable {
 	public GroupAction( DaoFactory factory) {
 		daoFactory = factory;
 	}
+	@SuppressWarnings("unchecked")
 	@Override
 	public void prepare() throws Exception {
 		// TODO Auto-generated method stub
 		request = ServletActionContext.getRequest();
 		session = request.getSession();
-		account = (Account) session.getAttribute(Constances.SESS_USERLOGIN);
+		account = (Map<String, Object>) session.getAttribute(Constances.SESS_USERLOGIN);
 	}
 	
 	public String execute() throws Exception {

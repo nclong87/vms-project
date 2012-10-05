@@ -19,7 +19,6 @@ import vms.db.dao.DaoFactory;
 import vms.db.dao.SuCoImportDAO;
 import vms.db.dao.TuyenkenhDao;
 import vms.db.dao.TuyenkenhImportDAO;
-import vms.db.dto.Account;
 import vms.db.dto.SuCoImportDTO;
 import vms.db.dto.TuyenKenh;
 import vms.db.dto.TuyenKenhImportDTO;
@@ -34,7 +33,7 @@ public class ImportAction implements Preparable {
 	private DaoFactory daoFactory;
 	private HttpServletRequest request;
 	private HttpSession session;
-	private Account account;
+	private Map<String,Object> account;
 	
 	private InputStream inputStream;
 	private String message;
@@ -48,12 +47,13 @@ public class ImportAction implements Preparable {
 	public ImportAction( DaoFactory factory) {
 		daoFactory = factory;
 	}
+	@SuppressWarnings("unchecked")
 	@Override
 	public void prepare() throws Exception {
 		// TODO Auto-generated method stub
 		request = ServletActionContext.getRequest();
 		session = request.getSession();
-		account = (Account) session.getAttribute(Constances.SESS_USERLOGIN);
+		account = (Map<String, Object>) session.getAttribute(Constances.SESS_USERLOGIN);
 	}
 	
 	public String tuyenkenh() throws Exception {
@@ -165,7 +165,7 @@ public class ImportAction implements Preparable {
 		try {
 			if(ids == null || ids.length==0) throw new Exception("ERROR");
 			TuyenkenhImportDAO dao = new TuyenkenhImportDAO(daoFactory);
-			dao.importTuyenkenh(ids, account.getUsername());
+			dao.importTuyenkenh(ids, account.get("username").toString());
 			jsonData.put("result", "OK");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -304,7 +304,7 @@ public class ImportAction implements Preparable {
 		try {
 			if(ids == null || ids.length==0) throw new Exception("ERROR");
 			SuCoImportDAO dao = new SuCoImportDAO(daoFactory);
-			dao.importSuCo(ids, account.getUsername());
+			dao.importSuCo(ids, account.get("username").toString());
 			jsonData.put("result", "OK");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

@@ -20,8 +20,6 @@ import vms.db.dao.DaoFactory;
 import vms.db.dao.DeXuatDao;
 import vms.db.dao.DoiTacDAO;
 import vms.db.dao.TuyenKenhDeXuatDAO;
-import vms.db.dao.TuyenkenhDao;
-import vms.db.dto.Account;
 import vms.db.dto.DeXuatDTO;
 import vms.db.dto.DoiTacDTO;
 import vms.utils.Constances;
@@ -37,7 +35,7 @@ public class DeXuatAction implements Preparable {
 	private DaoFactory daoFactory;
 	private HttpServletRequest request;
 	private HttpSession session;
-	private Account account;
+	private Map<String,Object> account;
 	private DeXuatDTO deXuatDTO;
 	
 	private InputStream inputStream;
@@ -56,12 +54,13 @@ public class DeXuatAction implements Preparable {
 		daoFactory = factory;
 		deXuatDao = new DeXuatDao(factory);
 	}
+	@SuppressWarnings("unchecked")
 	@Override
 	public void prepare() throws Exception {
 		// TODO Auto-generated method stub
 		request = ServletActionContext.getRequest();
 		session = request.getSession();
-		account = (Account) session.getAttribute(Constances.SESS_USERLOGIN);
+		account = (Map<String, Object>) session.getAttribute(Constances.SESS_USERLOGIN);
 	}
 	
 	public String execute() throws Exception {
@@ -140,7 +139,7 @@ public class DeXuatAction implements Preparable {
 				session.setAttribute("URL", VMSUtil.getFullURL(request));
 				return "login_page";
 			}
-			deXuatDTO.setUsercreate(account.getUsername());
+			deXuatDTO.setUsercreate(account.get("username").toString());
 			deXuatDTO.setTimecreate(DateUtils.getCurrentDateSQL());
 			deXuatDTO.setNgaydenghibangiao(DateUtils.parseStringDateSQL(deXuatDTO.getNgaydenghibangiao(), "dd/MM/yyyy"));
 			deXuatDTO.setNgaygui(DateUtils.parseStringDateSQL(deXuatDTO.getNgaygui(), "dd/MM/yyyy"));

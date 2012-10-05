@@ -3,7 +3,7 @@ package vms.web.actions;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,11 +23,9 @@ import vms.db.dao.LoaiGiaoTiepDao;
 import vms.db.dao.PhongBanDao;
 import vms.db.dao.TuyenKenhDeXuatDAO;
 import vms.db.dao.TuyenkenhDao;
-import vms.db.dto.Account;
 import vms.db.dto.DuAnDTO;
 import vms.db.dto.KhuVucDTO;
 import vms.db.dto.LoaiGiaoTiep;
-import vms.db.dto.PhongBan;
 import vms.db.dto.PhongBanDTO;
 import vms.db.dto.TuyenKenh;
 import vms.db.dto.TuyenKenhDeXuatDTO;
@@ -35,8 +33,6 @@ import vms.utils.Constances;
 import vms.utils.DateUtils;
 import vms.utils.NumberUtil;
 import vms.utils.VMSUtil;
-import vms.web.models.FIND_TUYENKENHDEXUAT;
-import vms.web.models.MessageStore;
 
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.Preparable;
@@ -45,12 +41,11 @@ public class TuyenkenhDexuatAction implements Preparable {
 	private DaoFactory daoFactory;
 	private HttpServletRequest request;
 	private HttpSession session;
-	private Account account;
+	private Map<String,Object> account;
 	private TuyenKenhDeXuatDTO tuyenKenhDeXuatDTO;
 	private TuyenKenh tuyenKenh;
 	
 	private InputStream inputStream;
-	private MessageStore message ;
 	private LinkedHashMap<String, Object> jsonData;
 	private String tuyenKenh_data;
 	private String tuyenKenhDeXuatDTO_data;
@@ -61,15 +56,17 @@ public class TuyenkenhDexuatAction implements Preparable {
 	private List<PhongBanDTO> phongBans;
 	private String id;
 	private String[] ids;
+	private String json_data;
 	public TuyenkenhDexuatAction( DaoFactory factory) {
 		daoFactory = factory;
 	}
+	@SuppressWarnings("unchecked")
 	@Override
 	public void prepare() throws Exception {
 		// TODO Auto-generated method stub
 		request = ServletActionContext.getRequest();
 		session = request.getSession();
-		account = (Account) session.getAttribute(Constances.SESS_USERLOGIN);
+		account = (Map<String, Object>) session.getAttribute(Constances.SESS_USERLOGIN);
 	}
 	
 	public String execute() throws Exception {
@@ -112,6 +109,7 @@ public class TuyenkenhDexuatAction implements Preparable {
 			if(iTotalRecords > iDisplayLength) {
 				items.remove(iTotalRecords - 1);
 			}
+			jsonData = new LinkedHashMap<String, Object>();
 			jsonData.put("sEcho", Integer.parseInt(request.getParameter("sEcho")));
 			jsonData.put("iTotalRecords", iDisplayStart + iTotalRecords);
 			jsonData.put("iTotalDisplayRecords", iDisplayStart + iTotalRecords);
@@ -173,7 +171,7 @@ public class TuyenkenhDexuatAction implements Preparable {
 				}
 			}
 			int soluong_old = NumberUtil.parseInt(request.getParameter("soluong_old"));
-			tuyenKenh.setUsercreate(account.getUsername());
+			tuyenKenh.setUsercreate(account.get("username").toString());
 			tuyenKenh.setTimecreate(DateUtils.getCurrentDateSQL());
 			tuyenKenhDeXuatDTO.setNgaydenghibangiao(DateUtils.parseStringDateSQL(tuyenKenhDeXuatDTO.getNgaydenghibangiao(), "dd/MM/yyyy"));
 			tuyenKenhDeXuatDTO.setNgayhenbangiao(DateUtils.parseStringDateSQL(tuyenKenhDeXuatDTO.getNgayhenbangiao(), "dd/MM/yyyy"));
@@ -215,6 +213,15 @@ public class TuyenkenhDexuatAction implements Preparable {
 		khuVucDTOs = khuVucDao.findAll();
 		PhongBanDao phongBanDao = new PhongBanDao(daoFactory);
 		phongBans = phongBanDao.getAll();
+		json_data = "";
+		Enumeration<String> enumeration = request.getParameterNames();
+		Map<String,Object> map = new LinkedHashMap<String, Object>();
+		while(enumeration.hasMoreElements()) {
+			String name = enumeration.nextElement();
+			map.put(name, request.getParameter(name));
+		}
+		if(map.size() > 0)
+			json_data = JSONValue.toJSONString(map);
 		return Action.SUCCESS;
 	}
 	
@@ -237,17 +244,27 @@ public class TuyenkenhDexuatAction implements Preparable {
 		return Action.SUCCESS;
 	}
 	
+	public String findByBangiao() {
+		jsonData = new LinkedHashMap<String, Object>();
+		try {
+			if(id!= null) {
+				Map<String, String> conditions = new LinkedHashMap<String, String>();
+				conditions.put("bangiao_id", id);
+				TuyenKenhDeXuatDAO tuyenKenhDeXuatDAO = new TuyenKenhDeXuatDAO(daoFactory);
+				List<Map<String,Object>> list = tuyenKenhDeXuatDAO.search(0, 1000, conditions);
+				jsonData.put("result", "OK");
+				jsonData.put("aaData", list);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			jsonData.put("result", "ERROR");
+		}
+		return Action.SUCCESS;
+	}
+	
 	/* Getter and Setter */
 	
-	public MessageStore getMessage() {
-		
-		return message;
-	}
-
-	public void setMessage(MessageStore message) {
-	
-		this.message = message;
-	}
 	public InputStream getInputStream() {
 		
 		return inputStream;
@@ -330,6 +347,12 @@ public class TuyenkenhDexuatAction implements Preparable {
 	}
 	public void setTuyenKenh(TuyenKenh tuyenKenh) {
 		this.tuyenKenh = tuyenKenh;
+	}
+	public String getJson_data() {
+		return json_data;
+	}
+	public void setJson_data(String json_data) {
+		this.json_data = json_data;
 	}
 	
 	

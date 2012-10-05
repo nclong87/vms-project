@@ -10,10 +10,8 @@ import java.util.Map;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
-import vms.db.dto.Account;
 import vms.db.dto.Menu;
 import vms.db.dto.Rootmenu;
-import vms.utils.StringUtil;
 import vms.utils.VMSUtil;
 
 public class MenuDao {
@@ -54,18 +52,18 @@ public class MenuDao {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public String getDefaultMenu(Account account) {
+	public String getDefaultMenu(Map<String,Object> account) {
 		List<Map<String,Object>> list = new ArrayList<Map<String,Object>>();
-		if(account.getMainmenu() != null ) {
-			list = this.jdbcTemplate.query("select ACTION from MENU where ID = ?", new Object[] {account.getMainmenu()}, new RowMapper() {
+		if(account.get("mainmenu") != null ) {
+			list = this.jdbcTemplate.query("select ACTION from MENU where ID = ?", new Object[] {account.get("mainmenu")}, new RowMapper() {
 				@Override
 				public Object mapRow(ResultSet rs, int arg1) throws SQLException {
 					return VMSUtil.resultSetToMap(rs);
 				}
 			});
 			
-		} else if(account.getIdgroup() != null){
-			list = this.jdbcTemplate.query("select ACTION from VMSGROUP t left join MENU t0 on t.MAINMENU = t0.ID where t.ID = ?", new Object[] {account.getIdgroup()}, new RowMapper() {
+		} else if(account.get("idgroup") != null){
+			list = this.jdbcTemplate.query("select ACTION from VMSGROUP t left join MENU t0 on t.MAINMENU = t0.ID where t.ID = ?", new Object[] {account.get("idgroup")}, new RowMapper() {
 				@Override
 				public Object mapRow(ResultSet rs, int arg1) throws SQLException {
 					return VMSUtil.resultSetToMap(rs);

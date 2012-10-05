@@ -4,7 +4,6 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,15 +17,12 @@ import org.json.simple.JSONValue;
 
 import vms.db.dao.DaoFactory;
 import vms.db.dao.SuCoDAO;
-import vms.db.dao.TuyenKenhDeXuatDAO;
 import vms.db.dao.TuyenkenhDao;
-import vms.db.dto.Account;
 import vms.db.dto.SuCoDTO;
 import vms.db.dto.TuyenKenh;
 import vms.utils.Constances;
 import vms.utils.DateUtils;
 import vms.utils.VMSUtil;
-import vms.web.models.FIND_TUYENKENHDEXUAT;
 import vms.web.models.FN_FIND_SUCO;
 
 import com.opensymphony.xwork2.Action;
@@ -35,7 +31,7 @@ public class SuCoAction implements Preparable {
 	private DaoFactory daoFactory;
 	private HttpServletRequest request;
 	private HttpSession session;
-	private Account account;
+	private Map<String,Object> account;
 	private InputStream inputStream;
 	
 	private String form_data;
@@ -98,13 +94,14 @@ public class SuCoAction implements Preparable {
 			System.out.println("ERROR :" + e.getMessage());
 		}
 	}
+	@SuppressWarnings("unchecked")
 	@Override
 	public void prepare() throws Exception {
 		// TODO Auto-generated method stub
 		System.out.println("SuCoAction");
 		request = ServletActionContext.getRequest();
 		session = request.getSession();
-		account = (Account) session.getAttribute(Constances.SESS_USERLOGIN);
+		account = (Map<String, Object>) session.getAttribute(Constances.SESS_USERLOGIN);
 	}
 	
 	public String execute() throws Exception {
@@ -151,7 +148,7 @@ public class SuCoAction implements Preparable {
 			// validation
 			Long thoidiembatdau=DateUtils.parseDate(sucoDTO.getThoidiembatdau(), "dd/MM/yyyy HH:mm:ss").getTime();
 			Long thoidiemketthuc=DateUtils.parseDate(sucoDTO.getThoidiemketthuc(), "dd/MM/yyyy HH:mm:ss").getTime();
-			Long ngayhientai=Calendar.getInstance().getTime().getTime();
+			//Long ngayhientai=Calendar.getInstance().getTime().getTime();
 			if(thoidiembatdau>thoidiemketthuc) // thoi diem bat dau lon hon thoi diem ket thuc
 			{
 				setInputStream("Date");
@@ -169,7 +166,7 @@ public class SuCoAction implements Preparable {
 			sucoDTO.setThoidiembatdau(thoidiembatdau.toString());
 			sucoDTO.setThoidiemketthuc(thoidiemketthuc.toString());
 			sucoDTO.setThoigianmll((int)thoigianmatll);
-			sucoDTO.setUsercreate(account.getUsername());
+			sucoDTO.setUsercreate(account.get("username").toString());
 			sucoDTO.setTimecreate(DateUtils.getCurrentDateSQL());
 			sucoDTO.setBienbanvanhanh_id("0");
 			String id=sucoDao.save(sucoDTO);

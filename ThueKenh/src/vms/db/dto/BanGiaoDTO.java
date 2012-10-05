@@ -5,7 +5,6 @@ import java.sql.SQLException;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import vms.utils.DateUtils;
 
 
 /**
@@ -18,6 +17,9 @@ public class BanGiaoDTO {
 	private String sobienban;
 	private String usercreate;
 	private String timecreate;
+	private String filename = "";
+	private String filepath = "";
+	private String filesize = "";
 	
 	public String getId() {
 		return id;
@@ -50,6 +52,30 @@ public class BanGiaoDTO {
 	public void setTimecreate(String timecreate) {
 		this.timecreate = timecreate;
 	}
+	
+	public String getFilename() {
+		return filename;
+	}
+
+	public void setFilename(String filename) {
+		this.filename = filename;
+	}
+
+	public String getFilepath() {
+		return filepath;
+	}
+
+	public void setFilepath(String filepath) {
+		this.filepath = filepath;
+	}
+
+	public String getFilesize() {
+		return filesize;
+	}
+
+	public void setFilesize(String filesize) {
+		this.filesize = filesize;
+	}
 
 	public Map<String,String> getMap() {
 		Map<String, String> map = new LinkedHashMap<String, String>();
@@ -57,6 +83,9 @@ public class BanGiaoDTO {
 		map.put("sobienban", this.sobienban);
 		map.put("usercreate", this.usercreate);
 		map.put("timecreate", this.timecreate);
+		map.put("filename", this.filename);
+		map.put("filepath", this.filepath);
+		map.put("filesize", this.filesize);
 		return map;
 	}
 	
@@ -66,6 +95,9 @@ public class BanGiaoDTO {
 		dto.setSobienban(rs.getString("SOBIENBAN"));
 		dto.setUsercreate(rs.getString("USERCREATE"));
 		dto.setTimecreate(rs.getString("TIMECREATE"));
+		dto.setFilename(rs.getString("FILENAME"));
+		dto.setFilepath(rs.getString("FILEPATH"));
+		dto.setFilesize(rs.getString("FILESIZE"));
         return dto;
 	}
 	
