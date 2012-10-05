@@ -170,7 +170,8 @@ public class BanGiaoAction implements Preparable {
 				throw new Exception("END_SESSION");
 			}
 			if(ids != null && ids.length >0 ) {
-				deXuatDao.deleteByIds(ids);
+				BanGiaoDAO bg=new BanGiaoDAO(daoFactory);
+				bg.delete(ids);
 			}
 			setInputStream("OK");
 		} catch (Exception e) {
