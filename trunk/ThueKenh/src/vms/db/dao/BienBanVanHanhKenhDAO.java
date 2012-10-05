@@ -16,7 +16,9 @@ import org.springframework.jdbc.core.RowMapper;
 
 import vms.db.dto.BienBanVanHanhKenhDTO;
 import vms.db.dto.SuCoDTO;
+import vms.db.dto.TuyenKenh;
 import vms.utils.DateUtils;
+import vms.utils.StringUtil;
 import vms.utils.VMSUtil;
 
 public class BienBanVanHanhKenhDAO {
@@ -58,8 +60,7 @@ public class BienBanVanHanhKenhDAO {
 			int iDisplayStart, int iDisplayLength,
 			Map<String, String> conditions) throws SQLException {
 		Connection connection = jdbcDatasource.getConnection();
-		CallableStatement stmt = connection
-				.prepareCall(SQL_FN_FIND_BIENBANVANHANHKENH);
+		CallableStatement stmt = connection.prepareCall(SQL_FN_FIND_BIENBANVANHANHKENH);
 		stmt.registerOutParameter(1, OracleTypes.CURSOR);
 		stmt.setInt(2, iDisplayStart);
 		stmt.setInt(3, iDisplayLength);
@@ -76,6 +77,7 @@ public class BienBanVanHanhKenhDAO {
 	}
 
 	public BienBanVanHanhKenhDTO findById(String id) {
+		System.out.println("id:"+id);
 		return (BienBanVanHanhKenhDTO) this.jdbcTemplate.queryForObject(
 				"SELECT * FROM BIENBANVANHANH WHERE id = ? AND DELETED = 0",
 				new Object[] { id }, new RowMapper() {
@@ -86,7 +88,22 @@ public class BienBanVanHanhKenhDAO {
 					}
 				});
 	}
-
+	
+	@SuppressWarnings("unchecked")
+	public BienBanVanHanhKenhDTO findBySoBienBan(String sobienban) {
+		if(StringUtil.isEmpty(sobienban))
+			return null;
+		List<BienBanVanHanhKenhDTO> list =  this.jdbcTemplate.query("SELECT * FROM BIENBANVANHANH WHERE SOBIENBAN = ? AND DELETED = 0" ,
+				new Object[] {sobienban}, new RowMapper() {
+			@Override
+			public Object mapRow(ResultSet rs, int arg1) throws SQLException {
+				return BienBanVanHanhKenhDTO.mapObject(rs);
+			}
+		});
+		if(list.isEmpty()) return null;
+		return list.get(0);
+	}
+	
 	public void deleteByIds(String[] ids) {
 		String str = StringUtils.join(ids, ",");
 		this.jdbcTemplate.update("update BIENBANVANHANH set DELETED = 1 where ID in ("+ str + ")");

@@ -33,6 +33,8 @@ public class FN_FIND_SUCO {
 	private String filesize;
 	private String bienbanvanhanh_id;
 	
+	
+
 	public String getSuco_id() {
 		return suco_id;
 	}
@@ -177,7 +179,6 @@ public class FN_FIND_SUCO {
 		this.filesize = filesize;
 	}
 
-	
 	public String getBienbanvanhanh_id() {
 		return bienbanvanhanh_id;
 	}

@@ -39,10 +39,8 @@ public class SuCoDAO {
 		stmt.setString(3, dto.getTuyenkenh_id());
 		stmt.setString(4, dto.getPhuluc_id());
 		stmt.setString(5, dto.getThanhtoan_id());
-		System.out.println("dto.getThoidiembatdau(): "+dto.getThoidiembatdau());
-		stmt.setLong(6,Long.parseLong(dto.getThoidiembatdau()));
-		System.out.println("dto.getThoidiemketthuc(): "+dto.getThoidiemketthuc());
-		stmt.setLong(7,Long.parseLong(dto.getThoidiemketthuc()));
+		stmt.setString(6,dto.getThoidiembatdau());
+		stmt.setString(7,dto.getThoidiemketthuc());
 		stmt.setString(8, dto.getThoigianmll().toString());
 		stmt.setString(9, dto.getNguyennhan());
 		stmt.setString(10, dto.getPhuonganxuly());
@@ -140,5 +138,19 @@ public class SuCoDAO {
 		});
 		if(list.isEmpty()) return null;
 		return list.get(0);
+	}
+	
+	private static final String SQL_FN_FIND_SUCO_BY_BIENBANVANHANH = "SELECT * FROM SUCOKENH bienbanvanhanh_id = ? AND DELETED = 0";
+	public List<SuCoDTO> findSuCoByBienBanVanHanh(String bienbanvanhanh_id) throws SQLException {
+		List<SuCoDTO> list = this.jdbcTemplate.query(
+				SQL_FN_FIND_SUCO_BY_BIENBANVANHANH, new Object[] { bienbanvanhanh_id }, new RowMapper() {
+					@Override
+					public Object mapRow(ResultSet rs, int arg1) throws SQLException {
+						return SuCoDTO.mapObject(rs);
+					}
+				});
+		if (list.isEmpty())
+			return null;
+		return list;
 	}
 }

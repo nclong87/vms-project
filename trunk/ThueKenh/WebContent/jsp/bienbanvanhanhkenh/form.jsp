@@ -157,11 +157,15 @@ $(document).ready(function(){
 		for( key in form_data) {
 			$("#form #"+key).val(form_data[key]);
 		}
-		upload_utils.createFileLabel({
-			filename : form_data["filename"],
-			filepath : form_data["filepath"],
-			filesize : form_data["filesize"]
-		});
+		$("#sobienban").attr("disabled","true");
+		if(form_data["filename"]!=null)
+		{
+			upload_utils.createFileLabel({
+				filename : form_data["filename"],
+				filepath : form_data["filepath"],
+				filesize : form_data["filesize"]
+			});
+		}
 		bienbanvanhanh_id = form_data['id'];
 	} 
 	if(bienbanvanhanh_id == '') {
@@ -198,6 +202,7 @@ $(document).ready(function(){
 							if(response.aaData.length != 0) {
 								var i = 0;
 								$.each(response.aaData,function(){
+									alert(this.id);
 									addRow(i+1,this);
 									i++;
 								});
@@ -215,12 +220,12 @@ $(document).ready(function(){
 		$(this).disabled = true;
 		if(!$("#form").valid())
 		{
-			message("Dữ liệu nhập chưa hợp lệ, vui lòng kiểm tra lại!",0);
+			alert("Dữ liệu nhập chưa hợp lệ, vui lòng kiểm tra lại!",0);
 			$(this).disabled=false;
 		}
 		else
 		{
-			if($("#dataTable tbody").find("tr").length<1)
+			if($("#dataTable tbody td:first").hasClass("dataTables_empty"))
 			{
 				alert("Vui lòng chọn danh sách sự cố");
 				$(this).disabled = false;
@@ -234,10 +239,26 @@ $(document).ready(function(){
 					type:'POST',
 					data:dataString,
 					success:function(response){
+						alert(response);
 						$(this).disabled = false;
-						if(response.indexOf("ids")>-1)
+						if(response.indexOf("suco_id")>-1)
 						{
-							message("Các sự cố sau đã được thêm vô biên bản vận hành trước đó :"+response+". Vui lòng bỏ sự cố này ra khỏi danh sách.",0);
+							$(this).disabled = false;
+							var sucoids=eval(response);
+							$.each(sucoids,function(i,v){
+								$("#dataTable tbody tr").each(function(){
+									if($(this).find("input[type='text']").attr("id")==v.id)
+										$(this).find("td").css("color","red");
+								});
+							});
+							message("Các sự cố đánh dấu đỏ đã được thêm vô biên bản vận hành trước đó. Vui lòng bỏ các sự cố này ra khỏi danh sách.",0);
+							return;
+						}
+						else if(response=="exist")
+						{
+							$(this).disabled = false;
+							message("Số biên bản này đã tồn tại trong hệ thống. Vui lòng nhập số biên bản khác",0);
+							return;
 						}
 						else if(response == "OK") {
 							$(this).disabled = true;

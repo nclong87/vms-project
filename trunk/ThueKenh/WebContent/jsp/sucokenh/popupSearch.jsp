@@ -163,9 +163,9 @@ $(document).ready(function(){
 					{ "mDataProp": "phuonganxuly","bSortable": false,"bSearchable": false},
 					{ "mDataProp": "nguoixacnhan","bSortable": false,"bSearchable": false},
 					{ "mDataProp": "usercreate","bSortable": false,"bSearchable": false},
-					{ "mDataProp": null,"bSortable": false,"bSearchable": false,
+					{ "mDataProp": null,"bSortable": false,"bSearchable": false,"sClass":'td_center',
 						"fnRender": function( oObj ) {
-							return '<a target="_blank" href="${detailURL}?id='+oObj.aData.id+'" title="Chi tiết sự cố">Chi tiết</a>';  
+							return '<a target="_blank" href="${detailURL}?id='+oObj.aData.id+'" title="Xem chi tiết sự cố"><div class="detail"></div></a>';  
 						}
 					},
 					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,
@@ -196,6 +196,7 @@ $(document).ready(function(){
 function doClose(){
 	var data = [];
 	$('#dataTable tbody input:checked').each(function(){
+		alert(oTable.fnGetData(this.value));
 		data.push(oTable.fnGetData(this.value));
 	});
 	window.opener.popup_search_suco.afterSelected(data);

@@ -121,7 +121,11 @@ $(document).ready(function(){
 		"sAjaxSource": "${ajLoadBienbanvanhanhkenh}",
 		"aoColumns": [
 					{ "mDataProp": "stt","bSortable": false,"bSearchable": false,"sClass":'td_center' },
-					{ "mDataProp": "sobienban","bSortable": false,"bSearchable": false,"sClass":'td_center'},
+					{ "mDataProp": null,"bSortable": false,"bSearchable": false,"sClass":'td_center',
+						"fnRender": function( oObj ) {
+							return '<a target="_blank" href="${detailURL}?id='+oObj.aData.id+'" title="Xem chi tiết sự cố">'+oObj.aData.sobienban+'</a>';  
+						}
+					},
 					{ "mDataProp": "usercreate","bSortable": false,"bSearchable": false,"sClass":'td_center'},
 					{ "mDataProp": "timecreate","bSortable": false,"bSearchable": false,"sClass":'td_center'},
 					{ "mDataProp": null,"bSortable": false,"bSearchable": false,"sClass":'td_center',
