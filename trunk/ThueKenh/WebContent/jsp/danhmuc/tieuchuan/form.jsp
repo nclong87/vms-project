@@ -67,8 +67,20 @@ var contextPath = '<%=contextPath%>
 						value="<s:property value="opEdit.tentieuchuan" />" /></td>
 					<td align="right" width="150px"><label for="stt">Loại tiêu chuẩn <font title="Bắt buộc nhập" color="red">*</font>:
 					</label></td>
-					<td align="left"><input type="text" id="loaitieuchuan" name="opEdit.loaitieuchuan"
-						value="<s:property value="opEdit.loaitieuchuan" />" /></td>
+					<td align="left">
+					
+					<input type="hidden" id="loaitieuchuanvalue" value="<s:property value="opEdit.loaitieuchuan" />" />
+						<select id="loaitieuchuan" name="opEdit.loaitieuchuan">
+							<option class="1" value="1">Bắt buộc</option>
+							<option class="0" value="0">Không bắt buộc</option>
+						</select>
+						
+						<script>
+							var iLoaiTieuChuan=$("#loaitieuchuanvalue").val();
+							$("#loaitieuchuan ."+iLoaiTieuChuan).attr("selected","true");
+						</script>
+						
+						</td>
 				</tr>
 				<tr >
 					<td align="right"><label for="mota">Mô tả
