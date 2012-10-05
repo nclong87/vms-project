@@ -53,40 +53,6 @@ margin-left: 10px;
 									<td align="left">
 										<input type="text" name="tenvanban" id="tenvanban"/>
 									</td>
-									<td align="right" width="150px">
-										Đối tác :
-									</td>
-									<td align="left">
-										<select name="doitac_id" id="doitac_id">
-											<option value="">---Chọn---</option>
-											<s:iterator value="doiTacDTOs">
-												<option value='<s:property value="id" />'><s:property value="tendoitac" /></option>									
-											</s:iterator>
-										</select>
-									</td>
-								</tr>
-								<tr>
-									<td align="right">Ngày gửi :</td>
-									<td align="left">
-										<input type="text" name="ngaygui" id="ngaygui" class="date">
-									</td>
-									<td align="right">Ngày đề nghị bàn giao :</td>
-									<td align="left"><input type="text" name="ngaydenghibangiao"
-										id="ngaydenghibangiao" class="date"/></td>
-									<td align="right" width="150px">
-									</td>
-								</tr>
-								<tr>
-									<td align="right" width="150px">
-										Trạng thái :
-									</td>
-									<td align="left">
-										<select name="trangthai" id="trangthai">
-											<option value="">-- Chọn --</option>
-											<option value="0" >Đang bàn giao</option>
-											<option value="1">Đã bàn giao</option>
-										</select>
-									</td>
 								</tr>
 								</tbody>
 								</form>
@@ -114,11 +80,9 @@ margin-left: 10px;
 			<thead>
 				<tr>
 					<th width="5%">#</th>
-					<th>Tên văn bản</th>
-					<th>Ngày gửi</th>
-					<th>Ngày đề nghị bàn giao</th>
-					<th>Đối tác</th>
-					<th width="5px">Trạng thái</th>
+					<th>Số biên bản</th>
+					<th>Người tạo</th>
+					<th>Ngày tạo</th>
 					<th width="5px" align="center">Sửa</th>
 					<th width="5px" align="center"><input type="checkbox" onclick="selectAll(this)"/></th>
 				</tr>
@@ -213,12 +177,6 @@ $(document).ready(function(){
 					},
 					{ "mDataProp": "ngaygui","bSortable": false,"bSearchable": false},
 					{ "mDataProp": "ngaydenghibangiao","bSortable": false,"bSearchable": false},
-					{ "mDataProp": "tendoitac","bSortable": false,"bSearchable": false},
-					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,
-						"fnRender": function( oObj ) {
-							return '<center>'+trangthai_utils.bangiaoDisplay(oObj.aData.trangthai)+'</center>'; 
-						}
-					},
 					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,
 						"fnRender": function( oObj ) {
 							return '<center><span class="edit_icon" data-ref-id="'+oObj.aData.id+'" title="Edit" href="#"></span></center>'; 
