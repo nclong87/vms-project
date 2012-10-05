@@ -17,6 +17,8 @@ public class FIND_TUYENKENHBANGIAO {
 	private String madiemdau;
 	private String madiemcuoi;
 	private String loaigiaotiep;
+	private String giaotiep_id;
+	private String duan_id;
 	private String dungluong;
 	private String soluong;
 	private String ngaydenghibangiao;
@@ -27,7 +29,21 @@ public class FIND_TUYENKENHBANGIAO {
 	private String username;
 	private String mavanbandexuat;
 	
+	public String getDuan_id() {
+		return duan_id;
+	}
 
+	public void setDuan_id(String duan_id) {
+		this.duan_id = duan_id;
+	}
+
+	public String getGiaotiep_id() {
+		return giaotiep_id;
+	}
+
+	public void setGiaotiep_id(String giaotiep_id) {
+		this.giaotiep_id = giaotiep_id;
+	}
 
 	public String getMavanbandexuat() {
 		return mavanbandexuat;
@@ -62,7 +78,7 @@ public class FIND_TUYENKENHBANGIAO {
 	}
 
 	public String getTiendo() {
-		return tiendo;
+		return tiendo.substring(0,tiendo.indexOf('.'));
 	}
 
 	public void setTiendo(String tiendo) {
@@ -154,6 +170,8 @@ public class FIND_TUYENKENHBANGIAO {
 		map.put("mavanbandexuat", this.mavanbandexuat);
 		map.put("tenduan", this.tenduan);
 		map.put("tiendo", this.tiendo+"% ");
+		map.put("duan_id",this.duan_id);
+		map.put("giaotiep_id", this.giaotiep_id);
 		return map;
 	}
 
@@ -170,6 +188,8 @@ public class FIND_TUYENKENHBANGIAO {
 		dto.setTiendo(rs.getString("TIENDO"));
 		dto.setTenvanbandexuat(rs.getString("TENVANBANDEXUAT"));
 		dto.setMavanbandexuat(rs.getString("MAVANBANDEXUAT"));
+		dto.setDuan_id(rs.getString("DUAN_ID"));
+		dto.setGiaotiep_id(rs.getString("GIAOTIEP_ID"));
         return dto;
 	}
 
