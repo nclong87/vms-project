@@ -6,8 +6,8 @@
 	<constant name="struts.devMode" value="true" />
 	<constant name="struts.i18n.encoding" value="UTF-8" />
 	<constant name="struts.objectFactory" value="spring" />
-	<!--constant name="struts.multipart.maxSize" value="5597152" /-->
-	<!--constant name="struts.multipart.maxSize" value="7152" /-->
+	<!--constant name="struts.multipart.maxSize" value="5597152" / -->
+	<!--constant name="struts.multipart.maxSize" value="7152" / -->
 	<package name="default" extends="struts-default json-default">
 		<global-results>
 			<result name="END_SESSION" type="stream">
@@ -70,23 +70,28 @@
 		<action name="loaigiaotiep" class="loaigiaotiepAction" method="index">
 			<result name="success">/jsp/danhmuc/loaigiaotiep/index.jsp</result>
 		</action>
-		<action name="ajLoadLoaiGiaoTiep" class="loaigiaotiepAction" method="ajLoadLoaiGiaoTiep">
+		<action name="ajLoadLoaiGiaoTiep" class="loaigiaotiepAction"
+			method="ajLoadLoaiGiaoTiep">
 			<result name="success" type="json">
 				<param name="root">jsonData</param>
 			</result>
 		</action>
-		<action name="deleteLoaiGiaoTiep" class="loaigiaotiepAction" method="delete">
+		<action name="deleteLoaiGiaoTiep" class="loaigiaotiepAction"
+			method="delete">
 			<result name="success" type="json">
 				<param name="root">jsonData</param>
 			</result>
 		</action>
-		<action name="editLoaiGiaoTiep" class="loaigiaotiepAction" method="edit">
+		<action name="editLoaiGiaoTiep" class="loaigiaotiepAction"
+			method="edit">
 			<result name="success">/jsp/danhmuc/loaigiaotiep/form.jsp</result>
 		</action>
-		<action name="detailLoaiGiaoTiep" class="loaigiaotiepAction" method="detail">
+		<action name="detailLoaiGiaoTiep" class="loaigiaotiepAction"
+			method="detail">
 			<result>/jsp/danhmuc/loaigiaotiep/detail.jsp</result>
-		</action>		
-		<action name="dosaveloaigiaotiep" class="loaigiaotiepAction" method="dosave">
+		</action>
+		<action name="dosaveloaigiaotiep" class="loaigiaotiepAction"
+			method="dosave">
 			<result name="success" type="stream">
 				<param name="inputName">inputStream</param>
 			</result>
@@ -116,7 +121,7 @@
 		</action>
 		<action name="detailcongthuc" class="congthucAction" method="detail">
 			<result>/jsp/danhmuc/congthuc/detail.jsp</result>
-		</action>	
+		</action>
 		<!-- kết công thức -->
 		<!-- khai báo khu vực -->
 		<action name="khuvuc" class="khuvucAction" method="index">
@@ -188,7 +193,7 @@
 		</action>
 		<action name="detailduan" class="duanAction" method="detail">
 			<result>/jsp/danhmuc/duan/detail.jsp</result>
-		</action>	
+		</action>
 		<!-- kết thúc dự án -->
 		<!-- khai báo tiêu chuẩn -->
 		<action name="tieuchuan" class="tieuchuanAction" method="index">
@@ -364,10 +369,12 @@
 				<param name="inputName">inputStream</param>
 			</result>
 		</action>
-		<action name="popupSearch" class="tuyenkenhdexuatAction" method="popupSearch">
+		<action name="popupSearch" class="tuyenkenhdexuatAction"
+			method="popupSearch">
 			<result>/jsp/tuyenkenhdexuat/popupSearch.jsp</result>
 		</action>
-		<action name="findByDexuat" class="tuyenkenhdexuatAction" method="findByDexuat">
+		<action name="findByDexuat" class="tuyenkenhdexuatAction"
+			method="findByDexuat">
 			<result name="success" type="json">
 				<param name="root">jsonData</param>
 			</result>
@@ -401,13 +408,14 @@
 		<action name="popupSearch" class="sucoAction">
 			<result>/jsp/sucokenh/popupSearch.jsp</result>
 		</action>
-		<action name="findByBienbanvanhanh" class="sucoAction" method="findByBienbanvanhanh">
+		<action name="findByBienbanvanhanh" class="sucoAction"
+			method="findByBienbanvanhanh">
 			<result name="success" type="json">
 				<param name="root">jsonData</param>
 			</result>
 		</action>
 	</package>
-	
+
 	<package name="dexuat" extends="default" namespace="/dexuat">
 		<action name="index" class="dexuatAction">
 			<result>/jsp/dexuat/index.jsp</result>
@@ -465,7 +473,7 @@
 				<param name="root">jsonData</param>
 			</result>
 		</action>
-		
+
 		<action name="suco" class="importAction" method="suco">
 			<result>/jsp/import/suco.jsp</result>
 		</action>
@@ -491,7 +499,8 @@
 		</action>
 	</package>
 
-	<package name="bienbanvanhanhkenh" extends="default" namespace="/bienbanvanhanhkenh">
+	<package name="bienbanvanhanhkenh" extends="default"
+		namespace="/bienbanvanhanhkenh">
 		<action name="index" class="bienbanvanhanhkenhAction">
 			<result>/jsp/bienbanvanhanhkenh/index.jsp</result>
 		</action>
@@ -503,7 +512,8 @@
 				<param name="inputName">inputStream</param>
 			</result>
 		</action>
-		<action name="ajLoadBienbanvanhanhkenh" class="bienbanvanhanhkenhAction" method="ajLoadBienbanvanhanhkenh">
+		<action name="ajLoadBienbanvanhanhkenh" class="bienbanvanhanhkenhAction"
+			method="ajLoadBienbanvanhanhkenh">
 			<result name="success" type="json">
 				<param name="root">jsonData</param>
 			</result>
@@ -541,6 +551,21 @@
 		</action>
 		<action name="detail" class="bangiaoAction" method="detail">
 			<result>/jsp/bangiao/detail.jsp</result>
+		</action>
+
+	</package>
+	<package name="tiendobangiao" extends="default" namespace="/tiendobangiao">
+		<action name="index" class="tiendobangiaoAction">
+			<result>/jsp/tiendobangiao/index.jsp</result>
+		</action>
+		<action name="form" class="tiendobangiaoAction" method="form">
+			<result>/jsp/tiendobangiao/form.jsp</result>
+		</action>
+		<action name="ajLoadtiendobangiao" class="tiendobangiaoAction"
+			method="ajLoad">
+			<result name="success" type="json">
+				<param name="root">jsonData</param>
+			</result>
 		</action>
 	</package>
 </struts>
