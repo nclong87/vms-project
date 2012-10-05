@@ -164,6 +164,8 @@ END SAVE_SUCOKENH;
 
 /
 
+
+
 --------------------------------------------------------
 --  DDL for Function FN_FIND_SUCO
 --------------------------------------------------------
@@ -232,6 +234,66 @@ BEGIN
 	OPEN l_cursor FOR v_vcsql;
 	RETURN l_cursor;
 END FN_FIND_SUCO;
+
+/
+
+--------------------------------------------------------
+--  DDL for Function FN_FIND_SUCO_BY_BIENBANVANHANH
+--------------------------------------------------------
+
+  CREATE OR REPLACE FUNCTION "THUEKENH"."FN_FIND_SUCO_BY_BIENBANVANHANH" 
+(
+  bienbanvanhanh_id_ in varchar2
+) 
+RETURN SYS_REFCURSOR AS l_cursor SYS_REFCURSOR;
+v_vcsql VARCHAR2(2000);
+v_vcsqlwhere VARCHAR2(1000);
+i NUMBER;
+BEGIN
+	v_vcsqlwhere := ' DELETED = 0 ';
+  if(bienbanvanhanh_id_ is not null) then
+		v_vcsqlwhere := v_vcsqlwhere ||' and BIENBANVANHANH_ID='||bienbanvanhanh_id_||' ';
+	end if;
+	v_vcsql := 'select rownum as rn,dulieu.* from (SELECT *
+                                                 FROM SUCOKENH 
+                                                 WHERE ' || v_vcsqlwhere || ') dulieu ';
+	v_vcsql := 'SELECT * FROM (' || v_vcsql || ')';
+	--dbms_output.put_line(v_vcsql);
+  --test(v_vcsql);
+	OPEN l_cursor FOR v_vcsql;
+	RETURN l_cursor;
+END FN_FIND_SUCO_BY_BIENBANVANHANH;
+
+/
+
+--------------------------------------------------------
+--  DDL for Function FN_FIND_BIENBANVANHANHKENH
+--------------------------------------------------------
+
+  CREATE OR REPLACE FUNCTION "THUEKENH"."FN_FIND_BIENBANVANHANHKENH" 
+(
+  iDisplayStart IN NUMBER,   
+  iDisplayLength IN NUMBER, 
+  sobienban_ in varchar2
+) 
+RETURN SYS_REFCURSOR AS l_cursor SYS_REFCURSOR;
+v_vcsql VARCHAR2(2000);
+v_vcsqlwhere VARCHAR2(1000);
+i NUMBER;
+BEGIN
+	v_vcsqlwhere := ' DELETED = 0 ';
+	if(sobienban_ is not null) then
+		v_vcsqlwhere := v_vcsqlwhere ||' AND SOBIENBAN = '''||sobienban_||''' ';
+	end if;
+	v_vcsql := 'select rownum as rn,dulieu.* from (SELECT *
+                                                 FROM BIENBANVANHANH   
+                                                 WHERE ' || v_vcsqlwhere || ' ORDER BY TIMECREATE desc) dulieu ';
+	v_vcsql := 'SELECT * FROM (' || v_vcsql || ') WHERE rn > ' || iDisplayStart || ' and rn <= ' || (iDisplayStart+iDisplayLength);
+	--dbms_output.put_line(v_vcsql);
+  --test(v_vcsql);
+	OPEN l_cursor FOR v_vcsql;
+	RETURN l_cursor;
+END FN_FIND_BIENBANVANHANHKENH;
 
 /
 
