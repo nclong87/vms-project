@@ -17,6 +17,8 @@ import org.springframework.jdbc.core.RowMapper;
 
 import vms.db.dto.TuyenKenh;
 import vms.db.dto.TuyenKenhDeXuatDTO;
+import vms.utils.DateUtils;
+import vms.utils.VMSUtil;
 import vms.web.models.FIND_TUYENKENHDEXUAT;
 
 public class TuyenKenhDeXuatDAO {
@@ -28,7 +30,7 @@ public class TuyenKenhDeXuatDAO {
 	}
 	
 	private static final String SQL_FIND_TUYENKENHDEXUAT = "{ ? = call FIND_TUYENKENHDEXUAT(?,?,?,?,?,?,?,?,?,?,?,?,?) }";
-	public List<FIND_TUYENKENHDEXUAT> search(int iDisplayStart,int iDisplayLength,Map<String, String> conditions) throws SQLException {
+	public List<Map<String,Object>> search(int iDisplayStart,int iDisplayLength,Map<String, String> conditions) throws SQLException {
 		Connection connection = jdbcDatasource.getConnection();
 		CallableStatement stmt = connection.prepareCall(SQL_FIND_TUYENKENHDEXUAT);
 		stmt.registerOutParameter(1, OracleTypes.CURSOR);
@@ -47,9 +49,15 @@ public class TuyenKenhDeXuatDAO {
 		stmt.setString(14, conditions.get("dexuat_id"));
 		stmt.execute();
 		ResultSet rs = (ResultSet) stmt.getObject(1);
-		List<FIND_TUYENKENHDEXUAT> result = new ArrayList<FIND_TUYENKENHDEXUAT>();
+		List<Map<String,Object>> result = new ArrayList<Map<String,Object>>();
+		int i = 1;
 		while(rs.next()) {
-			result.add(FIND_TUYENKENHDEXUAT.mapObject(rs));
+			Map<String,Object> map = VMSUtil.resultSetToMap(rs);
+			map.put("stt", i);
+			map.put("ngayhenbangiao",DateUtils.formatDate(rs.getDate("NGAYHENBANGIAO"), DateUtils.SDF_DDMMYYYY));
+			map.put("ngaydenghibangiao",DateUtils.formatDate(rs.getDate("NGAYDENGHIBANGIAO"), DateUtils.SDF_DDMMYYYY));
+			result.add(map);
+			i++;
 		}
 		stmt.close();
 		connection.close();
