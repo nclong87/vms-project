@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <s:url action="index" namespace="/login" var="loginURL" />
-<s:url action="dosavephongban" namespace="/danhmuc" id="doSaveURL" />
+<s:url action="doSave" namespace="/tiendobangiao" id="doSaveURL" />
 
 <s:set value="opEdit.ma" var="ma" />
 <s:set value="opEdit.stt" var="stt" />
@@ -36,7 +36,7 @@ var contextPath = '<%=contextPath%>';
 </style>
 </head>
 <body>
-	<form id="form">
+	<form id="form" onsubmit="return false;">
 		<input type="text" style="display: none" name="id" id="id"
 			value="<s:property value="id" />" />
 			<input name="inew" value="1" type="hidden"/>
@@ -58,7 +58,7 @@ var contextPath = '<%=contextPath%>';
 				
 
 					<tr height="30px">
-						<td align="center"><input type="submit" onclick=""
+						<td align="center"><input id="btnSubmit" type="button" onclick=""
 							class="button" value="Lưu"></td>
 					</tr>
 				</tbody>
@@ -115,44 +115,10 @@ var contextPath = '<%=contextPath%>';
 	$(document)
 			.ready(
 					function() {
-						$("#btReset").click(function() {
-							$("#ma").attr("value", "${ma}");
-							$("#stt").attr("value", "${stt}");
-							$("#tenphongban").attr("value", "${tenphongban}");
-						});
-						$("#form").validate({
-							onkeyup : false,
-							onfocusout : false,
-							rules : {
-								"opEdit.tenphongban" : {
-									required : true
-								},
-								"opEdit.stt" : {
-									number : true
-								}
-							},
-							messages : {
-								"opEdit.tenphongban" : {
-									required : "Yêu cầu nhập tên phòng ban"
-								},
-								"opEdit.stt" : {
-									number : 'Yêu cầu nhập số'
-								}
-							}
-						});
-						var form_data = '<s:property value="form_data" escape="false"/>';
-						if (form_data != '') {
-							var form_data = $.parseJSON(form_data);
-							for (key in form_data) {
-								$("#form #" + key).val(form_data[key]);
-							}
-							$("#ma").attr("disabled", "true");
-							$("#stt").attr("disabled", "true");
-							$("#tenphongban").attr("disabled", "true");
-						}
-						$(document)
-								.delegate(
-										"#btSubmit",
+						
+						
+						$(document).delegate(
+										"#btnSubmit",
 										"click",
 										function() {
 											var button = this;
@@ -161,20 +127,11 @@ var contextPath = '<%=contextPath%>';
 												alert("Dữ liệu nhập chưa hợp lệ, vui lòng kiểm tra lại!");
 												button.disabled = false;
 											} else {
-												var stt = $("#stt").attr(
-														"value");
-
-												if (stt == "") {
-													$("#stt")
-															.attr("value", "0");
-													//alert(stt);
-												}
-												var dataString = $("#form")
-														.serialize();
-												$
-														.ajax({
+												var dataString = $("#form").serialize();
+												//alert(dataString);
+												$.ajax({
 															url : "${doSaveURL}",
-															type : 'POST',
+															type : 'GET',
 															data : dataString,
 															success : function(
 																	response) {

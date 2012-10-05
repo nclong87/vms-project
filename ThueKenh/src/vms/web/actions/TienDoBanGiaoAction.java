@@ -171,30 +171,9 @@ public class TienDoBanGiaoAction implements Preparable {
 		}
 		id = request.getParameter("id");
 
-		TuyenKenhBanGiaoDAO TuyenKenhBanGiaoDAO = new TuyenKenhBanGiaoDAO(
-				daoFactory);
-		try {
-			String snew = request.getParameter("inew");
-			if (snew != null && snew.equals("1")) {
-				TuyenKenhBanGiaoDAO.xoaTienDo(id);
-				System.out.println("Xoa tien do"+snew);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		String query = request.getQueryString();
-		System.out.println(query);
-		String[] names = query.split("&");
-
-		for (int i = 0; i < names.length; i++) {
-			names[i] = names[i].substring(0, names[i].indexOf('='));
-			if (!names[i].equals("id") && !names[i].equals("inew") ) {
-				System.out.println(names[i]);
-
-				TuyenKenhBanGiaoDAO.capNhatTienDo(id, names[i],
-						account.getUsername());
-			}
-		}
+		
+		
+		
 
 		TieuChuanDAO tieuChuanDAO = new TieuChuanDAO(daoFactory);
 		this.listTieuChuan = tieuChuanDAO.getAll();
@@ -249,31 +228,36 @@ public class TienDoBanGiaoAction implements Preparable {
 				session.setAttribute("URL", VMSUtil.getFullURL(request));
 				return "login_page";
 			}
-			TuyenKenhBanGiaoDAO TuyenKenhBanGiaoDAO = new TuyenKenhBanGiaoDAO(
-					daoFactory);
-			if (tuyenKenh.getId().isEmpty()) { // add new tuyenkenh
-				TuyenkenhDao tuyenkenhDao = new TuyenkenhDao(daoFactory);
-				TuyenKenh tk = tuyenkenhDao.findByKey(tuyenKenh.getMadiemdau(),
-						tuyenKenh.getMadiemcuoi(), tuyenKenh.getGiaotiep_id());
-				if (tk != null) { // da ton tai tuyen kenh nay => update
-					tuyenKenh.setId(tk.getId());
+			try {
+				request = ServletActionContext.getRequest();
+				id = request.getParameter("id");
+				String snew = request.getParameter("inew");
+				TuyenKenhBanGiaoDAO TuyenKenhBanGiaoDAO = new TuyenKenhBanGiaoDAO(
+						daoFactory);
+				if (snew != null && snew.equals("1")) {
+					TuyenKenhBanGiaoDAO.xoaTienDo(id);
+					System.out.println("Xoa tien do"+snew);
 				}
+				
+				String query = request.getQueryString();
+				System.out.println(query);
+				String[] names = query.split("&");
+
+				for (int i = 0; i < names.length; i++) {
+					names[i] = names[i].substring(0, names[i].indexOf('='));
+					if (!names[i].equals("id") && !names[i].equals("inew") ) {
+						System.out.println(names[i]);
+
+						TuyenKenhBanGiaoDAO.capNhatTienDo(id, names[i],
+								account.getUsername());
+					}
+				}
+				setInputStream("OK");
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
-			int soluong_old = NumberUtil.parseInt(request
-					.getParameter("soluong_old"));
-			tuyenKenh.setUsercreate(account.getUsername());
-			tuyenKenh.setTimecreate(DateUtils.getCurrentDateSQL());
-			tuyenKenhDeXuatDTO.setNgaydenghibangiao(DateUtils
-					.parseStringDateSQL(
-							tuyenKenhDeXuatDTO.getNgaydenghibangiao(),
-							"dd/MM/yyyy"));
-			tuyenKenhDeXuatDTO.setNgayhenbangiao(DateUtils.parseStringDateSQL(
-					tuyenKenhDeXuatDTO.getNgayhenbangiao(), "dd/MM/yyyy"));
-			id = TuyenKenhBanGiaoDAO.save(tuyenKenh, tuyenKenhDeXuatDTO,
-					soluong_old);
-			if (id == null)
-				throw new Exception(Constances.MSG_ERROR);
-			setInputStream("OK");
+			
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			// session.setAttribute("message", e.getMessage());

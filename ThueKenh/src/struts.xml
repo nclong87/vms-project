@@ -567,5 +567,10 @@
 				<param name="root">jsonData</param>
 			</result>
 		</action>
+		<action name="doSave" class="tiendobangiaoAction" method="doSave">
+			<result name="success" type="stream">
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
 	</package>
 </struts>
