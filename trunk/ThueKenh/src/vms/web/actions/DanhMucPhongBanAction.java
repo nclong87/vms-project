@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -18,7 +19,6 @@ import org.json.JSONObject;
 
 import vms.db.dao.DaoFactory;
 import vms.db.dao.PhongBanDao;
-import vms.db.dto.Account;
 import vms.db.dto.PhongBanDTO;
 import vms.utils.Constances;
 import vms.utils.VMSUtil;
@@ -66,7 +66,7 @@ public class DanhMucPhongBanAction implements Preparable {
 
 	private HttpSession session;
 
-	private Account account;
+	private Map<String,Object> account;
 
 	public String getFlag() {
 		return flag;
@@ -76,12 +76,13 @@ public class DanhMucPhongBanAction implements Preparable {
 		this.flag = flag;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void prepare() throws Exception {
 		// TODO Auto-generated method stub
 		request = ServletActionContext.getRequest();
 		this.session = request.getSession();
-		this.account = (Account) session
+		this.account = (Map<String, Object>) session
 				.getAttribute(Constances.SESS_USERLOGIN);
 	}
 

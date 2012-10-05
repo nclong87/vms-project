@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -15,7 +17,6 @@ import org.apache.struts2.ServletActionContext;
 
 import vms.db.dao.DaoFactory;
 import vms.db.dao.KhuVucDao;
-import vms.db.dto.Account;
 import vms.db.dto.KhuVucDTO;
 import vms.utils.Constances;
 import vms.utils.VMSUtil;
@@ -63,7 +64,7 @@ public class DanhMucKhuVucAction implements Preparable {
 
 	private HttpSession session;
 
-	private Account account;
+	private Map<String,Object> account;
 
 	public String getFlag() {
 		return flag;
@@ -73,12 +74,13 @@ public class DanhMucKhuVucAction implements Preparable {
 		this.flag = flag;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void prepare() throws Exception {
 		// TODO Auto-generated method stub
 		request = ServletActionContext.getRequest();
 		this.session = request.getSession();
-		this.account = (Account) session.getAttribute(Constances.SESS_USERLOGIN);
+		this.account = (Map<String, Object>) session.getAttribute(Constances.SESS_USERLOGIN);
 	}
 
 	public DanhMucKhuVucAction(DaoFactory factory) {
@@ -151,7 +153,7 @@ public class DanhMucKhuVucAction implements Preparable {
 	}
 	
 	public String dosave() throws SQLException {
-		String id = "";
+		//String id = "";
 
 		// edit page post
 		if (this.opEdit != null) {

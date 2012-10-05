@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -18,7 +20,6 @@ import org.json.JSONObject;
 
 import vms.db.dao.DaoFactory;
 import vms.db.dao.DuAnDAO;
-import vms.db.dto.Account;
 import vms.db.dto.DuAnDTO;
 import vms.utils.Constances;
 import vms.utils.VMSUtil;
@@ -66,7 +67,7 @@ public class DanhMucDuAnAction implements Preparable {
 
 	private HttpSession session;
 
-	private Account account;
+	private Map<String,Object> account;
 
 	private DuAnDTO detail;
 
@@ -86,12 +87,13 @@ public class DanhMucDuAnAction implements Preparable {
 		this.flag = flag;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void prepare() throws Exception {
 		// TODO Auto-generated method stub
 		request = ServletActionContext.getRequest();
 		this.session = request.getSession();
-		this.account = (Account) session.getAttribute(Constances.SESS_USERLOGIN);
+		this.account = (Map<String, Object>) session.getAttribute(Constances.SESS_USERLOGIN);
 	}
 
 	public DanhMucDuAnAction(DaoFactory factory) {
@@ -162,12 +164,12 @@ public class DanhMucDuAnAction implements Preparable {
 	}
 	
 	public String dosave() throws SQLException {
-		String id = "";
+		//String id = "";
 
 		// edit page post
 		if (this.opEdit != null) {
 			// edit
-			this.opEdit.setUsercreate(this.account.getUsername());
+			this.opEdit.setUsercreate(this.account.get("username").toString());
 			System.out.println("edit mode id=" + this.opEdit.getId());
 			if (!this.opEdit.getId().isEmpty()) {
 				if (this.DuAnDAO.update(this.opEdit.getId(), this.opEdit)) {

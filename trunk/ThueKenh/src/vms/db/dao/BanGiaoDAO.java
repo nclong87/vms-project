@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Map;
 
 import oracle.jdbc.OracleTypes;
 
@@ -15,9 +15,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
 import vms.db.dto.BanGiaoDTO;
-import vms.db.dto.PhongBanDTO;
-import vms.db.dto.PhongBan;
-import vms.web.models.FIND_TUYENKENHBANGIAO;
+import vms.utils.VMSUtil;
 
 public class BanGiaoDAO  {
 	private JdbcTemplate jdbcTemplate;
@@ -27,7 +25,6 @@ public class BanGiaoDAO  {
 	}
 
 
-	@SuppressWarnings("unchecked")
 	public List<BanGiaoDTO> search(String _strSearch,int iDisplayStart,int iDisplayLength) throws SQLException {
 		// TODO Auto-generated method stub
 		System.out.println("{ ? = call FIND_BANGIAO("+_strSearch+","+_strSearch+","+iDisplayLength+") } ");
@@ -49,70 +46,47 @@ public class BanGiaoDAO  {
 		return result;
 	}
 
-
-	public BanGiaoDTO get(String id) {
-		// TODO Auto-generated method stub
-		@SuppressWarnings("unchecked")
-		List<BanGiaoDTO> lst = this.jdbcTemplate.query(
-				"select * from bangiao where deleted = 0 and id=" + id,
-				new RowMapper() {
-					public Object mapRow(ResultSet rs, int rowNum)
-							throws SQLException {
-						return BanGiaoDTO.mapObject(rs);
-					}
-				});
-		if (lst.size() == 0)
-			return null;
-		return lst.get(0);
+	public BanGiaoDTO findById(String id) {
+		return (BanGiaoDTO) this.jdbcTemplate.queryForObject("select * from BANGIAO where ID = ? and DELETED = 0" ,new Object[] {id}, new RowMapper() {
+			@Override
+			public Object mapRow(ResultSet rs, int arg1) throws SQLException {
+				return BanGiaoDTO.mapObject(rs);
+			}
+		});
 	}
-
 	
-	public boolean insert(PhongBanDTO cat) {
-		// TODO Auto-generated method stub
-		try {
-			Connection connection = this.jdbcTemplate.getDataSource()
-					.getConnection();
-			
-			CallableStatement stmt = connection
-					.prepareCall("{ call PROC_SAVE_PHONGBAN(?,?,?,?,?) }");
-			//stmt.registerOutParameter(1, OracleTypes.INTEGER);
-			System.out.println("***BEGIN PROC_SAVE_PHONGBAN***");
-			System.out.println(cat.getId());
-			stmt.setString(1, cat.getId());
-			stmt.setString(2, cat.getTenphongban());
-			stmt.setInt(3, cat.getStt());
-			stmt.setLong(4, 0);
-			stmt.setString(5, cat.getMa());
-			System.out.println("***execute***");
-			stmt.execute();
-			stmt.close();
-			connection.close();
-			System.out.println("***END PROC_SAVE_PHONGBAN***");
-			return true;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return false;
-		}
+	private static final String SQL_SAVE_BANGIAO = "{ ? = call SAVE_BANGIAO(?,?,?,?,?,?,?) }";
+	public String save(BanGiaoDTO dto) throws Exception {
+		Connection connection = jdbcTemplate.getDataSource().getConnection();
+		CallableStatement stmt = connection.prepareCall(SQL_SAVE_BANGIAO);
+		stmt.registerOutParameter(1, OracleTypes.VARCHAR);
+		stmt.setString(2, dto.getId());
+		stmt.setString(3, dto.getSobienban());
+		stmt.setString(4, dto.getUsercreate());
+		stmt.setString(5, dto.getTimecreate());
+		stmt.setString(6, dto.getFilename());
+		stmt.setString(7, dto.getFilepath());
+		stmt.setString(8, dto.getFilesize());
+		stmt.execute();
+		return stmt.getString(1);
 	}
-
 	
-	public boolean update(String id, PhongBanDTO cat) {
-		// TODO Auto-generated method stub
-		PhongBanDTO up = (PhongBanDTO) cat;
-		String sql = "update phongban set ma='"+cat.getMa()+"' ,stt="+up.getStt()+", tenphongban='" + up.getTenphongban()+ "' where id=" + up.getId();
-		System.out.println(sql);
-		return this.jdbcTemplate.update(sql) > 0;
-	}
-
-	
-	public boolean delete(String[] ids) {
-
-		// TODO Auto-generated method stub
+	public void deleteByIds(String[] ids) {
 		String str = StringUtils.join(ids, ",");
-		System.out.println(ids);
-		return this.jdbcTemplate
-				.update("update bangiao set DELETED = 1 where ID in (" + str
-						+ ")") > 0;
+		this.jdbcTemplate.update("update BANGIAO set DELETED = 1 where ID in ("+str+")");
 	}
-
+	
+	private static final String SQL_DETAIL_BANGIAO = "select * from BANGIAO where ID=?";
+	@SuppressWarnings("unchecked")
+	public Map<String,Object> getDetail(String id) {
+		List<Map<String,Object>> list =  this.jdbcTemplate.query(SQL_DETAIL_BANGIAO ,new Object[] {id}, new RowMapper() {
+			@Override
+			public Object mapRow(ResultSet rs, int arg1) throws SQLException {
+				Map<String,Object> map = VMSUtil.resultSetToMap(rs);
+				return map;
+			}
+		});
+		if(list.isEmpty()) return null;
+		return list.get(0);
+	}
 }

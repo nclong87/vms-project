@@ -17,14 +17,9 @@ import org.json.simple.JSONValue;
 
 import vms.db.dao.DaoFactory;
 import vms.db.dao.SuCoDAO;
-import vms.db.dao.TuyenKenhDeXuatDAO;
-import vms.db.dao.VanHanhSuCoKenhDAO;
-
 import vms.db.dao.BienBanVanHanhKenhDAO;
-import vms.db.dto.Account;
 import vms.db.dto.BienBanVanHanhKenhDTO;
 import vms.db.dto.SuCoDTO;
-import vms.db.dto.VanHanhSuCoKenhDTO;
 import vms.utils.Constances;
 import vms.utils.DateUtils;
 import vms.utils.VMSUtil;
@@ -35,7 +30,7 @@ public class BienBanVanHanhKenhAction implements Preparable {
 	private DaoFactory daoFactory;
 	private HttpServletRequest request;
 	private HttpSession session;
-	private Account account;
+	private Map<String,Object> account;
 	private InputStream inputStream;
 	
 	private String form_data;
@@ -107,13 +102,14 @@ public class BienBanVanHanhKenhAction implements Preparable {
 			System.out.println("ERROR :" + e.getMessage());
 		}
 	}
+	@SuppressWarnings("unchecked")
 	@Override
 	public void prepare() throws Exception {
 		// TODO Auto-generated method stub
 		System.out.println("BienBanVanHanhKenhAction");
 		request = ServletActionContext.getRequest();
 		session = request.getSession();
-		account = (Account) session.getAttribute(Constances.SESS_USERLOGIN);
+		account = (Map<String, Object>) session.getAttribute(Constances.SESS_USERLOGIN);
 	}
 	
 	public String execute() throws Exception {
@@ -192,7 +188,7 @@ public class BienBanVanHanhKenhAction implements Preparable {
 				else
 				{
 					// save bien ban van hanh kenh
-					bienbanvhkDto.setUsercreate(account.getUsername());
+					bienbanvhkDto.setUsercreate(account.get("username").toString());
 					bienbanvhkDto.setTimecreate(DateUtils.getCurrentDateSQL());
 					if(bienbanvhkDao.findBySoBienBan(bienbanvhkDto.getSobienban())!=null)
 					{

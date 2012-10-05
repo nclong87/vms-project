@@ -19,7 +19,6 @@ import vms.db.dto.TuyenKenh;
 import vms.db.dto.TuyenKenhDeXuatDTO;
 import vms.utils.DateUtils;
 import vms.utils.VMSUtil;
-import vms.web.models.FIND_TUYENKENHDEXUAT;
 
 public class TuyenKenhDeXuatDAO {
 	private JdbcTemplate jdbcTemplate;
@@ -29,7 +28,7 @@ public class TuyenKenhDeXuatDAO {
 		this.jdbcDatasource = daoFactory.getJdbcDataSource();
 	}
 	
-	private static final String SQL_FIND_TUYENKENHDEXUAT = "{ ? = call FIND_TUYENKENHDEXUAT(?,?,?,?,?,?,?,?,?,?,?,?,?) }";
+	private static final String SQL_FIND_TUYENKENHDEXUAT = "{ ? = call FIND_TUYENKENHDEXUAT(?,?,?,?,?,?,?,?,?,?,?,?,?,?) }";
 	public List<Map<String,Object>> search(int iDisplayStart,int iDisplayLength,Map<String, String> conditions) throws SQLException {
 		Connection connection = jdbcDatasource.getConnection();
 		CallableStatement stmt = connection.prepareCall(SQL_FIND_TUYENKENHDEXUAT);
@@ -47,6 +46,7 @@ public class TuyenKenhDeXuatDAO {
 		stmt.setString(12, conditions.get("ngayhenbangiao"));
 		stmt.setString(13, conditions.get("trangthai"));
 		stmt.setString(14, conditions.get("dexuat_id"));
+		stmt.setString(15, conditions.get("bangiao_id"));
 		stmt.execute();
 		ResultSet rs = (ResultSet) stmt.getObject(1);
 		List<Map<String,Object>> result = new ArrayList<Map<String,Object>>();
@@ -115,5 +115,9 @@ public class TuyenKenhDeXuatDAO {
 	public void updateDexuatByIds(String[] ids,String dexuat_id) {
 		String str = StringUtils.join(ids, ",");
 		this.jdbcTemplate.update("update TUYENKENHDEXUAT set DEXUAT_ID = ? where ID in ("+str+")", new Object[] {dexuat_id});
+	}
+	public void updateBangiaoByIds(String[] ids,String bangiao_id) {
+		String str = StringUtils.join(ids, ",");
+		this.jdbcTemplate.update("update TUYENKENHDEXUAT set BANGIAO_ID = ? where ID in ("+str+")", new Object[] {bangiao_id});
 	}
 }

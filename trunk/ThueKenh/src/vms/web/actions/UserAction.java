@@ -3,8 +3,6 @@ package vms.web.actions;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,7 +28,6 @@ import vms.db.dto.Menu;
 import vms.db.dto.PhongBanDTO;
 import vms.utils.Constances;
 import vms.utils.VMSUtil;
-import vms.web.models.AccountExt;
 import vms.web.models.MessageStore;
 
 import com.opensymphony.xwork2.Action;
@@ -40,7 +37,7 @@ public class UserAction implements Preparable {
 	private DaoFactory daoFactory;
 	private HttpServletRequest request;
 	private HttpSession session;
-	private Account account;
+	private Map<String,Object> account;
 	
 	private InputStream inputStream;
 	private MessageStore message ;
@@ -57,12 +54,13 @@ public class UserAction implements Preparable {
 	public UserAction( DaoFactory factory) {
 		daoFactory = factory;
 	}
+	@SuppressWarnings("unchecked")
 	@Override
 	public void prepare() throws Exception {
 		// TODO Auto-generated method stub
 		request = ServletActionContext.getRequest();
 		session = request.getSession();
-		account = (Account) session.getAttribute(Constances.SESS_USERLOGIN);
+		account = (Map<String, Object>) session.getAttribute(Constances.SESS_USERLOGIN);
 	}
 	
 	public String execute() throws Exception {

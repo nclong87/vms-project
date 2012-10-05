@@ -30,7 +30,7 @@ public class TuyenKenhBanGiaoDAO {
 		this.jdbcDatasource = daoFactory.getJdbcDataSource();
 	}
 	
-	private static final String SQL_FIND_TUYENKENHBANGIAO = "{ ? = call FIND_TUYENKENHBANGIAO(?,?,?,?,?,?,?,?,?,?,?,?) }";
+	private static final String SQL_FIND_TUYENKENHBANGIAO = "{ ? = call FIND_TUYENKENHBANGIAO(?,?,?,?,?,?,?,?,?,?,?,?,?) }";
 	public List<FIND_TUYENKENHBANGIAO> search(int iDisplayStart,int iDisplayLength,Map<String, String> conditions) throws SQLException {
 		System.out.println("FIND_TUYENKENHBANGIAO ");
 		Connection connection = jdbcDatasource.getConnection();
@@ -47,7 +47,8 @@ public class TuyenKenhBanGiaoDAO {
 		stmt.setString(10, conditions.get("ngayhenbangiao"));
 		stmt.setString(11, conditions.get("dexuat_id"));
 		stmt.setString(12, conditions.get("khuvuc_id"));
-		stmt.setString(13, conditions.get("isAllow"));
+		stmt.setString(13, conditions.get("phongban_id"));
+		stmt.setString(14, conditions.get("isAllow"));
 		//System.out.println(SQL_FIND_TUYENKENHBANGIAO);
 		stmt.execute();
 		ResultSet rs = (ResultSet) stmt.getObject(1);

@@ -5,6 +5,8 @@ import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -14,7 +16,6 @@ import vms.db.dao.AccountDao;
 import vms.db.dao.DaoFactory;
 import vms.db.dao.MenuDao;
 import vms.db.dao.VmsgroupDao;
-import vms.db.dto.Account;
 import vms.db.dto.Rootmenu;
 import vms.utils.Constances;
 import vms.utils.VMSUtil;
@@ -27,7 +28,7 @@ public class PermissionAction implements Preparable {
 	private DaoFactory daoFactory;
 	private HttpServletRequest request;
 	private HttpSession session;
-	private Account account;
+	private Map<String,Object> account;
 	
 	private InputStream inputStream;
 	private MessageStore message ;
@@ -40,12 +41,13 @@ public class PermissionAction implements Preparable {
 	public PermissionAction( DaoFactory factory) {
 		daoFactory = factory;
 	}
+	@SuppressWarnings("unchecked")
 	@Override
 	public void prepare() throws Exception {
 		// TODO Auto-generated method stub
 		request = ServletActionContext.getRequest();
 		session = request.getSession();
-		account = (Account) session.getAttribute(Constances.SESS_USERLOGIN);
+		account = (Map<String, Object>) session.getAttribute(Constances.SESS_USERLOGIN);
 	}
 	
 	public String execute() {
