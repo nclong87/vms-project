@@ -170,13 +170,9 @@ $(document).ready(function(){
 		"sAjaxSource": "${loadURL}",
 		"aoColumns": [
 					{ "mDataProp": "stt","bSortable": false,"bSearchable": false },
-					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,"sClass":'td_center',
-						"fnRender": function( oObj ) {
-							return '<a target="_blank" href="${detailURL}?id='+oObj.aData.id+'" title="Xem chi tiết tuyến kênh">'+oObj.aData.tenvanban+'</a>'; 
-						}
-					},
-					{ "mDataProp": "ngaygui","bSortable": false,"bSearchable": false},
-					{ "mDataProp": "ngaydenghibangiao","bSortable": false,"bSearchable": false},
+					{ "mDataProp": "sobienban","bSortable": false,"bSearchable": false },
+					{ "mDataProp": "usercreate","bSortable": false,"bSearchable": false},
+					{ "mDataProp": "timecreate","bSortable": false,"bSearchable": false},
 					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,
 						"fnRender": function( oObj ) {
 							return '<center><span class="edit_icon" data-ref-id="'+oObj.aData.id+'" title="Edit" href="#"></span></center>'; 
