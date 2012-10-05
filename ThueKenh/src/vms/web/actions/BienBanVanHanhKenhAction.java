@@ -157,37 +157,59 @@ public class BienBanVanHanhKenhAction implements Preparable {
 				session.setAttribute("URL", VMSUtil.getFullURL(request));
 				return "login_page";
 			}
-			System.out.println("bienbanvhkDto:");
 			BienBanVanHanhKenhDAO bienbanvhkDao=new BienBanVanHanhKenhDAO(daoFactory);
-			bienbanvhkDto.setUsercreate(account.getUsername());
-			bienbanvhkDto.setTimecreate(DateUtils.getCurrentDateSQL());
-			System.out.println(bienbanvhkDto.getSobienban());
-			String id=bienbanvhkDao.save(bienbanvhkDto);
-			if(id==null) throw new Exception(Constances.MSG_ERROR);
-			System.out.println("suco_ids.length: " + suco_ids.length);
+			System.out.println("suco_ids:"+suco_ids);
 			if(suco_ids!= null && suco_ids.length > 0) {
 				SuCoDAO sucoDao = new SuCoDAO(daoFactory);
 				// update bienbanvanhanh_id cho suco
 				SuCoDTO sucoDto=null;
 				String ids="";
+				SuCoDTO lstSuCo[]=new SuCoDTO[suco_ids.length];
+				// kiem tra su co da ton tai trong bien ban van hanh nao chua
 				for(int i=0;i<suco_ids.length;i++)
 				{
 					sucoDto=sucoDao.findById(suco_ids[i]);
 					if(sucoDto!=null)
 					{
+						lstSuCo[i]=sucoDto;
 						// co bien ban van hanh roi
-						if(sucoDto.getBienbanvanhanh_id()!=null)
+						System.out.println("sucoDto.getBienbanvanhanh_id()"+sucoDto.getBienbanvanhanh_id());
+						if(Integer.parseInt(sucoDto.getBienbanvanhanh_id())!=0 )
 						{
+							System.out.println("suco_"+i+":"+suco_ids[i]);
 							
 							if(ids!="")
 								ids+=",";
-							else
-								ids+=suco_ids[i].toString();
+							ids+="{'id':'suco_id_"+suco_ids[i]+"'}";
 						}
-						else // chua co bien ban van hanh
+					}
+				}
+				if(ids!="")
+				{
+					setInputStream("["+ids+"]");
+					return Action.SUCCESS;
+				}
+				else
+				{
+					// save bien ban van hanh kenh
+					bienbanvhkDto.setUsercreate(account.getUsername());
+					bienbanvhkDto.setTimecreate(DateUtils.getCurrentDateSQL());
+					if(bienbanvhkDao.findBySoBienBan(bienbanvhkDto.getSobienban())!=null)
+					{
+						setInputStream("exist");
+						return Action.SUCCESS;
+					}
+					String id=bienbanvhkDao.save(bienbanvhkDto);
+					if(id==null) throw new Exception(Constances.MSG_ERROR);
+					
+					//update sucokenh
+					for(int i=0;i<lstSuCo.length;i++)
+					{
+						sucoDto=sucoDao.findById(lstSuCo[i].getId());
+						if(sucoDto!=null)
 						{
+							// update su co
 							sucoDto.setBienbanvanhanh_id(id);
-							System.out.println("sucoDto.getThoidiembatdau():"+sucoDto.getThoidiembatdau());
 							Long thoidiembatdau=DateUtils.parseDate(sucoDto.getThoidiembatdau(), "dd/MM/yyyy HH:mm:ss").getTime();
 							Long thoidiemketthuc=DateUtils.parseDate(sucoDto.getThoidiemketthuc(), "dd/MM/yyyy HH:mm:ss").getTime();
 							sucoDto.setThoidiembatdau(thoidiembatdau.toString());
@@ -195,11 +217,6 @@ public class BienBanVanHanhKenhAction implements Preparable {
 							sucoDao.save(sucoDto);
 						}
 					}
-				}
-				if(ids!="")
-				{
-					setInputStream("ids:"+ids);
-					return Action.SUCCESS;
 				}
 			}
 			setInputStream("OK");
@@ -265,9 +282,7 @@ public class BienBanVanHanhKenhAction implements Preparable {
 				BienBanVanHanhKenhDAO bienbanvhkDao = new BienBanVanHanhKenhDAO(daoFactory);
 				bienbanvhkDao.deleteByIds(ids);
 				
-				VanHanhSuCoKenhDAO vanhanhsucoDao=new VanHanhSuCoKenhDAO(daoFactory);
-				for(int i=0;i<ids.length;i++)
-					vanhanhsucoDao.deleteByBienBanIds(ids[i]);
+				
 			}
 			setInputStream("OK");
 		} catch (Exception e) {
