@@ -86,13 +86,13 @@
 	<bean id="importAction" scope="prototype" class="vms.web.actions.ImportAction">
         <constructor-arg ref="daoFactory" />
     </bean>
-	<bean id="bangiaoAction" scope="prototype" class="vms.web.actions.BanGiaoAction">
-        <constructor-arg ref="daoFactory" />
-    </bean>
     <bean id="bienbanvanhanhkenhAction" scope="prototype" class="vms.web.actions.BienBanVanHanhKenhAction">
         <constructor-arg ref="daoFactory" />
     </bean>
-    <bean id="tiendobangiaoAction" scope="prototype" class="vms.web.actions.BanGiaoAction">
+    <bean id="tiendobangiaoAction" scope="prototype" class="vms.web.actions.TienDoBanGiaoAction">
+        <constructor-arg ref="daoFactory" />
+    </bean>
+    <bean id="bangiaoAction" scope="prototype" class="vms.web.actions.BanGiaoAction">
         <constructor-arg ref="daoFactory" />
     </bean>
 </beans>
