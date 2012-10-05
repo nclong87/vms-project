@@ -107,14 +107,10 @@ public class TuyenkenhDexuatAction implements Preparable {
 				}
 			}
 			TuyenKenhDeXuatDAO tuyenKenhDeXuatDAO = new TuyenKenhDeXuatDAO(daoFactory);
-			List<FIND_TUYENKENHDEXUAT> list = tuyenKenhDeXuatDAO.search(iDisplayStart, iDisplayLength + 1, conditions);
-			int iTotalRecords = list.size();
-			jsonData = new LinkedHashMap<String, Object>();
-			List<Map<String, String>> items = new ArrayList<Map<String, String>>();
-			for(int i=0;i<list.size() && i<iDisplayLength;i++) {
-				Map<String, String> map = list.get(i).getMap();
-				map.put("stt", String.valueOf(i+1));
-				items.add(map);
+			List<Map<String,Object>> items = tuyenKenhDeXuatDAO.search(iDisplayStart, iDisplayLength + 1, conditions);
+			int iTotalRecords = items.size();
+			if(iTotalRecords > iDisplayLength) {
+				items.remove(iTotalRecords - 1);
 			}
 			jsonData.put("sEcho", Integer.parseInt(request.getParameter("sEcho")));
 			jsonData.put("iTotalRecords", iDisplayStart + iTotalRecords);
@@ -229,7 +225,7 @@ public class TuyenkenhDexuatAction implements Preparable {
 				Map<String, String> conditions = new LinkedHashMap<String, String>();
 				conditions.put("dexuat_id", id);
 				TuyenKenhDeXuatDAO tuyenKenhDeXuatDAO = new TuyenKenhDeXuatDAO(daoFactory);
-				List<FIND_TUYENKENHDEXUAT> list = tuyenKenhDeXuatDAO.search(0, 1000, conditions);
+				List<Map<String,Object>> list = tuyenKenhDeXuatDAO.search(0, 1000, conditions);
 				jsonData.put("result", "OK");
 				jsonData.put("aaData", list);
 			}
