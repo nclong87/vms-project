@@ -420,6 +420,11 @@
 				<param name="root">jsonData</param>
 			</result>
 		</action>
+		<action name="ajLoadSuCoWithBBVH" class="sucoAction" method="ajLoadSuCoWithBBVH">
+			<result name="success" type="json">
+				<param name="root">jsonData</param>
+			</result>
+		</action>
 	</package>
 
 	<package name="dexuat" extends="default" namespace="/dexuat">

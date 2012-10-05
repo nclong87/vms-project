@@ -140,17 +140,22 @@ public class SuCoDAO {
 		return list.get(0);
 	}
 	
-	private static final String SQL_FN_FIND_SUCO_BY_BIENBANVANHANH = "SELECT * FROM SUCOKENH bienbanvanhanh_id = ? AND DELETED = 0";
+	private static final String SQL_FN_FIND_SUCO_BY_BIENBANVANHANH = "{ ? = call FN_FIND_SUCO_BY_BIENBANVANHANH(?) }";
 	public List<SuCoDTO> findSuCoByBienBanVanHanh(String bienbanvanhanh_id) throws SQLException {
-		List<SuCoDTO> list = this.jdbcTemplate.query(
-				SQL_FN_FIND_SUCO_BY_BIENBANVANHANH, new Object[] { bienbanvanhanh_id }, new RowMapper() {
-					@Override
-					public Object mapRow(ResultSet rs, int arg1) throws SQLException {
-						return SuCoDTO.mapObject(rs);
-					}
-				});
-		if (list.isEmpty())
-			return null;
-		return list;
+		System.out.println("Begin FindSuCoByBienBanVanHanh");
+		Connection connection = jdbcDatasource.getConnection();
+		CallableStatement stmt = connection.prepareCall(SQL_FN_FIND_SUCO_BY_BIENBANVANHANH);
+		stmt.registerOutParameter(1, OracleTypes.CURSOR);
+		System.out.println("bienbanvanhanh_id:"+bienbanvanhanh_id);
+		stmt.setString(2, bienbanvanhanh_id);
+		stmt.execute();
+		ResultSet rs = (ResultSet) stmt.getObject(1);
+		List<SuCoDTO> result = new ArrayList<SuCoDTO>();
+		while(rs.next()) {
+			result.add(SuCoDTO.mapObject(rs));
+		}
+		stmt.close();
+		connection.close();
+		return result;
 	}
 }
