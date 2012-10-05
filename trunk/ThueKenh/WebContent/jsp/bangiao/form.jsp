@@ -2,10 +2,9 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <s:url action="index" namespace="/login" var="loginURL" />
-<s:url action="doSave" namespace="/dexuat" id="doSaveURL" />
-<s:url action="popupSearch" namespace="/tuyenkenh" id="popupSearchURL" />
+<s:url action="doSave" namespace="/bangiao" id="doSaveURL" />
 <s:url action="doUpload" namespace="/fileupload" id="doUploadURL" />
-<s:url action="findByDexuat" namespace="/tuyenkenhdexuat" id="findByDexuatURL" />
+<s:url action="findByBangiao" namespace="/tuyenkenhdexuat" id="findByBangiaoURL" />
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <%
 	String contextPath = request.getContextPath();
@@ -40,7 +39,7 @@ function byId(id) { //Viet tat cua ham document.getElementById
 </head>
 <body>
 	<form id="form" onsubmit="return false;">
-	<input type="text" style="display:none" name="deXuatDTO.id" id="id" />
+	<input type="text" style="display:none" name="banGiaoDTO.id" id="id" />
 	<div style="background: none repeat scroll 0pt 0pt rgb(242, 242, 242); padding: 5px; width: 99%;">
 		<table class="input" style="width:725px">
 			<tr>
@@ -52,52 +51,25 @@ function byId(id) { //Viet tat cua ham document.getElementById
 					Tên văn bản <font title="Bắt buộc nhập" color="red">*</font> :
 				</td>
 				<td align="left">
-					<input type="text" name="deXuatDTO.tenvanban" id="tenvanban" />
+					<input type="text" name="banGiaoDTO.sobienban" id="sobienban" />
 				</td>
 				<td align="right" width="150px">
 					File Scan :
 				</td>
 				<td align="left">
-					<input type="text" style="display:none" name="deXuatDTO.filename" id="filename" value=""/>
-					<input type="text" style="display:none" name="deXuatDTO.filepath" id="filepath" value=""/>
-					<input type="text" style="display:none" name="deXuatDTO.filesize" id="filesize" value=""/>
+					<input type="text" style="display:none" name="banGiaoDTO.filename" id="filename" value=""/>
+					<input type="text" style="display:none" name="banGiaoDTO.filepath" id="filepath" value=""/>
+					<input type="text" style="display:none" name="banGiaoDTO.filesize" id="filesize" value=""/>
 					<div id="label">
 					</div>
 					<input type="button" class="button" id="btUploadFile" value="Chọn file..." />
 				</td>
 			</tr>
-			<tr>
-				<td align="right">
-					Đối tác <font title="Bắt buộc nhập" color="red">*</font> :
-				</td>
-				<td align="left">
-					<select name="deXuatDTO.doitac_id" id="doitac_id">
-						<s:iterator value="doiTacDTOs">
-							<option value='<s:property value="id" />'><s:property value="tendoitac" /></option>									
-						</s:iterator>
-					</select>
-				</td>
-				<td align="right">
-					Ngày gửi :
-				</td>
-				<td align="left">
-					<input type="text" name="deXuatDTO.ngaygui" id="ngaygui" class="date">
-				</td>
-			</tr>
-			<tr>
-				<td align="right">
-					Ngày đề nghị bàn giao :
-				</td>
-				<td align="left">
-					<input type="text" name="deXuatDTO.ngaydenghibangiao" id="ngaydenghibangiao" class="date">
-				</td>
-			</tr>
 		</table>
-		
 		<div style="width: 100%; margin-top: 10px;">
 		<fieldset class="data_list">
-			<legend>Danh sách đề xuất</legend>
-			<div style="width: 100%; padding-bottom: 5px;text-align: right;"><input class="button" type="button" value="Chọn đề xuất..." id="btPopupSearchTuyenkenhDexuat"></div>
+			<legend>Danh sách tuyến kênh đề xuất</legend>
+			<div style="width: 100%; padding-bottom: 5px;text-align: right;"><input class="button" type="button" value="Chọn tuyến kênh đề xuất..." id="btPopupSearchTuyenkenhDexuat"></div>
 			<table width="100%" id="dataTable" class="display">
 			<thead>
 				<tr>
@@ -147,15 +119,16 @@ function doRemoveRow(this_){
 }
 function addRow(stt,data) {
 	oTable.fnAddData([
-		stt,data.tuyenkenh_id,data.madiemdau,data.madiemcuoi,data.loaigiaotiep,data.dungluong,data.soluong,data.ngaydenghibangiao,data.ngayhenbangiao,'<center><input type="text" style="display:none" name="dexuat_ids" value="'+data.id+'" id="dexuat_id_'+data.id+'"/><img title="Remove" src="'+baseUrl+'/images/icons/remove.png" onclick="doRemoveRow(this)" style="cursor:pointer"></center>'
+		stt,data.tuyenkenh_id,data.madiemdau,data.madiemcuoi,data.loaigiaotiep,data.dungluong,data.soluong,data.ngaydenghibangiao,data.ngayhenbangiao,'<center><input type="text" style="display:none" name="bangiao_ids" value="'+data.id+'" id="bangiao_id_'+data.id+'"/><img title="Remove" src="'+baseUrl+'/images/icons/remove.png" onclick="doRemoveRow(this)" style="cursor:pointer"></center>'
 	]);
 }
 $(document).ready(function() {
 	popup_search_tuyenkenhdexuat.init({
+		url : baseUrl + "/tuyenkenhdexuat/popupSearch.action?trangthai=1",
 		afterSelected : function(data) {	
 			var i = 1;
 			$.each(data,function(){
-				if($("#dexuat_id_"+this.id).length == 0) {
+				if($("#bangiao_id_"+this.id).length == 0) {
 					addRow(i,this);
 					i++;
 				}
@@ -184,11 +157,11 @@ $(document).ready(function() {
 		}
 	});
 	var form_data = '<s:property value="form_data" escape="false"/>';
-	var dexuat_id = '';
+	var bangiao_id = '';
 	if(form_data != '') {
 		var form_data = $.parseJSON(form_data);
 		for( key in form_data) {
-			var input = document.forms[0]["deXuatDTO."+key];
+			var input = document.forms[0]["banGiaoDTO."+key];
 			if(input != null) {
 				input.value = form_data[key];
 			}
@@ -200,9 +173,9 @@ $(document).ready(function() {
 				filesize : form_data["filesize"]
 			});
 		}
-		dexuat_id = form_data['id'];
+		bangiao_id = form_data['id'];
 	} 
-	if(dexuat_id == '') {
+	if(bangiao_id == '') {
 		oTable = $('#dataTable').dataTable({
 			"bJQueryUI": true,
 			"bProcessing": false,
@@ -221,7 +194,7 @@ $(document).ready(function() {
 			"bSort":false,
 			"bFilter": false,"bInfo": false,
 			"bPaginate" : false,
-			"sAjaxSource": "${findByDexuatURL}?id="+dexuat_id,
+			"sAjaxSource": "${findByBangiaoURL}?id="+bangiao_id,
 			"aoColumns": null,
 			"fnServerData": function ( sSource, aoData, fnCallback ) {
 				$.ajax( {

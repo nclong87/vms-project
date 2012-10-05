@@ -169,6 +169,18 @@ $(document).ready(function(){
 		showButtonPanel: true,
 		dateFormat : "dd/mm/yy"
 	});
+	var json_data = '<s:property value="json_data" escape="false"/>';
+	if(json_data != '') {
+		var json_data = $.parseJSON(json_data);
+		for( key in json_data) {
+			var input = $("#"+key);
+			$("option",input).each(function(){
+				if(this.value != json_data[key])
+					$(this).attr("disabled","true");
+			});
+			input.val(json_data[key]);
+		}
+	}
 	$("#chkAdvSearch").click(function(){
 		if(this.checked == true) {
 			$("#hidden").show();
