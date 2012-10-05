@@ -16,12 +16,14 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.simple.JSONValue;
 
+import vms.db.dao.BanGiaoDAO;
 import vms.db.dao.DaoFactory;
 import vms.db.dao.DeXuatDao;
 import vms.db.dao.DoiTacDAO;
 import vms.db.dao.TuyenKenhDeXuatDAO;
 import vms.db.dao.TuyenkenhDao;
 import vms.db.dto.Account;
+import vms.db.dto.BanGiaoDTO;
 import vms.db.dto.DeXuatDTO;
 import vms.db.dto.DoiTacDTO;
 import vms.utils.Constances;
@@ -92,7 +94,8 @@ public class BanGiaoAction implements Preparable {
 					}
 				}
 			}
-			List<FIND_DEXUAT> list = deXuatDao.search(iDisplayStart, iDisplayLength + 1, conditions);
+			BanGiaoDAO bg=new BanGiaoDAO(daoFactory);
+			List<BanGiaoDTO> list = bg.search(conditions.get("tenvanban"),iDisplayStart, iDisplayLength + 1);
 			int iTotalRecords = list.size();
 			jsonData = new LinkedHashMap<String, Object>();
 			List<Map<String, String>> items = new ArrayList<Map<String, String>>();
