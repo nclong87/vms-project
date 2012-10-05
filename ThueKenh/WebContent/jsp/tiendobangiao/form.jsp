@@ -39,8 +39,8 @@ var contextPath = '<%=contextPath%>';
 	<form id="form">
 		<input type="text" style="display: none" name="id" id="id"
 			value="<s:property value="id" />" />
-		<div
-			style="background: none repeat scroll 0pt 0pt rgb(242, 242, 242); padding: 5px; width: 99%;">
+			<input name="inew" value="1" type="hidden"/>
+		<div style="background: none repeat scroll 0pt 0pt rgb(242, 242, 242); padding: 5px; width: 99%;">
 			<table width="100%" class="listTieuChuan">
 				<s:iterator value="listTieuChuan">
     				<tr height="30px">

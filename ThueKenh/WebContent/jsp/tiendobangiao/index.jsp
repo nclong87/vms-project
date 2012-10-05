@@ -7,6 +7,8 @@
 <s:url action="form" namespace="/bangiao" id="formURL"/>
 <s:url action="delete" namespace="/tuyenkenh" id="deleteURL"/>
 <s:url action="detail" namespace="/tuyenkenh" id="detailURL"/>
+<s:url action="detailLoaiGiaoTiep" namespace="/danhmuc" id="detailGiaoTiepURL"/>
+<s:url action="detailduan" namespace="/danhmuc" id="detailDuAnURL"/>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -276,10 +278,18 @@ $(document).ready(function(){
 					},
 					{ "mDataProp": "madiemdau","bSortable": false,"bSearchable": false,"sClass":'td_center'},
 					{ "mDataProp": "madiemcuoi","bSortable": false,"bSearchable": false,"sClass":'td_center'},
-					{ "mDataProp": "loaigiaotiep","bSortable": false,"bSearchable": false},
+					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,"sClass":'td_center',
+						"fnRender": function( oObj ) {
+							return '<a target="_blank" href="${detailGiaoTiepURL}?id='+oObj.aData.giaotiep_id+'" title="Xem chi tiết loại giao tiếp">'+oObj.aData.loaigiaotiep+'</a>'; 
+						}
+					},
 					{ "mDataProp": "dungluong","bSortable": false,"bSearchable": false,"sClass":'td_center'},
 					{ "mDataProp": "soluong","bSortable": false,"bSearchable": false,"sClass":'td_center'},
-					{ "mDataProp": "tenduan","bSortable": false,"bSearchable": false},
+					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,"sClass":'td_center',
+						"fnRender": function( oObj ) {
+							return '<a target="_blank" href="${detailDuAnURL}?id='+oObj.aData.duan_id+'" title="Xem chi tiết dự án">'+oObj.aData.tenduan+'</a>'; 
+						}
+					},
 					//{ "mDataProp": "tenvanbandexuat","bSortable": false,"bSearchable": false},
 					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,"sClass":'td_center',
 						"fnRender": function( oObj ) {
