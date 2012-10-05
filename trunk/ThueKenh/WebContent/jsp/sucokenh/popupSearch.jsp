@@ -1,5 +1,5 @@
 ﻿<%@ taglib prefix="s" uri="/struts-tags"%>
-<s:url action="ajLoadSuCo" namespace="/sucokenh" id="ajLoadSuCo"/>
+<s:url action="ajLoadSuCoWithBBVH" namespace="/sucokenh" id="ajLoadSuCoWithBBVH"/>
 <s:url action="popupSearch" namespace="/tuyenkenh" id="popupSearchURL" />
 <s:url action="detail" namespace="/sucokenh" id="detailURL"/>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -41,7 +41,7 @@ margin-left: 10px;
 								<tbody id="display">
 								<tr>
 									<td align="right">Mã tuyến kênh</td>
-									<td><input type="text" style="width: 182px" name="tuyenkenh_id" id="tuyenkenh_id"/><input type="button" id="btPopupSearchTuyenkenh" value="..."/></td>
+									<td><input type="text" style="width: 182px" name="tuyenkenh_id" id="tuyenkenh_id"/><input type="hidden" style="width: 218px" name="bienbanvanhanh_id" id="bienbanvanhanh_id" value="0" /><input type="button" id="btPopupSearchTuyenkenh" value="..."/></td>
 									<td align="right">Dung lượng (MB) :</td>
 									<td><input type="text" style="width: 218px" name="dungluong" id="dungluong" /></td>
 									
@@ -148,7 +148,7 @@ $(document).ready(function(){
 		"bProcessing": true,
 		"bServerSide": true,
 		"bAutoWidth": false,
-		"sAjaxSource": "${ajLoadSuCo}",
+		"sAjaxSource": "${ajLoadSuCoWithBBVH}",
 		"aoColumns": [
 					{ "mDataProp": "stt","bSortable": false,"bSearchable": false },
 					{ "mDataProp": "tuyenkenh_id","bSortable": false,"bSearchable": false,"sClass":'td_center'},
@@ -196,7 +196,6 @@ $(document).ready(function(){
 function doClose(){
 	var data = [];
 	$('#dataTable tbody input:checked').each(function(){
-		alert(oTable.fnGetData(this.value));
 		data.push(oTable.fnGetData(this.value));
 	});
 	window.opener.popup_search_suco.afterSelected(data);

@@ -195,6 +195,12 @@ $(document).ready(function(){
 						parent.reload = true;
 						return;
 					}
+					else if(response=="ngayhientai")
+					{
+						$(this).disabled = true;
+						message(" Thời điểm bắt đầu và thời điểm kết thúc phải nhỏ hơn hoặc bằng ngày hiện tại",0);
+						return;
+					}
 					else if(response=="Date")
 					{
 						$(this).disabled = true;

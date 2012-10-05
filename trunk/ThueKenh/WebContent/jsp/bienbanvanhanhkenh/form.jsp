@@ -34,7 +34,7 @@ function byId(id) { //Viet tat cua ham document.getElementById
 
 <body>
 	<form id="form" onsubmit="return false;">
-		<input type="text" style="display:none" name="bienbanvhkDto.id" id="id" />
+		<input type="text" style="display:none" name="bienbanvhkDto.id" id="id" value="" />
 		<div style="background: none repeat scroll 0pt 0pt rgb(242, 242, 242); padding: 5px; width: 99%;">
 			<table class="input" style="width:700px">
 				<tr>
@@ -117,7 +117,7 @@ function doRemoveRow(this_){
 }
 function addRow(stt,data) {
 	oTable.fnAddData([
-		stt,data.tuyenkenh_id,data.madiemdau,data.madiemcuoi,data.loaigiaotiep,data.dungluong,data.thoidiembatdau,data.thoidiemketthuc,data.thoigianmll,data.nguyennhan,data.phuonganxuly,data.nguoixacnhan,data.usercreate,data.timecreate,'<center><input type="text" style="display:none" name="suco_ids" value="'+data.id+'" id="suco_id_'+data.id+'"/><img title="Remove" src="'+baseUrl+'/images/icons/remove.png" onclick="doRemoveRow(this)" style="cursor:pointer"></center>'
+		stt,data.tuyenkenh_id,data.madiemdau,data.madiemcuoi,data.loaigiaotiep,data.dungluong,data.thoidiembatdau,data.thoidiemketthuc,data.thoigianmll,data.nguyennhan,data.phuonganxuly,data.nguoixacnhan,data.usercreate,data.timecreate,'<center><input type="text" style="display:none" name="suco_ids" value="'+data.suco_id+'" id="suco_id_'+data.suco_id+'"/><img title="Remove" src="'+baseUrl+'/images/icons/remove.png" onclick="doRemoveRow(this)" style="cursor:pointer"></center>'
 	]);
 }
 $(document).ready(function(){	
@@ -157,7 +157,7 @@ $(document).ready(function(){
 		for( key in form_data) {
 			$("#form #"+key).val(form_data[key]);
 		}
-		$("#sobienban").attr("disabled","true");
+		//$("#sobienban").attr("disabled","true");
 		if(form_data["filename"]!=null)
 		{
 			upload_utils.createFileLabel({
@@ -202,7 +202,6 @@ $(document).ready(function(){
 							if(response.aaData.length != 0) {
 								var i = 0;
 								$.each(response.aaData,function(){
-									alert(this.id);
 									addRow(i+1,this);
 									i++;
 								});
@@ -239,22 +238,8 @@ $(document).ready(function(){
 					type:'POST',
 					data:dataString,
 					success:function(response){
-						alert(response);
-						$(this).disabled = false;
-						if(response.indexOf("suco_id")>-1)
-						{
-							$(this).disabled = false;
-							var sucoids=eval(response);
-							$.each(sucoids,function(i,v){
-								$("#dataTable tbody tr").each(function(){
-									if($(this).find("input[type='text']").attr("id")==v.id)
-										$(this).find("td").css("color","red");
-								});
-							});
-							message("Các sự cố đánh dấu đỏ đã được thêm vô biên bản vận hành trước đó. Vui lòng bỏ các sự cố này ra khỏi danh sách.",0);
-							return;
-						}
-						else if(response=="exist")
+						$(this).disabled = false;					
+						if(response=="exist")
 						{
 							$(this).disabled = false;
 							message("Số biên bản này đã tồn tại trong hệ thống. Vui lòng nhập số biên bản khác",0);

@@ -149,6 +149,11 @@ public class SuCoAction implements Preparable {
 			Long thoidiembatdau=DateUtils.parseDate(sucoDTO.getThoidiembatdau(), "dd/MM/yyyy HH:mm:ss").getTime();
 			Long thoidiemketthuc=DateUtils.parseDate(sucoDTO.getThoidiemketthuc(), "dd/MM/yyyy HH:mm:ss").getTime();
 			//Long ngayhientai=Calendar.getInstance().getTime().getTime();
+			if(thoidiembatdau>ngayhientai || thoidiemketthuc>ngayhientai)
+			{
+				setInputStream("ngayhientai");
+				return Action.SUCCESS;
+			}
 			if(thoidiembatdau>thoidiemketthuc) // thoi diem bat dau lon hon thoi diem ket thuc
 			{
 				setInputStream("Date");
@@ -224,6 +229,51 @@ public class SuCoAction implements Preparable {
 		return Action.SUCCESS;
 	}
 	
+	// load su co chưa thuộc biên bản vận hành kênh nào
+	public String ajLoadSuCoWithBBVH() {
+		try {
+			//if(account == null) throw new Exception("END_SESSION");
+			Integer iDisplayStart = Integer.parseInt(request.getParameter("iDisplayStart"));
+			Integer iDisplayLength = Integer.parseInt(request.getParameter("iDisplayLength"));
+			String sSearch = request.getParameter("sSearch").trim();
+			System.out.println("sSearch:"+sSearch);
+			Map<String, String> conditions = new LinkedHashMap<String, String>();
+			if(sSearch.isEmpty() == false) {
+				JSONArray arrayJson = (JSONArray) new JSONObject(sSearch).get("array");
+				for(int i=0;i<arrayJson.length();i++) {
+					String name = arrayJson.getJSONObject(i).getString("name");
+					String value = arrayJson.getJSONObject(i).getString("value");
+					if(value.isEmpty()==false) {
+						conditions.put(name, value);
+					}
+				}
+			}
+			conditions.put("bienbanvanhanh_id", "0");
+			SuCoDAO sucoDao = new SuCoDAO(daoFactory);
+			System.out.println("conditions="+conditions);
+			List<FN_FIND_SUCO> lstSuCo = sucoDao.findSuCo(iDisplayStart, iDisplayLength+1, conditions);
+			int iTotalRecords=lstSuCo.size();
+			jsonData = new LinkedHashMap<String, Object>();
+			List<Map<String, String>> items = new ArrayList<Map<String, String>>();
+			for(int i=0;i<lstSuCo.size() && i<iDisplayLength;i++) {
+				Map<String, String> map = lstSuCo.get(i).getMap();
+				map.put("stt", String.valueOf(i+1));
+				map.put("suco_id", lstSuCo.get(i).getSuco_id());
+				items.add(map);
+			}
+			jsonData.put("sEcho", Integer.parseInt(request.getParameter("sEcho")));
+			jsonData.put("iTotalRecords", iDisplayStart+iTotalRecords);
+			jsonData.put("iTotalDisplayRecords", iDisplayStart+iTotalRecords);
+			jsonData.put("aaData", items);
+			return Action.SUCCESS;
+		} catch (Exception e) {
+			// TODO: handle exception
+			//setInputStream(str)
+			e.printStackTrace();
+		}
+		return Action.SUCCESS;
+	}
+		
 	public String delete() {
 		try {
 			if(account == null) {
