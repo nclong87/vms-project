@@ -9,6 +9,7 @@
 <s:url action="detail" namespace="/tuyenkenh" id="detailURL"/>
 <s:url action="detailLoaiGiaoTiep" namespace="/danhmuc" id="detailGiaoTiepURL"/>
 <s:url action="detailduan" namespace="/danhmuc" id="detailDuAnURL"/>
+<s:url action="detail" namespace="/dexuat" id="detailVanBanDeXuatURL"/>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -287,13 +288,22 @@ $(document).ready(function(){
 					{ "mDataProp": "soluong","bSortable": false,"bSearchable": false,"sClass":'td_center'},
 					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,"sClass":'td_center',
 						"fnRender": function( oObj ) {
-							return '<a target="_blank" href="${detailDuAnURL}?id='+oObj.aData.duan_id+'" title="Xem chi tiết dự án">'+oObj.aData.tenduan+'</a>'; 
+							if(oObj.aData.duan_id != null) {
+								return '<a target="_blank" href="${detailDuAnURL}?id='+oObj.aData.duan_id+'" title="Xem chi tiết dự án">'+oObj.aData.tenduan+'</a>'; 
+							} else {
+								return "";
+							}
+							
 						}
 					},
-					//{ "mDataProp": "tenvanbandexuat","bSortable": false,"bSearchable": false},
 					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,"sClass":'td_center',
 						"fnRender": function( oObj ) {
-							return '<a target="_blank" href="${detailVanBanDeXuatURL}?id='+oObj.aData.mavanbandexuat+'" title="Xem chi tiết văn bản đề xuất">'+oObj.aData.tenvanbandexuat+'</a>'; 
+							if(oObj.aData.mavanbandexuat != null) {
+								return '<a target="_blank" href="${detailVanBanDeXuatURL}?id='+oObj.aData.mavanbandexuat+'" title="Xem chi tiết văn bản đề xuất">'+oObj.aData.tenvanbandexuat+'</a>'; 
+							} else {
+								return "";
+							}
+							
 						}
 					},
 					{ "mDataProp": "tiendo","bSortable": false,"bSearchable": false},

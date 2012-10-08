@@ -42,16 +42,18 @@ var contextPath = '<%=contextPath%>';
 			<input name="inew" value="1" type="hidden"/>
 		<div style="background: none repeat scroll 0pt 0pt rgb(242, 242, 242); padding: 5px; width: 99%;">
 			<table width="100%" class="listTieuChuan">
+				<tr>
+					<td colspan='4' align="left" id="msg">
+					</td>
+				</tr>
 				<s:iterator value="listTieuChuan">
     				<tr height="30px">
-						<td align="left"><input  type="checkbox" name="<s:property value="id" />" id="<s:property value="id" />"
-							> <label for="tc1" class="tieuchuan"><s:property value="tentieuchuan" />
-							
-							<input type="hidden" class="loaitieuchuan" value="<s:property value="loaitieuchuan" />"/>
-							
-							</label>
-							
-							</td>
+						<td align="left">
+						<input type="checkbox" value="<s:property value='id' />"/>
+						<label for="tc1" class="tieuchuan"><s:property value="tentieuchuan" />
+						<input type="hidden" class="loaitieuchuan" value="<s:property value="loaitieuchuan" />"/>
+						</label>
+						</td>
 					</tr>
     				
 				</s:iterator>
@@ -82,7 +84,7 @@ var contextPath = '<%=contextPath%>';
 			var tieuchuandatduoc=$(".tieuchuandatduoc");
 			for(i=0;i<tieuchuandatduoc.length;i++){
 				var id=$(tieuchuandatduoc[i]).val();
-				$(".listTieuChuan #"+id).attr("checked","true");
+				$(".listTieuChuan input[type=checkbox][value="+id+"]").attr("checked","true");
 			}
 		}
 		fillOption();
@@ -121,7 +123,12 @@ $(document).ready(function() {
 			button.disabled = false;
 		} else {
 			var dataString = $("#form").serialize();
-			//alert(dataString);
+			$('#form input[type=checkbox]').each(function(){
+				if(this.checked==true) {
+					if(this.value!='on')
+						dataString+='&ids='+this.value;
+				}
+			});
 			$.ajax({
 						url : "${doSaveURL}",
 						type : 'GET',
@@ -136,7 +143,6 @@ $(document).ready(function() {
 								return false;
 							}
 							if (response == "OK") {
-								button.disabled = true;
 								message(
 										"Lưu thành công!",
 										1);

@@ -18,7 +18,6 @@ import org.springframework.jdbc.core.RowMapper;
 import vms.db.dto.TuyenKenh;
 import vms.utils.StringUtil;
 import vms.utils.VMSUtil;
-import vms.web.models.FN_FIND_TUYENKENH;
 
 public class TuyenkenhDao {
 	private JdbcTemplate jdbcTemplate;
@@ -29,7 +28,7 @@ public class TuyenkenhDao {
 	}
 	
 	private static final String SQL_FN_FIND_TUYENKENH = "{ ? = call FN_FIND_TUYENKENH(?,?,?,?,?,?,?,?,?,?,?,?) }";
-	public List<FN_FIND_TUYENKENH> findTuyenkenh(int iDisplayStart,int iDisplayLength,Map<String, String> conditions) throws SQLException {
+	public List<Map<String,Object>> findTuyenkenh(int iDisplayStart,int iDisplayLength,Map<String, String> conditions) throws SQLException {
 		Connection connection = jdbcDatasource.getConnection();
 		CallableStatement stmt = connection.prepareCall(SQL_FN_FIND_TUYENKENH);
 		stmt.registerOutParameter(1, OracleTypes.CURSOR);
@@ -47,9 +46,13 @@ public class TuyenkenhDao {
 		stmt.setString(13, conditions.get("trangthai"));
 		stmt.execute();
 		ResultSet rs = (ResultSet) stmt.getObject(1);
-		List<FN_FIND_TUYENKENH> result = new ArrayList<FN_FIND_TUYENKENH>();
+		List<Map<String,Object>> result = new ArrayList<Map<String,Object>>();
+		int i = 1;
 		while(rs.next()) {
-			result.add(FN_FIND_TUYENKENH.mapObject(rs));
+			Map<String,Object> map = VMSUtil.resultSetToMap(rs);
+			map.put("stt", i);
+			result.add(map);
+			i++;
 		}
 		stmt.close();
 		connection.close();
