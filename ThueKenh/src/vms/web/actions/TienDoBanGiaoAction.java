@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +15,8 @@ import javax.servlet.http.HttpSession;
 import org.apache.struts2.ServletActionContext;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.json.simple.JSONValue;
+
 import vms.db.dao.DaoFactory;
 import vms.db.dao.DuAnDAO;
 import vms.db.dao.KhuVucDao;
@@ -22,9 +25,11 @@ import vms.db.dao.PhongBanDao;
 import vms.db.dao.TieuChuanDAO;
 import vms.db.dao.TuyenKenhBanGiaoDAO;
 import vms.db.dao.TuyenkenhDao;
+import vms.db.dto.Account;
 import vms.db.dto.DuAnDTO;
 import vms.db.dto.KhuVucDTO;
 import vms.db.dto.LoaiGiaoTiep;
+import vms.db.dto.PhongBan;
 import vms.db.dto.PhongBanDTO;
 import vms.db.dto.TieuChuanDTO;
 import vms.db.dto.TuyenKenh;
@@ -123,7 +128,6 @@ public class TienDoBanGiaoAction implements Preparable {
 			} else {
 				conditions.put("isAllow", "0");
 			}
-			
 
 			conditions.put("iDisplayStart", "0");
 			conditions.put("iDisplayLength", "10");
@@ -174,30 +178,9 @@ public class TienDoBanGiaoAction implements Preparable {
 		}
 		id = request.getParameter("id");
 
-		TuyenKenhBanGiaoDAO TuyenKenhBanGiaoDAO = new TuyenKenhBanGiaoDAO(
-				daoFactory);
-		try {
-			String snew = request.getParameter("inew");
-			if (snew != null && snew.equals("1")) {
-				TuyenKenhBanGiaoDAO.xoaTienDo(id);
-				System.out.println("Xoa tien do"+snew);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		String query = request.getQueryString();
-		System.out.println(query);
-		String[] names = query.split("&");
-
-		for (int i = 0; i < names.length; i++) {
-			names[i] = names[i].substring(0, names[i].indexOf('='));
-			if (!names[i].equals("id") && !names[i].equals("inew") ) {
-				System.out.println(names[i]);
-
-				TuyenKenhBanGiaoDAO.capNhatTienDo(id, names[i],
-						account.get("username").toString());
-			}
-		}
+		
+		
+		
 
 		TieuChuanDAO tieuChuanDAO = new TieuChuanDAO(daoFactory);
 		this.listTieuChuan = tieuChuanDAO.getAll();
@@ -252,31 +235,36 @@ public class TienDoBanGiaoAction implements Preparable {
 				session.setAttribute("URL", VMSUtil.getFullURL(request));
 				return "login_page";
 			}
-			TuyenKenhBanGiaoDAO TuyenKenhBanGiaoDAO = new TuyenKenhBanGiaoDAO(
-					daoFactory);
-			if (tuyenKenh.getId().isEmpty()) { // add new tuyenkenh
-				TuyenkenhDao tuyenkenhDao = new TuyenkenhDao(daoFactory);
-				TuyenKenh tk = tuyenkenhDao.findByKey(tuyenKenh.getMadiemdau(),
-						tuyenKenh.getMadiemcuoi(), tuyenKenh.getGiaotiep_id());
-				if (tk != null) { // da ton tai tuyen kenh nay => update
-					tuyenKenh.setId(tk.getId());
+			try {
+				request = ServletActionContext.getRequest();
+				id = request.getParameter("id");
+				String snew = request.getParameter("inew");
+				TuyenKenhBanGiaoDAO TuyenKenhBanGiaoDAO = new TuyenKenhBanGiaoDAO(
+						daoFactory);
+				if (snew != null && snew.equals("1")) {
+					TuyenKenhBanGiaoDAO.xoaTienDo(id);
+					System.out.println("Xoa tien do"+snew);
 				}
+				
+				String query = request.getQueryString();
+				System.out.println(query);
+				String[] names = query.split("&");
+
+				for (int i = 0; i < names.length; i++) {
+					names[i] = names[i].substring(0, names[i].indexOf('='));
+					if (!names[i].equals("id") && !names[i].equals("inew") ) {
+						System.out.println(names[i]);
+
+						TuyenKenhBanGiaoDAO.capNhatTienDo(id, names[i],
+								account.get("username").toString());
+					}
+				}
+				setInputStream("OK");
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
-			int soluong_old = NumberUtil.parseInt(request
-					.getParameter("soluong_old"));
-			tuyenKenh.setUsercreate(account.get("username").toString());
-			tuyenKenh.setTimecreate(DateUtils.getCurrentDateSQL());
-			tuyenKenhDeXuatDTO.setNgaydenghibangiao(DateUtils
-					.parseStringDateSQL(
-							tuyenKenhDeXuatDTO.getNgaydenghibangiao(),
-							"dd/MM/yyyy"));
-			tuyenKenhDeXuatDTO.setNgayhenbangiao(DateUtils.parseStringDateSQL(
-					tuyenKenhDeXuatDTO.getNgayhenbangiao(), "dd/MM/yyyy"));
-			id = TuyenKenhBanGiaoDAO.save(tuyenKenh, tuyenKenhDeXuatDTO,
-					soluong_old);
-			if (id == null)
-				throw new Exception(Constances.MSG_ERROR);
-			setInputStream("OK");
+			
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			// session.setAttribute("message", e.getMessage());

@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -148,7 +149,7 @@ public class SuCoAction implements Preparable {
 			// validation
 			Long thoidiembatdau=DateUtils.parseDate(sucoDTO.getThoidiembatdau(), "dd/MM/yyyy HH:mm:ss").getTime();
 			Long thoidiemketthuc=DateUtils.parseDate(sucoDTO.getThoidiemketthuc(), "dd/MM/yyyy HH:mm:ss").getTime();
-			//Long ngayhientai=Calendar.getInstance().getTime().getTime();
+			Long ngayhientai=Calendar.getInstance().getTime().getTime();
 			if(thoidiembatdau>ngayhientai || thoidiemketthuc>ngayhientai)
 			{
 				setInputStream("ngayhientai");

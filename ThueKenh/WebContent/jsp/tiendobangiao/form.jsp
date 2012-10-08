@@ -58,7 +58,7 @@ var contextPath = '<%=contextPath%>';
 				
 
 					<tr height="30px">
-						<td align="center"><input id="btnSubmit" type="button" onclick=""
+						<td align="center"><input id="btnSubmit" type="button"
 							class="button" value="Lưu"></td>
 					</tr>
 				</tbody>
@@ -76,7 +76,7 @@ var contextPath = '<%=contextPath%>';
 			var tieuchuan=$(".listTieuChuan .tieuchuan");
 			for(i=0;i<tieuchuan.length;i++){
 				if($(tieuchuan[i]).find(".loaitieuchuan").val()==1)
-					$("<label>").html("(Bắt buộc)").appendTo($(tieuchuan[i]));
+					$("<label>").html("<span style='color:red' title='Bắt buộc'>(*)</span>").appendTo($(tieuchuan[i]));
 			}
 			//check vao nhung tieu chuan da dat dc
 			var tieuchuandatduoc=$(".tieuchuandatduoc");
@@ -91,79 +91,72 @@ var contextPath = '<%=contextPath%>';
 </body>
 </html>
 <script>
-	var LOGIN_PATH = "${loginURL}";
-	function message(msg, type) {
-		if (msg == '') {
-			$("#msg").html('');
-			return;
-		}
-		if (type == 1) {
-			$("#msg")
-					.html(
-							'<div class="ui-state-highlight ui-corner-all" style=" padding: 0pt 0.7em; text-align: left;"><p style="padding: 5px;"><span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span><strong>Success! </strong> '
-									+ msg + '</p></div>');
+var LOGIN_PATH = "${loginURL}";
+function message(msg, type) {
+	if (msg == '') {
+		$("#msg").html('');
+		return;
+	}
+	if (type == 1) {
+		$("#msg")
+				.html(
+						'<div class="ui-state-highlight ui-corner-all" style=" padding: 0pt 0.7em; text-align: left;"><p style="padding: 5px;"><span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span><strong>Success! </strong> '
+								+ msg + '</p></div>');
+	} else {
+		$("#msg")
+				.html(
+						'<div style="padding: 0pt 0.7em; text-align: left;" class="ui-state-error ui-corner-all"><p style="padding: 5px;"><span style="float: left; margin-right: .3em;" class="ui-icon ui-icon-alert"></span><strong>Error : </strong> '
+								+ msg + '</p></div>');
+	}
+}
+function loadContent(url) {
+	location.href = contextPath + url;
+}
+$(document).ready(function() {
+	$(document).delegate("#btnSubmit","click",function() {
+		var button = this;
+		button.disabled = true;
+		if (!$("#form").valid()) {
+			alert("Dữ liệu nhập chưa hợp lệ, vui lòng kiểm tra lại!");
+			button.disabled = false;
 		} else {
-			$("#msg")
-					.html(
-							'<div style="padding: 0pt 0.7em; text-align: left;" class="ui-state-error ui-corner-all"><p style="padding: 5px;"><span style="float: left; margin-right: .3em;" class="ui-icon ui-icon-alert"></span><strong>Error : </strong> '
-									+ msg + '</p></div>');
-		}
-	}
-	function loadContent(url) {
-		location.href = contextPath + url;
-	}
-	$(document)
-			.ready(
-					function() {
-						
-						
-						$(document).delegate(
-										"#btnSubmit",
-										"click",
-										function() {
-											var button = this;
-											button.disabled = true;
-											if (!$("#form").valid()) {
-												alert("Dữ liệu nhập chưa hợp lệ, vui lòng kiểm tra lại!");
-												button.disabled = false;
-											} else {
-												var dataString = $("#form").serialize();
-												//alert(dataString);
-												$.ajax({
-															url : "${doSaveURL}",
-															type : 'GET',
-															data : dataString,
-															success : function(
-																	response) {
-																button.disabled = false;
-																if (response == "EXIST") {
-																	message(
-																			"Đã tồn tại tuyến kênh này trong hệ thống!",
-																			0);
-																	return false;
-																}
-																if (response == "OK") {
-																	button.disabled = true;
-																	message(
-																			"Lưu thành công!",
-																			1);
-																	parent.reload = true;
-																	return;
-																}
-																message(
-																		"Lưu không thành công, vui lòng thử lại.",
-																		0);
-															},
-															error : function(
-																	response) {
-																button.disabled = false;
-																alert("Server is too busy, please try again!");
-															}
-														});
-											}
-											return false;
-										});
+			var dataString = $("#form").serialize();
+			//alert(dataString);
+			$.ajax({
+						url : "${doSaveURL}",
+						type : 'GET',
+						data : dataString,
+						success : function(
+								response) {
+							button.disabled = false;
+							if (response == "EXIST") {
+								message(
+										"Đã tồn tại tuyến kênh này trong hệ thống!",
+										0);
+								return false;
+							}
+							if (response == "OK") {
+								button.disabled = true;
+								message(
+										"Lưu thành công!",
+										1);
+								parent.reload = true;
+								return;
+							}
+							message(
+									"Lưu không thành công, vui lòng thử lại.",
+									0);
+						},
+						error : function(
+								response) {
+							button.disabled = false;
+							alert("Server is too busy, please try again!");
+						}
 					});
+		}
+		return false;
+	});
+});
 
 	
 </script>
