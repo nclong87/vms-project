@@ -35,7 +35,7 @@ public class BienBanVanHanhKenhAction implements Preparable {
 	private DaoFactory daoFactory;
 	private HttpServletRequest request;
 	private HttpSession session;
-	private Account account;
+	private Map<String,Object> account;
 	private InputStream inputStream;
 	
 	private String form_data;
@@ -107,13 +107,14 @@ public class BienBanVanHanhKenhAction implements Preparable {
 			System.out.println("ERROR :" + e.getMessage());
 		}
 	}
+	@SuppressWarnings("unchecked")
 	@Override
 	public void prepare() throws Exception {
 		// TODO Auto-generated method stub
 		System.out.println("BienBanVanHanhKenhAction");
 		request = ServletActionContext.getRequest();
 		session = request.getSession();
-		account = (Account) session.getAttribute(Constances.SESS_USERLOGIN);
+		account = (Map<String, Object>) session.getAttribute(Constances.SESS_USERLOGIN);
 	}
 	
 	public String execute() throws Exception {
@@ -159,7 +160,7 @@ public class BienBanVanHanhKenhAction implements Preparable {
 			}
 			BienBanVanHanhKenhDAO bienbanvhkDao=new BienBanVanHanhKenhDAO(daoFactory);
 			// save bien ban van hanh kenh
-			bienbanvhkDto.setUsercreate(account.getUsername());
+			bienbanvhkDto.setUsercreate(account.get("username").toString());
 			bienbanvhkDto.setTimecreate(DateUtils.getCurrentDateSQL());
 			if(bienbanvhkDto.getId().isEmpty())
 			{
