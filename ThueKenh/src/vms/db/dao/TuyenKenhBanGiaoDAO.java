@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.Map;
 import javax.sql.DataSource;
 import oracle.jdbc.OracleTypes;
+import oracle.sql.ARRAY;
+import oracle.sql.ArrayDescriptor;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -20,6 +22,7 @@ import com.opensymphony.xwork2.Action;
 import vms.db.dto.TieuChuanDTO;
 import vms.db.dto.TuyenKenh;
 import vms.db.dto.TuyenKenhDeXuatDTO;
+import vms.utils.DateUtils;
 import vms.web.models.FIND_TUYENKENHBANGIAO;
 
 public class TuyenKenhBanGiaoDAO {
@@ -129,25 +132,21 @@ public class TuyenKenhBanGiaoDAO {
 		String str = StringUtils.join(ids, ",");
 		this.jdbcTemplate.update("update TUYENKENHDEXUAT set DEXUAT_ID = ? where ID in ("+str+")", new Object[] {dexuat_id});
 	}
-	private static final String SQL_SAVE_TUYENKENHBANGIAO = "{ ? = call CAPNHATTIENDO(?,?,?) }";
-	public void capNhatTienDo(String tuyenkenh_tieuchuan_id, String tieuchuan_id,String username)  {
-		// TODO Auto-generated method stub
-		Connection connection;
-		try {
-			connection = this.jdbcDatasource.getConnection();
-			CallableStatement stmt = connection.prepareCall(SQL_SAVE_TUYENKENHBANGIAO);
-			stmt.registerOutParameter(1, OracleTypes.NUMBER);
-			stmt.setString(2,tuyenkenh_tieuchuan_id );
-			stmt.setString(3, tieuchuan_id);
-			stmt.setString(4, username);
-			stmt.execute();
-			stmt.close();
-			connection.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+	// static final String SQL_SAVE_TUYENKENHBANGIAO = "{ ? = call CAPNHATTIENDO(?,?,?) }";
+	private static final String SQL_PROC_UPDATE_TIEN_DO = "{ call PROC_UPDATE_TIEN_DO(?,?,?,?) }";
+	public void capNhatTienDo(String tuyenkenh_tieuchuan_id, String[] tieuchuan_id,String username) throws Exception  {
+		Connection connection = this.jdbcDatasource.getConnection();
+		System.out.println("***BEGIN saveAccountMenus***");
+		ArrayDescriptor descriptor = ArrayDescriptor.createDescriptor( "TABLE_VARCHAR", connection );
+		ARRAY array =new ARRAY( descriptor, connection, tieuchuan_id );
+		CallableStatement stmt = connection.prepareCall(SQL_PROC_UPDATE_TIEN_DO);
+		stmt.setString(1, tuyenkenh_tieuchuan_id);
+		stmt.setArray(2, array);
+		stmt.setString(3, username);
+		stmt.setString(4, DateUtils.getCurrentDateSQL());
+		stmt.execute();
+		stmt.close();
+		connection.close();
 	}
 
 	public void xoaTienDo(String id) {

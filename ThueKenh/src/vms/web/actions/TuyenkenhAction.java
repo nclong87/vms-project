@@ -3,7 +3,6 @@ package vms.web.actions;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,7 +29,6 @@ import vms.db.dto.TuyenKenh;
 import vms.utils.Constances;
 import vms.utils.DateUtils;
 import vms.utils.VMSUtil;
-import vms.web.models.FN_FIND_TUYENKENH;
 import vms.web.models.MessageStore;
 
 import com.opensymphony.xwork2.Action;
@@ -102,16 +100,13 @@ public class TuyenkenhAction implements Preparable {
 				}
 			}
 			TuyenkenhDao tuyenkenhDao = new TuyenkenhDao(daoFactory);
-			List<FN_FIND_TUYENKENH> lstTuyenkenh = tuyenkenhDao.findTuyenkenh(iDisplayStart, 
+			List<Map<String,Object>> items = tuyenkenhDao.findTuyenkenh(iDisplayStart, 
 					iDisplayLength + 1, conditions);
-			int iTotalRecords = lstTuyenkenh.size();
-			jsonData = new LinkedHashMap<String, Object>();
-			List<Map<String, String>> items = new ArrayList<Map<String, String>>();
-			for(int i=0;i<lstTuyenkenh.size() && i<iDisplayLength;i++) {
-				Map<String, String> map = lstTuyenkenh.get(i).getMap();
-				map.put("stt", String.valueOf(i+1));
-				items.add(map);
+			int iTotalRecords = items.size();
+			if(iTotalRecords > iDisplayLength) {
+				items.remove(iTotalRecords - 1);
 			}
+			jsonData = new LinkedHashMap<String, Object>();
 			jsonData.put("sEcho", Integer.parseInt(request.getParameter("sEcho")));
 			jsonData.put("iTotalRecords", iDisplayStart + iTotalRecords);
 			jsonData.put("iTotalDisplayRecords", iDisplayStart + iTotalRecords);

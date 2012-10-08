@@ -236,29 +236,13 @@ public class TienDoBanGiaoAction implements Preparable {
 				return "login_page";
 			}
 			try {
-				request = ServletActionContext.getRequest();
 				id = request.getParameter("id");
-				String snew = request.getParameter("inew");
 				TuyenKenhBanGiaoDAO TuyenKenhBanGiaoDAO = new TuyenKenhBanGiaoDAO(
 						daoFactory);
-				if (snew != null && snew.equals("1")) {
-					TuyenKenhBanGiaoDAO.xoaTienDo(id);
-					System.out.println("Xoa tien do"+snew);
+				if(ids == null) {
+					ids = new String[0];
 				}
-				
-				String query = request.getQueryString();
-				System.out.println(query);
-				String[] names = query.split("&");
-
-				for (int i = 0; i < names.length; i++) {
-					names[i] = names[i].substring(0, names[i].indexOf('='));
-					if (!names[i].equals("id") && !names[i].equals("inew") ) {
-						System.out.println(names[i]);
-
-						TuyenKenhBanGiaoDAO.capNhatTienDo(id, names[i],
-								account.get("username").toString());
-					}
-				}
+				TuyenKenhBanGiaoDAO.capNhatTienDo(id, ids,account.get("username").toString());
 				setInputStream("OK");
 			} catch (Exception e) {
 				e.printStackTrace();
