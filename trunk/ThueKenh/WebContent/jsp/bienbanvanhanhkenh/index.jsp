@@ -130,7 +130,10 @@ $(document).ready(function(){
 					{ "mDataProp": "timecreate","bSortable": false,"bSearchable": false,"sClass":'td_center'},
 					{ "mDataProp": null,"bSortable": false,"bSearchable": false,"sClass":'td_center',
 						"fnRender": function( oObj ) {
-							return '<a target="_blank" href="/upload/'+oObj.aData.filepath+'">'+oObj.aData.filename+'</a>';  
+							if(oObj.aData.filename!=null)
+								return '<a target="_blank" href="/upload/'+oObj.aData.filepath+'">'+oObj.aData.filename+'</a>';  
+							else
+								return '';
 						}
 					},
 					{ "mDataProp": null,"bSortable": false,"bSearchable": false,
