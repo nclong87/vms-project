@@ -3,8 +3,6 @@ package vms.web.actions;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,8 +13,6 @@ import javax.servlet.http.HttpSession;
 import org.apache.struts2.ServletActionContext;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.json.simple.JSONValue;
-
 import vms.db.dao.DaoFactory;
 import vms.db.dao.DuAnDAO;
 import vms.db.dao.KhuVucDao;
@@ -24,21 +20,15 @@ import vms.db.dao.LoaiGiaoTiepDao;
 import vms.db.dao.PhongBanDao;
 import vms.db.dao.TieuChuanDAO;
 import vms.db.dao.TuyenKenhBanGiaoDAO;
-import vms.db.dao.TuyenkenhDao;
-import vms.db.dto.Account;
 import vms.db.dto.DuAnDTO;
 import vms.db.dto.KhuVucDTO;
 import vms.db.dto.LoaiGiaoTiep;
-import vms.db.dto.PhongBan;
 import vms.db.dto.PhongBanDTO;
 import vms.db.dto.TieuChuanDTO;
 import vms.db.dto.TuyenKenh;
 import vms.db.dto.TuyenKenhDeXuatDTO;
 import vms.utils.Constances;
-import vms.utils.DateUtils;
-import vms.utils.NumberUtil;
 import vms.utils.VMSUtil;
-import vms.web.models.FIND_TUYENKENHBANGIAO;
 import vms.web.models.MessageStore;
 
 import com.opensymphony.xwork2.Action;
@@ -150,19 +140,16 @@ public class TienDoBanGiaoAction implements Preparable {
 			}
 			TuyenKenhBanGiaoDAO TuyenKenhBanGiaoDAO = new TuyenKenhBanGiaoDAO(
 					daoFactory);
-			List<FIND_TUYENKENHBANGIAO> list = TuyenKenhBanGiaoDAO.search(
-					iDisplayStart, iDisplayLength, conditions);
-			jsonData = new LinkedHashMap<String, Object>();
-			List<Map<String, String>> items = new ArrayList<Map<String, String>>();
-			for (int i = 0; i < list.size() && i < iDisplayLength; i++) {
-				Map<String, String> map = list.get(i).getMap();
-				map.put("stt", String.valueOf(i + 1));
-				items.add(map);
+			List<Map<String, Object>> items = TuyenKenhBanGiaoDAO.search(
+					iDisplayStart, iDisplayLength + 1, conditions);
+			int iTotalRecords = items.size();
+			if(iTotalRecords > iDisplayLength) {
+				items.remove(iTotalRecords - 1);
 			}
-			jsonData.put("sEcho",
-					Integer.parseInt(request.getParameter("sEcho")));
-			jsonData.put("iTotalRecords", list.size());
-			jsonData.put("iTotalDisplayRecords", list.size());
+			jsonData = new LinkedHashMap<String, Object>();
+			jsonData.put("sEcho",Integer.parseInt(request.getParameter("sEcho")));
+			jsonData.put("iTotalRecords", iDisplayStart + iTotalRecords);
+			jsonData.put("iTotalDisplayRecords", iDisplayStart + iTotalRecords);
 			jsonData.put("aaData", items);
 			return Action.SUCCESS;
 		} catch (Exception e) {
@@ -288,26 +275,6 @@ public class TienDoBanGiaoAction implements Preparable {
 		return Action.SUCCESS;
 	}
 
-	public String findByDexuat() {
-		jsonData = new LinkedHashMap<String, Object>();
-		try {
-			if (id != null) {
-				Map<String, String> conditions = new LinkedHashMap<String, String>();
-				conditions.put("dexuat_id", id);
-				TuyenKenhBanGiaoDAO TuyenKenhBanGiaoDAO = new TuyenKenhBanGiaoDAO(
-						daoFactory);
-				List<FIND_TUYENKENHBANGIAO> list = TuyenKenhBanGiaoDAO.search(
-						0, 1000, conditions);
-				jsonData.put("result", "OK");
-				jsonData.put("aaData", list);
-			}
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-			jsonData.put("result", "ERROR");
-		}
-		return Action.SUCCESS;
-	}
 
 	/* Getter and Setter */
 

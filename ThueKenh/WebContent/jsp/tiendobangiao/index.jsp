@@ -169,11 +169,11 @@ margin-left: 10px;
 					<th>Giao tiếp</th>
 					<th>Dung lượng</th>
 					<th>Số lượng</th>
-					<th>Dự án</th>
+					<th>Phòng nhận kênh</th>
+					<th>Khu vực</th>
 					<th width="120px">VB đề xuất</th>
 					<th width="80px">Tiến độ</th>
 					<th width="5px" align="center">Update</th>
-					<th width="5px" align="center"><input type="checkbox" onclick="selectAll(this)"/></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -286,16 +286,8 @@ $(document).ready(function(){
 					},
 					{ "mDataProp": "dungluong","bSortable": false,"bSearchable": false,"sClass":'td_center'},
 					{ "mDataProp": "soluong","bSortable": false,"bSearchable": false,"sClass":'td_center'},
-					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,"sClass":'td_center',
-						"fnRender": function( oObj ) {
-							if(oObj.aData.duan_id != null) {
-								return '<a target="_blank" href="${detailDuAnURL}?id='+oObj.aData.duan_id+'" title="Xem chi tiết dự án">'+oObj.aData.tenduan+'</a>'; 
-							} else {
-								return "";
-							}
-							
-						}
-					},
+					{ "mDataProp": "tenphongban","bSortable": false,"bSearchable": false,"sClass":'td_center'},
+					{ "mDataProp": "tenkhuvuc","bSortable": false,"bSearchable": false,"sClass":'td_center'},
 					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,"sClass":'td_center',
 						"fnRender": function( oObj ) {
 							if(oObj.aData.mavanbandexuat != null) {
@@ -306,15 +298,15 @@ $(document).ready(function(){
 							
 						}
 					},
-					{ "mDataProp": "tiendo","bSortable": false,"bSearchable": false},
-					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,
+					{ "mDataProp": null,"bSortable": false,"bSearchable": false,"sClass":'td_center',
 						"fnRender": function( oObj ) {
-							return '<center><span class="edit_icon" data-ref-id="'+oObj.aData.id+'" title="Update" href="#"></span></center>'; 
+							return oObj.aData.tiendo + "%";
+							
 						}
 					},
 					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,
 						"fnRender": function( oObj ) {
-							return '<center><input type="checkbox" value="'+oObj.aData.id+'"/></center>'; 
+							return '<center><span class="edit_icon" data-ref-id="'+oObj.aData.id+'" title="Update" href="#"></span></center>'; 
 						}
 					}
 				],
