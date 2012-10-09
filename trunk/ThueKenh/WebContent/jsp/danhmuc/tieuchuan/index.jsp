@@ -103,8 +103,6 @@
 						<th>Tên tiêu chuẩn</th>
 						<th>Loại tiêu chuẩn</th>
 						<th>Mô tả</th>
-						<th>Người tạo</th>
-						<th>Ngày tạo</th>
 						<th width="5px">Edit</th>
 						<th width="5px" align="center"><input type="checkbox"
 							onclick="selectAll(this)" /></th>
@@ -317,22 +315,19 @@
 														"bSearchable" : false
 													},
 													{
-														"mDataProp" : "LOAITIEUCHUAN",
+														"mDataProp" : null,
 														"bSortable" : false,
-														"bSearchable" : false
+														"bSearchable" : false,
+														"fnRender" : function(oObj) {
+															if(oObj.aData.LOAITIEUCHUAN == 1) {
+																return "Bắt buộc";
+															} else {
+																return "Không bắt buộc";
+															}
+														}
 													},
 													{
 														"mDataProp" : "MOTA",
-														"bSortable" : false,
-														"bSearchable" : false
-													},
-													{
-														"mDataProp" : "USERCREATE",
-														"bSortable" : false,
-														"bSearchable" : false
-													},
-													{
-														"mDataProp" : "TIMECREATE",
 														"bSortable" : false,
 														"bSearchable" : false
 													},

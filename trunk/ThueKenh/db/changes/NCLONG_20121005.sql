@@ -15,6 +15,38 @@ CREATE SEQUENCE SEQ_BANGIAO INCREMENT BY 1 START WITH 1 MAXVALUE 9999 MINVALUE 1
 ALTER TABLE TUYENKENHDEXUAT 
 ADD (TIENDO NUMBER DEFAULT 0 );
 
+drop table "THUEKENH"."HOCSINH"  ;
+drop table "THUEKENH"."FILESCAN" cascade constraints ;
+
+--------------------------------------------------------
+--  DDL for Procedure CLEAR_DATA
+--------------------------------------------------------
+set define off;
+
+  CREATE OR REPLACE PROCEDURE "THUEKENH"."CLEAR_DATA" AS 
+BEGIN
+  execute immediate 'truncate table "THUEKENH"."TUYENKENH" drop storage';
+  execute immediate 'truncate table "THUEKENH"."BANGIAO" drop storage';
+  execute immediate 'truncate table "THUEKENH"."BIENBANVANHANH" drop storage';
+  execute immediate 'truncate table "THUEKENH"."DEXUAT" drop storage';
+  execute immediate 'truncate table "THUEKENH"."SUCO_IMPORT" drop storage';
+  execute immediate 'truncate table "THUEKENH"."SUCOKENH" drop storage';
+  execute immediate 'truncate table "THUEKENH"."TUYENKENH_IMPORT" drop storage';
+  execute immediate 'truncate table "THUEKENH"."TUYENKENH_TIEUCHUAN" drop storage';
+  execute immediate 'truncate table "THUEKENH"."TUYENKENHDEXUAT" drop storage';
+  execute immediate 'truncate table "THUEKENH"."VANHANH_SUCOKENH" drop storage';
+  reset_seq('SEQ_BANGIAO');
+  reset_seq('SEQ_BIENBANVANHANH');
+  reset_seq('SEQ_DEXUAT');
+  reset_seq('SEQ_SUCO');
+  reset_seq('SEQ_SUCOIMPORT');
+  reset_seq('SEQ_TUYENKENH');
+  reset_seq('SEQ_TUYENKENH_IMPORT');
+  reset_seq('SEQ_TUYENKENHDEXUAT');
+END CLEAR_DATA;
+
+/
+
 --------------------------------------------------------
 --  DDL for Procedure PROC_IMPORT_TUYENKENH
 --------------------------------------------------------
@@ -337,6 +369,31 @@ end PROC_UPDATE_TIEN_DO;
 /
 
 --------------------------------------------------------
+--  DDL for Procedure RESET_SEQ
+--------------------------------------------------------
+set define off;
+
+  CREATE OR REPLACE PROCEDURE "THUEKENH"."RESET_SEQ" ( p_seq_name in varchar2 )
+is
+    l_val number;
+begin
+    execute immediate
+    'select ' || p_seq_name || '.nextval from dual' INTO l_val;
+
+    execute immediate
+    'alter sequence ' || p_seq_name || ' increment by -' || l_val || 
+                                                          ' minvalue 0';
+
+    execute immediate
+    'select ' || p_seq_name || '.nextval from dual' INTO l_val;
+
+    execute immediate
+    'alter sequence ' || p_seq_name || ' increment by 1 minvalue 0';
+end;
+
+/
+
+--------------------------------------------------------
 --  DDL for Procedure SAVE_SUCO_IMPORT
 --------------------------------------------------------
 set define off;
@@ -409,6 +466,7 @@ BEGIN
 END SAVE_TUYENKENH_IMPORT;
 
 /
+
 
 --------------------------------------------------------
 --  DDL for Function CAPNHATTIENDO
@@ -586,11 +644,13 @@ BEGIN
 		v_vcsqlwhere := v_vcsqlwhere ||' and t.NGAYHENBANGIAO = TO_DATE('''||ngayhenbangiao_||''',''DD-MM-RRRR'') ';
 	end if;
 	v_vcsql := 'select rownum as rn,dulieu.* from (
-              SELECT t.ID as ID,t0.ID as TUYENKENH_ID,MADIEMDAU,MADIEMCUOI,t1.LOAIGIAOTIEP,t0.giaotiep_id,t0.DUAN_ID,t0.DUNGLUONG,t.SOLUONG,dx.tenvanban as tenvanbandexuat,t2.tenduan,tiendo,dx.id as MAVANBANDEXUAT
+              SELECT t.ID as ID,t0.ID as TUYENKENH_ID,MADIEMDAU,MADIEMCUOI,t1.LOAIGIAOTIEP,t0.giaotiep_id,t0.DUAN_ID,t0.DUNGLUONG,t.SOLUONG,dx.tenvanban as tenvanbandexuat,t2.tenduan,tiendo,dx.id as MAVANBANDEXUAT,TENPHONGBAN,TENKHUVUC
               FROM TUYENKENHDEXUAT t 
               left join TUYENKENH t0 on t.TUYENKENH_ID = t0.ID 
               left join LOAIGIAOTIEP t1 on t0.GIAOTIEP_ID = t1.ID 
               left join DUAN t2 on t0.DUAN_ID = t2.ID 
+              left join PHONGBAN t3 on t0.PHONGBAN_ID = t3.ID
+              left join KHUVUC t4 on t0.KHUVUC_ID = t4.ID
               left join dexuat dx on dx.id=t.dexuat_id
               where  t.trangthai=0 and '|| v_vcsqlwhere || ' order by t0.ID desc) dulieu ';
 	v_vcsql := 'SELECT * FROM (' || v_vcsql || ') WHERE rn >= ' || iDisplayStart || ' and rn <= ' || (iDisplayStart+iDisplayLength);
@@ -1136,7 +1196,7 @@ BEGIN
 	if(id_ is not null and id_>0) then --update
 		update BANGIAO set SOBIENBAN = sobienban_,FILENAME = filename_,FILEPATH = filepath_,FILESIZE = filesize_ where ID = id_;
 		i := id_;
-    update TUYENKENHDEXUAT set BANGIAO_ID = null where BANGIAO_ID = id_;
+    update TUYENKENHDEXUAT set BANGIAO_ID = null,TRANGTHAI = 1 where BANGIAO_ID = id_;
 	else --insert
 		i:=SEQ_BANGIAO.nextval;
 		
@@ -1377,4 +1437,5 @@ BEGIN
 END SAVE_VMSGROUP;
 
 /
+
 

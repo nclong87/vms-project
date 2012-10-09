@@ -118,6 +118,6 @@ public class TuyenKenhDeXuatDAO {
 	}
 	public void updateBangiaoByIds(String[] ids,String bangiao_id) {
 		String str = StringUtils.join(ids, ",");
-		this.jdbcTemplate.update("update TUYENKENHDEXUAT set BANGIAO_ID = ? where ID in ("+str+")", new Object[] {bangiao_id});
+		this.jdbcTemplate.update("update TUYENKENHDEXUAT set BANGIAO_ID = ?, TRANGTHAI = 2 where ID in ("+str+")", new Object[] {bangiao_id});
 	}
 }

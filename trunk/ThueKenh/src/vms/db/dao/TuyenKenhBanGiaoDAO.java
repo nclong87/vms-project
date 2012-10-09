@@ -23,6 +23,7 @@ import vms.db.dto.TieuChuanDTO;
 import vms.db.dto.TuyenKenh;
 import vms.db.dto.TuyenKenhDeXuatDTO;
 import vms.utils.DateUtils;
+import vms.utils.VMSUtil;
 import vms.web.models.FIND_TUYENKENHBANGIAO;
 
 public class TuyenKenhBanGiaoDAO {
@@ -34,7 +35,7 @@ public class TuyenKenhBanGiaoDAO {
 	}
 	
 	private static final String SQL_FIND_TUYENKENHBANGIAO = "{ ? = call FIND_TUYENKENHBANGIAO(?,?,?,?,?,?,?,?,?,?,?,?,?) }";
-	public List<FIND_TUYENKENHBANGIAO> search(int iDisplayStart,int iDisplayLength,Map<String, String> conditions) throws SQLException {
+	public List<Map<String,Object>> search(int iDisplayStart,int iDisplayLength,Map<String, String> conditions) throws SQLException {
 		System.out.println("FIND_TUYENKENHBANGIAO ");
 		Connection connection = jdbcDatasource.getConnection();
 		CallableStatement stmt = connection.prepareCall(SQL_FIND_TUYENKENHBANGIAO);
@@ -55,9 +56,13 @@ public class TuyenKenhBanGiaoDAO {
 		//System.out.println(SQL_FIND_TUYENKENHBANGIAO);
 		stmt.execute();
 		ResultSet rs = (ResultSet) stmt.getObject(1);
-		List<FIND_TUYENKENHBANGIAO> result = new ArrayList<FIND_TUYENKENHBANGIAO>();
+		List<Map<String,Object>> result = new ArrayList<Map<String,Object>>();
+		int i = 1;
 		while(rs.next()) {
-			result.add(FIND_TUYENKENHBANGIAO.mapObject(rs));
+			Map<String,Object> map = VMSUtil.resultSetToMap(rs);
+			map.put("stt", i);
+			result.add(map);
+			i++;
 		}
 		stmt.close();
 		connection.close();
