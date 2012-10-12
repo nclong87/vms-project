@@ -66,6 +66,29 @@
 			</result>
 		</action>
 		<!-- kết thúc phòng ban -->
+		<!-- khai báo điểm đầu cuối -->
+		<action name="diemdaucuoi" class="diemdaucuoiAction" method="index">
+			<result name="success">/jsp/danhmuc/diemdaucuoi/index.jsp</result>
+		</action>
+		<action name="ajLoadDiemDauCuoi" class="diemdaucuoiAction" method="ajLoad">
+			<result name="success" type="json">
+				<param name="root">jsonData</param>
+			</result>
+		</action>
+		<action name="deleteDiemDauCuoi" class="diemdaucuoiAction" method="delete">
+			<result name="success" type="json">
+				<param name="root">jsonData</param>
+			</result>
+		</action>
+		<action name="editDiemDauCuoi" class="diemdaucuoiAction" method="edit">
+			<result name="success">/jsp/danhmuc/diemdaucuoi/form.jsp</result>
+		</action>
+		<action name="dosaveDiemDauCuoi" class="diemdaucuoiAction" method="dosave">
+			<result name="success" type="stream">
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+		<!-- kết thúc điểm đầu cuối -->
 		<!-- khai báo loại giao tiếp -->
 		<action name="loaigiaotiep" class="loaigiaotiepAction" method="index">
 			<result name="success">/jsp/danhmuc/loaigiaotiep/index.jsp</result>
