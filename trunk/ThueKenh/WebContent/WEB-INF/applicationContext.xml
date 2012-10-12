@@ -95,5 +95,8 @@
     <bean id="bangiaoAction" scope="prototype" class="vms.web.actions.BanGiaoAction">
         <constructor-arg ref="daoFactory" />
     </bean>
+    <bean id="diemdaucuoiAction" scope="prototype" class="vms.web.actions.DanhMucDiemDauCuoiAction">
+        <constructor-arg ref="daoFactory" />
+    </bean>
 </beans>
 
