@@ -32,7 +32,7 @@ public class TuyenkenhImportDAO {
 		this.jdbcDatasource = daoFactory.getJdbcDataSource();
 	}
 	
-	private static final String SQL_SAVE_TUYENKENH_IMPORT = "{ call SAVE_TUYENKENH_IMPORT(?,?,?,?,?,?,?,?,?,?) }";
+	private static final String SQL_SAVE_TUYENKENH_IMPORT = "{ call SAVE_TUYENKENH_IMPORT(?,?,?,?,?,?,?,?,?,?,?) }";
 	public void save(TuyenKenhImportDTO dto) throws Exception {
 		Connection connection = jdbcTemplate.getDataSource().getConnection();
 		CallableStatement stmt = connection.prepareCall(SQL_SAVE_TUYENKENH_IMPORT);
@@ -42,10 +42,11 @@ public class TuyenkenhImportDAO {
 		stmt.setString(4, dto.getGiaotiep_ma());
 		stmt.setString(5, dto.getDuan_ma());
 		stmt.setString(6, dto.getPhongban_ma());
-		stmt.setString(7, dto.getKhuvuc_ma());
+		stmt.setString(7, dto.getDoitac_ma());
 		stmt.setString(8, dto.getDungluong());
 		stmt.setString(9, dto.getSoluong());
-		stmt.setDate(10, DateUtils.convertToSQLDate(dto.getDateimport()) );
+		stmt.setString(10, dto.getTrangthai());
+		stmt.setDate(11, DateUtils.convertToSQLDate(dto.getDateimport()) );
 		stmt.execute();
 		stmt.close();
 		connection.close();

@@ -89,7 +89,8 @@ margin-left: 10px;
 					<th>Số lượng</th>
 					<th>Dự án</th>
 					<th width="120px">ĐV nhận kênh</th>
-					<th width="80px">Khu vực</th>
+					<th width="80px">Đối tác</th>
+					<th width="5px">Trạng thái</th>
 					<th width="80px">Trùng</th>
 					<th width="5px" align="center"><input type="checkbox" onclick="selectAll(this)"/></th>
 				</tr>
@@ -253,10 +254,15 @@ $(document).ready(function(){
 					//{ "mDataProp": "tenkhuvuc","bSortable": false,"bSearchable": false },
 					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,
 						"fnRender": function(response) {
-							if(response.aData.tenkhuvuc != '')
-								return response.aData.tenkhuvuc;
+							if(response.aData.tendoitac != '')
+								return response.aData.tendoitac;
 							else
-								return '<span title="Chưa có danh mục" class="warning">'+response.aData.khuvuc_ma+'</span>';
+								return '<span title="Chưa có danh mục" class="warning">'+response.aData.doitac_ma+'</span>';
+						}
+					},
+					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,
+						"fnRender": function( oObj ) {
+							return '<center>'+trangthai_utils.tuyenkenhDisplay(oObj.aData.trangthai)+'</center>'; 
 						}
 					},
 					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,

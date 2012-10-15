@@ -6,11 +6,12 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class DoiTacDTO {
-	protected String id = "";
-	protected String tendoitac = "";
-	protected Integer stt = 0;
-	protected Integer deleted = 0;
-	protected String ma = "";
+	private String id = "";
+	private String tendoitac = "";
+	private Integer stt = 0;
+	private Integer deleted = 0;
+	private String khuvuc_id = "";
+	private String ma = "";
 	
 	public String getId() {
 		return id;
@@ -51,6 +52,14 @@ public class DoiTacDTO {
 	public void setMa(String ma) {
 		this.ma = ma;
 	}
+	
+	public String getKhuvuc_id() {
+		return khuvuc_id;
+	}
+
+	public void setKhuvuc_id(String khuvuc_id) {
+		this.khuvuc_id = khuvuc_id;
+	}
 
 	public Map<String,String> getMap() {
 		Map<String, String> map = new LinkedHashMap<String, String>();
@@ -59,6 +68,7 @@ public class DoiTacDTO {
 		map.put("STT", this.stt.toString());
 		map.put("DELETED", this.deleted.toString());
 		map.put("MA", this.ma);
+		map.put("KHUVUC_ID", this.khuvuc_id);
 		return map;
 	}
 	
@@ -69,6 +79,7 @@ public class DoiTacDTO {
 		dto.setStt(rs.getInt("STT"));
 		dto.setDeleted(rs.getInt("DELETED"));
 		dto.setMa(rs.getString("MA"));
+		dto.setKhuvuc_id(rs.getString("KHUVUC_ID"));
         return dto;
 	}
 }

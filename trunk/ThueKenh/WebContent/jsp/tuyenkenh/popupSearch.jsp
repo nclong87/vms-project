@@ -82,13 +82,13 @@ margin-left: 10px;
 										</select>
 									</td>
 									<td align="right">
-										Khu vực :
+										Đối tác :
 									</td>
 									<td align="left">
-										<select name="khuvuc" id="khuvuc">
+										<select name="doitac" id="doitac">
 											<option value="">---Chọn---</option>
-											<s:iterator value="khuVucDTOs">
-												<option value='<s:property value="id" />'><s:property value="name" /></option>									
+											<s:iterator value="doiTacDTOs">
+												<option value='<s:property value="id" />'><s:property value="tendoitac" /></option>									
 											</s:iterator>
 										</select>
 									</td>
@@ -159,7 +159,7 @@ margin-left: 10px;
 				<th>Số lượng</th>
 				<th>Dự án</th>
 				<th width="120px">ĐV nhận kênh</th>
-				<th width="80px">Khu vực</th>
+				<th width="80px">Đối tác</th>
 				<th width="5px">Trạng thái</th>
 				<th width="5px" align="center"><input type="checkbox" onclick="selectAll(this)"/></th>
 			</tr>
@@ -227,7 +227,7 @@ $(document).ready(function(){
 					{ "mDataProp": "soluong","bSortable": false,"bSearchable": false,"sClass":'td_center'},
 					{ "mDataProp": "tenduan","bSortable": false,"bSearchable": false},
 					{ "mDataProp": "tenphongban","bSortable": false,"bSearchable": false},
-					{ "mDataProp": "tenkhuvuc","bSortable": false,"bSearchable": false},
+					{ "mDataProp": "tendoitac","bSortable": false,"bSearchable": false},
 					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,
 						"fnRender": function( oObj ) {
 							return '<center>'+trangthai_utils.tuyenkenhDisplay(oObj.aData.trangthai)+'</center>'; 

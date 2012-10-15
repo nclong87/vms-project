@@ -88,12 +88,12 @@ function byId(id) { //Viet tat cua ham document.getElementById
 						</s:iterator>
 					</select>
 				</td>
-				<td align="right"><label for="khuvuc_id">Khu vực : </label></td>
+				<td align="right"><label for="doitac_id">Đối tác : </label></td>
 				<td align="left">
-					<select id="khuvuc_id" name="tuyenKenh.khuvuc_id">
+					<select id="doitac_id" name="tuyenKenh.doitac_id">
 						<option value="">---Chọn---</option>
-						<s:iterator value="khuVucDTOs">
-							<option value='<s:property value="id" />'><s:property value="tenkhuvuc" /></option>									
+						<s:iterator value="doiTacDTOs">
+							<option value='<s:property value="id" />'><s:property value="tendoitac" /></option>									
 						</s:iterator>
 					</select>
 				</td>

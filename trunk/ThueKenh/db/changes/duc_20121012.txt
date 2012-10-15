@@ -1,5 +1,5 @@
 
-INSERT INTO "THUEKENH"."MENU" (ID, NAMEMENU, ACTION, ACTIVE, IDROOTMENU) VALUES ('26', '�i?m d?u, cu?i', '/danhmuc/diemdaucuoi.action', '1', '8')
+INSERT INTO "THUEKENH"."MENU" (ID, NAMEMENU, ACTION, ACTIVE, IDROOTMENU) VALUES ('26', 'Điểm đầu cuối', '/danhmuc/diemdaucuoi.action', '1', '8')
 
 INSERT INTO "THUEKENH"."USER_MENU" (ACCOUNTID, MENUID) VALUES ('0', '26')
 
