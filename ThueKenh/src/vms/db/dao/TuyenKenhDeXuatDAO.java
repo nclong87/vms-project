@@ -85,7 +85,7 @@ public class TuyenKenhDeXuatDAO {
 		stmt.setString(6, tuyenKenh.getGiaotiep_id());
 		stmt.setString(7, tuyenKenh.getDuan_id());
 		stmt.setString(8, tuyenKenh.getPhongban_id());
-		stmt.setString(9, tuyenKenh.getKhuvuc_id());
+		stmt.setString(9, tuyenKenh.getDoitac_id());
 		stmt.setString(10, String.valueOf(tuyenKenh.getDungluong()));
 		stmt.setString(11, tuyenKenhDeXuatDTO.getNgaydenghibangiao());
 		stmt.setString(12, tuyenKenhDeXuatDTO.getNgayhenbangiao());

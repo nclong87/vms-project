@@ -128,12 +128,14 @@ public class ImportAction implements Preparable {
 					dto.setDuan_ma(workBook.getText(i, index));
 				if( (index = map.get("PHONGBAN_MA")) != null)
 					dto.setPhongban_ma(workBook.getText(i, index));
-				if( (index = map.get("KHUVUC_MA")) != null)
-					dto.setKhuvuc_ma(workBook.getText(i, index));
+				if( (index = map.get("DOITAC_MA")) != null)
+					dto.setDoitac_ma(workBook.getText(i, index));
 				if( (index = map.get("DUNGLUONG")) != null)
 					dto.setDungluong(workBook.getText(i, index));
 				if( (index = map.get("SOLUONG")) != null)
 					dto.setSoluong(workBook.getText(i, index));
+				if( (index = map.get("TRANGTHAI")) != null)
+					dto.setTrangthai(workBook.getText(i, index));
 				dto.setDateimport(date);
 				if(	!dto.getMadiemdau().isEmpty() &&
 					!dto.getMadiemcuoi().isEmpty() &&

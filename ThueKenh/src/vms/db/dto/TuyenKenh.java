@@ -18,7 +18,7 @@ public class TuyenKenh {
 	private String giaotiep_id = "";
 	private String duan_id = "";
 	private String phongban_id = "";
-	private String khuvuc_id = "";
+	private String doitac_id = "";
 	private Integer dungluong = 0;
 	private Integer soluong = 0;
 	private Integer trangthai = 0;
@@ -99,17 +99,15 @@ public class TuyenKenh {
 	public void setPhongban_id(String phongban_id) {
 		this.phongban_id = phongban_id;
 	}
-
-
-
-	public String getKhuvuc_id() {
-		return khuvuc_id;
+	
+	public String getDoitac_id() {
+		return doitac_id;
 	}
 
 
 
-	public void setKhuvuc_id(String khuvuc_id) {
-		this.khuvuc_id = khuvuc_id;
+	public void setDoitac_id(String doitac_id) {
+		this.doitac_id = doitac_id;
 	}
 
 
@@ -170,12 +168,9 @@ public class TuyenKenh {
 		map.put("giaotiep_id", this.giaotiep_id);
 		map.put("duan_id", this.duan_id);
 		map.put("phongban_id", this.phongban_id);
-		map.put("khuvuc_id", this.khuvuc_id);
+		map.put("doitac_id", this.doitac_id);
 		map.put("dungluong", String.valueOf(this.dungluong));
 		map.put("soluong", String.valueOf(this.soluong));
-		//map.put("ngaydenghibangiao", this.ngaydenghibangiao);
-		//map.put("ngayhenbangiao", this.ngayhenbangiao);
-		//map.put("thongtinlienhe", this.thongtinlienhe);
 		map.put("trangthai", String.valueOf(this.trangthai));
 		map.put("usercreate", this.usercreate);
 		map.put("timecreate", this.timecreate);
@@ -191,12 +186,9 @@ public class TuyenKenh {
 		dto.setGiaotiep_id(rs.getString("GIAOTIEP_ID"));
 		dto.setDuan_id(rs.getString("DUAN_ID"));
 		dto.setPhongban_id(rs.getString("PHONGBAN_ID"));
-		dto.setKhuvuc_id(rs.getString("KHUVUC_ID"));
+		dto.setDoitac_id(rs.getString("DOITAC_ID"));
 		dto.setDungluong(rs.getInt("DUNGLUONG"));
 		dto.setSoluong(rs.getInt("SOLUONG"));
-		//dto.setNgaydenghibangiao(DateUtils.formatDate(rs.getDate("NGAYDENGHIBANGIAO"), DateUtils.SDF_DDMMYYYY));
-		//dto.setNgayhenbangiao(DateUtils.formatDate(rs.getDate("NGAYHENBANGIAO"), DateUtils.SDF_DDMMYYYY));
-		//dto.setThongtinlienhe(rs.getString("THONGTINLIENHE"));
 		dto.setTrangthai(rs.getInt("TRANGTHAI"));
 		dto.setUsercreate(rs.getString("USERCREATE"));
 		dto.setTimecreate(rs.getString("TIMECREATE"));

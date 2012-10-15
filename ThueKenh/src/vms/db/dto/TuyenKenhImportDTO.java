@@ -17,9 +17,10 @@ public class TuyenKenhImportDTO {
 	private String giaotiep_ma = "";
 	private String duan_ma = "";
 	private String phongban_ma = "";
-	private String khuvuc_ma = "";
+	private String doitac_ma = "";
 	private String dungluong = "";
 	private String soluong = "";
+	private String trangthai = "";
 	private Date dateimport = null;
 	
     public TuyenKenhImportDTO() {
@@ -73,13 +74,21 @@ public class TuyenKenhImportDTO {
 	public void setPhongban_ma(String phongban_ma) {
 		this.phongban_ma = phongban_ma;
 	}
-
-	public String getKhuvuc_ma() {
-		return khuvuc_ma;
+	
+	public String getDoitac_ma() {
+		return doitac_ma;
 	}
 
-	public void setKhuvuc_ma(String khuvuc_ma) {
-		this.khuvuc_ma = khuvuc_ma;
+	public void setDoitac_ma(String doitac_ma) {
+		this.doitac_ma = doitac_ma;
+	}
+
+	public String getTrangthai() {
+		return trangthai;
+	}
+
+	public void setTrangthai(String trangthai) {
+		this.trangthai = trangthai;
 	}
 
 	public String getDungluong() {

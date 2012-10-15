@@ -39,7 +39,7 @@ public class TuyenkenhDao {
 		stmt.setString(6, conditions.get("madiemdau"));
 		stmt.setString(7, conditions.get("madiemcuoi"));
 		stmt.setString(8, conditions.get("duan"));
-		stmt.setString(9, conditions.get("khuvuc"));
+		stmt.setString(9, conditions.get("doitac"));
 		stmt.setString(10, conditions.get("phongban"));
 		stmt.setString(11, conditions.get("ngaydenghibangiao"));
 		stmt.setString(12, conditions.get("ngayhenbangiao"));
@@ -107,7 +107,7 @@ public class TuyenkenhDao {
 		stmt.setString(5, dto.getGiaotiep_id());
 		stmt.setString(6, dto.getDuan_id());
 		stmt.setString(7, dto.getPhongban_id());
-		stmt.setString(8, dto.getKhuvuc_id());
+		stmt.setString(8, dto.getDoitac_id());
 		stmt.setString(9, dto.getDungluong().toString());
 		stmt.setString(10, dto.getSoluong().toString());
 		//stmt.setString(11, dto.getNgaydenghibangiao());
@@ -129,7 +129,7 @@ public class TuyenkenhDao {
 		this.jdbcTemplate.update("update TUYENKENH set DELETED = 1 where ID in ("+str+")");
 	}
 	
-	private static final String SQL_DETAIL_TUYENKENH = "select t.*,TENDUAN,TENKHUVUC,LOAIGIAOTIEP,TENPHONGBAN from TUYENKENH t left join LOAIGIAOTIEP t0 on t.GIAOTIEP_ID = t0.ID left join DUAN t1 on t.DUAN_ID = t1.ID left join PHONGBAN t2 on t.PHONGBAN_ID = t2.ID left join KHUVUC t3 on t.KHUVUC_ID = t3.ID where t.ID = ?";
+	private static final String SQL_DETAIL_TUYENKENH = "select t.*,TENDUAN,TENDOITAC,LOAIGIAOTIEP,TENPHONGBAN from TUYENKENH t left join LOAIGIAOTIEP t0 on t.GIAOTIEP_ID = t0.ID left join DUAN t1 on t.DUAN_ID = t1.ID left join PHONGBAN t2 on t.PHONGBAN_ID = t2.ID left join DOITAC t3 on t.DOITAC_ID = t3.ID where t.ID = ?";
 	@SuppressWarnings("unchecked")
 	public Map<String,Object> getDetail(String id) {
 		List<Map<String,Object>> list =  this.jdbcTemplate.query(SQL_DETAIL_TUYENKENH ,new Object[] {id}, new RowMapper() {
