@@ -14,6 +14,7 @@ public class SuCoImportDTO {
 	private Integer stt = 0;
 	private String madiemdau = "";
 	private String madiemcuoi = "";
+	private String dungluong="";
 	private String magiaotiep = "";
 	private String thoidiembatdau = "";
 	private String thoidiemketthuc = "";
@@ -100,6 +101,14 @@ public class SuCoImportDTO {
 
 	public void setThoidiemketthuc(String thoidiemketthuc) {
 		this.thoidiemketthuc = thoidiemketthuc;
+	}
+
+	public String getDungluong() {
+		return dungluong;
+	}
+
+	public void setDungluong(String dungluong) {
+		this.dungluong = dungluong;
 	}
 
 	public String getNguyennhan() {

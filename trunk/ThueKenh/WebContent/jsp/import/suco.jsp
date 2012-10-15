@@ -85,6 +85,7 @@ margin-left: 10px;
 					<th>Tuyến kênh ID</th>
 					<th>Mã điểm đầu</th>
 					<th>Mã điểm cuối</th>
+					<th>Dung lượng</th>
 					<th>Giao tiếp</th>
 					<th>Thời điểm bắt đầu</th>
 					<th>Thời điểm kết thúc</th>
@@ -229,6 +230,7 @@ $(document).ready(function(){
 					},
 					{ "mDataProp": "madiemdau","bSortable": false,"bSearchable": false },
 					{ "mDataProp": "madiemcuoi","bSortable": false,"bSearchable": false },
+					{ "mDataProp": "dungluong","bSortable": false,"bSearchable": false },
 					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,
 						"fnRender": function(response) {
 							if(response.aData.loaigiaotiep != '')

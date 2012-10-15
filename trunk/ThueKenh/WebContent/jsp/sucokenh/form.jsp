@@ -43,7 +43,15 @@ function byId(id) { //Viet tat cua ham document.getElementById
 				</tr>
 				<tr>
 					<td align="right">Tuyến kênh :</td>
-					<td colspan="3"><input type="text" style="width:181px" name="sucoDTO.tuyenkenh_id" id="tuyenkenh_id"></input><input type="button" id="btPopupSearchTuyenkenh" value="..."/></select><font title="Bắt buộc nhập" color="red">*</font></td>
+					<td align="left"><input type="text" style="width:181px" name="sucoDTO.tuyenkenh_id" id="tuyenkenh_id"></input><input type="button" id="btPopupSearchTuyenkenh" value="..."/></select><font title="Bắt buộc nhập" color="red">*</font></td>
+					<td align="right">Loại sự cố :</td>
+					<td align="left">
+						<select name="sucoDTO.loaisuco" id="loaisuco" style="width: 215px">
+							<option value="0">Sự cố bình thường</option>
+							<option value="1">Sự cố lớn</option>
+						</select>
+						<font title="Bắt buộc nhập" color="red">*</font>
+					</td>
 				</tr>
 				<tr>
 					<td align="right">Thời điểm bắt đầu :</td>

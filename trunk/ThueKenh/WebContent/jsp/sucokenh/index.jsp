@@ -7,6 +7,8 @@
 <s:url action="delete" namespace="/sucokenh" id="deleteURL"/>
 <s:url action="detail" namespace="/sucokenh" id="detailURL"/>
 <s:url action="suco" namespace="/import" id="importSuCoURL"/>
+<s:url action="detail" namespace="/tuyenkenh" id="tuyenkenhdetailURL"/>
+<s:url action="detailLoaiGiaoTiep" namespace="/danhmuc" id="detailGiaoTiepURL"/>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -77,6 +79,13 @@
 	
 										</tr>
 										<tr>
+											<td align="right">Loại sự cố :</td>
+											<td>
+												<select name="loaisuco" id="loaisuco" style="width:220px">
+													<option value="0">Sự cố bình thường</option>
+													<option value="1">Sự cố lớn</option>
+												</select>
+											</td>
 											<td align="right">Người xác nhận :</td>
 											<td><input type="text"
 												name="nguoixacnhan" id="nguoixacnhan" style="width: 218px"/></td>
@@ -119,8 +128,8 @@
 						<th width="50px">Thời gian mất liên lạc</th>
 						<th width="50px">Nguyên nhân</th>
 						<th width="50px">Phương án xử lý</th>
+						<th width="50px">Loại sự cố</th>
 						<th width="50px">Người xác nhận</th>
-						<th width="50px">Người tạo</th>
 						<th width="50px">Chi tiết</th>
 						<th width="5px">Sửa</th>
 						<th width="5px" align="center"><input type="checkbox" onclick="selectAll(this)"/></th>
@@ -179,10 +188,18 @@ $(document).ready(function(){
 		"sAjaxSource": "${ajLoadSuCo}",
 		"aoColumns": [
 					{ "mDataProp": "stt","bSortable": false,"bSearchable": false,"sClass":'td_center' },
-					{ "mDataProp": "tuyenkenh_id","bSortable": false,"bSearchable": false,"sClass":'td_center'},
+					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,"sClass":'td_center',
+						"fnRender": function( oObj ) {
+							return '<a target="_blank" href="${tuyenkenhdetailURL}?id='+oObj.aData.tuyenkenh_id+'" title="Xem chi tiết tuyến kênh">'+oObj.aData.tuyenkenh_id+'</a>'; 
+						}
+					},
 					{ "mDataProp": "madiemdau","bSortable": false,"bSearchable": false,"sClass":'td_center'},
 					{ "mDataProp": "madiemcuoi","bSortable": false,"bSearchable": false},
-					{ "mDataProp": "loaigiaotiep","bSortable": false,"bSearchable": false,"sClass":'td_center'},
+					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,"sClass":'td_center',
+						"fnRender": function( oObj ) {
+							return '<a target="_blank" href="${detailGiaoTiepURL}?id='+oObj.aData.giaotiep_id+'" title="Xem chi tiết loại giao tiếp">'+oObj.aData.loaigiaotiep+'</a>'; 
+						}
+					},
 					{ "mDataProp": "dungluong","bSortable": false,"bSearchable": false,"sClass":'td_center'},
 					{ "mDataProp": "soluong","bSortable": false,"bSearchable": false},
 					{ "mDataProp": "thoidiembatdau","bSortable": false,"bSearchable": false},
@@ -190,8 +207,15 @@ $(document).ready(function(){
 					{ "mDataProp": "thoigianmll","bSortable": false,"bSearchable": false},
 					{ "mDataProp": "nguyennhan","bSortable": false,"bSearchable": false},
 					{ "mDataProp": "phuonganxuly","bSortable": false,"bSearchable": false},
+					{ "mDataProp": null,"bSortable": false,"bSearchable": false,"sClass":'td_center',
+						"fnRender": function( oObj ) {
+							if(oObj.aData.loaisuco==0)
+								return "<span>Sự cố bình thường</span>";
+							else
+								return "<span style='color:red'>Sự cố lớn</span>";
+						}
+					},
 					{ "mDataProp": "nguoixacnhan","bSortable": false,"bSearchable": false},
-					{ "mDataProp": "usercreate","bSortable": false,"bSearchable": false},
 					{ "mDataProp": null,"bSortable": false,"bSearchable": false,"sClass":'td_center',
 						"fnRender": function( oObj ) {
 							return '<a target="_blank" href="${detailURL}?id='+oObj.aData.id+'" title="Xem chi tiết sự cố"><div class="detail"></div></a>';  

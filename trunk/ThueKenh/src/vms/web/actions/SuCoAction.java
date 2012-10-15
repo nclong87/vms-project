@@ -149,11 +149,14 @@ public class SuCoAction implements Preparable {
 			// validation
 			Long thoidiembatdau=DateUtils.parseDate(sucoDTO.getThoidiembatdau(), "dd/MM/yyyy HH:mm:ss").getTime();
 			Long thoidiemketthuc=DateUtils.parseDate(sucoDTO.getThoidiemketthuc(), "dd/MM/yyyy HH:mm:ss").getTime();
-			Long ngayhientai=Calendar.getInstance().getTime().getTime();
-			if(thoidiembatdau>ngayhientai || thoidiemketthuc>ngayhientai)
+			if( sucoDTO.getId().isEmpty())
 			{
-				setInputStream("ngayhientai");
-				return Action.SUCCESS;
+				Long ngayhientai=Calendar.getInstance().getTime().getTime();
+				if(thoidiembatdau>ngayhientai || thoidiemketthuc>ngayhientai)
+				{
+					setInputStream("ngayhientai");
+					return Action.SUCCESS;
+				}
 			}
 			if(thoidiembatdau>thoidiemketthuc) // thoi diem bat dau lon hon thoi diem ket thuc
 			{
