@@ -15,8 +15,10 @@ import vms.utils.DateUtils;
 public class FN_FIND_SUCO {
 	private String suco_id;
 	private String tuyenkenh_id;
+	private String loaisuco;
 	private String madiemdau;
 	private String madiemcuoi;
+	private String giaotiep_id;
 	private String loaigiaotiep;
 	private String dungluong;
 	private String soluong;
@@ -33,8 +35,6 @@ public class FN_FIND_SUCO {
 	private String filesize;
 	private String bienbanvanhanh_id;
 	
-	
-
 	public String getSuco_id() {
 		return suco_id;
 	}
@@ -186,13 +186,31 @@ public class FN_FIND_SUCO {
 	public void setBienbanvanhanh_id(String bienbanvanhanh_id) {
 		this.bienbanvanhanh_id = bienbanvanhanh_id;
 	}
+	
+	public String getLoaisuco() {
+		return loaisuco;
+	}
+
+	public void setLoaisuco(String loaisuco) {
+		this.loaisuco = loaisuco;
+	}
+
+	public String getGiaotiep_id() {
+		return giaotiep_id;
+	}
+
+	public void setGiaotiep_id(String giaotiep_id) {
+		this.giaotiep_id = giaotiep_id;
+	}
 
 	public Map<String,String> getMap() {
 		Map<String, String> map = new LinkedHashMap<String, String>();
 		map.put("id", this.suco_id);
 		map.put("tuyenkenh_id", this.tuyenkenh_id);
+		map.put("loaisuco", this.loaisuco);
 		map.put("madiemdau", this.madiemdau);
 		map.put("madiemcuoi", this.madiemcuoi);
+		map.put("giaotiep_id", this.giaotiep_id);
 		map.put("loaigiaotiep", this.loaigiaotiep);
 		map.put("dungluong", this.dungluong);
 		map.put("soluong", this.soluong);
@@ -215,8 +233,10 @@ public class FN_FIND_SUCO {
 		FN_FIND_SUCO dto = new FN_FIND_SUCO();
 		dto.setSuco_id(rs.getString("suco_id"));
 		dto.setTuyenkenh_id(rs.getString("tuyenkenh_id"));
+		dto.setLoaisuco(rs.getString("loaisuco"));
 		dto.setMadiemdau(rs.getString("madiemdau"));
 		dto.setMadiemcuoi(rs.getString("madiemcuoi"));
+		dto.setGiaotiep_id(rs.getString("giaotiep_id"));
 		dto.setLoaigiaotiep(rs.getString("loaigiaotiep"));
 		dto.setDungluong(rs.getString("dungluong"));
 		dto.setSoluong(rs.getString("soluong"));

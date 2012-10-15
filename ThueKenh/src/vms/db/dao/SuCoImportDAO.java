@@ -31,27 +31,28 @@ public class SuCoImportDAO {
 		this.jdbcDatasource = daoFactory.getJdbcDataSource();
 	}
 	
-	private static final String SQL_SAVE_SUCO_IMPORT = "{ call SAVE_SUCO_IMPORT(?,?,?,?,?,?,?,?,?,?,?,?,?) }";
+	private static final String SQL_SAVE_SUCO_IMPORT = "{ call SAVE_SUCO_IMPORT(?,?,?,?,?,?,?,?,?,?,?,?,?,?) }";
 	public void save(SuCoImportDTO dto) throws Exception {
 		Connection connection = jdbcTemplate.getDataSource().getConnection();
 		CallableStatement stmt = connection.prepareCall(SQL_SAVE_SUCO_IMPORT);
 		stmt.setInt(1, dto.getStt());
 		stmt.setString(2, dto.getMadiemdau());
 		stmt.setString(3, dto.getMadiemcuoi());
-		stmt.setString(4, dto.getMagiaotiep());
+		stmt.setString(4, dto.getDungluong());
+		stmt.setString(5, dto.getMagiaotiep());
 		long thoidiembatdau = DateUtils.parseDate(dto.getThoidiembatdau(), "dd/MM/yyyy HH:mm:ss").getTime();
 		long thoidiemketthuc = DateUtils.parseDate(dto.getThoidiemketthuc(), "dd/MM/yyyy HH:mm:ss").getTime();
 		long thoigianmatll=(thoidiemketthuc-thoidiembatdau)/(60*1000);
 		
-		stmt.setLong(5, thoidiembatdau);
-		stmt.setLong(6, thoidiemketthuc);
-		stmt.setString(7, dto.getNguyennhan());
-		stmt.setString(8, dto.getPhuonganxuly());
-		stmt.setString(9, dto.getNguoixacnhan());
-		stmt.setString(10,dto.getTuyenkenh_id());
-		stmt.setString(11,dto.getPhuluc_id());
-		stmt.setString(12,String.valueOf(thoigianmatll));
-		stmt.setString(13,dto.getGiamtrumll());
+		stmt.setLong(6, thoidiembatdau);
+		stmt.setLong(7, thoidiemketthuc);
+		stmt.setString(8, dto.getNguyennhan());
+		stmt.setString(9, dto.getPhuonganxuly());
+		stmt.setString(10, dto.getNguoixacnhan());
+		stmt.setString(11,dto.getTuyenkenh_id());
+		stmt.setString(12,dto.getPhuluc_id());
+		stmt.setString(13,String.valueOf(thoigianmatll));
+		stmt.setString(14,dto.getGiamtrumll());
 		stmt.execute();
 		stmt.close();
 		connection.close();

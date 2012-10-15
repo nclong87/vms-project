@@ -63,7 +63,7 @@
 				</div>
 			</div>
 			<div style="clear: both; margin: 5px 0">
-				<input type="button" class="button" value="Thêm biên bản vận hành kênh" onclick="ShowWindow('Thêm biên bản vận hành kênh',1000,600,'${formURL}',false);"></input>
+				<input type="button" class="button" value="Thêm biên bản vận hành kênh" onclick="ShowWindow('Thêm biên bản vận hành kênh',1000,600,'${formURL}',true);"></input>
 				<input class="button" type="button" id="btXoa" value="Xóa" style="float: right; margin-right: 10px;"/>
 			</div>
 			<table width="100%" id="dataTable" class="display">
@@ -161,7 +161,7 @@ $(document).ready(function(){
 	// edit
 	$("span.edit_icon").live("click",function(){
 		var id = $(this).attr("data-ref-id");
-		ShowWindow('Cập nhật thông tin biên bản vận hành kênh',1000,600,"${formURL}?id="+id,false);
+		ShowWindow('Cập nhật thông tin biên bản vận hành kênh',1000,600,"${formURL}?id="+id,true);
 	});
 	
 	// delete

@@ -12,6 +12,7 @@ public class SuCoDTO {
 	//attribute
 	private String id="";
 	private String tuyenkenh_id="";
+	private String loaisuco="";
 	private String phuluc_id="";
 	private String thanhtoan_id="";
 	private String thoidiembatdau="";
@@ -183,11 +184,20 @@ public class SuCoDTO {
 	public void setBienbanvanhanh_id(String bienbanvanhanh_id) {
 		this.bienbanvanhanh_id = bienbanvanhanh_id;
 	}
+	
+	public String getLoaisuco() {
+		return loaisuco;
+	}
+
+	public void setLoaisuco(String loaisuco) {
+		this.loaisuco = loaisuco;
+	}
 
 	public Map<String,String> getMap() {
 		Map<String, String> map = new LinkedHashMap<String, String>();
 		map.put("id", this.id);
 		map.put("tuyenkenh_id",this.tuyenkenh_id);
+		map.put("loaisuco", this.loaisuco);
 		map.put("phuluc_id",this.phuluc_id);
 		map.put("thanhtoan_id",this.thanhtoan_id);
 		map.put("thoidiembatdau",this.thoidiembatdau);
@@ -212,6 +222,7 @@ public class SuCoDTO {
 		SuCoDTO dto = new SuCoDTO();
 		dto.setId(rs.getString("ID"));
 		dto.setTuyenkenh_id(rs.getString("TUYENKENH_ID"));
+		dto.setLoaisuco(rs.getString("LOAISUCO"));
 		dto.setThanhtoan_id(rs.getString("THANHTOAN_ID"));
 		dto.setThoidiembatdau( DateUtils.formatDate(new Date(rs.getLong("THOIDIEMBATDAU")), DateUtils.SDF_DDMMYYYYHHMMSS2));
 		dto.setThoidiemketthuc( DateUtils.formatDate(new Date(rs.getLong("THOIDIEMKETTHUC")), DateUtils.SDF_DDMMYYYYHHMMSS2));

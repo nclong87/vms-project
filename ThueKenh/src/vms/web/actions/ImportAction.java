@@ -238,6 +238,8 @@ public class ImportAction implements Preparable {
 					dto.setMadiemdau(workBook.getText(i, index));
 				if( (index = map.get("MADIEMCUOI")) != null)
 					dto.setMadiemcuoi(workBook.getText(i, index));
+				if( (index = map.get("DUNGLUONG")) != null)
+					dto.setDungluong(workBook.getText(i, index));
 				if( (index = map.get("MAGIAOTIEP")) != null)
 					dto.setMagiaotiep(workBook.getText(i, index));
 				if( (index = map.get("THOIDIEMBATDAU")) != null)
