@@ -217,7 +217,7 @@ $(document).ready(function(){
 					{ "mDataProp": "stt","bSortable": false,"bSearchable": false },
 					{ "mDataProp": "duan_id","bSortable": false,"bSearchable": false,"sClass":'td_hidden'},
 					{ "mDataProp": "phongban_id","bSortable": false,"bSearchable": false,"sClass":'td_hidden'},
-					{ "mDataProp": "khuvuc_id","bSortable": false,"bSearchable": false,"sClass":'td_hidden'},
+					{ "mDataProp": "doitac_id","bSortable": false,"bSearchable": false,"sClass":'td_hidden'},
 					{ "mDataProp": "giaotiep_id","bSortable": false,"bSearchable": false,"sClass":'td_hidden'},
 					{ "mDataProp": "id","bSortable": false,"bSearchable": false,"sClass":'td_center'},
 					{ "mDataProp": "madiemdau","bSortable": false,"bSearchable": false,"sClass":'td_center'},

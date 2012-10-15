@@ -41,6 +41,7 @@ function byId(id) { //Viet tat cua ham document.getElementById
 <body>
 	<form id="form" onsubmit="return false;">
 	<input type="text" style="display:none" name="deXuatDTO.id" id="id" />
+	<input type="text" style="display:none" name="deXuatDTO.doitac_id" id="doitac_id" />
 	<div style="background: none repeat scroll 0pt 0pt rgb(242, 242, 242); padding: 5px; width: 99%;">
 		<table class="input" style="width:725px">
 			<tr>
@@ -68,23 +69,11 @@ function byId(id) { //Viet tat cua ham document.getElementById
 			</tr>
 			<tr>
 				<td align="right">
-					Đối tác <font title="Bắt buộc nhập" color="red">*</font> :
-				</td>
-				<td align="left">
-					<select name="deXuatDTO.doitac_id" id="doitac_id">
-						<s:iterator value="doiTacDTOs">
-							<option value='<s:property value="id" />'><s:property value="tendoitac" /></option>									
-						</s:iterator>
-					</select>
-				</td>
-				<td align="right">
 					Ngày gửi :
 				</td>
 				<td align="left">
 					<input type="text" name="deXuatDTO.ngaygui" id="ngaygui" class="date">
 				</td>
-			</tr>
-			<tr>
 				<td align="right">
 					Ngày đề nghị bàn giao :
 				</td>
@@ -110,6 +99,7 @@ function byId(id) { //Viet tat cua ham document.getElementById
 					<th>Số lượng</th>
 					<th>Ngày đề nghị BG</th>
 					<th>Ngày hẹn BG</th>
+					<th>Đối tác</th>
 					<th width="5px" align="center">Xóa</th>
 				</tr>
 			</thead>
@@ -147,7 +137,7 @@ function doRemoveRow(this_){
 }
 function addRow(stt,data) {
 	oTable.fnAddData([
-		stt,data.tuyenkenh_id,data.madiemdau,data.madiemcuoi,data.loaigiaotiep,data.dungluong,data.soluong,data.ngaydenghibangiao,data.ngayhenbangiao,'<center><input type="text" style="display:none" name="dexuat_ids" value="'+data.id+'" id="dexuat_id_'+data.id+'"/><img title="Remove" src="'+baseUrl+'/images/icons/remove.png" onclick="doRemoveRow(this)" style="cursor:pointer"></center>'
+		stt,data.tuyenkenh_id,data.madiemdau,data.madiemcuoi,data.loaigiaotiep,data.dungluong,data.soluong,data.ngaydenghibangiao,data.ngayhenbangiao,'<center><input type="text" style="display:none" value="'+data.doitac_id+'" id="doitac_id"/>'+data.tendoitac+'</center>','<center><input type="text" style="display:none" name="dexuat_ids" value="'+data.id+'" id="dexuat_id_'+data.id+'"/><img title="Remove" src="'+baseUrl+'/images/icons/remove.png" onclick="doRemoveRow(this)" style="cursor:pointer"></center>'
 	]);
 }
 $(document).ready(function() {
@@ -251,11 +241,24 @@ $(document).ready(function() {
 	}
 	$(document).delegate("#btSubmit","click",function() {
 		var button = this;
-		button.disabled = true;
 		if (!$("#form").valid()) {
 			alert("Dữ liệu nhập chưa hợp lệ, vui lòng kiểm tra lại!");
 			button.disabled = false;
 		} else {
+			var doitac_id = '';
+			var flag = false;
+			$("#dataTable input#doitac_id").each(function(){
+				if(doitac_id != '' && doitac_id != this.value) {
+					flag = true;
+				}
+				doitac_id = this.value;
+			});
+			if(flag == true)  {
+				alert('Vui lòng chỉ chọn tuyến kênh đề xuất của 1 đối tác!');
+				return false;
+			}
+			button.disabled = true;
+			$("form #doitac_id").val(doitac_id);
 			var dataString = $("#form").serialize();
 				$.ajax({
 				url: "${doSaveURL}",
