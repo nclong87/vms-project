@@ -68,8 +68,8 @@ public class DeXuatAction implements Preparable {
 			session.setAttribute("URL", VMSUtil.getFullURL(request));
 			return "login_page";
 		}
-		DoiTacDAO doiTacDAO = new DoiTacDAO(daoFactory);
-		doiTacDTOs = doiTacDAO.findAll();
+		//DoiTacDAO doiTacDAO = new DoiTacDAO(daoFactory);
+		//doiTacDTOs = doiTacDAO.findAll();
 		return Action.SUCCESS;
 	}
 	

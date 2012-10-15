@@ -40,7 +40,7 @@ public class TuyenKenhDeXuatDAO {
 		stmt.setString(6, conditions.get("madiemdau"));
 		stmt.setString(7, conditions.get("madiemcuoi"));
 		stmt.setString(8, conditions.get("duan"));
-		stmt.setString(9, conditions.get("khuvuc"));
+		stmt.setString(9, conditions.get("doitac"));
 		stmt.setString(10, conditions.get("phongban"));
 		stmt.setString(11, conditions.get("ngaydenghibangiao"));
 		stmt.setString(12, conditions.get("ngayhenbangiao"));

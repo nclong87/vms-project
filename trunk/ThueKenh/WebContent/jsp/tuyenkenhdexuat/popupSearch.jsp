@@ -127,6 +127,7 @@ margin-left: 10px;
 				<tr>
 					<th width="5%">#</th>
 					<th></th>
+					<th></th>
 					<th>Mã kênh</th>
 					<th>Mã điểm đầu</th>
 					<th>Mã điểm cuối</th>
@@ -136,6 +137,7 @@ margin-left: 10px;
 					<th width="120px">ĐV nhận kênh</th>
 					<th>Ngày đề nghị BG</th>
 					<th>Ngày hẹn BG</th>
+					<th>Đối tác</th>
 					<th width="5px">Trạng thái</th>
 					<th width="5px" align="center"><input type="checkbox" onclick="selectAll(this)"/></th>
 				</tr>
@@ -205,6 +207,7 @@ $(document).ready(function(){
 		"aoColumns": [
 					{ "mDataProp": "stt","bSortable": false,"bSearchable": false },
 					{ "mDataProp": "id","bSortable": false,"bSearchable": false,"sClass":'td_hidden'},
+					{ "mDataProp": "doitac_id","bSortable": false,"bSearchable": false,"sClass":'td_hidden'},
 					{ "mDataProp": "tuyenkenh_id","bSortable": false,"bSearchable": false,"sClass":'td_center'},
 					{ "mDataProp": "madiemdau","bSortable": false,"bSearchable": false,"sClass":'td_center'},
 					{ "mDataProp": "madiemcuoi","bSortable": false,"bSearchable": false,"sClass":'td_center'},
@@ -214,6 +217,7 @@ $(document).ready(function(){
 					{ "mDataProp": "tenphongban","bSortable": false,"bSearchable": false},
 					{ "mDataProp": "ngaydenghibangiao","bSortable": false,"bSearchable": false},
 					{ "mDataProp": "ngayhenbangiao","bSortable": false,"bSearchable": false},
+					{ "mDataProp": "tendoitac","bSortable": false,"bSearchable": false},
 					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,
 						"fnRender": function( oObj ) {
 							return '<center>'+trangthai_utils.tuyenkenhdexuatDisplay(oObj.aData.trangthai)+'</center>'; 

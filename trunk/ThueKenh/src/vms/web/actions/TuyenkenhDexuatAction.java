@@ -17,12 +17,14 @@ import org.json.JSONObject;
 import org.json.simple.JSONValue;
 
 import vms.db.dao.DaoFactory;
+import vms.db.dao.DoiTacDAO;
 import vms.db.dao.DuAnDAO;
 import vms.db.dao.KhuVucDao;
 import vms.db.dao.LoaiGiaoTiepDao;
 import vms.db.dao.PhongBanDao;
 import vms.db.dao.TuyenKenhDeXuatDAO;
 import vms.db.dao.TuyenkenhDao;
+import vms.db.dto.DoiTacDTO;
 import vms.db.dto.DuAnDTO;
 import vms.db.dto.KhuVucDTO;
 import vms.db.dto.LoaiGiaoTiep;
@@ -52,7 +54,7 @@ public class TuyenkenhDexuatAction implements Preparable {
 	
 	private List<LoaiGiaoTiep> loaiGiaoTieps;
 	private List<DuAnDTO> duAnDTOs;
-	private List<KhuVucDTO> khuVucDTOs;
+	private List<DoiTacDTO> doiTacDTOs;
 	private List<PhongBanDTO> phongBans;
 	private String id;
 	private String[] ids;
@@ -78,8 +80,8 @@ public class TuyenkenhDexuatAction implements Preparable {
 		loaiGiaoTieps = loaiGiaoTiepDao.getAll();
 		DuAnDAO duAnDAO = new DuAnDAO(daoFactory);
 		duAnDTOs = duAnDAO.findAll();
-		KhuVucDao khuVucDao = new KhuVucDao(daoFactory);
-		khuVucDTOs = khuVucDao.findAll();
+		DoiTacDAO doiTacDAO = new DoiTacDAO(daoFactory);
+		doiTacDTOs = doiTacDAO.findAll();
 		PhongBanDao phongBanDao = new PhongBanDao(daoFactory);
 		phongBans = phongBanDao.getAll();
 		return Action.SUCCESS;
@@ -131,8 +133,8 @@ public class TuyenkenhDexuatAction implements Preparable {
 			loaiGiaoTieps = loaiGiaoTiepDao.getAll();
 			DuAnDAO duAnDAO = new DuAnDAO(daoFactory);
 			duAnDTOs = duAnDAO.findAll();
-			KhuVucDao khuVucDao = new KhuVucDao(daoFactory);
-			khuVucDTOs = khuVucDao.findAll();
+			DoiTacDAO doiTacDAO = new DoiTacDAO(daoFactory);
+			doiTacDTOs = doiTacDAO.findAll();
 			PhongBanDao phongBanDao = new PhongBanDao(daoFactory);
 			phongBans = phongBanDao.getAll();
 			tuyenKenh_data = "";
@@ -209,8 +211,8 @@ public class TuyenkenhDexuatAction implements Preparable {
 		loaiGiaoTieps = loaiGiaoTiepDao.getAll();
 		DuAnDAO duAnDAO = new DuAnDAO(daoFactory);
 		duAnDTOs = duAnDAO.findAll();
-		KhuVucDao khuVucDao = new KhuVucDao(daoFactory);
-		khuVucDTOs = khuVucDao.findAll();
+		DoiTacDAO doiTacDAO = new DoiTacDAO(daoFactory);
+		doiTacDTOs = doiTacDAO.findAll();
 		PhongBanDao phongBanDao = new PhongBanDao(daoFactory);
 		phongBans = phongBanDao.getAll();
 		json_data = "";
@@ -329,13 +331,14 @@ public class TuyenkenhDexuatAction implements Preparable {
 	public void setDuAnDTOs(List<DuAnDTO> duAnDTOs) {
 		this.duAnDTOs = duAnDTOs;
 	}
-	public List<KhuVucDTO> getKhuVucDTOs() {
-		return khuVucDTOs;
-	}
-	public void setKhuVucDTOs(List<KhuVucDTO> khuVucDTOs) {
-		this.khuVucDTOs = khuVucDTOs;
-	}
 	
+	
+	public List<DoiTacDTO> getDoiTacDTOs() {
+		return doiTacDTOs;
+	}
+	public void setDoiTacDTOs(List<DoiTacDTO> doiTacDTOs) {
+		this.doiTacDTOs = doiTacDTOs;
+	}
 	public List<PhongBanDTO> getPhongBans() {
 		return phongBans;
 	}
