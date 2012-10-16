@@ -3,6 +3,7 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <s:url action="index" namespace="/login" var="loginURL" />
 <s:url action="doSave" namespace="/tuyenkenh" id="doSaveURL" />
+<s:url action="findMaTram" namespace="/ajax" id="findMaTramURL" />
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <%
 	String contextPath = request.getContextPath();
@@ -23,6 +24,7 @@ function byId(id) { //Viet tat cua ham document.getElementById
 }
 </script>
 <style>
+
 </style>
 </head>
 <body>
@@ -211,6 +213,34 @@ $(document).ready(function() {
 			});
 		}
 		return false;
+	});
+	
+	$( "#madiemdau,#madiemcuoi" ).autocomplete({
+		delay: 1000,
+		source: function( request, response ) {
+			$.ajax({
+				url: "${findMaTramURL}",
+				data: {
+					matram: request.term
+				},
+				success: function( data ) {
+					response( $.map( data.data, function( item ) {
+						return {
+							label: item.matram,
+							value: item.matram
+						}
+					}));
+				}
+			});
+		},
+		minLength: 2,
+		select: function( event, ui ) {
+			$(".ui-menu-item").hide();
+		},
+		open: function() {
+		},
+		close: function() {
+		}
 	});
 });
 
