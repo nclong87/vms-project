@@ -254,6 +254,15 @@ public class ImportAction implements Preparable {
 					dto.setPhuonganxuly(workBook.getText(i, index));
 				if( (index = map.get("NGUOIXACNHAN")) != null)
 					dto.setNguoixacnhan(workBook.getText(i, index));
+				if( (index = map.get("LOAISUCO")) != null)
+				{
+					String loaisuco=workBook.getText(i, index).trim();
+					System.out.println("loaisuco:"+loaisuco);
+					if(loaisuco.compareTo("BT")==0)
+						dto.setLoaisuco("0");
+					else if (loaisuco.compareTo("L")==0)
+						dto.setLoaisuco("1");
+				}
 				if((tuyenKenh = tuyenkenhDao.findByKey2(dto.getMadiemdau(), dto.getMadiemcuoi(), dto.getMagiaotiep())) != null) {
 					dto.setTuyenkenh_id(tuyenKenh.getId());
 				}

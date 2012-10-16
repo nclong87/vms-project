@@ -169,7 +169,7 @@ public class SuCoAction implements Preparable {
 			{
 				setInputStream("TuyenKenhNotExist");
 				return Action.SUCCESS;
-			}
+			}    
 			SuCoDAO sucoDao=new SuCoDAO(daoFactory);
 			long thoigianmatll=(thoidiemketthuc-thoidiembatdau)/(60*1000);
 			sucoDTO.setThoidiembatdau(thoidiembatdau.toString());

@@ -26,8 +26,18 @@ public class SuCoImportDTO {
 	private String thoigianmll="";
 	private String giamtrumll="";
 	private String nguoixacnhan = "";
+	private String loaisuco="";
 	
-    public String getPhuluc_id() {
+	
+    public String getLoaisuco() {
+		return loaisuco;
+	}
+
+	public void setLoaisuco(String loaisuco) {
+		this.loaisuco = loaisuco;
+	}
+
+	public String getPhuluc_id() {
 		return phuluc_id;
 	}
 
