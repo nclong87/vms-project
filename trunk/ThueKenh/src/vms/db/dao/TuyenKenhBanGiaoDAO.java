@@ -34,9 +34,9 @@ public class TuyenKenhBanGiaoDAO {
 		this.jdbcDatasource = daoFactory.getJdbcDataSource();
 	}
 	
-	private static final String SQL_FIND_TUYENKENHBANGIAO = "{ ? = call FIND_TUYENKENHBANGIAO(?,?,?,?,?,?,?,?,?,?,?,?,?) }";
+	private static final String SQL_FIND_TUYENKENHBANGIAO = "{ ? = call FIND_TUYENKENHBANGIAO(?,?,?,?,?,?,?,?,?,?,?,?,?,?) }";
 	public List<Map<String,Object>> search(int iDisplayStart,int iDisplayLength,Map<String, String> conditions) throws SQLException {
-		System.out.println("FIND_TUYENKENHBANGIAO ");
+		System.out.println("FIND_TUYENKENHBANGIAO tt="+conditions.get("iTrangThai"));
 		Connection connection = jdbcDatasource.getConnection();
 		CallableStatement stmt = connection.prepareCall(SQL_FIND_TUYENKENHBANGIAO);
 		stmt.registerOutParameter(1, OracleTypes.CURSOR);
@@ -53,6 +53,8 @@ public class TuyenKenhBanGiaoDAO {
 		stmt.setString(12, conditions.get("khuvuc_id"));
 		stmt.setString(13, conditions.get("phongban_id"));
 		stmt.setString(14, conditions.get("isAllow"));
+		String strTemp=conditions.get("iTrangThai");
+		stmt.setString(15,strTemp==null?"0":strTemp);
 		//System.out.println(SQL_FIND_TUYENKENHBANGIAO);
 		stmt.execute();
 		ResultSet rs = (ResultSet) stmt.getObject(1);
@@ -95,7 +97,7 @@ public class TuyenKenhBanGiaoDAO {
 	}
 	
 	private static final String SQL_SAVE_TUYENKENHDEXUAT = "{ ? = call SAVE_TUYENKENHDEXUAT(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) }";
-	public String save(TuyenKenh tuyenKenh,TuyenKenhDeXuatDTO tuyenKenhDeXuatDTO,int soluong_old) throws Exception {
+	/*public String save(TuyenKenh tuyenKenh,TuyenKenhDeXuatDTO tuyenKenhDeXuatDTO,int soluong_old) throws Exception {
 		Connection connection = this.jdbcDatasource.getConnection();
 		CallableStatement stmt = connection.prepareCall(SQL_SAVE_TUYENKENHDEXUAT);
 		stmt.registerOutParameter(1, OracleTypes.VARCHAR);
@@ -120,7 +122,7 @@ public class TuyenKenhBanGiaoDAO {
 		stmt.close();
 		connection.close();
 		return rs;
-	}
+	}*/
 	
 	public void deleteByIds(String[] ids) {
 		for(int i=0;i<ids.length;i++) {
