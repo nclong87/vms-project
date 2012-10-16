@@ -4,8 +4,6 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,13 +12,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.struts2.ServletActionContext;
-import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
+import org.json.simple.JSONValue;
 
 import vms.db.dao.DaoFactory;
 import vms.db.dao.DoiTacDAO;
+import vms.db.dao.KhuVucDao;
 import vms.db.dto.DoiTacDTO;
+import vms.db.dto.KhuVucDTO;
 import vms.utils.Constances;
 import vms.utils.VMSUtil;
 
@@ -56,6 +55,12 @@ public class DanhMucDoiTacAction implements Preparable {
 	private Map<String,Object> account;
 
 	private InputStream inputStream;
+	
+	private List<KhuVucDTO> khuVucDTOs;
+	
+	private String form_data;
+	
+	private String id;
 	
 	public InputStream getInputStream() {
 		return inputStream;
@@ -121,38 +126,26 @@ public class DanhMucDoiTacAction implements Preparable {
 	}
 
 	public String edit() throws SQLException {
-		String id = "";
 
-		// edit page post
-		if (this.opEdit != null) {
-			// edit
-			System.out.println("edit mode id=" + this.opEdit.getId());
-			if (!this.opEdit.getId().isEmpty()) {
-				if (this.DoiTacDAO.update(this.opEdit.getId(), this.opEdit)) {
-					this.flag = "1";// updated
-					
-				} else
-					this.flag = "-1";// failure
-			} else {
-				// new
-				this.DoiTacDAO.insert(this.opEdit);
+		try {
+			if(account == null) {
+				session.setAttribute("URL", VMSUtil.getFullURL(request));
+				return "login_page";
 			}
-			System.out.println("result=" + flag);
-
-		} else {
-			// get page
-			try {
-				this.request = ServletActionContext.getRequest();
-				id =request.getParameter("id");
-				System.out.println("load edit id=" + id);
-				this.opEdit =  this.DoiTacDAO.get(id);
-				System.out.println("finish load edit");
-			} catch (Exception e) {
-				// TODO: handle exception
-				System.out.println(e.getMessage());
+			KhuVucDao khuVucDao = new KhuVucDao(factory);
+			khuVucDTOs = khuVucDao.findAll();
+			form_data = "";
+			if(id != null && id.isEmpty()==false) {
+				System.out.println("id=" + id);
+				DoiTacDAO doiTacDAO = new DoiTacDAO(factory);
+				opEdit = doiTacDAO.get(id);
+				Map<String,String> map = opEdit.getMap();
+				form_data = JSONValue.toJSONString(map);
 			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Action.ERROR;
 		}
-
 		return Action.SUCCESS;
 	}
 	
@@ -193,8 +186,8 @@ public class DanhMucDoiTacAction implements Preparable {
 		this.request = ServletActionContext.getRequest();
 		// DoiTacDAO DoiTacDAO = new DoiTacDAO(factory);
 		
-		
-		List<DoiTacDTO> lstkhuvuc = null;
+		/*
+		List<Map<String, Object>> lstkhuvuc = null;
 		String strSearch=this.request.getParameter("sSearch");
 		if(strSearch.isEmpty() == false) {
 			JSONArray arrayJson = (JSONArray) new JSONObject(strSearch).get("array");
@@ -203,21 +196,20 @@ public class DanhMucDoiTacAction implements Preparable {
 				lstkhuvuc = DoiTacDAO.search(name);
 				System.out.println("strSearch="+strSearch);
 			
-		}else
-			lstkhuvuc = DoiTacDAO.get();
+		}*/
 		
 		jsonData = new LinkedHashMap<String, Object>();
-		List<HashMap<String, Object>> items = new ArrayList<HashMap<String, Object>>();
-		for (int i = 0; i < lstkhuvuc.size(); i++) {
+		List<Map<String, Object>> items = DoiTacDAO.search("");
+		/*for (int i = 0; i < lstkhuvuc.size(); i++) {
 			HashMap<String, Object> map = new HashMap<String, Object>();
 			DoiTacDTO pb = lstkhuvuc.get(i);
 			map.putAll(pb.getMap());
 			items.add(map);
-		}
+		}*/
 		// jsonData.put("sEcho",
 		// Integer.parseInt(request.getParameter("sEcho")));
-		jsonData.put("iTotalRecords", lstkhuvuc.size());
-		jsonData.put("iTotalDisplayRecords", lstkhuvuc.size());
+		jsonData.put("iTotalRecords", items.size());
+		jsonData.put("iTotalDisplayRecords", items.size());
 		jsonData.put("aaData", items);
 
 		return Action.SUCCESS;
@@ -238,4 +230,29 @@ public class DanhMucDoiTacAction implements Preparable {
 	public void setFactory(DaoFactory factory) {
 		this.factory = factory;
 	}
+
+	public List<KhuVucDTO> getKhuVucDTOs() {
+		return khuVucDTOs;
+	}
+
+	public void setKhuVucDTOs(List<KhuVucDTO> khuVucDTOs) {
+		this.khuVucDTOs = khuVucDTOs;
+	}
+
+	public String getForm_data() {
+		return form_data;
+	}
+
+	public void setForm_data(String form_data) {
+		this.form_data = form_data;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+	
 }

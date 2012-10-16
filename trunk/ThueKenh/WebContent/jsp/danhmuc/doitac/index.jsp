@@ -100,6 +100,7 @@
 						<th width="5%">ID</th>
 						<th width="10%">Mã</th>
 						<th>Tên đối tác</th>
+						<th>Khu vực</th>
 						<th width="5px">Edit</th>
 						<th width="5px" align="center"><input type="checkbox"
 							onclick="selectAll(this)" /></th>
@@ -224,25 +225,30 @@
 											"sAjaxSource" : "${ajLoadData}",
 											"aoColumns" : [
 													{
-														"mDataProp" : "STT",
+														"mDataProp" : "stt",
 														"bSortable" : false,
 														"bSearchable" : false,
 														"sClass" : 'td_center'
 													},
 													{
-														"mDataProp" : "ID",
+														"mDataProp" : "id",
 														"bSortable" : false,
 														"bSearchable" : false,
 														"sClass" : 'td_center'
 													},
 													{
-														"mDataProp" : "MA",
+														"mDataProp" : "ma",
 														"bSortable" : false,
 														"bSearchable" : false,
 														"sClass" : 'td_center'
 													},
 													{
-														"mDataProp" : "TENDOITAC",
+														"mDataProp" : "tendoitac",
+														"bSortable" : false,
+														"bSearchable" : false
+													},
+													{
+														"mDataProp" : "tenkhuvuc",
 														"bSortable" : false,
 														"bSearchable" : false
 													},
@@ -253,7 +259,7 @@
 														"fnRender" : function(
 																oObj) {
 															return '<center><a class="edit_icon" onclick="doEdit(\'${formURL}?id='
-																	+ oObj.aData.ID
+																	+ oObj.aData.id
 																	+ '\')" title="Edit" href="#"></a></center>';
 														}
 													},
@@ -263,7 +269,7 @@
 														"bSearchable" : false,
 														"fnRender" : function(
 																oObj) {
-															return '<center><input type="checkbox" value="'+oObj.aData.ID+'"/></center>';
+															return '<center><input type="checkbox" value="'+oObj.aData.id+'"/></center>';
 														}
 													} ],
 											"fnServerData" : function(sSource,

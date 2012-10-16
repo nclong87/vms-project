@@ -63,12 +63,12 @@ public class DoiTacDTO {
 
 	public Map<String,String> getMap() {
 		Map<String, String> map = new LinkedHashMap<String, String>();
-		map.put("ID", this.id);
-		map.put("TENDOITAC", this.tendoitac);
-		map.put("STT", this.stt.toString());
-		map.put("DELETED", this.deleted.toString());
-		map.put("MA", this.ma);
-		map.put("KHUVUC_ID", this.khuvuc_id);
+		map.put("id", this.id);
+		map.put("tendoitac", this.tendoitac);
+		map.put("stt", this.stt.toString());
+		map.put("deleted", this.deleted.toString());
+		map.put("ma", this.ma);
+		map.put("khuvuc_id", this.khuvuc_id);
 		return map;
 	}
 	
