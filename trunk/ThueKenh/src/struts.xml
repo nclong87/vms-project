@@ -244,6 +244,29 @@
 			<result>/jsp/danhmuc/tieuchuan/detail.jsp</result>
 		</action>
 		<!-- kết thúc tiêu chuẩn -->
+		<!-- khai báo tram -->
+		<action name="tram" class="tramAction">
+			<result name="success">/jsp/danhmuc/tram/index.jsp</result>
+		</action>
+		<action name="ajLoadTram" class="tramAction" method="ajLoad">
+			<result name="success" type="json">
+				<param name="root">jsonData</param>
+			</result>
+		</action>
+		<action name="deleteTram" class="tramAction" method="delete">
+			<result name="success" type="json">
+				<param name="root">jsonData</param>
+			</result>
+		</action>
+		<action name="formTram" class="tramAction" method="form">
+			<result name="success">/jsp/danhmuc/tram/form.jsp</result>
+		</action>
+		<action name="doSaveTram" class="tramAction" method="doSave">
+			<result name="success" type="stream">
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+		<!-- kết thúc tram -->
 	</package>
 	<package name="login" extends="default" namespace="/login">
 		<action name="index" class="loginAction">
@@ -298,6 +321,11 @@
 			</result>
 		</action>
 		<action name="getMenusByAccount" class="ajaxAction" method="getMenusByAccount">
+			<result name="success" type="json">
+				<param name="root">jsonData</param>
+			</result>
+		</action>
+		<action name="findMaTram" class="ajaxAction" method="findMaTram">
 			<result name="success" type="json">
 				<param name="root">jsonData</param>
 			</result>

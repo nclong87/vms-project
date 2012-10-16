@@ -17,6 +17,7 @@ import org.apache.struts2.ServletActionContext;
 import vms.db.dao.AccountDao;
 import vms.db.dao.DaoFactory;
 import vms.db.dao.MenuDao;
+import vms.db.dao.TramDAO;
 import vms.db.dao.VmsgroupDao;
 import vms.db.dto.Account;
 import vms.db.dto.Menu;
@@ -135,6 +136,23 @@ public class AjaxAction implements Preparable {
 			for(int i =0 ;i<list.size(); i++) {
 				result.add(list.get(i).getMap());
 			}
+			jsonData.put("status", 1);
+			jsonData.put("data", result);
+		} catch (Exception e) {
+			jsonData.put("status", 0);
+			jsonData.put("data", e.getMessage());
+		}
+		return Action.SUCCESS;
+	}
+	
+	public String findMaTram() {
+		jsonData =  new LinkedHashMap<String, Object>();
+		try {
+			TramDAO tramDAO = new TramDAO(daoFactory);
+			String matram = request.getParameter("matram");
+			Map<String, String> conditions = new LinkedHashMap<String, String>();
+			conditions.put("matram", matram);
+			List<Map<String, Object>> result = tramDAO.search(0, 10, conditions);
 			jsonData.put("status", 1);
 			jsonData.put("data", result);
 		} catch (Exception e) {

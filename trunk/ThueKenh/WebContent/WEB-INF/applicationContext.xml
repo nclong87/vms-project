@@ -98,5 +98,8 @@
     <bean id="diemdaucuoiAction" scope="prototype" class="vms.web.actions.DanhMucDiemDauCuoiAction">
         <constructor-arg ref="daoFactory" />
     </bean>
+	<bean id="tramAction" scope="prototype" class="vms.web.actions.TramAction">
+        <constructor-arg ref="daoFactory" />
+    </bean>
 </beans>
 
