@@ -31,7 +31,7 @@ public class SuCoImportDAO {
 		this.jdbcDatasource = daoFactory.getJdbcDataSource();
 	}
 	
-	private static final String SQL_SAVE_SUCO_IMPORT = "{ call SAVE_SUCO_IMPORT(?,?,?,?,?,?,?,?,?,?,?,?,?,?) }";
+	private static final String SQL_SAVE_SUCO_IMPORT = "{ call SAVE_SUCO_IMPORT(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) }";
 	public void save(SuCoImportDTO dto) throws Exception {
 		Connection connection = jdbcTemplate.getDataSource().getConnection();
 		CallableStatement stmt = connection.prepareCall(SQL_SAVE_SUCO_IMPORT);
@@ -53,6 +53,8 @@ public class SuCoImportDAO {
 		stmt.setString(12,dto.getPhuluc_id());
 		stmt.setString(13,String.valueOf(thoigianmatll));
 		stmt.setString(14,dto.getGiamtrumll());
+		System.out.println("dto.getLoaisuco()"+dto.getLoaisuco());
+		stmt.setString(15,dto.getLoaisuco());
 		stmt.execute();
 		stmt.close();
 		connection.close();

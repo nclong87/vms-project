@@ -92,6 +92,7 @@ margin-left: 10px;
 					<th>Nguyên nhân</th>
 					<th width="120px">Phương án xử lý</th>
 					<th width="80px">Người xác nhận</th>
+					<th width="100px">Loại sự cố</th>
 					<th width="5px" align="center"><input type="checkbox" onclick="selectAll(this)"/></th>
 				</tr>
 			</thead>
@@ -244,6 +245,14 @@ $(document).ready(function(){
 					{ "mDataProp": "nguyennhan","bSortable": false,"bSearchable": false,"sClass":'td_center' },
 					{ "mDataProp": "phuonganxuly","bSortable": false,"bSearchable": false,"sClass":'td_center' },
 					{ "mDataProp": "nguoixacnhan","bSortable": false,"bSearchable": false,"sClass":'td_center' },
+					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,"sClass":'td_center' 
+						"fnRender": function( oObj ) {
+							if(oObj.aData.loaisuco == '0') 
+								return 'Sự cố bình thường'; 
+							else 
+								return 'Sự cố lớn';
+						}
+					},
 					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,
 						"fnRender": function( oObj ) {
 							if(oObj.aData.tuyenkenh_id == '') 
