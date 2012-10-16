@@ -26,8 +26,7 @@
 <script type="text/javascript"
 	src="<%=contextPath%>/js/mylibs/my.validate.js"></script>
 <script>
-var contextPath = '<%=contextPath%>
-	';
+var contextPath = '<%=contextPath%>';
 	var baseUrl = contextPath;
 	function byId(id) { //Viet tat cua ham document.getElementById
 		return document.getElementById(id);
@@ -38,7 +37,7 @@ var contextPath = '<%=contextPath%>
 </head>
 <body>
 	<form id="form" onsubmit="return false;">
-		<input type="text" style="display: none" name="opEdit.id" id="id" value="<s:property value="opEdit.id" />" />
+		<input type="text" style="display: none" name="opEdit.id" id="id" value="" />
 		<div
 			style="background: none repeat scroll 0pt 0pt rgb(242, 242, 242); padding: 5px; width: 99%;">
 			<table class="input" style="width: 725px">
@@ -48,11 +47,11 @@ var contextPath = '<%=contextPath%>
 				<tr>
 					<td align="right" width="160px"><label for="ma">Mã : </label></td>
 					<td align="left"><input type="text" name="opEdit.ma" id="ma"
-						value="<s:property value="opEdit.ma" />" /></td>
+						value="" /></td>
 					<td align="right" width="150px"><label for="stt">STT :
 					</label></td>
 					<td align="left"><input type="text" id="stt" name="opEdit.stt"
-						value="<s:property value="opEdit.stt" />" /></td>
+						value="" /></td>
 				</tr>
 				<tr>
 					<td align="right"><label for="tendoitac">Tên đối tác
@@ -60,8 +59,16 @@ var contextPath = '<%=contextPath%>
 					</label></td>
 					<td align="left"><input type="text" id="tendoitac"
 						name="opEdit.tendoitac"
-						value="<s:property value="opEdit.tendoitac" />" /></td>
-
+						value="" /></td>
+					<td align="right"><label for="khuvuc_id">Khu vực : </label></td>
+					<td align="left">
+						<select id="khuvuc_id" name="opEdit.khuvuc_id">
+							<option value="">---Chọn---</option>
+							<s:iterator value="khuVucDTOs">
+								<option value='<s:property value="id" />'><s:property value="tenkhuvuc" /></option>									
+							</s:iterator>
+						</select>
+					</td>
 				</tr>
 
 
@@ -130,12 +137,12 @@ var contextPath = '<%=contextPath%>
 						var form_data = '<s:property value="form_data" escape="false"/>';
 						if (form_data != '') {
 							var form_data = $.parseJSON(form_data);
-							for (key in form_data) {
-								$("#form #" + key).val(form_data[key]);
+							for( key in form_data) {
+								var input = document.forms[0]["opEdit."+key];
+								if(input != null) {
+									input.value = form_data[key];
+								}
 							}
-							$("#ma").attr("disabled", "true");
-							$("#stt").attr("disabled", "true");
-							$("#tendoitac").attr("disabled", "true");
 						}
 						$(document)
 								.delegate(
@@ -171,7 +178,6 @@ var contextPath = '<%=contextPath%>
 																	return false;
 																}
 																if (response == "OK") {
-																	button.disabled = true;
 																	message(
 																			"Lưu thành công!",
 																			1);

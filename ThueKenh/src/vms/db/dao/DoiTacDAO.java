@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 
 import org.apache.commons.lang3.StringUtils;
@@ -12,6 +13,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
 import vms.db.dto.DoiTacDTO;
+import vms.utils.VMSUtil;
 
 public class DoiTacDAO {
 
@@ -36,15 +38,17 @@ public class DoiTacDAO {
 	}
 	@SuppressWarnings("unchecked")
 	
-	public List<DoiTacDTO> search(String _strSearch) {
+	public List<Map<String, Object>> search(String _strSearch) {
 		// TODO Auto-generated method stub
-		String sql="select * from doitac where deleted = 0 and tendoitac like '%"+_strSearch+"%'";
+		String sql="select t.*,t1.TENKHUVUC from doitac t left join khuvuc t1 on t.KHUVUC_ID = t1.ID where t.deleted = 0 ";
 		System.out.println(sql); 
 		return this.jdbcTemplate.query(
 				sql, new RowMapper() {
 					public Object mapRow(ResultSet rs, int rowNum)
 							throws SQLException {
-						return DoiTacDTO.mapObject(rs);
+						Map<String, Object> map = VMSUtil.resultSetToMap(rs);
+						map.put("stt", rowNum);
+						return map;
 					}
 				});
 	}
@@ -76,17 +80,17 @@ public class DoiTacDAO {
 					.getConnection();
 			System.out.println("***BEGIN PROC_SAVE_DOITAC***");
 			CallableStatement stmt = connection
-					.prepareCall("{ call PROC_SAVE_DOITAC(?,?,?,?,?) }");
+					.prepareCall("{ call PROC_SAVE_DOITAC(?,?,?,?,?,?) }");
 			//stmt.registerOutParameter(1, OracleTypes.INTEGER);
 			
 			System.out.println("STT : "+cat.getStt());
 			
 			stmt.setString(1, cat.getId());
-			System.out.println(cat.getId());
 			stmt.setString(2, cat.getTendoitac());
 			stmt.setInt(3, cat.getStt());
 			stmt.setLong(4, 0);
 			stmt.setString(5, cat.getMa());
+			stmt.setString(6, cat.getKhuvuc_id());
 			System.out.println("***execute***");
 			stmt.execute();
 			stmt.close();
@@ -104,7 +108,7 @@ public class DoiTacDAO {
 	public boolean update(String id, DoiTacDTO cat) {
 		// TODO Auto-generated method stub
 		DoiTacDTO up = (DoiTacDTO) cat;
-		String sql="update doitac set stt="+cat.getStt()+",ma='"+cat.getMa()+"' ,tendoitac='"+up.getTendoitac()+"' where id="+up.getId();
+		String sql="update doitac set stt="+cat.getStt()+",ma='"+cat.getMa()+"' ,tendoitac='"+up.getTendoitac()+"',khuvuc_id="+up.getKhuvuc_id()+" where id="+up.getId();
 		System.out.println(sql);
 		return this.jdbcTemplate.update(sql) > 0;
 	}
