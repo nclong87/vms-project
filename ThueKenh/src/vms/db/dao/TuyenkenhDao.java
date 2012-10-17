@@ -69,10 +69,10 @@ public class TuyenkenhDao {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public TuyenKenh findByKey(String madiemdau,String madiemcuoi,String giaotiep_id) {
+	public TuyenKenh findByKey(String madiemdau,String madiemcuoi,String giaotiep_id,int dungluong) {
 		if(StringUtil.isEmpty(madiemdau) || StringUtil.isEmpty(madiemcuoi) || StringUtil.isEmpty(giaotiep_id))
 			return null;
-		List<TuyenKenh> list =  this.jdbcTemplate.query("select * from TUYENKENH where MADIEMDAU = ? and MADIEMCUOI =? and GIAOTIEP_ID =?" ,new Object[] {madiemdau,madiemcuoi,giaotiep_id}, new RowMapper() {
+		List<TuyenKenh> list =  this.jdbcTemplate.query("select * from TUYENKENH where DELETED = 0 and MADIEMDAU = ? and MADIEMCUOI =? and GIAOTIEP_ID =? and DUNGLUONG = ?" ,new Object[] {madiemdau,madiemcuoi,giaotiep_id,dungluong}, new RowMapper() {
 			@Override
 			public Object mapRow(ResultSet rs, int arg1) throws SQLException {
 				return TuyenKenh.mapObject(rs);

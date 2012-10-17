@@ -155,7 +155,7 @@ public class TuyenkenhAction implements Preparable {
 				return "login_page";
 			}
 			TuyenkenhDao tuyenkenhDao = new TuyenkenhDao(daoFactory);
-			if(tuyenkenhDao.findByKey(tuyenKenh.getMadiemdau(), tuyenKenh.getMadiemcuoi(), tuyenKenh.getGiaotiep_id()) != null) {
+			if(tuyenkenhDao.findByKey(tuyenKenh.getMadiemdau(), tuyenKenh.getMadiemcuoi(), tuyenKenh.getGiaotiep_id(),tuyenKenh.getDungluong()) != null) {
 				throw new Exception("EXIST");
 			}
 			//tuyenKenh.setNgaydenghibangiao(DateUtils.parseStringDateSQL(tuyenKenh.getNgaydenghibangiao(), "dd/MM/yyyy"));
