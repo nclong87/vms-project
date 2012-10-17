@@ -42,7 +42,7 @@ public class SuCoDAO {
 		stmt.setString(6, dto.getThanhtoan_id());
 		stmt.setString(7,dto.getThoidiembatdau());
 		stmt.setString(8,dto.getThoidiemketthuc());
-		stmt.setString(9, dto.getThoigianmll().toString());
+		stmt.setString(9, String.valueOf(dto.getThoigianmll()));
 		stmt.setString(10, dto.getNguyennhan());
 		stmt.setString(11, dto.getPhuonganxuly());
 		stmt.setString(12, dto.getNguoixacnhan());
@@ -117,7 +117,7 @@ public class SuCoDAO {
 	
 	public void deleteByIds(String[] ids) {
 		String str = StringUtils.join(ids, ",");
-		this.jdbcTemplate.update("update SUCOKENH set DELETED = 1 where ID in ("+str+")");
+		this.jdbcTemplate.update("update SUCOKENH set DELETED= "+System.currentTimeMillis()+" where ID in ("+str+")");
 	}
 	
 	private static final String SQL_DETAIL_SUCO = " SELECT t.ID tuyenkenh_id,t.MADIEMDAU,t.MADIEMCUOI,gt.LOAIGIAOTIEP,t.DUNGLUONG,t.SOLUONG,sc.THOIDIEMBATDAU,sc.THOIDIEMKETTHUC, "+
