@@ -171,7 +171,7 @@ public class SuCoAction implements Preparable {
 				return Action.SUCCESS;
 			}    
 			SuCoDAO sucoDao=new SuCoDAO(daoFactory);
-			float thoigianmatll=(float)(thoidiemketthuc-thoidiembatdau)/(60000);
+			float thoigianmatll= (float)Math.round(((float)(thoidiemketthuc-thoidiembatdau)/(60000))*100)/100;
 			System.out.println("thoigianmatlienlac:"+thoigianmatll);
 			sucoDTO.setThoidiembatdau(String.valueOf(thoidiembatdau));
 			sucoDTO.setThoidiemketthuc(String.valueOf(thoidiemketthuc));
