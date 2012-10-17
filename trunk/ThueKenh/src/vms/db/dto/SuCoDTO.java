@@ -17,11 +17,11 @@ public class SuCoDTO {
 	private String thanhtoan_id="";
 	private String thoidiembatdau="";
 	private String thoidiemketthuc="";
-	private Integer thoigianmll=0;
+	private float thoigianmll=0;
 	private String nguyennhan="";
 	private String phuonganxuly="";
 	private String nguoixacnhan="";
-	private long giamtrumll=0;
+	private float giamtrumll=0;
 	private Integer trangthai=0;
 	private String usercreate="";
 	private String timecreate="";
@@ -105,11 +105,11 @@ public class SuCoDTO {
 		
 	}
 
-	public Integer getThoigianmll() {
+	public float getThoigianmll() {
 		return thoigianmll;
 	}
 
-	public void setThoigianmll(Integer thoigianmll) {
+	public void setThoigianmll(float thoigianmll) {
 		this.thoigianmll = thoigianmll;
 	}
 
@@ -137,11 +137,11 @@ public class SuCoDTO {
 		this.nguoixacnhan = nguoixacnhan;
 	}
 
-	public long getGiamtrumll() {
+	public float getGiamtrumll() {
 		return giamtrumll;
 	}
 
-	public void setGiamtrumll(long giamtrumll) {
+	public void setGiamtrumll(float giamtrumll) {
 		this.giamtrumll = giamtrumll;
 	}
 

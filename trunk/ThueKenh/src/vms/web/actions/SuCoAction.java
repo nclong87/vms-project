@@ -147,8 +147,8 @@ public class SuCoAction implements Preparable {
 				return "login_page";
 			}
 			// validation
-			Long thoidiembatdau=DateUtils.parseDate(sucoDTO.getThoidiembatdau(), "dd/MM/yyyy HH:mm:ss").getTime();
-			Long thoidiemketthuc=DateUtils.parseDate(sucoDTO.getThoidiemketthuc(), "dd/MM/yyyy HH:mm:ss").getTime();
+			long thoidiembatdau=DateUtils.parseDate(sucoDTO.getThoidiembatdau(), "dd/MM/yyyy HH:mm:ss").getTime();
+			long thoidiemketthuc=DateUtils.parseDate(sucoDTO.getThoidiemketthuc(), "dd/MM/yyyy HH:mm:ss").getTime();
 			if( sucoDTO.getId().isEmpty())
 			{
 				Long ngayhientai=Calendar.getInstance().getTime().getTime();
@@ -171,10 +171,11 @@ public class SuCoAction implements Preparable {
 				return Action.SUCCESS;
 			}    
 			SuCoDAO sucoDao=new SuCoDAO(daoFactory);
-			long thoigianmatll=(thoidiemketthuc-thoidiembatdau)/(60*1000);
-			sucoDTO.setThoidiembatdau(thoidiembatdau.toString());
-			sucoDTO.setThoidiemketthuc(thoidiemketthuc.toString());
-			sucoDTO.setThoigianmll((int)thoigianmatll);
+			float thoigianmatll=(float)(thoidiemketthuc-thoidiembatdau)/(60000);
+			System.out.println("thoigianmatlienlac:"+thoigianmatll);
+			sucoDTO.setThoidiembatdau(String.valueOf(thoidiembatdau));
+			sucoDTO.setThoidiemketthuc(String.valueOf(thoidiemketthuc));
+			sucoDTO.setThoigianmll(thoigianmatll);
 			sucoDTO.setUsercreate(account.get("username").toString());
 			sucoDTO.setTimecreate(DateUtils.getCurrentDateSQL());
 			sucoDTO.setBienbanvanhanh_id("0");
