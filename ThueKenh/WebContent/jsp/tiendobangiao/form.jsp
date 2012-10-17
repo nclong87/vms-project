@@ -71,7 +71,7 @@ var contextPath = '<%=contextPath%>';
     				
 					<input type="hidden" class="tieuchuandatduoc" value="<s:property value="id" />"/>
     				
-				</s:iterator>
+	</s:iterator>
 	<script>
 		function fillOption(){
 			//them text loai tieu chuan
@@ -84,10 +84,31 @@ var contextPath = '<%=contextPath%>';
 			var tieuchuandatduoc=$(".tieuchuandatduoc");
 			for(i=0;i<tieuchuandatduoc.length;i++){
 				var id=$(tieuchuandatduoc[i]).val();
-				$(".listTieuChuan input[type=checkbox][value="+id+"]").attr("checked","true");
+				$(".listTieuChuan input[type=checkbox][value="+id+"]").attr("checked",true);
 			}
 		}
 		fillOption();
+		
+		function checkFill(){
+			var tieuchuan=$(".listTieuChuan .tieuchuan");
+			var iFlag=0;
+			for(i=0;i<tieuchuan.length;i++){
+				if($(tieuchuan[i]).find(".loaitieuchuan").val()==1){
+					var strChecked=$(tieuchuan[i]).parent().find("input[type=checkbox]").is(':checked');
+					//alert(strChecked);
+					if(iFlag==1 && strChecked==true){
+						alert("Thứ tự chọn tiêu chuẩn không đúng");
+						return false;
+					}
+					if(iFlag==0 && strChecked!=true){
+						//alert("Khong check");
+						iFlag=1;
+					}
+				}
+					
+			}
+			return true;
+		}
 		
 	</script>
 </body>
@@ -116,6 +137,10 @@ function loadContent(url) {
 }
 $(document).ready(function() {
 	$(document).delegate("#btnSubmit","click",function() {
+		
+		if(checkFill()==false)
+			return;
+		
 		var button = this;
 		button.disabled = true;
 		if (!$("#form").valid()) {
