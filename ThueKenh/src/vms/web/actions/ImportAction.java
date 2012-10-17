@@ -263,7 +263,7 @@ public class ImportAction implements Preparable {
 					else if (loaisuco.compareTo("L")==0)
 						dto.setLoaisuco("1");
 				}
-				if((tuyenKenh = tuyenkenhDao.findByKey2(dto.getMadiemdau(), dto.getMadiemcuoi(), dto.getMagiaotiep())) != null) {
+				if((tuyenKenh = tuyenkenhDao.findByKey2(dto.getMadiemdau(), dto.getMadiemcuoi(), dto.getMagiaotiep(), Integer.parseInt(dto.getDungluong()))) != null) {
 					dto.setTuyenkenh_id(tuyenKenh.getId());
 				}
 				if(	!dto.getThoidiembatdau().isEmpty() &&

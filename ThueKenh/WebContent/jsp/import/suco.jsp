@@ -245,7 +245,7 @@ $(document).ready(function(){
 					{ "mDataProp": "nguyennhan","bSortable": false,"bSearchable": false,"sClass":'td_center' },
 					{ "mDataProp": "phuonganxuly","bSortable": false,"bSearchable": false,"sClass":'td_center' },
 					{ "mDataProp": "nguoixacnhan","bSortable": false,"bSearchable": false,"sClass":'td_center' },
-					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,"sClass":'td_center' 
+					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,"sClass":'td_center',
 						"fnRender": function( oObj ) {
 							if(oObj.aData.loaisuco == '0') 
 								return 'Sự cố bình thường'; 

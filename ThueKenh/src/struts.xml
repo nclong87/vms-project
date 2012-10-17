@@ -254,8 +254,8 @@
 			</result>
 		</action>
 		<action name="deleteTram" class="tramAction" method="delete">
-			<result name="success" type="json">
-				<param name="root">jsonData</param>
+			<result name="success" type="stream">
+				<param name="inputName">inputStream</param>
 			</result>
 		</action>
 		<action name="formTram" class="tramAction" method="form">

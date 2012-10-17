@@ -83,10 +83,10 @@ public class TuyenkenhDao {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public TuyenKenh findByKey2(String madiemdau,String madiemcuoi,String magiaotiep) {
+	public TuyenKenh findByKey2(String madiemdau,String madiemcuoi,String magiaotiep,int dungluong) {
 		if(StringUtil.isEmpty(madiemdau) || StringUtil.isEmpty(madiemcuoi) || StringUtil.isEmpty(magiaotiep))
 			return null;
-		List<TuyenKenh> list =  this.jdbcTemplate.query("select t0.* from TUYENKENH t0 left join LOAIGIAOTIEP t1 on t0.GIAOTIEP_ID=t1.ID where MADIEMDAU = ? and MADIEMCUOI =? and t1.MA =?" ,new Object[] {madiemdau,madiemcuoi,magiaotiep}, new RowMapper() {
+		List<TuyenKenh> list =  this.jdbcTemplate.query("select t0.* from TUYENKENH t0 left join LOAIGIAOTIEP t1 on t0.GIAOTIEP_ID=t1.ID where t0.DELETED = 0 and MADIEMDAU = ? and MADIEMCUOI =? and t1.MA =? and DUNGLUONG = ?" ,new Object[] {madiemdau,madiemcuoi,magiaotiep,dungluong}, new RowMapper() {
 			@Override
 			public Object mapRow(ResultSet rs, int arg1) throws SQLException {
 				return TuyenKenh.mapObject(rs);
@@ -125,8 +125,13 @@ public class TuyenkenhDao {
 	}
 	
 	public void deleteByIds(String[] ids) {
+		for(int i=0;i<ids.length;i++) {
+			ids[i] = "'"+ids[i]+"'";
+		}
 		String str = StringUtils.join(ids, ",");
-		this.jdbcTemplate.update("update TUYENKENH set DELETED = 1 where ID in ("+str+")");
+		long time = System.currentTimeMillis();
+		String query = "update TUYENKENH set DELETED = "+time+" where ID in ("+str+")";
+		this.jdbcTemplate.update(query);
 	}
 	
 	private static final String SQL_DETAIL_TUYENKENH = "select t.*,TENDUAN,TENDOITAC,LOAIGIAOTIEP,TENPHONGBAN from TUYENKENH t left join LOAIGIAOTIEP t0 on t.GIAOTIEP_ID = t0.ID left join DUAN t1 on t.DUAN_ID = t1.ID left join PHONGBAN t2 on t.PHONGBAN_ID = t2.ID left join DOITAC t3 on t.DOITAC_ID = t3.ID where t.ID = ?";

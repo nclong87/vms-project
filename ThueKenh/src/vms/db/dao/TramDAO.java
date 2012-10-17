@@ -92,7 +92,9 @@ public class TramDAO {
 	
 	public void deleteByIds(String[] ids) {
 		String str = StringUtils.join(ids, ",");
-		this.jdbcTemplate.update("update TRAM set DELETED = 1 where ID in ("+str+")");
+		long time = System.currentTimeMillis();
+		String query = "update TRAM set DELETED = "+time+" where ID in ("+str+")";
+		this.jdbcTemplate.update(query);
 	}
 	
 }
