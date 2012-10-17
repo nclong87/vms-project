@@ -142,6 +142,7 @@ public class TramAction implements Preparable {
 			if(ids != null && ids.length >0 ) {
 				tramDAO.deleteByIds(ids);
 			}
+			System.out.println("DONE");
 			setInputStream("OK");
 		} catch (Exception e) {
 			e.printStackTrace();

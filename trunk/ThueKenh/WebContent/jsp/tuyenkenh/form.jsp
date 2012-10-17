@@ -90,7 +90,7 @@ function byId(id) { //Viet tat cua ham document.getElementById
 						</s:iterator>
 					</select>
 				</td>
-				<td align="right"><label for="doitac_id">Đối tác : </label></td>
+				<td align="right"><label for="doitac_id">Đối tác <font title="Bắt buộc nhập" color="red">*</font> : </label></td>
 				<td align="left">
 					<select id="doitac_id" name="tuyenKenh.doitac_id">
 						<option value="">---Chọn---</option>
@@ -167,6 +167,9 @@ $(document).ready(function() {
 			"tuyenKenh.dungluong" : {
 				required : true,
 				number : true
+			},
+			"tuyenKenh.doitac_id" : {
+				required : true
 			}
 		}
 	});
@@ -178,7 +181,7 @@ $(document).ready(function() {
 		}
 		$("#madiemdau").attr("disabled","true");
 		$("#madiemcuoi").attr("disabled","true");
-		$("#giaotiep_id").attr("disabled","true");
+		//$("#giaotiep_id").attr("disabled","true");
 	} 
 	$(document).delegate("#btSubmit","click",function() {
 		var button = this;
