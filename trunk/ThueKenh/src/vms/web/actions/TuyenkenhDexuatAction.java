@@ -19,14 +19,12 @@ import org.json.simple.JSONValue;
 import vms.db.dao.DaoFactory;
 import vms.db.dao.DoiTacDAO;
 import vms.db.dao.DuAnDAO;
-import vms.db.dao.KhuVucDao;
 import vms.db.dao.LoaiGiaoTiepDao;
 import vms.db.dao.PhongBanDao;
 import vms.db.dao.TuyenKenhDeXuatDAO;
 import vms.db.dao.TuyenkenhDao;
 import vms.db.dto.DoiTacDTO;
 import vms.db.dto.DuAnDTO;
-import vms.db.dto.KhuVucDTO;
 import vms.db.dto.LoaiGiaoTiep;
 import vms.db.dto.PhongBanDTO;
 import vms.db.dto.TuyenKenh;
@@ -167,7 +165,7 @@ public class TuyenkenhDexuatAction implements Preparable {
 			TuyenKenhDeXuatDAO tuyenKenhDeXuatDAO = new TuyenKenhDeXuatDAO(daoFactory);
 			if(tuyenKenh.getId().isEmpty()) { //add new tuyenkenh
 				TuyenkenhDao tuyenkenhDao = new TuyenkenhDao(daoFactory);
-				TuyenKenh tk = tuyenkenhDao.findByKey(tuyenKenh.getMadiemdau(), tuyenKenh.getMadiemcuoi(), tuyenKenh.getGiaotiep_id());
+				TuyenKenh tk = tuyenkenhDao.findByKey(tuyenKenh.getMadiemdau(), tuyenKenh.getMadiemcuoi(), tuyenKenh.getGiaotiep_id(),tuyenKenh.getDungluong());
 				if(tk!= null) { //da ton tai tuyen kenh nay => update
 					tuyenKenh.setId(tk.getId());
 				}
