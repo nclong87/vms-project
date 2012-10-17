@@ -42,9 +42,11 @@ begin
 	else
 		if(tong_tieu_chuan = 0) then
 			tiendo_ := 0;
+      		update tuyenkenhdexuat set TIENDO = tiendo_ where id=tuyenkenh_dexuat_id;
 		else
 			tiendo_ := round(iCount/tong_tieu_chuan*100,2);
+      update tuyenkenhdexuat set TIENDO = tiendo_,trangthai=0 where id=tuyenkenh_dexuat_id;
 		end if;
-		update tuyenkenhdexuat set TIENDO = tiendo_ where id=tuyenkenh_dexuat_id;
+
 	end if;
 end PROC_UPDATE_TIEN_DO;
