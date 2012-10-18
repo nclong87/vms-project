@@ -70,8 +70,8 @@ public class TuyenkenhDao {
 	
 	@SuppressWarnings("unchecked")
 	public TuyenKenh findByKey(String madiemdau,String madiemcuoi,String giaotiep_id,int dungluong) {
-		if(StringUtil.isEmpty(madiemdau) || StringUtil.isEmpty(madiemcuoi) || StringUtil.isEmpty(giaotiep_id))
-			return null;
+		/*if(StringUtil.isEmpty(madiemdau) || StringUtil.isEmpty(madiemcuoi) || StringUtil.isEmpty(giaotiep_id))
+			return null;*/
 		List<TuyenKenh> list =  this.jdbcTemplate.query("select * from TUYENKENH where DELETED = 0 and MADIEMDAU = ? and MADIEMCUOI =? and GIAOTIEP_ID =? and DUNGLUONG = ?" ,new Object[] {madiemdau,madiemcuoi,giaotiep_id,dungluong}, new RowMapper() {
 			@Override
 			public Object mapRow(ResultSet rs, int arg1) throws SQLException {
@@ -84,8 +84,6 @@ public class TuyenkenhDao {
 	
 	@SuppressWarnings("unchecked")
 	public TuyenKenh findByKey2(String madiemdau,String madiemcuoi,String magiaotiep,int dungluong) {
-		if(StringUtil.isEmpty(madiemdau) || StringUtil.isEmpty(madiemcuoi) || StringUtil.isEmpty(magiaotiep))
-			return null;
 		List<TuyenKenh> list =  this.jdbcTemplate.query("select t0.* from TUYENKENH t0 left join LOAIGIAOTIEP t1 on t0.GIAOTIEP_ID=t1.ID where t0.DELETED = 0 and MADIEMDAU = ? and MADIEMCUOI =? and t1.MA =? and DUNGLUONG = ?" ,new Object[] {madiemdau,madiemcuoi,magiaotiep,dungluong}, new RowMapper() {
 			@Override
 			public Object mapRow(ResultSet rs, int arg1) throws SQLException {
