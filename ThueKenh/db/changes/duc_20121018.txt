@@ -1,0 +1,18 @@
+create or replace
+PROCEDURE            "PROC_SAVE_DOITAC" (
+  id_	in nvarchar2,
+	name_ in VARCHAR2,
+	stt_ IN number,
+  deleted_ IN number,
+  ma_ in nvarchar2,
+  khuvuc_id_ nvarchar2
+) AS 
+i INTEGER := 0;
+BEGIN
+		if(id_ is not null and id_>0) then --update
+      update DOITAC set TENDOITAC = name_,Ma=ma_ where ID = id_;
+	else --insert
+		i:=SEQ_DOITAC.nextval;
+		insert into DOITAC(ID,TENDOITAC,DELETED,STT,MA,khuvuc_id) values (i,name_,deleted_,stt_,ma_,khuvuc_id_);
+  end if;
+END PROC_SAVE_DOITAC;
