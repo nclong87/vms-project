@@ -136,7 +136,8 @@
 	}
 
 	$("#btnDelete").click(function() {
-
+		if(!confirm("Xác nhận xóa dữ liệu!"))
+			return;
 		var str = "";
 		$('#dataTable input[type=checkbox]').each(function() {
 			if (this.checked == true) {
