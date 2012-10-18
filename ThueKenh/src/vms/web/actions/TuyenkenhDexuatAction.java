@@ -163,11 +163,17 @@ public class TuyenkenhDexuatAction implements Preparable {
 				return "login_page";
 			}
 			TuyenKenhDeXuatDAO tuyenKenhDeXuatDAO = new TuyenKenhDeXuatDAO(daoFactory);
-			if(tuyenKenh.getId().isEmpty()) { //add new tuyenkenh
-				TuyenkenhDao tuyenkenhDao = new TuyenkenhDao(daoFactory);
-				TuyenKenh tk = tuyenkenhDao.findByKey(tuyenKenh.getMadiemdau(), tuyenKenh.getMadiemcuoi(), tuyenKenh.getGiaotiep_id(),tuyenKenh.getDungluong());
-				if(tk!= null) { //da ton tai tuyen kenh nay => update
-					tuyenKenh.setId(tk.getId());
+			TuyenkenhDao tuyenkenhDao = new TuyenkenhDao(daoFactory);
+			TuyenKenh tk = tuyenkenhDao.findByKey(tuyenKenh.getMadiemdau(), tuyenKenh.getMadiemcuoi(), tuyenKenh.getGiaotiep_id(),tuyenKenh.getDungluong());
+			if(tk != null) {
+				if(tuyenKenh.getId().isEmpty()) { //them moi
+					throw new Exception("EXIST");
+				} else { //update
+					if(tuyenKenh.getId() != tk.getId()) { //update trung voi 1 tuyen kenh khac
+						throw new Exception("EXIST");
+					} else {
+						
+					}
 				}
 			}
 			int soluong_old = NumberUtil.parseInt(request.getParameter("soluong_old"));

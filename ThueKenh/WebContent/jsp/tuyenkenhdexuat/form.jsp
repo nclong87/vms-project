@@ -162,16 +162,16 @@ $(document).ready(function() {
 					input.value = data[key];
 				}
 			}
-			$("#madiemdau").attr("disabled","true");
-			$("#madiemcuoi").attr("disabled","true");
+			$("#madiemdau").attr("readonly","true");
+			$("#madiemcuoi").attr("readonly","true");
 			//$("#giaotiep_id").attr("disabled","true");
 		}
 	});
 	$("#btReset").click(function(){
 		$("#form")[0].reset();
 		message('',0);
-		$("#madiemdau").removeAttr("disabled");
-		$("#madiemcuoi").removeAttr("disabled");
+		$("#madiemdau").removeAttr("readonly");
+		$("#madiemcuoi").removeAttr("readonly");
 		//$("#giaotiep_id").removeAttr("disabled");
 	});
 	$( "input.date" ).datepicker({
@@ -242,8 +242,11 @@ $(document).ready(function() {
 				data:dataString,
 				success:function(response){
 					button.disabled = false;
+					if(response == "EXIST") {
+						message("Đã tồn tại tuyến kênh này trong hệ thống!",0);
+						return;
+					}
 					if(response == "OK") {
-						button.disabled = true;
 						message("Lưu thành công!",1);
 						parent.reload = true;
 						return;

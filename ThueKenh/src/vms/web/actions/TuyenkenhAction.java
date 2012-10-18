@@ -154,6 +154,7 @@ public class TuyenkenhAction implements Preparable {
 				session.setAttribute("URL", VMSUtil.getFullURL(request));
 				return "login_page";
 			}
+			System.out.println("Do save");
 			TuyenkenhDao tuyenkenhDao = new TuyenkenhDao(daoFactory);
 			if(tuyenkenhDao.findByKey(tuyenKenh.getMadiemdau(), tuyenKenh.getMadiemcuoi(), tuyenKenh.getGiaotiep_id(),tuyenKenh.getDungluong()) != null) {
 				throw new Exception("EXIST");

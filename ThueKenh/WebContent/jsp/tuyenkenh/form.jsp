@@ -179,8 +179,8 @@ $(document).ready(function() {
 		for( key in form_data) {
 			$("#form #"+key).val(form_data[key]);
 		}
-		$("#madiemdau").attr("disabled","true");
-		$("#madiemcuoi").attr("disabled","true");
+		$("#madiemdau").attr("readonly","true");
+		$("#madiemcuoi").attr("readonly","true");
 		//$("#giaotiep_id").attr("disabled","true");
 	} 
 	$(document).delegate("#btSubmit","click",function() {
@@ -202,7 +202,6 @@ $(document).ready(function() {
 						return false;
 					}
 					if(response == "OK") {
-						button.disabled = true;
 						message("Lưu thành công!",1);
 						parent.reload = true;
 						return;
