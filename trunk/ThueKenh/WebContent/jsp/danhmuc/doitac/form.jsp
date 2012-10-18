@@ -60,7 +60,7 @@ var contextPath = '<%=contextPath%>';
 					<td align="left"><input type="text" id="tendoitac"
 						name="opEdit.tendoitac"
 						value="" /></td>
-					<td align="right"><label for="khuvuc_id">Khu vực : </label></td>
+					<td align="right"><label for="khuvuc_id">Khu vực <font title="Bắt buộc nhập" color="red">*</font>: </label></td>
 					<td align="left">
 						<select id="khuvuc_id" name="opEdit.khuvuc_id">
 							<option value="">---Chọn---</option>
