@@ -123,6 +123,9 @@ var contextPath = '<%=contextPath%>';
 								},
 								"opEdit.stt" : {
 									number :true
+								},
+								"opEdit.khuvuc_id" : {
+									required : true
 								}
 							},
 							messages : {
@@ -131,6 +134,9 @@ var contextPath = '<%=contextPath%>';
 								},
 								"opEdit.stt" : {
 									number : 'Yêu cầu nhập số'
+								},
+								"opEdit.khuvuc_id" : {
+									required : "Yêu cầu chọn khu vực đối tác "
 								}
 							}
 						});
