@@ -64,7 +64,7 @@ var contextPath = '<%=contextPath%>';
 						name="opEdit.tencongthuc"
 						value="<s:property value="opEdit.tencongthuc" />" /></td>
 					<td align="right" width="150px"><label for="stt">Chuỗi
-							công thức : </label></td>
+							công thức <font title="Bắt buộc nhập" color="red">*</font> : </label></td>
 					<td align="left"><input type="text" id="chuoicongthuc"
 						name="opEdit.chuoicongthuc"
 						value="<s:property value="opEdit.chuoicongthuc" />" />
