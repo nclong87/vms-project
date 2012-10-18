@@ -1,5 +1,4 @@
-﻿
-<%@ taglib prefix="s" uri="/struts-tags"%>
+﻿<%@ taglib prefix="s" uri="/struts-tags"%>
 <s:url action="doLogout" namespace="/login" var="doLogoutURL" />
 <s:url action="index" namespace="/login" var="loginURL" />
 <s:url action="index" namespace="/settings" var="settingsIndexURL" />
@@ -135,7 +134,8 @@
 	}
 
 	$("#btnDelete").click(function() {
-
+		if(!confirm("Xác nhận xóa dữ liệu!"))
+			return;
 		var str = "";
 		$('#dataTable input[type=checkbox]').each(function() {
 			if (this.checked == true) {
