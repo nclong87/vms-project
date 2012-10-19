@@ -119,7 +119,7 @@ public class PhongBanDao  {
 		String str = StringUtils.join(ids, ",");
 		System.out.println(ids);
 		return this.jdbcTemplate
-				.update("update phongban set DELETED = 1 where ID in (" + str
+				.update("update phongban set DELETED = "+System.currentTimeMillis()+" where ID in (" + str
 						+ ")") > 0;
 	}
 

@@ -120,7 +120,7 @@ public class KhuVucDao {
 		// TODO Auto-generated method stub
 		String str = StringUtils.join(ids, ",");
 		System.out.println(ids);
-		return this.jdbcTemplate.update("update khuvuc set DELETED = 1 where ID in ("+str+")")>0;
+		return this.jdbcTemplate.update("update khuvuc set DELETED = "+System.currentTimeMillis()+" where ID in ("+str+")")>0;
 	}
 
 }

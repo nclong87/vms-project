@@ -130,7 +130,7 @@ public class TuyenKenhBanGiaoDAO {
 			TuyenKenhDeXuatDTO dto = this.findById(id);
 			if(dto!=null) {
 				int soluong = dto.getSoluong();
-				this.jdbcTemplate.update("update TUYENKENHDEXUAT set DELETED = 1 where ID = ?",new Object[]{id});
+				this.jdbcTemplate.update("update TUYENKENHDEXUAT set DELETED = "+System.currentTimeMillis()+" where ID = ?",new Object[]{id});
 				this.jdbcTemplate.update("update TUYENKENH set TRANGTHAI = TRANGTHAI_BAK,SOLUONG = SOLUONG - ? where ID = ?",new Object[]{soluong,dto.getTuyenkenh_id()});
 			}
 		}
@@ -158,6 +158,6 @@ public class TuyenKenhBanGiaoDAO {
 
 	public void xoaTienDo(String id) {
 		// TODO Auto-generated method stub
-		this.jdbcTemplate.update("update TUYENKENH_TIEUCHUAN set deleted=1 where TUYENKENHDEXUAT_ID="+id);
+		this.jdbcTemplate.update("update TUYENKENH_TIEUCHUAN set DELETED = "+System.currentTimeMillis()+" where TUYENKENHDEXUAT_ID="+id);
 	}
 }
