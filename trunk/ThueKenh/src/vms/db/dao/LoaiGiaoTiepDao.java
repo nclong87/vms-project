@@ -151,7 +151,7 @@ public class LoaiGiaoTiepDao {
 		String str = StringUtils.join(ids, ",");
 		System.out.println(ids);
 		return this.jdbcTemplate
-				.update("update loaigiaotiep set DELETED = 1 where ID in (" + str
+				.update("update loaigiaotiep set DELETED = "+System.currentTimeMillis()+" where ID in (" + str
 						+ ")") > 0;
 	}
 

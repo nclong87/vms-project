@@ -120,7 +120,7 @@ public class DoiTacDAO {
 		String str = StringUtils.join(ids, ",");
 		System.out.println(ids);
 		return this.jdbcTemplate
-				.update("update doitac set DELETED = 1 where ID in (?)",new Object[]{str}) > 0;
+				.update("update doitac set DELETED = "+System.currentTimeMillis()+" where ID in (?)",new Object[]{str}) > 0;
 	}
 	
 	@SuppressWarnings("unchecked")

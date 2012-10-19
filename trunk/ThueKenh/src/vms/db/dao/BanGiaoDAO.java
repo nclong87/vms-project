@@ -73,7 +73,7 @@ public class BanGiaoDAO  {
 	
 	public void deleteByIds(String[] ids) {
 		String str = StringUtils.join(ids, ",");
-		this.jdbcTemplate.update("update BANGIAO set DELETED = 1 where ID in ("+str+")");
+		this.jdbcTemplate.update("update BANGIAO set DELETED = "+System.currentTimeMillis()+" where ID in ("+str+")");
 	}
 	
 	private static final String SQL_DETAIL_BANGIAO = "select * from BANGIAO where ID=?";

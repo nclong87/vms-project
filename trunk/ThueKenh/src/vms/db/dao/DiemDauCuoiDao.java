@@ -118,7 +118,7 @@ public class DiemDauCuoiDao  {
 		String str = StringUtils.join(ids, ",");
 		System.out.println(ids);
 		return this.jdbcTemplate
-				.update("update DiemDauCuoi set DELETED = 1 where ID in (" + str
+				.update("update DiemDauCuoi set DELETED = "+System.currentTimeMillis()+" where ID in (" + str
 						+ ")") > 0;
 	}
 
