@@ -155,7 +155,6 @@ display: block;
 float: left;
 max-height: 100px;
 overflow: auto;
-width: 100%;
 }
 #label .selected {
 background-color: PowderBlue;
@@ -182,3 +181,7 @@ background-position: 0 -2px;
 }
 
 .ui-autocomplete-loading { background: white url('images/ui-anim_basic_16x16.gif') right center no-repeat; }
+
+#uploadFile {
+height:25px;
+}

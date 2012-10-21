@@ -169,7 +169,7 @@ public class TuyenkenhDexuatAction implements Preparable {
 				if(tuyenKenh.getId().isEmpty()) { //them moi
 					throw new Exception("EXIST");
 				} else { //update
-					if(tuyenKenh.getId() != tk.getId()) { //update trung voi 1 tuyen kenh khac
+					if(tuyenKenh.getId().equals(tk.getId()) == false) { //update trung voi 1 tuyen kenh khac
 						throw new Exception("EXIST");
 					} else {
 						

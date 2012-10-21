@@ -167,6 +167,7 @@ public class ImportAction implements Preparable {
 		try {
 			if(ids == null || ids.length==0) throw new Exception("ERROR");
 			TuyenkenhImportDAO dao = new TuyenkenhImportDAO(daoFactory);
+			System.out.println("BEGIN");
 			dao.importTuyenkenh(ids, account.get("username").toString());
 			jsonData.put("result", "OK");
 		} catch (Exception e) {

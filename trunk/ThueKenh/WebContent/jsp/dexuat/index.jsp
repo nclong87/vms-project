@@ -106,9 +106,9 @@ margin-left: 10px;
 			</div>
 			<div style="height: 1px;"></div>
 		</div>
-		<div style="clear:both;margin:5px 0 ">
-		<input class="button" type="button" id="btThem" value="Thêm văn bản đề xuất"/>
-		<input class="button" type="button" id="btXoa" value="Xóa" style="float: right; margin-right: 10px;"/>
+		<div style="clear:both;margin:5px 0;width:100% ">
+		<input class="button" type="button" id="btThem" value="Thêm văn bản đề xuất" style="float: left; margin-right: 10px;" />
+		<input class="button" type="button" id="btXoa" value="Xóa" style="float: left; margin-right: 10px;"/>
 		</div>
 			<table width="100%" id="dataTable" class="display">
 			<thead>

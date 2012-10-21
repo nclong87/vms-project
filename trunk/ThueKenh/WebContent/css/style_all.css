@@ -20,10 +20,11 @@ body{
 	}
 	
 #top{
-	position:relative;
-	min-width:760px;
-	max-width:1440px;
-	margin:0 auto;
+	margin: 0 auto;
+max-width: 1440px;
+min-width: 760px;
+position: relative;
+z-index: 1000;
 	}
 	
 	/*----------------------------------------
