@@ -33,65 +33,69 @@ function byId(id) { //Viet tat cua ham document.getElementById
 </head>
 
 <body>
-	<form id="form" onsubmit="return false;">
+	<div style="background: none repeat scroll 0pt 0pt rgb(242, 242, 242); padding: 5px; width: 99%;">
+		<form id="form" onsubmit="return false;">
 		<input type="text" style="display:none" name="bienbanvhkDto.id" id="id" value="" />
-		<div style="background: none repeat scroll 0pt 0pt rgb(242, 242, 242); padding: 5px; width: 99%;">
-			<table class="input" style="width:700px">
-				<tr>
-					<td colspan='4' align="left" id="msg"></td>
-				</tr>
-				<tr>
-					<td align="right" width="170px"><label for="xxxx">Số biên bản <font title="Bắt buộc nhập" color="red">*</font> :</label></td>
-					<td align="left">
-						<input type="text" name="bienbanvhkDto.sobienban" id="sobienban"/>
-					</td>
-					<td align="right" width="110px"><label for="xxxx">File scan <font title="Bắt buộc nhập" color="red">*</font> :</label></td>
-					<td>
-						<input type="text" style="display:none" name="bienbanvhkDto.filename" id="filename" value=""/>
-						<input type="text" style="display:none" name="bienbanvhkDto.filepath" id="filepath" value=""/>
-						<input type="text" style="display:none" name="bienbanvhkDto.filesize" id="filesize" value=""/>
-						<div id="label">
-						</div>
-						<input type="button" class="button" id="btUploadFile" value="Chọn file..." />
-					</td>
-				</tr>
-			</table>
-			<div style="width: 100%; margin-top: 10px;">
-				<fieldset class="data_list">
-					<legend>Danh sách sự cố thuộc biên bản vận hành</legend>
-					<div style="width: 100%; padding-bottom: 5px;text-align: right;"><input class="button" type="button" value="Chọn sự cố" id="btPopupSearchSuCo"></div>
-					<table width="100%" id="dataTable" class="display">
-					<thead>
-							<tr>
-								<th width="3px">STT</th>
-								<th width="30px">Mã tuyến kênh</th>
-								<th>Mã điểm đầu</th>
-								<th>Mã điểm cuối</th>
-								<th>Giao tiếp</th>
-								<th>Dung lượng</th>
-								<th width="50px">Thời gian bắt đầu</th>
-								<th width="50px">Thời gian kết thúc</th>
-								<th width="50px">Thời gian mất liên lạc</th>
-								<th width="50px">Nguyên nhân</th>
-								<th width="50px">Phương án xử lý</th>
-								<th width="50px">Người xác nhận</th>
-								<th width="50px">Người tạo</th>
-								<th width="50px">Ngày tạo</th>
-								<th width="5px" align="center">Xóa</th>
-							</tr>
-						</thead>
-						<tbody>						
-						</tbody>
-					</table>
-				</fieldset>
-			</div>
-			<div style="margin-top: 5px; margin-bottom: 5px; text-align: right;">
-				<input type="button" class="button" value="Lưu" id="btSubmit"></input>
-				<input type="button" class="button" value="Làm lại" id="btReset"></input>
-				<input type="button" class="button" value="Thoát" id="btThoat" onclick="window.parent.CloseWindow();"></input>
-			</div>
+		<input type="text" style="display:none" name="bienbanvhkDto.filename" id="filename" value=""/>
+		<input type="text" style="display:none" name="bienbanvhkDto.filepath" id="filepath" value=""/>
+		<input type="text" style="display:none" name="bienbanvhkDto.filesize" id="filesize" value=""/>
+		<table class="input" style="width:700px">
+			<tr>
+				<td colspan='4' align="left" id="msg"></td>
+			</tr>
+			<tr>
+				<td align="right" style="width:100px"><label for="xxxx">Số biên bản <font title="Bắt buộc nhập" color="red">*</font> :</label></td>
+				<td align="left">
+					<input type="text" name="bienbanvhkDto.sobienban" id="sobienban"/>
+				</td>
+				<td align="right" width="110px"></td>
+				<td>
+				</td>
+			</tr>
+		</table>
+		<div style="width: 100%; margin-top: 10px;">
+			<fieldset class="data_list">
+				<legend>Danh sách sự cố thuộc biên bản vận hành</legend>
+				<div style="width: 100%; padding-bottom: 5px;text-align: right;"><input class="button" type="button" value="Chọn sự cố" id="btPopupSearchSuCo"></div>
+				<table width="100%" id="dataTable" class="display">
+				<thead>
+						<tr>
+							<th width="3px">STT</th>
+							<th width="30px">Mã tuyến kênh</th>
+							<th>Mã điểm đầu</th>
+							<th>Mã điểm cuối</th>
+							<th>Giao tiếp</th>
+							<th>Dung lượng</th>
+							<th width="50px">Thời gian bắt đầu</th>
+							<th width="50px">Thời gian kết thúc</th>
+							<th width="50px">Thời gian mất liên lạc</th>
+							<th width="50px">Nguyên nhân</th>
+							<th width="50px">Phương án xử lý</th>
+							<th width="50px">Người xác nhận</th>
+							<th width="50px">Người tạo</th>
+							<th width="50px">Ngày tạo</th>
+							<th width="5px" align="center">Xóa</th>
+						</tr>
+					</thead>
+					<tbody>						
+					</tbody>
+				</table>
+			</fieldset>
 		</div>
-	</form>
+		</form>
+		<fieldset class="data_list" style="margin-top:5px">
+			<legend>File Scan</legend>
+			<form id="frmUpload" method="post" enctype="multipart/form-data" style="margin-top: 5px; float: left; width: 100%;" onsubmit="return false">
+			<input type="file" name="uploadFile" id="uploadFile" style="margin-left:5px"/>
+			<div id="label"></div>
+		</form>
+		</fieldset>
+		<div style="margin-top: 5px; margin-bottom: 5px; text-align: right;">
+			<input type="button" class="button" value="Lưu" id="btSubmit"></input>
+			<input type="button" class="button" value="Làm lại" id="btReset"></input>
+			<input type="button" class="button" value="Thoát" id="btThoat" onclick="window.parent.CloseWindow();"></input>
+		</div>
+	</div>
 </body>
 </html>
 <script>
@@ -146,7 +150,7 @@ $(document).ready(function(){
 		rules : {
 			"bienbanvhkDto.sobienban" : {
 				required : true
-			},
+			}
 		}
 	});
 	// load edit
@@ -212,7 +216,7 @@ $(document).ready(function(){
 						}
 					}
 				} );
-			},
+			}
 		});
 	}
 	$("#btSubmit").click(function(){

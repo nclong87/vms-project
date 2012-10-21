@@ -48,6 +48,8 @@ public class FileUploadAction implements Preparable {
 	
 	public String doUpload() throws Exception {
 		try {
+			if(uploadFile == null) 
+				throw new Exception("UPLOAD_FAILED");
 			System.out.println("Begin upload");
 	        //this.fileSize = uploadFile.length();
 			String filename = System.currentTimeMillis()+"_"+StringUtil.getUnsignedString(uploadFileFileName);

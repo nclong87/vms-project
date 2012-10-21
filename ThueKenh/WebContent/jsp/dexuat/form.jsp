@@ -39,32 +39,24 @@ function byId(id) { //Viet tat cua ham document.getElementById
 </style>
 </head>
 <body>
-	<form id="form" onsubmit="return false;">
-	<input type="text" style="display:none" name="deXuatDTO.id" id="id" />
-	<input type="text" style="display:none" name="deXuatDTO.doitac_id" id="doitac_id" />
 	<div style="background: none repeat scroll 0pt 0pt rgb(242, 242, 242); padding: 5px; width: 99%;">
+		<form id="form" onsubmit="return false;">
+		<input type="text" style="display:none" name="deXuatDTO.id" id="id" />
+		<input type="text" style="display:none" name="deXuatDTO.doitac_id" id="doitac_id" />
+		<input type="text" style="display:none" name="deXuatDTO.filename" id="filename" value=""/>
+		<input type="text" style="display:none" name="deXuatDTO.filepath" id="filepath" value=""/>
+		<input type="text" style="display:none" name="deXuatDTO.filesize" id="filesize" value=""/>
 		<table class="input" style="width:725px">
 			<tr>
 				<td colspan='4' align="left" id="msg">
 				</td>
 			</tr>
 			<tr>
-				<td align="right" width="160px">
+				<td align="right" width="140px">
 					Tên văn bản <font title="Bắt buộc nhập" color="red">*</font> :
 				</td>
-				<td align="left">
-					<input type="text" name="deXuatDTO.tenvanban" id="tenvanban" />
-				</td>
-				<td align="right" width="150px">
-					File Scan :
-				</td>
-				<td align="left">
-					<input type="text" style="display:none" name="deXuatDTO.filename" id="filename" value=""/>
-					<input type="text" style="display:none" name="deXuatDTO.filepath" id="filepath" value=""/>
-					<input type="text" style="display:none" name="deXuatDTO.filesize" id="filesize" value=""/>
-					<div id="label">
-					</div>
-					<input type="button" class="button" id="btUploadFile" value="Chọn file..." />
+				<td align="left" colspan="3">
+					<input type="text" name="deXuatDTO.tenvanban" id="tenvanban" style="width:99%"/>
 				</td>
 			</tr>
 			<tr>
@@ -74,7 +66,7 @@ function byId(id) { //Viet tat cua ham document.getElementById
 				<td align="left">
 					<input type="text" name="deXuatDTO.ngaygui" id="ngaygui" class="date">
 				</td>
-				<td align="right">
+				<td align="right" width="200px" valign="center">
 					Ngày đề nghị bàn giao :
 				</td>
 				<td align="left">
@@ -109,13 +101,20 @@ function byId(id) { //Viet tat cua ham document.getElementById
 			</table>
 		</fieldset>
 		</div>
+		</form>
+		<fieldset class="data_list" style="margin-top:5px">
+			<legend>File Scan</legend>
+			<form id="frmUpload" method="post" enctype="multipart/form-data" style="margin-top: 5px; float: left; width: 100%;" onsubmit="return false">
+			<input type="file" name="uploadFile" id="uploadFile" style="margin-left:5px"/>
+			<div id="label"></div>
+		</form>
+		</fieldset>
 		<div style="margin-top: 5px; margin-bottom: 5px; text-align: right;">
 			<input class="button" type="button" id="btSubmit" value="Lưu"/>
 			<input class="button" type="button" id="btReset" value="Làm lại"/>
 			<input class="button" type="button" id="btThoat" onclick="window.parent.CloseWindow();" value="Thoát"/>
 		</div>
 	</div>
-	</form>
 </body>
 </html>
 <script>
@@ -236,7 +235,7 @@ $(document).ready(function() {
 						}
 					}
 				} );
-			},
+			}
 		});
 	}
 	$(document).delegate("#btSubmit","click",function() {

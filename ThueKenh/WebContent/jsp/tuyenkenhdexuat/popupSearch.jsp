@@ -108,7 +108,7 @@ margin-left: 10px;
 									<td align="left">
 									<input class="button" type="button" value="Tìm Kiếm" onclick="doSearch()"/>
 									<input class="button" type="button" value="Reset" onclick="reset()"/>
-									<input class="button" id="btSelect" style="display:none" type="button" value="Chọn" onclick="doClose()"/>
+									<input class="button" id="btSelect" type="button" value="Chọn" onclick="doClose()"/>
 									</td>
 								</tfoot>
 							</table>
@@ -191,11 +191,11 @@ $(document).ready(function(){
 		}
 	});
 	$('#dataTable input[type=checkbox]').live("click",function(){
-		if($('#dataTable input:checked').size()>0) {
-			$("#btSelect").show();
+		/* if($('#dataTable input:checked').size()>0) {
+			$("#divSearch #btSelect").show();
 		} else {
-			$("#btSelect").hide();
-		}
+			$("#divSearch #btSelect").hide();
+		} */
 	});
 	seq = 0;
 	oTable = $('#dataTable').dataTable({
