@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemadesigner version="6.5">
+<source>
+<database charset="latin1" collation="latin1_swedish_ci">thuekenh</database>
+</source>
+<canvas zoom="100">
+<tables>
+<table name="thanhtoan" view="colnames">
+<left>138</left>
+<top>101</top>
+<width>140</width>
+<height>289</height>
+<sql_create_table>CREATE TABLE `thanhtoan` (
+  `ID` int(11) NOT NULL,
+  `NGAYCHUYENKT` date DEFAULT NULL,
+  `THANG` int(11) DEFAULT NULL,
+  `NAM` int(11) DEFAULT NULL,
+  `GIATRITT` int(11) DEFAULT NULL,
+  `TRANGTHAI` int(11) DEFAULT NULL,
+  `USERCREATE` varchar(255) DEFAULT NULL,
+  `TIMECREATE` datetime DEFAULT NULL,
+  `DELETED` int(11) DEFAULT NULL,
+  `FILENAME` varchar(200) DEFAULT NULL,
+  `FILEPATH` varchar(200) DEFAULT NULL,
+  `FILESIZE` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1</sql_create_table>
+</table>
+<table name="thanhtoan_phuluc" view="colnames">
+<left>340</left>
+<top>214</top>
+<width>138</width>
+<height>107</height>
+<sql_create_table>CREATE TABLE `thanhtoan_phuluc` (
+  `THANHTOAN_ID` int(11) NOT NULL,
+  `PHULUC_ID` int(11) NOT NULL,
+  PRIMARY KEY (`THANHTOAN_ID`,`PHULUC_ID`),
+  KEY `FK_thanhtoan_phuluc2` (`PHULUC_ID`),
+  CONSTRAINT `FK_thanhtoan_phuluc` FOREIGN KEY (`THANHTOAN_ID`) REFERENCES `thanhtoan` (`ID`),
+  CONSTRAINT `FK_thanhtoan_phuluc2` FOREIGN KEY (`PHULUC_ID`) REFERENCES `phuluc` (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1</sql_create_table>
+</table>
+<table name="phuluc" view="colnames">
+<left>546</left>
+<top>89</top>
+<width>185</width>
+<height>371</height>
+<sql_create_table>CREATE TABLE `phuluc` (
+  `ID` int(11) NOT NULL,
+  `CHITIETPHULUC_ID` int(11) DEFAULT NULL,
+  `HOPDONG_ID` int(11) DEFAULT NULL,
+  `TENPHULUC` varchar(255) DEFAULT NULL,
+  `LOAIPHULUC` int(11) DEFAULT NULL,
+  `NGAYKY` date DEFAULT NULL,
+  `NGAYHIEULUC` date DEFAULT NULL,
+  `THANG` int(11) DEFAULT NULL,
+  `NAM` int(11) DEFAULT NULL,
+  `TRANGTHAI` int(11) DEFAULT NULL,
+  `USERCREATE` varchar(255) DEFAULT NULL,
+  `TIMECREATE` datetime DEFAULT NULL,
+  `FILENAME` varchar(255) DEFAULT NULL,
+  `FILEPATH` varchar(255) DEFAULT NULL,
+  `FILESIZE` varchar(20) DEFAULT NULL,
+  `DELETED` int(11) DEFAULT NULL,
+  `PHULUCTHAYTHE_ID` int(11) DEFAULT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `FK_phuluc1` (`CHITIETPHULUC_ID`),
+  KEY `FK_phuluc3` (`HOPDONG_ID`),
+  KEY `FK_phuluc_thaythe` (`PHULUCTHAYTHE_ID`),
+  CONSTRAINT `FK_phuluc_thaythe` FOREIGN KEY (`PHULUCTHAYTHE_ID`) REFERENCES `phuluc` (`ID`),
+  CONSTRAINT `FK_phuluc1` FOREIGN KEY (`CHITIETPHULUC_ID`) REFERENCES `chitietphuluc` (`ID`),
+  CONSTRAINT `FK_phuluc3` FOREIGN KEY (`HOPDONG_ID`) REFERENCES `hopdong` (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1</sql_create_table>
+</table>
+<table name="chitietphuluc" view="colnames">
+<left>790</left>
+<top>48</top>
+<width>162</width>
+<height>209</height>
+<sql_create_table>CREATE TABLE `chitietphuluc` (
+  `ID` int(11) NOT NULL,
+  `TENCHITIETPHULUC` varchar(255) DEFAULT NULL,
+  `CUOCDAUNOI` int(11) DEFAULT NULL,
+  `GIATRITRUOCTHUE` int(11) DEFAULT NULL,
+  `GIATRISAUTHUE` int(11) DEFAULT NULL,
+  `USERCREATE` varchar(255) DEFAULT NULL,
+  `TIMECREATE` datetime DEFAULT NULL,
+  `DELETED` int(11) DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1</sql_create_table>
+</table>
+<table name="hopdong" view="colnames">
+<left>795</left>
+<top>277</top>
+<width>133</width>
+<height>260</height>
+<sql_create_table>CREATE TABLE `hopdong` (
+  `ID` int(11) NOT NULL,
+  `DOITAC_ID` int(11) DEFAULT NULL,
+  `SOHOPDONG` varchar(255) DEFAULT NULL,
+  `LOAIHOPDONG` int(11) DEFAULT NULL COMMENT 'ANC\\nad',
+  `NGAYKY` date DEFAULT NULL,
+  `NGAYHETHAN` date DEFAULT NULL,
+  `TRANGTHAI` int(11) DEFAULT NULL,
+  `USERCREATE` varchar(255) DEFAULT NULL,
+  `TIMECREATE` datetime DEFAULT NULL,
+  `HISTORY` text,
+  `DELETED` int(11) DEFAULT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `FK_hopdong_DOITAC` (`DOITAC_ID`),
+  CONSTRAINT `FK_hopdong_DOITAC` FOREIGN KEY (`DOITAC_ID`) REFERENCES `doitac` (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1</sql_create_table>
+</table>
+</tables>
+</canvas>
+</schemadesigner>
