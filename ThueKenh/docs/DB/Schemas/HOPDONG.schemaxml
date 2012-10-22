@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemadesigner version="6.5">
+<source>
+<database charset="latin1" collation="latin1_swedish_ci">thuekenh</database>
+</source>
+<canvas zoom="100">
+<tables>
+<table name="hopdong" view="colnames">
+<left>232</left>
+<top>156</top>
+<width>133</width>
+<height>260</height>
+<sql_create_table>CREATE TABLE `hopdong` (
+  `ID` int(11) NOT NULL,
+  `DOITAC_ID` int(11) DEFAULT NULL,
+  `SOHOPDONG` varchar(255) DEFAULT NULL,
+  `LOAIHOPDONG` int(11) DEFAULT NULL COMMENT 'ANC\\nad',
+  `NGAYKY` date DEFAULT NULL,
+  `NGAYHETHAN` date DEFAULT NULL,
+  `TRANGTHAI` int(11) DEFAULT NULL,
+  `USERCREATE` varchar(255) DEFAULT NULL,
+  `TIMECREATE` datetime DEFAULT NULL,
+  `HISTORY` text,
+  `DELETED` int(11) DEFAULT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `FK_hopdong_DOITAC` (`DOITAC_ID`),
+  CONSTRAINT `FK_hopdong_DOITAC` FOREIGN KEY (`DOITAC_ID`) REFERENCES `doitac` (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1</sql_create_table>
+</table>
+<table name="doitac" view="colnames">
+<left>54</left>
+<top>69</top>
+<width>131</width>
+<height>192</height>
+<sql_create_table>CREATE TABLE `doitac` (
+  `ID` int(11) NOT NULL,
+  `TENDOITAC` varchar(255) DEFAULT NULL,
+  `STT` int(11) DEFAULT NULL,
+  `DELETED` int(11) DEFAULT NULL,
+  `MA` varchar(50) DEFAULT NULL,
+  `KHUVUC_ID` int(11) DEFAULT NULL,
+  `SOTUYENKENH` int(11) DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1</sql_create_table>
+</table>
+</tables>
+</canvas>
+</schemadesigner>
