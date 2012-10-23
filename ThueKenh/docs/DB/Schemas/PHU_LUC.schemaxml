@@ -19,6 +19,7 @@
   `USERCREATE` varchar(255) DEFAULT NULL,
   `TIMECREATE` datetime DEFAULT NULL,
   `DELETED` int(11) DEFAULT NULL,
+  `SOLUONGKENH` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1</sql_create_table>
 </table>
@@ -82,7 +83,7 @@
 <left>18</left>
 <top>167</top>
 <width>161</width>
-<height>337</height>
+<height>363</height>
 <sql_create_table>CREATE TABLE `phuluc` (
   `ID` int(11) NOT NULL,
   `CHITIETPHULUC_ID` int(11) DEFAULT NULL,
@@ -100,11 +101,14 @@
   `FILEPATH` varchar(255) DEFAULT NULL,
   `FILESIZE` varchar(20) DEFAULT NULL,
   `DELETED` int(11) DEFAULT NULL,
+  `PHULUCTHAYTHE_ID` int(11) DEFAULT NULL,
   PRIMARY KEY (`ID`),
   KEY `FK_phuluc1` (`CHITIETPHULUC_ID`),
   KEY `FK_phuluc3` (`HOPDONG_ID`),
+  KEY `FK_phuluc_thaythe` (`PHULUCTHAYTHE_ID`),
   CONSTRAINT `FK_phuluc1` FOREIGN KEY (`CHITIETPHULUC_ID`) REFERENCES `chitietphuluc` (`ID`),
-  CONSTRAINT `FK_phuluc3` FOREIGN KEY (`HOPDONG_ID`) REFERENCES `hopdong` (`ID`)
+  CONSTRAINT `FK_phuluc3` FOREIGN KEY (`HOPDONG_ID`) REFERENCES `hopdong` (`ID`),
+  CONSTRAINT `FK_phuluc_thaythe` FOREIGN KEY (`PHULUCTHAYTHE_ID`) REFERENCES `phuluc` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1</sql_create_table>
 </table>
 <table name="hopdong" view="colnames">
