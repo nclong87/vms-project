@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 
 import org.apache.commons.lang3.StringUtils;
@@ -13,6 +14,7 @@ import org.springframework.jdbc.core.RowMapper;
 
 import vms.db.dto.LoaiGiaoTiepDTO;
 import vms.db.dto.LoaiGiaoTiep;
+import vms.utils.VMSUtil;
 
 public class LoaiGiaoTiepDao {
 
@@ -40,13 +42,13 @@ public class LoaiGiaoTiepDao {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<LoaiGiaoTiep> getAll() {
+	public List<Map<String, Object>> getAll() {
 		// TODO Auto-generated method stub
 		return this.jdbcTemplate.query(
 				"select * from loaigiaotiep where deleted = 0", new RowMapper() {
 					public Object mapRow(ResultSet rs, int rowNum)
 							throws SQLException {
-						return LoaiGiaoTiep.mapObject(rs);
+						return VMSUtil.resultSetToMap(rs);
 					}
 				});
 	}

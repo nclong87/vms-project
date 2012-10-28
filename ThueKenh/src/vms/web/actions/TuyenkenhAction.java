@@ -23,7 +23,6 @@ import vms.db.dao.PhongBanDao;
 import vms.db.dao.TuyenkenhDao;
 import vms.db.dto.DoiTacDTO;
 import vms.db.dto.DuAnDTO;
-import vms.db.dto.LoaiGiaoTiep;
 import vms.db.dto.PhongBanDTO;
 import vms.db.dto.TuyenKenh;
 import vms.utils.Constances;
@@ -44,7 +43,7 @@ public class TuyenkenhAction implements Preparable {
 	private LinkedHashMap<String, Object> jsonData;
 	private String form_data;
 	
-	private List<LoaiGiaoTiep> loaiGiaoTieps;
+	private List<Map<String,Object>> loaiGiaoTieps;
 	private List<DuAnDTO> duAnDTOs;
 	private List<DoiTacDTO> doiTacDTOs;
 	private List<PhongBanDTO> phongBans;
@@ -214,6 +213,22 @@ public class TuyenkenhAction implements Preparable {
 		return Action.SUCCESS;
 	}
 	
+	/*
+	 * Tim kiem tuyen kenh de tinh gia tri phu luc
+	 * Chi lay tuyen kenh dang hoat dong hoac da ban giao
+	 */
+	public String popupSearch2() {
+		LoaiGiaoTiepDao loaiGiaoTiepDao = new LoaiGiaoTiepDao(daoFactory);
+		loaiGiaoTieps = loaiGiaoTiepDao.getAll();
+		DuAnDAO duAnDAO = new DuAnDAO(daoFactory);
+		duAnDTOs = duAnDAO.findAll();
+		DoiTacDAO doiTacDAO = new DoiTacDAO(daoFactory);
+		doiTacDTOs = doiTacDAO.findAll();
+		PhongBanDao phongBanDao = new PhongBanDao(daoFactory);
+		phongBans = phongBanDao.getAll();
+		return Action.SUCCESS;
+	}
+	
 	/* Getter and Setter */
 	
 	public InputStream getInputStream() {
@@ -260,10 +275,10 @@ public class TuyenkenhAction implements Preparable {
 	public void setTuyenKenh(TuyenKenh tuyenKenh) {
 		this.tuyenKenh = tuyenKenh;
 	}
-	public List<LoaiGiaoTiep> getLoaiGiaoTieps() {
+	public List<Map<String,Object>> getLoaiGiaoTieps() {
 		return loaiGiaoTieps;
 	}
-	public void setLoaiGiaoTieps(List<LoaiGiaoTiep> loaiGiaoTieps) {
+	public void setLoaiGiaoTieps(List<Map<String,Object>> loaiGiaoTieps) {
 		this.loaiGiaoTieps = loaiGiaoTieps;
 	}
 	public List<DuAnDTO> getDuAnDTOs() {

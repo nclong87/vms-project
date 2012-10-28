@@ -50,7 +50,7 @@ public class TuyenkenhDexuatAction implements Preparable {
 	private String tuyenKenh_data;
 	private String tuyenKenhDeXuatDTO_data;
 	
-	private List<LoaiGiaoTiep> loaiGiaoTieps;
+	private List<Map<String,Object>> loaiGiaoTieps;
 	private List<DuAnDTO> duAnDTOs;
 	private List<DoiTacDTO> doiTacDTOs;
 	private List<PhongBanDTO> phongBans;
@@ -323,10 +323,10 @@ public class TuyenkenhDexuatAction implements Preparable {
 	public void setTuyenKenhDeXuatDTO(TuyenKenhDeXuatDTO tuyenKenhDeXuatDTO) {
 		this.tuyenKenhDeXuatDTO = tuyenKenhDeXuatDTO;
 	}
-	public List<LoaiGiaoTiep> getLoaiGiaoTieps() {
+	public List<Map<String,Object>> getLoaiGiaoTieps() {
 		return loaiGiaoTieps;
 	}
-	public void setLoaiGiaoTieps(List<LoaiGiaoTiep> loaiGiaoTieps) {
+	public void setLoaiGiaoTieps(List<Map<String,Object>> loaiGiaoTieps) {
 		this.loaiGiaoTieps = loaiGiaoTieps;
 	}
 	public List<DuAnDTO> getDuAnDTOs() {

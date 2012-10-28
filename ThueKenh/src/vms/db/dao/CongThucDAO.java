@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 
 import org.apache.commons.lang3.StringUtils;
@@ -12,6 +13,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
 import vms.db.dto.CongThucDTO;
+import vms.utils.VMSUtil;
 
 public class CongThucDAO {
 
@@ -140,6 +142,17 @@ public class CongThucDAO {
 		return this.jdbcTemplate
 				.update("update congthuc set DELETED = "+System.currentTimeMillis()+" where ID in (" + str
 						+ ")") > 0;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Map<String, Object>> findAll() {
+		return this.jdbcTemplate.query(
+			"select * from congthuc where deleted = 0", new RowMapper() {
+				public Object mapRow(ResultSet rs, int rowNum)
+						throws SQLException {
+					return VMSUtil.resultSetToMap(rs);
+				}
+			});
 	}
 
 }
