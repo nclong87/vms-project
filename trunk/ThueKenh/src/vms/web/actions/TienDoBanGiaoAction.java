@@ -22,7 +22,6 @@ import vms.db.dao.TieuChuanDAO;
 import vms.db.dao.TuyenKenhBanGiaoDAO;
 import vms.db.dto.DuAnDTO;
 import vms.db.dto.KhuVucDTO;
-import vms.db.dto.LoaiGiaoTiep;
 import vms.db.dto.PhongBanDTO;
 import vms.db.dto.TieuChuanDTO;
 import vms.db.dto.TuyenKenh;
@@ -48,7 +47,7 @@ public class TienDoBanGiaoAction implements Preparable {
 	private String tuyenKenh_data;
 	private String tuyenKenhDeXuatDTO_data;
 
-	private List<LoaiGiaoTiep> loaiGiaoTieps;
+	private List<Map<String, Object>> loaiGiaoTieps;
 	private List<DuAnDTO> duAnDTOs;
 	private List<KhuVucDTO> khuVucDTOs;
 	private List<PhongBanDTO> phongBans;
@@ -263,18 +262,6 @@ public class TienDoBanGiaoAction implements Preparable {
 		return Action.SUCCESS;
 	}
 
-	public String popupSearch() {
-		LoaiGiaoTiepDao loaiGiaoTiepDao = new LoaiGiaoTiepDao(daoFactory);
-		loaiGiaoTieps = loaiGiaoTiepDao.getAll();
-		DuAnDAO duAnDAO = new DuAnDAO(daoFactory);
-		duAnDTOs = duAnDAO.findAll();
-		KhuVucDao khuVucDao = new KhuVucDao(daoFactory);
-		khuVucDTOs = khuVucDao.findAll();
-		PhongBanDao phongBanDao = new PhongBanDao(daoFactory);
-		phongBans = phongBanDao.getAll();
-		return Action.SUCCESS;
-	}
-
 
 	/* Getter and Setter */
 
@@ -350,11 +337,11 @@ public class TienDoBanGiaoAction implements Preparable {
 		this.tuyenKenhDeXuatDTO = tuyenKenhDeXuatDTO;
 	}
 
-	public List<LoaiGiaoTiep> getLoaiGiaoTieps() {
+	public List<Map<String, Object>> getLoaiGiaoTieps() {
 		return loaiGiaoTieps;
 	}
 
-	public void setLoaiGiaoTieps(List<LoaiGiaoTiep> loaiGiaoTieps) {
+	public void setLoaiGiaoTieps(List<Map<String, Object>> loaiGiaoTieps) {
 		this.loaiGiaoTieps = loaiGiaoTieps;
 	}
 

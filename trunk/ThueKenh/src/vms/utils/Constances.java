@@ -26,4 +26,9 @@ public class Constances {
 	public static String MSG_ERROR = "Có lỗi xảy ra, vui lòng thử lại";
 	public static String MSG_SUCCESS = "Lưu dữ liệu thành công!";
 	public static String DS = System.getProperty("file.separator");
+	
+	// Cong thuc
+	public static String CUOCONG = "CC";
+	public static String DONGIA = "DG";
+	public static String SOLUONG = "SL";
 }

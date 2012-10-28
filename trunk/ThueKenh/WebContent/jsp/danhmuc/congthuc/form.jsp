@@ -88,7 +88,7 @@ var contextPath = '<%=contextPath%>';
 					<td align="left" colspan="2" class="congthuc">
 						<div class="s1">
 							<button value="SL">Số lượng</button>
-							<button value="GG">Giảm giá</button>
+							<button value="DG">Đơn giá</button>
 							<button value="CC">Cước cổng</button>
 						</div>
 						<div class="s2">

@@ -2,9 +2,13 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package mylibararies.caculator;
+package vms.utils;
 
 import java.util.Stack;
+
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+import javax.script.ScriptException;
 
 /**
  *
@@ -17,7 +21,15 @@ public class MyCaculator {
     private Stack m_Q;//chua so
 
     public static void main(String[] args) {
-        System.out.println( MyCaculator.cal(" 01 + 22 * 2 "));
+    	ScriptEngineManager mgr = new ScriptEngineManager();
+        ScriptEngine engine = mgr.getEngineByName("JavaScript");
+        String foo = "2+(22*2)";
+        try {
+			System.out.println(engine.eval(foo));
+		} catch (ScriptException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
     
     public static String cal(String expression){

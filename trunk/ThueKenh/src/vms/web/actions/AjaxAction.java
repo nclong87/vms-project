@@ -15,7 +15,9 @@ import org.apache.struts2.ServletActionContext;
 
 
 import vms.db.dao.AccountDao;
+import vms.db.dao.CongThucDAO;
 import vms.db.dao.DaoFactory;
+import vms.db.dao.LoaiGiaoTiepDao;
 import vms.db.dao.MenuDao;
 import vms.db.dao.TramDAO;
 import vms.db.dao.VmsgroupDao;
@@ -153,6 +155,34 @@ public class AjaxAction implements Preparable {
 			Map<String, String> conditions = new LinkedHashMap<String, String>();
 			conditions.put("matram", matram);
 			List<Map<String, Object>> result = tramDAO.search(0, 10, conditions);
+			jsonData.put("status", 1);
+			jsonData.put("data", result);
+		} catch (Exception e) {
+			jsonData.put("status", 0);
+			jsonData.put("data", e.getMessage());
+		}
+		return Action.SUCCESS;
+	}
+	
+	public String getAllCongThuc() {
+		jsonData =  new LinkedHashMap<String, Object>();
+		try {
+			CongThucDAO dao = new CongThucDAO(daoFactory);
+			List<Map<String, Object>> result = dao.findAll();
+			jsonData.put("status", 1);
+			jsonData.put("data", result);
+		} catch (Exception e) {
+			jsonData.put("status", 0);
+			jsonData.put("data", e.getMessage());
+		}
+		return Action.SUCCESS;
+	}
+	
+	public String getAllLoaiGiaoTiep() {
+		jsonData =  new LinkedHashMap<String, Object>();
+		try {
+			LoaiGiaoTiepDao dao = new LoaiGiaoTiepDao(daoFactory);
+			List<Map<String, Object>> result = dao.getAll();
 			jsonData.put("status", 1);
 			jsonData.put("data", result);
 		} catch (Exception e) {

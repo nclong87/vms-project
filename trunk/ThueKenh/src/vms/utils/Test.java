@@ -14,7 +14,7 @@ import com.smartxls.WorkBook;
 public class Test {
 	public static void main(String arg[]) {
 		System.out.println("Begin");
-		String fileuploadFileName = "SuCoExcelMau.xls";
+		/*String fileuploadFileName = "SuCoExcelMau.xls";
 		String filepath = "D:\\SuCoExcelMau.xls";
 		WorkBook workBook = new WorkBook();
 		String filetype = StringUtil.getExtension(fileuploadFileName);
@@ -48,8 +48,19 @@ public class Test {
 			e.printStackTrace();
 		} finally {
 			workBook.dispose();
+		}*/
+		
+		//MyCaculator.main(args)
+		String[][] replacements = {{"DG", "123"}, 
+                {"SL", "4"}};
+		
+		//loop over the array and replace
+		String strOutput = "DG*SL";
+		for(String[] replacement: replacements) {
+		strOutput = strOutput.replace(replacement[0], replacement[1]);
 		}
 		
+		System.out.println(strOutput);
 		System.out.println("Done!");
     }
 }

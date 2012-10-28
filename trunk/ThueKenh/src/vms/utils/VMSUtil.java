@@ -8,6 +8,9 @@ import java.util.Enumeration;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+import javax.script.ScriptException;
 import javax.servlet.http.HttpServletRequest;
 
 public class VMSUtil {
@@ -65,5 +68,26 @@ public class VMSUtil {
 		}
     	return map;
     	
+    }
+    
+    public static double calculate(String exp) {
+    	ScriptEngineManager mgr = new ScriptEngineManager();
+        ScriptEngine engine = mgr.getEngineByName("JavaScript");
+        try {
+			return (Double) engine.eval(exp);
+		} catch (ScriptException e) {
+			e.printStackTrace();
+		}
+        return 0;
+    }
+    
+    public static String replacements(String strIn,String[][] replacements) {
+    	/*String[][] replacements = {{"DG", "123"}, 
+                {"SL", "4"}};*/
+		String strOutput = strIn;
+		for(String[] replacement: replacements) {
+		strOutput = strOutput.replace(replacement[0], replacement[1]);
+		}
+		return strOutput;
     }
 }
