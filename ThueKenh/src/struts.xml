@@ -664,5 +664,13 @@
 				<param name="root">jsonData</param>
 			</result>
 		</action>
+		<action name="form" class="chiTietPhuLucAction" method="form">
+			<result>/jsp/chitietphuluc/form.jsp</result>
+		</action>
+		<action name="doSaveChiTietPhuLuc" class="chiTietPhuLucAction" method="doSaveChiTietPhuLuc">
+			<result name="success" type="json">
+				<param name="root">jsonData</param>
+			</result>
+		</action>
 	</package>
 </struts>

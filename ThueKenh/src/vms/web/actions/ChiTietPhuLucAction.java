@@ -49,7 +49,8 @@ public class ChiTietPhuLucAction implements Preparable {
 	
 	private String id;
 	private String[] ids;
-	private Map<String,Object> detail;
+	private Map<String,Object> json;
+	private ChiTietPhuLucDTO chiTietPhuLucDTO;
 	
 	private ChiTietPhuLucDAO chiTietPhuLucDAO;
 	public ChiTietPhuLucAction( DaoFactory factory) {
@@ -75,10 +76,11 @@ public class ChiTietPhuLucAction implements Preparable {
 	
 	
 	public String doSave() {
+		jsonData = new LinkedHashMap<String, Object>();
 		try {
 			if(account == null) {
 				session.setAttribute("URL", VMSUtil.getFullURL(request));
-				return "login_page";
+				throw new Exception("END_SESSION");
 			}
 			CongThucDAO congThucDAO = new CongThucDAO(daoFactory);
 			List<Map<String,Object>> list = congThucDAO.findAll();
@@ -87,15 +89,53 @@ public class ChiTietPhuLucAction implements Preparable {
 				mapCongThuc.put(list.get(i).get("id").toString(), list.get(i).get("chuoicongthuc").toString());
 			}
 			System.out.println("chiTietPhuLucTuyenKenhDTOs.length = " + chiTietPhuLucTuyenKenhDTOs.size());
-			chiTietPhuLucDAO.saveChiTietPhuLucTuyenKenh(chiTietPhuLucTuyenKenhDTOs, mapCongThuc);
-			setInputStream("OK");
+			Map<String,Object> result = chiTietPhuLucDAO.saveChiTietPhuLucTuyenKenh(chiTietPhuLucTuyenKenhDTOs, mapCongThuc);
+			jsonData.put("status", "OK");
+			jsonData.put("data", result);
 		} catch (Exception e) {
 			e.printStackTrace();
-			setInputStream(e.getMessage());
+			jsonData.put("status", "ERROR");
+			jsonData.put("data", e.getMessage());
 		}
 		return Action.SUCCESS;
 	}
 	
+	public String form() {
+		if(account == null) {
+			session.setAttribute("URL", VMSUtil.getFullURL(request));
+			return "login_page";
+		}
+		json = new LinkedHashMap<String, Object>();
+		json.put("cuocDauNoi", request.getParameter("cuocDauNoi"));
+		json.put("giaTriTruocThue", request.getParameter("giaTriTruocThue"));
+		json.put("giaTriSauThue", request.getParameter("giaTriSauThue"));
+		json.put("soLuongKenh", request.getParameter("soLuongKenh"));
+		return Action.SUCCESS;
+	}
+	
+	public String doSaveChiTietPhuLuc() {
+		jsonData = new LinkedHashMap<String, Object>();
+		try {
+			if(account == null) {
+				session.setAttribute("URL", VMSUtil.getFullURL(request));
+				throw new Exception("END_SESSION");
+			}
+			if(chiTietPhuLucDTO == null) throw new Exception("ERROR");
+			if(chiTietPhuLucDAO.findByKey(chiTietPhuLucDTO.getTenchitietphuluc()) != null) {
+				throw new Exception("DUPLICATE");
+			}
+			chiTietPhuLucDTO.setUsercreate(account.get("username").toString());
+			chiTietPhuLucDTO.setTimecreate(DateUtils.getCurrentDateSQL());
+			chiTietPhuLucDAO.saveChiTietPhuLuc(chiTietPhuLucDTO);
+			jsonData.put("status", "OK");
+			jsonData.put("data", "");
+		} catch (Exception e) {
+			e.printStackTrace();
+			jsonData.put("status", "ERROR");
+			jsonData.put("data", e.getMessage());
+		}
+		return Action.SUCCESS;
+	}
 	
 	/* Getter and Setter */
 	
@@ -138,11 +178,12 @@ public class ChiTietPhuLucAction implements Preparable {
 	public void setForm_data(String form_data) {
 		this.form_data = form_data;
 	}
-	public Map<String, Object> getDetail() {
-		return detail;
+	
+	public Map<String, Object> getJson() {
+		return json;
 	}
-	public void setDetail(Map<String, Object> detail) {
-		this.detail = detail;
+	public void setJson(Map<String, Object> json) {
+		this.json = json;
 	}
 	public List<ChiTietPhuLucTuyenKenhDTO> getChiTietPhuLucTuyenKenhDTOs() {
 		return chiTietPhuLucTuyenKenhDTOs;
@@ -156,6 +197,12 @@ public class ChiTietPhuLucAction implements Preparable {
 	}
 	public void setCongThucs(String congThucs) {
 		this.congThucs = congThucs;
+	}
+	public ChiTietPhuLucDTO getChiTietPhuLucDTO() {
+		return chiTietPhuLucDTO;
+	}
+	public void setChiTietPhuLucDTO(ChiTietPhuLucDTO chiTietPhuLucDTO) {
+		this.chiTietPhuLucDTO = chiTietPhuLucDTO;
 	}
 	
 	

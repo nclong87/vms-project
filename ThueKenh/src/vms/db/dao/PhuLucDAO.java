@@ -26,7 +26,7 @@ public class PhuLucDAO {
 		this.jdbcDatasource = daoFactory.getJdbcDataSource();
 	}
 	
-	private static final String SQL_FIND_PHULUC = "{ ? = call FIND_PHULUC(?,?,?,?,?,?,?) }";
+	private static final String SQL_FIND_PHULUC = "{ ? = call FIND_PHULUC(?,?,?,?,?,?,?,?) }";
 	public List<Map<String,Object>> search(int iDisplayStart,int iDisplayLength,Map<String, String> conditions) throws SQLException {
 		Connection connection = jdbcDatasource.getConnection();
 		CallableStatement stmt = connection.prepareCall(SQL_FIND_PHULUC);
@@ -38,6 +38,7 @@ public class PhuLucDAO {
 		stmt.setString(6, conditions.get("loaiphuluc"));
 		stmt.setString(7, conditions.get("ngayky"));
 		stmt.setString(8, conditions.get("ngayhieuluc"));
+		stmt.setString(9, conditions.get("hopdong_id"));
 		stmt.execute();
 		ResultSet rs = (ResultSet) stmt.getObject(1);
 		List<Map<String,Object>> result = new ArrayList<Map<String,Object>>();
