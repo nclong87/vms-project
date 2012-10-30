@@ -209,37 +209,37 @@ function stringify (obj) {
         return (arr ? "[" : "{") + String(json) + (arr ? "]" : "}");
     }
 }
-function showDialog() {
-	$("#dialog1").html(replaceText(templates.loading,{baseUrl:baseUrl}));
-	$("#dialog1").dialog({ 
+function showDialog(msg,title_,width_) {
+	$("#dialog").html(msg);
+	$("#dialog").dialog({ 
 		modal: true,
         resizable: false,
+		title : title_,
+		width: width_,
+		zIndex: 8000,
 		open : function(){
 		},
 		close : function() {
 		}
 	});
 }
-function showDialogUrl(url,title_,width_,dialog) {
-	if(dialog == null) dialog = $("#dialog");
+function showDialogUrl(url,title_,width_) {
 	if(width_ == null)
 		width_= 300;
 	if(title_ == null)
-		title_ = 'Welcome to Top7';
-	dialog.html('');
-	dialog.html(replaceText(templates.loading,{baseUrl:baseUrl}));
-	dialog.load(url);
-	dialog.dialog({ 
+		title_ = 'Welcome to VMS';
+	$("#dialog").html('');
+	$("#dialog").load(url);
+	$("#dialog").dialog({ 
 		modal: true,
+		closeOnEscape : true,
         resizable: false,
 		title : title_,
+		zIndex: 8000,
 		width: width_,
 		open : function(){
-			//$("body").css("overflow", "hidden");
-			
 		},
 		close : function() {
-			//$("body").css("overflow", "auto");
 		}
 	});
 }

@@ -21,6 +21,8 @@ public class ChiTietPhuLucTuyenKenhDTO {
 	private Long dongia;
 	private Integer giamgia;
 	private Long thanhtien;
+	
+	private String loaigiaotiep;
 
     public ChiTietPhuLucTuyenKenhDTO() {
 
@@ -111,6 +113,16 @@ public class ChiTietPhuLucTuyenKenhDTO {
 	public void setThanhtien(Long thanhtien) {
 		this.thanhtien = thanhtien;
 	}
+	
+	public String getLoaigiaotiep() {
+		return loaigiaotiep;
+	}
+
+
+	public void setLoaigiaotiep(String loaigiaotiep) {
+		this.loaigiaotiep = loaigiaotiep;
+	}
+
 
 	public Map<String,String> getMap() {
 		Map<String, String> map = new LinkedHashMap<String, String>();

@@ -155,9 +155,19 @@ public class TuyenkenhAction implements Preparable {
 			}
 			System.out.println("Do save");
 			TuyenkenhDao tuyenkenhDao = new TuyenkenhDao(daoFactory);
-			if(tuyenkenhDao.findByKey(tuyenKenh.getMadiemdau(), tuyenKenh.getMadiemcuoi(), tuyenKenh.getGiaotiep_id(),tuyenKenh.getDungluong()) != null) {
-				throw new Exception("EXIST");
+			TuyenKenh tk = tuyenkenhDao.findByKey(tuyenKenh.getMadiemdau(), tuyenKenh.getMadiemcuoi(), tuyenKenh.getGiaotiep_id(),tuyenKenh.getDungluong());
+			if(tk != null) {
+				if(tuyenKenh.getId().isEmpty()) { //them moi
+					throw new Exception("EXIST");
+				} else { //update
+					if(tuyenKenh.getId().equals(tk.getId()) == false) { //update trung voi 1 tuyen kenh khac
+						throw new Exception("EXIST");
+					} else {
+						
+					}
+				}
 			}
+			
 			//tuyenKenh.setNgaydenghibangiao(DateUtils.parseStringDateSQL(tuyenKenh.getNgaydenghibangiao(), "dd/MM/yyyy"));
 			//tuyenKenh.setNgayhenbangiao(DateUtils.parseStringDateSQL(tuyenKenh.getNgayhenbangiao(), "dd/MM/yyyy"));
 			tuyenKenh.setUsercreate(account.get("username").toString());

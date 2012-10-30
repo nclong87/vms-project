@@ -4,6 +4,7 @@
 <s:url action="index" namespace="/login" var="loginURL"/>
 <s:url action="index" namespace="/settings" var="settingsIndexURL"/>
 <s:url action="doSave" namespace="/chitietphuluc" var="doSaveURL"/>
+<s:url action="form" namespace="/chitietphuluc" var="formURL"/>
 <s:url action="popupSearch2" namespace="/tuyenkenh" id="popupSearch2URL" />
 <s:url action="getAllCongThuc" namespace="/ajax" id="getAllCongThucURL" />
 <s:url action="getAllLoaiGiaoTiep" namespace="/ajax" id="getAllLoaiGiaoTiepURL" />
@@ -29,6 +30,12 @@ table.display td {
 }
 td {
   text-align: center;
+}
+#frmLuuPhuLuc ul {
+padding: 0px; list-style: none outside none;
+}
+#frmLuuPhuLuc ul li{
+padding: 5px; 
 }
 </style>
 </head>
@@ -192,7 +199,7 @@ function generateCuocCongValue(i){
 }
 function addRow(stt,data) {
 	oTable.fnAddData([
-		'<span id="stt"></span>',
+		'<input type="text" id="loaigiaotiep" style="display:none" value="'+data.loaigiaotiep+'"/><span id="stt"></span>',
 		'<a target="_blank" href="tuyenkenh/Chi tiet tuyen kenh.html">'+data.id+'</a>',
 		data.madiemdau,data.madiemcuoi,data.loaigiaotiep,data.dungluong,
 		'<input type="text" id="soluong" disabled="true" style="width:30px;text-align:center" value="'+data.soluong+'"/>',
@@ -228,6 +235,7 @@ $(document).ready(function(){
 		var i = 0;
 		$("#dataTable tbody tr").each(function(){
 			var soLuong = $("#soluong",this).val();
+			var loaiGiaoTiep = $("#loaigiaotiep",this).val();
 			var tuyenKenhId = $("#tuyenkenh_id",this).val();
 			var cuocCong = $("#cuoccong",this).asNumber({region:'vn'});
 			var cuocDauNoi = $("#cuocdaunoi",this).asNumber({region:'vn'});
@@ -241,6 +249,7 @@ $(document).ready(function(){
 				'&chiTietPhuLucTuyenKenhDTOs['+i+'].cuocdaunoi='+cuocDauNoi+
 				'&chiTietPhuLucTuyenKenhDTOs['+i+'].dongia='+donGia+
 				'&chiTietPhuLucTuyenKenhDTOs['+i+'].giamgia='+giamGia+
+				'&chiTietPhuLucTuyenKenhDTOs['+i+'].loaigiaotiep='+loaiGiaoTiep+
 				'&chiTietPhuLucTuyenKenhDTOs['+i+'].congthuc_id='+selectCongThuc.val();
 			i++;
 		});
@@ -251,19 +260,17 @@ $(document).ready(function(){
 			cache: false,
 			url : "${doSaveURL}",
 			data: dataString,
-			success: function(data){
+			success: function(response){
 				button.disabled = false;
-				if(data == "END_SESSION") {
-					location.href = LOGIN_PATH;
-					return;
+				if(response.status == "ERROR") {
+					if(response.data == "END_SESSION") {
+						location.href = LOGIN_PATH;
+						return;
+					}
+					alert(response.data);
+				} else if(response.status == "OK") {
+					showDialogUrl("${formURL}?cuocDauNoi="+response.data.cuocDauNoi+"&giaTriTruocThue="+response.data.giaTriTruocThue+"&giaTriSauThue="+response.data.giaTriSauThue+"&soLuongKenh="+response.data.soLuongKenh,"Lưu giá trị phụ lục",500);
 				}
-				if(data == "OK") {
-					unblock('#bg_wrapper');
-					oTable.fnDraw(false);
-					alert("Thao tác thành công!");
-					return;
-				}
-				alert(data);
 			},
 			error: function(data){ alert (data);button.disabled = false;}	
 		});	

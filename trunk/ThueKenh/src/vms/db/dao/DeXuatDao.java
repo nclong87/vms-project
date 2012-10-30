@@ -78,7 +78,10 @@ public class DeXuatDao {
 		stmt.setString(12, dto.getFilepath());
 		stmt.setString(13, String.valueOf(dto.getFilesize()));
 		stmt.execute();
-		return stmt.getString(1);
+		String result = stmt.getString(1);
+		stmt.close();
+		connection.close();
+		return result;
 	}
 	
 	public void deleteByIds(String[] ids) {
