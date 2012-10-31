@@ -15,8 +15,10 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
+import vms.db.dto.BienBanVanHanhKenhDTO;
 import vms.db.dto.HopDongDTO;
 import vms.utils.DateUtils;
+import vms.utils.StringUtil;
 import vms.utils.VMSUtil;
 
 public class HopDongDAO {
@@ -27,7 +29,7 @@ public class HopDongDAO {
 		this.jdbcDatasource = daoFactory.getJdbcDataSource();
 	}
 	
-	private static final String SQL_FIND_HOPDONG = "{ ? = call FIND_HOPDONG(?,?,?,?,?,?,?) }";
+	private static final String SQL_FIND_HOPDONG = "{ ? = call FIND_HOPDONG(?,?,?,?,?,?,?,?,?) }";
 	public List<Map<String,Object>> search(int iDisplayStart,int iDisplayLength,Map<String, String> conditions) throws SQLException {
 		Connection connection = jdbcDatasource.getConnection();
 		CallableStatement stmt = connection.prepareCall(SQL_FIND_HOPDONG);
@@ -37,8 +39,22 @@ public class HopDongDAO {
 		stmt.setString(4, conditions.get("doitac_id"));
 		stmt.setString(5, conditions.get("sohopdong"));
 		stmt.setString(6, conditions.get("loaihopdong"));
-		stmt.setString(7, conditions.get("ngayky"));
-		stmt.setString(8, conditions.get("ngayhethan"));
+		String ngaykytu="";
+		if(conditions.get("ngaykytu")!=null)
+			ngaykytu=DateUtils.parseStringDateSQL(conditions.get("ngaykytu"), "dd/MM/yyyy");
+		stmt.setString(7, ngaykytu);
+		String ngaykyden="";
+		if(conditions.get("ngaykyden")!=null)
+			ngaykyden=DateUtils.parseStringDateSQL(conditions.get("ngaykyden"), "dd/MM/yyyy");
+		stmt.setString(8, ngaykyden);
+		String ngayhethantu="";
+		if(conditions.get("ngayhethantu")!=null)
+			ngayhethantu=DateUtils.parseStringDateSQL(conditions.get("ngayhethantu"), "dd/MM/yyyy");
+		stmt.setString(9, ngayhethantu);
+		String ngayhethanden="";
+		if(conditions.get("ngayhethanden")!=null)
+			ngayhethanden=DateUtils.parseStringDateSQL(conditions.get("ngayhethanden"), "dd/MM/yyyy");
+		stmt.setString(10, ngayhethanden);
 		stmt.execute();
 		ResultSet rs = (ResultSet) stmt.getObject(1);
 		List<Map<String,Object>> result = new ArrayList<Map<String,Object>>();
@@ -63,6 +79,20 @@ public class HopDongDAO {
 				return HopDongDTO.mapObject(rs);
 			}
 		});
+	}
+	
+	@SuppressWarnings("unchecked")
+	public HopDongDTO findBySohopdong(String sohopdong) {
+		if(StringUtil.isEmpty(sohopdong))
+			return null;
+		List<HopDongDTO> list =  this.jdbcTemplate.query("SELECT * FROM HOPDONG WHERE SOHOPDONG = ? AND DELETED = 0" ,new Object[] {sohopdong}, new RowMapper() {
+			@Override
+			public Object mapRow(ResultSet rs, int arg1) throws SQLException {
+				return HopDongDTO.mapObject(rs);
+			}
+		});
+		if(list.isEmpty()) return null;
+		return list.get(0);
 	}
 	
 	private static final String SQL_SAVE_HOPDONG = "{ ? = call SAVE_HOPDONG(?,?,?,?,?,?,?,?,?) }";

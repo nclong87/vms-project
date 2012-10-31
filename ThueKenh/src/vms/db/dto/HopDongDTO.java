@@ -20,7 +20,7 @@ public class HopDongDTO {
 	/*
 	 * Description loaihopdong :
 	 * 1 : co thoi han
-	 * 2 : vo thoi han
+	 * 0 : vo thoi han
 	 */
 	private Integer loaihopdong;
 	private String ngayky;
