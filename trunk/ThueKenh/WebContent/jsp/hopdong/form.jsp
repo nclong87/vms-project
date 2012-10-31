@@ -150,10 +150,6 @@ var contextPath = '<%=contextPath%>
 								"hopdongDTO.ngayky" : {
 									required : true,
 									date : true
-								},
-								"hopdongDTO.ngayhethan" : {
-									required : true,
-									date : true
 								}
 							}
 						});
