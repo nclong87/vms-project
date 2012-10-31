@@ -3,7 +3,7 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <s:url action="index" namespace="/login" var="loginURL" />
 <s:url action="doSave" namespace="/hopdong" id="doSaveURL" />
-<s:url action="popupSearch" namespace="/tuyenkenh" id="popupSearchURL" />
+<s:url action="popupSearch" namespace="/sucokenh" id="popupSearchSuCoKenhURL" />
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <%
 	String contextPath = request.getContextPath();
@@ -43,27 +43,33 @@ var contextPath = '<%=contextPath%>
 
 <body>
 	<form id="form" onsubmit="return false;">
-		<input type="text" style="display: none" name="hopdongDTO.id" id="id" />
+		<input type="text" style="display: none" name="thanhtoanDTO.id" id="id" />
 		<div style="clear: both; margin: 5px 0">
 			<table class="input" style="width: 782px">
 				<tr>
 					<td align="right" width="150px"><label for="xxxx">Số hồ sơ :</label></td>
 					<td align="left">
-						<input  type="text" name="vanban.tenvanban" id="username"/>
+						<input  type="text" name="thanhtoanDTO.sohoso" id="sohoso" />
 					</td>
 					<td align="right" width="150px"><label for="xxxx">File scan :</label></td>
 					<td align="left">
-						<input type="file" name="vanban.ngaygui" id="ngaygui"/>
+						<input type="text" style="display:none" name="thanhtoanDTO.filename" id="filename" value=""/>
+						<input type="text" style="display:none" name="thanhtoanDTO.filepath" id="filepath" value=""/>
+						<input type="text" style="display:none" name="thanhtoanDTO.filesize" id="filesize" value=""/>
+						<div id="label">
+						</div>
+						<input type="button" class="button" id="btUploadFile" value="Chọn file..." />
 					</td>
 				</tr>
 				<tr>
 					<td align="right" ><label for="xxxx">Ngày chuyển kế toán :</label></td>
 					<td align="left" >
-						<input  type="text" name="vanban.tenvanban" id="username"/>
+						<input  type="text" name="thanhtoanDTO.ngaychuyenkt" id="ngaychuyenkt"/>
 					</td>
-					<td align="right" ><label for="xxxx">Giá trị thanh toán <font title="Bắt buộc nhập" color="red">*</font> :</label></td>
+					<td align="right" ><label for="xxxx">Giá trị thanh toán :</label></td>
 					<td align="left">
-						<input  type="text" name="vanban.ngaydenghibangiao" id="ngaydenghibangiao"/>
+						<input  type="text" name="thanhtoanDTO.giatritt" id="giatritt"/>
+						<font title="Bắt buộc nhập" color="red">*</font>
 					</td>
 				</tr>
 			</table>
@@ -132,77 +138,31 @@ var contextPath = '<%=contextPath%>
 					</div>
 					
 				</fieldset>
-				<fieldset class="data_list" style="margin-top:10px">
+				<fieldset class="data_list">
 					<legend>Danh sách sự cố giảm trừ</legend>
-					<div style="width: 100%; padding-bottom: 5px;text-align: right;"><input class="button" type="button" value="Chọn sự cố giảm trừ" onclick="openPopupChonSuCo()"></div>
-					<table width="100%" id="dataTable2" class="display dataTable">
+					<div style="width: 100%; padding-bottom: 5px;text-align: right;"><input class="button" type="button" value="Chọn sự cố" id="btPopupSearchSuCo"></div>
+					<table width="100%" id="dataTable" class="display">
 					<thead>
-						<tr>
-							<th width="5%">#</th>
-							<th>Mã kênh</th>
-							<th>TG bắt đầu</th>
-							<th>TG kết thúc</th>
-							<th>TG mất liên lạc</th>
-							<th>Người xác nhận</th>
-							<th width="5px" align="center">Xóa</th>
-						</tr>
-					</thead>
-					<tbody id="tbody">
-						<tr>
-							<td>1</td>
-							<td><a target="_blank" href="../tuyenkenh/Chi tiet tuyen kenh.html">123</a></td>
-							<td>04/03/2012 10:22</td>
-							<td>04/03/2012 12:22</td>
-							<td>2h</td>
-							<td>NCLONG</td>
-							<td><center><img title="Remove" src="../../images/icons/remove.png" onclick="doRemoveRow()" style="cursor:pointer"></center></td>
-						</tr>
-						<tr>
-							<td>2</td>
-							<td><a target="_blank" href="../tuyenkenh/Chi tiet tuyen kenh.html">123</a></td>
-							<td>04/03/2012 10:22</td>
-							<td>04/03/2012 12:22</td>
-							<td>2h</td>
-							<td>NCLONG</td>
-							<td><center><img title="Remove" src="../../images/icons/remove.png" onclick="doRemoveRow()" style="cursor:pointer"></center></td>
-						</tr>
-						<tr>
-							<td>3</td>
-							<td><a target="_blank" href="../tuyenkenh/Chi tiet tuyen kenh.html">123</a></td>
-							<td>04/03/2012 10:22</td>
-							<td>04/03/2012 12:22</td>
-							<td>2h</td>
-							<td>NCLONG</td>
-							<td><center><img title="Remove" src="../../images/icons/remove.png" onclick="doRemoveRow()" style="cursor:pointer"></center></td>
-						</tr>
-						<tr>
-							<td>4</td>
-							<td><a target="_blank" href="../tuyenkenh/Chi tiet tuyen kenh.html">123</a></td>
-							<td>04/03/2012 10:22</td>
-							<td>04/03/2012 12:22</td>
-							<td>2h</td>
-							<td>NCLONG</td>
-							<td><center><img title="Remove" src="../../images/icons/remove.png" onclick="doRemoveRow()" style="cursor:pointer"></center></td>
-						</tr>
-						<tr>
-							<td>5</td>
-							<td><a target="_blank" href="../tuyenkenh/Chi tiet tuyen kenh.html">123</a></td>
-							<td>04/03/2012 10:22</td>
-							<td>04/03/2012 12:22</td>
-							<td>2h</td>
-							<td>NCLONG</td>
-							<td><center><img title="Remove" src="../../images/icons/remove.png" onclick="doRemoveRow()" style="cursor:pointer"></center></td>
-						</tr>
-						<tr>
-							<td>6</td>
-							<td><a target="_blank" href="../tuyenkenh/Chi tiet tuyen kenh.html">123</a></td>
-							<td>04/03/2012 10:22</td>
-							<td>04/03/2012 12:22</td>
-							<td>2h</td>
-							<td>NCLONG</td>
-							<td><center><img title="Remove" src="../../images/icons/remove.png" onclick="doRemoveRow()" style="cursor:pointer"></center></td>
-						</tr>
-					</tbody>
+							<tr>
+								<th width="3px">STT</th>
+								<th width="30px">Mã tuyến kênh</th>
+								<th>Mã điểm đầu</th>
+								<th>Mã điểm cuối</th>
+								<th>Giao tiếp</th>
+								<th>Dung lượng</th>
+								<th width="50px">Thời gian bắt đầu</th>
+								<th width="50px">Thời gian kết thúc</th>
+								<th width="50px">Thời gian mất liên lạc</th>
+								<th width="50px">Nguyên nhân</th>
+								<th width="50px">Phương án xử lý</th>
+								<th width="50px">Người xác nhận</th>
+								<th width="50px">Người tạo</th>
+								<th width="50px">Ngày tạo</th>
+								<th width="5px" align="center">Xóa</th>
+							</tr>
+						</thead>
+						<tbody>						
+						</tbody>
 					</table>
 				</fieldset>
 			</div>
@@ -234,8 +194,31 @@ var contextPath = '<%=contextPath%>
 			this.checked = _this.checked;
 		});
 	}
-
+	function doRemoveRow(this_){
+		var row = $(this_).closest("tr").get(0);
+		oTable.fnDeleteRow(oTable.fnGetPosition(row));
+	}
+	function addRow(stt,data) {
+		oTable.fnAddData([
+			stt,data.tuyenkenh_id,data.madiemdau,data.madiemcuoi,data.loaigiaotiep,data.dungluong,data.thoidiembatdau,data.thoidiemketthuc,data.thoigianmll,data.nguyennhan,data.phuonganxuly,data.nguoixacnhan,data.usercreate,data.timecreate,'<center><input type="text" style="display:none" name="suco_ids" value="'+data.suco_id+'" id="suco_id_'+data.suco_id+'"/><img title="Remove" src="'+baseUrl+'/images/icons/remove.png" onclick="doRemoveRow(this)" style="cursor:pointer"></center>'
+		]);
+	}
 	$(document).ready(function() {
+		//
+		upload_utils.init();
+		popup_search_suco.init({
+			url : "${popupSearchSuCoKenhURL}",
+			afterSelected : function(data) {
+				var i=1;
+				$.each(data,function(){
+					if($("#suco_id_"+this.id).length == 0) {
+						addRow(i,this);
+						i++;
+					}
+				});
+			}
+		});
+		$("#accordion" ).accordion();
 		// load datetime
 		$( ".datepicker" ).datepicker({
 			showButtonPanel: true,
@@ -270,19 +253,70 @@ var contextPath = '<%=contextPath%>
 			}
 		});
 		// load edit
+		var thanhtoan_id = '';
 		var form_data = '<s:property value="form_data" escape="false"/>';
-		if (form_data != '') {
+		if(form_data != '') {
 			var form_data = $.parseJSON(form_data);
-			for (key in form_data) {
-				$("#form #" + key).val(form_data[key]);
+			for( key in form_data) {
+				$("#form #"+key).val(form_data[key]);
 			}
-			if (form_data["filename"] != null) {
+
+			if(form_data["filename"]!=null)
+			{
 				upload_utils.createFileLabel({
 					filename : form_data["filename"],
 					filepath : form_data["filepath"],
 					filesize : form_data["filesize"]
 				});
 			}
+			thanhtoan_id = form_data['id'];
+		} 
+		if(thanhtoan_id == '') {
+			oTable = $('#dataTable').dataTable({
+				"bJQueryUI": true,
+				"bProcessing": false,
+				"bScrollCollapse": true,
+				"bAutoWidth": true,
+				"bSort":false,
+				"bFilter": false,"bInfo": false,
+				"bPaginate" : false
+			});
+		} else {
+			oTable = $('#dataTable').dataTable({
+				"bJQueryUI": true,
+				"bProcessing": false,
+				"bScrollCollapse": true,
+				"bAutoWidth": true,
+				"bSort":false,
+				"bFilter": false,"bInfo": false,
+				"bPaginate" : false,
+				"sAjaxSource": "${findByThanhToanURL}?id="+thanhtoan_id,
+				"aoColumns": null,
+				"fnServerData": function ( sSource, aoData, fnCallback ) {
+					$.ajax( {
+						"dataType": 'json', 
+						"type": "POST", 
+						"url": sSource, 
+						"data": aoData, 
+						"success": function(response){
+							if(response.result == "ERROR") {
+								alert("Lỗi kết nối server, vui lòng thử lại.");
+							} else {
+								if(response.aaData.length != 0) {
+									var i = 0;
+									$.each(response.aaData,function(){
+										addRow(i+1,this);
+										i++;
+									});
+								} else {
+									oTable.fnAddData([0,'','','','','','','','','','','','','','']);
+									oTable.fnDeleteRow(0);
+								}
+							}
+						}
+					} );
+				}
+			});
 		}
 		$("#btSubmit").click(function() {
 			$(this).disabled = true;
