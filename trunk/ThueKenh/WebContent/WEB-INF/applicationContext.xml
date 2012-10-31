@@ -110,5 +110,11 @@
 	<bean id="chiTietPhuLucAction" scope="prototype" class="vms.web.actions.ChiTietPhuLucAction">
         <constructor-arg ref="daoFactory" />
     </bean>
+    <bean id="hopdongAction" scope="prototype" class="vms.web.actions.HopDongAction">
+        <constructor-arg ref="daoFactory" />
+    </bean>
+    <bean id="thanhtoanAction" scope="prototype" class="vms.web.actions.ThanhToanAction">
+        <constructor-arg ref="daoFactory" />
+    </bean>
 </beans>
 
