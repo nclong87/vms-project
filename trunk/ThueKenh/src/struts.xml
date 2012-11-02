@@ -330,6 +330,16 @@
 				<param name="root">jsonData</param>
 			</result>
 		</action>
+		<action name="getAllCongThuc" class="ajaxAction" method="getAllCongThuc">
+			<result name="success" type="json">
+				<param name="root">jsonData</param>
+			</result>
+		</action>
+		<action name="getAllLoaiGiaoTiep" class="ajaxAction" method="getAllLoaiGiaoTiep">
+			<result name="success" type="json">
+				<param name="root">jsonData</param>
+			</result>
+		</action>
 	</package>
 	<package name="group" extends="default" namespace="/group">
 		<action name="index" class="groupAction">
@@ -396,6 +406,13 @@
 		</action>
 		<action name="detail" class="tuyenkenhAction" method="detail">
 			<result>/jsp/tuyenkenh/detail.jsp</result>
+		</action>
+		<!--
+		* Tim kiem tuyen kenh de tinh gia tri phu luc
+		* Chi lay tuyen kenh dang hoat dong hoac da ban giao
+		-->
+		<action name="popupSearch2" class="tuyenkenhAction" method="popupSearch">
+			<result>/jsp/tuyenkenh/popupSearch2.jsp</result>
 		</action>
 	</package>
 	<package name="tuyenkenhdexuat" extends="default" namespace="/tuyenkenhdexuat">
@@ -665,6 +682,11 @@
 		</action>
 		<action name="popupSearch" class="hopdongAction">
 			<result>/jsp/hopdong/popupSearch.jsp</result>
+		</action>
+		<action name="findphulucByhopdong" class="hopdongAction" method="findphulucByhopdong">
+			<result name="success" type="json">
+				<param name="root">jsonData</param>
+			</result>
 		</action>
 	</package>
 	<package name="thanhtoan" extends="default" namespace="/thanhtoan">
