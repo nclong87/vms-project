@@ -21,7 +21,11 @@ import vms.db.dao.CongThucDAO;
 import vms.db.dao.DaoFactory;
 import vms.db.dao.DeXuatDao;
 import vms.db.dao.DoiTacDAO;
+import vms.db.dao.DuAnDAO;
+import vms.db.dao.LoaiGiaoTiepDao;
+import vms.db.dao.PhongBanDao;
 import vms.db.dao.TuyenKenhDeXuatDAO;
+import vms.db.dao.TuyenkenhDao;
 import vms.db.dto.ChiTietPhuLucDTO;
 import vms.db.dto.ChiTietPhuLucTuyenKenhDTO;
 import vms.db.dto.DeXuatDTO;
@@ -74,6 +78,41 @@ public class ChiTietPhuLucAction implements Preparable {
 		return Action.SUCCESS;
 	}
 	
+	public String load() {
+		try {
+			//if(account == null) throw new Exception("END_SESSION");
+			Integer iDisplayStart = Integer.parseInt(request.getParameter("iDisplayStart"));
+			Integer iDisplayLength = Integer.parseInt(request.getParameter("iDisplayLength"));
+			String sSearch = request.getParameter("sSearch").trim();
+			Map<String, String> conditions = new LinkedHashMap<String, String>();
+			if(sSearch.isEmpty() == false) {
+				JSONArray arrayJson = (JSONArray) new JSONObject(sSearch).get("array");
+				for(int i=0;i<arrayJson.length();i++) {
+					String name = arrayJson.getJSONObject(i).getString("name");
+					String value = arrayJson.getJSONObject(i).getString("value");
+					if(value.isEmpty()==false) {
+						conditions.put(name, value);
+					}
+				}
+			}
+			List<Map<String,Object>> items = chiTietPhuLucDAO.search(iDisplayStart, 
+					iDisplayLength + 1, conditions);
+			int iTotalRecords = items.size();
+			if(iTotalRecords > iDisplayLength) {
+				items.remove(iTotalRecords - 1);
+			}
+			jsonData = new LinkedHashMap<String, Object>();
+			jsonData.put("sEcho", Integer.parseInt(request.getParameter("sEcho")));
+			jsonData.put("iTotalRecords", iDisplayStart + iTotalRecords);
+			jsonData.put("iTotalDisplayRecords", iDisplayStart + iTotalRecords);
+			jsonData.put("aaData", items);
+			return Action.SUCCESS;
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return Action.SUCCESS;
+	}
 	
 	public String doSave() {
 		jsonData = new LinkedHashMap<String, Object>();
@@ -134,6 +173,13 @@ public class ChiTietPhuLucAction implements Preparable {
 			jsonData.put("status", "ERROR");
 			jsonData.put("data", e.getMessage());
 		}
+		return Action.SUCCESS;
+	}
+	
+	/*
+	 * Tim kiem chi tiet phu luc (gia tri phu luc) dang popup
+	 */
+	public String popupSearch() {
 		return Action.SUCCESS;
 	}
 	

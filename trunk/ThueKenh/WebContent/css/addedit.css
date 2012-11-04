@@ -177,11 +177,38 @@ cursor:pointer;
 }
 #label .selected a.remove:hover{
 background-position: 0 -2px;
-
 }
 
 .ui-autocomplete-loading { background: white url('images/ui-anim_basic_16x16.gif') right center no-repeat; }
 
 #uploadFile {
 height:25px;
+}
+.tags {
+  display: block;
+  float: left;
+  max-height: 100px;
+  overflow: auto;
+}
+.tags .selected {
+background-color: PowderBlue;
+border: 1px solid #FFFFFF;
+color: navy;
+float: left;
+padding: 5px 25px 5px 5px;
+position: relative;
+}
+.tags .selected a.remove {
+background-image: url("images/delete_16.png");
+background-position: 0 -21px;
+display: block;
+height: 16px;
+position: absolute;
+right: 5px;
+top: 5px;
+width: 16px;
+cursor:pointer;
+}
+.tags .selected a.remove:hover{
+background-position: 0 -2px;
 }

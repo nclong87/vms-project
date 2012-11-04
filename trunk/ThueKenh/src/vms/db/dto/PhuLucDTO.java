@@ -6,6 +6,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import vms.utils.DateUtils;
+import vms.utils.VMSUtil;
 
 
 /**
@@ -233,5 +234,12 @@ public class PhuLucDTO {
         return dto;
 	}
 	
+	public static Map<String,Object> resultSetToMap(ResultSet rs) throws SQLException {
+		Map<String,Object> map = VMSUtil.resultSetToMap(rs);
+		map.put("ngayky", DateUtils.formatDate(rs.getDate("NGAYKY"), DateUtils.SDF_DDMMYYYY));
+		map.put("ngayhieuluc", DateUtils.formatDate(rs.getDate("NGAYHIEULUC"), DateUtils.SDF_DDMMYYYY));
+		map.put("ngayhethieuluc", DateUtils.formatDate(rs.getDate("NGAYHETHIEULUC"), DateUtils.SDF_DDMMYYYY));
+		return map;
+	}
 
 }

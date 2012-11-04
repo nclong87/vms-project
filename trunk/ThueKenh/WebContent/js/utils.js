@@ -331,11 +331,13 @@ function LoadDateTimePicker(element)
         , buttonImageOnly: true
      });
 }
-$.formatCurrency.regions['vn'] = {
-	symbol: '',
-	positiveFormat: '%s%n',
-	negativeFormat: '(%s%n)',
-	decimalSymbol: '.',
-	digitGroupSymbol: ',',
-	groupDigits: true
-};
+if($.formatCurrency!= null) {
+	$.formatCurrency.regions['vn'] = {
+		symbol: '',
+		positiveFormat: '%s%n',
+		negativeFormat: '(%s%n)',
+		decimalSymbol: '.',
+		digitGroupSymbol: ',',
+		groupDigits: true
+	};
+}

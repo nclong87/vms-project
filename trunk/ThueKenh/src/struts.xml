@@ -340,6 +340,16 @@
 				<param name="root">jsonData</param>
 			</result>
 		</action>
+		<action name="findHopDongByDoiTac" class="ajaxAction" method="findHopDongByDoiTac">
+			<result name="success" type="json">
+				<param name="root">jsonData</param>
+			</result>
+		</action>
+		<action name="findTuyenKenhByChiTietPhuLuc" class="ajaxAction" method="findTuyenKenhByChiTietPhuLuc">
+			<result name="success" type="json">
+				<param name="root">jsonData</param>
+			</result>
+		</action>
 	</package>
 	<package name="group" extends="default" namespace="/group">
 		<action name="index" class="groupAction">
@@ -634,7 +644,6 @@
 		<action name="detail" class="bangiaoAction" method="detail">
 			<result>/jsp/bangiao/detail.jsp</result>
 		</action>
-
 	</package>
 	<package name="tiendobangiao" extends="default" namespace="/tiendobangiao">
 		<action name="index" class="tiendobangiaoAction">
@@ -727,10 +736,47 @@
 		<action name="form" class="chiTietPhuLucAction" method="form">
 			<result>/jsp/chitietphuluc/form.jsp</result>
 		</action>
+		<action name="load" class="chiTietPhuLucAction" method="load">
+			<result name="success" type="json">
+				<param name="root">jsonData</param>
+			</result>
+		</action>
 		<action name="doSaveChiTietPhuLuc" class="chiTietPhuLucAction" method="doSaveChiTietPhuLuc">
 			<result name="success" type="json">
 				<param name="root">jsonData</param>
 			</result>
+		</action>
+		<action name="popupSearch" class="chiTietPhuLucAction" method="popupSearch">
+			<result>/jsp/chitietphuluc/popupSearch.jsp</result>
+		</action>
+	</package>
+	<package name="phuluc" extends="default" namespace="/phuluc">
+		<action name="index" class="phuLucAction">
+			<result>/jsp/phuluc/index.jsp</result>
+		</action>
+		<action name="form" class="phuLucAction" method="form">
+			<result>/jsp/phuluc/form.jsp</result>
+		</action>
+		<action name="doSave" class="phuLucAction" method="doSave">
+			<result name="success" type="json">
+				<param name="root">jsonData</param>
+			</result>
+		</action>
+		<action name="load" class="phuLucAction" method="load">
+			<result name="success" type="json">
+				<param name="root">jsonData</param>
+			</result>
+		</action>
+		<action name="delete" class="phuLucAction" method="delete">
+			<result name="success" type="stream">
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+		<action name="detail" class="phuLucAction" method="detail">
+			<result>/jsp/phuluc/detail.jsp</result>
+		</action>
+		<action name="popupSearch" class="phuLucAction" method="popupSearch">
+			<result>/jsp/phuluc/popupSearch.jsp</result>
 		</action>
 	</package>
 </struts>

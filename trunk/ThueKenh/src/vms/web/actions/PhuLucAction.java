@@ -18,12 +18,13 @@ import org.json.simple.JSONValue;
 import vms.db.dao.DaoFactory;
 import vms.db.dao.DoiTacDAO;
 import vms.db.dao.DuAnDAO;
+import vms.db.dao.HopDongDAO;
 import vms.db.dao.LoaiGiaoTiepDao;
 import vms.db.dao.PhongBanDao;
-import vms.db.dao.TuyenkenhDao;
-import vms.db.dto.DuAnDTO;
-import vms.db.dto.PhongBanDTO;
-import vms.db.dto.TuyenKenh;
+import vms.db.dao.PhuLucDAO;
+import vms.db.dto.DoiTacDTO;
+import vms.db.dto.HopDongDTO;
+import vms.db.dto.PhuLucDTO;
 import vms.utils.Constances;
 import vms.utils.DateUtils;
 import vms.utils.VMSUtil;
@@ -31,26 +32,28 @@ import vms.utils.VMSUtil;
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.Preparable;
 
-public class TuyenkenhAction implements Preparable {
+public class PhuLucAction implements Preparable {
 	private DaoFactory daoFactory;
 	private HttpServletRequest request;
 	private HttpSession session;
 	private Map<String,Object> account;
-	private TuyenKenh tuyenKenh;
+	private PhuLucDTO phuLucDTO;
 	
 	private InputStream inputStream;
 	private LinkedHashMap<String, Object> jsonData;
 	private String form_data;
 	
-	private List<Map<String,Object>> loaiGiaoTieps;
-	private List<DuAnDTO> duAnDTOs;
 	private List<Map<String,Object>> doiTacDTOs;
-	private List<PhongBanDTO> phongBans;
 	private String id;
 	private String[] ids;
-	private Map<String,Object> detail;
-	public TuyenkenhAction( DaoFactory factory) {
+	private String[] arrPhuLucThayThe;
+	private Map<String,Object> json;
+	private Map<String,Map<String,Object>> hopDongDTOs;
+	
+	private PhuLucDAO phuLucDAO;
+	public PhuLucAction( DaoFactory factory) {
 		daoFactory = factory;
+		phuLucDAO = new PhuLucDAO(factory);
 	}
 	@SuppressWarnings("unchecked")
 	@Override
@@ -66,24 +69,17 @@ public class TuyenkenhAction implements Preparable {
 			session.setAttribute("URL", VMSUtil.getFullURL(request));
 			return "login_page";
 		}
-		LoaiGiaoTiepDao loaiGiaoTiepDao = new LoaiGiaoTiepDao(daoFactory);
-		loaiGiaoTieps = loaiGiaoTiepDao.getAll();
-		DuAnDAO duAnDAO = new DuAnDAO(daoFactory);
-		duAnDTOs = duAnDAO.findAll();
-		DoiTacDAO doiTacDAO = new DoiTacDAO(daoFactory);
-		doiTacDTOs = doiTacDAO.findAll();
-		PhongBanDao phongBanDao = new PhongBanDao(daoFactory);
-		phongBans = phongBanDao.getAll();
+		HopDongDAO dao = new HopDongDAO(daoFactory);
+		hopDongDTOs = dao.findAllHopDongByDoitac();
 		return Action.SUCCESS;
 	}
 	
-	public String ajLoadTuyenkenh() {
+	public String load() {
 		try {
 			//if(account == null) throw new Exception("END_SESSION");
 			Integer iDisplayStart = Integer.parseInt(request.getParameter("iDisplayStart"));
 			Integer iDisplayLength = Integer.parseInt(request.getParameter("iDisplayLength"));
 			String sSearch = request.getParameter("sSearch").trim();
-			System.out.println("sSearch="+sSearch);
 			Map<String, String> conditions = new LinkedHashMap<String, String>();
 			if(sSearch.isEmpty() == false) {
 				JSONArray arrayJson = (JSONArray) new JSONObject(sSearch).get("array");
@@ -95,8 +91,7 @@ public class TuyenkenhAction implements Preparable {
 					}
 				}
 			}
-			TuyenkenhDao tuyenkenhDao = new TuyenkenhDao(daoFactory);
-			List<Map<String,Object>> items = tuyenkenhDao.findTuyenkenh(iDisplayStart, 
+			List<Map<String,Object>> items = phuLucDAO.search(iDisplayStart, 
 					iDisplayLength + 1, conditions);
 			int iTotalRecords = items.size();
 			if(iTotalRecords > iDisplayLength) {
@@ -109,8 +104,6 @@ public class TuyenkenhAction implements Preparable {
 			jsonData.put("aaData", items);
 			return Action.SUCCESS;
 		} catch (Exception e) {
-			// TODO: handle exception
-			//setInputStream(str)
 			e.printStackTrace();
 		}
 		return Action.SUCCESS;
@@ -122,21 +115,15 @@ public class TuyenkenhAction implements Preparable {
 				session.setAttribute("URL", VMSUtil.getFullURL(request));
 				return "login_page";
 			}
-			LoaiGiaoTiepDao loaiGiaoTiepDao = new LoaiGiaoTiepDao(daoFactory);
-			loaiGiaoTieps = loaiGiaoTiepDao.getAll();
-			DuAnDAO duAnDAO = new DuAnDAO(daoFactory);
-			duAnDTOs = duAnDAO.findAll();
-			DoiTacDAO doiTacDAO = new DoiTacDAO(daoFactory);
-			doiTacDTOs = doiTacDAO.findAll();
-			PhongBanDao phongBanDao = new PhongBanDao(daoFactory);
-			phongBans = phongBanDao.getAll();
+			//DoiTacDAO doiTacDAO = new DoiTacDAO(daoFactory);
+			//doiTacDTOs = doiTacDAO.findAll();
+			HopDongDAO dao = new HopDongDAO(daoFactory);
+			hopDongDTOs = dao.findAllHopDongByDoitac();
 			form_data = "";
 			if(id != null && id.isEmpty()==false) {
 				System.out.println("id=" + id);
-				TuyenkenhDao tuyenkenhDao = new TuyenkenhDao(daoFactory);
-				tuyenKenh = tuyenkenhDao.findById(id);
-				System.out.println(tuyenKenh.getId());
-				Map<String,String> map = tuyenKenh.getMap();
+				phuLucDTO = phuLucDAO.findById(id);
+				Map<String,String> map = phuLucDTO.getMap();
 				form_data = JSONValue.toJSONString(map);
 			}
 		} catch (Exception e) {
@@ -147,37 +134,41 @@ public class TuyenkenhAction implements Preparable {
 	}
 	
 	public String doSave() {
+		jsonData = new LinkedHashMap<String, Object>();
 		try {
 			if(account == null) {
 				session.setAttribute("URL", VMSUtil.getFullURL(request));
 				return "login_page";
 			}
-			System.out.println("Do save");
-			TuyenkenhDao tuyenkenhDao = new TuyenkenhDao(daoFactory);
-			TuyenKenh tk = tuyenkenhDao.findByKey(tuyenKenh.getMadiemdau(), tuyenKenh.getMadiemcuoi(), tuyenKenh.getGiaotiep_id(),tuyenKenh.getDungluong());
-			if(tk != null) {
-				if(tuyenKenh.getId().isEmpty()) { //them moi
-					throw new Exception("EXIST");
-				} else { //update
-					if(tuyenKenh.getId().equals(tk.getId()) == false) { //update trung voi 1 tuyen kenh khac
-						throw new Exception("EXIST");
-					} else {
-						
-					}
+			HopDongDAO hopDongDAO = new HopDongDAO(daoFactory);
+			HopDongDTO hopDongDTO = hopDongDAO.findById(phuLucDTO.getHopdong_id());
+			List<String> listTuyenKenhLoi = phuLucDAO.validateBeforeSavePhuLuc(phuLucDTO.getChitietphuluc_id(), arrPhuLucThayThe, phuLucDTO.getNgayhieuluc(),hopDongDTO) ;
+			if(listTuyenKenhLoi.isEmpty() == false) {
+				String errMessage = "Lỗi xảy ra khi lưu phụ lục :<ul>";
+				for(int i=0;i<listTuyenKenhLoi.size();i++) {
+					errMessage += "<li>"+listTuyenKenhLoi.get(i)+"</li>";
+				}
+				errMessage+="</ul>";
+				throw new Exception(errMessage);
+			}
+			phuLucDTO.setUsercreate(account.get("username").toString());
+			phuLucDTO.setTimecreate(DateUtils.getCurrentDateSQL());
+			phuLucDTO.setNgayky(DateUtils.parseStringDateSQL(phuLucDTO.getNgayky(), "dd/MM/yyyy"));
+			phuLucDTO.setNgayhieuluc(DateUtils.parseStringDateSQL(phuLucDTO.getNgayhieuluc(), "dd/MM/yyyy"));
+			id = phuLucDAO.save(phuLucDTO);
+			if(id == null) throw new Exception(Constances.MSG_ERROR);
+			phuLucDTO.setId(id);
+			if(phuLucDTO.getLoaiphuluc() == Constances.PHU_LUC_THAY_THE) {
+				if(ids!= null && ids.length>0) {
+					phuLucDAO.updatePhuLucThayThe(phuLucDTO, ids);
 				}
 			}
-			
-			//tuyenKenh.setNgaydenghibangiao(DateUtils.parseStringDateSQL(tuyenKenh.getNgaydenghibangiao(), "dd/MM/yyyy"));
-			//tuyenKenh.setNgayhenbangiao(DateUtils.parseStringDateSQL(tuyenKenh.getNgayhenbangiao(), "dd/MM/yyyy"));
-			tuyenKenh.setUsercreate(account.get("username").toString());
-			tuyenKenh.setTimecreate(DateUtils.getCurrentDateSQL());
-			id = tuyenkenhDao.save(tuyenKenh);
-			if(id == null) throw new Exception(Constances.MSG_ERROR);
-			setInputStream("OK");
+			jsonData.put("status", "OK");
+			jsonData.put("data", "");
 		} catch (Exception e) {
 			e.printStackTrace();
-			//session.setAttribute("message", e.getMessage());
-			setInputStream(e.getMessage());
+			jsonData.put("status", "ERROR");
+			jsonData.put("data", e.getMessage());
 		}
 		return Action.SUCCESS;
 	}
@@ -189,8 +180,7 @@ public class TuyenkenhAction implements Preparable {
 				throw new Exception("END_SESSION");
 			}
 			if(ids != null && ids.length >0 ) {
-				TuyenkenhDao tuyenkenhDao = new TuyenkenhDao(daoFactory);
-				tuyenkenhDao.deleteByIds(ids);
+				phuLucDAO.deleteByIds(ids);
 			}
 			setInputStream("OK");
 		} catch (Exception e) {
@@ -200,46 +190,20 @@ public class TuyenkenhAction implements Preparable {
 		return Action.SUCCESS;
 	}
 	
-	public String popupSearch() {
-		LoaiGiaoTiepDao loaiGiaoTiepDao = new LoaiGiaoTiepDao(daoFactory);
-		loaiGiaoTieps = loaiGiaoTiepDao.getAll();
-		DuAnDAO duAnDAO = new DuAnDAO(daoFactory);
-		duAnDTOs = duAnDAO.findAll();
-		DoiTacDAO doiTacDAO = new DoiTacDAO(daoFactory);
-		doiTacDTOs = doiTacDAO.findAll();
-		PhongBanDao phongBanDao = new PhongBanDao(daoFactory);
-		phongBans = phongBanDao.getAll();
-		return Action.SUCCESS;
-	}
-	
 	public String detail() {
-		TuyenkenhDao tuyenkenhDao = new TuyenkenhDao(daoFactory);
 		if(id == null) return Action.ERROR;
-		detail = tuyenkenhDao.getDetail(id);
-		if(detail == null) return Action.ERROR;
-		/*jsonData = new LinkedHashMap<String, Object>();
-		jsonData.put("test", "Hello world!");*/
+		json = phuLucDAO.getDetail(id);
+		if(json == null) return Action.ERROR;
 		return Action.SUCCESS;
 	}
 	
-	/*
-	 * Tim kiem tuyen kenh de tinh gia tri phu luc
-	 * Chi lay tuyen kenh dang hoat dong hoac da ban giao
-	 */
-	public String popupSearch2() {
-		LoaiGiaoTiepDao loaiGiaoTiepDao = new LoaiGiaoTiepDao(daoFactory);
-		loaiGiaoTieps = loaiGiaoTiepDao.getAll();
-		DuAnDAO duAnDAO = new DuAnDAO(daoFactory);
-		duAnDTOs = duAnDAO.findAll();
-		DoiTacDAO doiTacDAO = new DoiTacDAO(daoFactory);
-		doiTacDTOs = doiTacDAO.findAll();
-		PhongBanDao phongBanDao = new PhongBanDao(daoFactory);
-		phongBans = phongBanDao.getAll();
+	public String popupSearch() {
+		HopDongDAO dao = new HopDongDAO(daoFactory);
+		hopDongDTOs = dao.findAllHopDongByDoitac();
 		return Action.SUCCESS;
 	}
 	
 	/* Getter and Setter */
-	
 	public InputStream getInputStream() {
 		
 		return inputStream;
@@ -260,11 +224,11 @@ public class TuyenkenhAction implements Preparable {
 	public void setJsonData(LinkedHashMap<String, Object> jsonData) {
 		this.jsonData = jsonData;
 	}
-	public String getId() {
-		return id;
+	public PhuLucDTO getPhuLucDTO() {
+		return phuLucDTO;
 	}
-	public void setId(String id) {
-		this.id = id;
+	public void setPhuLucDTO(PhuLucDTO phuLucDTO) {
+		this.phuLucDTO = phuLucDTO;
 	}
 	public String getForm_data() {
 		return form_data;
@@ -272,48 +236,41 @@ public class TuyenkenhAction implements Preparable {
 	public void setForm_data(String form_data) {
 		this.form_data = form_data;
 	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
 	public String[] getIds() {
 		return ids;
 	}
 	public void setIds(String[] ids) {
 		this.ids = ids;
 	}
-	public TuyenKenh getTuyenKenh() {
-		return tuyenKenh;
+	public Map<String, Object> getJson() {
+		return json;
 	}
-	public void setTuyenKenh(TuyenKenh tuyenKenh) {
-		this.tuyenKenh = tuyenKenh;
+	public void setJson(Map<String, Object> json) {
+		this.json = json;
 	}
-	public List<Map<String,Object>> getLoaiGiaoTieps() {
-		return loaiGiaoTieps;
-	}
-	public void setLoaiGiaoTieps(List<Map<String,Object>> loaiGiaoTieps) {
-		this.loaiGiaoTieps = loaiGiaoTieps;
-	}
-	public List<DuAnDTO> getDuAnDTOs() {
-		return duAnDTOs;
-	}
-	public void setDuAnDTOs(List<DuAnDTO> duAnDTOs) {
-		this.duAnDTOs = duAnDTOs;
-	}
-	
-	public List<Map<String,Object>> getDoiTacDTOs() {
+	public List<Map<String, Object>> getDoiTacDTOs() {
 		return doiTacDTOs;
 	}
-	public void setDoiTacDTOs(List<Map<String,Object>> doiTacDTOs) {
+	public void setDoiTacDTOs(List<Map<String, Object>> doiTacDTOs) {
 		this.doiTacDTOs = doiTacDTOs;
 	}
-	public List<PhongBanDTO> getPhongBans() {
-		return phongBans;
+	public Map<String, Map<String, Object>> getHopDongDTOs() {
+		return hopDongDTOs;
 	}
-	public void setPhongBans(List<PhongBanDTO> phongBans) {
-		this.phongBans = phongBans;
+	public void setHopDongDTOs(Map<String, Map<String, Object>> hopDongDTOs) {
+		this.hopDongDTOs = hopDongDTOs;
 	}
-	public Map<String, Object> getDetail() {
-		return detail;
+	public String[] getArrPhuLucThayThe() {
+		return arrPhuLucThayThe;
 	}
-	public void setDetail(Map<String, Object> detail) {
-		this.detail = detail;
+	public void setArrPhuLucThayThe(String[] arrPhuLucThayThe) {
+		this.arrPhuLucThayThe = arrPhuLucThayThe;
 	}
 	
 	

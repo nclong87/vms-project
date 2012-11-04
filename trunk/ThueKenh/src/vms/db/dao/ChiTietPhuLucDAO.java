@@ -11,8 +11,6 @@ import java.util.List;
 import java.util.Map;
 import javax.sql.DataSource;
 import oracle.jdbc.OracleTypes;
-import oracle.sql.ARRAY;
-import oracle.sql.ArrayDescriptor;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -20,11 +18,7 @@ import org.springframework.jdbc.core.RowMapper;
 
 import vms.db.dto.ChiTietPhuLucDTO;
 import vms.db.dto.ChiTietPhuLucTuyenKenhDTO;
-import vms.db.dto.DeXuatDTO;
-import vms.db.dto.PhuLucDTO;
-import vms.db.dto.TuyenKenh;
 import vms.utils.Constances;
-import vms.utils.DateUtils;
 import vms.utils.VMSUtil;
 
 public class ChiTietPhuLucDAO {
@@ -120,5 +114,43 @@ public class ChiTietPhuLucDAO {
 		});
 		if(list.isEmpty()) return null;
 		return list.get(0);
+	}
+	
+	private static final String SQL_FIND_CHITIETPHULUC = "{ ? = call FIND_CHITIETPHULUC(?,?,?) }";
+	public List<Map<String,Object>> search(int iDisplayStart,int iDisplayLength,Map<String, String> conditions) throws SQLException {
+		Connection connection = jdbcDatasource.getConnection();
+		CallableStatement stmt = connection.prepareCall(SQL_FIND_CHITIETPHULUC);
+		stmt.registerOutParameter(1, OracleTypes.CURSOR);
+		stmt.setInt(2, iDisplayStart);
+		stmt.setInt(3, iDisplayLength);
+		stmt.setString(4, conditions.get("tenchitietphuluc"));
+		stmt.execute();
+		ResultSet rs = (ResultSet) stmt.getObject(1);
+		List<Map<String,Object>> result = new ArrayList<Map<String,Object>>();
+		int i = 1;
+		while(rs.next()) {
+			Map<String,Object> map = VMSUtil.resultSetToMap(rs);
+			map.put("stt", i);
+			result.add(map);
+			i++;
+		}
+		stmt.close();
+		connection.close();
+		return result;
+	}
+	
+	private static final String SQL_FIND_TUYENKENHBYCHITIETPHULUC = "select t1.*,LOAIGIAOTIEP,TENDOITAC from " +
+			"CHITIETPHULUC_TUYENKENH t left join " +
+			"TUYENKENH t1 on t.TUYENKENH_ID = t1.ID left join " +
+			"LOAIGIAOTIEP t2 on t1.GIAOTIEP_ID = t2.ID left join " +
+			"DOITAC t3 on t1.DOITAC_ID = t3.ID where t.CHITIETPHULUC_ID = ?";
+	@SuppressWarnings("unchecked")
+	public List<Map<String,Object>> findTuyenKenhByChiTietPhuLuc(String chitietphuluc_id) {
+		return  this.jdbcTemplate.query(SQL_FIND_TUYENKENHBYCHITIETPHULUC,new Object[] {chitietphuluc_id}, new RowMapper() {
+			@Override
+			public Object mapRow(ResultSet rs, int arg1) throws SQLException {
+				return VMSUtil.resultSetToMap(rs);
+			}
+		});
 	}
 }
