@@ -3,6 +3,8 @@ package vms.web.actions;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -144,7 +146,7 @@ public class PhuLucAction implements Preparable {
 			HopDongDTO hopDongDTO = hopDongDAO.findById(phuLucDTO.getHopdong_id());
 			List<String> listTuyenKenhLoi = phuLucDAO.validateBeforeSavePhuLuc(phuLucDTO.getChitietphuluc_id(), arrPhuLucThayThe, phuLucDTO.getNgayhieuluc(),hopDongDTO) ;
 			if(listTuyenKenhLoi.isEmpty() == false) {
-				String errMessage = "Lỗi xảy ra khi lưu phụ lục :<ul>";
+				String errMessage = "Lỗi xảy ra khi lưu phụ lục :<ul style=\"margin:0\">";
 				for(int i=0;i<listTuyenKenhLoi.size();i++) {
 					errMessage += "<li>"+listTuyenKenhLoi.get(i)+"</li>";
 				}
@@ -159,8 +161,9 @@ public class PhuLucAction implements Preparable {
 			if(id == null) throw new Exception(Constances.MSG_ERROR);
 			phuLucDTO.setId(id);
 			if(phuLucDTO.getLoaiphuluc() == Constances.PHU_LUC_THAY_THE) {
-				if(ids!= null && ids.length>0) {
-					phuLucDAO.updatePhuLucThayThe(phuLucDTO, ids);
+				if(arrPhuLucThayThe!= null && arrPhuLucThayThe.length>0) {
+					Date date = DateUtils.add(DateUtils.parseDate(phuLucDTO.getNgayhieuluc(), "dd-MMM-yyyy"), Calendar.DATE, -1);
+					phuLucDAO.updatePhuLucThayThe(phuLucDTO, arrPhuLucThayThe,date);
 				}
 			}
 			jsonData.put("status", "OK");

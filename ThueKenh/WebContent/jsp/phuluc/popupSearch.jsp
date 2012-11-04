@@ -128,7 +128,7 @@ margin-left: 10px;
 					<th>Cước đấu nối hòa mạng</th>
 					<th>Ngày ký phụ lục</th>
 					<th>Ngày có hiệu lực</th>
-					<th>Trạng thái</th>
+					<th>Ngày hết hiệu lực</th>
 					<th width="5px" align="center"><input type="checkbox" onclick="selectAll(this)"/></th>
 				</tr>
 			</thead>
@@ -185,16 +185,12 @@ $(document).ready(function(){
 						}
 					},
 					{ "mDataProp": "soluongkenh","bSortable": false,"bSearchable": false},
-					{ "mDataProp": "giatritruocthue","bSortable": false,"bSearchable": false},
-					{ "mDataProp": "giatrisauthue","bSortable": false,"bSearchable": false},
-					{ "mDataProp": "cuocdaunoi","bSortable": false,"bSearchable": false},
+					{ "mDataProp": "giatritruocthue","bSortable": false,"bSearchable": false,"sClass":'td_right number'},
+					{ "mDataProp": "giatrisauthue","bSortable": false,"bSearchable": false,"sClass":'td_right number'},
+					{ "mDataProp": "cuocdaunoi","bSortable": false,"bSearchable": false,"sClass":'td_right number'},
 					{ "mDataProp": "ngayky","bSortable": false,"bSearchable": false},
 					{ "mDataProp": "ngayhieuluc","bSortable": false,"bSearchable": false},
-					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,
-						"fnRender": function( oObj ) {
-							return ''; 
-						}
-					},
+					{ "mDataProp": "ngayhethieuluc","bSortable": false,"bSearchable": false},
 					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,
 						"fnRender": function( oObj ) {
 							return '<center><input type="checkbox" value="'+oObj.iDataRow+'"/></center>'; 
@@ -210,7 +206,14 @@ $(document).ready(function(){
 				"success": fnCallback
 			} );
 		},
-		"sPaginationType": "two_button"
+		"sPaginationType": "two_button",
+		"fnRowCallback": function( nRow, aData, iDisplayIndex ) {
+			$(".number",nRow).formatCurrency({ 
+				region : 'vn',
+				roundToDecimalPlace: 0, 
+				eventOnDecimalsEntered: true 
+			});
+        }
 	});
 });
 function doClose(){

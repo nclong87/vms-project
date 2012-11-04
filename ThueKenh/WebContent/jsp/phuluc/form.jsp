@@ -8,6 +8,7 @@
 <s:url action="findTuyenKenhByChiTietPhuLuc" namespace="/ajax" id="findTuyenKenhByChiTietPhuLucURL" />
 <s:url action="popupSearch" namespace="/chitietphuluc" id="popupSearchChiTietPhuLucURL" />
 <s:url action="popupSearch" namespace="/phuluc" id="popupSearchPhuLucURL" />
+<s:url action="findPhuLucThayThe" namespace="/ajax" id="findPhuLucThayTheURL" />
 <s:url action="detail" namespace="/tuyenkenh" id="detailTuyenKenhURL" />
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <%
@@ -43,17 +44,15 @@ function byId(id) { //Viet tat cua ham document.getElementById
 </head>
 <body>
 	<div style="background: none repeat scroll 0pt 0pt rgb(242, 242, 242); padding: 5px; width: 99%;">
+		<div id="msg"></div>
 		<form id="form" onsubmit="return false;">
 		<input type="text" style="display:none" name="phuLucDTO.id" id="id" />
 		<input type="text" style="display:none" name="phuLucDTO.filename" id="filename" value=""/>
 		<input type="text" style="display:none" name="phuLucDTO.filepath" id="filepath" value=""/>
 		<input type="text" style="display:none" name="phuLucDTO.filesize" id="filesize" value=""/>
 		<input type="text" style="display:none" name="phuLucDTO.chitietphuluc_id" id="chitietphuluc_id" value=""/>
+		<input type="text" style="display:none" name="phuLucDTO.soluongkenh" id="soluongkenh" value=""/>
 		<table class="input" style="width:725px">
-			<tr>
-				<td colspan='4' align="left" id="msg">
-				</td>
-			</tr>
 			<tr>
 				<td colspan='4' align="center">
 					<input class="button" type="button" value="Chọn giá trị phụ lục" id="btPopupSearchChiTietPhuLuc">
@@ -95,7 +94,7 @@ function byId(id) { //Viet tat cua ham document.getElementById
 					Cước đấu nối :
 				</td>
 				<td align="left">
-					<input type="text" id="cuocdaunoi" class="number" disabled="true">
+					<input type="text" id="cuocdaunoi" class="number" name="phuLucDTO.cuocdaunoi">
 				</td>
 			</tr>
 			<tr>
@@ -103,13 +102,13 @@ function byId(id) { //Viet tat cua ham document.getElementById
 					Giá trị trước thuế :
 				</td>
 				<td align="left">
-					<input type="text" id="giatritruocthue" class="number" disabled="true">
+					<input type="text" id="giatritruocthue" class="number" name="phuLucDTO.giatritruocthue">
 				</td>
 				<td align="right">
 					Giá trị sau thuế :
 				</td>
 				<td align="left">
-					<input type="text" id="giatrisauthue" class="number" disabled="true">
+					<input type="text" id="giatrisauthue" class="number" name="phuLucDTO.giatrisauthue">
 				</td>
 			</tr>
 			<tr>
@@ -183,6 +182,7 @@ function message(msg,type) {
 	} else {
 		$("#msg").html('<div style="padding: 0pt 0.7em; text-align: left;" class="ui-state-error ui-corner-all"><p style="padding: 5px;"><strong>Error : </strong> '+msg+'</p></div>');
 	}
+	location.href="#msg";
 }
 function doRemoveRow(this_){
 	var row = $(this_).closest("tr").get(0);
@@ -231,6 +231,7 @@ $(document).ready(function() {
 			$("#cuocdaunoi").val(data.cuocdaunoi);
 			$("#giatritruocthue").val(data.giatritruocthue);
 			$("#giatrisauthue").val(data.giatrisauthue);
+			$("#soluongkenh").val(data.soluongkenh);
 			$("#form input.number").formatCurrency({ 
 				region : 'vn',
 				roundToDecimalPlace: 0, 
@@ -264,12 +265,14 @@ $(document).ready(function() {
 		button : "#btPopupSearchPhuLuc",
 		afterSelected : function(data) {	
 			$.each(data,function(){
-				$("#fieldsetPhuLucThayThe .tags").append(replaceText(templates.tag,{
-					tag_id : "phuluc_"+this.id,
-					data_ref : this.id,
-					tag_title : this.tenphuluc,
-					tag_name : this.tenphuluc.vmsSubstr(40)
-				}));
+				if($("#fieldsetPhuLucThayThe .tags #phuluc_"+this.id).length == 0 && this.id != $("#form #id").val()) {
+					$("#fieldsetPhuLucThayThe .tags").append(replaceText(templates.tag,{
+						tag_id : "phuluc_"+this.id,
+						data_ref : this.id,
+						tag_title : this.tenphuluc,
+						tag_name : this.tenphuluc.vmsSubstr(40)
+					}));
+				}
 			});
 		}
 	}); 
@@ -301,7 +304,8 @@ $(document).ready(function() {
 		}
 	});
 	var form_data = '<s:property value="form_data" escape="false"/>';
-	var tuyenkenh_id = '';
+	var chitietphuluc_id = '';
+	var phuluc_id = '';
 	if(form_data != '') {
 		var form_data = $.parseJSON(form_data);
 		for( key in form_data) {
@@ -317,52 +321,50 @@ $(document).ready(function() {
 				filesize : form_data["filesize"]
 			});
 		}
-		tuyenkenh_id = form_data['id'];
+		phuluc_id = form_data['id'];
+		chitietphuluc_id = form_data['chitietphuluc_id'];
 	} 
-	if(tuyenkenh_id == '') {
-		oTable = $('#dataTable').dataTable({
-			"bJQueryUI": true,
-			"bProcessing": false,
-			"bScrollCollapse": true,
-			"bAutoWidth": true,
-			"bSort":false,
-			"bFilter": false,"bInfo": false,
-			"bPaginate" : false
-		})
-	} else {
-		oTable = $('#dataTable').dataTable({
-			"bJQueryUI": true,
-			"bProcessing": false,
-			"bScrollCollapse": true,
-			"bAutoWidth": true,
-			"bSort":false,
-			"bFilter": false,"bInfo": false,
-			"bPaginate" : false,
-			"sAjaxSource": "${findByDexuatURL}?id="+dexuat_id,
-			"aoColumns": null,
-			"fnServerData": function ( sSource, aoData, fnCallback ) {
-				$.ajax( {
-					"dataType": 'json', 
-					"type": "POST", 
-					"url": sSource, 
-					"data": aoData, 
-					"success": function(response){
-						if(response.result == "ERROR") {
-							alert("Lỗi kết nối server, vui lòng thử lại.");
-						} else {
-							if(response.aaData.length != 0) {
-								var i = 0;
-								$.each(response.aaData,function(){
-									addRow(i,this);
-									i++;
-								});
-							} else {
-								oTable.fnAddData([0,'','','','','','','','','']);
-								oTable.fnDeleteRow(0);
-							}
-						}
-					}
-				} );
+	oTable = $('#dataTable').dataTable({
+		"bJQueryUI": true,
+		"bProcessing": false,
+		"bScrollCollapse": true,
+		"bAutoWidth": true,
+		"bSort":false,
+		"bFilter": false,"bInfo": false,
+		"bPaginate" : false
+	})
+	if(phuluc_id != '') {
+		if($("#form #loaiphuluc").val() == "2") { //phu luc thay the
+			$("#fieldsetPhuLucThayThe").show();
+			$.get("${findPhuLucThayTheURL}?id="+phuluc_id,function(response){
+				if(response.result == "ERROR") {
+					alert(response.data);
+				} else {
+					$.each(response.data,function(){
+						$("#fieldsetPhuLucThayThe .tags").append(replaceText(templates.tag,{
+							tag_id : "phuluc_"+this.id,
+							data_ref : this.id,
+							tag_title : this.tenphuluc,
+							tag_name : this.tenphuluc.vmsSubstr(40)
+						}));
+					});
+				}
+			});
+		}
+		$.get("${findTuyenKenhByChiTietPhuLucURL}?id="+chitietphuluc_id,function(response){
+			if(response.result == "ERROR") {
+				alert(response.data);
+			} else {
+				if(response.data.length != 0) {
+					var i = 1;
+					$.each(response.data,function(){
+						addRow(i,this);
+						i++;
+					});
+				} else {
+					oTable.fnAddData([0,'','','','','','','','','']);
+					oTable.fnDeleteRow(0);
+				}
 			}
 		});
 	}
@@ -376,8 +378,18 @@ $(document).ready(function() {
 			alert("Dữ liệu nhập chưa hợp lệ, vui lòng kiểm tra lại!");
 			button.disabled = false;
 		} else {
-			button.disabled = true;
 			var dataString = $("#form").serialize();
+			if($("#form #loaiphuluc").val() == "2") { //phu luc thay the
+				var dataStringPhuLucThayThe = "";
+				$("#fieldsetPhuLucThayThe .tags .selected").each(function(){
+					dataStringPhuLucThayThe+="&arrPhuLucThayThe="+$(this).attr("data-ref");
+				});
+				if(dataStringPhuLucThayThe == "") {
+					alert("Vui lòng chọn ít nhất một phụ lục thay thế!");return;
+				}
+				dataString += dataStringPhuLucThayThe;
+			}
+			button.disabled = true;
 			$.ajax({
 				url: "${doSaveURL}",
 				type:'POST',

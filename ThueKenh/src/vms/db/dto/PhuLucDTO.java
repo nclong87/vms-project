@@ -39,6 +39,10 @@ public class PhuLucDTO {
 	private String filepath;
 	private String filesize;
 	private String phulucthaythe_id;
+	private Long cuocdaunoi;
+	private Long giatritruocthue;
+	private Long giatrisauthue;
+	private String soluongkenh;
 
     public PhuLucDTO() {
 
@@ -187,6 +191,38 @@ public class PhuLucDTO {
 	public void setPhulucthaythe_id(String phulucthaythe_id) {
 		this.phulucthaythe_id = phulucthaythe_id;
 	}
+	
+	public Long getCuocdaunoi() {
+		return cuocdaunoi;
+	}
+
+	public void setCuocdaunoi(Long cuocdaunoi) {
+		this.cuocdaunoi = cuocdaunoi;
+	}
+
+	public Long getGiatritruocthue() {
+		return giatritruocthue;
+	}
+
+	public void setGiatritruocthue(Long giatritruocthue) {
+		this.giatritruocthue = giatritruocthue;
+	}
+
+	public Long getGiatrisauthue() {
+		return giatrisauthue;
+	}
+
+	public void setGiatrisauthue(Long giatrisauthue) {
+		this.giatrisauthue = giatrisauthue;
+	}
+
+	public String getSoluongkenh() {
+		return soluongkenh;
+	}
+
+	public void setSoluongkenh(String soluongkenh) {
+		this.soluongkenh = soluongkenh;
+	}
 
 	public Map<String,String> getMap() {
 		Map<String, String> map = new LinkedHashMap<String, String>();
@@ -208,6 +244,10 @@ public class PhuLucDTO {
 		map.put("nam", String.valueOf(this.nam));
 		map.put("thang", String.valueOf(this.thang));
 		map.put("trangthai", String.valueOf(this.trangthai));
+		map.put("cuocdaunoi", String.valueOf(this.cuocdaunoi));
+		map.put("giatritruocthue", String.valueOf(this.giatritruocthue));
+		map.put("giatrisauthue", String.valueOf(this.giatrisauthue));
+		map.put("soluongkenh", this.soluongkenh);
 		return map;
 	}
 	
@@ -231,6 +271,10 @@ public class PhuLucDTO {
 		dto.setTimecreate(rs.getString("TIMECREATE"));
 		dto.setTrangthai(rs.getInt("TRANGTHAI"));
 		dto.setUsercreate(rs.getString("USERCREATE"));
+		dto.setCuocdaunoi(rs.getLong("CUOCDAUNOI"));
+		dto.setGiatritruocthue(rs.getLong("GIATRITRUOCTHUE"));
+		dto.setGiatrisauthue(rs.getLong("GIATRISAUTHUE"));
+		dto.setSoluongkenh(rs.getString("SOLUONGKENH"));
         return dto;
 	}
 	

@@ -21,6 +21,7 @@ import vms.db.dao.DaoFactory;
 import vms.db.dao.HopDongDAO;
 import vms.db.dao.LoaiGiaoTiepDao;
 import vms.db.dao.MenuDao;
+import vms.db.dao.PhuLucDAO;
 import vms.db.dao.TramDAO;
 import vms.db.dao.VmsgroupDao;
 import vms.db.dto.Account;
@@ -223,6 +224,22 @@ public class AjaxAction implements Preparable {
 		}
 		return Action.SUCCESS;
 	}
+	
+	public String findPhuLucThayThe() {
+		jsonData =  new LinkedHashMap<String, Object>();
+		try {
+			String phuluc_id = request.getParameter("id");
+			PhuLucDAO dao = new PhuLucDAO(daoFactory);
+			List<Map<String, Object>> result = dao.findPhuLucThayThe(phuluc_id);
+			jsonData.put("status", 1);
+			jsonData.put("data", result);
+		} catch (Exception e) {
+			jsonData.put("status", 0);
+			jsonData.put("data", e.getMessage());
+		}
+		return Action.SUCCESS;
+	}
+	
 	
 	/* Getter and Setter */
 	

@@ -6,6 +6,8 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -75,7 +77,7 @@ public class PhuLucDAO {
 		});
 	}
 	
-	private static final String SQL_SAVE_PHULUC = "{ ? = call SAVE_PHULUC(?,?,?,?,?,?,?,?,?,?,?,?) }";
+	private static final String SQL_SAVE_PHULUC = "{ ? = call SAVE_PHULUC(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) }";
 	public String save(PhuLucDTO dto) throws Exception {
 		Connection connection = jdbcDatasource.getConnection();
 		CallableStatement stmt = connection.prepareCall(SQL_SAVE_PHULUC);
@@ -92,18 +94,21 @@ public class PhuLucDAO {
 		stmt.setString(11, dto.getFilename());
 		stmt.setString(12, dto.getFilepath());
 		stmt.setString(13, dto.getFilesize());
+		stmt.setString(14, String.valueOf(dto.getCuocdaunoi()));
+		stmt.setString(15, String.valueOf(dto.getGiatritruocthue()));
+		stmt.setString(16, String.valueOf(dto.getGiatrisauthue()));
+		stmt.setString(17, dto.getSoluongkenh());
 		stmt.execute();
 		return stmt.getString(1);
 	}
 	
 	public void deleteByIds(String[] ids) {
 		String str = StringUtils.join(ids, ",");
-		this.jdbcTemplate.update("update PHULUC set DELETED = 1 where ID in ("+str+")");
+		this.jdbcTemplate.update("update PHULUC set DELETED = "+System.currentTimeMillis()+" where ID in ("+str+")");
 	}
 	
-	private static final String SQL_DETAIL_PHULUC = "SELECT t.*,t0.LOAIHOPDONG,t0.DOITAC_ID,t2.TENDOITAC,t1.CUOCDAUNOI,t1.GIATRITRUOCTHUE,t1.GIATRISAUTHUE,t1.SOLUONGKENH FROM PHULUC t "+
+	private static final String SQL_DETAIL_PHULUC = "SELECT t.*,t0.LOAIHOPDONG,t0.DOITAC_ID,t2.TENDOITAC FROM PHULUC t "+
 		"left join HOPDONG t0 on t.HOPDONG_ID = t0.ID " +
-		"left join CHITIETPHULUC t1 on t.CHITIETPHULUC_ID = t1.ID " +
 		"left join DOITAC t2 on t0.DOITAC_ID = t2.ID  WHERE where t.ID=?";
 	@SuppressWarnings("unchecked")
 	public Map<String,Object> getDetail(String id) {
@@ -121,8 +126,8 @@ public class PhuLucDAO {
 		return list.get(0);
 	}
 	
-	public void updatePhuLucThayThe(PhuLucDTO dtoPhulucThayThe,String[] arrPhulucBiThayThe) {
-		this.jdbcTemplate.update("update PHULUC set PHULUCTHAYTHE_ID = ?, NGAYHETHIEULUC =? where ID in ("+StringUtils.join(arrPhulucBiThayThe, ",")+")", new Object[] {dtoPhulucThayThe.getId(), dtoPhulucThayThe.getNgayhieuluc()});
+	public void updatePhuLucThayThe(PhuLucDTO dtoPhulucThayThe,String[] arrPhulucBiThayThe,Date ngayHetHieuLuc) {
+		this.jdbcTemplate.update("update PHULUC set PHULUCTHAYTHE_ID = ?, NGAYHETHIEULUC =? where ID in ("+StringUtils.join(arrPhulucBiThayThe, ",")+")", new Object[] {dtoPhulucThayThe.getId(), DateUtils.parseToSQLDate(ngayHetHieuLuc)});
 	}
 	
 	private static final String SQL_FIND_PHULUC_HIEULUC = "{ ? = call FIND_PHULUC_HIEULUC(?,?) }";
@@ -152,8 +157,11 @@ public class PhuLucDAO {
 	public List<String> validateBeforeSavePhuLuc(String chitietphuluc_id,String[] arrPhuLucThayThe,String sNgayHieuLuc,HopDongDTO dtoHopDong) {
 		List<String> result = new ArrayList<String>();
 		Set<String> setPhuLucThayThe = new HashSet<String>();
-		for(int i=0;arrPhuLucThayThe != null && i<arrPhuLucThayThe.length;i++)
+		for(int i=0;arrPhuLucThayThe != null && i<arrPhuLucThayThe.length;i++) {
+			System.out.println("arrPhuLucThayThe[i] = "+arrPhuLucThayThe[i]);
 			setPhuLucThayThe.add(arrPhuLucThayThe[i]);
+		}
+			
 		List<Map<String,String>> list = this.jdbcTemplate.query("select t.*,t1.DOITAC_ID from CHITIETPHULUC_TUYENKENH t left join TUYENKENH t1 on t.TUYENKENH_ID = t1.ID where CHITIETPHULUC_ID = ?" ,new Object[] {chitietphuluc_id}, new RowMapper() {
 			@Override
 			public Object mapRow(ResultSet rs, int arg1) throws SQLException {
@@ -163,7 +171,7 @@ public class PhuLucDAO {
 				return map;
 			}
 		});
-		java.sql.Date date = DateUtils.convertToSQLDate(DateUtils.parseDate(sNgayHieuLuc, "dd/MM/yyyy"));
+		java.sql.Date date = DateUtils.convertToSQLDate(DateUtils.add(DateUtils.parseDate(sNgayHieuLuc, "dd/MM/yyyy"), Calendar.DATE, -1));
 		for(int i=0; i< list.size();i++) {
 			if(list.get(i).get("doitac_id").equals(dtoHopDong.getDoitac_id()) == false) {
 				result.add("Tuyến kênh "+list.get(i).get("tuyenkenh_id")+" không thuộc đối tác đã chọn");
@@ -171,8 +179,8 @@ public class PhuLucDAO {
 				try {
 					Map<String, Object> mapPhuLuc = this.findPhuLucCoHieuLuc( list.get(i).get("tuyenkenh_id"), date);
 					if(mapPhuLuc==null) continue;
-					if(setPhuLucThayThe.contains(mapPhuLuc.get("id")) == false) {
-						result.add("Tuyến kênh "+list.get(i).get("tuyenkenh_id")+" đang thuộc phụ lục "+mapPhuLuc.get("id"));
+					if(setPhuLucThayThe.contains(mapPhuLuc.get("id")) == false && mapPhuLuc.get("id").equals(chitietphuluc_id) == false) {
+						result.add("Tuyến kênh "+list.get(i).get("tuyenkenh_id")+" đang thuộc phụ lục "+mapPhuLuc.get("tenphuluc"));
 					}
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -185,5 +193,15 @@ public class PhuLucDAO {
 			}
 		}
 		return result;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Map<String,Object>> findPhuLucThayThe(String phuluc_id) {
+		return  this.jdbcTemplate.query("select * from PHULUC where DELETED = 0 and PHULUCTHAYTHE_ID = ?" ,new Object[] {phuluc_id}, new RowMapper() {
+			@Override
+			public Object mapRow(ResultSet rs, int arg1) throws SQLException {
+				return PhuLucDTO.resultSetToMap(rs);
+			}
+		});
 	}
 }
