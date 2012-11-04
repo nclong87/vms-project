@@ -2,6 +2,7 @@ package vms.utils;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -73,11 +74,21 @@ public class Test {
 		}
 		
 		System.out.println(strOutput);*/
-		DataSource dataSource = ResourceManager.getDataSource();
-		HopDongDAO dao = new HopDongDAO(new DaoFactory(dataSource));
-		Map<String,Map<String,Object>> list = dao.findAllHopDongByDoitac();
+		Date date = DateUtils.parseDate("23/11/2012", "dd/MM/yyyy");
+		date = DateUtils.add(DateUtils.parseDate("23/11/2012", "dd/MM/yyyy"), Calendar.DATE, -1);
+		java.sql.Date sqlDate = DateUtils.convertToSQLDate(DateUtils.add(DateUtils.parseDate("23/11/2012", "dd/MM/yyyy"), Calendar.DATE, -1));
 		
-		System.out.println(list.size());
+		DataSource dataSource = ResourceManager.getDataSource();
+		PhuLucDAO dao = new PhuLucDAO(new DaoFactory(dataSource));
+		Map<String, Object> mapPhuLuc;
+		try {
+			mapPhuLuc = dao.findPhuLucCoHieuLuc( "VT_0003", sqlDate);
+			System.out.println(mapPhuLuc.get("tenphuluc"));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		
 		System.out.println("Done!");
     }

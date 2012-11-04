@@ -21,6 +21,10 @@
 float: left;
 margin-left: 10px;
 }
+.remove {
+	color: red;
+cursor: pointer;
+}
 </style>
 </head>
 <body>
@@ -121,15 +125,22 @@ var seq = 0;
 $(document).ready(function(){	 
 	$("#btImport").click(function(){
 		var dataString = '';
+		var flagOverwrite = false;
 		$('#dataTable input[type=checkbox]').each(function(){
 			if(this.checked==true) {
-				if(this.value!='on')
+				if(this.value!='on') {
 					dataString+='&ids='+this.value;
+					if($(this).attr("data-ref") != "0") flagOverwrite = true;
+				}
+					
 			}
 		});
 		if(dataString=='') {
 			alert('Bạn chưa chọn dòng để import!');
 			return;
+		}
+		if(flagOverwrite) {
+			if(!confirm("Bạn muốn cập nhật những tuyến kênh đã tồn tại trong hệ thống?")) return;
 		}
 		if(!confirm("Bạn muốn import những dòng đã chọn?")) return;
 		var button = this;
@@ -188,6 +199,27 @@ $(document).ready(function(){
 				}
 			},
 			error: function(data){ alert (data);button.disabled = false;}	
+		});	
+	});
+	$("#dataTable .remove").live("click",function(){
+		var button = $(this);
+		var id = button.attr("data-ref");
+		$.ajax({
+			type: "GET",
+			cache: false,
+			url : "${doDeleteTuyenkenhURL}?ids="+id,
+			success: function(response){
+				if(response.result == "ERROR") {
+					if(response.data == "ERROR") {
+						alert(ERROR_MESSAGE);
+						return;
+					}
+					alert(response.data);
+				} else {
+					button.parents("tr").remove();
+				}
+			},
+			error: function(data){ alert (data);}	
 		});	
 	});
 	$('ul.sf-menu').superfish();
@@ -276,9 +308,9 @@ $(document).ready(function(){
 					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,
 						"fnRender": function( oObj ) {
 							if(oObj.aData.loaigiaotiep == '') 
-								return ''; 
+								return '<span class="remove" data-ref="'+oObj.aData.id+'">Xóa</span>'; 
 							else 
-								return '<center><input type="checkbox" value="'+oObj.aData.id+'"/></center>';  
+								return '<center><input type="checkbox" data-ref="'+oObj.aData.duplicate+'" value="'+oObj.aData.id+'"/></center>';  
 						}
 					}
 				],

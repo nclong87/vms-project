@@ -350,6 +350,11 @@
 				<param name="root">jsonData</param>
 			</result>
 		</action>
+		<action name="findPhuLucThayThe" class="ajaxAction" method="findPhuLucThayThe">
+			<result name="success" type="json">
+				<param name="root">jsonData</param>
+			</result>
+		</action>
 	</package>
 	<package name="group" extends="default" namespace="/group">
 		<action name="index" class="groupAction">

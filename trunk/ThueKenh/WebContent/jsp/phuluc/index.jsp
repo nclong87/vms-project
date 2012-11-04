@@ -144,7 +144,7 @@ margin-left: 10px;
 					<th>Cước đấu nối hòa mạng</th>
 					<th>Ngày ký phụ lục</th>
 					<th>Ngày có hiệu lực</th>
-					<th>Trạng thái</th>
+					<th>Ngày hết hiệu lực</th>
 					<th width="5px" align="center">Sửa</th>
 					<th width="5px" align="center"><input type="checkbox" onclick="selectAll(this)"/></th>
 				</tr>
@@ -258,11 +258,7 @@ $(document).ready(function(){
 					{ "mDataProp": "cuocdaunoi","bSortable": false,"bSearchable": false,"sClass":'td_right number'},
 					{ "mDataProp": "ngayky","bSortable": false,"bSearchable": false},
 					{ "mDataProp": "ngayhieuluc","bSortable": false,"bSearchable": false},
-					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,
-						"fnRender": function( oObj ) {
-							return ''; 
-						}
-					},
+					{ "mDataProp": "ngayhethieuluc","bSortable": false,"bSearchable": false},
 					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,
 						"fnRender": function( oObj ) {
 							return '<center><span class="edit_icon" data-ref-id="'+oObj.aData.id+'" title="Edit" href="#"></span></center>'; 

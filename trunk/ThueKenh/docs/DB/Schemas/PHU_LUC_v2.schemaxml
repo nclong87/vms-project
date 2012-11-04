@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemadesigner version="6.5">
+<source>
+<database charset="latin1" collation="latin1_swedish_ci">thuekenh</database>
+</source>
+<canvas zoom="100">
+<tables>
+<table name="chitietphuluc_tuyenkenh" view="colnames">
+<left>421</left>
+<top>152</top>
+<width>170</width>
+<height>226</height>
+<sql_create_table>CREATE TABLE `chitietphuluc_tuyenkenh` (
+  `PHULUC_ID` int(11) NOT NULL,
+  `TUYENKENH_ID` int(11) NOT NULL,
+  `CONGTHUC_ID` int(11) DEFAULT NULL,
+  `SOLUONG` int(11) DEFAULT NULL,
+  `CUOCCONG` int(11) DEFAULT NULL,
+  `CUOCDAUNOI` int(11) DEFAULT NULL,
+  `DONGIA` int(11) DEFAULT NULL,
+  `GIAMGIA` int(11) DEFAULT NULL,
+  `THANHTIEN` int(11) DEFAULT NULL,
+  PRIMARY KEY (`PHULUC_ID`,`TUYENKENH_ID`),
+  KEY `FK_chitietphuluc_tuyenkenh` (`TUYENKENH_ID`),
+  KEY `FK_chitietphuluc_tuyenkenh3` (`CONGTHUC_ID`),
+  CONSTRAINT `FK_chitietphuluc_tuyenkenh_pdadw` FOREIGN KEY (`PHULUC_ID`) REFERENCES `phuluc` (`ID`),
+  CONSTRAINT `FK_chitietphuluc_tuyenkenh` FOREIGN KEY (`TUYENKENH_ID`) REFERENCES `tuyenkenh` (`ID`),
+  CONSTRAINT `FK_chitietphuluc_tuyenkenh3` FOREIGN KEY (`CONGTHUC_ID`) REFERENCES `congthuc` (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1</sql_create_table>
+</table>
+<table name="tuyenkenh" view="colnames">
+<left>639</left>
+<top>16</top>
+<width>145</width>
+<height>306</height>
+<sql_create_table>CREATE TABLE `tuyenkenh` (
+  `ID` int(11) NOT NULL,
+  `MADIEMDAU` varchar(50) DEFAULT NULL,
+  `MADIEMCUOI` varchar(50) DEFAULT NULL,
+  `GIAOTIEP_ID` int(11) DEFAULT NULL,
+  `DUAN_ID` int(11) DEFAULT NULL,
+  `PHONGBAN_ID` int(11) DEFAULT NULL,
+  `DOITAC_ID` int(11) DEFAULT NULL,
+  `DUNGLUONG` int(11) DEFAULT NULL,
+  `TRANGTHAI` int(11) DEFAULT NULL,
+  `USERCREATE` varchar(255) DEFAULT NULL,
+  `TIMECREATE` datetime DEFAULT NULL,
+  `DELETED` int(11) DEFAULT NULL,
+  `SOLUONG` int(11) DEFAULT NULL,
+  `TRANGTHAI_BAK` int(11) DEFAULT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `FK_TUYENKENH_DIEMDAU` (`MADIEMDAU`),
+  KEY `FK_TUYENKENH_DIEMCUOI` (`MADIEMCUOI`),
+  KEY `FK_TUYENKENH_GIAOTIEP` (`GIAOTIEP_ID`),
+  KEY `FK_tuyenkenh_DUAN` (`DUAN_ID`),
+  KEY `FK_tuyenkenh_PHONGBAN` (`PHONGBAN_ID`),
+  KEY `FK_tuyenkenh_doitac` (`DOITAC_ID`),
+  CONSTRAINT `FK_tuyenkenh_doitac` FOREIGN KEY (`DOITAC_ID`) REFERENCES `doitac` (`ID`),
+  CONSTRAINT `FK_tuyenkenh_DUAN` FOREIGN KEY (`DUAN_ID`) REFERENCES `duan` (`ID`),
+  CONSTRAINT `FK_TUYENKENH_GIAOTIEP` FOREIGN KEY (`GIAOTIEP_ID`) REFERENCES `loaigiaotiep` (`ID`),
+  CONSTRAINT `FK_tuyenkenh_PHONGBAN` FOREIGN KEY (`PHONGBAN_ID`) REFERENCES `phongban` (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC</sql_create_table>
+</table>
+<table name="phuluc" view="colnames">
+<left>206</left>
+<top>24</top>
+<width>161</width>
+<height>433</height>
+<sql_create_table>CREATE TABLE `phuluc` (
+  `ID` int(11) NOT NULL,
+  `CHITIETPHULUC_ID` int(11) DEFAULT NULL,
+  `HOPDONG_ID` int(11) DEFAULT NULL,
+  `TENPHULUC` varchar(255) DEFAULT NULL,
+  `LOAIPHULUC` int(11) DEFAULT NULL,
+  `NGAYKY` date DEFAULT NULL,
+  `NGAYHIEULUC` date DEFAULT NULL,
+  `THANG` int(11) DEFAULT NULL,
+  `NAM` int(11) DEFAULT NULL,
+  `TRANGTHAI` int(11) DEFAULT NULL,
+  `USERCREATE` varchar(255) DEFAULT NULL,
+  `TIMECREATE` datetime DEFAULT NULL,
+  `FILENAME` varchar(255) DEFAULT NULL,
+  `FILEPATH` varchar(255) DEFAULT NULL,
+  `FILESIZE` varchar(20) DEFAULT NULL,
+  `DELETED` int(11) DEFAULT NULL,
+  `PHULUCTHAYTHE_ID` int(11) DEFAULT NULL,
+  `NGAYHETHIEULUC` date DEFAULT NULL,
+  `CUOCDAUNOI` int(11) DEFAULT NULL,
+  `GIATRITRUOCTHUE` int(11) DEFAULT NULL,
+  `GIATRISAUTHUE` int(11) DEFAULT NULL,
+  `SOLUONGKENH` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `FK_phuluc1` (`CHITIETPHULUC_ID`),
+  KEY `FK_phuluc3` (`HOPDONG_ID`),
+  KEY `FK_phuluc_thaythe` (`PHULUCTHAYTHE_ID`),
+  CONSTRAINT `FK_phuluc1` FOREIGN KEY (`CHITIETPHULUC_ID`) REFERENCES `chitietphuluc` (`ID`),
+  CONSTRAINT `FK_phuluc3` FOREIGN KEY (`HOPDONG_ID`) REFERENCES `hopdong` (`ID`),
+  CONSTRAINT `FK_phuluc_thaythe` FOREIGN KEY (`PHULUCTHAYTHE_ID`) REFERENCES `phuluc` (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1</sql_create_table>
+</table>
+<table name="hopdong" view="colnames">
+<left>17</left>
+<top>120</top>
+<width>133</width>
+<height>260</height>
+<sql_create_table>CREATE TABLE `hopdong` (
+  `ID` int(11) NOT NULL,
+  `DOITAC_ID` int(11) DEFAULT NULL,
+  `SOHOPDONG` varchar(255) DEFAULT NULL,
+  `LOAIHOPDONG` int(11) DEFAULT NULL COMMENT 'ANC\\nad',
+  `NGAYKY` date DEFAULT NULL,
+  `NGAYHETHAN` date DEFAULT NULL,
+  `TRANGTHAI` int(11) DEFAULT NULL,
+  `USERCREATE` varchar(255) DEFAULT NULL,
+  `TIMECREATE` datetime DEFAULT NULL,
+  `HISTORY` text,
+  `DELETED` int(11) DEFAULT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `FK_hopdong_DOITAC` (`DOITAC_ID`),
+  CONSTRAINT `FK_hopdong_DOITAC` FOREIGN KEY (`DOITAC_ID`) REFERENCES `doitac` (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1</sql_create_table>
+</table>
+</tables>
+</canvas>
+</schemadesigner>
