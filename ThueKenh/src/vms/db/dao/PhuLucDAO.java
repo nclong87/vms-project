@@ -6,14 +6,20 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+
 import javax.sql.DataSource;
 import oracle.jdbc.OracleTypes;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+
+import vms.db.dto.HopDongDTO;
 import vms.db.dto.PhuLucDTO;
 import vms.utils.DateUtils;
 import vms.utils.VMSUtil;
@@ -26,19 +32,22 @@ public class PhuLucDAO {
 		this.jdbcDatasource = daoFactory.getJdbcDataSource();
 	}
 	
-	private static final String SQL_FIND_PHULUC = "{ ? = call FIND_PHULUC(?,?,?,?,?,?,?,?) }";
+	private static final String SQL_FIND_PHULUC = "{ ? = call FIND_PHULUC(?,?,?,?,?,?,?,?,?,?,?) }";
 	public List<Map<String,Object>> search(int iDisplayStart,int iDisplayLength,Map<String, String> conditions) throws SQLException {
 		Connection connection = jdbcDatasource.getConnection();
 		CallableStatement stmt = connection.prepareCall(SQL_FIND_PHULUC);
 		stmt.registerOutParameter(1, OracleTypes.CURSOR);
 		stmt.setInt(2, iDisplayStart);
 		stmt.setInt(3, iDisplayLength);
-		stmt.setString(4, conditions.get("tenhopdong"));
+		stmt.setString(4, conditions.get("sohopdong"));
 		stmt.setString(5, conditions.get("tenphuluc"));
 		stmt.setString(6, conditions.get("loaiphuluc"));
-		stmt.setString(7, conditions.get("ngayky"));
-		stmt.setString(8, conditions.get("ngayhieuluc"));
-		stmt.setString(9, conditions.get("hopdong_id"));
+		stmt.setString(7, conditions.get("trangthai"));
+		stmt.setString(8, conditions.get("ngayky_from"));
+		stmt.setString(9, conditions.get("ngayky_end"));
+		stmt.setString(10, conditions.get("ngayhieuluc_from"));
+		stmt.setString(11, conditions.get("ngayhieuluc_end"));
+		stmt.setString(12, conditions.get("hopdong_id"));
 		stmt.execute();
 		ResultSet rs = (ResultSet) stmt.getObject(1);
 		List<Map<String,Object>> result = new ArrayList<Map<String,Object>>();
@@ -110,5 +119,71 @@ public class PhuLucDAO {
 		});
 		if(list.isEmpty()) return null;
 		return list.get(0);
+	}
+	
+	public void updatePhuLucThayThe(PhuLucDTO dtoPhulucThayThe,String[] arrPhulucBiThayThe) {
+		this.jdbcTemplate.update("update PHULUC set PHULUCTHAYTHE_ID = ?, NGAYHETHIEULUC =? where ID in ("+StringUtils.join(arrPhulucBiThayThe, ",")+")", new Object[] {dtoPhulucThayThe.getId(), dtoPhulucThayThe.getNgayhieuluc()});
+	}
+	
+	private static final String SQL_FIND_PHULUC_HIEULUC = "{ ? = call FIND_PHULUC_HIEULUC(?,?) }";
+	public Map<String,Object> findPhuLucCoHieuLuc(String tuyenkenh_id,java.sql.Date date) throws Exception {
+		Connection connection = jdbcDatasource.getConnection();
+		CallableStatement stmt = connection.prepareCall(SQL_FIND_PHULUC_HIEULUC);
+		stmt.registerOutParameter(1, OracleTypes.CURSOR);
+		stmt.setString(2, tuyenkenh_id);
+		//stmt.setDate(3, DateUtils.convertToSQLDate(DateUtils.parseDate(sDate, "dd/MM/yyyy")));
+		stmt.setDate(3, date);
+		stmt.execute();
+		ResultSet rs = (ResultSet) stmt.getObject(1);
+		List<Map<String,Object>> result = new ArrayList<Map<String,Object>>();
+		while(rs.next()) {
+			Map<String,Object> map = PhuLucDTO.resultSetToMap(rs);
+			result.add(map);
+		}
+		stmt.close();
+		connection.close();
+		if(result.size() > 1) throw new Exception("DUPLICATE_PHULUC");
+		if(result.size() > 0) 
+			return result.get(0);
+		return null;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<String> validateBeforeSavePhuLuc(String chitietphuluc_id,String[] arrPhuLucThayThe,String sNgayHieuLuc,HopDongDTO dtoHopDong) {
+		List<String> result = new ArrayList<String>();
+		Set<String> setPhuLucThayThe = new HashSet<String>();
+		for(int i=0;arrPhuLucThayThe != null && i<arrPhuLucThayThe.length;i++)
+			setPhuLucThayThe.add(arrPhuLucThayThe[i]);
+		List<Map<String,String>> list = this.jdbcTemplate.query("select t.*,t1.DOITAC_ID from CHITIETPHULUC_TUYENKENH t left join TUYENKENH t1 on t.TUYENKENH_ID = t1.ID where CHITIETPHULUC_ID = ?" ,new Object[] {chitietphuluc_id}, new RowMapper() {
+			@Override
+			public Object mapRow(ResultSet rs, int arg1) throws SQLException {
+				Map<String,String> map = new LinkedHashMap<String, String>();
+				map.put("tuyenkenh_id", rs.getString("TUYENKENH_ID"));
+				map.put("doitac_id", rs.getString("DOITAC_ID"));
+				return map;
+			}
+		});
+		java.sql.Date date = DateUtils.convertToSQLDate(DateUtils.parseDate(sNgayHieuLuc, "dd/MM/yyyy"));
+		for(int i=0; i< list.size();i++) {
+			if(list.get(i).get("doitac_id").equals(dtoHopDong.getDoitac_id()) == false) {
+				result.add("Tuyến kênh "+list.get(i).get("tuyenkenh_id")+" không thuộc đối tác đã chọn");
+			} else {
+				try {
+					Map<String, Object> mapPhuLuc = this.findPhuLucCoHieuLuc( list.get(i).get("tuyenkenh_id"), date);
+					if(mapPhuLuc==null) continue;
+					if(setPhuLucThayThe.contains(mapPhuLuc.get("id")) == false) {
+						result.add("Tuyến kênh "+list.get(i).get("tuyenkenh_id")+" đang thuộc phụ lục "+mapPhuLuc.get("id"));
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+					if(e.getMessage() == "DUPLICATE_PHULUC") {
+						result.add("Tuyến kênh "+list.get(i).get("tuyenkenh_id")+" đang tồn tại trong nhiều phụ lục");
+					} else {
+						result.add(e.getMessage());
+					}
+				}
+			}
+		}
+		return result;
 	}
 }

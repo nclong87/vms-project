@@ -5,7 +5,13 @@ import javax.sql.DataSource;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 public class DaoFactory {
-	
+	public DaoFactory(){
+		
+	}
+	public DaoFactory(DataSource dataSource) {
+		this.jdbcDataSource = dataSource;
+		this.jdbcTemplate = new JdbcTemplate(dataSource);
+	}
 	private JdbcTemplate jdbcTemplate;
 	private DataSource jdbcDataSource;
 	 public void setDataSource(DataSource dataSource) {

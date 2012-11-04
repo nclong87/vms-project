@@ -31,4 +31,8 @@ public class Constances {
 	public static String CUOCONG = "CC";
 	public static String DONGIA = "DG";
 	public static String SOLUONG = "SL";
+	
+	//Phu luc
+	public static int PHU_LUC_DOC_LAP = 1;
+	public static int PHU_LUC_THAY_THE = 2;
 }

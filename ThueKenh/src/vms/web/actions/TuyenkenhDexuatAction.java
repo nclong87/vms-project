@@ -23,9 +23,7 @@ import vms.db.dao.LoaiGiaoTiepDao;
 import vms.db.dao.PhongBanDao;
 import vms.db.dao.TuyenKenhDeXuatDAO;
 import vms.db.dao.TuyenkenhDao;
-import vms.db.dto.DoiTacDTO;
 import vms.db.dto.DuAnDTO;
-import vms.db.dto.LoaiGiaoTiep;
 import vms.db.dto.PhongBanDTO;
 import vms.db.dto.TuyenKenh;
 import vms.db.dto.TuyenKenhDeXuatDTO;
@@ -52,7 +50,7 @@ public class TuyenkenhDexuatAction implements Preparable {
 	
 	private List<Map<String,Object>> loaiGiaoTieps;
 	private List<DuAnDTO> duAnDTOs;
-	private List<DoiTacDTO> doiTacDTOs;
+	private List<Map<String,Object>> doiTacDTOs;
 	private List<PhongBanDTO> phongBans;
 	private String id;
 	private String[] ids;
@@ -337,10 +335,10 @@ public class TuyenkenhDexuatAction implements Preparable {
 	}
 	
 	
-	public List<DoiTacDTO> getDoiTacDTOs() {
+	public List<Map<String,Object>> getDoiTacDTOs() {
 		return doiTacDTOs;
 	}
-	public void setDoiTacDTOs(List<DoiTacDTO> doiTacDTOs) {
+	public void setDoiTacDTOs(List<Map<String,Object>> doiTacDTOs) {
 		this.doiTacDTOs = doiTacDTOs;
 	}
 	public List<PhongBanDTO> getPhongBans() {

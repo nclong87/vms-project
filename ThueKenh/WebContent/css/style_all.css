@@ -459,6 +459,12 @@ input.blur {
 .td_center {
 	text-align:center;
 }
+.td_left {
+	text-align:left;
+}
+.td_right {
+	text-align:right;
+}
 .td_hidden {
 display:none
 }

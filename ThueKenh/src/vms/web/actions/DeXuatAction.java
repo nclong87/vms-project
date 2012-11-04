@@ -43,7 +43,7 @@ public class DeXuatAction implements Preparable {
 	private LinkedHashMap<String, Object> jsonData;
 	private String form_data;
 	
-	private List<DoiTacDTO> doiTacDTOs;
+	private List<Map<String,Object>> doiTacDTOs;
 	private String id;
 	private String[] ids;
 	private String[] dexuat_ids;
@@ -240,10 +240,10 @@ public class DeXuatAction implements Preparable {
 	public void setForm_data(String form_data) {
 		this.form_data = form_data;
 	}
-	public List<DoiTacDTO> getDoiTacDTOs() {
+	public List<Map<String,Object>> getDoiTacDTOs() {
 		return doiTacDTOs;
 	}
-	public void setDoiTacDTOs(List<DoiTacDTO> doiTacDTOs) {
+	public void setDoiTacDTOs(List<Map<String,Object>> doiTacDTOs) {
 		this.doiTacDTOs = doiTacDTOs;
 	}
 	public String[] getDexuat_ids() {

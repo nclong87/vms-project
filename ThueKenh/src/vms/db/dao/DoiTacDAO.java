@@ -124,12 +124,12 @@ public class DoiTacDAO {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<DoiTacDTO> findAll() {
+	public List<Map<String,Object>> findAll() {
 		return this.jdbcTemplate.query(
 				"select * from DOITAC where deleted = 0", new RowMapper() {
 					public Object mapRow(ResultSet rs, int rowNum)
 							throws SQLException {
-						return DoiTacDTO.mapObject(rs);
+						return VMSUtil.resultSetToMap(rs);
 					}
 				});
 	}

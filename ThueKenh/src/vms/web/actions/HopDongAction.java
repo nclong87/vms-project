@@ -42,15 +42,15 @@ public class HopDongAction implements Preparable {
 	private InputStream inputStream;
 	
 	private String form_data;
-	private List<DoiTacDTO> doiTacs;
+	private List<Map<String,Object>> doiTacs;
 	private String id;
 	private String[] ids;
 	private Map<String,Object> detail;
 	
-	public List<DoiTacDTO> getDoiTacs() {
+	public List<Map<String,Object>> getDoiTacs() {
 		return doiTacs;
 	}
-	public void setDoiTacs(List<DoiTacDTO> doiTacs) {
+	public void setDoiTacs(List<Map<String,Object>> doiTacs) {
 		this.doiTacs = doiTacs;
 	}
 	public Map<String, Object> getDetail() {

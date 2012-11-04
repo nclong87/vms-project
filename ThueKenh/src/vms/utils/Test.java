@@ -1,8 +1,20 @@
 package vms.utils;
 
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
+
+import javax.sql.DataSource;
+
+import org.springframework.jdbc.core.JdbcTemplate;
+
+import vms.db.dao.DaoFactory;
+import vms.db.dao.DoiTacDAO;
+import vms.db.dao.HopDongDAO;
+import vms.db.dao.PhuLucDAO;
 
 import com.smartxls.WorkBook;
 
@@ -51,7 +63,7 @@ public class Test {
 		}*/
 		
 		//MyCaculator.main(args)
-		String[][] replacements = {{"DG", "123"}, 
+		/*String[][] replacements = {{"DG", "123"}, 
                 {"SL", "4"}};
 		
 		//loop over the array and replace
@@ -60,7 +72,13 @@ public class Test {
 		strOutput = strOutput.replace(replacement[0], replacement[1]);
 		}
 		
-		System.out.println(strOutput);
+		System.out.println(strOutput);*/
+		DataSource dataSource = ResourceManager.getDataSource();
+		HopDongDAO dao = new HopDongDAO(new DaoFactory(dataSource));
+		Map<String,Map<String,Object>> list = dao.findAllHopDongByDoitac();
+		
+		System.out.println(list.size());
+		
 		System.out.println("Done!");
     }
 }

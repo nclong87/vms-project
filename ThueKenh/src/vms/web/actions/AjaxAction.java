@@ -15,8 +15,10 @@ import org.apache.struts2.ServletActionContext;
 
 
 import vms.db.dao.AccountDao;
+import vms.db.dao.ChiTietPhuLucDAO;
 import vms.db.dao.CongThucDAO;
 import vms.db.dao.DaoFactory;
+import vms.db.dao.HopDongDAO;
 import vms.db.dao.LoaiGiaoTiepDao;
 import vms.db.dao.MenuDao;
 import vms.db.dao.TramDAO;
@@ -183,6 +185,36 @@ public class AjaxAction implements Preparable {
 		try {
 			LoaiGiaoTiepDao dao = new LoaiGiaoTiepDao(daoFactory);
 			List<Map<String, Object>> result = dao.getAll();
+			jsonData.put("status", 1);
+			jsonData.put("data", result);
+		} catch (Exception e) {
+			jsonData.put("status", 0);
+			jsonData.put("data", e.getMessage());
+		}
+		return Action.SUCCESS;
+	}
+	
+	public String findHopDongByDoiTac() {
+		jsonData =  new LinkedHashMap<String, Object>();
+		try {
+			String doitac_id = request.getParameter("doitac_id");
+			HopDongDAO dao = new HopDongDAO(daoFactory);
+			List<Map<String, Object>> result = dao.findByDoitac(doitac_id);
+			jsonData.put("status", 1);
+			jsonData.put("data", result);
+		} catch (Exception e) {
+			jsonData.put("status", 0);
+			jsonData.put("data", e.getMessage());
+		}
+		return Action.SUCCESS;
+	}
+	
+	public String findTuyenKenhByChiTietPhuLuc() {
+		jsonData =  new LinkedHashMap<String, Object>();
+		try {
+			String chitietphuluc_id = request.getParameter("id");
+			ChiTietPhuLucDAO dao = new ChiTietPhuLucDAO(daoFactory);
+			List<Map<String, Object>> result = dao.findTuyenKenhByChiTietPhuLuc(chitietphuluc_id);
 			jsonData.put("status", 1);
 			jsonData.put("data", result);
 		} catch (Exception e) {
