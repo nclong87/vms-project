@@ -12,6 +12,8 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import jxl.Sheet;
+import jxl.Workbook;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.struts2.ServletActionContext;
@@ -27,7 +29,6 @@ import vms.utils.StringUtil;
 import vms.utils.VMSUtil;
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.Preparable;
-import com.smartxls.WorkBook;
 
 public class ImportAction implements Preparable {
 	private DaoFactory daoFactory;
@@ -88,7 +89,7 @@ public class ImportAction implements Preparable {
 	}
 	public String doUploadTuyenkenh() {
 		jsonData = new LinkedHashMap<String, Object>();
-		WorkBook workBook = new WorkBook();
+		Workbook workBook = null;
 		try {
 			System.out.println("Begin upload");
 			String filetype = StringUtil.getExtension(fileuploadFileName);
@@ -100,42 +101,39 @@ public class ImportAction implements Preparable {
 	        File newFile = new File(filepath);
 	        FileUtils.copyFile(fileupload, newFile);
 			if(StringUtil.isEmpty(fileuploadFileName)) throw new Exception("File upload bị lỗi.");
-			if(filetype.equals("xls")) {  // Excel 2003
-				workBook.read(filepath);
-			} else {  // Excel 2007
-				workBook.readXLSX(filepath);
-			}
-			int maxrow = workBook.getLastRow();
+			workBook = Workbook.getWorkbook(new File(filepath));
+			Sheet sheet = workBook.getSheet(0);
+			int maxrow = sheet.getRows();
 			System.out.println("maxrow = "+maxrow);
-			int max_col = workBook.getLastCol();
+			int max_col = sheet.getColumns();
 			Map<String, Integer> map = new LinkedHashMap<String, Integer>();
-			for(int i = 0;i<= max_col; i++) {
-				map.put(workBook.getText(0, i), i);
+			for(int i = 0;i< max_col; i++) {
+				map.put(sheet.getCell(i, 0).getContents(), i);
 			}
 			Integer index;
 			List<TuyenKenhImportDTO> list = new ArrayList<TuyenKenhImportDTO>();
 			Date date = new Date();
-			for(int i=1;i<=maxrow;i++) {
+			for(int i=1;i<maxrow;i++) {
 				TuyenKenhImportDTO dto = new TuyenKenhImportDTO();
 				dto.setStt(i);
 				if( (index = map.get("MADIEMDAU")) != null)
-					dto.setMadiemdau(workBook.getText(i, index));
+					dto.setMadiemdau(sheet.getCell(index, i).getContents());
 				if( (index = map.get("MADIEMCUOI")) != null)
-					dto.setMadiemcuoi(workBook.getText(i, index));
+					dto.setMadiemcuoi(sheet.getCell(index, i).getContents());
 				if( (index = map.get("GIAOTIEP_MA")) != null)
-					dto.setGiaotiep_ma(workBook.getText(i, index));
+					dto.setGiaotiep_ma(sheet.getCell(index, i).getContents());
 				if( (index = map.get("DUAN_MA")) != null)
-					dto.setDuan_ma(workBook.getText(i, index));
+					dto.setDuan_ma(sheet.getCell(index, i).getContents());
 				if( (index = map.get("PHONGBAN_MA")) != null)
-					dto.setPhongban_ma(workBook.getText(i, index));
+					dto.setPhongban_ma(sheet.getCell(index, i).getContents());
 				if( (index = map.get("DOITAC_MA")) != null)
-					dto.setDoitac_ma(workBook.getText(i, index));
+					dto.setDoitac_ma(sheet.getCell(index, i).getContents());
 				if( (index = map.get("DUNGLUONG")) != null)
-					dto.setDungluong(workBook.getText(i, index));
+					dto.setDungluong(sheet.getCell(index, i).getContents());
 				if( (index = map.get("SOLUONG")) != null)
-					dto.setSoluong(workBook.getText(i, index));
+					dto.setSoluong(sheet.getCell(index, i).getContents());
 				if( (index = map.get("TRANGTHAI")) != null)
-					dto.setTrangthai(workBook.getText(i, index));
+					dto.setTrangthai(sheet.getCell(index, i).getContents());
 				dto.setDateimport(date);
 				if(	!dto.getMadiemdau().isEmpty() &&
 					!dto.getMadiemcuoi().isEmpty() &&
@@ -157,7 +155,7 @@ public class ImportAction implements Preparable {
 			jsonData.put("result", "ERROR");
 			jsonData.put("data", e.getMessage());
 		} finally {
-			workBook.dispose();
+			workBook.close();
 		}
 		return Action.SUCCESS;
 	}
@@ -206,7 +204,7 @@ public class ImportAction implements Preparable {
 	}
 	public String doUploadSuCo() {
 		jsonData = new LinkedHashMap<String, Object>();
-		WorkBook workBook = new WorkBook();
+		Workbook workBook = null;
 		try {
 			System.out.println("Begin upload");
 			String filetype = StringUtil.getExtension(fileuploadFileName);
@@ -218,46 +216,43 @@ public class ImportAction implements Preparable {
 	        File newFile = new File(filepath);
 	        FileUtils.copyFile(fileupload, newFile);
 			if(StringUtil.isEmpty(fileuploadFileName)) throw new Exception("File upload bị lỗi.");
-			if(filetype.equals("xls")) {  // Excel 2003
-				workBook.read(filepath);
-			} else {  // Excel 2007
-				workBook.readXLSX(filepath);
-			}
-			int maxrow = workBook.getLastRow();
+			workBook = Workbook.getWorkbook(new File(filepath));
+			Sheet sheet = workBook.getSheet(0);
+			int maxrow = sheet.getRows();
 			System.out.println("maxrow = "+maxrow);
-			int max_col = workBook.getLastCol();
+			int max_col = sheet.getColumns();
 			Map<String, Integer> map = new LinkedHashMap<String, Integer>();
-			for(int i = 0;i<= max_col; i++) {
-				map.put(workBook.getText(0, i), i);
+			for(int i = 0;i < max_col; i++) {
+				map.put(sheet.getCell(i, 0).getContents(), i);
 			}
 			Integer index;
 			List<SuCoImportDTO> list = new ArrayList<SuCoImportDTO>();
 			TuyenkenhDao tuyenkenhDao = new TuyenkenhDao(daoFactory);
 			TuyenKenh tuyenKenh = null;
-			for(int i=1;i<=maxrow;i++) {
+			for(int i=1;i<maxrow;i++) {
 				SuCoImportDTO dto = new SuCoImportDTO();
 				dto.setStt(i);
 				if( (index = map.get("MADIEMDAU")) != null)
-					dto.setMadiemdau(workBook.getText(i, index));
+					dto.setMadiemdau(sheet.getCell(index, i).getContents());
 				if( (index = map.get("MADIEMCUOI")) != null)
-					dto.setMadiemcuoi(workBook.getText(i, index));
+					dto.setMadiemcuoi(sheet.getCell(index, i).getContents());
 				if( (index = map.get("DUNGLUONG")) != null)
-					dto.setDungluong(workBook.getText(i, index));
+					dto.setDungluong(sheet.getCell(index, i).getContents());
 				if( (index = map.get("MAGIAOTIEP")) != null)
-					dto.setMagiaotiep(workBook.getText(i, index));
+					dto.setMagiaotiep(sheet.getCell(index, i).getContents());
 				if( (index = map.get("THOIDIEMBATDAU")) != null)
-					dto.setThoidiembatdau(workBook.getFormattedText(i, index));
+					dto.setThoidiembatdau(sheet.getCell(index, i).getContents());
 				if( (index = map.get("THOIDIEMKETTHUC")) != null)
-					dto.setThoidiemketthuc(workBook.getFormattedText(i, index));
+					dto.setThoidiemketthuc(sheet.getCell(index, i).getContents());
 				if( (index = map.get("NGUYENNHAN")) != null)
-					dto.setNguyennhan(workBook.getText(i, index));
+					dto.setNguyennhan(sheet.getCell(index, i).getContents());
 				if( (index = map.get("PHUONGANXULY")) != null)
-					dto.setPhuonganxuly(workBook.getText(i, index));
+					dto.setPhuonganxuly(sheet.getCell(index, i).getContents());
 				if( (index = map.get("NGUOIXACNHAN")) != null)
-					dto.setNguoixacnhan(workBook.getText(i, index));
+					dto.setNguoixacnhan(sheet.getCell(index, i).getContents());
 				if( (index = map.get("LOAISUCO")) != null)
 				{
-					String loaisuco=workBook.getText(i, index).trim();
+					String loaisuco=sheet.getCell(index, i).getContents().trim();
 					System.out.println("loaisuco:"+loaisuco);
 					if(loaisuco.compareTo("BT")==0)
 						dto.setLoaisuco("0");
@@ -285,7 +280,7 @@ public class ImportAction implements Preparable {
 			jsonData.put("result", "ERROR");
 			jsonData.put("data", e.getMessage());
 		} finally {
-			workBook.dispose();
+			workBook.close();
 		}
 		return Action.SUCCESS;
 	}

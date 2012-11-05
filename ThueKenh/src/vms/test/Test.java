@@ -1,4 +1,4 @@
-package vms.utils;
+package vms.test;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -16,6 +16,7 @@ import vms.db.dao.DaoFactory;
 import vms.db.dao.DoiTacDAO;
 import vms.db.dao.HopDongDAO;
 import vms.db.dao.PhuLucDAO;
+
 
 public class Test {
 	public static void main(String arg[]) {
@@ -67,7 +68,7 @@ public class Test {
 		}
 		
 		System.out.println(strOutput);*/
-		Date date = DateUtils.parseDate("23/11/2012", "dd/MM/yyyy");
+		/*Date date = DateUtils.parseDate("23/11/2012", "dd/MM/yyyy");
 		date = DateUtils.add(DateUtils.parseDate("23/11/2012", "dd/MM/yyyy"), Calendar.DATE, -1);
 		java.sql.Date sqlDate = DateUtils.convertToSQLDate(DateUtils.add(DateUtils.parseDate("23/11/2012", "dd/MM/yyyy"), Calendar.DATE, -1));
 		
@@ -80,8 +81,7 @@ public class Test {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		
+		}*/
 		
 		System.out.println("Done!");
     }
