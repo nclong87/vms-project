@@ -20,6 +20,7 @@ import vms.db.dao.DaoFactory;
 import vms.db.dao.DoiTacDAO;
 import vms.db.dao.HopDongDAO;
 import vms.db.dao.LoaiGiaoTiepDao;
+import vms.db.dao.PhuLucDAO;
 import vms.db.dao.SuCoDAO;
 import vms.db.dao.TuyenkenhDao;
 import vms.db.dto.DoiTacDTO;
@@ -44,9 +45,17 @@ public class HopDongAction implements Preparable {
 	private String form_data;
 	private List<Map<String,Object>> doiTacs;
 	private String id;
+	private String thanhtoan_id;
 	private String[] ids;
 	private Map<String,Object> detail;
 	
+	public String getThanhtoan_id() {
+		return thanhtoan_id;
+	}
+	public void setThanhtoan_id(String thanhtoan_id) {
+		this.thanhtoan_id = thanhtoan_id;
+	}
+
 	public List<Map<String,Object>> getDoiTacs() {
 		return doiTacs;
 	}
@@ -264,5 +273,46 @@ public class HopDongAction implements Preparable {
 		jsonData.put("test", "Hello world!");*/
 		return Action.SUCCESS;
 	}
+	public String findphulucByhopdong() {
+		jsonData = new LinkedHashMap<String, Object>();
+		try {
+			if(id!= null) {
+				Map<String, String> conditions = new LinkedHashMap<String, String>();
+				conditions.put("hopdong_id", id);
+				PhuLucDAO phulucDao = new PhuLucDAO(daoFactory);
+				List<Map<String, Object>> items = phulucDao.search(0, 1000, conditions);
+				jsonData.put("result", "OK");
+				jsonData.put("aaData", items);
+				return Action.SUCCESS;
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			jsonData.put("result", "ERROR");
+		}
+		return Action.SUCCESS;
+	}
 	
+	public String findphulucByhopdongandthanhtoan() {
+		jsonData = new LinkedHashMap<String, Object>();
+		try {
+			if(id!= null) {
+				Map<String, String> conditions = new LinkedHashMap<String, String>();
+				conditions.put("hopdong_id", id);
+				conditions.put("thanhtoan_id", thanhtoan_id);
+				System.out.println("hopdong:"+id);
+				System.out.println("thanhtoan:"+thanhtoan_id);
+				PhuLucDAO phulucDao = new PhuLucDAO(daoFactory);
+				List<Map<String, Object>> items = phulucDao.searchByHopDongThanhToan(0, 1000, conditions);
+				jsonData.put("result", "OK");
+				jsonData.put("aaData", items);
+				return Action.SUCCESS;
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			jsonData.put("result", "ERROR");
+		}
+		return Action.SUCCESS;
+	}
 }

@@ -1,15 +1,12 @@
 ﻿<%@ taglib prefix="s" uri="/struts-tags"%>
-<s:url action="ajLoadSuCoWithBBVH" namespace="/sucokenh" id="ajLoadSuCoWithBBVH"/>
-<s:url action="popupSearch" namespace="/tuyenkenh" id="popupSearchURL" />
-<s:url action="detail" namespace="/sucokenh" id="detailURL"/>
+<s:url action="ajLoadHopDong" namespace="/hopdong" id="ajLoadHopDong"/>
+<s:url action="detail" namespace="/hopdong" id="detailURL"/>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<%@include file="/include/header.jsp"%>
 	<script type="text/javascript" src="<%=contextPath%>/js/jquery-ui/jquery.ui.datepicker-vi.js"></script>
-	<script type="text/javascript" src="<%=contextPath%>/js/jquery-ui/jquery.ui.datetimepicker.js"></script>
-	<script type="text/javascript" src="<%=contextPath%>/js/mylibs/popup_search_tuyenkenh.js"></script>
 <style>
 .block {
 float: left;
@@ -25,7 +22,7 @@ margin-left: 10px;
 					<div class="fl tsl" id="t_1">
 					</div>
 					<div class="fl clg b tsc d" id="t_2">
-						<div class="p3t">Tìm kiếm sự cố</div>
+						<div class="p3t">Tìm kiếm hợp đồng</div>
 					</div>
 					<div class="fl tsr" id="t_3">
 					</div>
@@ -39,35 +36,50 @@ margin-left: 10px;
 							<table width="970px">
 								<form id="form">
 								<tbody id="display">
-								<tr>
-									<td align="right">Mã tuyến kênh</td>
-									<td><input type="text" style="width: 182px" name="tuyenkenh_id" id="tuyenkenh_id"/><input type="hidden" style="width: 218px" name="bienbanvanhanh_id" id="bienbanvanhanh_id" value="0" /><input type="button" id="btPopupSearchTuyenkenh" value="..."/></td>
-									<td align="right">Dung lượng (MB) :</td>
-									<td><input type="text" style="width: 218px" name="dungluong" id="dungluong" /></td>
-									
-								</tr>
-								<tr>
-									<td align="right">Mã điểm đầu :</td>
-									<td><input type="text" style="width: 218px" name="madiemdau" id="madiemdau"/></td>
-									<td align="right">Mã điểm cuối :</td>
-									<td><input type="text" style="width: 218px" name="madiemcuoi" id="madiemcuoi"/></td>
-								</tr>
-								<tr>
-									<td align="right">Thời điểm bắt đầu :</td>
-									<td align="left"><input type="text"
-										name="thoidiembatdau" id="thoidiembatdau" style="width: 218px" class="datetimepicker"/>
-									</td>
-									<td align="right">Thời điểm kết thúc :</td>
-									<td align="left"><input type="text"
-										name="thoidiemketthuc" id="thoidiemketthuc" style="width: 218px" class="datetimepicker"/>
-									</td>
+									<tr>
+										<td align="right">Loại hợp đồng :</td>
+										<td><select style="width: 220px" name="loaihopdong" id="loaihopdong">
+												<option value="">---Tất cả---</option>
+												<option value="1">Có thời hạn</option>
+												<option value="0">Không thời hạn</option>
+										</select></td>
+									</tr>
+									<tr>
+										<td align="right">Số hợp đồng :</td>
+										<td><input type="text" name="sohopdong" id="sohopdong" style="width: 218px"/></td>
+										<td align="right">Đối tác :</td>
+										<td>
+											<select style="width: 220px" name="doitac_id" id="doitac_id">
+													<option value="">---Chọn---</option>
+													<s:iterator value="doiTacs">
+														<option value='<s:property value="id" />'><s:property value="tendoitac" /></option>									
+													</s:iterator>
+											</select>
+										</td>
 
-								</tr>
-								<tr>
-									<td align="right">Người xác nhận :</td>
-									<td><input type="text"
-										name="nguoixacnhan" id="nguoixacnhan" style="width: 218px"/></td>
-								</tr>
+									</tr>
+									<tr>
+										<td align="right">Ngày ký từ:</td>
+										<td align="left"><input type="text"
+											name="ngaykytu" id="ngaykytu" style="width: 218px" class="datepicker"/>
+										</td>
+										<td align="right">Ngày ký đến :</td>
+										<td align="left"><input type="text"
+											name="ngaykyden" id="ngaykyden" style="width: 218px" class="datepicker"/>
+										</td>
+
+									</tr>
+									<tr>
+										<td align="right">Ngày hết hạn từ:</td>
+										<td align="left"><input type="text"
+											name="ngayhethantu" id="ngayhethantu" style="width: 218px" class="datepicker"/>
+										</td>
+										<td align="right">Ngày hết hạn đến :</td>
+										<td align="left"><input type="text"
+											name="ngayhethanden" id="ngayhethanden" style="width: 218px" class="datepicker"/>
+										</td>
+
+									</tr>
 								<tfoot>
 									<td></td>
 									<td align="left">
@@ -89,19 +101,11 @@ margin-left: 10px;
 		<thead>
 			<tr>
 				<th width="3px">STT</th>
-				<th width="30px">Mã tuyến kênh</th>
-				<th>Mã điểm đầu</th>
-				<th>Mã điểm cuối</th>
-				<th>Giao tiếp</th>
-				<th>Dung lượng</th>
-				<th width="50px">Thời gian bắt đầu</th>
-				<th width="50px">Thời gian kết thúc</th>
-				<th width="50px">Thời gian mất liên lạc</th>
-				<th width="50px">Nguyên nhân</th>
-				<th width="50px">Phương án xử lý</th>
-				<th width="50px">Người xác nhận</th>
-				<th width="50px">Người tạo</th>
-				<th width="50px">Chi tiết</th>
+				<th width="30px">Số hợp đồng</th>
+				<th width="30px">Loại hợp đồng</th>
+				<th width="30px">Đối tác</th>
+				<th width="30px">Ngày ký</th>
+				<th width="30px">Ngày hết hạn</th>
 				<th width="5px" align="center"><input type="checkbox" onclick="selectAll(this)"/></th>
 			</tr>
 		</thead>
@@ -132,58 +136,51 @@ function doSearch() {
 }
 $(document).ready(function(){	 
 	// load datetime
-	LoadDateTimePicker(".datetimepicker");
-	// popup search tuyen kenh
-	popup_search_tuyenkenh.init({
-		url : "${popupSearchURL}",
-		afterSelected : function(data) {
-			// list tuyen kenh tra ve, sau do xu ly du lieu cho nay
-			data = data[0];
-			$("#tuyenkenh_id").val(data["id"]);
-		}
+	$( ".datepicker" ).datepicker({
+		showButtonPanel: true,
+		dateFormat : "dd/mm/yy"
 	});
+	
 	// Load table
 	oTable = $('#dataTable').dataTable({
 		"bJQueryUI": true,
 		"bProcessing": true,
 		"bServerSide": true,
 		"bAutoWidth": false,
-		"sAjaxSource": "${ajLoadSuCoWithBBVH}",
-		"aoColumns": [
-					{ "mDataProp": "stt","bSortable": false,"bSearchable": false },
-					{ "mDataProp": "tuyenkenh_id","bSortable": false,"bSearchable": false,"sClass":'td_center'},
-					{ "mDataProp": "madiemdau","bSortable": false,"bSearchable": false,"sClass":'td_center'},
-					{ "mDataProp": "madiemcuoi","bSortable": false,"bSearchable": false},
-					{ "mDataProp": "loaigiaotiep","bSortable": false,"bSearchable": false,"sClass":'td_center'},
-					{ "mDataProp": "dungluong","bSortable": false,"bSearchable": false,"sClass":'td_center'},
-					{ "mDataProp": "thoidiembatdau","bSortable": false,"bSearchable": false},
-					{ "mDataProp": "thoidiemketthuc","bSortable": false,"bSearchable": false},
-					{ "mDataProp": "thoigianmll","bSortable": false,"bSearchable": false},
-					{ "mDataProp": "nguyennhan","bSortable": false,"bSearchable": false},
-					{ "mDataProp": "phuonganxuly","bSortable": false,"bSearchable": false},
-					{ "mDataProp": "nguoixacnhan","bSortable": false,"bSearchable": false},
-					{ "mDataProp": "usercreate","bSortable": false,"bSearchable": false},
-					{ "mDataProp": null,"bSortable": false,"bSearchable": false,"sClass":'td_center',
+		"sAjaxSource": "${ajLoadHopDong}",
+		"aoColumns": [{ "mDataProp": "stt","bSortable": false,"bSearchable": false,"sClass":'td_center' },
+					  { 	"mDataProp": null,"bSortable": false,"bSearchable": false,"sClass":'td_center',
 						"fnRender": function( oObj ) {
-							return '<a target="_blank" href="${detailURL}?id='+oObj.aData.id+'" title="Xem chi tiết sự cố"><div class="detail"></div></a>';  
+							return '<a target="_blank" href="${detailURL}?id='+oObj.aData.id+'" title="Xem chi tiết hợp đồng">'+oObj.aData.sohopdong+'</a>'; 
 						}
-					},
+					  },
+					  { "mDataProp": null,"bSortable": false,"bSearchable": false,"sClass":'td_center',
+						"fnRender": function( oObj ) {
+							if(oObj.aData.loaihopdong==0)
+								return "Không thời hạn";
+							else
+								return "Có thời hạn";
+						}
+					  },
+					{ "mDataProp": "tendoitac","bSortable": false,"bSearchable": false,"sClass":'td_center'},
+					{ "mDataProp": "ngayky","bSortable": false,"bSearchable": false,"sClass":'td_center'},
+					{ "mDataProp": "ngayhethan","bSortable": false,"bSearchable": false},					
 					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,
 						"fnRender": function( oObj ) {
 							return '<center><input type="checkbox" value="'+oObj.iDataRow+'"/></center>'; 
 						}
 					}
 				],
-		"fnServerData": function ( sSource, aoData, fnCallback ) {
-			$.ajax( {
-				"dataType": 'json', 
-				"type": "POST", 
-				"url": sSource, 
-				"data": aoData, 
-				"success": fnCallback
-			} );
-		},
-		"sPaginationType": "two_button"
+				"fnServerData": function ( sSource, aoData, fnCallback ) {
+					$.ajax( {
+						"dataType": 'json', 
+						"type": "POST", 
+						"url": sSource, 
+						"data": aoData, 
+						"success": fnCallback
+					} );
+				},
+				"sPaginationType": "two_button"
 	});
 	$('#dataTable input[type=checkbox]').live("click",function(){
 		if($('#dataTable input:checked').size()>0) {
@@ -198,7 +195,7 @@ function doClose(){
 	$('#dataTable tbody input:checked').each(function(){
 		data.push(oTable.fnGetData(this.value));
 	});
-	window.opener.popup_search_suco.afterSelected(data);
+	window.opener.popup_search_hopdong.afterSelected(data);
 	window.close();
 }
 </script>

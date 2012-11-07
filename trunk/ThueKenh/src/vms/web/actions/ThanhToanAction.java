@@ -18,15 +18,21 @@ import org.json.simple.JSONValue;
 
 import vms.db.dao.DaoFactory;
 import vms.db.dao.DoiTacDAO;
+import vms.db.dao.SuCoDAO;
 import vms.db.dao.ThanhToanDAO;
 import vms.db.dao.HopDongDAO;
 import vms.db.dao.LoaiGiaoTiepDao;
+import vms.db.dao.ThanhToanPhuLucDAO;
 import vms.db.dao.TuyenkenhDao;
 import vms.db.dto.DoiTacDTO;
+import vms.db.dto.HopDongDetailDTO;
+import vms.db.dto.SuCoDTO;
 import vms.db.dto.ThanhToanDTO;
 import vms.db.dto.HopDongDTO;
 import vms.db.dto.LoaiGiaoTiep;
+import vms.db.dto.ThanhToanPhuLucDTO;
 import vms.db.dto.TuyenKenh;
+import vms.db.dto.PhuLucHopDongDTO;
 import vms.utils.Constances;
 import vms.utils.DateUtils;
 import vms.utils.VMSUtil;
@@ -41,10 +47,32 @@ public class ThanhToanAction implements Preparable {
 	private InputStream inputStream;
 	
 	private String form_data;
+	private String phuluchopdongs_data;
 	private String id;
 	private String[] ids;
+	private String[] suco_ids;
 	private Map<String,Object> detail;
+	private List<PhuLucHopDongDTO> phuluchopdongDtos;
 	
+	
+	public String getPhuluchopdongs_data() {
+		return phuluchopdongs_data;
+	}
+	public void setPhuluchopdongs_data(String phuluchopdongs_data) {
+		this.phuluchopdongs_data = phuluchopdongs_data;
+	}
+	public String[] getSuco_ids() {
+		return suco_ids;
+	}
+	public void setSuco_ids(String[] suco_ids) {
+		this.suco_ids = suco_ids;
+	}
+	public List<PhuLucHopDongDTO> getPhuluchopdongDtos() {
+		return phuluchopdongDtos;
+	}
+	public void setPhuluchopdongDtos(List<PhuLucHopDongDTO> phuluchopdongDtos) {
+		this.phuluchopdongDtos = phuluchopdongDtos;
+	}
 	public Map<String, Object> getDetail() {
 		return detail;
 	}
@@ -134,6 +162,32 @@ public class ThanhToanAction implements Preparable {
 				System.out.println(thanhtoanDTO.getId());
 				Map<String,String> map = thanhtoanDTO.getMap();
 				form_data = JSONValue.toJSONString(map);
+				ThanhToanPhuLucDAO tpDao=new ThanhToanPhuLucDAO(daoFactory);
+				List<HopDongDetailDTO> lstHopDong=tpDao.findHopDongByThanhToanId(id);
+				phuluchopdongs_data="";
+				for(int i=0;i<lstHopDong.size();i++)
+				{
+					if(!phuluchopdongs_data.isEmpty())
+						phuluchopdongs_data+=",";
+					phuluchopdongs_data+="{\"id\":"+lstHopDong.get(i).getId()+",";
+					phuluchopdongs_data+="\"sohopdong\":\""+lstHopDong.get(i).getSohopdong()+"\",";
+					phuluchopdongs_data+="\"loaihopdong\":\""+lstHopDong.get(i).getLoaihopdong()+"\",";
+					phuluchopdongs_data+="\"tendoitac\":\""+lstHopDong.get(i).getTendoitac()+"\",";
+					phuluchopdongs_data+="\"ngayky\":\""+lstHopDong.get(i).getNgayky()+"\",";
+					phuluchopdongs_data+="\"ngayhethan\":\""+lstHopDong.get(i).getNgayhethan()+"\",";
+					List<String> lstPhuLuc=tpDao.findPhuLucByThanhToan_HopDong(id, lstHopDong.get(i).getId());
+					phuluchopdongs_data+="\"phuluc_id\":[";
+					String phuluc_ids="";
+					for(int j=0;j<lstPhuLuc.size();j++)
+					{
+						if(!phuluc_ids.isEmpty())
+							phuluc_ids+=",";
+						phuluc_ids+="{\"id\":"+lstPhuLuc.get(j)+"}";
+					}
+					phuluchopdongs_data+=phuluc_ids;
+					phuluchopdongs_data+="]";
+					phuluchopdongs_data+="}";
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -144,17 +198,55 @@ public class ThanhToanAction implements Preparable {
 	
 	// save ho so thanh toan
 	public String doSave() {
-		
 		try {
 			if(account == null) {
 				session.setAttribute("URL", VMSUtil.getFullURL(request));
 				return "login_page";
 			}
+			thanhtoanDTO.setNgaychuyenkt(DateUtils.parseStringDateSQL(thanhtoanDTO.getNgaychuyenkt(), "dd/MM/yyyy"));
+			thanhtoanDTO.setTrangthai(0);
 			thanhtoanDTO.setUsercreate(account.get("username").toString());
 			thanhtoanDTO.setTimecreate(DateUtils.getCurrentDateSQL());
+			thanhtoanDTO.setDeleted(0);
 			ThanhToanDAO hosothanhtoanDao=new ThanhToanDAO(daoFactory);
-			String id=hosothanhtoanDao.save(thanhtoanDTO);
-			if(id==null) throw new Exception(Constances.MSG_ERROR);
+			String thanhtoan_id=hosothanhtoanDao.save(thanhtoanDTO);
+			if(thanhtoan_id==null) 
+				throw new Exception(Constances.MSG_ERROR);
+			else
+			{
+				System.out.println("id:"+id);
+				// save thanhtoan_phuluc
+				ThanhToanPhuLucDAO tpDao=new ThanhToanPhuLucDAO(daoFactory);
+				for(int i=0;i<phuluchopdongDtos.size();i++)
+				{
+					List<String> phuluc_ids=phuluchopdongDtos.get(i).getPhuluc_ids();
+					for(int j=0;j<phuluc_ids.size();j++)
+					{
+						ThanhToanPhuLucDTO tpDto=new ThanhToanPhuLucDTO();
+						tpDto.setThanhtoan_id(thanhtoan_id);
+						tpDto.setPhuluc_id(phuluc_ids.get(j));
+						tpDao.save(tpDto);
+						System.out.println("phuluchopdongDtos["+i+"].phuluc_ids["+j+"]:"+phuluc_ids.get(j));
+					}
+				}
+				// save su co thanh toan
+				SuCoDTO sucoDto=null;
+				SuCoDAO sucoDao=new SuCoDAO(daoFactory);
+				for(int i=0;i<suco_ids.length;i++)
+				{
+					sucoDto=sucoDao.findById(suco_ids[i]);
+					if(sucoDto!=null)
+					{
+						// update su co
+						sucoDto.setThanhtoan_id(thanhtoan_id);
+						Long thoidiembatdau=DateUtils.parseDate(sucoDto.getThoidiembatdau(), "dd/MM/yyyy HH:mm:ss").getTime();
+						Long thoidiemketthuc=DateUtils.parseDate(sucoDto.getThoidiemketthuc(), "dd/MM/yyyy HH:mm:ss").getTime();
+						sucoDto.setThoidiembatdau(thoidiembatdau.toString());
+						sucoDto.setThoidiemketthuc(thoidiemketthuc.toString());
+						sucoDao.save(sucoDto);
+					}
+				}
+			}
 			setInputStream("OK");
 			
 		} catch (Exception e) {

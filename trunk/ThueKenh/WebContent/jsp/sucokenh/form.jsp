@@ -36,6 +36,9 @@ function byId(id) { //Viet tat cua ham document.getElementById
 <body>
 	<form id="form" onsubmit="return false;">
 		<input type="text" style="display:none" name="sucoDTO.id" id="id" />
+		<input type="text" style="display:none" name="sucoDTO.filename" id="filename" value=""/>
+		<input type="text" style="display:none" name="sucoDTO.filepath" id="filepath" value=""/>
+		<input type="text" style="display:none" name="sucoDTO.filesize" id="filesize" value=""/>
 		<div style="clear: both; margin: 5px 0">
 				<table class="input" style="width: 782px">
 				<tr>
@@ -76,28 +79,23 @@ function byId(id) { //Viet tat cua ham document.getElementById
 					<td align="right">Người xác nhận :</td>
 					<td><input type="text" style="width: 214px" name="sucoDTO.nguoixacnhan" id="nguoixacnhan"/><font
 						title="Bắt buộc nhập" color="red">*</font></td>
-					<td align="right">File scan :</td>
-					<td>
-						<input type="text" style="display:none" name="sucoDTO.filename" id="filename" value=""/>
-						<input type="text" style="display:none" name="sucoDTO.filepath" id="filepath" value=""/>
-						<input type="text" style="display:none" name="sucoDTO.filesize" id="filesize" value=""/>
-						<div id="label">
-						</div>
-						<input type="button" class="button" id="btUploadFile" value="Chọn file..." />
-					</td>
-				</tr>
-	
-				<tr height="30px">
-					<td></td>
-					<td colspan="3">
-						<input type="button" class="button" value="Lưu" id="btSubmit"></input>
-						<input type="button" class="button" value="Làm lại" id="btReset"></input>
-						<input type="button" class="button" value="Thoát" id="btThoat" onclick="window.parent.CloseWindow();"></input>
-					</td>
 				</tr>
 			</table>
+			
 		</div>
 	</form>
+	<fieldset class="data_list" style="margin-top:5px">
+		<legend>File Scan</legend>
+		<form id="frmUpload" method="post" enctype="multipart/form-data" style="margin-top: 5px; float: left; width: 100%;" onsubmit="return false">
+			<input type="file" name="uploadFile" id="uploadFile" style="margin-left:5px"/>
+			<div id="label"></div>
+		</form>
+	</fieldset>
+	<div style="margin-top: 5px; margin-bottom: 5px; text-align: right;">
+		<input type="button" class="button" value="Lưu" id="btSubmit"></input>
+		<input type="button" class="button" value="Làm lại" id="btReset"></input>
+		<input type="button" class="button" value="Thoát" id="btThoat" onclick="window.parent.CloseWindow();"></input>
+	</div>
 </body>
 </html>
 <script>
