@@ -129,6 +129,7 @@ margin-left: 10px;
 					<th>Ngày ký phụ lục</th>
 					<th>Ngày có hiệu lực</th>
 					<th>Ngày hết hiệu lực</th>
+					<th width="100px" align="center">Thay thế</th>
 					<th width="5px" align="center"><input type="checkbox" onclick="selectAll(this)"/></th>
 				</tr>
 			</thead>
@@ -191,6 +192,15 @@ $(document).ready(function(){
 					{ "mDataProp": "ngayky","bSortable": false,"bSearchable": false},
 					{ "mDataProp": "ngayhieuluc","bSortable": false,"bSearchable": false},
 					{ "mDataProp": "ngayhethieuluc","bSortable": false,"bSearchable": false},
+					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,
+						"fnRender": function( oObj ) {
+							var str = "";
+							$.each(oObj.aData.phulucbithaythe,function(){
+								str+='<a href="${detailPhuLucURL}?id='+this.id+'" title="'+this.tenphuluc+'">'+this.tenphuluc.vmsSubstr(20)+"</a><br>";
+							})
+							return str; 
+						}
+					},
 					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,
 						"fnRender": function( oObj ) {
 							return '<center><input type="checkbox" value="'+oObj.iDataRow+'"/></center>'; 

@@ -145,6 +145,7 @@ margin-left: 10px;
 					<th>Ngày ký phụ lục</th>
 					<th>Ngày có hiệu lực</th>
 					<th>Ngày hết hiệu lực</th>
+					<th width="100px" align="center">Thay thế</th>
 					<th width="5px" align="center">Sửa</th>
 					<th width="5px" align="center"><input type="checkbox" onclick="selectAll(this)"/></th>
 				</tr>
@@ -181,6 +182,7 @@ $(document).ready(function(){
 	});
 	$("#btThem").click(function(){
 		ShowWindow('Thêm mới phụ lục hợp đồng',750,500,"${formURL}",false);
+		MaxWindow();
 	});
 	$("#btXoa").click(function(){
 		var dataString = '';
@@ -222,6 +224,7 @@ $(document).ready(function(){
 	$("span.edit_icon").live("click",function(){
 		var id = $(this).attr("data-ref-id");
 		ShowWindow('Cập nhật phụ lục hợp đồng',750,500,"${formURL}?id="+id,false);
+		MaxWindow();
 	});
 	$('ul.sf-menu').superfish();
 	oTable = $('#dataTable').dataTable({
@@ -259,6 +262,15 @@ $(document).ready(function(){
 					{ "mDataProp": "ngayky","bSortable": false,"bSearchable": false},
 					{ "mDataProp": "ngayhieuluc","bSortable": false,"bSearchable": false},
 					{ "mDataProp": "ngayhethieuluc","bSortable": false,"bSearchable": false},
+					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,
+						"fnRender": function( oObj ) {
+							var str = "";
+							$.each(oObj.aData.phulucbithaythe,function(){
+								str+='<a href="${detailPhuLucURL}?id='+this.id+'" title="'+this.tenphuluc+'">'+this.tenphuluc.vmsSubstr(20)+"</a><br>";
+							})
+							return str; 
+						}
+					},
 					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,
 						"fnRender": function( oObj ) {
 							return '<center><span class="edit_icon" data-ref-id="'+oObj.aData.id+'" title="Edit" href="#"></span></center>'; 

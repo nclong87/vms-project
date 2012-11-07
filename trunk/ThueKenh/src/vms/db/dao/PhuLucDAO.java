@@ -1,6 +1,7 @@
 package vms.db.dao;
 
 
+import java.io.IOException;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -20,11 +21,13 @@ import oracle.jdbc.OracleTypes;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.xml.sax.SAXException;
 
 import vms.db.dto.HopDongDTO;
 import vms.db.dto.PhuLucDTO;
 import vms.utils.DateUtils;
 import vms.utils.VMSUtil;
+import vms.utils.XMLUtil;
 
 public class PhuLucDAO {
 	private JdbcTemplate jdbcTemplate;
@@ -35,7 +38,7 @@ public class PhuLucDAO {
 	}
 	
 	private static final String SQL_FIND_PHULUC = "{ ? = call FIND_PHULUC(?,?,?,?,?,?,?,?,?,?,?) }";
-	public List<Map<String,Object>> search(int iDisplayStart,int iDisplayLength,Map<String, String> conditions) throws SQLException {
+	public List<Map<String,Object>> search(int iDisplayStart,int iDisplayLength,Map<String, String> conditions) throws SQLException, SAXException, IOException {
 		Connection connection = jdbcDatasource.getConnection();
 		CallableStatement stmt = connection.prepareCall(SQL_FIND_PHULUC);
 		stmt.registerOutParameter(1, OracleTypes.CURSOR);
@@ -60,6 +63,7 @@ public class PhuLucDAO {
 			map.put("ngayky", DateUtils.formatDate(rs.getDate("NGAYKY"), DateUtils.SDF_DDMMYYYY));
 			map.put("ngayhieuluc", DateUtils.formatDate(rs.getDate("NGAYHIEULUC"), DateUtils.SDF_DDMMYYYY));
 			map.put("ngayhethieuluc", DateUtils.formatDate(rs.getDate("NGAYHETHIEULUC"), DateUtils.SDF_DDMMYYYY));
+			map.put("phulucbithaythe", XMLUtil.parseXMLString(rs.getString("PHULUCBITHAYTHE")));
 			result.add(map);
 			i++;
 		}
@@ -174,18 +178,18 @@ public class PhuLucDAO {
 		java.sql.Date date = DateUtils.convertToSQLDate(DateUtils.add(DateUtils.parseDate(sNgayHieuLuc, "dd/MM/yyyy"), Calendar.DATE, -1));
 		for(int i=0; i< list.size();i++) {
 			if(list.get(i).get("doitac_id").equals(dtoHopDong.getDoitac_id()) == false) {
-				result.add("Tuy?n k�nh "+list.get(i).get("tuyenkenh_id")+" kh�ng thu?c d?i t�c d� ch?n");
+				result.add("Tuyến kênh "+list.get(i).get("tuyenkenh_id")+" không thuộc đối tác đã chọn.");
 			} else {
 				try {
 					Map<String, Object> mapPhuLuc = this.findPhuLucCoHieuLuc( list.get(i).get("tuyenkenh_id"), date);
 					if(mapPhuLuc==null) continue;
 					if(setPhuLucThayThe.contains(mapPhuLuc.get("id")) == false && mapPhuLuc.get("id").equals(chitietphuluc_id) == false) {
-						result.add("Tuy?n k�nh "+list.get(i).get("tuyenkenh_id")+" dang thu?c ph? l?c "+mapPhuLuc.get("tenphuluc"));
+						result.add("Tuyến kênh "+list.get(i).get("tuyenkenh_id")+" đang thuộc phụ lục "+mapPhuLuc.get("tenphuluc"));
 					}
 				} catch (Exception e) {
 					e.printStackTrace();
 					if(e.getMessage() == "DUPLICATE_PHULUC") {
-						result.add("Tuy?n k�nh "+list.get(i).get("tuyenkenh_id")+" dang t?n t?i trong nhi?u ph? l?c");
+						result.add("Tuyến kênh "+list.get(i).get("tuyenkenh_id")+" đang tồn tại trong nhiều hơn 1 phụ lục.");
 					} else {
 						result.add(e.getMessage());
 					}

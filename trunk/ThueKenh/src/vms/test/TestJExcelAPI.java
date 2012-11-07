@@ -25,7 +25,7 @@ import jxl.write.biff.RowsExceededException;
 public class TestJExcelAPI {
 	public static void main(String arg[]) {
 		System.out.println("Begin");
-		Workbook workBook = null;
+		/*Workbook workBook = null;
 		try {
 			WorkbookSettings ws = new WorkbookSettings();
 			ws.setEncoding("Cp1252");
@@ -41,15 +41,15 @@ public class TestJExcelAPI {
 	          label.setString("05/11/2012");
 	          //Label l = (Label) cell; 
 	          //l.setString("05/11/2012");
-*/	         workbook1.write();
+	         workbook1.write();
 	          workbook1.close();
-			/*int nColumn = sheet.getColumns();
+			int nColumn = sheet.getColumns();
 			Map<String, Integer> map = new LinkedHashMap<String, Integer>();
 			for(int i = 0;i< nColumn; i++) {
 				map.put(sheet.getCell(i, 0).getContents(), i);
 				//System.out.println(sheet.getCell(i, 0).getContents());
 			}
-			System.out.println("nColumn = "+nColumn);*/
+			System.out.println("nColumn = "+nColumn);
 		} catch (BiffException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -61,7 +61,7 @@ public class TestJExcelAPI {
 			e.printStackTrace();
 		} finally {
 			workBook.close();
-		}
+		}*/
 		
 		System.out.println("Done!");
     }
