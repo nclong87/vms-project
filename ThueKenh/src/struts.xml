@@ -503,6 +503,11 @@
 				<param name="root">jsonData</param>
 			</result>
 		</action>
+		<action name="findBythanhtoan" class="sucoAction" method="findBythanhtoan">
+			<result name="success" type="json">
+				<param name="root">jsonData</param>
+			</result>
+		</action>
 		<action name="ajLoadSuCoWithBBVH" class="sucoAction" method="ajLoadSuCoWithBBVH">
 			<result name="success" type="json">
 				<param name="root">jsonData</param>
@@ -698,6 +703,11 @@
 			<result>/jsp/hopdong/popupSearch.jsp</result>
 		</action>
 		<action name="findphulucByhopdong" class="hopdongAction" method="findphulucByhopdong">
+			<result name="success" type="json">
+				<param name="root">jsonData</param>
+			</result>
+		</action>
+		<action name="findphulucByhopdongandthanhtoan" class="hopdongAction" method="findphulucByhopdongandthanhtoan">
 			<result name="success" type="json">
 				<param name="root">jsonData</param>
 			</result>

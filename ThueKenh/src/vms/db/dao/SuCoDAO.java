@@ -63,7 +63,7 @@ public class SuCoDAO {
 		return s;
 	}
 	
-	private static final String SQL_FN_FIND_SUCO = "{ ? = call FN_FIND_SUCO(?,?,?,?,?,?,?,?,?,?,?,?,?) }";
+	private static final String SQL_FN_FIND_SUCO = "{ ? = call FN_FIND_SUCO(?,?,?,?,?,?,?,?,?,?,?,?,?,?) }";
 	public List<FN_FIND_SUCO> findSuCo(int iDisplayStart,int iDisplayLength,Map<String, String> conditions) throws SQLException {
 		System.out.println("Begin FindSuCo");
 		Connection connection = jdbcDatasource.getConnection();
@@ -95,6 +95,7 @@ public class SuCoDAO {
 		stmt.setString(12, thoidiemketthucden);
 		stmt.setString(13, conditions.get("nguoixacnhan"));
 		stmt.setString(14, conditions.get("bienbanvanhanh_id"));
+		stmt.setString(15, conditions.get("thanhtoan_id"));
 		stmt.execute();
 		ResultSet rs = (ResultSet) stmt.getObject(1);
 		List<FN_FIND_SUCO> result = new ArrayList<FN_FIND_SUCO>();

@@ -14,19 +14,20 @@ import vms.utils.DateUtils;
  */
 public class ThanhToanDTO {
 
-	private String id;
-	private String ngaychuyenkt;
-	private Integer thang;
-	private Integer nam;
-	private String giatritt;
-	private Integer trangthai;
-	private String usercreate;
-	private String timecreate;
-	private String history;
-	private Integer deleted;
-	private String filename;
-	private String filepath;
-	private String filesize;
+	private String id="";
+	private String sohoso="";
+	private String ngaychuyenkt="";
+	private Integer thang=0;
+	private Integer nam=1990;
+	private String giatritt="";
+	private Integer trangthai=0;
+	private String usercreate="";
+	private String timecreate="";
+	private String history="";
+	private Integer deleted=0;
+	private String filename="";
+	private String filepath="";
+	private String filesize="";
 
 	
 	
@@ -38,6 +39,15 @@ public class ThanhToanDTO {
 		this.id = id;
 	}
 	
+	
+
+	public String getSohoso() {
+		return sohoso;
+	}
+
+	public void setSohoso(String sohoso) {
+		this.sohoso = sohoso;
+	}
 
 	public String getNgaychuyenkt() {
 		return ngaychuyenkt;
@@ -138,6 +148,7 @@ public class ThanhToanDTO {
 	public Map<String,String> getMap() {
 		Map<String, String> map = new LinkedHashMap<String, String>();
 		map.put("id", this.id);
+		map.put("sohoso", this.sohoso);
 		map.put("ngaychuyenkt", this.ngaychuyenkt);
 		map.put("thang", String.valueOf(this.thang));
 		map.put("nam", String.valueOf(this.nam));
@@ -155,7 +166,8 @@ public class ThanhToanDTO {
 	public static ThanhToanDTO mapObject(ResultSet rs) throws SQLException {
 		ThanhToanDTO dto = new ThanhToanDTO();
 		dto.setId(rs.getString("ID"));
-		dto.setNgaychuyenkt(rs.getString("NGAYCHUYENKT"));
+		dto.setSohoso(rs.getString("SOHOSO"));
+		dto.setNgaychuyenkt(DateUtils.formatDate(rs.getDate("NGAYCHUYENKT"), DateUtils.SDF_DDMMYYYY));
 		dto.setThang(rs.getInt("thang"));
 		dto.setNam(rs.getInt("nam"));
 		dto.setGiatritt(rs.getString("giatritt"));

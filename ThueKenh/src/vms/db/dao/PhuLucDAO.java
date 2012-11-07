@@ -174,18 +174,18 @@ public class PhuLucDAO {
 		java.sql.Date date = DateUtils.convertToSQLDate(DateUtils.add(DateUtils.parseDate(sNgayHieuLuc, "dd/MM/yyyy"), Calendar.DATE, -1));
 		for(int i=0; i< list.size();i++) {
 			if(list.get(i).get("doitac_id").equals(dtoHopDong.getDoitac_id()) == false) {
-				result.add("Tuyến kênh "+list.get(i).get("tuyenkenh_id")+" không thuộc đối tác đã chọn");
+				result.add("Tuy?n k�nh "+list.get(i).get("tuyenkenh_id")+" kh�ng thu?c d?i t�c d� ch?n");
 			} else {
 				try {
 					Map<String, Object> mapPhuLuc = this.findPhuLucCoHieuLuc( list.get(i).get("tuyenkenh_id"), date);
 					if(mapPhuLuc==null) continue;
 					if(setPhuLucThayThe.contains(mapPhuLuc.get("id")) == false && mapPhuLuc.get("id").equals(chitietphuluc_id) == false) {
-						result.add("Tuyến kênh "+list.get(i).get("tuyenkenh_id")+" đang thuộc phụ lục "+mapPhuLuc.get("tenphuluc"));
+						result.add("Tuy?n k�nh "+list.get(i).get("tuyenkenh_id")+" dang thu?c ph? l?c "+mapPhuLuc.get("tenphuluc"));
 					}
 				} catch (Exception e) {
 					e.printStackTrace();
 					if(e.getMessage() == "DUPLICATE_PHULUC") {
-						result.add("Tuyến kênh "+list.get(i).get("tuyenkenh_id")+" đang tồn tại trong nhiều phụ lục");
+						result.add("Tuy?n k�nh "+list.get(i).get("tuyenkenh_id")+" dang t?n t?i trong nhi?u ph? l?c");
 					} else {
 						result.add(e.getMessage());
 					}
@@ -203,5 +203,32 @@ public class PhuLucDAO {
 				return PhuLucDTO.resultSetToMap(rs);
 			}
 		});
+	}
+	
+	private static final String SQL_FIND_PHULUC_BY_HOPDONG_THANHTOAN = "{ ? = call FIND_PHULUC_BY_HD_TT(?,?,?,?) }";
+	public List<Map<String,Object>> searchByHopDongThanhToan(int iDisplayStart,int iDisplayLength,Map<String, String> conditions) throws SQLException {
+		Connection connection = jdbcDatasource.getConnection();
+		CallableStatement stmt = connection.prepareCall(SQL_FIND_PHULUC_BY_HOPDONG_THANHTOAN);
+		stmt.registerOutParameter(1, OracleTypes.CURSOR);
+		stmt.setInt(2, iDisplayStart);
+		stmt.setInt(3, iDisplayLength);
+		stmt.setString(4, conditions.get("thanhtoan_id"));
+		stmt.setString(5, conditions.get("hopdong_id"));
+		stmt.execute();
+		ResultSet rs = (ResultSet) stmt.getObject(1);
+		List<Map<String,Object>> result = new ArrayList<Map<String,Object>>();
+		int i = 1;
+		while(rs.next()) {
+			Map<String,Object> map = VMSUtil.resultSetToMap(rs);
+			map.put("stt", i);
+			map.put("ngayky", DateUtils.formatDate(rs.getDate("NGAYKY"), DateUtils.SDF_DDMMYYYY));
+			map.put("ngayhieuluc", DateUtils.formatDate(rs.getDate("NGAYHIEULUC"), DateUtils.SDF_DDMMYYYY));
+			map.put("ngayhethieuluc", DateUtils.formatDate(rs.getDate("NGAYHETHIEULUC"), DateUtils.SDF_DDMMYYYY));
+			result.add(map);
+			i++;
+		}
+		stmt.close();
+		connection.close();
+		return result;
 	}
 }

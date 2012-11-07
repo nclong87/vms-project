@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,6 +18,7 @@ import org.json.JSONObject;
 import org.json.simple.JSONValue;
 
 import vms.db.dao.DaoFactory;
+import vms.db.dao.PhuLucDAO;
 import vms.db.dao.SuCoDAO;
 import vms.db.dao.TuyenkenhDao;
 import vms.db.dto.SuCoDTO;
@@ -147,7 +149,10 @@ public class SuCoAction implements Preparable {
 				return "login_page";
 			}
 			// validation
-			long thoidiembatdau=DateUtils.parseDate(sucoDTO.getThoidiembatdau(), "dd/MM/yyyy HH:mm:ss").getTime();
+			Date dateThoiDiemBatDau = DateUtils.parseDate(sucoDTO.getThoidiembatdau(), "dd/MM/yyyy HH:mm:ss");
+			java.sql.Date sqlDateThoiDiemBatDau= DateUtils.convertToSQLDate(dateThoiDiemBatDau);
+			
+			long thoidiembatdau=dateThoiDiemBatDau.getTime();
 			long thoidiemketthuc=DateUtils.parseDate(sucoDTO.getThoidiemketthuc(), "dd/MM/yyyy HH:mm:ss").getTime();
 			if( sucoDTO.getId().isEmpty())
 			{
@@ -179,7 +184,16 @@ public class SuCoAction implements Preparable {
 			sucoDTO.setUsercreate(account.get("username").toString());
 			sucoDTO.setTimecreate(DateUtils.getCurrentDateSQL());
 			sucoDTO.setBienbanvanhanh_id("0");
-			String id=sucoDao.save(sucoDTO);
+			PhuLucDAO phuLucDAO = new PhuLucDAO(daoFactory);
+			Map<String, Object> mapPhuluc = phuLucDAO.findPhuLucCoHieuLuc(sucoDTO.getTuyenkenh_id(), sqlDateThoiDiemBatDau);
+			if(mapPhuluc == null) {
+				throw new Exception("ERROR_PHULUCNOTFOUND");
+			}
+			sucoDTO.setPhuluc_id(mapPhuluc.get("id").toString());
+			//Tim don gia tuyen kenh
+			
+			
+ 			String id=sucoDao.save(sucoDTO);
 			if(id==null) throw new Exception(Constances.MSG_ERROR);
 			setInputStream("OK");
 			
@@ -326,4 +340,22 @@ public class SuCoAction implements Preparable {
 		return Action.SUCCESS;
 	}
 	
+	public String findBythanhtoan() {
+		jsonData = new LinkedHashMap<String, Object>();
+		try {
+			if(id!= null) {
+				Map<String, String> conditions = new LinkedHashMap<String, String>();
+				conditions.put("thanhtoan_id", id);
+				SuCoDAO sucoDao = new SuCoDAO(daoFactory);
+				List<FN_FIND_SUCO> list = sucoDao.findSuCo(0, 1000, conditions);
+				jsonData.put("result", "OK");
+				jsonData.put("aaData", list);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			jsonData.put("result", "ERROR");
+		}
+		return Action.SUCCESS;
+	}
 }
