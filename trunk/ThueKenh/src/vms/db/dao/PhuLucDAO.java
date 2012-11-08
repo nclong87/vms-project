@@ -63,6 +63,8 @@ public class PhuLucDAO {
 			map.put("ngayky", DateUtils.formatDate(rs.getDate("NGAYKY"), DateUtils.SDF_DDMMYYYY));
 			map.put("ngayhieuluc", DateUtils.formatDate(rs.getDate("NGAYHIEULUC"), DateUtils.SDF_DDMMYYYY));
 			map.put("ngayhethieuluc", DateUtils.formatDate(rs.getDate("NGAYHETHIEULUC"), DateUtils.SDF_DDMMYYYY));
+			System.out.println("TENDOITAC="+rs.getString("TENDOITAC"));
+			System.out.println("PHULUCBITHAYTHE="+rs.getString("PHULUCBITHAYTHE"));
 			map.put("phulucbithaythe", XMLUtil.parseXMLString(rs.getString("PHULUCBITHAYTHE")));
 			result.add(map);
 			i++;

@@ -214,9 +214,57 @@ public class ThanhToanAction implements Preparable {
 				throw new Exception(Constances.MSG_ERROR);
 			else
 			{
+				SuCoDAO sucoDao=new SuCoDAO(daoFactory);
+				SuCoDTO sucoDto=null;
+				if(thanhtoanDTO.getId().isEmpty()==false)
+				{
+					// reset su co kenh ve trang thai chua co thanhtoan_id
+					List<SuCoDTO> listsuco_old=sucoDao.findSuCoByThanhToanId(thanhtoanDTO.getId());
+					System.out.println("Begin reset thanhtoan_id");
+					if(listsuco_old!=null && listsuco_old.size()>0)
+					{
+						for(int i=0;i<listsuco_old.size();i++)
+						{
+							sucoDto=listsuco_old.get(i);
+							// update su co
+							sucoDto.setThanhtoan_id("0");
+							Long thoidiembatdau=DateUtils.parseDate(sucoDto.getThoidiembatdau(), "dd/MM/yyyy HH:mm:ss").getTime();
+							Long thoidiemketthuc=DateUtils.parseDate(sucoDto.getThoidiemketthuc(), "dd/MM/yyyy HH:mm:ss").getTime();
+							sucoDto.setThoidiembatdau(thoidiembatdau.toString());
+							sucoDto.setThoidiemketthuc(thoidiemketthuc.toString());
+							sucoDao.save(sucoDto);
+						}
+					}
+					System.out.println("end reset thanhtoan_id");
+				}
+				// save su co kenh
+				System.out.println("begin save su co");
+				if(suco_ids!= null && suco_ids.length > 0) {
+					// update thanhtoan_id cho suco
+					for(int i=0;i<suco_ids.length;i++)
+					{
+						System.out.println("suco_id:"+suco_ids[i]);
+						sucoDto=sucoDao.findById(suco_ids[i]);
+						if(sucoDto!=null)
+						{
+							// update su co
+							sucoDto.setThanhtoan_id(thanhtoan_id);
+							Long thoidiembatdau=DateUtils.parseDate(sucoDto.getThoidiembatdau(), "dd/MM/yyyy HH:mm:ss").getTime();
+							Long thoidiemketthuc=DateUtils.parseDate(sucoDto.getThoidiemketthuc(), "dd/MM/yyyy HH:mm:ss").getTime();
+							sucoDto.setThoidiembatdau(thoidiembatdau.toString());
+							sucoDto.setThoidiemketthuc(thoidiemketthuc.toString());
+							sucoDao.save(sucoDto); 
+						}
+					}
+				}
+				
 				System.out.println("id:"+id);
-				// save thanhtoan_phuluc
 				ThanhToanPhuLucDAO tpDao=new ThanhToanPhuLucDAO(daoFactory);
+				
+				// Xoa thanhtoan_phuluc by thanhtoan_id
+				tpDao.deletebythanhtoan_id(thanhtoan_id);
+				
+				// save thanhtoan_phuluc
 				for(int i=0;i<phuluchopdongDtos.size();i++)
 				{
 					List<String> phuluc_ids=phuluchopdongDtos.get(i).getPhuluc_ids();
@@ -227,23 +275,6 @@ public class ThanhToanAction implements Preparable {
 						tpDto.setPhuluc_id(phuluc_ids.get(j));
 						tpDao.save(tpDto);
 						System.out.println("phuluchopdongDtos["+i+"].phuluc_ids["+j+"]:"+phuluc_ids.get(j));
-					}
-				}
-				// save su co thanh toan
-				SuCoDTO sucoDto=null;
-				SuCoDAO sucoDao=new SuCoDAO(daoFactory);
-				for(int i=0;i<suco_ids.length;i++)
-				{
-					sucoDto=sucoDao.findById(suco_ids[i]);
-					if(sucoDto!=null)
-					{
-						// update su co
-						sucoDto.setThanhtoan_id(thanhtoan_id);
-						Long thoidiembatdau=DateUtils.parseDate(sucoDto.getThoidiembatdau(), "dd/MM/yyyy HH:mm:ss").getTime();
-						Long thoidiemketthuc=DateUtils.parseDate(sucoDto.getThoidiemketthuc(), "dd/MM/yyyy HH:mm:ss").getTime();
-						sucoDto.setThoidiembatdau(thoidiembatdau.toString());
-						sucoDto.setThoidiemketthuc(thoidiemketthuc.toString());
-						sucoDao.save(sucoDto);
 					}
 				}
 			}

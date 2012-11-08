@@ -17,10 +17,12 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.simple.JSONValue;
 
+import vms.db.dao.ChiTietPhuLucTuyenKenhDAO;
 import vms.db.dao.DaoFactory;
 import vms.db.dao.PhuLucDAO;
 import vms.db.dao.SuCoDAO;
 import vms.db.dao.TuyenkenhDao;
+import vms.db.dto.ChiTietPhuLucTuyenKenhDTO;
 import vms.db.dto.SuCoDTO;
 import vms.db.dto.TuyenKenh;
 import vms.utils.Constances;
@@ -184,15 +186,31 @@ public class SuCoAction implements Preparable {
 			sucoDTO.setUsercreate(account.get("username").toString());
 			sucoDTO.setTimecreate(DateUtils.getCurrentDateSQL());
 			sucoDTO.setBienbanvanhanh_id("0");
+			sucoDTO.setThanhtoan_id("0");
 			PhuLucDAO phuLucDAO = new PhuLucDAO(daoFactory);
+			System.out.println("sqlDateThoiDiemBatDau:"+sqlDateThoiDiemBatDau);
+			System.out.println("sucoDTO.getTuyenkenh_id():"+sucoDTO.getTuyenkenh_id());
 			Map<String, Object> mapPhuluc = phuLucDAO.findPhuLucCoHieuLuc(sucoDTO.getTuyenkenh_id(), sqlDateThoiDiemBatDau);
 			if(mapPhuluc == null) {
 				throw new Exception("ERROR_PHULUCNOTFOUND");
 			}
+			System.out.println("setPhuluc_id:"+mapPhuluc.get("id").toString());
 			sucoDTO.setPhuluc_id(mapPhuluc.get("id").toString());
 			//Tim don gia tuyen kenh
-			
-			
+			ChiTietPhuLucTuyenKenhDAO ptDao=new ChiTietPhuLucTuyenKenhDAO(daoFactory);
+			ChiTietPhuLucTuyenKenhDTO ptDto=ptDao.findByPhuLuc_TuyenKenh(mapPhuluc.get("id").toString(), sucoDTO.getTuyenkenh_id());
+			if(ptDto==null)
+			{
+				throw new Exception("ERROR_PHULUCNOTFOUND");
+			}
+			// tinh giam tru mat lien lac
+			if(thoigianmatll<=30)
+				sucoDTO.setGiamtrumll(0);
+			else 
+			{
+				float giamtrumatll=(thoigianmatll*ptDto.getDongia())/(30*24*60);
+				sucoDTO.setGiamtrumll((float)Math.round(giamtrumatll*100)/100);
+			}
  			String id=sucoDao.save(sucoDTO);
 			if(id==null) throw new Exception(Constances.MSG_ERROR);
 			setInputStream("OK");

@@ -161,4 +161,23 @@ public class SuCoDAO {
 		connection.close();
 		return result;
 	}
+	
+	private static final String SQL_FN_FIND_SUCO_BY_THANHTOAN_ID = "{ ? = call FN_FIND_SUCO_BY_THANHTOAN(?) }";
+	public List<SuCoDTO> findSuCoByThanhToanId(String thanhtoan_id) throws SQLException {
+		System.out.println("Begin FindSuCoByThanhtoanId");
+		Connection connection = jdbcDatasource.getConnection();
+		CallableStatement stmt = connection.prepareCall(SQL_FN_FIND_SUCO_BY_THANHTOAN_ID);
+		stmt.registerOutParameter(1, OracleTypes.CURSOR);
+		System.out.println("thanhtoan_id:"+thanhtoan_id);
+		stmt.setString(2, thanhtoan_id);
+		stmt.execute();
+		ResultSet rs = (ResultSet) stmt.getObject(1);
+		List<SuCoDTO> result = new ArrayList<SuCoDTO>();
+		while(rs.next()) {
+			result.add(SuCoDTO.mapObject(rs));
+		}
+		stmt.close();
+		connection.close();
+		return result;
+	}
 }

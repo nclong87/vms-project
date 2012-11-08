@@ -219,6 +219,12 @@ $(document).ready(function(){
 						message(" Tuyến kênh bạn chọn không tồn tại",0);
 						return;
 					}
+					else if(response=="ERROR_PHULUCNOTFOUND")
+					{
+						$(this).disabled = true;
+						message(" Tuyến kênh bạn chọn không hiện tại không hoạt động, vui lòng chọn tuyến kênh khác",0);
+						return;
+					}
 					message(" Lưu không thành công, vui lòng thử lại.",0);
 				},
 				error:function(response){
