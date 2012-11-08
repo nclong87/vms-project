@@ -173,11 +173,14 @@ public class HopDongAction implements Preparable {
 			}
 			// validation
 			long ngayky=DateUtils.parseDate(hopdongDTO.getNgayky(), "dd/MM/yyyy").getTime();
-			long ngayhethan=DateUtils.parseDate(hopdongDTO.getNgayhethan(), "dd/MM/yyyy").getTime();
-			if(ngayky>ngayhethan) // ngay ky lon hon ngay het han
+			if(!hopdongDTO.getNgayhethan().isEmpty())
 			{
-				setInputStream("Date");
-				return Action.SUCCESS;
+				long ngayhethan=DateUtils.parseDate(hopdongDTO.getNgayhethan(), "dd/MM/yyyy").getTime();
+				if(ngayky>ngayhethan) // ngay ky lon hon ngay het han
+				{
+					setInputStream("Date");
+					return Action.SUCCESS;
+				}
 			}
 			HopDongDAO hopdongDao=new HopDongDAO(daoFactory);
 			if(hopdongDTO.getId().isEmpty())
@@ -193,7 +196,8 @@ public class HopDongAction implements Preparable {
 			hopdongDTO.setUsercreate(account.get("username").toString());
 			hopdongDTO.setTimecreate(DateUtils.getCurrentDateSQL());
 			hopdongDTO.setNgayky(DateUtils.parseStringDateSQL(hopdongDTO.getNgayky(), "dd/MM/yyyy"));
-			hopdongDTO.setNgayhethan(DateUtils.parseStringDateSQL(hopdongDTO.getNgayhethan(), "dd/MM/yyyy"));
+			if(!hopdongDTO.getNgayhethan().isEmpty())
+				hopdongDTO.setNgayhethan(DateUtils.parseStringDateSQL(hopdongDTO.getNgayhethan(), "dd/MM/yyyy"));
 			String id=hopdongDao.save(hopdongDTO);
 			if(id==null) throw new Exception(Constances.MSG_ERROR);
 			setInputStream("OK");

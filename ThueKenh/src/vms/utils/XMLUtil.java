@@ -27,6 +27,7 @@ public class XMLUtil {
 	public static List<Map<String,String>> parseXMLString(String str) throws SAXException, IOException {
 		//String str = "<root><element><id>27</id><tenphuluc>Phu luc 01</tenphuluc></element></root>";
 		XMLReader r = XMLReaderFactory.createXMLReader();
+		System.out.println("str="+str);
 		InputStream inputStream= new ByteArrayInputStream( str.getBytes("UTF-8") );
 		InputSource source = new InputSource(inputStream);
 		XMLParser xmlParser = new XMLParser();

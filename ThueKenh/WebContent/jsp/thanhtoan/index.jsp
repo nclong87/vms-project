@@ -38,57 +38,33 @@
 								<form id="form">
 									<table>
 										<tr>
-											<td align="right">Loại hợp đồng :</td>
-											<td><select style="width: 220px" name="loaihopdong" id="loaihopdong">
-													<option value="">---Tất cả---</option>
-													<option value="1">Có thời hạn</option>
-													<option value="0">Không thời hạn</option>
-											</select></td>
-										</tr>
-										<tr>
-											<td align="right">Số hợp đồng :</td>
-											<td><input type="text" name="sohopdong" id="sohopdong" style="width: 218px"/></td>
-											<td align="right">Đối tác :</td>
-											<td>
-												<select style="width: 220px" name="doitac_id" id="doitac_id">
-														<option value="">---Chọn---</option>
-														<s:iterator value="doiTacs">
-															<option value='<s:property value="id" />'><s:property value="tendoitac" /></option>									
-														</s:iterator>
-												</select>
-											</td>
-	
-										</tr>
-										<tr>
-											<td align="right">Ngày ký từ:</td>
-											<td align="left"><input type="text"
-												name="ngaykytu" id="ngaykytu" style="width: 218px" class="datepicker"/>
-											</td>
-											<td align="right">Ngày ký đến :</td>
-											<td align="left"><input type="text"
-												name="ngaykyden" id="ngaykyden" style="width: 218px" class="datepicker"/>
-											</td>
-	
-										</tr>
-										<tr>
-											<td align="right">Ngày hết hạn từ:</td>
-											<td align="left"><input type="text"
-												name="ngayhethantu" id="ngayhethantu" style="width: 218px" class="datepicker"/>
-											</td>
-											<td align="right">Ngày hết hạn đến :</td>
-											<td align="left"><input type="text"
-												name="ngayhethanden" id="ngayhethanden" style="width: 218px" class="datepicker"/>
-											</td>
-	
-										</tr>
-										<tr height="30px">
-											<td></td>
-											<td colspan="3">
-												<div class="buttonwrapper">
-													<input type="button" class="button" value="Tìm kiếm" onclick="doSearch()"></input>
-												</div>
-											</td>
-										</tr>
+										<td width="150px" align="right">
+											Số hồ sơ :
+										</td>
+										<td align="left">
+											<input type="text" name="sohoso" id="sohoso" style="width: 218px"/>
+										</td>
+									</tr>
+									<tr>
+										<td align="right">Ngày chuyển hồ sơ từ:</td>
+										<td align="left"><input type="text" name="ngaychuyenhosotu" id="ngaychuyenhosotu" style="width: 218px" class="datepicker"/>
+										</td>
+										<td align="right">đến :</td>
+										<td align="left"><input type="text" name="ngaychuyenhosoden" id="ngaychuyenhosoden" style="width: 218px" class="datepicker"/>
+										</td>
+									</tr>
+									<tr>
+										<td align="right" width="150px">
+											Trạng thái hồ sơ :
+										</td>
+										<td align="left">
+											<select name="trangthai" id="trangthai" style="width: 220px">
+												<option value="">Tất cả</option>
+												<option value="0">Chưa thanh toán</option>
+												<option value="1">Đã thanh toán</option>
+											</select>
+										</td>
+									</tr>
 									</table>
 								</form>
 							</div>
