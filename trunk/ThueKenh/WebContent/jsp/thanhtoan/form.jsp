@@ -5,9 +5,10 @@
 <s:url action="doSave" namespace="/thanhtoan" id="doSaveURL" />
 <s:url action="popupSearch" namespace="/sucokenh" id="popupSearchSuCoKenhURL" />
 <s:url action="popupSearch" namespace="/hopdong" id="popupSearchHopDongURL" />
-<s:url action="findphulucByhopdong" namespace="/hopdong" id="findphulucByhopdongURL" />
-<s:url action="findphulucByhopdongandthanhtoan" namespace="/hopdong" id="findphulucByhopdongandthanhtoanURL" />
+<s:url action="findphulucByhopdong" namespace="/phuluc" id="findphulucByhopdongURL" />
+<s:url action="findphulucByhopdongandthanhtoan" namespace="/phuluc" id="findphulucByhopdongandthanhtoanURL" />
 <s:url action="findBythanhtoan" namespace="/sucokenh" id="findsucoBythanhtoanURL" />
+<s:url action="detail" namespace="/phuluc" id="detailPhuLucURL"/>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <%
 	String contextPath = request.getContextPath();
@@ -210,8 +211,23 @@ function byId(id) { //Viet tat cua ham document.getElementById
 	}
 
 	function addphuluc(obj,stt,data){
+		var thanhtoan="";
+		if(data.thang!="" && data.nam!="")
+			thanhtoan="Đã thanh toán đến tháng "+data.thang+"/"+data.nam;
+		else
+			thanhtoan="Chưa thanh toán";
+		var loaiphuluc="";
+		if(data.loaiphuluc==1)
+			loaiphuluc="Độc lập";
+		else 
+			loaiphuluc="Thay thế";
+		var trangthai = "";
+		alert(data.phulucbithaythe);
+		$.each(data.phulucbithaythe,function(){
+			trangthai+='<a href="${detailPhuLucURL}?id='+this.id+'" title="'+this.tenphuluc+'">'+this.tenphuluc.vmsSubstr(20)+"</a><br>";
+		});
 		obj.fnAddData([
-    		'<center>'+stt+'</center>',data.tenphuluc,data.loaiphuluc,data.tendoitac,data.soluongkenh,data.giatritruocthue,data.giatrisauthue,data.trangthai,'Đã thanh toán đến '+data.thang+'/'+data.nam
+    		'<center>'+stt+'</center>',data.tenphuluc,loaiphuluc,data.tendoitac,data.soluongkenh,data.giatritruocthue,data.giatrisauthue,trangthai,thanhtoan
     		,'<center><input type="checkbox" checked="true"/><input id="phuluc_id" style="display:none" value="'+data.id+'"/></center>'
 		]);
 	}
@@ -270,7 +286,7 @@ function byId(id) { //Viet tat cua ham document.getElementById
 				"bSort":false,
 				"bFilter": false,"bInfo": false,
 				"bPaginate" : false,
-				"sAjaxSource": "${findphulucByhopdongURL}?id="+this.id,
+				"sAjaxSource": "${findphulucByhopdongURL}?hopdong_id="+this.id,
 				"aoColumns": null,
 				"fnServerData": function ( sSource, aoData, fnCallback ) {
 					$.ajax( {
@@ -329,7 +345,7 @@ function byId(id) { //Viet tat cua ham document.getElementById
 				"bSort":false,
 				"bFilter": false,"bInfo": false,
 				"bPaginate" : false,
-				"sAjaxSource": "${findphulucByhopdongandthanhtoanURL}?id="+this.id+"&thanhtoan_id="+$("#id").val(),
+				"sAjaxSource": "${findphulucByhopdongandthanhtoanURL}?hopdong_id="+this.id+"&thanhtoan_id="+$("#id").val(),
 				"aoColumns": null,
 				"fnServerData": function ( sSource, aoData, fnCallback ) {
 					$.ajax( {

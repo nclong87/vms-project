@@ -51,6 +51,8 @@ public class PhuLucAction implements Preparable {
 	private String[] arrPhuLucThayThe;
 	private Map<String,Object> json;
 	private Map<String,Map<String,Object>> hopDongDTOs;
+	public String hopdong_id;
+	public String thanhtoan_id;
 	
 	private PhuLucDAO phuLucDAO;
 	public PhuLucAction( DaoFactory factory) {
@@ -206,6 +208,50 @@ public class PhuLucAction implements Preparable {
 		return Action.SUCCESS;
 	}
 	
+	public String findphulucByhopdong() {
+		jsonData = new LinkedHashMap<String, Object>();
+		try {
+			if(hopdong_id!= null) {
+				Map<String, String> conditions = new LinkedHashMap<String, String>();
+				System.out.println("hopdong_id:"+hopdong_id);
+				conditions.put("hopdong_id", hopdong_id);
+				PhuLucDAO phulucDao = new PhuLucDAO(daoFactory);
+				List<Map<String, Object>> items = phulucDao.search(0, 1000, conditions);
+				jsonData.put("result", "OK");
+				jsonData.put("aaData", items);
+				return Action.SUCCESS;
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			jsonData.put("result", "ERROR");
+		}
+		return Action.SUCCESS;
+	}
+	
+	public String findphulucByhopdongandthanhtoan() {
+		jsonData = new LinkedHashMap<String, Object>();
+		try {
+			if(hopdong_id!= null && thanhtoan_id!=null) {
+				Map<String, String> conditions = new LinkedHashMap<String, String>();
+				conditions.put("hopdong_id", hopdong_id);
+				conditions.put("thanhtoan_id", thanhtoan_id);
+				System.out.println("hopdong:"+hopdong_id);
+				System.out.println("thanhtoan:"+thanhtoan_id);
+				PhuLucDAO phulucDao = new PhuLucDAO(daoFactory);
+				List<Map<String, Object>> items = phulucDao.searchByHopDongThanhToan(0, 1000, conditions);
+				jsonData.put("result", "OK");
+				jsonData.put("aaData", items);
+				return Action.SUCCESS;
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			jsonData.put("result", "ERROR");
+		}
+		return Action.SUCCESS;
+	}
+	
 	/* Getter and Setter */
 	public InputStream getInputStream() {
 		
@@ -275,7 +321,18 @@ public class PhuLucAction implements Preparable {
 	public void setArrPhuLucThayThe(String[] arrPhuLucThayThe) {
 		this.arrPhuLucThayThe = arrPhuLucThayThe;
 	}
-	
+	public String getHopdong_id() {
+		return hopdong_id;
+	}
+	public void setHopdong_id(String hopdong_id) {
+		this.hopdong_id = hopdong_id;
+	}
+	public String getThanhtoan_id() {
+		return thanhtoan_id;
+	}
+	public void setThanhtoan_id(String thanhtoan_id) {
+		this.thanhtoan_id = thanhtoan_id;
+	}
 	
 	
 }

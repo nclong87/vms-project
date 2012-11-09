@@ -702,16 +702,6 @@
 		<action name="popupSearch" class="hopdongAction">
 			<result>/jsp/hopdong/popupSearch.jsp</result>
 		</action>
-		<action name="findphulucByhopdong" class="hopdongAction" method="findphulucByhopdong">
-			<result name="success" type="json">
-				<param name="root">jsonData</param>
-			</result>
-		</action>
-		<action name="findphulucByhopdongandthanhtoan" class="hopdongAction" method="findphulucByhopdongandthanhtoan">
-			<result name="success" type="json">
-				<param name="root">jsonData</param>
-			</result>
-		</action>
 	</package>
 	<package name="thanhtoan" extends="default" namespace="/thanhtoan">
 		<action name="index" class="thanhtoanAction">
@@ -792,6 +782,16 @@
 		</action>
 		<action name="popupSearch" class="phuLucAction" method="popupSearch">
 			<result>/jsp/phuluc/popupSearch.jsp</result>
+		</action>
+		<action name="findphulucByhopdong" class="phuLucAction" method="findphulucByhopdong">
+			<result name="success" type="json">
+				<param name="root">jsonData</param>
+			</result>
+		</action>
+		<action name="findphulucByhopdongandthanhtoan" class="phuLucAction" method="findphulucByhopdongandthanhtoan">
+			<result name="success" type="json">
+				<param name="root">jsonData</param>
+			</result>
 		</action>
 	</package>
 </struts>
