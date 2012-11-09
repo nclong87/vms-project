@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <s:url action="index" namespace="/login" var="loginURL" />
-<s:url action="doSave" namespace="/thanhtoan" id="doSaveURL" />
+<s:url action="doSave" namespace="/bangdoisoatcuoc" id="doSaveURL" />
 <s:url action="popupSearchForThanhToan" namespace="/sucokenh" id="popupSearchSuCoKenhURL" />
 <s:url action="popupSearch" namespace="/hopdong" id="popupSearchHopDongURL" />
 <s:url action="findphulucByhopdong" namespace="/phuluc" id="findphulucByhopdongURL" />

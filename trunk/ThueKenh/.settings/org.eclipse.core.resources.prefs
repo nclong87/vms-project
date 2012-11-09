@@ -1,4 +1,4 @@
-#Wed Oct 31 23:18:29 ICT 2012
+#Fri Nov 09 22:02:30 ICT 2012
 eclipse.preferences.version=1
 encoding//WebContent/jsp/bienbanvanhanhkenh/index.jsp=UTF-8
 encoding//WebContent/jsp/hopdong/index.jsp=UTF-8
@@ -7,6 +7,7 @@ encoding//WebContent/jsp/import/suco.jsp=UTF-8
 encoding//WebContent/jsp/sucokenh/form.jsp=UTF-8
 encoding//WebContent/jsp/sucokenh/index.jsp=UTF-8
 encoding//WebContent/jsp/sucokenh/popupSearch.jsp=UTF-8
+encoding//WebContent/jsp/sucokenh/popupSearchForThanhToan.jsp=UTF-8
 encoding//WebContent/jsp/thanhtoan/index.jsp=UTF-8
 encoding//WebContent/jsp/tuyenkenh/index.jsp=UTF-8
 encoding//src/vms/utils/StringUtil.java=UTF-8

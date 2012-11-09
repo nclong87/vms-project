@@ -1,5 +1,6 @@
 ﻿<%@ taglib prefix="s" uri="/struts-tags"%>
-<s:url action="ajLoadSuCoWithBBVH" namespace="/sucokenh" id="ajLoadSuCoWithBBVH"/>
+<s:url action="ajLoadSuCo" namespace="/sucokenh" id="ajLoadSuCoURL"/>
+<s:url action="popupSearch" namespace="/tuyenkenh" id="popupSearchURL" />
 <s:url action="detail" namespace="/sucokenh" id="detailURL"/>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
@@ -132,13 +133,22 @@ function doSearch() {
 $(document).ready(function(){	 
 	// load datetime
 	LoadDateTimePicker(".datetimepicker");
+	// popup search tuyen kenh
+	popup_search_tuyenkenh.init({
+		url : "${popupSearchURL}",
+		afterSelected : function(data) {
+			// list tuyen kenh tra ve, sau do xu ly du lieu cho nay
+			data = data[0];
+			$("#tuyenkenh_id").val(data["id"]);
+		}
+	});
 	// Load table
 	oTable = $('#dataTable').dataTable({
 		"bJQueryUI": true,
 		"bProcessing": true,
 		"bServerSide": true,
 		"bAutoWidth": false,
-		"sAjaxSource": "${ajLoadSuCoWithBBVH}",
+		"sAjaxSource": "${ajLoadSuCoURL}",
 		"aoColumns": [
 					{ "mDataProp": "stt","bSortable": false,"bSearchable": false },
 					{ "mDataProp": "tuyenkenh_id","bSortable": false,"bSearchable": false,"sClass":'td_center'},
