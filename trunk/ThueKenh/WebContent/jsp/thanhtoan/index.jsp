@@ -2,7 +2,7 @@
 <s:url action="doLogout" namespace="/login" var="doLogoutURL"/>
 <s:url action="index" namespace="/login" var="loginURL"/>
 <s:url action="form" namespace="/thanhtoan" id="formURL"/>
-<s:url action="ajLoadThanhToan" namespace="/thanhtoan" id="ajLoadThanhToan"/>
+<s:url action="ajLoadThanhToan" namespace="/thanhtoan" id="ajLoadThanhToanURL"/>
 <s:url action="delete" namespace="/thanhtoan" id="deleteURL"/>
 <s:url action="detail" namespace="/thanhtoan" id="detailURL"/>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -80,12 +80,13 @@
 			<table width="100%" id="dataTable" class="display">
 				<thead>
 					<tr>
-						<th width="3px">STT</th>
-						<th width="30px">Số hợp đồng</th>
-						<th width="30px">Loại hợp đồng</th>
-						<th width="30px">Đối tác</th>
-						<th width="30px">Ngày ký</th>
-						<th width="30px">Ngày hết hạn</th>
+						<th width="30px">STT</th>
+						<th>Số hồ sơ</th>
+						<th>Ngày chuyển hồ sơ kế toán</th>
+						<th>Ngày ký UNC</th>
+						<th>Ngày chuyển khoản</th>
+						<th>Giá trị thanh toán</th>
+						<th>Trạng thái</th>
 						<th width="30px">Sửa</th>
 						<th width="5px" align="center"><input type="checkbox" onclick="selectAll(this)"/></th>
 					</tr>
@@ -134,25 +135,22 @@ $(document).ready(function(){
 		"bProcessing": true,
 		"bServerSide": true,
 		"bAutoWidth": false,
-		"sAjaxSource": "${ajLoadHoSoThanhToan}",
+		"sAjaxSource": "${ajLoadThanhToanURL}",
 		"aoColumns": [
 					{ "mDataProp": "stt","bSortable": false,"bSearchable": false,"sClass":'td_center' },
+					{ "mDataProp": "sohoso","bSortable": false,"bSearchable": false,"sClass":'td_center' },
+					{ "mDataProp": "ngaychuyenkt","bSortable": false,"bSearchable": false,"sClass":'td_center' },
+					{ "mDataProp": "ngaychuyenkt","bSortable": false,"bSearchable": false,"sClass":'td_center' },
+					{ "mDataProp": "ngaychuyenkt","bSortable": false,"bSearchable": false,"sClass":'td_center' },
+					{ "mDataProp": "giatritt","bSortable": false,"bSearchable": false,"sClass":'td_center' },
 					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,"sClass":'td_center',
 						"fnRender": function( oObj ) {
-							return '<a target="_blank" href="${detailURL}?id='+oObj.aData.id+'" title="Xem chi tiết hợp đồng">'+oObj.aData.sohopdong+'</a>'; 
+							if(oObj.trangthai==0)
+								return "Chưa thanh toán";
+							else 
+								return "Đã thanh toán";
 						}
 					},
-					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,"sClass":'td_center',
-						"fnRender": function( oObj ) {
-							if(oObj.aData.loaihopdong==0)
-								return "Không thời hạn";
-							else
-								return "Có thời hạn";
-						}
-					},
-					{ "mDataProp": "tendoitac","bSortable": false,"bSearchable": false,"sClass":'td_center'},
-					{ "mDataProp": "ngayky","bSortable": false,"bSearchable": false,"sClass":'td_center'},
-					{ "mDataProp": "ngayhethan","bSortable": false,"bSearchable": false},
 					{ "mDataProp": null,"bSortable": false,"bSearchable": false,
 						"fnRender": function( oObj ) {
 							return '<center><span class="edit_icon" data-ref-id="'+oObj.aData.id+'" title="Sửa" href="#"></span></center>'; 

@@ -291,7 +291,7 @@ public class ThanhToanAction implements Preparable {
 	}
 	
 	// load ho so thanh toan
-	public String ajLoadHoSoThanhToan() {
+	public String ajLoadThanhToan() {
 		try {
 			//if(account == null) throw new Exception("END_SESSION");
 			Integer iDisplayStart = Integer.parseInt(request.getParameter("iDisplayStart"));
@@ -309,9 +309,9 @@ public class ThanhToanAction implements Preparable {
 					}
 				}
 			}
-			HopDongDAO hopdongDao = new HopDongDAO(daoFactory);
+			ThanhToanDAO thanhtoanDao = new ThanhToanDAO(daoFactory);
 			System.out.println("conditions="+conditions);
-			List<Map<String, Object>> items = hopdongDao.search(iDisplayStart, iDisplayLength, conditions);
+			List<Map<String, Object>> items = thanhtoanDao.search(iDisplayStart, iDisplayLength, conditions);
 			int iTotalRecords = items.size();
 			if(iTotalRecords > iDisplayLength) {
 				items.remove(iTotalRecords - 1);
