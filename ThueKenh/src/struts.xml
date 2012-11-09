@@ -497,6 +497,9 @@
 		<action name="popupSearch" class="sucoAction">
 			<result>/jsp/sucokenh/popupSearch.jsp</result>
 		</action>
+		<action name="popupSearchForThanhToan" class="sucoAction">
+			<result>/jsp/sucokenh/popupSearchForThanhToan.jsp</result>
+		</action>
 		<action name="findByBienbanvanhanh" class="sucoAction"
 			method="findByBienbanvanhanh">
 			<result name="success" type="json">
@@ -791,6 +794,19 @@
 		<action name="findphulucByhopdongandthanhtoan" class="phuLucAction" method="findphulucByhopdongandthanhtoan">
 			<result name="success" type="json">
 				<param name="root">jsonData</param>
+			</result>
+		</action>
+	</package>
+	<package name="bangdoisoatcuoc" extends="default" namespace="/bangdoisoatcuoc">
+		<action name="form" class="bangdoisoatcuocAction" method="form">
+			<result>/jsp/bangdoisoatcuoc/form.jsp</result>
+		</action>
+		<action name="form" class="bangdoisoatcuocAction" method="form">
+			<result>/jsp/bangdoisoatcuoc/form.jsp</result>
+		</action>
+		<action name="doSave" class="bangdoisoatcuocAction" method="doSave">
+			<result name="success" type="stream">
+				<param name="inputName">inputStream</param>
 			</result>
 		</action>
 	</package>
