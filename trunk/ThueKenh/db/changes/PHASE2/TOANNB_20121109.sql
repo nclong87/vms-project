@@ -126,11 +126,6 @@ END FIND_HOSOTHANHTOAN;
 /
 
 --------------------------------------------------------
---  DDL for Sequence SEQ_THANHTOAN
---------------------------------------------------------
-
-   CREATE SEQUENCE  "THUEKENH"."SEQ_THANHTOAN"  MINVALUE 1 MAXVALUE 9999 INCREMENT BY 1 START WITH 41 CACHE 20 NOORDER  NOCYCLE ;
---------------------------------------------------------
 --  DDL for Function SAVE_THANHTOAN_PHUCLUC
 --------------------------------------------------------
 
