@@ -212,7 +212,7 @@ public class PhuLucDAO {
 	}
 	
 	private static final String SQL_FIND_PHULUC_BY_HOPDONG_THANHTOAN = "{ ? = call FIND_PHULUC_BY_HD_TT(?,?,?,?) }";
-	public List<Map<String,Object>> searchByHopDongThanhToan(int iDisplayStart,int iDisplayLength,Map<String, String> conditions) throws SQLException {
+	public List<Map<String,Object>> searchByHopDongThanhToan(int iDisplayStart,int iDisplayLength,Map<String, String> conditions) throws SQLException, SAXException, IOException {
 		Connection connection = jdbcDatasource.getConnection();
 		CallableStatement stmt = connection.prepareCall(SQL_FIND_PHULUC_BY_HOPDONG_THANHTOAN);
 		stmt.registerOutParameter(1, OracleTypes.CURSOR);
@@ -230,6 +230,7 @@ public class PhuLucDAO {
 			map.put("ngayky", DateUtils.formatDate(rs.getDate("NGAYKY"), DateUtils.SDF_DDMMYYYY));
 			map.put("ngayhieuluc", DateUtils.formatDate(rs.getDate("NGAYHIEULUC"), DateUtils.SDF_DDMMYYYY));
 			map.put("ngayhethieuluc", DateUtils.formatDate(rs.getDate("NGAYHETHIEULUC"), DateUtils.SDF_DDMMYYYY));
+			map.put("phulucbithaythe", XMLUtil.parseXMLString(rs.getString("PHULUCBITHAYTHE")));
 			result.add(map);
 			i++;
 		}
