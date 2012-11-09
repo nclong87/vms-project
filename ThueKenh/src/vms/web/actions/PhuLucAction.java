@@ -234,10 +234,9 @@ public class PhuLucAction implements Preparable {
 		try {
 			if(hopdong_id!= null && thanhtoan_id!=null) {
 				Map<String, String> conditions = new LinkedHashMap<String, String>();
+				System.out.println("hopdong_id:"+hopdong_id);
 				conditions.put("hopdong_id", hopdong_id);
 				conditions.put("thanhtoan_id", thanhtoan_id);
-				System.out.println("hopdong:"+hopdong_id);
-				System.out.println("thanhtoan:"+thanhtoan_id);
 				PhuLucDAO phulucDao = new PhuLucDAO(daoFactory);
 				List<Map<String, Object>> items = phulucDao.searchByHopDongThanhToan(0, 1000, conditions);
 				jsonData.put("result", "OK");

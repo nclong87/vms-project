@@ -18,6 +18,7 @@ import org.json.simple.JSONValue;
 
 import vms.db.dao.DaoFactory;
 import vms.db.dao.DoiTacDAO;
+import vms.db.dao.PhuLucDAO;
 import vms.db.dao.SuCoDAO;
 import vms.db.dao.ThanhToanDAO;
 import vms.db.dao.HopDongDAO;
@@ -188,6 +189,7 @@ public class ThanhToanAction implements Preparable {
 					phuluchopdongs_data+="]";
 					phuluchopdongs_data+="}";
 				}
+				phuluchopdongs_data="["+phuluchopdongs_data+"]";
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

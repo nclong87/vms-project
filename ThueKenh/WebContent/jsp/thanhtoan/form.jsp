@@ -222,10 +222,10 @@ function byId(id) { //Viet tat cua ham document.getElementById
 		else 
 			loaiphuluc="Thay thế";
 		var trangthai = "";
-		alert(data.phulucbithaythe);
-		$.each(data.phulucbithaythe,function(){
-			trangthai+='<a href="${detailPhuLucURL}?id='+this.id+'" title="'+this.tenphuluc+'">'+this.tenphuluc.vmsSubstr(20)+"</a><br>";
-		});
+		if(data.phulucbithaythe!="<root></root>")
+			$.each(data.phulucbithaythe,function(){
+				trangthai+='Bị thay thế bởi phụ lục: <a href="${detailPhuLucURL}?id='+this.id+'" title="'+this.tenphuluc+'">'+this.tenphuluc.vmsSubstr(20)+"</a><br>";
+			});
 		obj.fnAddData([
     		'<center>'+stt+'</center>',data.tenphuluc,loaiphuluc,data.tendoitac,data.soluongkenh,data.giatritruocthue,data.giatrisauthue,trangthai,thanhtoan
     		,'<center><input type="checkbox" checked="true"/><input id="phuluc_id" style="display:none" value="'+data.id+'"/></center>'
@@ -383,7 +383,7 @@ function byId(id) { //Viet tat cua ham document.getElementById
 	$(document).ready(function() {
 		// combobox nam
 		var currentTime = new Date();
-		var year = currentTime.getFullYear()
+		var year = currentTime.getFullYear();
 		for(var i=year-10;i<year+10;i++)
 		{
 			$("#nam").append("<option value='"+i+"'>"+i+"</option>");
@@ -510,7 +510,7 @@ function byId(id) { //Viet tat cua ham document.getElementById
 		}
 		if(phuluchopdongs_data!='')
 		{
-			phuluchopdongs_data=$.parseJSON(phuluchopdongs_data);
+			phuluchopdongs_data=$.parseJSON(phuluchopdongs_data.trim());
 			LoadHopDongEdit(phuluchopdongs_data);
 		}
 		$("#btSubmit").click(function() {
