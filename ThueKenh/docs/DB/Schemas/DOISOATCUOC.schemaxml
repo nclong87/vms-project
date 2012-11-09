@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemadesigner version="6.5">
+<source>
+<database charset="latin1" collation="latin1_swedish_ci">thuekenh</database>
+</source>
+<canvas zoom="100">
+<tables>
+<table name="doisoatcuoc" view="colnames">
+<left>383</left>
+<top>87</top>
+<width>158</width>
+<height>243</height>
+<sql_create_table>CREATE TABLE `doisoatcuoc` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `TENDOISOATCUOC` varchar(255) DEFAULT NULL,
+  `DOITAC_ID` int(11) DEFAULT NULL,
+  `TUNGAY` date DEFAULT NULL,
+  `DENNGAY` date DEFAULT NULL,
+  `GIAMTRUMLL` int(11) DEFAULT NULL,
+  `THANHTIEN` int(11) DEFAULT NULL,
+  `USERCREATE` varchar(200) DEFAULT NULL,
+  `TIMECREATE` datetime DEFAULT NULL,
+  `DELETED` int(11) DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1</sql_create_table>
+</table>
+<table name="doisoatcuoc_phuluc" view="colnames">
+<left>619</left>
+<top>96</top>
+<width>157</width>
+<height>243</height>
+<sql_create_table>CREATE TABLE `doisoatcuoc_phuluc` (
+  `DOISOATCUOC_ID` int(11) NOT NULL,
+  `PHULUC_ID` int(11) NOT NULL,
+  `TUNGAY` date DEFAULT NULL,
+  `DENNGAY` date DEFAULT NULL,
+  `SOTHANG` int(11) DEFAULT NULL,
+  `SONGAY` int(11) DEFAULT NULL,
+  `THANHTIEN` int(11) DEFAULT NULL,
+  `DAUNOIHOAMANG` int(11) DEFAULT NULL,
+  `DATHANHTOAN` int(11) DEFAULT NULL,
+  `CONTHANHTOAN` int(11) DEFAULT NULL,
+  PRIMARY KEY (`DOISOATCUOC_ID`,`PHULUC_ID`),
+  KEY `FK_doisoatcuoc_phuluc1` (`PHULUC_ID`),
+  CONSTRAINT `FK_doisoatcuoc_phuluc2` FOREIGN KEY (`DOISOATCUOC_ID`) REFERENCES `doisoatcuoc` (`ID`),
+  CONSTRAINT `FK_doisoatcuoc_phuluc1` FOREIGN KEY (`PHULUC_ID`) REFERENCES `phuluc` (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1</sql_create_table>
+</table>
+<table name="doisoatcuoc_suco" view="colnames">
+<left>204</left>
+<top>220</top>
+<width>157</width>
+<height>107</height>
+<sql_create_table>CREATE TABLE `doisoatcuoc_suco` (
+  `DOISOATCUOC_ID` int(11) NOT NULL,
+  `SUCO_ID` int(11) NOT NULL,
+  PRIMARY KEY (`DOISOATCUOC_ID`,`SUCO_ID`),
+  KEY `FK_doisoatcuoc_suco2` (`SUCO_ID`),
+  CONSTRAINT `FK_doisoatcuoc_suco2` FOREIGN KEY (`SUCO_ID`) REFERENCES `sucokenh` (`ID`),
+  CONSTRAINT `FK_doisoatcuoc_suco1` FOREIGN KEY (`DOISOATCUOC_ID`) REFERENCES `doisoatcuoc` (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1</sql_create_table>
+</table>
+<table name="sucokenh" view="colnames">
+<left>19</left>
+<top>165</top>
+<width>159</width>
+<height>357</height>
+<sql_create_table>CREATE TABLE `sucokenh` (
+  `ID` int(11) NOT NULL,
+  `TUYENKENH_ID` int(11) DEFAULT NULL,
+  `FILESCAN_ID` int(11) DEFAULT NULL,
+  `PHULUC_ID` int(11) DEFAULT NULL,
+  `THANHTOAN_ID` int(11) DEFAULT NULL,
+  `LOAISUCO` int(11) DEFAULT NULL,
+  `THOIDIEMBATDAU` datetime DEFAULT NULL,
+  `THOIDIEMKETTHUC` datetime DEFAULT NULL,
+  `THOIGIANMLL` int(11) DEFAULT NULL,
+  `NGUYENNHAN` varchar(255) DEFAULT NULL,
+  `PHUONGANXULY` varchar(255) DEFAULT NULL,
+  `NGUOIXACNHAN` varchar(255) DEFAULT NULL,
+  `GIAMTRUMLL` int(11) DEFAULT '0',
+  `TRANGTHAI` int(11) DEFAULT NULL,
+  `USERCREATE` varchar(255) DEFAULT NULL,
+  `TIMECREATE` datetime DEFAULT NULL,
+  `DELETED` int(11) DEFAULT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `FK_sucokenh1` (`TUYENKENH_ID`),
+  KEY `FK_sucokenh2` (`FILESCAN_ID`),
+  KEY `FK_sucokenh3` (`PHULUC_ID`),
+  KEY `FK_sucokenh_THANHTOAN` (`THANHTOAN_ID`),
+  CONSTRAINT `FK_sucokenh1` FOREIGN KEY (`TUYENKENH_ID`) REFERENCES `tuyenkenh` (`ID`),
+  CONSTRAINT `FK_sucokenh2` FOREIGN KEY (`FILESCAN_ID`) REFERENCES `filescan` (`ID`),
+  CONSTRAINT `FK_sucokenh_THANHTOAN` FOREIGN KEY (`THANHTOAN_ID`) REFERENCES `thanhtoan` (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1</sql_create_table>
+</table>
+<table name="phuluc" view="colnames">
+<left>827</left>
+<top>209</top>
+<width>165</width>
+<height>306</height>
+<sql_create_table>CREATE TABLE `phuluc` (
+  `ID` int(11) NOT NULL,
+  `CHITIETPHULUC_ID` int(11) DEFAULT NULL,
+  `HOPDONG_ID` int(11) DEFAULT NULL,
+  `TENPHULUC` varchar(255) DEFAULT NULL,
+  `LOAIPHULUC` int(11) DEFAULT NULL,
+  `NGAYKY` date DEFAULT NULL,
+  `NGAYHIEULUC` date DEFAULT NULL,
+  `THANG` int(11) DEFAULT NULL,
+  `NAM` int(11) DEFAULT NULL,
+  `TRANGTHAI` int(11) DEFAULT NULL,
+  `USERCREATE` varchar(255) DEFAULT NULL,
+  `TIMECREATE` datetime DEFAULT NULL,
+  `FILENAME` varchar(255) DEFAULT NULL,
+  `FILEPATH` varchar(255) DEFAULT NULL,
+  `FILESIZE` varchar(20) DEFAULT NULL,
+  `DELETED` int(11) DEFAULT NULL,
+  `PHULUCTHAYTHE_ID` int(11) DEFAULT NULL,
+  `NGAYHETHIEULUC` date DEFAULT NULL,
+  `CUOCDAUNOI` int(11) DEFAULT NULL,
+  `GIATRITRUOCTHUE` int(11) DEFAULT NULL,
+  `GIATRISAUTHUE` int(11) DEFAULT NULL,
+  `SOLUONGKENH` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `FK_phuluc1` (`CHITIETPHULUC_ID`),
+  KEY `FK_phuluc3` (`HOPDONG_ID`),
+  KEY `FK_phuluc_thaythe` (`PHULUCTHAYTHE_ID`),
+  CONSTRAINT `FK_phuluc1` FOREIGN KEY (`CHITIETPHULUC_ID`) REFERENCES `chitietphuluc` (`ID`),
+  CONSTRAINT `FK_phuluc3` FOREIGN KEY (`HOPDONG_ID`) REFERENCES `hopdong` (`ID`),
+  CONSTRAINT `FK_phuluc_thaythe` FOREIGN KEY (`PHULUCTHAYTHE_ID`) REFERENCES `phuluc` (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1</sql_create_table>
+</table>
+</tables>
+</canvas>
+</schemadesigner>
