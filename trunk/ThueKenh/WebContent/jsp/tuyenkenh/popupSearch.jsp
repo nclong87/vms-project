@@ -112,7 +112,7 @@ margin-left: 10px;
 											<option value="0">Không hoạt động</option>
 											<option value="1">Đang bàn giao</option>
 											<option value="2">Đang cập nhật số lượng</option>
-											<option value="3">Đang hoạt động</option>
+											<option value="3">Đã bàn giao</option>
 										</select>
 									</td>
 								</tr>

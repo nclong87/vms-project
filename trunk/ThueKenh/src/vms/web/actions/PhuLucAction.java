@@ -146,7 +146,7 @@ public class PhuLucAction implements Preparable {
 			}
 			HopDongDAO hopDongDAO = new HopDongDAO(daoFactory);
 			HopDongDTO hopDongDTO = hopDongDAO.findById(phuLucDTO.getHopdong_id());
-			List<String> listTuyenKenhLoi = phuLucDAO.validateBeforeSavePhuLuc(phuLucDTO.getChitietphuluc_id(), arrPhuLucThayThe, phuLucDTO.getNgayhieuluc(),hopDongDTO) ;
+			List<String> listTuyenKenhLoi = phuLucDAO.validateBeforeSavePhuLuc(phuLucDTO, arrPhuLucThayThe, phuLucDTO.getNgayhieuluc(),hopDongDTO) ;
 			if(listTuyenKenhLoi.isEmpty() == false) {
 				String errMessage = "Lỗi xảy ra khi lưu phụ lục :<ul style=\"margin:0\">";
 				for(int i=0;i<listTuyenKenhLoi.size();i++) {

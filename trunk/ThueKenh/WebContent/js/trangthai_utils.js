@@ -11,7 +11,10 @@ var trangthai_utils = {
 				return '<div class="mau_vang" title="Đang cập nhật số lượng"></div>';
 				break;
 			case 3 :
-				return '<div class="mau_xanh_la" title="Đang hoạt động"></div>';
+				return '<div class="mau_xanh_la" title="Đã bàn giao"></div>';
+				break;
+			case 4 :
+				return '<div class="mau_xanh_bien" title="Đã có hợp đồng"></div>';
 				break;
 			default:
 				return '';
@@ -30,7 +33,10 @@ var trangthai_utils = {
 				return 'Đang cập nhật số lượng';
 				break;
 			case 3 :
-				return 'Đang hoạt động';
+				return 'Đã bàn giao';
+				break;
+			case 4 :
+				return 'Đã có hợp đồng';
 				break;
 			default:
 				return '';

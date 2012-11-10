@@ -225,6 +225,21 @@ public class AjaxAction implements Preparable {
 		return Action.SUCCESS;
 	}
 	
+	public String findTuyenKenhByPhuLuc() {
+		jsonData =  new LinkedHashMap<String, Object>();
+		try {
+			String phuluc_id = request.getParameter("id");
+			PhuLucDAO dao = new PhuLucDAO(daoFactory);
+			List<Map<String, Object>> result = dao.findTuyenKenhByPhuLuc(phuluc_id);
+			jsonData.put("status", 1);
+			jsonData.put("data", result);
+		} catch (Exception e) {
+			jsonData.put("status", 0);
+			jsonData.put("data", e.getMessage());
+		}
+		return Action.SUCCESS;
+	}
+	
 	public String findPhuLucThayThe() {
 		jsonData =  new LinkedHashMap<String, Object>();
 		try {

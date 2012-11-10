@@ -63,8 +63,6 @@ public class PhuLucDAO {
 			map.put("ngayky", DateUtils.formatDate(rs.getDate("NGAYKY"), DateUtils.SDF_DDMMYYYY));
 			map.put("ngayhieuluc", DateUtils.formatDate(rs.getDate("NGAYHIEULUC"), DateUtils.SDF_DDMMYYYY));
 			map.put("ngayhethieuluc", DateUtils.formatDate(rs.getDate("NGAYHETHIEULUC"), DateUtils.SDF_DDMMYYYY));
-			System.out.println("TENDOITAC="+rs.getString("TENDOITAC"));
-			System.out.println("PHULUCBITHAYTHE="+rs.getString("PHULUCBITHAYTHE"));
 			map.put("phulucbithaythe", XMLUtil.parseXMLString(rs.getString("PHULUCBITHAYTHE")));
 			result.add(map);
 			i++;
@@ -113,9 +111,9 @@ public class PhuLucDAO {
 		this.jdbcTemplate.update("update PHULUC set DELETED = "+System.currentTimeMillis()+" where ID in ("+str+")");
 	}
 	
-	private static final String SQL_DETAIL_PHULUC = "SELECT t.*,t0.LOAIHOPDONG,t0.DOITAC_ID,t2.TENDOITAC FROM PHULUC t "+
+	private static final String SQL_DETAIL_PHULUC = "SELECT t.*,t0.SOHOPDONG,t0.LOAIHOPDONG,t0.DOITAC_ID,t2.TENDOITAC,FIND_PHULUC_BITHAYTHE(t.ID) as PHULUCBITHAYTHE FROM PHULUC t "+
 		"left join HOPDONG t0 on t.HOPDONG_ID = t0.ID " +
-		"left join DOITAC t2 on t0.DOITAC_ID = t2.ID  WHERE where t.ID=?";
+		"left join DOITAC t2 on t0.DOITAC_ID = t2.ID WHERE t.ID=?";
 	@SuppressWarnings("unchecked")
 	public Map<String,Object> getDetail(String id) {
 		List<Map<String,Object>> list =  this.jdbcTemplate.query(SQL_DETAIL_PHULUC ,new Object[] {id}, new RowMapper() {
@@ -125,6 +123,13 @@ public class PhuLucDAO {
 				map.put("ngayky", DateUtils.formatDate(rs.getDate("NGAYKY"), DateUtils.SDF_DDMMYYYY));
 				map.put("ngayhieuluc", DateUtils.formatDate(rs.getDate("NGAYHIEULUC"), DateUtils.SDF_DDMMYYYY));
 				map.put("ngayhethieuluc", DateUtils.formatDate(rs.getDate("NGAYHETHIEULUC"), DateUtils.SDF_DDMMYYYY));
+				try {
+					map.put("phulucbithaythe", XMLUtil.parseXMLString(rs.getString("PHULUCBITHAYTHE")));
+				} catch (SAXException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				} 
 				return map;
 			}
 		});
@@ -160,7 +165,7 @@ public class PhuLucDAO {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<String> validateBeforeSavePhuLuc(String chitietphuluc_id,String[] arrPhuLucThayThe,String sNgayHieuLuc,HopDongDTO dtoHopDong) {
+	public List<String> validateBeforeSavePhuLuc(PhuLucDTO phuLucDTO,String[] arrPhuLucThayThe,String sNgayHieuLuc,HopDongDTO dtoHopDong) {
 		List<String> result = new ArrayList<String>();
 		Set<String> setPhuLucThayThe = new HashSet<String>();
 		for(int i=0;arrPhuLucThayThe != null && i<arrPhuLucThayThe.length;i++) {
@@ -168,7 +173,7 @@ public class PhuLucDAO {
 			setPhuLucThayThe.add(arrPhuLucThayThe[i]);
 		}
 			
-		List<Map<String,String>> list = this.jdbcTemplate.query("select t.*,t1.DOITAC_ID from CHITIETPHULUC_TUYENKENH t left join TUYENKENH t1 on t.TUYENKENH_ID = t1.ID where CHITIETPHULUC_ID = ?" ,new Object[] {chitietphuluc_id}, new RowMapper() {
+		List<Map<String,String>> list = this.jdbcTemplate.query("select t.*,t1.DOITAC_ID from CHITIETPHULUC_TUYENKENH t left join TUYENKENH t1 on t.TUYENKENH_ID = t1.ID where CHITIETPHULUC_ID = ?" ,new Object[] {phuLucDTO.getChitietphuluc_id()}, new RowMapper() {
 			@Override
 			public Object mapRow(ResultSet rs, int arg1) throws SQLException {
 				Map<String,String> map = new LinkedHashMap<String, String>();
@@ -185,7 +190,7 @@ public class PhuLucDAO {
 				try {
 					Map<String, Object> mapPhuLuc = this.findPhuLucCoHieuLuc( list.get(i).get("tuyenkenh_id"), date);
 					if(mapPhuLuc==null) continue;
-					if(setPhuLucThayThe.contains(mapPhuLuc.get("id")) == false && mapPhuLuc.get("id").equals(chitietphuluc_id) == false) {
+					if(setPhuLucThayThe.contains(mapPhuLuc.get("id")) == false && mapPhuLuc.get("id").equals(phuLucDTO.getId()) == false) {
 						result.add("Tuyến kênh "+list.get(i).get("tuyenkenh_id")+" đang thuộc phụ lục "+mapPhuLuc.get("tenphuluc"));
 					}
 				} catch (Exception e) {
@@ -237,5 +242,19 @@ public class PhuLucDAO {
 		stmt.close();
 		connection.close();
 		return result;
+	}
+	
+	private static final String SQL_FIND_TUYENKENHBYPHULUC = "select t1.*,LOAIGIAOTIEP from " +
+			"CHITIETPHULUC_TUYENKENH t left join " +
+			"TUYENKENH t1 on t.TUYENKENH_ID = t1.ID left join " +
+			"LOAIGIAOTIEP t2 on t1.GIAOTIEP_ID = t2.ID where t.PHULUC_ID = ?";
+	@SuppressWarnings("unchecked")
+	public List<Map<String,Object>> findTuyenKenhByPhuLuc(String phuluc_id) {
+		return  this.jdbcTemplate.query(SQL_FIND_TUYENKENHBYPHULUC,new Object[] {phuluc_id}, new RowMapper() {
+			@Override
+			public Object mapRow(ResultSet rs, int arg1) throws SQLException {
+				return VMSUtil.resultSetToMap(rs);
+			}
+		});
 	}
 }
