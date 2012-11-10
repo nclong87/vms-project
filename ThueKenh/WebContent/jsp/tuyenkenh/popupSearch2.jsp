@@ -107,12 +107,12 @@ margin-left: 10px;
 										Trạng thái kênh :
 									</td>
 									<td align="left">
-										<select name="trangthai" id="trangthai" disabled="true">
+										<select name="trangthai" id="trangthai">
 											<option value="">-- Tất cả --</option>
 											<option value="0">Không hoạt động</option>
 											<option value="1">Đang bàn giao</option>
 											<option value="2">Đang cập nhật số lượng</option>
-											<option value="3" selected>Đang hoạt động</option>
+											<option value="3" selected>Đã bàn giao</option>
 										</select>
 									</td>
 								</tr>

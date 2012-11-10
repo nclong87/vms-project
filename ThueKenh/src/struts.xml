@@ -350,6 +350,11 @@
 				<param name="root">jsonData</param>
 			</result>
 		</action>
+		<action name="findTuyenKenhByPhuLuc" class="ajaxAction" method="findTuyenKenhByPhuLuc">
+			<result name="success" type="json">
+				<param name="root">jsonData</param>
+			</result>
+		</action>
 		<action name="findPhuLucThayThe" class="ajaxAction" method="findPhuLucThayThe">
 			<result name="success" type="json">
 				<param name="root">jsonData</param>
