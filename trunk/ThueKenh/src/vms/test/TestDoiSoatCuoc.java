@@ -17,7 +17,6 @@ import vms.db.dao.DoiSoatCuocDAO;
 import vms.db.dao.DoiTacDAO;
 import vms.db.dao.HopDongDAO;
 import vms.db.dao.PhuLucDAO;
-import vms.db.dao.ReportDao;
 import vms.utils.DateUtils;
 import vms.utils.ResourceManager;
 
