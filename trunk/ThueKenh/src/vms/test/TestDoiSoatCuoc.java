@@ -26,7 +26,7 @@ public class TestDoiSoatCuoc {
 	public static void main(String arg[]) {
 		System.out.println("Begin");
 		Connection connection = ResourceManager.connect();
-		ReportDao dao = new ReportDao(connection);
+		DoiSoatCuocDAO dao = new DoiSoatCuocDAO(connection);
 		
 		String doitac_id = "104";
 		Date sqlTuNgay = DateUtils.parseToSQLDate("01/10/2012","dd/MM/yyyy");
