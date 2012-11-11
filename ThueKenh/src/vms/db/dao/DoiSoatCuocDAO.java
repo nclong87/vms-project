@@ -63,8 +63,10 @@ public class DoiSoatCuocDAO {
 		return result;
 	}
 	
-	public void updateDoiSoatCuoc(String tendoisoatcuoc,String doisoatcuoc_id) {
-		String query = "update DOISOATCUOC set TENDOISOATCUOC = ? where ID = ?";
+	public void updateDoiSoatCuoc(String tendoisoatcuoc,String doisoatcuoc_id) throws Exception {
+		int nDuplicateName = this.jdbcTemplate.queryForInt("select count(*) as NUM from DOISOATCUOC where DELETED = 0 and TENDOISOATCUOC = ?", new Object[] {tendoisoatcuoc});
+		if(nDuplicateName > 0) throw new Exception("DUPLICATE");
+		String query = "update DOISOATCUOC set TENDOISOATCUOC = ?, DELETED = 0 where ID = ?";
 		this.jdbcTemplate.update(query,new Object[] {tendoisoatcuoc,doisoatcuoc_id});
 	}
 	
