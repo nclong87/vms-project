@@ -18,7 +18,7 @@ public class BanGiaoDTO {
 	private String id;
 	
 	private String sobienban;
-	private String ngayky;
+	private String ngaybangiao;
 	private String usercreate;
 	private String timecreate;
 	private String filename = "";
@@ -81,12 +81,12 @@ public class BanGiaoDTO {
 		this.filesize = filesize;
 	}
 	
-	public String getNgayky() {
-		return ngayky;
+	public String getNgaybangiao() {
+		return ngaybangiao;
 	}
 
-	public void setNgayky(String ngayky) {
-		this.ngayky = ngayky;
+	public void setNgaybangiao(String ngaybangiao) {
+		this.ngaybangiao = ngaybangiao;
 	}
 
 	public Map<String,String> getMap() {
@@ -98,7 +98,7 @@ public class BanGiaoDTO {
 		map.put("filename", this.filename);
 		map.put("filepath", this.filepath);
 		map.put("filesize", this.filesize);
-		map.put("ngayky", this.ngayky);
+		map.put("ngaybangiao", this.ngaybangiao);
 		return map;
 	}
 	
@@ -111,13 +111,13 @@ public class BanGiaoDTO {
 		dto.setFilename(rs.getString("FILENAME"));
 		dto.setFilepath(rs.getString("FILEPATH"));
 		dto.setFilesize(rs.getString("FILESIZE"));
-		dto.setNgayky(DateUtils.formatDate(rs.getDate("NGAYKY"), DateUtils.SDF_DDMMYYYY));
+		dto.setNgaybangiao(DateUtils.formatDate(rs.getDate("NGAYBANGIAO"), DateUtils.SDF_DDMMYYYY));
         return dto;
 	}
 	
 	public static Map<String,Object> resultSetToMap(ResultSet rs) throws SQLException {
 		Map<String,Object> map = VMSUtil.resultSetToMap(rs);
-		map.put("ngayky", DateUtils.formatDate(rs.getDate("NGAYKY"), DateUtils.SDF_DDMMYYYY));
+		map.put("ngaybangiao", DateUtils.formatDate(rs.getDate("NGAYBANGIAO"), DateUtils.SDF_DDMMYYYY));
 		return map;
 	}
 	

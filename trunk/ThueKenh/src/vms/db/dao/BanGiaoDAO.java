@@ -55,7 +55,7 @@ public class BanGiaoDAO  {
 		});
 	}
 	
-	private static final String SQL_SAVE_BANGIAO = "{ ? = call SAVE_BANGIAO(?,?,?,?,?,?,?) }";
+	private static final String SQL_SAVE_BANGIAO = "{ ? = call SAVE_BANGIAO(?,?,?,?,?,?,?,?) }";
 	public String save(BanGiaoDTO dto) throws Exception {
 		Connection connection = jdbcTemplate.getDataSource().getConnection();
 		CallableStatement stmt = connection.prepareCall(SQL_SAVE_BANGIAO);
@@ -67,6 +67,7 @@ public class BanGiaoDAO  {
 		stmt.setString(6, dto.getFilename());
 		stmt.setString(7, dto.getFilepath());
 		stmt.setString(8, dto.getFilesize());
+		stmt.setString(9, dto.getNgaybangiao());
 		stmt.execute();
 		return stmt.getString(1);
 	}
