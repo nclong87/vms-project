@@ -113,7 +113,7 @@ function byId(id) { //Viet tat cua ham document.getElementById
 			</tr>
 			<tr>
 				<td align="right" valign="center">
-					Ngày ký :
+					Ngày ký <font title="Bắt buộc nhập" color="red">*</font>:
 				</td>
 				<td align="left">
 					<input type="text" name="phuLucDTO.ngayky" id="ngayky" class="date">
@@ -296,6 +296,9 @@ $(document).ready(function() {
 				required : true
 			},
 			"phuLucDTO.loaiphuluc" : {
+				required : true
+			},
+			"phuLucDTO.ngayky" : {
 				required : true
 			},
 			"phuLucDTO.ngayhieuluc" : {

@@ -82,8 +82,7 @@ public class BanGiaoDAO  {
 		List<Map<String,Object>> list =  this.jdbcTemplate.query(SQL_DETAIL_BANGIAO ,new Object[] {id}, new RowMapper() {
 			@Override
 			public Object mapRow(ResultSet rs, int arg1) throws SQLException {
-				Map<String,Object> map = VMSUtil.resultSetToMap(rs);
-				return map;
+				return BanGiaoDTO.resultSetToMap(rs);
 			}
 		});
 		if(list.isEmpty()) return null;

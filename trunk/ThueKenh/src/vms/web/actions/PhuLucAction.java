@@ -18,13 +18,8 @@ import org.json.JSONObject;
 import org.json.simple.JSONValue;
 
 import vms.db.dao.DaoFactory;
-import vms.db.dao.DoiTacDAO;
-import vms.db.dao.DuAnDAO;
 import vms.db.dao.HopDongDAO;
-import vms.db.dao.LoaiGiaoTiepDao;
-import vms.db.dao.PhongBanDao;
 import vms.db.dao.PhuLucDAO;
-import vms.db.dto.DoiTacDTO;
 import vms.db.dto.HopDongDTO;
 import vms.db.dto.PhuLucDTO;
 import vms.utils.Constances;
@@ -156,7 +151,7 @@ public class PhuLucAction implements Preparable {
 				throw new Exception(errMessage);
 			}
 			phuLucDTO.setUsercreate(account.get("username").toString());
-			phuLucDTO.setTimecreate(DateUtils.getCurrentDateSQL());
+			phuLucDTO.setTimecreate(String.valueOf(System.currentTimeMillis()));
 			phuLucDTO.setNgayky(DateUtils.parseStringDateSQL(phuLucDTO.getNgayky(), "dd/MM/yyyy"));
 			phuLucDTO.setNgayhieuluc(DateUtils.parseStringDateSQL(phuLucDTO.getNgayhieuluc(), "dd/MM/yyyy"));
 			id = phuLucDAO.save(phuLucDTO);

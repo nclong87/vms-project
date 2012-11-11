@@ -33,6 +33,7 @@ margin-left: 10px;
 						<div class="ovf p5l p5t">
 							<table width="970px">
 								<form id="form">
+								<input type="text" style="display:none" name="flag" id="flag" value="1"/>
 								<tbody id="display">
 								<tr>
 									<td width="150px" align="right">

@@ -5,6 +5,9 @@ import java.sql.SQLException;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import vms.utils.DateUtils;
+import vms.utils.VMSUtil;
+
 
 
 /**
@@ -15,6 +18,7 @@ public class BanGiaoDTO {
 	private String id;
 	
 	private String sobienban;
+	private String ngayky;
 	private String usercreate;
 	private String timecreate;
 	private String filename = "";
@@ -76,6 +80,14 @@ public class BanGiaoDTO {
 	public void setFilesize(String filesize) {
 		this.filesize = filesize;
 	}
+	
+	public String getNgayky() {
+		return ngayky;
+	}
+
+	public void setNgayky(String ngayky) {
+		this.ngayky = ngayky;
+	}
 
 	public Map<String,String> getMap() {
 		Map<String, String> map = new LinkedHashMap<String, String>();
@@ -86,6 +98,7 @@ public class BanGiaoDTO {
 		map.put("filename", this.filename);
 		map.put("filepath", this.filepath);
 		map.put("filesize", this.filesize);
+		map.put("ngayky", this.ngayky);
 		return map;
 	}
 	
@@ -98,7 +111,14 @@ public class BanGiaoDTO {
 		dto.setFilename(rs.getString("FILENAME"));
 		dto.setFilepath(rs.getString("FILEPATH"));
 		dto.setFilesize(rs.getString("FILESIZE"));
+		dto.setNgayky(DateUtils.formatDate(rs.getDate("NGAYKY"), DateUtils.SDF_DDMMYYYY));
         return dto;
+	}
+	
+	public static Map<String,Object> resultSetToMap(ResultSet rs) throws SQLException {
+		Map<String,Object> map = VMSUtil.resultSetToMap(rs);
+		map.put("ngayky", DateUtils.formatDate(rs.getDate("NGAYKY"), DateUtils.SDF_DDMMYYYY));
+		return map;
 	}
 	
 

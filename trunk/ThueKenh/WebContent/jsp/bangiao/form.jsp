@@ -54,7 +54,7 @@ function byId(id) { //Viet tat cua ham document.getElementById
 					Tên văn bản <font title="Bắt buộc nhập" color="red">*</font> :
 				</td>
 				<td align="left" colspan="3">
-					<input type="text" name="banGiaoDTO.sobienban" id="sobienban" style="width:99%"/>
+					<input type="text" name="banGiaoDTO.sobienban" id="sobienban"/>
 				</td>
 			</tr>
 		</table>
