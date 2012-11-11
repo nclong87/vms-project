@@ -129,6 +129,7 @@ public class BanGiaoAction implements Preparable {
 			}
 			banGiaoDTO.setUsercreate(account.get("username").toString());
 			banGiaoDTO.setTimecreate(DateUtils.getCurrentDateSQL());
+			banGiaoDTO.setNgaybangiao(DateUtils.parseStringDateSQL(banGiaoDTO.getNgaybangiao(), "dd/MM/yyyy"));
 			id = banGiaoDAO.save(banGiaoDTO);
 			if(id == null) throw new Exception(Constances.MSG_ERROR);
 			System.out.println("dexuat_ids.length" + bangiao_ids.length);
