@@ -21,6 +21,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import vms.db.dto.Account;
+import vms.db.dto.HopDongDetailDTO;
 import vms.db.dto.Menu;
 import vms.utils.StringUtil;
 import vms.utils.VMSUtil;
@@ -80,5 +81,63 @@ public class DoiSoatCuocDAO {
 		stmt.execute();
 		stmt.close();
 		connection.close();
+	}
+	
+	private static final String SQL_FIND_DOISOATCUOC = "{ ? = call FIND_DOISOATCUOC(?,?,?) }";
+	public List<Map<String,Object>> search(int iDisplayStart,int iDisplayLength,Map<String, String> conditions) throws SQLException {
+		Connection connection = jdbcDatasource.getConnection();
+		CallableStatement stmt = connection.prepareCall(SQL_FIND_DOISOATCUOC);
+		stmt.registerOutParameter(1, OracleTypes.CURSOR);
+		stmt.setInt(2, iDisplayStart);
+		stmt.setInt(3, iDisplayLength);
+		stmt.setString(4, conditions.get("tenbangdoisoatcuoc"));
+		stmt.execute();
+		ResultSet rs = (ResultSet) stmt.getObject(1);
+		List<Map<String,Object>> result = new ArrayList<Map<String,Object>>();
+		int i = 1;
+		while(rs.next()) {
+			Map<String,Object> map = VMSUtil.resultSetToMap(rs);
+			map.put("stt", i);
+			result.add(map);
+			i++;
+		}
+		stmt.close();
+		connection.close();
+		return result;
+	}
+	private static final String SQL_FIND_HOPDONG_BY_DOISOATCUOC_ID = "{ ? = call FN_FIND_HOPDONGBY_DSCUOC(?) }";
+	public List<HopDongDetailDTO> findHopDongByDoiSoatCuocId(String id) throws SQLException {
+		Connection connection = jdbcDatasource.getConnection();
+		CallableStatement stmt = connection.prepareCall(SQL_FIND_HOPDONG_BY_DOISOATCUOC_ID);
+		stmt.registerOutParameter(1, OracleTypes.CURSOR);
+		stmt.setString(2, id);
+		stmt.execute();
+		ResultSet rs = (ResultSet) stmt.getObject(1);
+		List<HopDongDetailDTO> result = new ArrayList<HopDongDetailDTO>();
+		while (rs.next()) {
+			result.add(HopDongDetailDTO.mapObject(rs));
+		}
+		stmt.close();
+		connection.close();
+		return result;
+	}
+	
+	
+	private static final String SQL_FIND_PHULUC_BY_DOISOATCUOC_HOPDONG_ID = "{ ? = call FN_FIND_PHULUCBY_DSCUOC_HD(?,?) }";
+	public List<String> findPhuLucByDoiSoatCuoc_HopDong(String doisoatcuoc_id,String hopdong_id) throws SQLException {
+		Connection connection = jdbcDatasource.getConnection();
+		CallableStatement stmt = connection.prepareCall(SQL_FIND_PHULUC_BY_DOISOATCUOC_HOPDONG_ID);
+		stmt.registerOutParameter(1, OracleTypes.CURSOR);
+		stmt.setString(2, doisoatcuoc_id);
+		stmt.setString(3,hopdong_id);
+		stmt.execute();
+		ResultSet rs = (ResultSet) stmt.getObject(1);
+		List<String> result = new ArrayList<String>();
+		while (rs.next()) {
+			result.add(rs.getString("PHULUC_ID"));
+		}
+		stmt.close();
+		connection.close();
+		return result;
 	}
 }

@@ -29,25 +29,23 @@ public class ThanhToanDAO {
 		this.jdbcDatasource = daoFactory.getJdbcDataSource();
 	}
 	
-	private static final String SQL_SAVE_HOSOTHANHTOAN = "{ ? = call SAVE_HOSOTHANHTOAN(?,?,?,?,?,?,?,?,?,?,?,?,?) }";
+	private static final String SQL_SAVE_HOSOTHANHTOAN = "{ ? = call SAVE_HOSOTHANHTOAN(?,?,?,?,?,?,?,?,?,?,?) }";
 	public String save(ThanhToanDTO dto) throws Exception {
 		System.out.println("begin call SAVE_HOSOTHANHTOAN");
 		Connection connection = jdbcTemplate.getDataSource().getConnection();
 		CallableStatement stmt = connection.prepareCall(SQL_SAVE_HOSOTHANHTOAN);
 		stmt.registerOutParameter(1, OracleTypes.VARCHAR);
 		stmt.setString(2, dto.getId());
-		stmt.setString(3, dto.getSohoso());
-		stmt.setString(4, dto.getNgaychuyenkt());
-		stmt.setString(5, dto.getThang().toString());
-		stmt.setString(6, dto.getNam().toString());
-		stmt.setString(7, dto.getGiatritt());		
-		stmt.setString(8, dto.getTrangthai().toString());		
-		stmt.setString(9, dto.getUsercreate());		
-		stmt.setString(10, dto.getTimecreate());	
-		stmt.setString(11, dto.getDeleted().toString());
-		stmt.setString(12, dto.getFilename());
-		stmt.setString(13, dto.getFilepath());
-		stmt.setString(14, dto.getFilesize());
+		stmt.setString(3, dto.getNgaychuyenkt());
+		stmt.setString(4, dto.getTrangthai().toString());		
+		stmt.setString(5, dto.getUsercreate());		
+		stmt.setString(6, dto.getTimecreate());	
+		stmt.setString(7, dto.getDeleted().toString());
+		stmt.setString(8, dto.getFilename());
+		stmt.setString(9, dto.getFilepath());
+		stmt.setString(10, dto.getFilesize());
+		stmt.setString(11, dto.getSohoso());	
+		stmt.setString(12, dto.getDoisoatcuoc_id());
 		stmt.execute();
 		System.out.println("end call SAVE_HOSOTHANHTOAN");
 		String s = stmt.getString(1);

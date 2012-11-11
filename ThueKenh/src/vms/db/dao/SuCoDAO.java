@@ -63,7 +63,7 @@ public class SuCoDAO {
 		return s;
 	}
 	
-	private static final String SQL_FN_FIND_SUCO = "{ ? = call FN_FIND_SUCO(?,?,?,?,?,?,?,?,?,?,?,?,?,?) }";
+	private static final String SQL_FN_FIND_SUCO = "{ ? = call FN_FIND_SUCO(?,?,?,?,?,?,?,?,?,?,?,?,?) }";
 	public List<FN_FIND_SUCO> findSuCo(int iDisplayStart,int iDisplayLength,Map<String, String> conditions) throws SQLException {
 		System.out.println("Begin FindSuCo");
 		Connection connection = jdbcDatasource.getConnection();
@@ -95,7 +95,6 @@ public class SuCoDAO {
 		stmt.setString(12, thoidiemketthucden);
 		stmt.setString(13, conditions.get("nguoixacnhan"));
 		stmt.setString(14, conditions.get("bienbanvanhanh_id"));
-		stmt.setString(15, conditions.get("thanhtoan_id"));
 		stmt.execute();
 		ResultSet rs = (ResultSet) stmt.getObject(1);
 		List<FN_FIND_SUCO> result = new ArrayList<FN_FIND_SUCO>();
@@ -175,6 +174,31 @@ public class SuCoDAO {
 		List<SuCoDTO> result = new ArrayList<SuCoDTO>();
 		while(rs.next()) {
 			result.add(SuCoDTO.mapObject(rs));
+		}
+		stmt.close();
+		connection.close();
+		return result;
+	}
+	
+	private static final String SQL_FN_FIND_SUCO_BY_DOISOATCUOC = "{ ? = call FN_FIND_SUCO_BY_DSCUOC(?,?,?) }";
+	public List<Map<String,Object>> findSuCoByDoiSoatCuoc(int iDisplayStart,int iDisplayLength,Map<String, String> conditions) throws SQLException {
+		Connection connection = jdbcDatasource.getConnection();
+		CallableStatement stmt = connection.prepareCall(SQL_FN_FIND_SUCO_BY_DOISOATCUOC);
+		stmt.registerOutParameter(1, OracleTypes.CURSOR);
+		stmt.setInt(2, iDisplayStart);
+		stmt.setInt(3, iDisplayLength);
+		stmt.setString(4, conditions.get("doisoatcuoc_id"));
+		stmt.execute();
+		ResultSet rs = (ResultSet) stmt.getObject(1);
+		List<Map<String,Object>> result = new ArrayList<Map<String,Object>>();
+		int i = 1;
+		while(rs.next()) {
+			Map<String,Object> map = VMSUtil.resultSetToMap(rs);
+			map.put("stt", i);
+			map.put("thoidiembatdau",DateUtils.formatDate(new Date(rs.getLong("THOIDIEMBATDAU")), DateUtils.SDF_DDMMYYYYHHMMSS2));
+			map.put("thoidiemketthuc",DateUtils.formatDate(new Date(rs.getLong("THOIDIEMKETTHUC")), DateUtils.SDF_DDMMYYYYHHMMSS2));
+			result.add(map);
+			i++;
 		}
 		stmt.close();
 		connection.close();

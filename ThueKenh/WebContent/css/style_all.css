@@ -113,7 +113,7 @@ z-index: 2;
 #bg_wrapper{
 /*border-left: 1px solid #C0C0C0;*/
 float: left;
-min-height: 400px;
+/*min-height: 400px;*/
 position: relative;
 width: 100%;
 		}

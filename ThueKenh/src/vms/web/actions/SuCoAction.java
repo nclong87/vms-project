@@ -208,8 +208,8 @@ public class SuCoAction implements Preparable {
 				sucoDTO.setGiamtrumll(0);
 			else 
 			{
-				float giamtrumatll=(thoigianmatll*ptDto.getDongia())/(30*24*60);
-				sucoDTO.setGiamtrumll((float)Math.round(giamtrumatll*100)/100);
+				double giamtrumatll=(thoigianmatll*ptDto.getDongia())/(30*24*60);
+				sucoDTO.setGiamtrumll(Math.floor(giamtrumatll));
 			}
  			String id=sucoDao.save(sucoDTO);
 			if(id==null) throw new Exception(Constances.MSG_ERROR);
@@ -374,6 +374,26 @@ public class SuCoAction implements Preparable {
 			e.printStackTrace();
 			jsonData.put("result", "ERROR");
 		}
+		return Action.SUCCESS;
+	}
+	public String findByDoiSoatCuoc() {
+		System.out.println("begin findbydoisoatcuoc");
+		jsonData = new LinkedHashMap<String, Object>();
+		try {
+			if(id!= null) {
+				Map<String, String> conditions = new LinkedHashMap<String, String>();
+				conditions.put("doisoatcuoc_id", id);
+				SuCoDAO sucoDao = new SuCoDAO(daoFactory);
+				List<FN_FIND_SUCO> list = sucoDao.findSuCo(0, 1000, conditions);
+				jsonData.put("result", "OK");
+				jsonData.put("aaData", list);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			jsonData.put("result", "ERROR");
+		}
+		System.out.println("end findbydoisoatcuoc");
 		return Action.SUCCESS;
 	}
 }
