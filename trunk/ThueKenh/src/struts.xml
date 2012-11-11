@@ -511,7 +511,7 @@
 				<param name="root">jsonData</param>
 			</result>
 		</action>
-		<action name="findBythanhtoan" class="sucoAction" method="findBythanhtoan">
+		<action name="findByDoiSoatCuoc" class="sucoAction" method="findByDoiSoatCuoc">
 			<result name="success" type="json">
 				<param name="root">jsonData</param>
 			</result>
@@ -718,6 +718,11 @@
 		<action name="form" class="thanhtoanAction" method="form">
 			<result>/jsp/thanhtoan/form.jsp</result>
 		</action>
+		<action name="loadformbydoisoatcuoc" class="thanhtoanAction" method="loadformbydoisoatcuoc">
+			<result name="success" type="json">
+				<param name="root">jsonData</param>
+			</result>
+		</action>
 		<action name="doSave" class="thanhtoanAction" method="doSave">
 			<result name="success" type="stream">
 				<param name="inputName">inputStream</param>
@@ -803,15 +808,28 @@
 		</action>
 	</package>
 	<package name="bangdoisoatcuoc" extends="default" namespace="/bangdoisoatcuoc">
-		<action name="form" class="bangdoisoatcuocAction" method="form">
-			<result>/jsp/bangdoisoatcuoc/form.jsp</result>
+		<action name="index" class="bangdoisoatcuocAction">
+			<result>/jsp/bangdoisoatcuoc/index.jsp</result>
 		</action>
 		<action name="form" class="bangdoisoatcuocAction" method="form">
 			<result>/jsp/bangdoisoatcuoc/form.jsp</result>
 		</action>
 		<action name="doSave" class="bangdoisoatcuocAction" method="doSave">
-			<result name="success" type="stream">
-				<param name="inputName">inputStream</param>
+			<result name="success" type="json">
+				<param name="root">jsonData</param>
+			</result>
+		</action>
+		<action name="doSavebangdoisoatcuoc" class="bangdoisoatcuocAction" method="doSavebangdoisoatcuoc">
+			<result name="success" type="json">
+				<param name="root">jsonData</param>
+			</result>
+		</action>
+		<action name="popupSearch" class="bangdoisoatcuocAction">
+			<result>/jsp/bangdoisoatcuoc/popupSearch.jsp</result>
+		</action>
+		<action name="load" class="bangdoisoatcuocAction" method="load">
+			<result name="success" type="json">
+				<param name="root">jsonData</param>
 			</result>
 		</action>
 	</package>

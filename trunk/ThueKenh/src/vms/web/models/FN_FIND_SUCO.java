@@ -231,7 +231,7 @@ public class FN_FIND_SUCO {
 
 	public static FN_FIND_SUCO mapObject(ResultSet rs) throws SQLException {
 		FN_FIND_SUCO dto = new FN_FIND_SUCO();
-		dto.setSuco_id(rs.getString("suco_id"));
+		dto.setSuco_id(rs.getString("id"));
 		dto.setTuyenkenh_id(rs.getString("tuyenkenh_id"));
 		dto.setLoaisuco(rs.getString("loaisuco"));
 		dto.setMadiemdau(rs.getString("madiemdau"));

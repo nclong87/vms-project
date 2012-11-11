@@ -17,9 +17,6 @@ public class ThanhToanDTO {
 	private String id="";
 	private String sohoso="";
 	private String ngaychuyenkt="";
-	private Integer thang=0;
-	private Integer nam=1990;
-	private String giatritt="";
 	private Integer trangthai=0;
 	private String usercreate="";
 	private String timecreate="";
@@ -28,7 +25,7 @@ public class ThanhToanDTO {
 	private String filename="";
 	private String filepath="";
 	private String filesize="";
-
+	private String doisoatcuoc_id="";
 	
 	
 	public String getId() {
@@ -57,29 +54,6 @@ public class ThanhToanDTO {
 		this.ngaychuyenkt = ngaychuyenkt;
 	}
 
-	public Integer getThang() {
-		return thang;
-	}
-
-	public void setThang(Integer thang) {
-		this.thang = thang;
-	}
-
-	public Integer getNam() {
-		return nam;
-	}
-
-	public void setNam(Integer nam) {
-		this.nam = nam;
-	}
-
-	public String getGiatritt() {
-		return giatritt;
-	}
-
-	public void setGiatritt(String giatritt) {
-		this.giatritt = giatritt;
-	}
 
 	public Integer getTrangthai() {
 		return trangthai;
@@ -145,14 +119,20 @@ public class ThanhToanDTO {
 		this.filesize = filesize;
 	}
 
+	
+	public String getDoisoatcuoc_id() {
+		return doisoatcuoc_id;
+	}
+
+	public void setDoisoatcuoc_id(String doisoatcuoc_id) {
+		this.doisoatcuoc_id = doisoatcuoc_id;
+	}
+
 	public Map<String,String> getMap() {
 		Map<String, String> map = new LinkedHashMap<String, String>();
 		map.put("id", this.id);
 		map.put("sohoso", this.sohoso);
 		map.put("ngaychuyenkt", this.ngaychuyenkt);
-		map.put("thang", String.valueOf(this.thang));
-		map.put("nam", String.valueOf(this.nam));
-		map.put("giatritt", this.giatritt);
 		map.put("trangthai", String.valueOf(this.trangthai));
 		map.put("timecreate", this.timecreate);
 		map.put("usercreate", this.usercreate);
@@ -160,6 +140,7 @@ public class ThanhToanDTO {
 		map.put("filename",this.filename);
 		map.put("filepath",this.filepath);
 		map.put("filesize",this.filesize);
+		map.put("doisoatcuoc_id",this.doisoatcuoc_id);
 		return map;
 	}
 	
@@ -168,9 +149,6 @@ public class ThanhToanDTO {
 		dto.setId(rs.getString("ID"));
 		dto.setSohoso(rs.getString("SOHOSO"));
 		dto.setNgaychuyenkt(DateUtils.formatDate(rs.getDate("NGAYCHUYENKT"), DateUtils.SDF_DDMMYYYY));
-		dto.setThang(rs.getInt("thang"));
-		dto.setNam(rs.getInt("nam"));
-		dto.setGiatritt(rs.getString("giatritt"));
 		dto.setDeleted(rs.getInt("DELETED"));
 		dto.setTimecreate(rs.getString("TIMECREATE"));
 		dto.setTrangthai(rs.getInt("TRANGTHAI"));
@@ -178,6 +156,7 @@ public class ThanhToanDTO {
 		dto.setFilename(rs.getString("filename"));
 		dto.setFilepath(rs.getString("filepath"));
 		dto.setFilesize(rs.getString("filesize"));
+		dto.setDoisoatcuoc_id(rs.getString("doisoatcuoc_id"));
         return dto;
 	}
 	

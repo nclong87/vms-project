@@ -121,7 +121,7 @@ function doRemoveRow(this_){
 }
 function addRow(stt,data) {
 	oTable.fnAddData([
-		stt,data.tuyenkenh_id,data.madiemdau,data.madiemcuoi,data.loaigiaotiep,data.dungluong,data.thoidiembatdau,data.thoidiemketthuc,data.thoigianmll,data.nguyennhan,data.phuonganxuly,data.nguoixacnhan,data.usercreate,data.timecreate,'<center><input type="text" style="display:none" name="suco_ids" value="'+data.suco_id+'" id="suco_id_'+data.suco_id+'"/><img title="Remove" src="'+baseUrl+'/images/icons/remove.png" onclick="doRemoveRow(this)" style="cursor:pointer"></center>'
+		stt,data.tuyenkenh_id,data.madiemdau,data.madiemcuoi,data.loaigiaotiep,data.dungluong,data.thoidiembatdau,data.thoidiemketthuc,data.thoigianmll,data.nguyennhan,data.phuonganxuly,data.nguoixacnhan,data.usercreate,data.timecreate,'<center><input type="text" style="display:none" name="suco_ids" value="'+data.id+'" id="suco_id_'+data.id+'"/><img title="Remove" src="'+baseUrl+'/images/icons/remove.png" onclick="doRemoveRow(this)" style="cursor:pointer"></center>'
 	]);
 }
 $(document).ready(function(){	

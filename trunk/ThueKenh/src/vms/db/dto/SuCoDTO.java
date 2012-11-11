@@ -21,7 +21,7 @@ public class SuCoDTO {
 	private String nguyennhan="";
 	private String phuonganxuly="";
 	private String nguoixacnhan="";
-	private float giamtrumll=0;
+	private double giamtrumll=0;
 	private Integer trangthai=0;
 	private String usercreate="";
 	private String timecreate="";
@@ -137,11 +137,11 @@ public class SuCoDTO {
 		this.nguoixacnhan = nguoixacnhan;
 	}
 
-	public float getGiamtrumll() {
+	public double getGiamtrumll() {
 		return giamtrumll;
 	}
 
-	public void setGiamtrumll(float giamtrumll) {
+	public void setGiamtrumll(double giamtrumll) {
 		this.giamtrumll = giamtrumll;
 	}
 

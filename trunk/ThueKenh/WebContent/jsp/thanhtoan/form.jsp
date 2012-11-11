@@ -3,12 +3,12 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <s:url action="index" namespace="/login" var="loginURL" />
 <s:url action="doSave" namespace="/thanhtoan" id="doSaveURL" />
-<s:url action="popupSearchForThanhToan" namespace="/sucokenh" id="popupSearchSuCoKenhURL" />
-<s:url action="popupSearch" namespace="/hopdong" id="popupSearchHopDongURL" />
 <s:url action="findphulucByhopdong" namespace="/phuluc" id="findphulucByhopdongURL" />
 <s:url action="findphulucByhopdongandthanhtoan" namespace="/phuluc" id="findphulucByhopdongandthanhtoanURL" />
-<s:url action="findBythanhtoan" namespace="/sucokenh" id="findsucoBythanhtoanURL" />
+<s:url action="findByDoiSoatCuoc" namespace="/sucokenh" id="findsucoByDoiSoatCuocURL" />
+<s:url action="popupSearch" namespace="/bangdoisoatcuoc" id="popupSearchbangdoisoatcuocURL" />
 <s:url action="detail" namespace="/phuluc" id="detailPhuLucURL"/>
+<s:url action="loadformbydoisoatcuoc" namespace="/thanhtoan" id="loadformbydoisoatcuocURL"/>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <%
 	String contextPath = request.getContextPath();
@@ -22,8 +22,11 @@
 <script type='text/javascript' src='<%= contextPath %>/js/jquery-ui.js'></script>
 <script type="text/javascript" src="<%=contextPath%>/js/jquery.validate.js"></script>
 <script type="text/javascript" src="<%=contextPath%>/js/mylibs/my.validate.js"></script>
-<script type='text/javascript' src='<%= contextPath %>/js/utils.js'></script>
+
 <script type="text/javascript" src="<%= contextPath %>/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="<%=contextPath%>/js/mylibs/popup_search.js"></script>
+<script type="text/javascript" src="<%=contextPath%>/js/jquery.formatCurrency.min.js"></script>
+<script type='text/javascript' src='<%= contextPath %>/js/utils.js'></script>
 <script>
 var contextPath = '<%=contextPath%>';
 var baseUrl = contextPath;
@@ -62,7 +65,7 @@ function byId(id) { //Viet tat cua ham document.getElementById
 	}
 	.ui-accordion .ui-accordion-content-active
 	{
-		height:200px !important;
+		height:auto !important;
 	}
 </style>
 </head>
@@ -70,6 +73,7 @@ function byId(id) { //Viet tat cua ham document.getElementById
 <body>
 	<form id="form" onsubmit="return false;">
 		<input type="text" style="display: none" name="thanhtoanDTO.id" id="id" />
+		<input type="text" style="display: none" name="thanhtoanDTO.doisoatcuoc_id" id="doisoatcuoc_id" />
 		<input type="text" style="display:none" name="thanhtoanDTO.filename" id="filename" value=""/>
 		<input type="text" style="display:none" name="thanhtoanDTO.filepath" id="filepath" value=""/>
 		<input type="text" style="display:none" name="thanhtoanDTO.filesize" id="filesize" value=""/>
@@ -77,6 +81,11 @@ function byId(id) { //Viet tat cua ham document.getElementById
 			<table class="input" style="width: 782px">
 				<tr>
 					<td colspan='4' align="left" id="msg"></td>
+				</tr>
+				<tr>
+					<td colspan='4' align="center">
+						<input class="button" type="button" value="Chọn bảng đối soát cước" id="btPopupSearchBangDoiSoatCuoc">
+					</td>
 				</tr>
 				<tr>
 					<td align="right" width="150px"><label for="xxxx">Số hồ sơ :</label></td>
@@ -122,32 +131,29 @@ function byId(id) { //Viet tat cua ham document.getElementById
 			<div style="width: 100%; margin-top: 10px;">
 				<fieldset class="data_list">
 					<legend>Danh sách hợp đồng</legend>
-					<div style="width: 100%; padding-bottom: 5px;text-align: right;"><input class="button" type="button" value="Chọn hợp đồng" id="btPopupSearchHopDong"></div>
 					<div id="tab">		
 					</div>
 				</fieldset>
 				<div style="clear:both;margin-top:10px"></div>
 				<fieldset class="data_list">
 					<legend>Danh sách sự cố giảm trừ</legend>
-					<div style="width: 100%; padding-bottom: 5px;text-align: right;"><input class="button" type="button" value="Chọn sự cố" id="btPopupSearchSuCo"></div>
 					<table width="100%" id="dataTable" class="display">
 					<thead>
 							<tr>
 								<th width="3px">STT</th>
 								<th width="30px">Mã tuyến kênh</th>
-								<th>Mã điểm đầu</th>
-								<th>Mã điểm cuối</th>
-								<th>Giao tiếp</th>
-								<th>Dung lượng</th>
-								<th width="50px">Thời gian bắt đầu</th>
-								<th width="50px">Thời gian kết thúc</th>
+								<th width="50px">Mã điểm đầu</th>
+								<th width="50px">Mã điểm cuối</th>
+								<th width="50px">Giao tiếp</th>
+								<th width="50px">Dung lượng</th>
+								<th width="100px">Thời gian bắt đầu</th>
+								<th width="100px">Thời gian kết thúc</th>
 								<th width="50px">Thời gian mất liên lạc</th>
-								<th width="50px">Nguyên nhân</th>
-								<th width="50px">Phương án xử lý</th>
+								<th width="200px">Nguyên nhân</th>
+								<th width="100px">Phương án xử lý</th>
 								<th width="50px">Người xác nhận</th>
 								<th width="50px">Người tạo</th>
 								<th width="50px">Ngày tạo</th>
-								<th width="5px" align="center">Xóa</th>
 							</tr>
 						</thead>
 						<tbody>						
@@ -206,7 +212,7 @@ function byId(id) { //Viet tat cua ham document.getElementById
 	}
 	function addRow(stt,data) {
 		oTable.fnAddData([
-			stt,data.tuyenkenh_id,data.madiemdau,data.madiemcuoi,data.loaigiaotiep,data.dungluong,data.thoidiembatdau,data.thoidiemketthuc,data.thoigianmll,data.nguyennhan,data.phuonganxuly,data.nguoixacnhan,data.usercreate,data.timecreate,'<center><input type="text" style="display:none" name="suco_ids" value="'+data.suco_id+'" id="suco_id_'+data.suco_id+'"/><img title="Remove" src="'+baseUrl+'/images/icons/remove.png" onclick="doRemoveRow(this)" style="cursor:pointer"></center>'
+			stt,data.tuyenkenh_id,'<center>'+data.madiemdau+'</center>','<center>'+data.madiemcuoi+'</center>','<center>'+data.loaigiaotiep+'</center>','<center>'+data.dungluong+' MB</center>','<center>'+data.thoidiembatdau+'</center>','<center>'+data.thoidiemketthuc+'</center>','<center>'+data.thoigianmll+'</center>',data.nguyennhan,data.phuonganxuly,'<center>'+data.nguoixacnhan+'</center>','<center>'+data.usercreate+'</center>',data.timecreate+'<input type="text" style="display:none" name="suco_ids" value="'+data.id+'" id="suco_id_'+data.id+'"/>'
 		]);
 	}
 
@@ -227,8 +233,7 @@ function byId(id) { //Viet tat cua ham document.getElementById
 				trangthai+='Bị thay thế bởi phụ lục: <a href="${detailPhuLucURL}?id='+this.id+'" title="'+this.tenphuluc+'">'+this.tenphuluc.vmsSubstr(20)+"</a><br>";
 			});
 		obj.fnAddData([
-    		'<center>'+stt+'</center>',data.tenphuluc,loaiphuluc,data.tendoitac,data.soluongkenh,data.giatritruocthue,data.giatrisauthue,trangthai,thanhtoan
-    		,'<center><input type="checkbox" checked="true"/><input id="phuluc_id" style="display:none" value="'+data.id+'"/></center>'
+			'<center>'+stt+'</center>',data.tenphuluc,'<center>'+loaiphuluc+'/<center>','<center>'+data.tendoitac+'</center>','<center>'+data.soluongkenh+'</center>','<center class="currency">'+data.giatritruocthue+'</center>','<center class="currency">'+data.giatrisauthue+'</center>','<center>'+data.ngayhieuluc+'</center>','<center>'+trangthai+'</center>','<center>'+thanhtoan+'</center>'
 		]);
 	}
 	function addhopdong(container,data,i)
@@ -238,7 +243,7 @@ function byId(id) { //Viet tat cua ham document.getElementById
 			loaihopdong="Có thời hạn";
 		else 
 			loaihopdong="Không có thời hạn";
-		var rowhopdong=  '<h3 class="div_'+data.id+'"><a href="#">Số hợp đồng: '+data.sohopdong+'</a><table class="hopdonginfo"><tr><td>Loại hợp đồng: '+loaihopdong+'</td><td>Đối tác: '+data.tendoitac+'</td><td>Ngày ký: '+data.ngayky+'</td><td>Ngày hết hạn: '+data.ngayhethan+'</td></tr></table><div class="del" title="Xóa hợp đồng" id="'+data.id+'"></div></h3>'
+		var rowhopdong=  '<h3 class="div_'+data.id+'"><a href="#">Số hợp đồng: '+data.sohopdong+'</a><table class="hopdonginfo"><tr><td>Loại hợp đồng: '+loaihopdong+'</td><td>Đối tác: '+data.tendoitac+'</td><td>Ngày ký: '+data.ngayky+'</td><td>Ngày hết hạn: '+data.ngayhethan+'</td></tr></table></h3>'
 						+'<div class="div_'+data.id+' listphuluc">'
 							+'<input id="hopdong_id" style="display:none" value="'+data.id+'"/>'
 							+'<input id="sohopdong" style="display:none" value="'+data.sohopdong+'"/>'
@@ -252,9 +257,9 @@ function byId(id) { //Viet tat cua ham document.getElementById
 										+'<th>Số lượng kênh</th>'
 										+'<th>Giá trị trước thuế</th>'
 										+'<th>Giá trị sau thuế</th>'
+										+'<th>Ngày hiệu lực</th>'
 										+'<th>Trạng thái</th>'
 										+'<th>Thanh toán</th>'
-										+'<th><input type="checkbox" class="checkall"/></th>'
 									+'</tr>'
 								+'</thead>'	
 								+'<tbody>'
@@ -273,10 +278,6 @@ function byId(id) { //Viet tat cua ham document.getElementById
 		});
 		$("#tab").append(div);
 		$(div).accordion();
-		$(".del").click(function(){
-			var id=$(this).attr("id");
-			$(".div_"+id).remove();
-		});
 		$.each(data,function(){
 			var oPLtable=$('#datatable_'+this.id).dataTable({
 				"bJQueryUI": true,
@@ -305,7 +306,7 @@ function byId(id) { //Viet tat cua ham document.getElementById
 										i++;
 									});
 								} else {
-									oPLtable.fnAddData([0,'','','','','','','','','']);
+									oPLtable.fnAddData([0,'','','','','','','','','','']);
 									oPLtable.fnDeleteRow(0);
 								}
 							}
@@ -363,6 +364,11 @@ function byId(id) { //Viet tat cua ham document.getElementById
 										addphuluc(oPLtable,i+1,this);
 										i++;
 									});
+									$(".currency,#giatritt").formatCurrency({ 
+										region : 'vn',
+										roundToDecimalPlace: 0, 
+										eventOnDecimalsEntered: true 
+									});
 								} else {
 									oPLtable.fnAddData([0,'','','','','','','','','']);
 									oPLtable.fnDeleteRow(0);
@@ -379,8 +385,56 @@ function byId(id) { //Viet tat cua ham document.getElementById
 				selectAllPhuLuc('datatable_'+id,this);
 			});
 		});
+		
 	}
+	var searchbangdoisoatcuoc = new PopupSearch();
 	$(document).ready(function() {
+		var doisoatcuoc_id='';
+		searchbangdoisoatcuoc.init({
+			url : "${popupSearchbangdoisoatcuocURL}",
+			button : "#btPopupSearchBangDoiSoatCuoc",
+			afterSelected : function(data) {	
+				data = data[0];
+				$("#doisoatcuoc_id").val(data.id);
+				$("#giatritt").val(data.thanhtien);
+				var tungay=data.tungay.replace(" 00:00:00.0","");
+				tungay=tungay.split("-");
+				if(tungay.length>=3)
+				{
+					$("#thang").val(tungay[1]);
+					$("#nam").val(tungay[0]);
+				}
+				$.ajax( {
+					"dataType": 'json', 
+					"type": "POST", 
+					"url": "${loadformbydoisoatcuocURL}", 
+					"data": "doisoatcuoc_id="+data.id, 
+					"success": function(response){
+						if(response.result == "ERROR") {
+							alert("Lỗi kết nối server, vui lòng thử lại.");
+						} else {
+							if(response.phuluc_hopdongs.length!=0)
+							{
+								var phuluc_hopdong=$.parseJSON(response.phuluc_hopdongs);
+								LoadHopDongEdit(phuluc_hopdong);
+							}
+							// load su co
+							if(response.sucos.length != 0) {
+								var i = 0;
+								$.each(response.sucos,function(){
+									addRow(i+1,this);
+									i++;
+								});
+							} else {
+								oTable.fnAddData([0,'','','','','','','','','','','','','']);
+								oTable.fnDeleteRow(0);
+							}
+						}
+					}
+				});
+			}
+		}); 
+		
 		// combobox nam
 		var currentTime = new Date();
 		var year = currentTime.getFullYear();
@@ -390,25 +444,6 @@ function byId(id) { //Viet tat cua ham document.getElementById
 		}
 		//
 		upload_utils.init();
-		popup_search_hopdong.init({
-			url : "${popupSearchHopDongURL}",
-			afterSelected : function(data) {
-				LoadHopDong(data);
-			}
-		});
-		popup_search_suco.init({
-			url : "${popupSearchSuCoKenhURL}",
-			afterSelected : function(data) {
-				var i=1;
-				$.each(data,function(){
-					if($("#suco_id_"+this.id).length == 0) {
-						addRow(i,this);
-						i++;
-					}
-				});
-			}
-		});
-		
 		// load datetime
 		$( ".datepicker" ).datepicker({
 			showButtonPanel: true,
@@ -443,6 +478,7 @@ function byId(id) { //Viet tat cua ham document.getElementById
 		});
 		// load edit
 		var thanhtoan_id = '';
+		
 		var form_data = '<s:property value="form_data" escape="false"/>';
 		var phuluchopdongs_data='<s:property value="phuluchopdongs_data" escape="false"/>';
 		
@@ -470,7 +506,7 @@ function byId(id) { //Viet tat cua ham document.getElementById
 				"bSort":false,
 				"bFilter": false,"bInfo": false,
 				"bPaginate" : false
-			});
+			});	
 		} else {
 			oTable = $('#dataTable').dataTable({
 				"bJQueryUI": true,
@@ -480,7 +516,7 @@ function byId(id) { //Viet tat cua ham document.getElementById
 				"bSort":false,
 				"bFilter": false,"bInfo": false,
 				"bPaginate" : false,
-				"sAjaxSource": "${findsucoBythanhtoanURL}?id="+thanhtoan_id,
+				"sAjaxSource": "${findsucoByDoiSoatCuocURL}?id="+thanhtoan_id,
 				"aoColumns": null,
 				"fnServerData": function ( sSource, aoData, fnCallback ) {
 					$.ajax( {
@@ -499,7 +535,7 @@ function byId(id) { //Viet tat cua ham document.getElementById
 										i++;
 									});
 								} else {
-									oTable.fnAddData([0,'','','','','','','','','','','','','','']);
+									oTable.fnAddData([0,'','','','','','','','','','','','','']);
 									oTable.fnDeleteRow(0);
 								}
 							}
@@ -520,38 +556,9 @@ function byId(id) { //Viet tat cua ham document.getElementById
 				$(this).disabled = false;
 			} else {
 				var dataString = $("#form").serialize();
-				var i=0;
-				var error="";
-				$(".listphuluc").each(function(){
-					var hopdong_id=$('#hopdong_id',this).val();
-					var j=0;
-					dataString+="&phuluchopdongDtos["+i+"].hopdong_id="+hopdong_id;
-					var soluongphuluc=0;
-					$("table tbody tr",this).each(function(){
-						var checkbox=$("input[type='checkbox']",this);
-						if(checkbox.attr("checked")=="checked")
-						{
-							var phuluc_id=$("#phuluc_id",this).val();
-							dataString+="&phuluchopdongDtos["+i+"].phuluc_ids["+j+"]="+phuluc_id;
-							soluongphuluc++;
-						}
-						j++;
-					});
-					if(soluongphuluc==0)
-					{
-						if(error!="")
-							error+=", ";
-						error+=$("#sohopdong",this).val();
-					}
-					i++;
-				});
-				if(i==0)
+				if($("#doisoatcuoc_id").val()=="")
 				{
-					alert("Vui lòng chọn hợp đồng.");
-				}
-				if(error!="")
-				{
-					alert("Hợp đồng :"+error+" chưa chọn phụ lục. Vui lòng chọn đầy đủ phụ lục cho hợp đồng.");
+					alert("Vui lòng chọn bảng đối soát cước");
 				}
 				else
 				{
@@ -563,27 +570,11 @@ function byId(id) { //Viet tat cua ham document.getElementById
 							$(this).disabled = false;
 							if (response == "OK") {
 								$(this).disabled = true;
-								message(
-										" Lưu thành công!",
-										1);
+								message(" Lưu thành công!",1);
 								parent.reload = true;
 								return;
 							}
-							else if(response=="Date")
-							{
-								$(this).disabled = true;
-								message(" Ngày hết hạn phải lớn hơn ngày ký.",0);
-								return;
-							}
-							else if(response=="exist")
-							{
-								$(this).disabled = true;
-								message(" Số hồ sơ đã tồn tại trong cơ sở dữ liệu. Vui lòng nhập số hồ sơ khác.",0);
-								return;
-							}
-							message(
-									" Lưu không thành công, vui lòng thử lại.",
-									0);
+							message(" Lưu không thành công, vui lòng thử lại.",0);
 						},
 						error : function(response) {
 							$(this).disabled = false;

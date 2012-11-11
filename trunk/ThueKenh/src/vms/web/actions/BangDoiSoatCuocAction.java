@@ -3,6 +3,7 @@ package vms.web.actions;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.LinkedHashMap;
@@ -11,14 +12,19 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import jxl.write.WritableWorkbook;
+
+import org.apache.catalina.connector.Request;
 import org.apache.struts2.ServletActionContext;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.simple.JSONValue;
 
 import vms.db.dao.DaoFactory;
+import vms.db.dao.DoiSoatCuocDAO;
 import vms.db.dao.DoiTacDAO;
 import vms.db.dao.PhuLucDAO;
+import vms.db.dao.ReportDao;
 import vms.db.dao.SuCoDAO;
 import vms.db.dao.ThanhToanDAO;
 import vms.db.dao.HopDongDAO;
@@ -36,6 +42,7 @@ import vms.db.dto.TuyenKenh;
 import vms.db.dto.PhuLucHopDongDTO;
 import vms.utils.Constances;
 import vms.utils.DateUtils;
+import vms.utils.NumberUtil;
 import vms.utils.VMSUtil;
 
 import com.opensymphony.xwork2.Action;
@@ -53,9 +60,24 @@ public class BangDoiSoatCuocAction implements Preparable {
 	private String[] ids;
 	private String[] suco_ids;
 	private Map<String,Object> detail;
-	private List<PhuLucHopDongDTO> phuluchopdongDtos;
+	private String[] phuluc_ids;
+	private List<Map<String,Object>> doiTacs;
+	private LinkedHashMap<String, Object> jsonData;
+	private Map<String,Object> json;
 	
 	
+	public Map<String, Object> getJson() {
+		return json;
+	}
+	public void setJson(Map<String, Object> json) {
+		this.json = json;
+	}
+	public List<Map<String, Object>> getDoiTacs() {
+		return doiTacs;
+	}
+	public void setDoiTacs(List<Map<String, Object>> doiTacs) {
+		this.doiTacs = doiTacs;
+	}
 	public String getPhuluchopdongs_data() {
 		return phuluchopdongs_data;
 	}
@@ -68,11 +90,12 @@ public class BangDoiSoatCuocAction implements Preparable {
 	public void setSuco_ids(String[] suco_ids) {
 		this.suco_ids = suco_ids;
 	}
-	public List<PhuLucHopDongDTO> getPhuluchopdongDtos() {
-		return phuluchopdongDtos;
+	
+	public String[] getPhuluc_ids() {
+		return phuluc_ids;
 	}
-	public void setPhuluchopdongDtos(List<PhuLucHopDongDTO> phuluchopdongDtos) {
-		this.phuluchopdongDtos = phuluchopdongDtos;
+	public void setPhuluc_ids(String[] phuluc_ids) {
+		this.phuluc_ids = phuluc_ids;
 	}
 	public Map<String, Object> getDetail() {
 		return detail;
@@ -98,8 +121,6 @@ public class BangDoiSoatCuocAction implements Preparable {
 	public void setId(String id) {
 		this.id = id;
 	}
-	private ThanhToanDTO thanhtoanDTO;
-	private LinkedHashMap<String, Object> jsonData;
 	
 	public LinkedHashMap<String, Object> getJsonData() {
 		return jsonData;
@@ -108,12 +129,7 @@ public class BangDoiSoatCuocAction implements Preparable {
 		this.jsonData = jsonData;
 	}
 	
-	public ThanhToanDTO getThanhtoanDTO() {
-		return thanhtoanDTO;
-	}
-	public void setThanhtoanDTO(ThanhToanDTO thanhtoanDTO) {
-		this.thanhtoanDTO = thanhtoanDTO;
-	}
+	
 	public BangDoiSoatCuocAction( DaoFactory factory) {
 		daoFactory = factory;
 	}
@@ -144,160 +160,94 @@ public class BangDoiSoatCuocAction implements Preparable {
 			session.setAttribute("URL", VMSUtil.getFullURL(request));
 			return "login_page";
 		}
+		DoiTacDAO doitacDao = new DoiTacDAO(daoFactory);
+		doiTacs = doitacDao.findAll();
 		return Action.SUCCESS;
 	}
 	
 	//load form
 	public String form() {
-		try {
-			if(account == null) {
-				session.setAttribute("URL", VMSUtil.getFullURL(request));
-				return "login_page";
-			}
-			form_data = "";
-			System.out.println("id:"+id);
-			if(id != null && id.isEmpty()==false) {
-				System.out.println("id=" + id);
-				ThanhToanDAO hosothanhtoanDao = new ThanhToanDAO(daoFactory);
-				thanhtoanDTO = hosothanhtoanDao.findById(id);
-				System.out.println(thanhtoanDTO.getId());
-				Map<String,String> map = thanhtoanDTO.getMap();
-				form_data = JSONValue.toJSONString(map);
-				ThanhToanPhuLucDAO tpDao=new ThanhToanPhuLucDAO(daoFactory);
-				List<HopDongDetailDTO> lstHopDong=tpDao.findHopDongByThanhToanId(id);
-				phuluchopdongs_data="";
-				for(int i=0;i<lstHopDong.size();i++)
-				{
-					if(!phuluchopdongs_data.isEmpty())
-						phuluchopdongs_data+=",";
-					phuluchopdongs_data+="{\"id\":"+lstHopDong.get(i).getId()+",";
-					phuluchopdongs_data+="\"sohopdong\":\""+lstHopDong.get(i).getSohopdong()+"\",";
-					phuluchopdongs_data+="\"loaihopdong\":\""+lstHopDong.get(i).getLoaihopdong()+"\",";
-					phuluchopdongs_data+="\"tendoitac\":\""+lstHopDong.get(i).getTendoitac()+"\",";
-					phuluchopdongs_data+="\"ngayky\":\""+lstHopDong.get(i).getNgayky()+"\",";
-					phuluchopdongs_data+="\"ngayhethan\":\""+lstHopDong.get(i).getNgayhethan()+"\",";
-					List<String> lstPhuLuc=tpDao.findPhuLucByThanhToan_HopDong(id, lstHopDong.get(i).getId());
-					phuluchopdongs_data+="\"phuluc_id\":[";
-					String phuluc_ids="";
-					for(int j=0;j<lstPhuLuc.size();j++)
-					{
-						if(!phuluc_ids.isEmpty())
-							phuluc_ids+=",";
-						phuluc_ids+="{\"id\":"+lstPhuLuc.get(j)+"}";
-					}
-					phuluchopdongs_data+=phuluc_ids;
-					phuluchopdongs_data+="]";
-					phuluchopdongs_data+="}";
-				}
-				phuluchopdongs_data="["+phuluchopdongs_data+"]";
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			return Action.ERROR;
+		if(account == null) {
+			session.setAttribute("URL", VMSUtil.getFullURL(request));
+			return "login_page";
 		}
+		json = new LinkedHashMap<String, Object>();
+		json.put("thanhtien", request.getParameter("thanhtien"));
+		json.put("giamtrumll", request.getParameter("giamtrumll"));
+		json.put("id", request.getParameter("id"));
 		return Action.SUCCESS;
 	}
 	
 	// save ho so thanh toan
 	public String doSave() {
+		jsonData=new LinkedHashMap<String, Object>();
 		try {
 			if(account == null) {
 				session.setAttribute("URL", VMSUtil.getFullURL(request));
 				return "login_page";
 			}
-			thanhtoanDTO.setNgaychuyenkt(DateUtils.parseStringDateSQL(thanhtoanDTO.getNgaychuyenkt(), "dd/MM/yyyy"));
-			thanhtoanDTO.setTrangthai(0);
-			thanhtoanDTO.setUsercreate(account.get("username").toString());
-			thanhtoanDTO.setTimecreate(DateUtils.getCurrentDateSQL());
-			thanhtoanDTO.setDeleted(0);
-			ThanhToanDAO hosothanhtoanDao=new ThanhToanDAO(daoFactory);
-			String thanhtoan_id=hosothanhtoanDao.save(thanhtoanDTO);
-			if(thanhtoan_id==null) 
-				throw new Exception(Constances.MSG_ERROR);
-			else
-			{
-				SuCoDAO sucoDao=new SuCoDAO(daoFactory);
-				SuCoDTO sucoDto=null;
-				if(thanhtoanDTO.getId().isEmpty()==false)
-				{
-					// reset su co kenh ve trang thai chua co thanhtoan_id
-					List<SuCoDTO> listsuco_old=sucoDao.findSuCoByThanhToanId(thanhtoanDTO.getId());
-					System.out.println("Begin reset thanhtoan_id");
-					if(listsuco_old!=null && listsuco_old.size()>0)
-					{
-						for(int i=0;i<listsuco_old.size();i++)
-						{
-							sucoDto=listsuco_old.get(i);
-							// update su co
-							sucoDto.setThanhtoan_id("0");
-							Long thoidiembatdau=DateUtils.parseDate(sucoDto.getThoidiembatdau(), "dd/MM/yyyy HH:mm:ss").getTime();
-							Long thoidiemketthuc=DateUtils.parseDate(sucoDto.getThoidiemketthuc(), "dd/MM/yyyy HH:mm:ss").getTime();
-							sucoDto.setThoidiembatdau(thoidiembatdau.toString());
-							sucoDto.setThoidiemketthuc(thoidiemketthuc.toString());
-							sucoDao.save(sucoDto);
-						}
-					}
-					System.out.println("end reset thanhtoan_id");
-				}
-				// save su co kenh
-				System.out.println("begin save su co");
-				if(suco_ids!= null && suco_ids.length > 0) {
-					// update thanhtoan_id cho suco
-					for(int i=0;i<suco_ids.length;i++)
-					{
-						System.out.println("suco_id:"+suco_ids[i]);
-						sucoDto=sucoDao.findById(suco_ids[i]);
-						if(sucoDto!=null)
-						{
-							// update su co
-							sucoDto.setThanhtoan_id(thanhtoan_id);
-							Long thoidiembatdau=DateUtils.parseDate(sucoDto.getThoidiembatdau(), "dd/MM/yyyy HH:mm:ss").getTime();
-							Long thoidiemketthuc=DateUtils.parseDate(sucoDto.getThoidiemketthuc(), "dd/MM/yyyy HH:mm:ss").getTime();
-							sucoDto.setThoidiembatdau(thoidiembatdau.toString());
-							sucoDto.setThoidiemketthuc(thoidiemketthuc.toString());
-							sucoDao.save(sucoDto); 
-						}
-					}
-				}
-				
-				System.out.println("id:"+id);
-				ThanhToanPhuLucDAO tpDao=new ThanhToanPhuLucDAO(daoFactory);
-				
-				// Xoa thanhtoan_phuluc by thanhtoan_id
-				tpDao.deletebythanhtoan_id(thanhtoan_id);
-				
-				// save thanhtoan_phuluc
-				for(int i=0;i<phuluchopdongDtos.size();i++)
-				{
-					List<String> phuluc_ids=phuluchopdongDtos.get(i).getPhuluc_ids();
-					for(int j=0;j<phuluc_ids.size();j++)
-					{
-						ThanhToanPhuLucDTO tpDto=new ThanhToanPhuLucDTO();
-						tpDto.setThanhtoan_id(thanhtoan_id);
-						tpDto.setPhuluc_id(phuluc_ids.get(j));
-						tpDao.save(tpDto);
-						System.out.println("phuluchopdongDtos["+i+"].phuluc_ids["+j+"]:"+phuluc_ids.get(j));
-					}
-				}
-			}
-			setInputStream("OK");
-			
+			String doitac_id=request.getParameter("doitac_id");
+			String thang=request.getParameter("thang");
+			String nam=request.getParameter("nam");
+			int year = NumberUtil.parseInt(nam);
+			int month = NumberUtil.parseInt(thang)-1;
+			int date = 1;
+			Calendar calendar = Calendar.getInstance();
+			calendar.set(year, month, date);
+			int maxDay = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+			Date sqlTuNgay = DateUtils.parseToSQLDate("01/"+thang+"/"+nam,"dd/MM/yyyy");
+			Date sqlDenNgay = DateUtils.parseToSQLDate(maxDay+"/"+thang+"/"+nam,"dd/MM/yyyy");
+			DoiSoatCuocDAO reportdao=new DoiSoatCuocDAO(daoFactory);
+			for(int i=0;i<phuluc_ids.length;i++)
+				System.out.println("phuluc_ids[i]:"+phuluc_ids[i]);
+			Map<String, Object> map = reportdao.saveDoiSoatCuoc(doitac_id, sqlTuNgay, sqlDenNgay, phuluc_ids, suco_ids);
+			System.out.println("Doi soat cuoc ID =" +map.get("id"));
+			System.out.println("Tong tien thanh toan = "+map.get("thanhtien"));
+			System.out.println("Tong tien giam tru mat lien lac =" +map.get("giamtrumll"));
+			jsonData.put("status", "OK");
+			jsonData.put("data", map);
 		} catch (Exception e) {
 			e.printStackTrace();
-			//session.setAttribute("message", e.getMessage());
-			setInputStream(e.getMessage());
+			jsonData.put("status", "ERROR");
+			jsonData.put("data", e.getMessage());
 		}
 		return Action.SUCCESS;
 	}
 	
-	// load ho so thanh toan
-	public String ajLoadHoSoThanhToan() {
+	public String doSavebangdoisoatcuoc() {
+		jsonData = new LinkedHashMap<String, Object>();
+		try {
+			if(account == null) {
+				session.setAttribute("URL", VMSUtil.getFullURL(request));
+				throw new Exception("END_SESSION");
+			}
+			String tenbangdoisoatcuoc=request.getParameter("tenbangdoisoatcuoc");
+			String check=request.getParameter("check");
+			String id=request.getParameter("id");
+			DoiSoatCuocDAO doisoatcuocDao=new DoiSoatCuocDAO(daoFactory);
+			if(check.compareTo("1")==0) // luu
+			{
+				doisoatcuocDao.updateDoiSoatCuoc(tenbangdoisoatcuoc, id);
+			}
+			else
+			{
+				doisoatcuocDao.deleteDoiSoatCuoc(id);
+			}
+			jsonData.put("status", "OK");
+			jsonData.put("data", "");
+		} catch (Exception e) {
+			e.printStackTrace();
+			jsonData.put("status", "ERROR");
+			jsonData.put("data", e.getMessage());
+		}
+		return Action.SUCCESS;
+	}
+	public String load() {
 		try {
 			//if(account == null) throw new Exception("END_SESSION");
 			Integer iDisplayStart = Integer.parseInt(request.getParameter("iDisplayStart"));
 			Integer iDisplayLength = Integer.parseInt(request.getParameter("iDisplayLength"));
 			String sSearch = request.getParameter("sSearch").trim();
-			System.out.println("sSearch:"+sSearch);
 			Map<String, String> conditions = new LinkedHashMap<String, String>();
 			if(sSearch.isEmpty() == false) {
 				JSONArray arrayJson = (JSONArray) new JSONObject(sSearch).get("array");
@@ -309,9 +259,9 @@ public class BangDoiSoatCuocAction implements Preparable {
 					}
 				}
 			}
-			HopDongDAO hopdongDao = new HopDongDAO(daoFactory);
-			System.out.println("conditions="+conditions);
-			List<Map<String, Object>> items = hopdongDao.search(iDisplayStart, iDisplayLength, conditions);
+			DoiSoatCuocDAO dscuocDao=new DoiSoatCuocDAO(daoFactory);
+			List<Map<String,Object>> items = dscuocDao.search(iDisplayStart, 
+					iDisplayLength + 1, conditions);
 			int iTotalRecords = items.size();
 			if(iTotalRecords > iDisplayLength) {
 				items.remove(iTotalRecords - 1);
@@ -324,38 +274,8 @@ public class BangDoiSoatCuocAction implements Preparable {
 			return Action.SUCCESS;
 		} catch (Exception e) {
 			// TODO: handle exception
-			//setInputStream(str)
 			e.printStackTrace();
 		}
 		return Action.SUCCESS;
 	}
-		
-	public String delete() {
-		try {
-			if(account == null) {
-				session.setAttribute("URL", VMSUtil.getFullURL(request));
-				throw new Exception("END_SESSION");
-			}
-			if(ids != null && ids.length >0 ) {
-				ThanhToanDAO hosothanhtoanDao = new ThanhToanDAO(daoFactory);
-				hosothanhtoanDao.deleteByIds(ids);
-			}
-			setInputStream("OK");
-		} catch (Exception e) {
-			e.printStackTrace();
-			setInputStream(e.getMessage());
-		}
-		return Action.SUCCESS;
-	}
-	
-	public String detail() {
-		ThanhToanDAO hosothanhtoanDao = new ThanhToanDAO(daoFactory);
-		if(id == null) return Action.ERROR;
-		detail = hosothanhtoanDao.getDetail(id);
-		if(detail == null) return Action.ERROR;
-		/*jsonData = new LinkedHashMap<String, Object>();
-		jsonData.put("test", "Hello world!");*/
-		return Action.SUCCESS;
-	}
-	
 }
