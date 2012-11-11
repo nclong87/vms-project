@@ -24,7 +24,6 @@ import vms.db.dao.DaoFactory;
 import vms.db.dao.DoiSoatCuocDAO;
 import vms.db.dao.DoiTacDAO;
 import vms.db.dao.PhuLucDAO;
-import vms.db.dao.ReportDao;
 import vms.db.dao.SuCoDAO;
 import vms.db.dao.ThanhToanDAO;
 import vms.db.dao.HopDongDAO;
