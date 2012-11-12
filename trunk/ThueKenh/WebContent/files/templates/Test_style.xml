@@ -4,24 +4,6 @@
  xmlns:x="urn:schemas-microsoft-com:office:excel"
  xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
  xmlns:html="http://www.w3.org/TR/REC-html40">
- <DocumentProperties xmlns="urn:schemas-microsoft-com:office:office">
-  <LastAuthor>nclong</LastAuthor>
-  <Created>2012-11-12T16:01:03Z</Created>
-  <LastSaved>2012-11-12T16:02:16Z</LastSaved>
-  <Version>10.2625</Version>
- </DocumentProperties>
- <OfficeDocumentSettings xmlns="urn:schemas-microsoft-com:office:office">
-  <DownloadComponents/>
-  <LocationOfComponents HRef="file:///F:\Soft%20ho%20tro%20hoc%20hanh\Soft%20van%20phong\OFFICE%20XP\"/>
- </OfficeDocumentSettings>
- <ExcelWorkbook xmlns="urn:schemas-microsoft-com:office:excel">
-  <WindowHeight>10005</WindowHeight>
-  <WindowWidth>10005</WindowWidth>
-  <WindowTopX>120</WindowTopX>
-  <WindowTopY>135</WindowTopY>
-  <ProtectStructure>False</ProtectStructure>
-  <ProtectWindows>False</ProtectWindows>
- </ExcelWorkbook>
  <Styles>
   <Style ss:ID="Default" ss:Name="Normal">
    <Alignment ss:Vertical="Bottom"/>
