@@ -1,6 +1,8 @@
 package vms.utils;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.StringWriter;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
@@ -12,6 +14,8 @@ import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
 import javax.servlet.http.HttpServletRequest;
+
+import org.apache.commons.io.IOUtils;
 
 public class VMSUtil {
     @SuppressWarnings("unchecked")
@@ -89,5 +93,11 @@ public class VMSUtil {
 		strOutput = strOutput.replace(replacement[0], replacement[1]);
 		}
 		return strOutput;
+    }
+    
+    public static String readStringInStream(InputStream inputStream) throws IOException {
+    	StringWriter writer = new StringWriter();
+		IOUtils.copy(inputStream, writer, "UTF-8");
+		return writer.toString();
     }
 }
