@@ -4,6 +4,21 @@
  xmlns:x="urn:schemas-microsoft-com:office:excel"
  xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
  xmlns:html="http://www.w3.org/TR/REC-html40">
+ <DocumentProperties xmlns="urn:schemas-microsoft-com:office:office">
+  <Version>10.2625</Version>
+ </DocumentProperties>
+ <OfficeDocumentSettings xmlns="urn:schemas-microsoft-com:office:office">
+  <DownloadComponents/>
+  <LocationOfComponents HRef="file:///F:\Soft%20ho%20tro%20hoc%20hanh\Soft%20van%20phong\OFFICE%20XP\"/>
+ </OfficeDocumentSettings>
+ <ExcelWorkbook xmlns="urn:schemas-microsoft-com:office:excel">
+  <WindowHeight>10005</WindowHeight>
+  <WindowWidth>10005</WindowWidth>
+  <WindowTopX>120</WindowTopX>
+  <WindowTopY>135</WindowTopY>
+  <ProtectStructure>False</ProtectStructure>
+  <ProtectWindows>False</ProtectWindows>
+ </ExcelWorkbook>
  <Styles>
   <Style ss:ID="Default" ss:Name="Normal">
    <Alignment ss:Vertical="Bottom"/>
@@ -13,8 +28,8 @@
    <NumberFormat/>
    <Protection/>
   </Style>
-  <Style ss:ID="m29574156">
-   <Alignment ss:Horizontal="Center" ss:Vertical="Bottom"/>
+  <Style ss:ID="m29574032">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Center"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
     <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -22,7 +37,7 @@
     <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
    </Borders>
   </Style>
-  <Style ss:ID="m29574166">
+  <Style ss:ID="m29574042">
    <Alignment ss:Horizontal="Center" ss:Vertical="Bottom"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -86,7 +101,8 @@
   </Style>
  </Styles>
  <Worksheet ss:Name="Reporting">
-  <Table >
+  <Table ss:ExpandedColumnCount="8" ss:ExpandedRowCount="16" x:FullColumns="1"
+   x:FullRows="1">
    <Column ss:AutoFitWidth="0" ss:Width="84.75"/>
    <Column ss:AutoFitWidth="0" ss:Width="114.75" ss:Span="1"/>
    <Column ss:Index="4" ss:AutoFitWidth="0" ss:Width="159.75"/>
@@ -108,15 +124,17 @@
    <Row ss:AutoFitHeight="0" ss:Height="18">
     <Cell ss:StyleID="s27"><Data ss:Type="String">Staff Memeber Report</Data></Cell>
    </Row>
-   <Row>
+   <Row ss:AutoFitHeight="0" ss:Height="12">
     <Cell ss:StyleID="s28"><Data ss:Type="String">User Id</Data></Cell>
     <Cell ss:StyleID="s28"><Data ss:Type="String">Account Name</Data></Cell>
     <Cell ss:StyleID="s28"><Data ss:Type="String">Số lượng</Data></Cell>
     <Cell ss:StyleID="s28"><Data ss:Type="String">Thành tiền</Data></Cell>
    </Row>
+   <Row ss:AutoFitHeight="0" ss:Hidden="1">
+    <Cell ss:MergeDown="6" ss:StyleID="m29574032"><Data ss:Type="String">1</Data></Cell>
+   </Row>
    <Row>
-    <Cell ss:MergeDown="5" ss:StyleID="m29574156"><Data ss:Type="String">1</Data></Cell>
-    <Cell ss:StyleID="s36"><Data ss:Type="String">Thien</Data></Cell>
+    <Cell ss:Index="2" ss:StyleID="s36"><Data ss:Type="String">Thien</Data></Cell>
     <Cell ss:StyleID="s37"><Data ss:Type="Number">2</Data></Cell>
     <Cell ss:StyleID="s37"><Data ss:Type="Number">1000</Data></Cell>
    </Row>
@@ -145,9 +163,11 @@
     <Cell ss:StyleID="s37"><Data ss:Type="Number">2</Data></Cell>
     <Cell ss:StyleID="s36"><Data ss:Type="Number">2</Data></Cell>
    </Row>
+   <Row ss:Hidden="1">
+    <Cell ss:MergeDown="2" ss:StyleID="m29574042"><Data ss:Type="Number">3</Data></Cell>
+   </Row>
    <Row>
-    <Cell ss:MergeDown="1" ss:StyleID="m29574166"><Data ss:Type="Number">3</Data></Cell>
-    <Cell ss:StyleID="s36"><Data ss:Type="String">Bát</Data></Cell>
+    <Cell ss:Index="2" ss:StyleID="s36"><Data ss:Type="String">Bát</Data></Cell>
     <Cell ss:StyleID="s37"><Data ss:Type="Number">6</Data></Cell>
     <Cell ss:StyleID="s37"><Data ss:Type="Number">4000</Data></Cell>
    </Row>
@@ -162,5 +182,17 @@
     <Cell ss:StyleID="s41"><Data ss:Type="Number">8000</Data></Cell>
    </Row>
   </Table>
+  <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+   <Selected/>
+   <Panes>
+    <Pane>
+     <Number>3</Number>
+     <ActiveRow>5</ActiveRow>
+     <RangeSelection>R6C1:R12C1</RangeSelection>
+    </Pane>
+   </Panes>
+   <ProtectObjects>False</ProtectObjects>
+   <ProtectScenarios>False</ProtectScenarios>
+  </WorksheetOptions>
  </Worksheet>
 </Workbook>

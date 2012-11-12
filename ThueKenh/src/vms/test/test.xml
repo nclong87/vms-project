@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+	xmlns:html="http://www.w3.org/TR/REC-html40" xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+	xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns:o="urn:schemas-microsoft-com:office:office">
+	<Styles>
+		<Style ss:Name="Normal" ss:ID="Default">
+			<Alignment ss:Vertical="Bottom" />
+			<Borders />
+			<Font />
+			<Interior />
+			<NumberFormat />
+			<Protection />
+		</Style>
+		<Style ss:ID="m29574032">
+			<Alignment ss:Vertical="Center" ss:Horizontal="Center" />
+			<Borders>
+				<Border ss:Weight="1" ss:LineStyle="Continuous" ss:Position="Bottom" />
+				<Border ss:Weight="1" ss:LineStyle="Continuous" ss:Position="Left" />
+				<Border ss:Weight="1" ss:LineStyle="Continuous" ss:Position="Right" />
+				<Border ss:Weight="1" ss:LineStyle="Continuous" ss:Position="Top" />
+			</Borders>
+		</Style>
+		<Style ss:ID="s21">
+			<Font ss:Bold="1" ss:Color="#FF0000" ss:Size="22" x:Family="Swiss" />
+		</Style>
+		<Style ss:ID="s22">
+			<Font ss:Color="#FF0000" x:Family="Swiss" />
+		</Style>
+		<Style ss:ID="s24">
+			<Alignment ss:Vertical="Bottom" ss:Horizontal="Center" />
+			<Font ss:Bold="1" ss:Size="14" />
+		</Style>
+		<Style ss:ID="s26">
+			<Alignment ss:Vertical="Bottom" ss:Horizontal="Right" />
+		</Style>
+		<Style ss:ID="s27">
+			<Font ss:Bold="1" ss:Size="12" />
+		</Style>
+		<Style ss:ID="s28">
+			<Borders>
+				<Border ss:Weight="1" ss:LineStyle="Continuous" ss:Position="Bottom" />
+				<Border ss:Weight="1" ss:LineStyle="Continuous" ss:Position="Left" />
+				<Border ss:Weight="1" ss:LineStyle="Continuous" ss:Position="Right" />
+				<Border ss:Weight="1" ss:LineStyle="Continuous" ss:Position="Top" />
+			</Borders>
+			<Font ss:Bold="1" ss:Color="#FFFFFF" x:Family="Swiss" />
+			<Interior ss:Pattern="Solid" ss:Color="#008080" />
+		</Style>
+		<Style ss:ID="s36">
+			<Borders>
+				<Border ss:Weight="1" ss:LineStyle="Continuous" ss:Position="Bottom" />
+				<Border ss:Weight="1" ss:LineStyle="Continuous" ss:Position="Left" />
+				<Border ss:Weight="1" ss:LineStyle="Continuous" ss:Position="Right" />
+				<Border ss:Weight="1" ss:LineStyle="Continuous" ss:Position="Top" />
+			</Borders>
+		</Style>
+		<Style ss:ID="s37">
+			<Borders>
+				<Border ss:Weight="1" ss:LineStyle="Continuous" ss:Position="Bottom" />
+				<Border ss:Weight="1" ss:LineStyle="Continuous" ss:Position="Left" />
+				<Border ss:Weight="1" ss:LineStyle="Continuous" ss:Position="Right" />
+				<Border ss:Weight="1" ss:LineStyle="Continuous" ss:Position="Top" />
+			</Borders>
+			<NumberFormat ss:Format="#,##0" />
+		</Style>
+		<Style ss:ID="s39">
+			<Alignment ss:Vertical="Center" ss:Horizontal="Right" />
+			<Borders />
+			<Font ss:Bold="1" x:Family="Swiss" />
+		</Style>
+		<Style ss:ID="s41">
+			<Alignment ss:Vertical="Center" />
+			<Font ss:Bold="1" x:Family="Swiss" />
+			<NumberFormat ss:Format="#,##0" />
+		</Style>
+	</Styles>
+	<Worksheet ss:Name="Reporting">
+		<Table>
+			<Column ss:Width="84.75" ss:AutoFitWidth="0" />
+			<Column ss:Span="1" ss:Width="114.75" ss:AutoFitWidth="0" />
+			<Column ss:Width="159.75" ss:AutoFitWidth="0" ss:Index="4" />
+			<Column ss:Width="114.75" ss:AutoFitWidth="0" />
+			<Column ss:Span="1" ss:Width="84.75" ss:AutoFitWidth="0" />
+			<Column ss:Width="159.75" ss:AutoFitWidth="0" ss:Index="8" />
+			<Row ss:Height="27.75" ss:AutoFitHeight="0">
+				<Cell ss:StyleID="s21">
+					<Data ss:Type="String">Example Spreadsheet</Data>
+				</Cell>
+				<Cell ss:StyleID="s22" />
+				<Cell ss:StyleID="s22" />
+				<Cell ss:StyleID="s22" />
+			</Row>
+			<Row ss:Height="18" ss:AutoFitHeight="0">
+				<Cell ss:StyleID="s24" ss:MergeAcross="3">
+					<Data ss:Type="String">Reporting</Data>
+				</Cell>
+			</Row>
+			<Row>
+				<Cell ss:StyleID="s26" ss:MergeAcross="3">
+					<Data ss:Type="String">Từ ngày #### đến ngày ####</Data>
+				</Cell>
+			</Row>
+			<Row ss:Height="18" ss:AutoFitHeight="0">
+				<Cell ss:StyleID="s27">
+					<Data ss:Type="String">Staff Memeber Report</Data>
+				</Cell>
+			</Row>
+			<Row ss:Height="12" ss:AutoFitHeight="0">
+				<Cell ss:StyleID="s28">
+					<Data ss:Type="String">User Id</Data>
+				</Cell>
+				<Cell ss:StyleID="s28">
+					<Data ss:Type="String">Account Name</Data>
+				</Cell>
+				<Cell ss:StyleID="s28">
+					<Data ss:Type="String">Số lượng</Data>
+				</Cell>
+				<Cell ss:StyleID="s28">
+					<Data ss:Type="String">Thành tiền</Data>
+				</Cell>
+			</Row>
+			<Row ss:Hidden="1">
+				<Cell ss:StyleID="m29574032" ss:MergeDown="2">
+					<Data ss:Type="String">1</Data>
+				</Cell>
+			</Row>
+			<Row>
+				<Cell ss:StyleID="s36" ss:Index="2">
+					<Data ss:Type="String">Thien</Data>
+				</Cell>
+				<Cell ss:StyleID="s37">
+					<Data ss:Type="Number">2</Data>
+				</Cell>
+				<Cell ss:StyleID="s37">
+					<Data ss:Type="Number">1000</Data>
+				</Cell>
+			</Row>
+			<Row>
+				<Cell ss:StyleID="s36" ss:Index="2">
+					<Data ss:Type="String">Long</Data>
+				</Cell>
+				<Cell ss:StyleID="s37">
+					<Data ss:Type="Number">4</Data>
+				</Cell>
+				<Cell ss:StyleID="s37">
+					<Data ss:Type="Number">2000</Data>
+				</Cell>
+			</Row>
+			<Row ss:Hidden="1">
+				<Cell ss:StyleID="m29574032" ss:MergeDown="2">
+					<Data ss:Type="String">3</Data>
+				</Cell>
+			</Row>
+			<Row>
+				<Cell ss:StyleID="s36" ss:Index="2">
+					<Data ss:Type="String">Bát</Data>
+				</Cell>
+				<Cell ss:StyleID="s37">
+					<Data ss:Type="Number">6</Data>
+				</Cell>
+				<Cell ss:StyleID="s37">
+					<Data ss:Type="Number">4000</Data>
+				</Cell>
+			</Row>
+			<Row>
+				<Cell ss:StyleID="s36" ss:Index="2">
+					<Data ss:Type="String">Bộ</Data>
+				</Cell>
+				<Cell ss:StyleID="s37">
+					<Data ss:Type="Number">2</Data>
+				</Cell>
+				<Cell ss:StyleID="s37">
+					<Data ss:Type="Number">1000</Data>
+				</Cell>
+			</Row>
+			<Row ss:Height="18" ss:AutoFitHeight="0">
+				<Cell ss:StyleID="s39" ss:MergeAcross="1">
+					<Data ss:Type="String">Tổng cộng :</Data>
+				</Cell>
+				<Cell ss:StyleID="s41">
+					<Data ss:Type="Number">14</Data>
+				</Cell>
+				<Cell ss:StyleID="s41">
+					<Data ss:Type="Number">8000</Data>
+				</Cell>
+			</Row>
+		</Table>
+	</Worksheet>
+</Workbook>

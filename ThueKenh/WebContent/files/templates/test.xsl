@@ -8,7 +8,7 @@ xmlns:html="http://www.w3.org/TR/REC-html40"
 	xmlns:x="urn:schemas-microsoft-com:office:excel"
 	xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet">
 
-	<xsl:template match="/">
+<xsl:template match="/">
 <Workbook>
  <Styles>
   <Style ss:ID="Default" ss:Name="Normal">
