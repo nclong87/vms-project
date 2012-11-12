@@ -122,5 +122,8 @@
     <bean id="bangdoisoatcuocAction" scope="prototype" class="vms.web.actions.BangDoiSoatCuocAction">
         <constructor-arg ref="daoFactory" />
     </bean>
+	<bean id="reportAction" scope="prototype" class="vms.web.actions.ReportAction">
+        <constructor-arg ref="daoFactory" />
+    </bean>
 </beans>
 

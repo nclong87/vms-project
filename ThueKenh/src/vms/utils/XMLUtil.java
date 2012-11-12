@@ -1,12 +1,20 @@
 package vms.utils;
 
 import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.StringReader;
+import java.io.StringWriter;
 import java.util.List;
 import java.util.Map;
 
 import javax.xml.namespace.QName;
+import javax.xml.transform.Source;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.stream.StreamResult;
+import javax.xml.transform.stream.StreamSource;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathExpression;
 import org.w3c.dom.Node;
@@ -35,4 +43,23 @@ public class XMLUtil {
         r.parse(source);
         return xmlParser.getData();
 	}
+	public static String transformStringXML_FileXSL(String sXML, String xsltfilename) {
+    	String rs = "";
+		try {
+			System.out.println(" Executing...transformStringXML_FileXSL, xsltfilename: "+xsltfilename);
+			File xsltFile = new File(xsltfilename);
+			Source xsltSource = new StreamSource(xsltFile);
+			TransformerFactory tFactory = TransformerFactory.newInstance();
+			Transformer transformer = tFactory.newTransformer(xsltSource);
+			StringWriter sw = new StringWriter();
+			StreamResult sr = new StreamResult(sw);
+			transformer.transform(new StreamSource(new StringReader(sXML)), sr);
+			rs = sw.toString();			
+			return rs;
+		} catch (Exception e) {
+			System.err.println(" ERROR XMLUtils.transformStringXML_FileXSL !!!!");
+			e.printStackTrace();
+		}
+		return rs;
+	}	
 }
