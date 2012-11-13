@@ -3,8 +3,7 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <s:url action="index" namespace="/login" var="loginURL" />
 <s:url action="doSave" namespace="/thanhtoan" id="doSaveURL" />
-<s:url action="findphulucByhopdong" namespace="/phuluc" id="findphulucByhopdongURL" />
-<s:url action="findphulucByhopdongandthanhtoan" namespace="/phuluc" id="findphulucByhopdongandthanhtoanURL" />
+<s:url action="findphulucByhopdonganddoisoatcuoc" namespace="/phuluc" id="findphulucByhopdonganddoisoatcuocURL" />
 <s:url action="findByDoiSoatCuoc" namespace="/sucokenh" id="findsucoByDoiSoatCuocURL" />
 <s:url action="popupSearch" namespace="/bangdoisoatcuoc" id="popupSearchbangdoisoatcuocURL" />
 <s:url action="detail" namespace="/phuluc" id="detailPhuLucURL"/>
@@ -196,20 +195,6 @@ function byId(id) { //Viet tat cua ham document.getElementById
 									+ msg + '</p></div>');
 		}
 	}
-	function selectAll(_this) {
-		$('#dataTable input[type=checkbox]').each(function() {
-			this.checked = _this.checked;
-		});
-	}
-	function selectAllPhuLuc(tableid,_this) {
-		$('#'+tableid+' input[type=checkbox]').each(function() {
-			this.checked = _this.checked;
-		});
-	}
-	function doRemoveRow(this_){
-		var row = $(this_).closest("tr").get(0);
-		oTable.fnDeleteRow(oTable.fnGetPosition(row));
-	}
 	function addRow(stt,data) {
 		oTable.fnAddData([
 			stt,data.tuyenkenh_id,'<center>'+data.madiemdau+'</center>','<center>'+data.madiemcuoi+'</center>','<center>'+data.loaigiaotiep+'</center>','<center>'+data.dungluong+' MB</center>','<center>'+data.thoidiembatdau+'</center>','<center>'+data.thoidiemketthuc+'</center>','<center>'+data.thoigianmll+'</center>',data.nguyennhan,data.phuonganxuly,'<center>'+data.nguoixacnhan+'</center>','<center>'+data.usercreate+'</center>',data.timecreate+'<input type="text" style="display:none" name="suco_ids" value="'+data.id+'" id="suco_id_'+data.id+'"/>'
@@ -268,60 +253,7 @@ function byId(id) { //Viet tat cua ham document.getElementById
 						+'</div>';
 		container.append(rowhopdong);
 	}
-	function LoadHopDong(data)
-	{
-		$("#tab").html("");
-		var div=document.createElement("div");
-		$(div).attr("id","accordion");
-		$.each(data,function(){
-			addhopdong($(div),this);
-		});
-		$("#tab").append(div);
-		$(div).accordion();
-		$.each(data,function(){
-			var oPLtable=$('#datatable_'+this.id).dataTable({
-				"bJQueryUI": true,
-				"bProcessing": false,
-				"bScrollCollapse": true,
-				"bAutoWidth": true,
-				"bSort":false,
-				"bFilter": false,"bInfo": false,
-				"bPaginate" : false,
-				"sAjaxSource": "${findphulucByhopdongURL}?hopdong_id="+this.id,
-				"aoColumns": null,
-				"fnServerData": function ( sSource, aoData, fnCallback ) {
-					$.ajax( {
-						"dataType": 'json', 
-						"type": "POST", 
-						"url": sSource, 
-						"data": aoData, 
-						"success": function(response){
-							if(response.result == "ERROR") {
-								alert("Lỗi kết nối server, vui lòng thử lại.");
-							} else {
-								if(response.aaData.length != 0) {
-									var i = 0;
-									$.each(response.aaData,function(){
-										addphuluc(oPLtable,i+1,this);
-										i++;
-									});
-								} else {
-									oPLtable.fnAddData([0,'','','','','','','','','','']);
-									oPLtable.fnDeleteRow(0);
-								}
-							}
-						}
-					} );
-				}
-			});
-		});
-		$.each(data,function(){
-			var id=this.id;
-			$('#datatable_'+this.id+' .checkall').click(function() {
-				selectAllPhuLuc('datatable_'+id,this);
-			});
-		});
-	}
+
 	function LoadHopDongEdit(data)
 	{
 		$("#tab").html("");
@@ -346,7 +278,7 @@ function byId(id) { //Viet tat cua ham document.getElementById
 				"bSort":false,
 				"bFilter": false,"bInfo": false,
 				"bPaginate" : false,
-				"sAjaxSource": "${findphulucByhopdongandthanhtoanURL}?hopdong_id="+this.id+"&thanhtoan_id="+$("#id").val(),
+				"sAjaxSource": "${findphulucByhopdonganddoisoatcuocURL}?hopdong_id="+this.id+"&doisoatcuoc_id="+$("#doisoatcuoc_id").val(),
 				"aoColumns": null,
 				"fnServerData": function ( sSource, aoData, fnCallback ) {
 					$.ajax( {
@@ -379,59 +311,69 @@ function byId(id) { //Viet tat cua ham document.getElementById
 				}
 			});
 		});
-		$(data).each(function(){
-			var id=this.id;
-			$('#datatable_'+this.id+' .checkall').click(function() {
-				selectAllPhuLuc('datatable_'+id,this);
-			});
+	}
+	function LoadInfo(id,thanhtien,tungay)
+	{
+		oTable.fnClearTable();
+		$("#doisoatcuoc_id").val(id);
+		$("#giatritt").val(thanhtien);
+		$("#giatritt").attr("disabled","disabled");
+		tungay=tungay.replace(" 00:00:00.0","");
+		tungay=tungay.split("-");
+		if(tungay.length>=3)
+		{
+			$("#thang").val(tungay[1]);
+			$("#thang").attr("disabled","disabled");
+			$("#nam").val(tungay[0]);
+			$("#nam").attr("disabled","disabled");
+		}
+		$.ajax( {
+			"dataType": 'json', 
+			"type": "POST", 
+			"url": "${loadformbydoisoatcuocURL}", 
+			"data": "doisoatcuoc_id="+id, 
+			"success": function(response){
+				if(response.result == "ERROR") {
+					alert("Lỗi kết nối server, vui lòng thử lại.");
+				} else {
+					if(response.phuluc_hopdongs.length!=0)
+					{
+						var phuluc_hopdong=$.parseJSON(response.phuluc_hopdongs);
+						LoadHopDongEdit(phuluc_hopdong);
+					}
+					// load su co
+					if(response.sucos.length != 0) {
+						var i = 0;
+						$.each(response.sucos,function(){
+							addRow(i+1,this);
+							i++;
+						});
+					} else {
+						oTable.fnAddData([0,'','','','','','','','','','','','','']);
+						oTable.fnDeleteRow(0);
+					}
+				}
+			}
 		});
-		
 	}
 	var searchbangdoisoatcuoc = new PopupSearch();
 	$(document).ready(function() {
-		var doisoatcuoc_id='';
+		oTable = $('#dataTable').dataTable({
+			"bJQueryUI": true,
+			"bProcessing": false,
+			"bScrollCollapse": true,
+			"bAutoWidth": true,
+			"bSort":false,
+			"bFilter": false,"bInfo": false,
+			"bPaginate" : false
+		});	
+
 		searchbangdoisoatcuoc.init({
 			url : "${popupSearchbangdoisoatcuocURL}",
 			button : "#btPopupSearchBangDoiSoatCuoc",
 			afterSelected : function(data) {	
 				data = data[0];
-				$("#doisoatcuoc_id").val(data.id);
-				$("#giatritt").val(data.thanhtien);
-				var tungay=data.tungay.replace(" 00:00:00.0","");
-				tungay=tungay.split("-");
-				if(tungay.length>=3)
-				{
-					$("#thang").val(tungay[1]);
-					$("#nam").val(tungay[0]);
-				}
-				$.ajax( {
-					"dataType": 'json', 
-					"type": "POST", 
-					"url": "${loadformbydoisoatcuocURL}", 
-					"data": "doisoatcuoc_id="+data.id, 
-					"success": function(response){
-						if(response.result == "ERROR") {
-							alert("Lỗi kết nối server, vui lòng thử lại.");
-						} else {
-							if(response.phuluc_hopdongs.length!=0)
-							{
-								var phuluc_hopdong=$.parseJSON(response.phuluc_hopdongs);
-								LoadHopDongEdit(phuluc_hopdong);
-							}
-							// load su co
-							if(response.sucos.length != 0) {
-								var i = 0;
-								$.each(response.sucos,function(){
-									addRow(i+1,this);
-									i++;
-								});
-							} else {
-								oTable.fnAddData([0,'','','','','','','','','','','','','']);
-								oTable.fnDeleteRow(0);
-							}
-						}
-					}
-				});
+				LoadInfo(data.id,data.thanhtien,data.tungay);
 			}
 		}); 
 		
@@ -480,8 +422,7 @@ function byId(id) { //Viet tat cua ham document.getElementById
 		var thanhtoan_id = '';
 		
 		var form_data = '<s:property value="form_data" escape="false"/>';
-		var phuluchopdongs_data='<s:property value="phuluchopdongs_data" escape="false"/>';
-		
+		var doisoatcuoc_info='<s:property value="doisoatcuoc_info" escape="false"/>';
 		if(form_data != '') {
 			var form_data = $.parseJSON(form_data);
 			for( key in form_data) {
@@ -496,59 +437,13 @@ function byId(id) { //Viet tat cua ham document.getElementById
 				});
 			}
 			thanhtoan_id = form_data['id'];
+			if(doisoatcuoc_info!='')
+			{
+				dscData=$.parseJSON(doisoatcuoc_info);
+				LoadInfo(dscData[0].id,dscData[0].thanhtien,dscData[0].tungay);
+			}
 		} 
-		if(thanhtoan_id == '') {
-			oTable = $('#dataTable').dataTable({
-				"bJQueryUI": true,
-				"bProcessing": false,
-				"bScrollCollapse": true,
-				"bAutoWidth": true,
-				"bSort":false,
-				"bFilter": false,"bInfo": false,
-				"bPaginate" : false
-			});	
-		} else {
-			oTable = $('#dataTable').dataTable({
-				"bJQueryUI": true,
-				"bProcessing": false,
-				"bScrollCollapse": true,
-				"bAutoWidth": true,
-				"bSort":false,
-				"bFilter": false,"bInfo": false,
-				"bPaginate" : false,
-				"sAjaxSource": "${findsucoByDoiSoatCuocURL}?id="+thanhtoan_id,
-				"aoColumns": null,
-				"fnServerData": function ( sSource, aoData, fnCallback ) {
-					$.ajax( {
-						"dataType": 'json', 
-						"type": "POST", 
-						"url": sSource, 
-						"data": aoData, 
-						"success": function(response){
-							if(response.result == "ERROR") {
-								alert("Lỗi kết nối server, vui lòng thử lại.");
-							} else {
-								if(response.aaData.length != 0) {
-									var i = 0;
-									$.each(response.aaData,function(){
-										addRow(i+1,this);
-										i++;
-									});
-								} else {
-									oTable.fnAddData([0,'','','','','','','','','','','','','']);
-									oTable.fnDeleteRow(0);
-								}
-							}
-						}
-					} );
-				}
-			});
-		}
-		if(phuluchopdongs_data!='')
-		{
-			phuluchopdongs_data=$.parseJSON(phuluchopdongs_data.trim());
-			LoadHopDongEdit(phuluchopdongs_data);
-		}
+		
 		$("#btSubmit").click(function() {
 			$(this).disabled = true;
 			if (!$("#form").valid()) {

@@ -83,14 +83,15 @@ public class DoiSoatCuocDAO {
 		connection.close();
 	}
 	
-	private static final String SQL_FIND_DOISOATCUOC = "{ ? = call FIND_DOISOATCUOC(?,?,?) }";
+	private static final String SQL_FIND_DOISOATCUOC = "{ ? = call FIND_DOISOATCUOC(?,?,?,?) }";
 	public List<Map<String,Object>> search(int iDisplayStart,int iDisplayLength,Map<String, String> conditions) throws SQLException {
 		Connection connection = jdbcDatasource.getConnection();
 		CallableStatement stmt = connection.prepareCall(SQL_FIND_DOISOATCUOC);
 		stmt.registerOutParameter(1, OracleTypes.CURSOR);
 		stmt.setInt(2, iDisplayStart);
 		stmt.setInt(3, iDisplayLength);
-		stmt.setString(4, conditions.get("tenbangdoisoatcuoc"));
+		stmt.setString(4, conditions.get("id"));
+		stmt.setString(5, conditions.get("tenbangdoisoatcuoc"));
 		stmt.execute();
 		ResultSet rs = (ResultSet) stmt.getObject(1);
 		List<Map<String,Object>> result = new ArrayList<Map<String,Object>>();

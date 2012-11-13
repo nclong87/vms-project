@@ -801,7 +801,7 @@
 				<param name="root">jsonData</param>
 			</result>
 		</action>
-		<action name="findphulucByhopdongandthanhtoan" class="phuLucAction" method="findphulucByhopdongandthanhtoan">
+		<action name="findphulucByhopdonganddoisoatcuoc" class="phuLucAction" method="findphulucByhopdonganddoisoatcuoc">
 			<result name="success" type="json">
 				<param name="root">jsonData</param>
 			</result>

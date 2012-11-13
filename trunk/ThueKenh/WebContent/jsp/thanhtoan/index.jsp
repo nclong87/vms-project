@@ -65,6 +65,14 @@
 											</select>
 										</td>
 									</tr>
+									<tr height="30px">
+										<td></td>
+										<td colspan="3">
+											<div class="buttonwrapper">
+												<input type="button" class="button" value="Tìm kiếm" onclick="doSearch()"></input>
+											</div>
+										</td>
+									</tr>
 									</table>
 								</form>
 							</div>
@@ -87,6 +95,7 @@
 						<th>Ngày chuyển khoản</th>
 						<th>Giá trị thanh toán</th>
 						<th>Trạng thái</th>
+						<th>Chi tiết</th>
 						<th width="30px">Sửa</th>
 						<th width="5px" align="center"><input type="checkbox" onclick="selectAll(this)"/></th>
 					</tr>
@@ -145,10 +154,15 @@ $(document).ready(function(){
 					{ "mDataProp": "giatritt","bSortable": false,"bSearchable": false,"sClass":'td_center' },
 					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,"sClass":'td_center',
 						"fnRender": function( oObj ) {
-							if(oObj.trangthai==0)
+							if(oObj.aData.trangthai==0)
 								return "Chưa thanh toán";
 							else 
 								return "Đã thanh toán";
+						}
+					},
+					{ "mDataProp": null,"bSortable": false,"bSearchable": false,"sClass":'td_center',
+						"fnRender": function( oObj ) {
+							return '<a target="_blank" href="${detailURL}?id='+oObj.aData.id+'" title="Xem chi tiết hồ sơ thanh toán"><div class="detail"></div></a>';  
 						}
 					},
 					{ "mDataProp": null,"bSortable": false,"bSearchable": false,

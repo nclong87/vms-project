@@ -47,7 +47,7 @@ public class PhuLucAction implements Preparable {
 	private Map<String,Object> json;
 	private Map<String,Map<String,Object>> hopDongDTOs;
 	public String hopdong_id;
-	public String thanhtoan_id;
+	public String doisoatcuoc_id;
 	
 	private PhuLucDAO phuLucDAO;
 	public PhuLucAction( DaoFactory factory) {
@@ -224,16 +224,16 @@ public class PhuLucAction implements Preparable {
 		return Action.SUCCESS;
 	}
 	
-	public String findphulucByhopdongandthanhtoan() {
+	public String findphulucByhopdonganddoisoatcuoc() {
 		jsonData = new LinkedHashMap<String, Object>();
 		try {
-			if(hopdong_id!= null && thanhtoan_id!=null) {
+			if(hopdong_id!= null && doisoatcuoc_id!=null) {
 				Map<String, String> conditions = new LinkedHashMap<String, String>();
 				System.out.println("hopdong_id:"+hopdong_id);
 				conditions.put("hopdong_id", hopdong_id);
-				conditions.put("thanhtoan_id", thanhtoan_id);
+				conditions.put("doisoatcuoc_id", doisoatcuoc_id);
 				PhuLucDAO phulucDao = new PhuLucDAO(daoFactory);
-				List<Map<String, Object>> items = phulucDao.searchByHopDongThanhToan(0, 1000, conditions);
+				List<Map<String, Object>> items = phulucDao.searchByHopDongDoiSoatCuoc(0, 1000, conditions);
 				jsonData.put("result", "OK");
 				jsonData.put("aaData", items);
 				return Action.SUCCESS;
@@ -321,12 +321,11 @@ public class PhuLucAction implements Preparable {
 	public void setHopdong_id(String hopdong_id) {
 		this.hopdong_id = hopdong_id;
 	}
-	public String getThanhtoan_id() {
-		return thanhtoan_id;
+	public String getDoisoatcuoc_id() {
+		return doisoatcuoc_id;
 	}
-	public void setThanhtoan_id(String thanhtoan_id) {
-		this.thanhtoan_id = thanhtoan_id;
+	public void setDoisoatcuoc_id(String doisoatcuoc_id) {
+		this.doisoatcuoc_id = doisoatcuoc_id;
 	}
-	
 	
 }
