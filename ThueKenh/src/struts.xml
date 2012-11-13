@@ -833,7 +833,18 @@
 			</result>
 		</action>
 	</package>
-	<package name="report" extends="default" namespace="/report">
+	<package name="report" extends="default" namespace="/baocao">
+		<action name="tiendo" class="reportAction">
+			<result>/jsp/baocao/tiendo.jsp</result>
+		</action>
+		<action name="rpTuyenKenhChuaBanGiao" class="reportAction" method="rpTuyenKenhChuaBanGiao">
+			<result name="success" type="stream">
+				<param name="contentType">application/vnd.ms-excel</param>
+				<param name="inputName">excelStream</param>
+				<param name="contentDisposition">attachment; filename="${filename}"</param>
+				<param name="bufferSize">1024</param>
+			 </result>
+		</action>
 		<action name="test" class="reportAction" method="test">
 			<result name="success" type="stream">
 				<param name="contentType">application/vnd.ms-excel</param>

@@ -49,6 +49,7 @@ public class ReportAction implements Preparable {
 	private Map<String,Object> json;
 	private String id;
 	private String[] ids;
+	private List<Map<String,Object>> doiTacs;
 	
 	private InputStream excelStream;
 	private String filename = "";
@@ -69,6 +70,8 @@ public class ReportAction implements Preparable {
 			session.setAttribute("URL", VMSUtil.getFullURL(request));
 			return "login_page";
 		}
+		DoiTacDAO doitacDao = new DoiTacDAO(daoFactory);
+		doiTacs = doitacDao.findAll();
 		return Action.SUCCESS;
 	}
 	public String test() throws Exception {
@@ -76,15 +79,32 @@ public class ReportAction implements Preparable {
 			session.setAttribute("URL", VMSUtil.getFullURL(request));
 			return "login_page";
 		}*/
-		File fileXmlData = new File(ServletActionContext.getServletContext().getRealPath("files/templates/test2.xml")); 
+		File fileXmlData = new File(ServletActionContext.getServletContext().getRealPath("files/templates/TuyenKenhChuaBanGiao.xml")); 
 		String xmlData = FileUtils.readFileToString(fileXmlData, "UTF-8");
 		
-		String pathXslTemplate = ServletActionContext.getServletContext().getRealPath("files/templates/test2.xsl");
+		String pathXslTemplate = ServletActionContext.getServletContext().getRealPath("files/templates/tuyenkenhchuabangiao.xsl");
 		String transformedString = XMLUtil.transformStringXML_FileXSL(xmlData, pathXslTemplate);
 		//System.out.println("transformedString = "+transformedString);
 		FileUtils.writeStringToFile(new File("D:\\log.txt"), transformedString,"UTF-8");
 		setExcelStream(transformedString);
 		filename = "Test_"+System.currentTimeMillis()+".xls";
+		return Action.SUCCESS;
+	}
+	
+	public String rpTuyenKenhChuaBanGiao() throws Exception {
+		if(account == null) {
+			session.setAttribute("URL", VMSUtil.getFullURL(request));
+			return "login_page";
+		}
+		File fileXmlData = new File(ServletActionContext.getServletContext().getRealPath("files/templates/TuyenKenhChuaBanGiao.xml")); 
+		String xmlData = FileUtils.readFileToString(fileXmlData, "UTF-8");
+		
+		String pathXslTemplate = ServletActionContext.getServletContext().getRealPath("files/templates/tuyenkenhchuabangiao.xsl");
+		String transformedString = XMLUtil.transformStringXML_FileXSL(xmlData, pathXslTemplate);
+		//System.out.println("transformedString = "+transformedString);
+		FileUtils.writeStringToFile(new File("D:\\log.txt"), transformedString,"UTF-8");
+		setExcelStream(transformedString);
+		filename = "TuyenKenhChuaBanGiao_"+System.currentTimeMillis()+".xls";
 		return Action.SUCCESS;
 	}
 	
@@ -139,6 +159,12 @@ public class ReportAction implements Preparable {
 	}
 	public String getFilename() {
 		return filename;
+	}
+	public List<Map<String, Object>> getDoiTacs() {
+		return doiTacs;
+	}
+	public void setDoiTacs(List<Map<String, Object>> doiTacs) {
+		this.doiTacs = doiTacs;
 	}
 	
 }
