@@ -216,14 +216,14 @@ public class PhuLucDAO {
 		});
 	}
 	
-	private static final String SQL_FIND_PHULUC_BY_HOPDONG_THANHTOAN = "{ ? = call FIND_PHULUC_BY_HD_TT(?,?,?,?) }";
-	public List<Map<String,Object>> searchByHopDongThanhToan(int iDisplayStart,int iDisplayLength,Map<String, String> conditions) throws SQLException, SAXException, IOException {
+	private static final String SQL_FIND_PHULUC_BY_HOPDONG_DOISOATCUOC = "{ ? = call FIND_PHULUC_BY_HD_DSC(?,?,?,?) }";
+	public List<Map<String,Object>> searchByHopDongDoiSoatCuoc(int iDisplayStart,int iDisplayLength,Map<String, String> conditions) throws SQLException, SAXException, IOException {
 		Connection connection = jdbcDatasource.getConnection();
-		CallableStatement stmt = connection.prepareCall(SQL_FIND_PHULUC_BY_HOPDONG_THANHTOAN);
+		CallableStatement stmt = connection.prepareCall(SQL_FIND_PHULUC_BY_HOPDONG_DOISOATCUOC);
 		stmt.registerOutParameter(1, OracleTypes.CURSOR);
 		stmt.setInt(2, iDisplayStart);
 		stmt.setInt(3, iDisplayLength);
-		stmt.setString(4, conditions.get("thanhtoan_id"));
+		stmt.setString(4, conditions.get("doisoatcuoc_id"));
 		stmt.setString(5, conditions.get("hopdong_id"));
 		stmt.execute();
 		ResultSet rs = (ResultSet) stmt.getObject(1);

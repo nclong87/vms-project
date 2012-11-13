@@ -102,20 +102,17 @@ public class ThanhToanDAO {
 		this.jdbcTemplate.update("update THANHTOAN set DELETED= "+System.currentTimeMillis()+" where ID in ("+str+")");
 	}
 	
-	private static final String SQL_DETAIL_HOSOTHANHTOAN = " SELECT t.ID tuyenkenh_id,t.MADIEMDAU,t.MADIEMCUOI,gt.LOAIGIAOTIEP,t.DUNGLUONG,t.SOLUONG,sc.THOIDIEMBATDAU,sc.THOIDIEMKETTHUC, "+
-													"sc.THOIGIANMLL,sc.NGUYENNHAN,sc.PHUONGANXULY,sc.NGUOIXACNHAN,sc.FILENAME,sc.FILEPATH,sc.FILESIZE,sc.USERCREATE,sc.TIMECREATE "+
-                                                 	"FROM SUCOKENH sc "+
-                                                  		"LEFT JOIN TUYENKENH t ON sc.TUYENKENH_ID = t.ID "+
-                                                  		"LEFT JOIN LOAIGIAOTIEP gt ON t.GIAOTIEP_ID=gt.ID "+
-                                                  	"WHERE sc.id=? AND sc.DELETED=0";
+	private static final String SQL_DETAIL_HOSOTHANHTOAN = " SELECT tt.*,d.thanhtien,d.tungay,d.giamtrumll "+
+                                                 		   " FROM THANHTOAN tt "+
+                                                  		   " LEFT JOIN DOISOATCUOC d ON d.ID = tt.DOISOATCUOC_ID "+
+                                                  	       " WHERE tt.id=? AND tt.DELETED=0";
 	@SuppressWarnings("unchecked")
 	public Map<String,Object> getDetail(String id) {
 		List<Map<String,Object>> list =  this.jdbcTemplate.query(SQL_DETAIL_HOSOTHANHTOAN ,new Object[] {id}, new RowMapper() {
 			@Override
 			public Object mapRow(ResultSet rs, int arg1) throws SQLException {
 				Map<String,Object> map = VMSUtil.resultSetToMap(rs);
-				map.put("thoidiembatdau",DateUtils.formatDate(new Date(rs.getLong("THOIDIEMBATDAU")), DateUtils.SDF_DDMMYYYYHHMMSS2));
-				map.put("thoidiemketthuc",DateUtils.formatDate(new Date(rs.getLong("THOIDIEMKETTHUC")), DateUtils.SDF_DDMMYYYYHHMMSS2));
+				map.put("ngaychuyenkt", DateUtils.formatDate(rs.getDate("ngaychuyenkt"), DateUtils.SDF_DDMMYYYY));
 				map.put("timecreate",DateUtils.formatDate(rs.getDate("timecreate"), DateUtils.SDF_DDMMYYYY));
 				return map;
 			}

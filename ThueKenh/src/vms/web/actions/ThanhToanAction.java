@@ -50,20 +50,20 @@ public class ThanhToanAction implements Preparable {
 	private InputStream inputStream;
 	
 	private String form_data;
-	private String phuluchopdongs_data;
+	private String doisoatcuoc_info;
 	private String id;
 	private String[] ids;
 	private String[] suco_ids;
 	private Map<String,Object> detail;
 	private List<PhuLucHopDongDTO> phuluchopdongDtos;
 	
+	public String getDoisoatcuoc_info() {
+		return doisoatcuoc_info;
+	}
+	public void setDoisoatcuoc_info(String doisoatcuoc_info) {
+		this.doisoatcuoc_info = doisoatcuoc_info;
+	}
 	
-	public String getPhuluchopdongs_data() {
-		return phuluchopdongs_data;
-	}
-	public void setPhuluchopdongs_data(String phuluchopdongs_data) {
-		this.phuluchopdongs_data = phuluchopdongs_data;
-	}
 	public String[] getSuco_ids() {
 		return suco_ids;
 	}
@@ -165,33 +165,11 @@ public class ThanhToanAction implements Preparable {
 				System.out.println(thanhtoanDTO.getId());
 				Map<String,String> map = thanhtoanDTO.getMap();
 				form_data = JSONValue.toJSONString(map);
-				ThanhToanPhuLucDAO tpDao=new ThanhToanPhuLucDAO(daoFactory);
-				List<HopDongDetailDTO> lstHopDong=tpDao.findHopDongByThanhToanId(id);
-				phuluchopdongs_data="";
-				for(int i=0;i<lstHopDong.size();i++)
-				{
-					if(!phuluchopdongs_data.isEmpty())
-						phuluchopdongs_data+=",";
-					phuluchopdongs_data+="{\"id\":"+lstHopDong.get(i).getId()+",";
-					phuluchopdongs_data+="\"sohopdong\":\""+lstHopDong.get(i).getSohopdong()+"\",";
-					phuluchopdongs_data+="\"loaihopdong\":\""+lstHopDong.get(i).getLoaihopdong()+"\",";
-					phuluchopdongs_data+="\"tendoitac\":\""+lstHopDong.get(i).getTendoitac()+"\",";
-					phuluchopdongs_data+="\"ngayky\":\""+lstHopDong.get(i).getNgayky()+"\",";
-					phuluchopdongs_data+="\"ngayhethan\":\""+lstHopDong.get(i).getNgayhethan()+"\",";
-					List<String> lstPhuLuc=tpDao.findPhuLucByThanhToan_HopDong(id, lstHopDong.get(i).getId());
-					phuluchopdongs_data+="\"phuluc_id\":[";
-					String phuluc_ids="";
-					for(int j=0;j<lstPhuLuc.size();j++)
-					{
-						if(!phuluc_ids.isEmpty())
-							phuluc_ids+=",";
-						phuluc_ids+="{\"id\":"+lstPhuLuc.get(j)+"}";
-					}
-					phuluchopdongs_data+=phuluc_ids;
-					phuluchopdongs_data+="]";
-					phuluchopdongs_data+="}";
-				}
-				phuluchopdongs_data="["+phuluchopdongs_data+"]";
+				DoiSoatCuocDAO dscDao=new DoiSoatCuocDAO(daoFactory);
+				Map<String, String> conditions=new LinkedHashMap<String, String>();
+				conditions.put("id", thanhtoanDTO.getDoisoatcuoc_id());
+				List<Map<String,Object>> doisoatcuoc=dscDao.search(0, 1000, conditions);
+				doisoatcuoc_info=JSONValue.toJSONString(doisoatcuoc);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -273,6 +251,8 @@ public class ThanhToanAction implements Preparable {
 			thanhtoanDTO.setUsercreate(account.get("username").toString());
 			thanhtoanDTO.setTimecreate(DateUtils.getCurrentDateSQL());
 			ThanhToanDAO hosothanhtoanDao=new ThanhToanDAO(daoFactory);
+			System.out.println("thanhtoanDTO.getId():"+thanhtoanDTO.getId());
+			System.out.println("thanhtoanDTO.getDoisoatcuoc_id():"+thanhtoanDTO.getDoisoatcuoc_id());
 			String thanhtoan_id=hosothanhtoanDao.save(thanhtoanDTO);
 			if(thanhtoan_id==null) 
 				throw new Exception(Constances.MSG_ERROR);
@@ -388,7 +368,7 @@ public class ThanhToanAction implements Preparable {
 				for(int i=0;i<ids.length;i++)
 				{
 					// cap nhat su co 
-					// reset bienbanvanhanhkenh_id
+					// reset thanhtoan_id
 					List<SuCoDTO> listsuco_old=sucoDao.findSuCoByThanhToanId(ids[i]);
 					System.out.println("Begin reset thanhtoan_id - delete sucokenh");
 					if(listsuco_old!=null && listsuco_old.size()>0)
@@ -405,10 +385,6 @@ public class ThanhToanAction implements Preparable {
 							sucoDao.save(sucoDto);
 						}
 					}
-					
-					// xoa thanhtoan_phuluc
-					ThanhToanPhuLucDAO tpDao=new ThanhToanPhuLucDAO(daoFactory);
-					tpDao.deletebythanhtoan_id(ids[i]);
 				}
 				
 			}
@@ -421,12 +397,14 @@ public class ThanhToanAction implements Preparable {
 	}
 	
 	public String detail() {
+		System.out.println("Begin get detail");
 		ThanhToanDAO hosothanhtoanDao = new ThanhToanDAO(daoFactory);
 		if(id == null) return Action.ERROR;
 		detail = hosothanhtoanDao.getDetail(id);
 		if(detail == null) return Action.ERROR;
 		/*jsonData = new LinkedHashMap<String, Object>();
 		jsonData.put("test", "Hello world!");*/
+		System.out.println("end get detail");
 		return Action.SUCCESS;
 	}
 	
