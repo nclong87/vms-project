@@ -14,7 +14,7 @@ xmlns:html="http://www.w3.org/TR/REC-html40"
  xmlns:x="urn:schemas-microsoft-com:office:excel"
  xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
  xmlns:html="http://www.w3.org/TR/REC-html40">
- <Styles>
+<Styles>
   <Style ss:ID="Default" ss:Name="Normal">
    <Alignment ss:Vertical="Bottom"/>
    <Borders/>
@@ -51,10 +51,16 @@ xmlns:html="http://www.w3.org/TR/REC-html40"
   </Style>
   <Style ss:ID="s67">
    <Alignment ss:Horizontal="Center" ss:Vertical="Center"/>
-   <Font ss:FontName="Arial" x:Family="Swiss" ss:Color="#000000" ss:Italic="1"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+   </Borders>
+   <Font ss:FontName="Arial" x:Family="Swiss" ss:Color="#000000"/>
   </Style>
   <Style ss:ID="s68">
-   <Alignment ss:Horizontal="Center" ss:Vertical="Center"/>
+   <Alignment ss:Horizontal="Center" ss:Vertical="Bottom"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
     <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -75,7 +81,8 @@ xmlns:html="http://www.w3.org/TR/REC-html40"
    <Column ss:StyleID="s64" ss:Width="55.5"/>
    <Column ss:StyleID="s64" ss:Width="124.5"/>
    <Column ss:StyleID="s64" ss:Width="104.25"/>
-   <Column ss:StyleID="s64" ss:AutoFitWidth="0" ss:Width="99"/>
+   <Column ss:StyleID="s64" ss:Width="89.25"/>
+   <Column ss:StyleID="s62" ss:AutoFitWidth="0" ss:Width="179.25"/>
    <Row>
     <Cell ss:Index="3" ss:StyleID="s65"/>
     <Cell ss:StyleID="s65"/>
@@ -88,12 +95,7 @@ xmlns:html="http://www.w3.org/TR/REC-html40"
     <Cell ss:StyleID="s66"/>
     <Cell ss:StyleID="s65"/>
    </Row>
-   <Row>
-    <Cell ss:Index="4" ss:StyleID="s67"/>
-    <Cell ss:StyleID="s67"><Data ss:Type="String">Đối tác: <xsl:value-of select="/root/header/tendoitac"/></Data></Cell>
-    <Cell ss:StyleID="s67"/>
-   </Row>
-   <Row ss:Index="5" ss:AutoFitHeight="0" ss:Height="18.75">
+	<Row ss:Index="4" ss:AutoFitHeight="0" ss:Height="18.75">
     <Cell ss:StyleID="s63"><Data ss:Type="String">STT</Data></Cell>
     <Cell ss:StyleID="s63"><Data ss:Type="String">Mã Tuyến Kênh</Data></Cell>
     <Cell ss:StyleID="s63"><Data ss:Type="String">Mã điểm đầu</Data></Cell>
@@ -104,6 +106,7 @@ xmlns:html="http://www.w3.org/TR/REC-html40"
     <Cell ss:StyleID="s63"><Data ss:Type="String">Ngày đề nghị bàn giao</Data></Cell>
     <Cell ss:StyleID="s63"><Data ss:Type="String">Ngày hẹn bàn giao</Data></Cell>
     <Cell ss:StyleID="s63"><Data ss:Type="String">Số lượng đề xuất</Data></Cell>
+    <Cell ss:StyleID="s63"><Data ss:Type="String">Đối tác</Data></Cell>
    </Row>
 	<xsl:apply-templates select="/root/data/row"/>
    <Row>
@@ -127,8 +130,8 @@ xmlns:html="http://www.w3.org/TR/REC-html40"
    <Panes>
     <Pane>
      <Number>3</Number>
-     <ActiveRow>15</ActiveRow>
-     <ActiveCol>4</ActiveCol>
+     <ActiveRow>13</ActiveRow>
+     <ActiveCol>7</ActiveCol>
     </Pane>
    </Panes>
    <ProtectObjects>False</ProtectObjects>
@@ -138,17 +141,18 @@ xmlns:html="http://www.w3.org/TR/REC-html40"
 </Workbook>
 </xsl:template>
 <xsl:template match="row">
-	<Row ss:AutoFitHeight="0" ss:Height="18.75">
-		<Cell ss:StyleID="s68"><Data ss:Type="String"><xsl:value-of select='./stt'/></Data></Cell>
-		<Cell ss:StyleID="s68"><Data ss:Type="String"><xsl:value-of select='./id'/></Data></Cell>
-		<Cell ss:StyleID="s68"><Data ss:Type="String"><xsl:value-of select='./madiemdau'/></Data></Cell>
-		<Cell ss:StyleID="s68"><Data ss:Type="String"><xsl:value-of select='./madiemcuoi'/></Data></Cell>
-		<Cell ss:StyleID="s68"><Data ss:Type="String"><xsl:value-of select='./loaigiaotiep'/></Data></Cell>
-		<Cell ss:StyleID="s68"><Data ss:Type="String"><xsl:value-of select='./dungluong'/></Data></Cell>
-		<Cell ss:StyleID="s68"><Data ss:Type="String"><xsl:value-of select='./soluong'/></Data></Cell>
-		<Cell ss:StyleID="s68"><Data ss:Type="String"><xsl:value-of select='./ngaydenghibangiao'/></Data></Cell>
-		<Cell ss:StyleID="s68"><Data ss:Type="String"><xsl:value-of select='./ngayhenbangiao'/></Data></Cell>
-		<Cell ss:StyleID="s68"><Data ss:Type="String"><xsl:value-of select='./soluongdexuat'/></Data></Cell>
+	 <Row>
+		<Cell ss:StyleID="s67"><Data ss:Type="String"><xsl:value-of select='./stt'/></Data></Cell>
+		<Cell ss:StyleID="s67"><Data ss:Type="String"><xsl:value-of select='./id'/></Data></Cell>
+		<Cell ss:StyleID="s67"><Data ss:Type="String"><xsl:value-of select='./madiemdau'/></Data></Cell>
+		<Cell ss:StyleID="s67"><Data ss:Type="String"><xsl:value-of select='./madiemcuoi'/></Data></Cell>
+		<Cell ss:StyleID="s67"><Data ss:Type="String"><xsl:value-of select='./loaigiaotiep'/></Data></Cell>
+		<Cell ss:StyleID="s67"><Data ss:Type="String"><xsl:value-of select='./dungluong'/></Data></Cell>
+		<Cell ss:StyleID="s67"><Data ss:Type="String"><xsl:value-of select='./soluong'/></Data></Cell>
+		<Cell ss:StyleID="s67"><Data ss:Type="String"><xsl:value-of select='./ngaydenghibangiao'/></Data></Cell>
+		<Cell ss:StyleID="s67"><Data ss:Type="String"><xsl:value-of select='./ngayhenbangiao'/></Data></Cell>
+		<Cell ss:StyleID="s67"><Data ss:Type="String"><xsl:value-of select='./soluongdexuat'/></Data></Cell>
+		<Cell ss:StyleID="s68"><Data ss:Type="String"><xsl:value-of select='./tendoitac'/></Data></Cell>
    </Row>
 </xsl:template>
 </xsl:stylesheet>

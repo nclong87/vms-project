@@ -16,9 +16,11 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
+import vms.db.dto.BienBanVanHanhKenhDTO;
 import vms.db.dto.ThanhToanDTO;
 import vms.db.dto.SuCoDTO;
 import vms.utils.DateUtils;
+import vms.utils.StringUtil;
 import vms.utils.VMSUtil;
 
 public class ThanhToanDAO {
@@ -115,6 +117,20 @@ public class ThanhToanDAO {
 				map.put("ngaychuyenkt", DateUtils.formatDate(rs.getDate("ngaychuyenkt"), DateUtils.SDF_DDMMYYYY));
 				map.put("timecreate",DateUtils.formatDate(rs.getDate("timecreate"), DateUtils.SDF_DDMMYYYY));
 				return map;
+			}
+		});
+		if(list.isEmpty()) return null;
+		return list.get(0);
+	}
+	@SuppressWarnings("unchecked")
+	public ThanhToanDTO findBySoHoSo(String sohoso) {
+		if(StringUtil.isEmpty(sohoso))
+			return null;
+		List<ThanhToanDTO> list =  this.jdbcTemplate.query("SELECT * FROM THANHTOAN WHERE SOHOSO = ? AND DELETED = 0" ,
+				new Object[] {sohoso}, new RowMapper() {
+			@Override
+			public Object mapRow(ResultSet rs, int arg1) throws SQLException {
+				return ThanhToanDTO.mapObject(rs);
 			}
 		});
 		if(list.isEmpty()) return null;

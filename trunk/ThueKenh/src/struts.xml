@@ -845,6 +845,30 @@
 				<param name="bufferSize">1024</param>
 			 </result>
 		</action>
+		<action name="rpHopDongChuaThanhToan" class="reportAction" method="rpHopDongChuaThanhToan">
+			<result name="success" type="stream">
+				<param name="contentType">application/vnd.ms-excel</param>
+				<param name="inputName">excelStream</param>
+				<param name="contentDisposition">attachment; filename="${filename}"</param>
+				<param name="bufferSize">1024</param>
+			 </result>
+		</action>
+		<action name="rpKenhDaBanGiaoNhungChuaCoHopDong" class="reportAction" method="rpKenhDaBanGiaoNhungChuaCoHopDong">
+			<result name="success" type="stream">
+				<param name="contentType">application/vnd.ms-excel</param>
+				<param name="inputName">excelStream</param>
+				<param name="contentDisposition">attachment; filename="${filename}"</param>
+				<param name="bufferSize">1024</param>
+			 </result>
+		</action>
+		<action name="rpTienThueKenhPhatSinh" class="reportAction" method="rpTienThueKenhPhatSinh">
+			<result name="success" type="stream">
+				<param name="contentType">application/vnd.ms-excel</param>
+				<param name="inputName">excelStream</param>
+				<param name="contentDisposition">attachment; filename="${filename}"</param>
+				<param name="bufferSize">1024</param>
+			 </result>
+		</action>
 		<action name="test" class="reportAction" method="test">
 			<result name="success" type="stream">
 				<param name="contentType">application/vnd.ms-excel</param>
