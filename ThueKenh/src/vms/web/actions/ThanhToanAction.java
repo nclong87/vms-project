@@ -253,6 +253,14 @@ public class ThanhToanAction implements Preparable {
 			ThanhToanDAO hosothanhtoanDao=new ThanhToanDAO(daoFactory);
 			System.out.println("thanhtoanDTO.getId():"+thanhtoanDTO.getId());
 			System.out.println("thanhtoanDTO.getDoisoatcuoc_id():"+thanhtoanDTO.getDoisoatcuoc_id());
+			if(thanhtoanDTO.getId().isEmpty())
+			{
+				if(hosothanhtoanDao.findBySoHoSo(thanhtoanDTO.getSohoso())!=null)
+				{
+					setInputStream("exist");
+					return Action.SUCCESS;
+				}
+			}
 			String thanhtoan_id=hosothanhtoanDao.save(thanhtoanDTO);
 			if(thanhtoan_id==null) 
 				throw new Exception(Constances.MSG_ERROR);

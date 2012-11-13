@@ -108,6 +108,57 @@ public class ReportAction implements Preparable {
 		return Action.SUCCESS;
 	}
 	
+	public String rpHopDongChuaThanhToan() throws Exception {
+		if(account == null) {
+			session.setAttribute("URL", VMSUtil.getFullURL(request));
+			return "login_page";
+		}
+		File fileXmlData = new File(ServletActionContext.getServletContext().getRealPath("files/templates/TuyenKenhChuaBanGiao.xml")); 
+		String xmlData = FileUtils.readFileToString(fileXmlData, "UTF-8");
+		
+		String pathXslTemplate = ServletActionContext.getServletContext().getRealPath("files/templates/tuyenkenhchuabangiao.xsl");
+		String transformedString = XMLUtil.transformStringXML_FileXSL(xmlData, pathXslTemplate);
+		//System.out.println("transformedString = "+transformedString);
+		FileUtils.writeStringToFile(new File("D:\\log.txt"), transformedString,"UTF-8");
+		setExcelStream(transformedString);
+		filename = "HopDongChuaThanhToan_"+System.currentTimeMillis()+".xls";
+		return Action.SUCCESS;
+	}
+	
+	public String rpKenhDaBanGiaoNhungChuaCoHopDong() throws Exception {
+		if(account == null) {
+			session.setAttribute("URL", VMSUtil.getFullURL(request));
+			return "login_page";
+		}
+		File fileXmlData = new File(ServletActionContext.getServletContext().getRealPath("files/templates/TuyenKenhChuaBanGiao.xml")); 
+		String xmlData = FileUtils.readFileToString(fileXmlData, "UTF-8");
+		
+		String pathXslTemplate = ServletActionContext.getServletContext().getRealPath("files/templates/tuyenkenhchuabangiao.xsl");
+		String transformedString = XMLUtil.transformStringXML_FileXSL(xmlData, pathXslTemplate);
+		//System.out.println("transformedString = "+transformedString);
+		FileUtils.writeStringToFile(new File("D:\\log.txt"), transformedString,"UTF-8");
+		setExcelStream(transformedString);
+		filename = "CacKenhDaBanGiaoNhungChuaCoHopDong_"+System.currentTimeMillis()+".xls";
+		return Action.SUCCESS;
+	}
+	
+	public String rpTienThueKenhPhatSinh() throws Exception {
+		if(account == null) {
+			session.setAttribute("URL", VMSUtil.getFullURL(request));
+			return "login_page";
+		}
+		File fileXmlData = new File(ServletActionContext.getServletContext().getRealPath("files/templates/TuyenKenhChuaBanGiao.xml")); 
+		String xmlData = FileUtils.readFileToString(fileXmlData, "UTF-8");
+		
+		String pathXslTemplate = ServletActionContext.getServletContext().getRealPath("files/templates/tuyenkenhchuabangiao.xsl");
+		String transformedString = XMLUtil.transformStringXML_FileXSL(xmlData, pathXslTemplate);
+		//System.out.println("transformedString = "+transformedString);
+		FileUtils.writeStringToFile(new File("D:\\log.txt"), transformedString,"UTF-8");
+		setExcelStream(transformedString);
+		filename = "TienThueKenhPhatSinh_"+System.currentTimeMillis()+".xls";
+		return Action.SUCCESS;
+	}
+	
 	/* Getter and Setter */
 	
 	public InputStream getInputStream() {

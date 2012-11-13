@@ -1,7 +1,5 @@
 <root>
-	<header>
-		<tendoitac>Viễn thông Bình Dương</tendoitac>
-		<tendoitac>Viễn thông Lâm Đồng</tendoitac>
+	<header>	
 	</header>
 	<data>
 		<row>
@@ -15,6 +13,7 @@
 			<ngaydenghibangiao>09/11/2012</ngaydenghibangiao>
 			<ngayhenbangiao>09/11/2012</ngayhenbangiao>
 			<soluongdexuat>2</soluongdexuat>
+			<tendoitac>Viễn thông Bình Dương</tendoitac>
 		</row>
 		<row>
 			<stt>2</stt>
@@ -27,6 +26,7 @@
 			<ngaydenghibangiao>09/11/2012</ngaydenghibangiao>
 			<ngayhenbangiao>09/11/2012</ngayhenbangiao>
 			<soluongdexuat>2</soluongdexuat>
+			<tendoitac>Viễn thông Lâm Đồng</tendoitac>
 		</row>
 	</data>
 	<summary>

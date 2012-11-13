@@ -469,6 +469,12 @@ function byId(id) { //Viet tat cua ham document.getElementById
 								parent.reload = true;
 								return;
 							}
+							else if(response=="exist")
+							{
+								$(this).disabled = false;
+								message("Số hồ sơ này đã tồn tại trong hệ thống. Vui lòng nhập số hồ sơ khác",0);
+								return;
+							}
 							message(" Lưu không thành công, vui lòng thử lại.",0);
 						},
 						error : function(response) {
