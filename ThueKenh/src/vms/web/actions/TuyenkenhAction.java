@@ -238,6 +238,46 @@ public class TuyenkenhAction implements Preparable {
 		return Action.SUCCESS;
 	}
 	
+	public String ajLoadTuyenkenhForSuCo() {
+		System.out.println("Begin ajLoadTuyenkenhForSuCo");
+		try {
+			//if(account == null) throw new Exception("END_SESSION");
+			Integer iDisplayStart = Integer.parseInt(request.getParameter("iDisplayStart"));
+			Integer iDisplayLength = Integer.parseInt(request.getParameter("iDisplayLength"));
+			String sSearch = request.getParameter("sSearch").trim();
+			System.out.println("sSearch="+sSearch);
+			Map<String, String> conditions = new LinkedHashMap<String, String>();
+			if(sSearch.isEmpty() == false) {
+				JSONArray arrayJson = (JSONArray) new JSONObject(sSearch).get("array");
+				for(int i=0;i<arrayJson.length();i++) {
+					String name = arrayJson.getJSONObject(i).getString("name");
+					String value = arrayJson.getJSONObject(i).getString("value");
+					if(value.isEmpty()==false) {
+						conditions.put(name, value);
+					}
+				}
+			}
+			TuyenkenhDao tuyenkenhDao = new TuyenkenhDao(daoFactory);
+			List<Map<String,Object>> items = tuyenkenhDao.findTuyenkenhSuCo(iDisplayStart, iDisplayLength + 1, conditions);
+			int iTotalRecords = items.size();
+			if(iTotalRecords > iDisplayLength) {
+				items.remove(iTotalRecords - 1);
+			}
+			jsonData = new LinkedHashMap<String, Object>();
+			jsonData.put("sEcho", Integer.parseInt(request.getParameter("sEcho")));
+			jsonData.put("iTotalRecords", iDisplayStart + iTotalRecords);
+			jsonData.put("iTotalDisplayRecords", iDisplayStart + iTotalRecords);
+			jsonData.put("aaData", items);
+			return Action.SUCCESS;
+		} catch (Exception e) {
+			// TODO: handle exception
+			//setInputStream(str)
+			e.printStackTrace();
+		}
+		System.out.println("End ajLoadTuyenkenhForSuCo");
+		return Action.SUCCESS;
+	}
+	
 	/* Getter and Setter */
 	
 	public InputStream getInputStream() {

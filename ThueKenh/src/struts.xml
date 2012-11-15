@@ -434,6 +434,19 @@
 		<action name="popupSearch2" class="tuyenkenhAction" method="popupSearch">
 			<result>/jsp/tuyenkenh/popupSearch2.jsp</result>
 		</action>
+		
+		<!--
+		* Tim kiem tuyen kenh de them su co
+		* Chi lay tuyen kenh dang hoat dong hoac da ban giao
+		-->
+		<action name="popupSearchForSuCo" class="tuyenkenhAction" method="popupSearch">
+			<result>/jsp/tuyenkenh/popupSearchForSuCo.jsp</result>
+		</action>
+		<action name="ajLoadTuyenkenhForSuCo" class="tuyenkenhAction" method="ajLoadTuyenkenhForSuCo">
+			<result name="success" type="json">
+				<param name="root">jsonData</param>
+			</result>
+		</action>
 	</package>
 	<package name="tuyenkenhdexuat" extends="default" namespace="/tuyenkenhdexuat">
 		<action name="index" class="tuyenkenhdexuatAction">
@@ -837,6 +850,9 @@
 		<action name="tiendo" class="reportAction">
 			<result>/jsp/baocao/tiendo.jsp</result>
 		</action>
+		<action name="doisoatcuoc" class="reportAction">
+			<result>/jsp/baocao/doisoatcuoc.jsp</result>
+		</action>
 		<action name="rpTuyenKenhChuaBanGiao" class="reportAction" method="rpTuyenKenhChuaBanGiao">
 			<result name="success" type="stream">
 				<param name="contentType">application/vnd.ms-excel</param>
@@ -862,6 +878,14 @@
 			 </result>
 		</action>
 		<action name="rpTienThueKenhPhatSinh" class="reportAction" method="rpTienThueKenhPhatSinh">
+			<result name="success" type="stream">
+				<param name="contentType">application/vnd.ms-excel</param>
+				<param name="inputName">excelStream</param>
+				<param name="contentDisposition">attachment; filename="${filename}"</param>
+				<param name="bufferSize">1024</param>
+			 </result>
+		</action>
+		<action name="rpDoiSoatCuoc" class="reportAction" method="rpDoiSoatCuoc">
 			<result name="success" type="stream">
 				<param name="contentType">application/vnd.ms-excel</param>
 				<param name="inputName">excelStream</param>

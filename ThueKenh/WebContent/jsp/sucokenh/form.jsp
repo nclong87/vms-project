@@ -1,7 +1,7 @@
 ﻿<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <s:url action="doSave" namespace="/sucokenh" id="doSaveURL" />
-<s:url action="popupSearch2" namespace="/tuyenkenh" id="popupSearch2URL" />
+<s:url action="popupSearchForSuCo" namespace="/tuyenkenh" id="popupSearchForSuCoURL" />
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <%
 	String contextPath = request.getContextPath();
@@ -120,14 +120,13 @@ $(document).ready(function(){
 	//
 	upload_utils.init();
 	popup_search_tuyenkenh.init({
-		url : "${popupSearch2URL}",
+		url : "${popupSearchForSuCoURL}",
 		afterSelected : function(data) {
 			// list tuyen kenh tra ve, sau do xu ly du lieu cho nay
 			data = data[0];
 			$("#tuyenkenh_id").val(data["id"]) ;
 		}
 	});
-
 	LoadDateTimePicker(".datetimepicker");
 	//$(".datetimepicker").datepicker(); 
 	//Reset form
