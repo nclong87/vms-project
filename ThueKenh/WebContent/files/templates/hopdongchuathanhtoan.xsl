@@ -14,6 +14,22 @@ xmlns:html="http://www.w3.org/TR/REC-html40"
  xmlns:x="urn:schemas-microsoft-com:office:excel"
  xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
  xmlns:html="http://www.w3.org/TR/REC-html40">
+ <DocumentProperties xmlns="urn:schemas-microsoft-com:office:office">
+  <Created>2006-09-16T00:00:00Z</Created>
+  <LastSaved>2012-11-15T15:09:26Z</LastSaved>
+  <Version>12.00</Version>
+ </DocumentProperties>
+ <OfficeDocumentSettings xmlns="urn:schemas-microsoft-com:office:office">
+  <RemovePersonalInformation/>
+ </OfficeDocumentSettings>
+ <ExcelWorkbook xmlns="urn:schemas-microsoft-com:office:excel">
+  <WindowHeight>8010</WindowHeight>
+  <WindowWidth>14805</WindowWidth>
+  <WindowTopX>240</WindowTopX>
+  <WindowTopY>105</WindowTopY>
+  <ProtectStructure>False</ProtectStructure>
+  <ProtectWindows>False</ProtectWindows>
+ </ExcelWorkbook>
  <Styles>
   <Style ss:ID="Default" ss:Name="Normal">
    <Alignment ss:Vertical="Bottom"/>
@@ -22,6 +38,9 @@ xmlns:html="http://www.w3.org/TR/REC-html40"
    <Interior/>
    <NumberFormat/>
    <Protection/>
+  </Style>
+  <Style ss:ID="s43" ss:Name="Comma">
+   <NumberFormat ss:Format="_(* #,##0.00_);_(* \(#,##0.00\);_(* &quot;-&quot;??_);_(@_)"/>
   </Style>
   <Style ss:ID="s62">
    <Font ss:FontName="Arial" x:Family="Swiss" ss:Color="#000000"/>
@@ -46,11 +65,6 @@ xmlns:html="http://www.w3.org/TR/REC-html40"
   </Style>
   <Style ss:ID="s66">
    <Alignment ss:Horizontal="Center" ss:Vertical="Center"/>
-   <Font ss:FontName="Arial" x:Family="Swiss" ss:Size="12" ss:Color="#000000"
-    ss:Bold="1"/>
-  </Style>
-  <Style ss:ID="s67">
-   <Alignment ss:Horizontal="Center" ss:Vertical="Center"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
     <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -59,44 +73,116 @@ xmlns:html="http://www.w3.org/TR/REC-html40"
    </Borders>
    <Font ss:FontName="Arial" x:Family="Swiss" ss:Color="#000000"/>
   </Style>
-  <Style ss:ID="s68">
+  <Style ss:ID="s67">
    <Alignment ss:Horizontal="Center" ss:Vertical="Center"/>
    <Font ss:FontName="Arial" x:Family="Swiss" ss:Size="11" ss:Color="#000000"
     ss:Bold="1"/>
   </Style>
+  <Style ss:ID="s69" ss:Parent="s43">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Center"/>
+   <Font ss:FontName="Arial" x:Family="Swiss" ss:Color="#000000" ss:Bold="1"/>
+   <NumberFormat ss:Format="_(* #,##0_);_(* \(#,##0\);_(* &quot;-&quot;??_);_(@_)"/>
+  </Style>
+  <Style ss:ID="s70" ss:Parent="s43">
+   <Font ss:FontName="Arial" x:Family="Swiss" ss:Color="#000000"/>
+   <NumberFormat ss:Format="_(* #,##0_);_(* \(#,##0\);_(* &quot;-&quot;??_);_(@_)"/>
+  </Style>
+  <Style ss:ID="s71" ss:Parent="s43">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Center"/>
+   <Font ss:FontName="Arial" x:Family="Swiss" ss:Size="12" ss:Color="#000000"
+    ss:Bold="1"/>
+   <NumberFormat ss:Format="_(* #,##0_);_(* \(#,##0\);_(* &quot;-&quot;??_);_(@_)"/>
+  </Style>
+  <Style ss:ID="s72" ss:Parent="s43">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Center"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+   </Borders>
+   <Font ss:FontName="Arial" x:Family="Swiss" ss:Color="#000000" ss:Bold="1"/>
+   <NumberFormat ss:Format="_(* #,##0_);_(* \(#,##0\);_(* &quot;-&quot;??_);_(@_)"/>
+  </Style>
+  <Style ss:ID="s73" ss:Parent="s43">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Center"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+   </Borders>
+   <Font ss:FontName="Arial" x:Family="Swiss" ss:Color="#000000"/>
+   <NumberFormat ss:Format="_(* #,##0_);_(* \(#,##0\);_(* &quot;-&quot;??_);_(@_)"/>
+  </Style>
+  <Style ss:ID="s74" ss:Parent="s43">
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+   </Borders>
+   <Font ss:FontName="Arial" x:Family="Swiss" ss:Color="#000000"/>
+   <NumberFormat ss:Format="_(* #,##0_);_(* \(#,##0\);_(* &quot;-&quot;??_);_(@_)"/>
+  </Style>
+  <Style ss:ID="s75" ss:Parent="s43">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Center"/>
+   <Font ss:FontName="Arial" x:Family="Swiss" ss:Color="#000000"/>
+   <NumberFormat ss:Format="_(* #,##0_);_(* \(#,##0\);_(* &quot;-&quot;??_);_(@_)"/>
+  </Style>
+  <Style ss:ID="s76">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Center"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+   </Borders>
+   <Font ss:FontName="Arial" x:Family="Swiss" ss:Color="#000000"/>
+   <NumberFormat ss:Format="[$-1010000]d/m/yyyy;@"/>
+  </Style>
  </Styles>
  <Worksheet ss:Name="Sheet1">
-  <Table>
+  <Table ss:ExpandedColumnCount="10" ss:ExpandedRowCount="10" x:FullColumns="1"
+   x:FullRows="1" ss:StyleID="s62">
    <Column ss:StyleID="s64" ss:AutoFitWidth="0" ss:Width="36"/>
-   <Column ss:StyleID="s64" ss:AutoFitWidth="0" ss:Width="94.5"/>
-   <Column ss:StyleID="s64" ss:AutoFitWidth="0" ss:Width="112.5"/>
-   <Column ss:StyleID="s64" ss:AutoFitWidth="0" ss:Width="147"/>
-   <Column ss:StyleID="s64" ss:AutoFitWidth="0" ss:Width="100.5"/>
-   <Column ss:StyleID="s64" ss:AutoFitWidth="0" ss:Width="97.5"/>
+   <Column ss:StyleID="s64" ss:AutoFitWidth="0" ss:Width="101.25"/>
+   <Column ss:StyleID="s64" ss:AutoFitWidth="0" ss:Width="91.5"/>
+   <Column ss:StyleID="s64" ss:AutoFitWidth="0" ss:Width="84.75"/>
+   <Column ss:StyleID="s75" ss:Width="110.25"/>
+   <Column ss:StyleID="s75" ss:Width="101.25"/>
+   <Column ss:StyleID="s70" ss:Width="123"/>
+   <Column ss:StyleID="s64" ss:AutoFitWidth="0" ss:Width="85.5"/>
+   <Column ss:StyleID="s64" ss:AutoFitWidth="0" ss:Width="90"/>
+   <Column ss:StyleID="s64" ss:AutoFitWidth="0" ss:Width="96"/>
    <Row>
     <Cell ss:Index="3" ss:StyleID="s65"/>
     <Cell ss:StyleID="s65"/>
-    <Cell ss:StyleID="s65"/>
-    <Cell ss:StyleID="s65"/>
+    <Cell ss:StyleID="s69"/>
+    <Cell ss:StyleID="s69"/>
    </Row>
    <Row ss:Height="15.75">
-    <Cell ss:Index="2" ss:StyleID="s68"/>
-    <Cell ss:StyleID="s68"><Data ss:Type="String">DANH SÁCH HỢP ĐỒNG CHƯA THANH TOÁN</Data></Cell>
-    <Cell ss:StyleID="s68"/>
-    <Cell ss:StyleID="s66"/>
-    <Cell ss:StyleID="s66"/>
+    <Cell ss:Index="2" ss:StyleID="s67"/>
+    <Cell ss:StyleID="s67"/>
+    <Cell ss:StyleID="s67"/>
+    <Cell ss:StyleID="s71"><Data ss:Type="String">DANH SÁCH HỢP ĐỒNG CHƯA THANH TOÁN</Data></Cell>
+    <Cell ss:StyleID="s71"/>
    </Row>
    <Row ss:Index="4" ss:AutoFitHeight="0" ss:Height="18.75">
     <Cell ss:StyleID="s63"><Data ss:Type="String">STT</Data></Cell>
-    <Cell ss:StyleID="s63"><Data ss:Type="String">Số hợp đồng</Data></Cell>
-    <Cell ss:StyleID="s63"><Data ss:Type="String">Loại hợp đồng</Data></Cell>
-    <Cell ss:StyleID="s63"><Data ss:Type="String">Đối tác</Data></Cell>
-    <Cell ss:StyleID="s63"><Data ss:Type="String">Ngày ký</Data></Cell>
-    <Cell ss:StyleID="s63"><Data ss:Type="String">Ngày hết hạn</Data></Cell>
+    <Cell ss:StyleID="s63"><Data ss:Type="String">Tên phụ lục</Data></Cell>
+    <Cell ss:StyleID="s63"><Data ss:Type="String">Hợp đồng</Data></Cell>
+    <Cell ss:StyleID="s63"><Data ss:Type="String">Số lượng kênh</Data></Cell>
+    <Cell ss:StyleID="s72"><Data ss:Type="String">Thành tiền trước thuế</Data></Cell>
+    <Cell ss:StyleID="s72"><Data ss:Type="String">Thành tiền sau thuế</Data></Cell>
+    <Cell ss:StyleID="s72"><Data ss:Type="String">Cước đấu nối hòa mạng</Data></Cell>
+    <Cell ss:StyleID="s63"><Data ss:Type="String">Ngày ký phụ lục</Data></Cell>
+    <Cell ss:StyleID="s63"><Data ss:Type="String">Ngày có hiệu lực</Data></Cell>
+    <Cell ss:StyleID="s63"><Data ss:Type="String">Ngày hết hiệu lực</Data></Cell>
    </Row>
    <xsl:apply-templates select="/root/data/row"/>
-   <Row>
-    <Cell ss:Index="2" ss:StyleID="s65"><Data ss:Type="String">Tổng cộng: </Data></Cell>
+   <Row ss:Index="10">
+    <Cell ss:Index="2" ss:StyleID="s65"><Data ss:Type="String">Tổng cộng :</Data></Cell>
     <Cell ss:StyleID="s65"><Data ss:Type="Number"><xsl:value-of select="/root/summary/sohopdongchuathanhtoan"/></Data></Cell>
    </Row>
   </Table>
@@ -116,38 +202,10 @@ xmlns:html="http://www.w3.org/TR/REC-html40"
    <Panes>
     <Pane>
      <Number>3</Number>
-     <ActiveRow>11</ActiveRow>
-     <ActiveCol>4</ActiveCol>
+     <ActiveRow>12</ActiveRow>
+     <ActiveCol>9</ActiveCol>
     </Pane>
    </Panes>
-   <ProtectObjects>False</ProtectObjects>
-   <ProtectScenarios>False</ProtectScenarios>
-  </WorksheetOptions>
- </Worksheet>
- <Worksheet ss:Name="Sheet2">
-  <Table ss:ExpandedColumnCount="1" ss:ExpandedRowCount="1" x:FullColumns="1"
-   x:FullRows="1" ss:DefaultRowHeight="15">
-  </Table>
-  <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
-   <PageSetup>
-    <Header x:Margin="0.3"/>
-    <Footer x:Margin="0.3"/>
-    <PageMargins x:Bottom="0.75" x:Left="0.7" x:Right="0.7" x:Top="0.75"/>
-   </PageSetup>
-   <ProtectObjects>False</ProtectObjects>
-   <ProtectScenarios>False</ProtectScenarios>
-  </WorksheetOptions>
- </Worksheet>
- <Worksheet ss:Name="Sheet3">
-  <Table ss:ExpandedColumnCount="1" ss:ExpandedRowCount="1" x:FullColumns="1"
-   x:FullRows="1" ss:DefaultRowHeight="15">
-  </Table>
-  <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
-   <PageSetup>
-    <Header x:Margin="0.3"/>
-    <Footer x:Margin="0.3"/>
-    <PageMargins x:Bottom="0.75" x:Left="0.7" x:Right="0.7" x:Top="0.75"/>
-   </PageSetup>
    <ProtectObjects>False</ProtectObjects>
    <ProtectScenarios>False</ProtectScenarios>
   </WorksheetOptions>
@@ -156,12 +214,16 @@ xmlns:html="http://www.w3.org/TR/REC-html40"
 </xsl:template>
 <xsl:template match="row">
 	<Row>
-		<Cell ss:StyleID="s67"><Data ss:Type="Number"><xsl:value-of select='./stt'/></Data></Cell>
-		<Cell ss:StyleID="s67"><Data ss:Type="String"><xsl:value-of select='./sohopdong'/></Data></Cell>
-		<Cell ss:StyleID="s67"><Data ss:Type="String"><xsl:value-of select='./loaihopdong'/></Data></Cell>
-		<Cell ss:StyleID="s67"><Data ss:Type="String"><xsl:value-of select='./doitac'/></Data></Cell>
-		<Cell ss:StyleID="s67"><Data ss:Type="String"><xsl:value-of select='./ngayky'/></Data></Cell>
-		<Cell ss:StyleID="s67"><Data ss:Type="String"><xsl:value-of select='./ngayhethan'/></Data></Cell>
+		<Cell ss:StyleID="s66"><Data ss:Type="Number"><xsl:value-of select='./stt'/></Data></Cell>
+		<Cell ss:StyleID="s66"><Data ss:Type="String"><xsl:value-of select='./tenphuluc'/></Data></Cell>
+		<Cell ss:StyleID="s66"><Data ss:Type="String"><xsl:value-of select='./tenhopdong'/></Data></Cell>
+		<Cell ss:StyleID="s66"><Data ss:Type="Number"><xsl:value-of select='./soluongkenh'/></Data></Cell>
+		<Cell ss:StyleID="s73"><Data ss:Type="Number"><xsl:value-of select='./giatritruocthue'/></Data></Cell>
+		<Cell ss:StyleID="s73"><Data ss:Type="Number"><xsl:value-of select='./giatrisauthue'/></Data></Cell>
+		<Cell ss:StyleID="s74"><Data ss:Type="Number"><xsl:value-of select='./cuocdaunoi'/></Data></Cell>
+		<Cell ss:StyleID="s68"><Data ss:Type="DateTime"><xsl:value-of select='./ngayky'/></Data></Cell>
+		<Cell ss:StyleID="s68"><Data ss:Type="DateTime"><xsl:value-of select='./ngayhieuluc'/></Data></Cell>
+		<Cell ss:StyleID="s68"><Data ss:Type="DateTime"><xsl:value-of select='./ngayhethieuluc'/></Data></Cell>
    </Row>
 </xsl:template>
 </xsl:stylesheet>

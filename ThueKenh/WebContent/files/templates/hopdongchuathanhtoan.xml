@@ -1,22 +1,30 @@
-<root>
+﻿<root>
 	<header>	
 	</header>
 	<data>
 		<row>
 			<stt>1</stt>
-			<sohopdong>BD_001</sohopdong>
-			<loaihopdong>D1801</loaihopdong>
-			<doitac>D1802</doitac>
-			<ngayky>20/11/2012</ngayky>
-			<ngayhethan>20/11/2013</ngayhethan>
+			<tenphuluc>Phụ lục 01</tenphuluc>
+			<tenhopdong>Hợp đồng 01</tenhopdong>
+			<soluongkenh>2</soluongkenh>
+			<giatritruocthue>200000</giatritruocthue>
+			<giatrisauthue>200000</giatrisauthue>
+			<cuocdaunoi>300000</cuocdaunoi>
+			<ngayky>9/11/2012</ngayky>
+			<ngayhieuluc>9/11/2012</ngayhieuluc>
+			<ngayhethieuluc>9/11/2012</ngayhethieuluc>
 		</row>
 		<row>
-			<stt>2</stt>
-			<sohopdong>BD_002</sohopdong>
-			<loaihopdong>D1801</loaihopdong>
-			<doitac>D1802</doitac>
-			<ngayky>20/11/2012</ngayky>
-			<ngayhethan>20/11/2013</ngayhethan>
+			<stt>1</stt>
+			<tenphuluc>Phụ lục 01</tenphuluc>
+			<tenhopdong>Hợp đồng 01</tenhopdong>
+			<soluongkenh>2</soluongkenh>
+			<giatritruocthue>200000</giatritruocthue>
+			<giatrisauthue>200000</giatrisauthue>
+			<cuocdaunoi>300000</cuocdaunoi>
+			<ngayky>9/11/2012</ngayky>
+			<ngayhieuluc>9/11/2012</ngayhieuluc>
+			<ngayhethieuluc>9/11/2012</ngayhethieuluc>
 		</row>
 	</data>
 	<summary>

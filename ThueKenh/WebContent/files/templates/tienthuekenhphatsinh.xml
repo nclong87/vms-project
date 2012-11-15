@@ -1,25 +1,42 @@
 <root>
-	<header>	
+	<header>
+		<thang>12</thang>
+		<nam>2012</nam>
 	</header>
 	<data>
 		<row>
 			<stt>1</stt>
-			<sohopdong>BD_001</sohopdong>
-			<loaihopdong>D1801</loaihopdong>
-			<doitac>D1802</doitac>
-			<ngayky>20/11/2012</ngayky>
-			<ngayhethan>20/11/2013</ngayhethan>
+			<id>BD_001</id>
+			<madiemdau>D1801</madiemdau>
+			<madiemcuoi>D1802</madiemcuoi>
+			<giaotiep>E1</giaotiep>
+			<dungluong>3</dungluong>
+			<soluong>3</soluong>
+			<doitac>Viễn thông đồng nai</doitac>
+			<trangthai>Đang hoạt động</trangthai>
+			<phuluc>Phụ lục 1</phuluc>
+			<hopdong>Hợp đồng 1</hopdong>
+			<tienphatsinh>300000</tienphatsinh>
+			<tiendathanhtoan>300000</tiendathanhtoan>
 		</row>
 		<row>
 			<stt>2</stt>
-			<sohopdong>BD_002</sohopdong>
-			<loaihopdong>D1801</loaihopdong>
-			<doitac>D1802</doitac>
-			<ngayky>20/11/2012</ngayky>
-			<ngayhethan>20/11/2013</ngayhethan>
+			<id>BD_001</id>
+			<madiemdau>D1801</madiemdau>
+			<madiemcuoi>D1802</madiemcuoi>
+			<giaotiep>E1</giaotiep>
+			<dungluong>3</dungluong>
+			<soluong>3</soluong>
+			<doitac>Viễn thông đồng nai</doitac>
+			<trangthai>Đang hoạt động</trangthai>
+			<phuluc>Phụ lục 1</phuluc>
+			<hopdong>Hợp đồng 1</hopdong>
+			<tienphatsinh>300000</tienphatsinh>
+			<tiendathanhtoan>300000</tiendathanhtoan>
 		</row>
 	</data>
 	<summary>
-		<sohopdongchuathanhtoan>2</sohopdongchuathanhtoan>
+		<tongtienphatsinh>2000000</tongtienphatsinh>
+		<tongtiendathanhtoan>2000000</tongtiendathanhtoan>
 	</summary>
 </root>
