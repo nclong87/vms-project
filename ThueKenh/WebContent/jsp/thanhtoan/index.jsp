@@ -149,8 +149,8 @@ $(document).ready(function(){
 					{ "mDataProp": "stt","bSortable": false,"bSearchable": false,"sClass":'td_center' },
 					{ "mDataProp": "sohoso","bSortable": false,"bSearchable": false,"sClass":'td_center' },
 					{ "mDataProp": "ngaychuyenkt","bSortable": false,"bSearchable": false,"sClass":'td_center' },
-					{ "mDataProp": "ngaychuyenkt","bSortable": false,"bSearchable": false,"sClass":'td_center' },
-					{ "mDataProp": "ngaychuyenkt","bSortable": false,"bSearchable": false,"sClass":'td_center' },
+					{ "mDataProp": "ngaykyunc","bSortable": false,"bSearchable": false,"sClass":'td_center' },
+					{ "mDataProp": "ngaychuyenkhoan","bSortable": false,"bSearchable": false,"sClass":'td_center' },
 					{ "mDataProp": "giatritt","bSortable": false,"bSearchable": false,"sClass":'td_center' },
 					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,"sClass":'td_center',
 						"fnRender": function( oObj ) {

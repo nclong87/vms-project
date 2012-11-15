@@ -100,4 +100,23 @@ public class VMSUtil {
 		IOUtils.copy(inputStream, writer, "UTF-8");
 		return writer.toString();
     }
+    public static String cData(String str) {
+    	return "<![CDATA["+str+"]]>";
+    }
+    public static String resultSetToXML(ResultSet rs) {
+    	StringBuffer buffer = new StringBuffer(512);
+    	try {
+			ResultSetMetaData resultSetMetaData = rs.getMetaData();
+			int n = resultSetMetaData.getColumnCount();
+			for(int i=1;i<=n;i++) {
+				String tagName = resultSetMetaData.getColumnName(i).toLowerCase();
+				buffer.append("<"+tagName+">"+cData(rs.getString(i)==null?"":rs.getString(i))+"</"+tagName+">");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	return buffer.toString();
+    	
+    }
 }
