@@ -23,6 +23,7 @@ public class ReportDAO {
 	public ReportDAO(Connection conn) {
 		connection = conn;
 	}
+	
 	public ReportDAO(DaoFactory factory) {
 		this.jdbcTemplate = factory.getJdbcTemplate();
 		this.jdbcDatasource = factory.getJdbcDataSource();
