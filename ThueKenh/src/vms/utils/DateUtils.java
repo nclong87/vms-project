@@ -22,8 +22,9 @@ public class DateUtils {
 	public static SimpleDateFormat SDF_DDMMYYYY = new SimpleDateFormat("dd/MM/yyyy");
 	public static SimpleDateFormat SDF_DDMMYYYYHHMMSS = new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss");
 	public static SimpleDateFormat SDF_DDMMYYYYHHMMSS2 = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-	//private static SimpleDateFormat SDF_DDMMMYYYY = new SimpleDateFormat("dd-MMM-yyyy");
+	public static SimpleDateFormat SDF_DDMMYYYYHHMMSS3 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
 	
+	//private static SimpleDateFormat SDF_DDMMMYYYY = new SimpleDateFormat("dd-MMM-yyyy");
     public DateUtils() {
         super();
         // TODO Auto-generated constructor stub

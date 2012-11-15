@@ -12,6 +12,7 @@ import oracle.jdbc.OracleTypes;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import vms.db.dto.DoiTacDTO;
+import vms.utils.NumberUtil;
 import vms.utils.VMSUtil;
 
 public class ReportDAO {
@@ -54,14 +55,19 @@ public class ReportDAO {
 		stringBuffer.append("<header></header>");
 		stringBuffer.append("<data>");
 		int stt = 1;
+		int iSoKenhChuaBanGiao = 0;
 		while(rs.next()) {
 			stringBuffer.append("<row>");
 			stringBuffer.append("<stt>"+stt+"</stt>");
 			stringBuffer.append(VMSUtil.resultSetToXML(rs));
 			stringBuffer.append("</row>");
+			int iSoLuong = NumberUtil.parseInt(rs.getString("SOLUONGDEXUAT"));
+			if(iSoLuong == 0) iSoLuong = NumberUtil.parseInt(rs.getString("SOLUONG"));
+			iSoKenhChuaBanGiao+=iSoLuong;
 			stt++;
 		}
 		stringBuffer.append("</data>");
+		stringBuffer.append("<summary><sokenhchuabangiao>"+iSoKenhChuaBanGiao+"</sokenhchuabangiao></summary>");
 		stringBuffer.append("</root>");
 		stmt.close();
 		connection.close();
@@ -93,14 +99,19 @@ public class ReportDAO {
 		stringBuffer.append("<header></header>");
 		stringBuffer.append("<data>");
 		int stt = 1;
+		int iSoKenhBanGiaoChuaHopDong = 0;
 		while(rs.next()) {
 			stringBuffer.append("<row>");
 			stringBuffer.append("<stt>"+stt+"</stt>");
 			stringBuffer.append(VMSUtil.resultSetToXML(rs));
 			stringBuffer.append("</row>");
 			stt++;
+			int iSoLuong = NumberUtil.parseInt(rs.getString("SOLUONGDEXUAT"));
+			if(iSoLuong == 0) iSoLuong = NumberUtil.parseInt(rs.getString("SOLUONG"));
+			iSoKenhBanGiaoChuaHopDong+=iSoLuong;
 		}
 		stringBuffer.append("</data>");
+		stringBuffer.append("<summary><tuyenkenhdabangiao>"+iSoKenhBanGiaoChuaHopDong+"</tuyenkenhdabangiao></summary>");
 		stringBuffer.append("</root>");
 		stmt.close();
 		connection.close();
