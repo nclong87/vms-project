@@ -221,7 +221,7 @@ xmlns:html="http://www.w3.org/TR/REC-html40"
 		<Cell ss:StyleID="s66"><Data ss:Type="Number"><xsl:value-of select='./stt'/></Data></Cell>
 		<Cell ss:StyleID="s66"><Data ss:Type="String"><xsl:value-of select='./tenphuluc'/></Data></Cell>
 		<Cell ss:StyleID="s66"><Data ss:Type="String"><xsl:value-of select='./tenhopdong'/></Data></Cell>
-		<Cell ss:StyleID="s66"><Data ss:Type="Number"><xsl:value-of select='./soluongkenh'/></Data></Cell>
+		<Cell ss:StyleID="s66"><Data ss:Type="String"><xsl:value-of select='./soluongkenh'/></Data></Cell>
 		<Cell ss:StyleID="s73"><Data ss:Type="Number"><xsl:value-of select='./giatritruocthue'/></Data></Cell>
 		<Cell ss:StyleID="s73"><Data ss:Type="Number"><xsl:value-of select='./giatrisauthue'/></Data></Cell>
 		<Cell ss:StyleID="s74"><Data ss:Type="Number"><xsl:value-of select='./cuocdaunoi'/></Data></Cell>
