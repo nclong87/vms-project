@@ -27,6 +27,7 @@ import vms.db.dao.DoiTacDAO;
 import vms.db.dao.DuAnDAO;
 import vms.db.dao.LoaiGiaoTiepDao;
 import vms.db.dao.PhongBanDao;
+import vms.db.dao.ReportDAO;
 import vms.db.dao.TuyenkenhDao;
 import vms.db.dto.DuAnDTO;
 import vms.db.dto.PhongBanDTO;
@@ -96,9 +97,11 @@ public class ReportAction implements Preparable {
 			session.setAttribute("URL", VMSUtil.getFullURL(request));
 			return "login_page";
 		}
-		File fileXmlData = new File(ServletActionContext.getServletContext().getRealPath("files/templates/TuyenKenhChuaBanGiao.xml")); 
-		String xmlData = FileUtils.readFileToString(fileXmlData, "UTF-8");
-		
+		//File fileXmlData = new File(ServletActionContext.getServletContext().getRealPath("files/templates/TuyenKenhChuaBanGiao.xml")); 
+		//String xmlData = FileUtils.readFileToString(fileXmlData, "UTF-8");
+		ReportDAO dao = new ReportDAO(daoFactory);
+		String doitac_id = request.getParameter("doitac_id");
+		String xmlData = dao.reportTuyenKenhChuaBanGiao(doitac_id);
 		String pathXslTemplate = ServletActionContext.getServletContext().getRealPath("files/templates/tuyenkenhchuabangiao.xsl");
 		String transformedString = XMLUtil.transformStringXML_FileXSL(xmlData, pathXslTemplate);
 		//System.out.println("transformedString = "+transformedString);
@@ -130,9 +133,11 @@ public class ReportAction implements Preparable {
 			session.setAttribute("URL", VMSUtil.getFullURL(request));
 			return "login_page";
 		}
-		File fileXmlData = new File(ServletActionContext.getServletContext().getRealPath("files/templates/tuyenkenhdabangiaonhungchuacohopdong.xml")); 
-		String xmlData = FileUtils.readFileToString(fileXmlData, "UTF-8");
-		
+		//File fileXmlData = new File(ServletActionContext.getServletContext().getRealPath("files/templates/tuyenkenhdabangiaonhungchuacohopdong.xml")); 
+		//String xmlData = FileUtils.readFileToString(fileXmlData, "UTF-8");
+		ReportDAO dao = new ReportDAO(daoFactory);
+		String doitac_id = request.getParameter("doitac_id");
+		String xmlData = dao.reportTuyenKenhDaBanGiaoChuaHopDong(doitac_id);
 		String pathXslTemplate = ServletActionContext.getServletContext().getRealPath("files/templates/tuyenkenhdabangiaonhungchuacohopdong.xsl");
 		String transformedString = XMLUtil.transformStringXML_FileXSL(xmlData, pathXslTemplate);
 		//System.out.println("transformedString = "+transformedString);

@@ -110,7 +110,13 @@ public class VMSUtil {
 			int n = resultSetMetaData.getColumnCount();
 			for(int i=1;i<=n;i++) {
 				String tagName = resultSetMetaData.getColumnName(i).toLowerCase();
-				buffer.append("<"+tagName+">"+cData(rs.getString(i)==null?"":rs.getString(i))+"</"+tagName+">");
+				String data = "";
+				if(resultSetMetaData.getColumnType(i) == java.sql.Types.DATE) {
+					data = DateUtils.formatDate(rs.getDate(i), DateUtils.SDF_DDMMYYYYHHMMSS3);
+				} else {
+					data = rs.getString(i)==null?"":rs.getString(i);
+				}
+				buffer.append("<"+tagName+">"+cData(data)+"</"+tagName+">");
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
