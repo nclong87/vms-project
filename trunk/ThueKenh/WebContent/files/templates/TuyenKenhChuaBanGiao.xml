@@ -8,10 +8,10 @@
 			<madiemdau>D1801</madiemdau>
 			<madiemcuoi>D1802</madiemcuoi>
 			<loaigiaotiep>E1</loaigiaotiep>
-			<dungluong>2</dungluong>
-			<soluong>4</soluong>
-			<ngaydenghibangiao>09/11/2012</ngaydenghibangiao>
-			<ngayhenbangiao>09/11/2012</ngayhenbangiao>
+			<dungluong></dungluong>
+			<soluong></soluong>
+			<ngaydenghibangiao>2012-05-11T00:00:00.000</ngaydenghibangiao>
+			<ngayhenbangiao>2012-05-11T00:00:00.000</ngayhenbangiao>
 			<soluongdexuat>2</soluongdexuat>
 			<tendoitac>Viễn thông Bình Dương</tendoitac>
 		</row>
@@ -23,8 +23,8 @@
 			<loaigiaotiep>E1</loaigiaotiep>
 			<dungluong>2</dungluong>
 			<soluong>4</soluong>
-			<ngaydenghibangiao>09/11/2012</ngaydenghibangiao>
-			<ngayhenbangiao>09/11/2012</ngayhenbangiao>
+			<ngaydenghibangiao>2012-05-11T00:00:00.000</ngaydenghibangiao>
+			<ngayhenbangiao>2012-05-11T00:00:00.000</ngayhenbangiao>
 			<soluongdexuat>2</soluongdexuat>
 			<tendoitac>Viễn thông Lâm Đồng</tendoitac>
 		</row>

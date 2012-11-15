@@ -69,6 +69,17 @@ xmlns:html="http://www.w3.org/TR/REC-html40"
    </Borders>
    <Font ss:FontName="Arial" x:Family="Swiss" ss:Color="#000000"/>
   </Style>
+  <Style ss:ID="s69">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Center"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+   </Borders>
+   <Font ss:FontName="Arial" x:Family="Swiss" ss:Color="#000000"/>
+   <NumberFormat ss:Format="d/m/yyyy"/>
+  </Style>
  </Styles>
  <Worksheet ss:Name="Sheet1">
   <Table>
@@ -141,17 +152,41 @@ xmlns:html="http://www.w3.org/TR/REC-html40"
 </Workbook>
 </xsl:template>
 <xsl:template match="row">
+	<xsl:variable name="ngaydenghibangiao" select="./ngaydenghibangiao"/>
+	<xsl:variable name="ngayhenbangiao" select="./ngayhenbangiao"/>
 	 <Row>
 		<Cell ss:StyleID="s67"><Data ss:Type="String"><xsl:value-of select='./stt'/></Data></Cell>
 		<Cell ss:StyleID="s67"><Data ss:Type="String"><xsl:value-of select='./id'/></Data></Cell>
 		<Cell ss:StyleID="s67"><Data ss:Type="String"><xsl:value-of select='./madiemdau'/></Data></Cell>
 		<Cell ss:StyleID="s67"><Data ss:Type="String"><xsl:value-of select='./madiemcuoi'/></Data></Cell>
 		<Cell ss:StyleID="s67"><Data ss:Type="String"><xsl:value-of select='./loaigiaotiep'/></Data></Cell>
-		<Cell ss:StyleID="s67"><Data ss:Type="String"><xsl:value-of select='./dungluong'/></Data></Cell>
-		<Cell ss:StyleID="s67"><Data ss:Type="String"><xsl:value-of select='./soluong'/></Data></Cell>
-		<Cell ss:StyleID="s67"><Data ss:Type="String"><xsl:value-of select='./ngaydenghibangiao'/></Data></Cell>
-		<Cell ss:StyleID="s67"><Data ss:Type="String"><xsl:value-of select='./ngayhenbangiao'/></Data></Cell>
-		<Cell ss:StyleID="s67"><Data ss:Type="String"><xsl:value-of select='./soluongdexuat'/></Data></Cell>
+		<Cell ss:StyleID="s67"><Data ss:Type="Number"><xsl:value-of select='./dungluong'/></Data></Cell>
+		<Cell ss:StyleID="s67"><Data ss:Type="Number"><xsl:value-of select='./soluong'/></Data></Cell>
+		<Cell ss:StyleID="s69">
+			<xsl:choose>
+			<xsl:when test="$ngaydenghibangiao!=''">
+				<Data ss:Type="DateTime">
+					<xsl:value-of select="$ngaydenghibangiao"/>
+				</Data>
+			</xsl:when>
+			<xsl:otherwise>
+				<Data ss:Type="String"> </Data>
+			</xsl:otherwise>
+			</xsl:choose>
+		</Cell>
+		<Cell ss:StyleID="s69">
+			<xsl:choose>
+			<xsl:when test="$ngayhenbangiao!=''">
+				<Data ss:Type="DateTime">
+					<xsl:value-of select="$ngayhenbangiao"/>
+				</Data>
+			</xsl:when>
+			<xsl:otherwise>
+				<Data ss:Type="String"> </Data>
+			</xsl:otherwise>
+			</xsl:choose>
+		</Cell>
+		<Cell ss:StyleID="s67"><Data ss:Type="Number"><xsl:value-of select='./soluongdexuat'/></Data></Cell>
 		<Cell ss:StyleID="s68"><Data ss:Type="String"><xsl:value-of select='./tendoitac'/></Data></Cell>
    </Row>
 </xsl:template>

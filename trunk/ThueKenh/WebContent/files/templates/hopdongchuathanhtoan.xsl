@@ -214,6 +214,9 @@ xmlns:html="http://www.w3.org/TR/REC-html40"
 </Workbook>
 </xsl:template>
 <xsl:template match="row">
+	<xsl:variable name="ngayky" select="./ngayky"/>
+	<xsl:variable name="ngayhieuluc" select="./ngayhieuluc"/>
+	<xsl:variable name="ngayhethieuluc" select="./ngayhethieuluc"/>
 	<Row>
 		<Cell ss:StyleID="s66"><Data ss:Type="Number"><xsl:value-of select='./stt'/></Data></Cell>
 		<Cell ss:StyleID="s66"><Data ss:Type="String"><xsl:value-of select='./tenphuluc'/></Data></Cell>
@@ -222,9 +225,42 @@ xmlns:html="http://www.w3.org/TR/REC-html40"
 		<Cell ss:StyleID="s73"><Data ss:Type="Number"><xsl:value-of select='./giatritruocthue'/></Data></Cell>
 		<Cell ss:StyleID="s73"><Data ss:Type="Number"><xsl:value-of select='./giatrisauthue'/></Data></Cell>
 		<Cell ss:StyleID="s74"><Data ss:Type="Number"><xsl:value-of select='./cuocdaunoi'/></Data></Cell>
-		<Cell ss:StyleID="s76"><Data ss:Type="DateTime"><xsl:value-of select='./ngayky'/></Data></Cell>
-		<Cell ss:StyleID="s76"><Data ss:Type="DateTime"><xsl:value-of select='./ngayhieuluc'/></Data></Cell>
-		<Cell ss:StyleID="s68"><Data ss:Type="DateTime"><xsl:value-of select='./ngayhethieuluc'/></Data></Cell>
+		<Cell ss:StyleID="s76">
+			<xsl:choose>
+			<xsl:when test="$ngayky!=''">
+				<Data ss:Type="DateTime">
+					<xsl:value-of select="$ngayky"/>
+				</Data>
+			</xsl:when>
+			<xsl:otherwise>
+				<Data ss:Type="String"> </Data>
+			</xsl:otherwise>
+			</xsl:choose>
+		</Cell>
+		<Cell ss:StyleID="s76">
+			<xsl:choose>
+			<xsl:when test="$ngayhieuluc!=''">
+				<Data ss:Type="DateTime">
+					<xsl:value-of select="$ngayhieuluc"/>
+				</Data>
+			</xsl:when>
+			<xsl:otherwise>
+				<Data ss:Type="String"> </Data>
+			</xsl:otherwise>
+			</xsl:choose>
+		</Cell>
+		<Cell ss:StyleID="s68">
+			<xsl:choose>
+			<xsl:when test="$ngayhethieuluc!=''">
+				<Data ss:Type="DateTime">
+					<xsl:value-of select="$ngayhethieuluc"/>
+				</Data>
+			</xsl:when>
+			<xsl:otherwise>
+				<Data ss:Type="String"> </Data>
+			</xsl:otherwise>
+			</xsl:choose>
+		</Cell>
    </Row>
 </xsl:template>
 </xsl:stylesheet>
