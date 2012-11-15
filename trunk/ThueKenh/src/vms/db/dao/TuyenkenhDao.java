@@ -60,6 +60,39 @@ public class TuyenkenhDao {
 		return result;
 	}
 	
+	private static final String SQL_FN_FIND_TUYENKENHSUCO = "{ ? = call FN_FIND_TUYENKENHSUCO(?,?,?,?,?,?,?,?,?,?,?,?,?) }";
+	public List<Map<String,Object>> findTuyenkenhSuCo(int iDisplayStart,int iDisplayLength,Map<String, String> conditions) throws SQLException {
+		Connection connection = jdbcDatasource.getConnection();
+		CallableStatement stmt = connection.prepareCall(SQL_FN_FIND_TUYENKENHSUCO);
+		stmt.registerOutParameter(1, OracleTypes.CURSOR);
+		stmt.setInt(2, iDisplayStart);
+		stmt.setInt(3, iDisplayLength);
+		stmt.setString(4, conditions.get("makenh"));
+		stmt.setString(5, conditions.get("loaigiaotiep"));
+		stmt.setString(6, conditions.get("madiemdau"));
+		stmt.setString(7, conditions.get("madiemcuoi"));
+		stmt.setString(8, conditions.get("duan"));
+		stmt.setString(9, conditions.get("doitac"));
+		stmt.setString(10, conditions.get("phongban"));
+		stmt.setString(11, conditions.get("ngaydenghibangiao"));
+		stmt.setString(12, conditions.get("ngayhenbangiao"));
+		stmt.setString(13, conditions.get("trangthai"));
+		stmt.setString(14, conditions.get("flag"));
+		stmt.execute();
+		ResultSet rs = (ResultSet) stmt.getObject(1);
+		List<Map<String,Object>> result = new ArrayList<Map<String,Object>>();
+		int i = 1;
+		while(rs.next()) {
+			Map<String,Object> map = VMSUtil.resultSetToMap(rs);
+			map.put("stt", i);
+			result.add(map);
+			i++;
+		}
+		stmt.close();
+		connection.close();
+		return result;
+	}
+	
 	public TuyenKenh findById(String id) {
 		return (TuyenKenh) this.jdbcTemplate.queryForObject("select * from TUYENKENH where id = ? and DELETED = 0" ,new Object[] {id}, new RowMapper() {
 			@Override

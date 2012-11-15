@@ -113,10 +113,10 @@ public class ReportAction implements Preparable {
 			session.setAttribute("URL", VMSUtil.getFullURL(request));
 			return "login_page";
 		}
-		File fileXmlData = new File(ServletActionContext.getServletContext().getRealPath("files/templates/TuyenKenhChuaBanGiao.xml")); 
+		File fileXmlData = new File(ServletActionContext.getServletContext().getRealPath("files/templates/hopdongchuathanhtoan.xml")); 
 		String xmlData = FileUtils.readFileToString(fileXmlData, "UTF-8");
 		
-		String pathXslTemplate = ServletActionContext.getServletContext().getRealPath("files/templates/tuyenkenhchuabangiao.xsl");
+		String pathXslTemplate = ServletActionContext.getServletContext().getRealPath("files/templates/hopdongchuathanhtoan.xsl");
 		String transformedString = XMLUtil.transformStringXML_FileXSL(xmlData, pathXslTemplate);
 		//System.out.println("transformedString = "+transformedString);
 		FileUtils.writeStringToFile(new File("D:\\log.txt"), transformedString,"UTF-8");
@@ -130,10 +130,10 @@ public class ReportAction implements Preparable {
 			session.setAttribute("URL", VMSUtil.getFullURL(request));
 			return "login_page";
 		}
-		File fileXmlData = new File(ServletActionContext.getServletContext().getRealPath("files/templates/TuyenKenhChuaBanGiao.xml")); 
+		File fileXmlData = new File(ServletActionContext.getServletContext().getRealPath("files/templates/tuyenkenhdabangiaonhungchuacohopdong.xml")); 
 		String xmlData = FileUtils.readFileToString(fileXmlData, "UTF-8");
 		
-		String pathXslTemplate = ServletActionContext.getServletContext().getRealPath("files/templates/tuyenkenhchuabangiao.xsl");
+		String pathXslTemplate = ServletActionContext.getServletContext().getRealPath("files/templates/tuyenkenhdabangiaonhungchuacohopdong.xsl");
 		String transformedString = XMLUtil.transformStringXML_FileXSL(xmlData, pathXslTemplate);
 		//System.out.println("transformedString = "+transformedString);
 		FileUtils.writeStringToFile(new File("D:\\log.txt"), transformedString,"UTF-8");
@@ -147,15 +147,32 @@ public class ReportAction implements Preparable {
 			session.setAttribute("URL", VMSUtil.getFullURL(request));
 			return "login_page";
 		}
-		File fileXmlData = new File(ServletActionContext.getServletContext().getRealPath("files/templates/TuyenKenhChuaBanGiao.xml")); 
+		File fileXmlData = new File(ServletActionContext.getServletContext().getRealPath("files/templates/tienthuekenhphatsinh.xml")); 
 		String xmlData = FileUtils.readFileToString(fileXmlData, "UTF-8");
 		
-		String pathXslTemplate = ServletActionContext.getServletContext().getRealPath("files/templates/tuyenkenhchuabangiao.xsl");
+		String pathXslTemplate = ServletActionContext.getServletContext().getRealPath("files/templates/tienthuekenhphatsinh.xsl");
 		String transformedString = XMLUtil.transformStringXML_FileXSL(xmlData, pathXslTemplate);
 		//System.out.println("transformedString = "+transformedString);
 		FileUtils.writeStringToFile(new File("D:\\log.txt"), transformedString,"UTF-8");
 		setExcelStream(transformedString);
 		filename = "TienThueKenhPhatSinh_"+System.currentTimeMillis()+".xls";
+		return Action.SUCCESS;
+	}
+	
+	public String rpDoiSoatCuoc() throws Exception {
+		if(account == null) {
+			session.setAttribute("URL", VMSUtil.getFullURL(request));
+			return "login_page";
+		}
+		File fileXmlData = new File(ServletActionContext.getServletContext().getRealPath("files/templates/doisoatcuoc.xml")); 
+		String xmlData = FileUtils.readFileToString(fileXmlData, "UTF-8");
+		
+		String pathXslTemplate = ServletActionContext.getServletContext().getRealPath("files/templates/doisoatcuoc.xsl");
+		String transformedString = XMLUtil.transformStringXML_FileXSL(xmlData, pathXslTemplate);
+		//System.out.println("transformedString = "+transformedString);
+		FileUtils.writeStringToFile(new File("D:\\log.txt"), transformedString,"UTF-8");
+		setExcelStream(transformedString);
+		filename = "DOISOATCUOC_"+System.currentTimeMillis()+".xls";
 		return Action.SUCCESS;
 	}
 	

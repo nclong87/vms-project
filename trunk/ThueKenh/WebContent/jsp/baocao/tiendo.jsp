@@ -12,9 +12,28 @@
 	var LOGIN_PATH = "${loginURL}";
 	</script>
 	<%@include file="/include/header.jsp"%>
+	<script type="text/javascript" src="<%=contextPath%>/js/jquery.validate.js"></script>
+	<script type="text/javascript" src="<%=contextPath%>/js/mylibs/my.validate.js"></script>
 	<style>
 		.reporttb{border-collapse: collapse}
 		.reporttb tr td.parent {border:1px solid #DDD;padding:15px;width:50%;vertical-align: top}
+		span.required {
+		color:red;
+		}
+		label.error {
+		color: red;
+		display: block;
+		}
+		input.error, select.error {
+			border:1px solid red
+		}
+		p {
+		margin:0;
+		}
+		.ui-datepicker select
+		{
+			width: 50px !important;
+		}
 	</style>
 </head>
 
@@ -22,78 +41,79 @@
 	<%@include file="/include/top.jsp"%>
 		<div id="bg_wrapper">
 			<table width="100%" align="center" style="" class="reporttb">
-					<tr>
-						<td align="center" class="parent">
-							<table>
-								<tr>
-									<td colspan="4"><b>Các kênh chưa bàn giao</b> <br /> <br /></td>
-								</tr>
-								<tr>
-									<td>Đối tác :</td>
-									<td>
-										<select style="width: 210px" name="doitac_id1" id="doitac_id1">
-											<option value="">---Tất cả---</option>
-											<s:iterator value="doiTacs">
-												<option value='<s:property value="id" />'><s:property value="tendoitac" /></option>									
-											</s:iterator>
-										</select>
-									</td>
-								</tr>
-								<tr>
-									<td></td>
-									<td><input type="button" class="button" value="Xuất Excel" id="btSubmit1"></input></td>
-								</tr>
-							</table>
-						</td>
-						<td align="center" class="parent">
-							<table>
-								<tr>
-									<td colspan="4"><b>Các kênh đã bàn giao nhưng chưa có
-											hợp đồng </b> <br /> <br /></td>
-								</tr>
-								<tr>
-									<td>Đối tác :</td>
-									<td>
-										<select style="width: 210px" name="doitac_id2" id="doitac_id2">
-											<option value="">---Tất cả---</option>
-											<s:iterator value="doiTacs">
-												<option value='<s:property value="id" />'><s:property value="tendoitac" /></option>									
-											</s:iterator>
-										</select>
-									</td>
-								</tr>
-								<tr>
-									<td></td>
-									<td><input type="button" class="button" value="Xuất Excel" id="btSubmit2"></input></td>
-								</tr>
-							</table>
-						</td>
-					</tr>
-					<tr>
-						<td align="center"  class="parent">
-							<table>
-								<tr>
-									<td colspan="4"><b>Các hợp đồng chưa thanh toán</b> <br />
-										<br /></td>
-								</tr>
-								<tr>
-									<td>Đối tác :</td>
-									<td>
-										<select style="width: 210px" name="doitac_id3" id="doitac_id3">
-											<option value="">---Tất cả---</option>
-											<s:iterator value="doiTacs">
-												<option value='<s:property value="id" />'><s:property value="tendoitac" /></option>									
-											</s:iterator>
-										</select>
-									</td>
-								</tr>
-								<tr>
-									<td></td>
-									<td><input type="button" class="button" value="Xuất Excel" id="btSubmit3"></input></td>
-								</tr>
-							</table>
-						</td>
-						<td align="left" class="parent">
+				<tr>
+					<td align="center" class="parent">
+						<table>
+							<tr>
+								<td colspan="4"><b>Các kênh chưa bàn giao</b> <br /> <br /></td>
+							</tr>
+							<tr>
+								<td>Đối tác :</td>
+								<td>
+									<select style="width: 210px" name="doitac_id1" id="doitac_id1">
+										<option value="">---Tất cả---</option>
+										<s:iterator value="doiTacs">
+											<option value='<s:property value="id" />'><s:property value="tendoitac" /></option>									
+										</s:iterator>
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<td></td>
+								<td><input type="button" class="button" value="Xuất Excel" id="btSubmit1"></input></td>
+							</tr>
+						</table>
+					</td>
+					<td align="center" class="parent">
+						<table>
+							<tr>
+								<td colspan="4"><b>Các kênh đã bàn giao nhưng chưa có
+										hợp đồng </b> <br /> <br /></td>
+							</tr>
+							<tr>
+								<td>Đối tác :</td>
+								<td>
+									<select style="width: 210px" name="doitac_id2" id="doitac_id2">
+										<option value="">---Tất cả---</option>
+										<s:iterator value="doiTacs">
+											<option value='<s:property value="id" />'><s:property value="tendoitac" /></option>									
+										</s:iterator>
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<td></td>
+								<td><input type="button" class="button" value="Xuất Excel" id="btSubmit2"></input></td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+				<tr>
+					<td align="center"  class="parent">
+						<table>
+							<tr>
+								<td colspan="4"><b>Các hợp đồng chưa thanh toán</b> <br />
+									<br /></td>
+							</tr>
+							<tr>
+								<td>Đối tác :</td>
+								<td>
+									<select style="width: 210px" name="doitac_id3" id="doitac_id3">
+										<option value="">---Tất cả---</option>
+										<s:iterator value="doiTacs">
+											<option value='<s:property value="id" />'><s:property value="tendoitac" /></option>									
+										</s:iterator>
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<td></td>
+								<td><input type="button" class="button" value="Xuất Excel" id="btSubmit3"></input></td>
+							</tr>
+						</table>
+					</td>
+					<td align="left" class="parent">
+						<form id="form" onsubmit="return false;">
 							<table>
 								<tr>
 									<td colspan="4"><b>Tiền thuê kênh phát sinh - Tiền
@@ -129,12 +149,13 @@
 								</tr>
 								<tr>
 									<td></td>
-									<td><input type="button" class="button" value="Xuất Excel" id="btSubmit1"></input></td>
+									<td><input type="button" class="button" value="Xuất Excel" id="btSubmit4"></input></td>
 								</tr>
 							</table>
-						</td>
-					</tr>
-				</table>
+						</form>
+					</td>
+				</tr>
+			</table>
 		</div>
 		<!--end bg_wrapper-->
 	</div>
@@ -163,17 +184,36 @@ $(document).ready(function(){
 	
 	// bao cao 2 : Các hợp đồng chưa thanh toán
 	$("#btSubmit2").click(function() {
-		location.href="${rpHopDongChuaThanhToanURL}?doitac_id="+$("#doitac_id2").val();
+		location.href="${rpKenhDaBanGiaoNhungChuaCoHopDongURL}?doitac_id="+$("#doitac_id2").val();
 	});
 	
 	// bao cao 3 : Các kênh đã bàn giao nhưng chưa có hợp đồng
 	$("#btSubmit3").click(function() {
-		location.href="${rpKenhDaBanGiaoNhungChuaCoHopDongURL}?doitac_id="+$("#doitac_id3").val();
+		location.href="${rpHopDongChuaThanhToanURL}?doitac_id="+$("#doitac_id3").val();
 	});
-	
-	// bao cao 4 : Tiền thuê kênh phát sinh - Tiền thuê kênh đã thanh toán
+	//validation form
+	$("#form").validate({
+		rules : {
+			"thang" : {
+				required : true,
+				number:true
+			},
+			"nam" : {
+				required : true,
+				number:true
+			}
+		}
+	});
+	// 
 	$("#btSubmit4").click(function() {
-		location.href="${rpTienThueKenhPhatSinhURL}?thang="+$("#thang").val()+"&nam="+$("#nam").val();
+		$(this).disabled = true;
+		if (!$("#form").valid()) {
+			alert("Dữ liệu chưa hợp lệ. Vui lòng chọn lại",0);
+			$(this).disabled = false;
+		} else {
+			location.href="${rpTienThueKenhPhatSinhURL}?thang="+$("#thang").val()+"&nam="+$("#nam").val();
+			$(this).disabled = false;
+		}
 	});
 });
 </script>
