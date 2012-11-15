@@ -1,0 +1,25 @@
+<root>
+	<header>	
+	</header>
+	<data>
+		<row>
+			<stt>1</stt>
+			<sohopdong>BD_001</sohopdong>
+			<loaihopdong>D1801</loaihopdong>
+			<doitac>D1802</doitac>
+			<ngayky>20/11/2012</ngayky>
+			<ngayhethan>20/11/2013</ngayhethan>
+		</row>
+		<row>
+			<stt>2</stt>
+			<sohopdong>BD_002</sohopdong>
+			<loaihopdong>D1801</loaihopdong>
+			<doitac>D1802</doitac>
+			<ngayky>20/11/2012</ngayky>
+			<ngayhethan>20/11/2013</ngayhethan>
+		</row>
+	</data>
+	<summary>
+		<sohopdongchuathanhtoan>2</sohopdongchuathanhtoan>
+	</summary>
+</root>

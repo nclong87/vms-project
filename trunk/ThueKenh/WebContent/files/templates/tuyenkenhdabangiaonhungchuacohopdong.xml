@@ -1,0 +1,35 @@
+<root>
+	<header>	
+	</header>
+	<data>
+		<row>
+			<stt>1</stt>
+			<id>BD_001</id>
+			<madiemdau>D1801</madiemdau>
+			<madiemcuoi>D1802</madiemcuoi>
+			<loaigiaotiep>E1</loaigiaotiep>
+			<dungluong>2</dungluong>
+			<soluong>4</soluong>
+			<ngaydenghibangiao>09/11/2012</ngaydenghibangiao>
+			<ngayhenbangiao>09/11/2012</ngayhenbangiao>
+			<soluongdexuat>2</soluongdexuat>
+			<tendoitac>Viễn thông Bình Dương</tendoitac>
+		</row>
+		<row>
+			<stt>2</stt>
+			<id>BD_002</id>
+			<madiemdau>D1802</madiemdau>
+			<madiemcuoi>D1803</madiemcuoi>
+			<loaigiaotiep>E1</loaigiaotiep>
+			<dungluong>2</dungluong>
+			<soluong>4</soluong>
+			<ngaydenghibangiao>09/11/2012</ngaydenghibangiao>
+			<ngayhenbangiao>09/11/2012</ngayhenbangiao>
+			<soluongdexuat>2</soluongdexuat>
+			<tendoitac>Viễn thông Lâm Đồng</tendoitac>
+		</row>
+	</data>
+	<summary>
+		<sokenhchuabangiao>2</sokenhchuabangiao>
+	</summary>
+</root>
