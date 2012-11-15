@@ -33,13 +33,11 @@ public class TestBC_CHUABANGIAO {
 	public static void main(String arg[]) throws Exception {
 		System.out.println("Begin");
 		instance();
-		ReportDAO dao = new ReportDAO(connection);
+		ReportDAO dao = new ReportDAO(daoFactory);
 		
-		String doitac_id = "104";
-		List<Map<String, Object>> list = dao.reportTuyenKenhChuaBanGiao(doitac_id);
-		for (Map<String, Object> map : list) {
-			System.out.println(map.get("id"));
-		}
+		String doitac_id = "";
+		String xmlData = dao.reportTuyenKenhChuaBanGiao(doitac_id);
+		System.out.println("XmlData = "+xmlData);
 		System.out.println("Done!");
     }
 }

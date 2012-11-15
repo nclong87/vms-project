@@ -1,7 +1,9 @@
 package vms.test;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.Date;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.LinkedHashMap;
@@ -9,6 +11,8 @@ import java.util.List;
 import java.util.Map;
 
 import javax.sql.DataSource;
+
+import oracle.jdbc.OracleTypes;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 
@@ -20,9 +24,10 @@ import vms.db.dao.PhuLucDAO;
 import vms.db.dao.ReportDAO;
 import vms.utils.DateUtils;
 import vms.utils.ResourceManager;
+import vms.utils.VMSUtil;
 
 
-public class BC_CHUAHOPDONG {
+public class TestCallStore {
 	private static DaoFactory daoFactory;
 	private static Connection connection;
 	private static void instance() {
@@ -33,12 +38,16 @@ public class BC_CHUAHOPDONG {
 	public static void main(String arg[]) throws Exception {
 		System.out.println("Begin");
 		instance();
-		//PhuLucDAO dao = new PhuLucDAO(daoFactory);
-		ReportDAO dao = new ReportDAO(daoFactory);
-		
-		String doitac_id = "";
-		String xmlData = dao.reportTuyenKenhDaBanGiaoChuaHopDong(doitac_id);
-		System.out.println("XmlData = "+xmlData);
+		String sohoso = "TT01";
+		Date ngaykyunc = DateUtils.parseToSQLDate("10/11/2012", "dd/MM/yyyy");
+		Date ngaychuyenkhoan = DateUtils.parseToSQLDate("13/11/2012", "dd/MM/yyyy");
+		CallableStatement stmt = connection.prepareCall("{ call PROC_UPDATE_THANHTOAN(?,?,?) }");
+		stmt.setString(1, sohoso);
+		stmt.setDate(2, ngaykyunc);
+		stmt.setDate(3, ngaychuyenkhoan);
+		stmt.execute();
+		stmt.close();
+		connection.close();
 		System.out.println("Done!");
     }
 }
