@@ -78,7 +78,7 @@ xmlns:html="http://www.w3.org/TR/REC-html40"
     <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
    </Borders>
    <Font ss:FontName="Arial" x:Family="Swiss" ss:Color="#000000"/>
-   <NumberFormat ss:Format="dd/mm/yyyy"/>
+   <NumberFormat ss:Format="d/m/yyyy"/>
   </Style>
  </Styles>
  <Worksheet ss:Name="Sheet1">
