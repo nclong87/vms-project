@@ -14,22 +14,6 @@ xmlns:html="http://www.w3.org/TR/REC-html40"
  xmlns:x="urn:schemas-microsoft-com:office:excel"
  xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
  xmlns:html="http://www.w3.org/TR/REC-html40">
- <DocumentProperties xmlns="urn:schemas-microsoft-com:office:office">
-  <Created>2006-09-16T00:00:00Z</Created>
-  <LastSaved>2012-11-15T15:09:26Z</LastSaved>
-  <Version>12.00</Version>
- </DocumentProperties>
- <OfficeDocumentSettings xmlns="urn:schemas-microsoft-com:office:office">
-  <RemovePersonalInformation/>
- </OfficeDocumentSettings>
- <ExcelWorkbook xmlns="urn:schemas-microsoft-com:office:excel">
-  <WindowHeight>8010</WindowHeight>
-  <WindowWidth>14805</WindowWidth>
-  <WindowTopX>240</WindowTopX>
-  <WindowTopY>105</WindowTopY>
-  <ProtectStructure>False</ProtectStructure>
-  <ProtectWindows>False</ProtectWindows>
- </ExcelWorkbook>
  <Styles>
   <Style ss:ID="Default" ss:Name="Normal">
    <Alignment ss:Vertical="Bottom"/>
@@ -77,6 +61,17 @@ xmlns:html="http://www.w3.org/TR/REC-html40"
    <Alignment ss:Horizontal="Center" ss:Vertical="Center"/>
    <Font ss:FontName="Arial" x:Family="Swiss" ss:Size="11" ss:Color="#000000"
     ss:Bold="1"/>
+  </Style>
+  <Style ss:ID="s68">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Center"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+   </Borders>
+   <Font ss:FontName="Arial" x:Family="Swiss" ss:Color="#000000"/>
+   <NumberFormat ss:Format="d/m/yyyy"/>
   </Style>
   <Style ss:ID="s69" ss:Parent="s43">
    <Alignment ss:Horizontal="Center" ss:Vertical="Center"/>
@@ -139,12 +134,15 @@ xmlns:html="http://www.w3.org/TR/REC-html40"
     <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
    </Borders>
    <Font ss:FontName="Arial" x:Family="Swiss" ss:Color="#000000"/>
-   <NumberFormat ss:Format="[$-1010000]d/m/yyyy;@"/>
+   <NumberFormat ss:Format="d/m/yyyy"/>
+  </Style>
+  <Style ss:ID="s77" ss:Parent="s43">
+   <Font ss:FontName="Arial" x:Family="Swiss" ss:Color="#000000" ss:Bold="1"/>
+   <NumberFormat ss:Format="_(* #,##0_);_(* \(#,##0\);_(* &quot;-&quot;??_);_(@_)"/>
   </Style>
  </Styles>
  <Worksheet ss:Name="Sheet1">
-  <Table ss:ExpandedColumnCount="10" ss:ExpandedRowCount="10" x:FullColumns="1"
-   x:FullRows="1" ss:StyleID="s62">
+  <Table>
    <Column ss:StyleID="s64" ss:AutoFitWidth="0" ss:Width="36"/>
    <Column ss:StyleID="s64" ss:AutoFitWidth="0" ss:Width="101.25"/>
    <Column ss:StyleID="s64" ss:AutoFitWidth="0" ss:Width="91.5"/>
@@ -181,9 +179,12 @@ xmlns:html="http://www.w3.org/TR/REC-html40"
     <Cell ss:StyleID="s63"><Data ss:Type="String">Ngày hết hiệu lực</Data></Cell>
    </Row>
    <xsl:apply-templates select="/root/data/row"/>
-   <Row ss:Index="10">
-    <Cell ss:Index="2" ss:StyleID="s65"><Data ss:Type="String">Tổng cộng :</Data></Cell>
-    <Cell ss:StyleID="s65"><Data ss:Type="Number"><xsl:value-of select="/root/summary/sohopdongchuathanhtoan"/></Data></Cell>
+   <Row>
+    <Cell ss:Index="3" ss:StyleID="s65"><Data ss:Type="String">Tổng cộng</Data></Cell>
+    <Cell ss:StyleID="s65"><Data ss:Type="Number"><xsl:value-of select="/root/summary/tongkenh"/></Data></Cell>
+    <Cell ss:StyleID="s69"><Data ss:Type="Number"><xsl:value-of select="/root/summary/tongtientruocthue"/></Data></Cell>
+    <Cell ss:StyleID="s69"><Data ss:Type="Number"><xsl:value-of select="/root/summary/tongtiensauthue"/></Data></Cell>
+    <Cell ss:StyleID="s77"><Data ss:Type="Number"><xsl:value-of select="/root/summary/tongcuocdaunoi"/></Data></Cell>
    </Row>
   </Table>
   <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
@@ -202,8 +203,8 @@ xmlns:html="http://www.w3.org/TR/REC-html40"
    <Panes>
     <Pane>
      <Number>3</Number>
-     <ActiveRow>12</ActiveRow>
-     <ActiveCol>9</ActiveCol>
+     <ActiveRow>16</ActiveRow>
+     <ActiveCol>4</ActiveCol>
     </Pane>
    </Panes>
    <ProtectObjects>False</ProtectObjects>
@@ -221,8 +222,8 @@ xmlns:html="http://www.w3.org/TR/REC-html40"
 		<Cell ss:StyleID="s73"><Data ss:Type="Number"><xsl:value-of select='./giatritruocthue'/></Data></Cell>
 		<Cell ss:StyleID="s73"><Data ss:Type="Number"><xsl:value-of select='./giatrisauthue'/></Data></Cell>
 		<Cell ss:StyleID="s74"><Data ss:Type="Number"><xsl:value-of select='./cuocdaunoi'/></Data></Cell>
-		<Cell ss:StyleID="s68"><Data ss:Type="DateTime"><xsl:value-of select='./ngayky'/></Data></Cell>
-		<Cell ss:StyleID="s68"><Data ss:Type="DateTime"><xsl:value-of select='./ngayhieuluc'/></Data></Cell>
+		<Cell ss:StyleID="s76"><Data ss:Type="DateTime"><xsl:value-of select='./ngayky'/></Data></Cell>
+		<Cell ss:StyleID="s76"><Data ss:Type="DateTime"><xsl:value-of select='./ngayhieuluc'/></Data></Cell>
 		<Cell ss:StyleID="s68"><Data ss:Type="DateTime"><xsl:value-of select='./ngayhethieuluc'/></Data></Cell>
    </Row>
 </xsl:template>

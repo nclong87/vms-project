@@ -1,4 +1,4 @@
-﻿<root>
+<root>
 	<header>	
 	</header>
 	<data>
@@ -10,24 +10,27 @@
 			<giatritruocthue>200000</giatritruocthue>
 			<giatrisauthue>200000</giatrisauthue>
 			<cuocdaunoi>300000</cuocdaunoi>
-			<ngayky>9/11/2012</ngayky>
-			<ngayhieuluc>9/11/2012</ngayhieuluc>
-			<ngayhethieuluc>9/11/2012</ngayhethieuluc>
+			<ngayky>2012-09-11T00:00:00.000</ngayky>
+			<ngayhieuluc>2012-09-11T00:00:00.000</ngayhieuluc>
+			<ngayhethieuluc>2012-09-11T00:00:00.000</ngayhethieuluc>
 		</row>
 		<row>
-			<stt>1</stt>
+			<stt>2</stt>
 			<tenphuluc>Phụ lục 01</tenphuluc>
 			<tenhopdong>Hợp đồng 01</tenhopdong>
 			<soluongkenh>2</soluongkenh>
 			<giatritruocthue>200000</giatritruocthue>
 			<giatrisauthue>200000</giatrisauthue>
 			<cuocdaunoi>300000</cuocdaunoi>
-			<ngayky>9/11/2012</ngayky>
-			<ngayhieuluc>9/11/2012</ngayhieuluc>
-			<ngayhethieuluc>9/11/2012</ngayhethieuluc>
+			<ngayky>2012-09-11T00:00:00.000</ngayky>
+			<ngayhieuluc>2012-09-11T00:00:00.000</ngayhieuluc>
+			<ngayhethieuluc>2012-09-11T00:00:00.000</ngayhethieuluc>
 		</row>
 	</data>
 	<summary>
-		<sohopdongchuathanhtoan>2</sohopdongchuathanhtoan>
+		<tongkenh>2</tongkenh>
+		<tongtientruocthue>20000</tongtientruocthue>
+		<tongtiensauthue>20000</tongtiensauthue>
+		<tongcuocdaunoi>20000</tongcuocdaunoi>
 	</summary>
 </root>
