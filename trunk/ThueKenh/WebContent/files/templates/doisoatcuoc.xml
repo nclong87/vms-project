@@ -4,7 +4,7 @@
 		<denngay>30/11/2012</denngay>
 		<matlienlactu>1/2012</matlienlactu>
 		<matlienlacden>2/2012</matlienlacden>
-		<tendoitac>Viễn thông Bình Dương</tendoitac>
+		<tendoitac>VIỄN THÔNG BÌNH DƯƠNG</tendoitac>
 	</header>
 	<data>
 		<row>
@@ -22,7 +22,7 @@
 					<thanhtien>300000</thanhtien>
 					<giamtrumll>300000</giamtrumll>
 					<cuocdaunoi>20000</cuocdaunoi>
-					<dathanhtoan>200000</dathanhtoan>
+					<dathanhtoan></dathanhtoan>
 					<conthanhtoan>15000</conthanhtoan>
 				</child>
 				<child>
@@ -35,7 +35,7 @@
 					<thanhtien>300000</thanhtien>
 					<giamtrumll>300000</giamtrumll>
 					<cuocdaunoi>20000</cuocdaunoi>
-					<dathanhtoan>200000</dathanhtoan>
+					<dathanhtoan></dathanhtoan>
 					<conthanhtoan>15000</conthanhtoan>
 				</child>
 				<child>
@@ -48,7 +48,7 @@
 					<thanhtien>300000</thanhtien>
 					<giamtrumll>300000</giamtrumll>
 					<cuocdaunoi>20000</cuocdaunoi>
-					<dathanhtoan>200000</dathanhtoan>
+					<dathanhtoan></dathanhtoan>
 					<conthanhtoan>15000</conthanhtoan>
 				</child>
 			</childs>
@@ -106,7 +106,7 @@
 		<tongdaunoihoamang>2000000</tongdaunoihoamang>
 		<tongdathanhtoan>3000000</tongdathanhtoan>
 		<tongconthanhtoan>2000000</tongconthanhtoan>
-		<tongvat>2000000<tongvat>
+		<tongvat>2000000</tongvat>
 		<tongcong>3000000</tongcong>
 	</summary>
 </root>
