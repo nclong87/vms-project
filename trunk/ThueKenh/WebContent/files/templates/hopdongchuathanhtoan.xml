@@ -13,6 +13,8 @@
 			<ngayky></ngayky>
 			<ngayhieuluc>2012-09-11T00:00:00.000</ngayhieuluc>
 			<ngayhethieuluc>2012-09-11T00:00:00.000</ngayhethieuluc>
+			<thang>8</thang>
+			<nam>2012</nam>
 		</row>
 		<row>
 			<stt>2</stt>
@@ -25,6 +27,8 @@
 			<ngayky>2012-09-11T00:00:00.000</ngayky>
 			<ngayhieuluc>2012-09-11T00:00:00.000</ngayhieuluc>
 			<ngayhethieuluc>2012-09-11T00:00:00.000</ngayhethieuluc>
+			<thang></thang>
+			<nam></nam>
 		</row>
 	</data>
 	<summary>
