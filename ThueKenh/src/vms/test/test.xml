@@ -1,242 +1,138 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
-	xmlns:html="http://www.w3.org/TR/REC-html40" xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
-	xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns:o="urn:schemas-microsoft-com:office:office">
-	<Styles>
-		<Style ss:Name="Normal" ss:ID="Default">
-			<Alignment ss:Vertical="Bottom" />
-			<Borders />
-			<Font ss:Color="#000000" ss:Size="11" x:Family="Swiss"
-				ss:FontName="Calibri" />
-			<Interior />
-			<NumberFormat />
-			<Protection />
-		</Style>
-		<Style ss:ID="s62">
-			<Font ss:Color="#000000" x:Family="Swiss" ss:FontName="Arial" />
-		</Style>
-		<Style ss:ID="s63">
-			<Alignment ss:Vertical="Center" ss:Horizontal="Center" />
-			<Borders>
-				<Border ss:Weight="1" ss:LineStyle="Continuous" ss:Position="Bottom" />
-				<Border ss:Weight="1" ss:LineStyle="Continuous" ss:Position="Left" />
-				<Border ss:Weight="1" ss:LineStyle="Continuous" ss:Position="Right" />
-				<Border ss:Weight="1" ss:LineStyle="Continuous" ss:Position="Top" />
-			</Borders>
-			<Font ss:Bold="1" ss:Color="#000000" x:Family="Swiss"
-				ss:FontName="Arial" />
-		</Style>
-		<Style ss:ID="s64">
-			<Alignment ss:Vertical="Center" ss:Horizontal="Center" />
-			<Font ss:Color="#000000" x:Family="Swiss" ss:FontName="Arial" />
-		</Style>
-		<Style ss:ID="s65">
-			<Alignment ss:Vertical="Center" ss:Horizontal="Center" />
-			<Font ss:Bold="1" ss:Color="#000000" x:Family="Swiss"
-				ss:FontName="Arial" />
-		</Style>
-		<Style ss:ID="s66">
-			<Alignment ss:Vertical="Center" ss:Horizontal="Center" />
-			<Font ss:Bold="1" ss:Color="#000000" ss:Size="12" x:Family="Swiss"
-				ss:FontName="Arial" />
-		</Style>
-		<Style ss:ID="s67">
-			<Alignment ss:Vertical="Center" ss:Horizontal="Center" />
-			<Borders>
-				<Border ss:Weight="1" ss:LineStyle="Continuous" ss:Position="Bottom" />
-				<Border ss:Weight="1" ss:LineStyle="Continuous" ss:Position="Left" />
-				<Border ss:Weight="1" ss:LineStyle="Continuous" ss:Position="Right" />
-				<Border ss:Weight="1" ss:LineStyle="Continuous" ss:Position="Top" />
-			</Borders>
-			<Font ss:Color="#000000" x:Family="Swiss" ss:FontName="Arial" />
-		</Style>
-		<Style ss:ID="s68">
-			<Alignment ss:Vertical="Bottom" ss:Horizontal="Center" />
-			<Borders>
-				<Border ss:Weight="1" ss:LineStyle="Continuous" ss:Position="Bottom" />
-				<Border ss:Weight="1" ss:LineStyle="Continuous" ss:Position="Left" />
-				<Border ss:Weight="1" ss:LineStyle="Continuous" ss:Position="Right" />
-				<Border ss:Weight="1" ss:LineStyle="Continuous" ss:Position="Top" />
-			</Borders>
-			<Font ss:Color="#000000" x:Family="Swiss" ss:FontName="Arial" />
-		</Style>
-		<Style ss:ID="s69">
-			<Alignment ss:Vertical="Center" ss:Horizontal="Center" />
-			<Borders>
-				<Border ss:Weight="1" ss:LineStyle="Continuous" ss:Position="Bottom" />
-				<Border ss:Weight="1" ss:LineStyle="Continuous" ss:Position="Left" />
-				<Border ss:Weight="1" ss:LineStyle="Continuous" ss:Position="Right" />
-				<Border ss:Weight="1" ss:LineStyle="Continuous" ss:Position="Top" />
-			</Borders>
-			<Font ss:Color="#000000" x:Family="Swiss" ss:FontName="Arial" />
-			<NumberFormat ss:Format="[$-1010000]d/m/yyyy;@" />
-		</Style>
-	</Styles>
-	<Worksheet ss:Name="Sheet1">
-		<Table>
-			<Column ss:Width="36" ss:AutoFitWidth="0" ss:StyleID="s64" />
-			<Column ss:Width="94.5" ss:AutoFitWidth="0" ss:StyleID="s64" />
-			<Column ss:Width="72.75" ss:StyleID="s64" />
-			<Column ss:Width="75.75" ss:StyleID="s64" />
-			<Column ss:Width="84" ss:AutoFitWidth="0" ss:StyleID="s64" />
-			<Column ss:Width="70.5" ss:StyleID="s64" />
-			<Column ss:Width="55.5" ss:StyleID="s64" />
-			<Column ss:Width="124.5" ss:StyleID="s64" />
-			<Column ss:Width="104.25" ss:StyleID="s64" />
-			<Column ss:Width="89.25" ss:StyleID="s64" />
-			<Column ss:Width="179.25" ss:AutoFitWidth="0" ss:StyleID="s62" />
-			<Row>
-				<Cell ss:StyleID="s65" ss:Index="3" />
-				<Cell ss:StyleID="s65" />
-				<Cell ss:StyleID="s65" />
-				<Cell ss:StyleID="s65" />
-			</Row>
-			<Row ss:Height="15.75">
-				<Cell ss:StyleID="s66" ss:Index="4" />
-				<Cell ss:StyleID="s66">
-					<Data ss:Type="String">DANH SÁCH TUYẾN KÊNH ĐÃ BÀN GIAO NHƯNG CHƯA CÓ
-						HỢP ĐỒNG</Data>
-				</Cell>
-				<Cell ss:StyleID="s66" />
-				<Cell ss:StyleID="s65" />
-			</Row>
-			<Row ss:Height="18.75" ss:AutoFitHeight="0" ss:Index="4">
-				<Cell ss:StyleID="s63">
-					<Data ss:Type="String">STT</Data>
-				</Cell>
-				<Cell ss:StyleID="s63">
-					<Data ss:Type="String">Mã Tuyến Kênh</Data>
-				</Cell>
-				<Cell ss:StyleID="s63">
-					<Data ss:Type="String">Mã điểm đầu</Data>
-				</Cell>
-				<Cell ss:StyleID="s63">
-					<Data ss:Type="String">Mã điểm cuối</Data>
-				</Cell>
-				<Cell ss:StyleID="s63">
-					<Data ss:Type="String">Loại giao tiếp</Data>
-				</Cell>
-				<Cell ss:StyleID="s63">
-					<Data ss:Type="String">Dung lượng</Data>
-				</Cell>
-				<Cell ss:StyleID="s63">
-					<Data ss:Type="String">Số lượng</Data>
-				</Cell>
-				<Cell ss:StyleID="s63">
-					<Data ss:Type="String">Ngày đề nghị bàn giao</Data>
-				</Cell>
-				<Cell ss:StyleID="s63">
-					<Data ss:Type="String">Ngày hẹn bàn giao</Data>
-				</Cell>
-				<Cell ss:StyleID="s63">
-					<Data ss:Type="String">Số lượng đề xuất</Data>
-				</Cell>
-				<Cell ss:StyleID="s63">
-					<Data ss:Type="String">Đối tác</Data>
-				</Cell>
-			</Row>
-			<Row>
-				<Cell ss:StyleID="s67">
-					<Data ss:Type="Number">1</Data>
-				</Cell>
-				<Cell ss:StyleID="s67">
-					<Data ss:Type="String">BD_0016</Data>
-				</Cell>
-				<Cell ss:StyleID="s67">
-					<Data ss:Type="String">D1800</Data>
-				</Cell>
-				<Cell ss:StyleID="s67">
-					<Data ss:Type="String">D1805</Data>
-				</Cell>
-				<Cell ss:StyleID="s67">
-					<Data ss:Type="String">E1</Data>
-				</Cell>
-				<Cell ss:StyleID="s67">
-					<Data ss:Type="Number">1</Data>
-				</Cell>
-				<Cell ss:StyleID="s67">
-					<Data ss:Type="Number">1</Data>
-				</Cell>
-				<Cell ss:StyleID="s69">
-					<Data ss:Type="DateTime">2012-11-05T00:00:00</Data>
-				</Cell>
-				<Cell ss:StyleID="s69">
-					<Data ss:Type="DateTime" />
-				</Cell>
-				<Cell ss:StyleID="s67">
-					<Data ss:Type="Number">1</Data>
-				</Cell>
-				<Cell ss:StyleID="s68">
-					<Data ss:Type="String">Viễn thông Bình Dương</Data>
-				</Cell>
-			</Row>
-			<Row>
-				<Cell ss:StyleID="s67">
-					<Data ss:Type="Number">2</Data>
-				</Cell>
-				<Cell ss:StyleID="s67">
-					<Data ss:Type="String">LD_0002</Data>
-				</Cell>
-				<Cell ss:StyleID="s67">
-					<Data ss:Type="String">D1792</Data>
-				</Cell>
-				<Cell ss:StyleID="s67">
-					<Data ss:Type="String">D1797</Data>
-				</Cell>
-				<Cell ss:StyleID="s67">
-					<Data ss:Type="String">STM1</Data>
-				</Cell>
-				<Cell ss:StyleID="s67">
-					<Data ss:Type="Number">1</Data>
-				</Cell>
-				<Cell ss:StyleID="s67">
-					<Data ss:Type="Number">2</Data>
-				</Cell>
-				<Cell ss:StyleID="s69">
-					<Data ss:Type="DateTime">2012-11-06T00:00:00</Data>
-				</Cell>
-				<Cell ss:StyleID="s69">
-					<Data ss:Type="DateTime" />
-				</Cell>
-				<Cell ss:StyleID="s67">
-					<Data ss:Type="Number">2</Data>
-				</Cell>
-				<Cell ss:StyleID="s68">
-					<Data ss:Type="String">Viễn thông Lâm Đồng</Data>
-				</Cell>
-			</Row>
-			<Row>
-				<Cell ss:StyleID="s65" ss:Index="2">
-					<Data ss:Type="String">Tổng cộng: </Data>
-				</Cell>
-				<Cell ss:StyleID="s65">
-					<Data ss:Type="Number">3</Data>
-				</Cell>
-			</Row>
-		</Table>
-		<WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
-			<PageSetup>
-				<Header x:Margin="0.3" />
-				<Footer x:Margin="0.3" />
-				<PageMargins x:Top="0.75" x:Right="0.7" x:Left="0.7"
-					x:Bottom="0.75" />
-			</PageSetup>
-			<Print>
-				<ValidPrinterInfo />
-				<HorizontalResolution>300</HorizontalResolution>
-				<VerticalResolution>0</VerticalResolution>
-				<NumberofCopies>0</NumberofCopies>
-			</Print>
-			<Selected />
-			<Panes>
-				<Pane>
-					<Number>3</Number>
-					<ActiveRow>13</ActiveRow>
-					<ActiveCol>7</ActiveCol>
-				</Pane>
-			</Panes>
-			<ProtectObjects>False</ProtectObjects>
-			<ProtectScenarios>False</ProtectScenarios>
-		</WorksheetOptions>
-	</Worksheet>
-</Workbook>
+<root>
+	<header></header>
+	<data>
+		<row>
+			<stt>1</stt>
+			<id><![CDATA[4]]></id>
+			<chitietphuluc_id><![CDATA[104]]></chitietphuluc_id>
+			<hopdong_id><![CDATA[1]]></hopdong_id>
+			<tenphuluc><![CDATA[PL03]]></tenphuluc>
+			<loaiphuluc><![CDATA[1]]></loaiphuluc>
+			<ngayky><![CDATA[2012-11-15T00:00:00.000]]></ngayky>
+			<ngayhieuluc><![CDATA[2012-10-24T00:00:00.000]]></ngayhieuluc>
+			<thang><![CDATA[]]>
+			</thang>
+			<nam><![CDATA[]]>
+			</nam>
+			<trangthai><![CDATA[0]]></trangthai>
+			<usercreate><![CDATA[admin]]></usercreate>
+			<timecreate><![CDATA[1352989534681]]></timecreate>
+			<deleted><![CDATA[0]]></deleted>
+			<ngayhethieuluc><![CDATA[2012-11-20T00:00:00.000]]></ngayhethieuluc>
+			<filename><![CDATA[]]>
+			</filename>
+			<filepath><![CDATA[]]>
+			</filepath>
+			<filesize><![CDATA[]]>
+			</filesize>
+			<phulucthaythe_id><![CDATA[6]]></phulucthaythe_id>
+			<cuocdaunoi><![CDATA[120000]]></cuocdaunoi>
+			<giatritruocthue><![CDATA[2064000]]></giatritruocthue>
+			<giatrisauthue><![CDATA[2270400]]></giatrisauthue>
+			<soluongkenh><![CDATA[6E1]]></soluongkenh>
+			<id><![CDATA[1]]></id>
+			<doitac_id><![CDATA[104]]></doitac_id>
+			<sohopdong><![CDATA[HDBD_VMSC6_01]]></sohopdong>
+			<loaihopdong><![CDATA[0]]></loaihopdong>
+			<ngayky><![CDATA[2012-11-14T00:00:00.000]]></ngayky>
+			<ngayhethan><![CDATA[]]>
+			</ngayhethan>
+			<trangthai><![CDATA[0]]></trangthai>
+			<usercreate><![CDATA[ktkt]]></usercreate>
+			<timecreate><![CDATA[2012-11-14T00:00:00.000]]></timecreate>
+			<history><![CDATA[]]>
+			</history>
+			<deleted><![CDATA[0]]></deleted>
+		</row>
+		<row>
+			<stt>2</stt>
+			<id><![CDATA[7]]></id>
+			<chitietphuluc_id><![CDATA[108]]></chitietphuluc_id>
+			<hopdong_id><![CDATA[1]]></hopdong_id>
+			<tenphuluc><![CDATA[PL08]]></tenphuluc>
+			<loaiphuluc><![CDATA[1]]></loaiphuluc>
+			<ngayky><![CDATA[2012-11-15T00:00:00.000]]></ngayky>
+			<ngayhieuluc><![CDATA[2012-10-17T00:00:00.000]]></ngayhieuluc>
+			<thang><![CDATA[]]>
+			</thang>
+			<nam><![CDATA[]]>
+			</nam>
+			<trangthai><![CDATA[0]]></trangthai>
+			<usercreate><![CDATA[admin]]></usercreate>
+			<timecreate><![CDATA[1352990667421]]></timecreate>
+			<deleted><![CDATA[0]]></deleted>
+			<ngayhethieuluc><![CDATA[]]>
+			</ngayhethieuluc>
+			<filename><![CDATA[]]>
+			</filename>
+			<filepath><![CDATA[]]>
+			</filepath>
+			<filesize><![CDATA[]]>
+			</filesize>
+			<phulucthaythe_id><![CDATA[]]>
+			</phulucthaythe_id>
+			<cuocdaunoi><![CDATA[720000]]></cuocdaunoi>
+			<giatritruocthue><![CDATA[3343000]]></giatritruocthue>
+			<giatrisauthue><![CDATA[3677300]]></giatrisauthue>
+			<soluongkenh><![CDATA[7E1]]></soluongkenh>
+			<id><![CDATA[1]]></id>
+			<doitac_id><![CDATA[104]]></doitac_id>
+			<sohopdong><![CDATA[HDBD_VMSC6_01]]></sohopdong>
+			<loaihopdong><![CDATA[0]]></loaihopdong>
+			<ngayky><![CDATA[2012-11-14T00:00:00.000]]></ngayky>
+			<ngayhethan><![CDATA[]]>
+			</ngayhethan>
+			<trangthai><![CDATA[0]]></trangthai>
+			<usercreate><![CDATA[ktkt]]></usercreate>
+			<timecreate><![CDATA[2012-11-14T00:00:00.000]]></timecreate>
+			<history><![CDATA[]]>
+			</history>
+			<deleted><![CDATA[0]]></deleted>
+		</row>
+		<row>
+			<stt>3</stt>
+			<id><![CDATA[3]]></id>
+			<chitietphuluc_id><![CDATA[103]]></chitietphuluc_id>
+			<hopdong_id><![CDATA[1]]></hopdong_id>
+			<tenphuluc><![CDATA[PL02]]></tenphuluc>
+			<loaiphuluc><![CDATA[1]]></loaiphuluc>
+			<ngayky><![CDATA[2012-11-14T00:00:00.000]]></ngayky>
+			<ngayhieuluc><![CDATA[2012-10-16T00:00:00.000]]></ngayhieuluc>
+			<thang><![CDATA[]]>
+			</thang>
+			<nam><![CDATA[]]>
+			</nam>
+			<trangthai><![CDATA[0]]></trangthai>
+			<usercreate><![CDATA[admin]]></usercreate>
+			<timecreate><![CDATA[1352989498103]]></timecreate>
+			<deleted><![CDATA[0]]></deleted>
+			<ngayhethieuluc><![CDATA[]]>
+			</ngayhethieuluc>
+			<filename><![CDATA[]]>
+			</filename>
+			<filepath><![CDATA[]]>
+			</filepath>
+			<filesize><![CDATA[]]>
+			</filesize>
+			<phulucthaythe_id><![CDATA[]]>
+			</phulucthaythe_id>
+			<cuocdaunoi><![CDATA[270000]]></cuocdaunoi>
+			<giatritruocthue><![CDATA[1152000]]></giatritruocthue>
+			<giatrisauthue><![CDATA[1267200]]></giatrisauthue>
+			<soluongkenh><![CDATA[4E1]]></soluongkenh>
+			<id><![CDATA[1]]></id>
+			<doitac_id><![CDATA[104]]></doitac_id>
+			<sohopdong><![CDATA[HDBD_VMSC6_01]]></sohopdong>
+			<loaihopdong><![CDATA[0]]></loaihopdong>
+			<ngayky><![CDATA[2012-11-14T00:00:00.000]]></ngayky>
+			<ngayhethan><![CDATA[]]>
+			</ngayhethan>
+			<trangthai><![CDATA[0]]></trangthai>
+			<usercreate><![CDATA[ktkt]]></usercreate>
+			<timecreate><![CDATA[2012-11-14T00:00:00.000]]></timecreate>
+			<history><![CDATA[]]>
+			</history>
+			<deleted><![CDATA[0]]></deleted>
+		</row>
+	</data>
+</root>

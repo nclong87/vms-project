@@ -3,6 +3,7 @@ package vms.db.dao;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
@@ -82,13 +83,6 @@ public class ReportDAO {
 		if(connection == null)
 			connection = this.jdbcDatasource.getConnection();
 		System.out.println("***BEGIN reportTuyenKenhChuaBanGiao***");
-		/*String tendoitac = "";
-		if(doitac_id.isEmpty() == false) {
-			DoiTacDAO doiTacDAO = new DoiTacDAO(daoFactory);
-			DoiTacDTO dto = doiTacDAO.get(doitac_id);
-			tendoitac = dto.getTendoitac();
-		}*/
-		
 		CallableStatement stmt = connection.prepareCall(SQL_BC_CHUAHOPDONG);
 		stmt.registerOutParameter(1, OracleTypes.CURSOR);
 		stmt.setString(2, doitac_id);
@@ -112,6 +106,47 @@ public class ReportDAO {
 		}
 		stringBuffer.append("</data>");
 		stringBuffer.append("<summary><tuyenkenhdabangiao>"+iSoKenhBanGiaoChuaHopDong+"</tuyenkenhdabangiao></summary>");
+		stringBuffer.append("</root>");
+		stmt.close();
+		connection.close();
+		return stringBuffer.toString();
+	}
+	
+	/*
+	 * Danh sach phu luc hop dong chua thanh toan o thoi diem hien tai (11/2012)
+	 * Source :
+	 * 		+ Thang thanh toan null hoac < 10
+	 * 		+ Nam thanh toan = 2012
+	 * 		+ Ngay hieu luc < 1/11/2012
+	 * 		+ Trang thai != 1 ( loai nhung phu luc da thanh toan va da het hieu luc)
+	 */
+	private static final String SQL_BC_HDCHUATHANHTOAN = "{ ? = call BC_HDCHUATHANHTOAN(?,?,?) }";
+	public String reportHopDongChuaThanhToan(String doitac_id,Date previous,Date current) throws Exception {
+		if(connection == null)
+			connection = this.jdbcDatasource.getConnection();
+		System.out.println("***BEGIN reportHopDongChuaThanhToan***");
+		CallableStatement stmt = connection.prepareCall(SQL_BC_HDCHUATHANHTOAN);
+		stmt.registerOutParameter(1, OracleTypes.CURSOR);
+		stmt.setString(2, doitac_id);
+		stmt.setDate(3, previous);
+		stmt.setDate(4, current);
+		stmt.execute();
+		ResultSet rs = (ResultSet) stmt.getObject(1);
+		StringBuffer stringBuffer = new StringBuffer(1024);
+		stringBuffer.append("<root>");
+		stringBuffer.append("<header></header>");
+		stringBuffer.append("<data>");
+		int stt = 1;
+		int iSoKenhBanGiaoChuaHopDong = 0;
+		while(rs.next()) {
+			stringBuffer.append("<row>");
+			stringBuffer.append("<stt>"+stt+"</stt>");
+			stringBuffer.append(VMSUtil.resultSetToXML(rs));
+			stringBuffer.append("</row>");
+			stt++;
+		}
+		stringBuffer.append("</data>");
+		stringBuffer.append("<summary></summary>");
 		stringBuffer.append("</root>");
 		stmt.close();
 		connection.close();
