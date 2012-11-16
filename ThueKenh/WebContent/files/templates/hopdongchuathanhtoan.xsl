@@ -71,7 +71,7 @@ xmlns:html="http://www.w3.org/TR/REC-html40"
     <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
    </Borders>
    <Font ss:FontName="Arial" x:Family="Swiss" ss:Color="#000000"/>
-   <NumberFormat ss:Format="d/m/yyyy"/>
+   <NumberFormat ss:Format="Short Date"/>
   </Style>
   <Style ss:ID="s69" ss:Parent="s43">
    <Alignment ss:Horizontal="Center" ss:Vertical="Center"/>
@@ -134,11 +134,17 @@ xmlns:html="http://www.w3.org/TR/REC-html40"
     <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
    </Borders>
    <Font ss:FontName="Arial" x:Family="Swiss" ss:Color="#000000"/>
-   <NumberFormat ss:Format="d/m/yyyy"/>
+   <NumberFormat ss:Format="[$-1010000]d/m/yyyy;@"/>
   </Style>
-  <Style ss:ID="s77" ss:Parent="s43">
-   <Font ss:FontName="Arial" x:Family="Swiss" ss:Color="#000000" ss:Bold="1"/>
-   <NumberFormat ss:Format="_(* #,##0_);_(* \(#,##0\);_(* &quot;-&quot;??_);_(@_)"/>
+  <Style ss:ID="s83">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Center" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+   </Borders>
+   <Font ss:FontName="Arial" x:Family="Swiss" ss:Color="#000000"/>
   </Style>
  </Styles>
  <Worksheet ss:Name="Sheet1">
@@ -153,6 +159,7 @@ xmlns:html="http://www.w3.org/TR/REC-html40"
    <Column ss:StyleID="s64" ss:AutoFitWidth="0" ss:Width="85.5"/>
    <Column ss:StyleID="s64" ss:AutoFitWidth="0" ss:Width="90"/>
    <Column ss:StyleID="s64" ss:AutoFitWidth="0" ss:Width="96"/>
+   <Column ss:StyleID="s62" ss:AutoFitWidth="0" ss:Width="150"/>
    <Row>
     <Cell ss:Index="3" ss:StyleID="s65"/>
     <Cell ss:StyleID="s65"/>
@@ -177,15 +184,9 @@ xmlns:html="http://www.w3.org/TR/REC-html40"
     <Cell ss:StyleID="s63"><Data ss:Type="String">Ngày ký phụ lục</Data></Cell>
     <Cell ss:StyleID="s63"><Data ss:Type="String">Ngày có hiệu lực</Data></Cell>
     <Cell ss:StyleID="s63"><Data ss:Type="String">Ngày hết hiệu lực</Data></Cell>
+	<Cell ss:StyleID="s63"><Data ss:Type="String">Trạng thái thanh toán</Data></Cell>
    </Row>
    <xsl:apply-templates select="/root/data/row"/>
-   <Row>
-    <Cell ss:Index="3" ss:StyleID="s65"><Data ss:Type="String">Tổng cộng</Data></Cell>
-    <Cell ss:StyleID="s65"><Data ss:Type="Number"><xsl:value-of select="/root/summary/tongkenh"/></Data></Cell>
-    <Cell ss:StyleID="s69"><Data ss:Type="Number"><xsl:value-of select="/root/summary/tongtientruocthue"/></Data></Cell>
-    <Cell ss:StyleID="s69"><Data ss:Type="Number"><xsl:value-of select="/root/summary/tongtiensauthue"/></Data></Cell>
-    <Cell ss:StyleID="s77"><Data ss:Type="Number"><xsl:value-of select="/root/summary/tongcuocdaunoi"/></Data></Cell>
-   </Row>
   </Table>
   <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
    <PageSetup>
@@ -200,11 +201,12 @@ xmlns:html="http://www.w3.org/TR/REC-html40"
     <NumberofCopies>0</NumberofCopies>
    </Print>
    <Selected/>
+   <LeftColumnVisible>2</LeftColumnVisible>
    <Panes>
     <Pane>
      <Number>3</Number>
-     <ActiveRow>16</ActiveRow>
-     <ActiveCol>4</ActiveCol>
+     <ActiveRow>13</ActiveRow>
+     <ActiveCol>8</ActiveCol>
     </Pane>
    </Panes>
    <ProtectObjects>False</ProtectObjects>
@@ -217,6 +219,8 @@ xmlns:html="http://www.w3.org/TR/REC-html40"
 	<xsl:variable name="ngayky" select="./ngayky"/>
 	<xsl:variable name="ngayhieuluc" select="./ngayhieuluc"/>
 	<xsl:variable name="ngayhethieuluc" select="./ngayhethieuluc"/>
+	<xsl:variable name="thang" select="./thang"/>
+	<xsl:variable name="nam" select="./nam"/>
 	<Row>
 		<Cell ss:StyleID="s66"><Data ss:Type="Number"><xsl:value-of select='./stt'/></Data></Cell>
 		<Cell ss:StyleID="s66"><Data ss:Type="String"><xsl:value-of select='./tenphuluc'/></Data></Cell>
@@ -260,6 +264,18 @@ xmlns:html="http://www.w3.org/TR/REC-html40"
 				<Data ss:Type="String"> </Data>
 			</xsl:otherwise>
 			</xsl:choose>
+		</Cell>
+		<Cell ss:StyleID="s83">
+			<Data ss:Type="String">
+				<xsl:choose>
+				<xsl:when test="$thang!=''">
+					Đã thanh toán đến <xsl:value-of select="$thang"/>/<xsl:value-of select="$nam"/>
+				</xsl:when>
+				<xsl:otherwise>
+					Chưa thanh toán
+				</xsl:otherwise>
+				</xsl:choose>	
+			</Data>
 		</Cell>
    </Row>
 </xsl:template>
