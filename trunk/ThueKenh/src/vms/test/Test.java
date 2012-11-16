@@ -82,7 +82,17 @@ public class Test {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}*/
-		System.out.println(Calendar.OCTOBER);
+		Date date = new Date();
+		Calendar calendar = Calendar.getInstance();
+		//calendar.
+		//int curMonth = calendar.get(Calendar.MONTH) + 1;
+		//calendar.add(Calendar.MONTH, -1);
+		int thang = calendar.get(Calendar.MONTH);
+		int nam = calendar.get(Calendar.YEAR);
+		System.out.println(thang);
+		//Date ngayhieuluc = new Date(nam, thang, 1);
+		//System.out.println(ngayhieuluc.toString());
+		//System.out.println(Calendar.OCTOBER);
 		System.out.println("Done!");
     }
 }

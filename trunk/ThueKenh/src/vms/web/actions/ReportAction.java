@@ -6,6 +6,8 @@ import java.io.InputStream;
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
+import java.sql.Date;
+import java.util.Calendar;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -116,9 +118,16 @@ public class ReportAction implements Preparable {
 			session.setAttribute("URL", VMSUtil.getFullURL(request));
 			return "login_page";
 		}
-		File fileXmlData = new File(ServletActionContext.getServletContext().getRealPath("files/templates/hopdongchuathanhtoan.xml")); 
-		String xmlData = FileUtils.readFileToString(fileXmlData, "UTF-8");
-		
+		//File fileXmlData = new File(ServletActionContext.getServletContext().getRealPath("files/templates/hopdongchuathanhtoan.xml")); 
+		//String xmlData = FileUtils.readFileToString(fileXmlData, "UTF-8");
+		ReportDAO dao = new ReportDAO(daoFactory);
+		String doitac_id = request.getParameter("doitac_id");
+		Calendar calendar = Calendar.getInstance();
+		Date current = new Date(calendar.getTimeInMillis());
+		calendar.add(Calendar.MONTH, -1);
+		Date previous = new Date(calendar.getTimeInMillis());
+		//Date ngayhieuluc = DateUtils.parseToSQLDate("01/11/2012", "dd/MM/yyyy");
+		String xmlData = dao.reportHopDongChuaThanhToan(doitac_id, previous, current);
 		String pathXslTemplate = ServletActionContext.getServletContext().getRealPath("files/templates/hopdongchuathanhtoan.xsl");
 		String transformedString = XMLUtil.transformStringXML_FileXSL(xmlData, pathXslTemplate);
 		//System.out.println("transformedString = "+transformedString);
