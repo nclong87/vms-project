@@ -178,9 +178,11 @@ public class ReportAction implements Preparable {
 			session.setAttribute("URL", VMSUtil.getFullURL(request));
 			return "login_page";
 		}
-		File fileXmlData = new File(ServletActionContext.getServletContext().getRealPath("files/templates/doisoatcuoc.xml")); 
-		String xmlData = FileUtils.readFileToString(fileXmlData, "UTF-8");
-		
+		//File fileXmlData = new File(ServletActionContext.getServletContext().getRealPath("files/templates/doisoatcuoc.xml")); 
+		//String xmlData = FileUtils.readFileToString(fileXmlData, "UTF-8");
+		ReportDAO dao = new ReportDAO(daoFactory);
+		String doisoatcuoc_id = request.getParameter("id");
+		String xmlData = dao.reportXuatDoiSoatCuoc(doisoatcuoc_id);
 		String pathXslTemplate = ServletActionContext.getServletContext().getRealPath("files/templates/doisoatcuoc.xsl");
 		String transformedString = XMLUtil.transformStringXML_FileXSL(xmlData, pathXslTemplate);
 		//System.out.println("transformedString = "+transformedString);

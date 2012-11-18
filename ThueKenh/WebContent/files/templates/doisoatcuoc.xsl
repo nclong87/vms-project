@@ -187,7 +187,7 @@ xmlns:html="http://www.w3.org/TR/REC-html40"
     <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
    </Borders>
    <Font ss:FontName="Arial" x:Family="Swiss" ss:Color="#000000"/>
-   <NumberFormat ss:Format="_(* #,##0_);_(* \(#,##0\);_(* &quot;-&quot;??_);_(@_)"/>
+   <NumberFormat ss:Format="#,##0"/>
   </Style>
   <Style ss:ID="s94" ss:Parent="s16">
    <Alignment ss:Horizontal="Center" ss:Vertical="Center"/>
@@ -392,9 +392,9 @@ xmlns:html="http://www.w3.org/TR/REC-html40"
 	<Row>
 		<Cell ss:Index="3" ss:StyleID="s74"><Data ss:Type="String"><xsl:value-of select='./tenphuluc'/></Data></Cell>
 		<Cell ss:StyleID="s83"><Data ss:Type="Number"><xsl:value-of select='./giatriphuluc'/></Data></Cell>
-		<Cell ss:StyleID="s83"><Data ss:Type="String"><xsl:value-of select='./thoigian'/></Data></Cell>
-		<Cell ss:StyleID="s84"><Data ss:Type="Number"><xsl:value-of select='./thang'/></Data></Cell>
-		<Cell ss:StyleID="s84"><Data ss:Type="Number"><xsl:value-of select='./ngay'/></Data></Cell>
+		<Cell ss:StyleID="s83"><Data ss:Type="String"><xsl:value-of select='./tungay'/> - <xsl:value-of select='./denngay'/></Data></Cell>
+		<Cell ss:StyleID="s84"><Data ss:Type="Number"><xsl:value-of select='./sothang'/></Data></Cell>
+		<Cell ss:StyleID="s84"><Data ss:Type="Number"><xsl:value-of select='./songay'/></Data></Cell>
 		<Cell ss:StyleID="s85"><Data ss:Type="String"><xsl:value-of select='./soluongkenh'/></Data></Cell>
 		<Cell ss:StyleID="s83"><Data ss:Type="Number"><xsl:value-of select='./thanhtien'/></Data></Cell>
 		<Cell ss:StyleID="s83"><Data ss:Type="Number"><xsl:value-of select='./giamtrumll'/></Data></Cell>

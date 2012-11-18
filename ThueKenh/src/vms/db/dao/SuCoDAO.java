@@ -32,6 +32,7 @@ public class SuCoDAO {
 	private static final String SQL_SAVE_SUCO = "{ ? = call SAVE_SUCOKENH(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) }";
 	public String save(SuCoDTO dto) throws Exception {
 		System.out.println("begin call SAVE_SUCOKENH");
+		System.out.println("dto.getPhuluc_id() ="+dto.getPhuluc_id());
 		Connection connection = jdbcTemplate.getDataSource().getConnection();
 		CallableStatement stmt = connection.prepareCall(SQL_SAVE_SUCO);
 		stmt.registerOutParameter(1, OracleTypes.VARCHAR);
