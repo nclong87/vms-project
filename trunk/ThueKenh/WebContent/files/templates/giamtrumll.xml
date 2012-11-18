@@ -12,15 +12,16 @@
 			<ngayketthuc>08/11/2012</ngayketthuc>
 			<thoigianbatdau>03:00:00</thoigianbatdau>
 			<thoigianketthuc>13:00:00</thoigianketthuc>
+			<thoigianmll>600</thoigianmll>
 			<nguyennhan>lada</nguyennhan>
 			<hopdong>HDBD_VMSC6_01 / PL02</hopdong>
-			<loaisuco>Thường</loaisuco>
-			<nguoixacnhan>nclong</nguoixacnhan>
-			<phuonganxuly>wada</phuonganxuly>
-			<thoigianmll>600</thoigianmll>
+			<cuocthang>1152000</cuocthang>
+			<giamtrumll>3750</giamtrumll>
 		</row>
 	</data>
 	<summary>
-		<tong>600</tong>
+		<tong>3750</tong>
+		<vat>375</vat>
+		<tongcuocgiamtru>4125</tongcuocgiamtru>
 	</summary>
 </root>

@@ -16,6 +16,7 @@ import vms.db.dao.DaoFactory;
 import vms.db.dao.DoiTacDAO;
 import vms.db.dao.HopDongDAO;
 import vms.db.dao.PhuLucDAO;
+import vms.utils.DateUtils;
 
 
 public class Test {
@@ -82,17 +83,22 @@ public class Test {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}*/
-		Date date = new Date();
+		/*Date date = new Date();
 		Calendar calendar = Calendar.getInstance();
 		//calendar.
 		//int curMonth = calendar.get(Calendar.MONTH) + 1;
 		//calendar.add(Calendar.MONTH, -1);
 		int thang = calendar.get(Calendar.MONTH);
 		int nam = calendar.get(Calendar.YEAR);
-		System.out.println(thang);
+		System.out.println(thang);*/
 		//Date ngayhieuluc = new Date(nam, thang, 1);
 		//System.out.println(ngayhieuluc.toString());
 		//System.out.println(Calendar.OCTOBER);
+		
+		long num = Long.valueOf("1352318400000");
+		java.util.Date date = new java.util.Date(num);
+		System.out.println(DateUtils.formatDate(date, DateUtils.SDF_DDMMYYYYHHMMSS));
+		
 		System.out.println("Done!");
     }
 }

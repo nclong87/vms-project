@@ -1,9 +1,9 @@
 package vms.test;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.SQLException;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,7 +35,7 @@ public class TestReport {
 		instance();
 		ReportDAO dao = new ReportDAO(daoFactory);
 		
-		String doitac_id = "103";
+		/*String doitac_id = "103";
 		Calendar calendar = Calendar.getInstance();
 		Date current = new Date(calendar.getTimeInMillis());
 		calendar.add(Calendar.MONTH, -1);
@@ -43,8 +43,23 @@ public class TestReport {
 		//Date ngayhieuluc = DateUtils.parseToSQLDate("01/11/2012", "dd/MM/yyyy");
 		System.out.println(current.toString());
 		System.out.println(previous.toString());
-		String xmlData = dao.reportHopDongChuaThanhToan(doitac_id, previous, current);
+		String xmlData = dao.reportHopDongChuaThanhToan(doitac_id, previous, current);*/
+		
+		/*String doisoatcuoc_id = "31";
+		String xmlData = dao.reportXuatDoiSoatCuoc(doisoatcuoc_id);*/
+		
+		/*String doitac_id = "104";
+		Date from = DateUtils.parseDate("01/11/2012", "dd/MM/yyyy");
+		Date end = DateUtils.parseDate("30/11/2012", "dd/MM/yyyy");
+		String xmlData = dao.reportGiamTruMatLienLac(doitac_id, from.getTime(), end.getTime());*/
+		
+		String doitac_id = "104";
+		Date from = DateUtils.parseDate("01/11/2012", "dd/MM/yyyy");
+		Date end = DateUtils.parseDate("30/11/2012", "dd/MM/yyyy");
+		String xmlData = dao.reportSuCoTheoThoiGian(doitac_id, from.getTime(), end.getTime());
+		
 		System.out.println("XmlData = "+xmlData);
 		System.out.println("Done!");
+		
     }
 }

@@ -23,6 +23,8 @@ import org.springframework.jdbc.core.RowMapper;
 import vms.db.dto.Account;
 import vms.db.dto.HopDongDetailDTO;
 import vms.db.dto.Menu;
+import vms.db.dto.PhuLucDTO;
+import vms.utils.DateUtils;
 import vms.utils.StringUtil;
 import vms.utils.VMSUtil;
 
@@ -140,5 +142,20 @@ public class DoiSoatCuocDAO {
 		stmt.close();
 		connection.close();
 		return result;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public Map<String,Object> findById(String id) {
+		return (Map<String,Object>) this.jdbcTemplate.queryForObject("select t.*,t1.TENDOITAC from DOISOATCUOC t left join DOITAC t1 on t.DOITAC_ID = t1.ID where t.id = ?" ,new Object[] {id}, new RowMapper() {
+			@Override
+			public Object mapRow(ResultSet rs, int arg1) throws SQLException {
+				Map<String,Object> map = VMSUtil.resultSetToMap(rs);
+				map.put("tungay",DateUtils.formatDate(rs.getDate("TUNGAY"), DateUtils.SDF_DDMMYYYY));
+				map.put("denngay",DateUtils.formatDate(rs.getDate("DENNGAY"), DateUtils.SDF_DDMMYYYY));
+				map.put("matlienlactu",DateUtils.formatDate(rs.getDate("MATLIENLACTU"), DateUtils.SDF_MMYYYY));
+				map.put("matlienlacden",DateUtils.formatDate(rs.getDate("MATLIENLACDEN"), DateUtils.SDF_MMYYYY));
+				return map;
+			}
+		});
 	}
 }

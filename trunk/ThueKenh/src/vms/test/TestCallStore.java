@@ -38,7 +38,7 @@ public class TestCallStore {
 	public static void main(String arg[]) throws Exception {
 		System.out.println("Begin");
 		instance();
-		String sohoso = "HS01";
+		String sohoso = "HS03";
 		Date ngaykyunc = DateUtils.parseToSQLDate("10/12/2012", "dd/MM/yyyy");
 		Date ngaychuyenkhoan = DateUtils.parseToSQLDate("13/12/2012", "dd/MM/yyyy");
 		CallableStatement stmt = connection.prepareCall("{ call PROC_UPDATE_THANHTOAN(?,?,?) }");

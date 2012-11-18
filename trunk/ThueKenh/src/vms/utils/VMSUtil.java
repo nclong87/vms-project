@@ -103,6 +103,9 @@ public class VMSUtil {
     public static String cData(String str) {
     	return "<![CDATA["+str+"]]>";
     }
+    public static String xml(String tagName,String value) {
+    	return "<"+tagName+">"+value+"</"+tagName+">";
+    }
     public static String resultSetToXML(ResultSet rs) {
     	StringBuffer buffer = new StringBuffer(512);
     	try {
