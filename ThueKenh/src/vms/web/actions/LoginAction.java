@@ -50,14 +50,25 @@ public class LoginAction implements Preparable {
 			jsonData = JSONValue.toJSONString(map);
 			if(username.isEmpty()==false) {
 				AccountDao accountDao = new AccountDao(daoFactory);
-				Map<String, Object> account = accountDao.checkLogin(username, password);
-				if(account==null) {
+				boolean flag = VMSUtil.checkLDAP(username, password);
+				if(flag == false) {
+					System.out.println("Check LDAP false, try check in DB");
+					flag = accountDao.checkLogin(username, password);
+				}
+				if( flag == false) {
 					message = Constances.MSG_LOGINFAIL;
 					return Action.SUCCESS;
+				} else {
+					Map<String, Object> account = accountDao.findByUsername(username);
+					if(account == null) {
+						message = Constances.MSG_LOGINFAIL;
+						return Action.SUCCESS;
+					}
+					session.setAttribute(Constances.SESS_USERLOGIN, account);
+					String sMenu = accountDao.getMenu(account);
+					session.setAttribute(Constances.SESS_MENU, sMenu);
 				}
-				session.setAttribute(Constances.SESS_USERLOGIN, account);
-				String sMenu = accountDao.getMenu(account);
-				session.setAttribute(Constances.SESS_MENU, sMenu);
+				
 			} else {
 				message = "Username not empty!";
 				return Action.SUCCESS;

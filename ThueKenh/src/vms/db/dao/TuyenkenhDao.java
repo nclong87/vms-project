@@ -22,9 +22,11 @@ import vms.utils.VMSUtil;
 public class TuyenkenhDao {
 	private JdbcTemplate jdbcTemplate;
 	private DataSource jdbcDatasource;
+	private DaoFactory daoFactory;
 	public TuyenkenhDao(DaoFactory daoFactory) {
 		this.jdbcTemplate = daoFactory.getJdbcTemplate();
 		this.jdbcDatasource = daoFactory.getJdbcDataSource();
+		this.daoFactory = daoFactory;
 	}
 	
 	private static final String SQL_FN_FIND_TUYENKENH = "{ ? = call FN_FIND_TUYENKENH(?,?,?,?,?,?,?,?,?,?,?,?,?) }";
@@ -156,14 +158,21 @@ public class TuyenkenhDao {
 		return id;
 	}
 	
-	public void deleteByIds(String[] ids) {
+	public void deleteByIds(String[] ids, Map<String,Object> account) {
+		List<String> lstId = new ArrayList<String>();
 		for(int i=0;i<ids.length;i++) {
+			lstId.add(ids[i]);
 			ids[i] = "'"+ids[i]+"'";
 		}
 		String str = StringUtils.join(ids, ",");
 		long time = System.currentTimeMillis();
 		String query = "update TUYENKENH set DELETED = "+time+" where ID in ("+str+")";
 		this.jdbcTemplate.update(query);
+		LichSuTuyenKenhDAO lichSuTuyenKenhDAO = new LichSuTuyenKenhDAO(daoFactory);
+		for (String tuyenkenh_id : lstId) {
+			lichSuTuyenKenhDAO.insertLichSu(account.get("username").toString(), tuyenkenh_id, 2, "");
+		}
+		
 	}
 	
 	private static final String SQL_DETAIL_TUYENKENH = "select t.*,TENDUAN,TENDOITAC,LOAIGIAOTIEP,TENPHONGBAN from TUYENKENH t left join LOAIGIAOTIEP t0 on t.GIAOTIEP_ID = t0.ID left join DUAN t1 on t.DUAN_ID = t1.ID left join PHONGBAN t2 on t.PHONGBAN_ID = t2.ID left join DOITAC t3 on t.DOITAC_ID = t3.ID where t.ID = ?";

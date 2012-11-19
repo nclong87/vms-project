@@ -35,4 +35,10 @@ public class Constances {
 	//Phu luc
 	public static int PHU_LUC_DOC_LAP = 1;
 	public static int PHU_LUC_THAY_THE = 2;
+	
+	//LDAP
+	public static final String STR_LDAP_SERVER_URL		= "ldap://10.151.70.249:389/ou=system";
+	
+	//Lich su
+	public static int LS_MAX_PAGE_LENGHT = 2;
 }

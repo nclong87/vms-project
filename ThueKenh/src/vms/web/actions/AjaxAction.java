@@ -19,15 +19,16 @@ import vms.db.dao.ChiTietPhuLucDAO;
 import vms.db.dao.CongThucDAO;
 import vms.db.dao.DaoFactory;
 import vms.db.dao.HopDongDAO;
+import vms.db.dao.LichSuTuyenKenhDAO;
 import vms.db.dao.LoaiGiaoTiepDao;
 import vms.db.dao.MenuDao;
 import vms.db.dao.PhuLucDAO;
 import vms.db.dao.TramDAO;
 import vms.db.dao.VmsgroupDao;
-import vms.db.dto.Account;
 import vms.db.dto.Menu;
 import vms.db.dto.Rootmenu;
 import vms.utils.Constances;
+import vms.utils.NumberUtil;
 import vms.utils.VMSUtil;
 
 import com.opensymphony.xwork2.Action;
@@ -64,8 +65,8 @@ public class AjaxAction implements Preparable {
 			String username = request.getParameter("username");
 			if(username == null || username.isEmpty()) throw new Exception("NOT_OK");
 			AccountDao accountDao = new AccountDao(daoFactory);
-			Account account = accountDao.findByUsername(username);
-			if(account == null)
+			int flag = accountDao.checkUsername(username);
+			if(flag == 0)
 				setInputStream("OK");
 			else
 				setInputStream("NOT_OK");
@@ -246,6 +247,22 @@ public class AjaxAction implements Preparable {
 			String phuluc_id = request.getParameter("id");
 			PhuLucDAO dao = new PhuLucDAO(daoFactory);
 			List<Map<String, Object>> result = dao.findPhuLucThayThe(phuluc_id);
+			jsonData.put("status", 1);
+			jsonData.put("data", result);
+		} catch (Exception e) {
+			jsonData.put("status", 0);
+			jsonData.put("data", e.getMessage());
+		}
+		return Action.SUCCESS;
+	}
+	
+	public String lichSuTuyenKenh() {
+		jsonData =  new LinkedHashMap<String, Object>();
+		try {
+			String tuyenkenh_id = request.getParameter("id");
+			int page = NumberUtil.parseInt(request.getParameter("p"));
+			LichSuTuyenKenhDAO dao = new LichSuTuyenKenhDAO(daoFactory);
+			List<Map<String, Object>> result = dao.getData(page, tuyenkenh_id);
 			jsonData.put("status", 1);
 			jsonData.put("data", result);
 		} catch (Exception e) {

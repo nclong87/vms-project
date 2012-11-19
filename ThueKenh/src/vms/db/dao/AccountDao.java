@@ -33,11 +33,16 @@ public class AccountDao {
 	}
 	
 	
-	@SuppressWarnings("unchecked")
-	public Map<String, Object> checkLogin(String username, String password) {
+	public boolean checkLogin(String username, String password) {
 		// FIXME checkLogin
-		//Connection connection = jdbcTemplate.getDataSource().getConnection();
-		List<Map<String, Object>> list = this.jdbcTemplate.query("select t.*,t1.MA as MAKHUVUC,t1.TENKHUVUC,t2.TENPHONGBAN,t2.MA as MAPHONGBAN from ACCOUNTS t left join KHUVUC t1 on t.IDKHUVUC = t1.ID left join PHONGBAN t2 on t.IDPHONGBAN = t2.ID where t.active = 1 and t.username = ? and t.password = ?", new Object[] {username,password}, new RowMapper() {
+		int n = this.jdbcTemplate.queryForInt("select count(*) from ACCOUNTS t where t.active = 1 and t.username = ? and t.password = ?", new Object[] {username,password});
+		if(n == 0) return false;
+		return true;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public Map<String, Object> findByUsername(String username) {
+		List<Map<String, Object>> list = this.jdbcTemplate.query("select t.*,t1.MA as MAKHUVUC,t1.TENKHUVUC,t2.TENPHONGBAN,t2.MA as MAPHONGBAN from ACCOUNTS t left join KHUVUC t1 on t.IDKHUVUC = t1.ID left join PHONGBAN t2 on t.IDPHONGBAN = t2.ID where t.active = 1 and t.username = ?", new Object[] {username}, new RowMapper() {
 			@Override
 			public Object mapRow(ResultSet rs, int arg1) throws SQLException {
 				return VMSUtil.resultSetToMap(rs);
@@ -47,16 +52,8 @@ public class AccountDao {
 		return list.get(0);
 	}
 	
-	@SuppressWarnings("unchecked")
-	public Account findByUsername(String username) {
-		List<Account> list = this.jdbcTemplate.query("select * from ACCOUNTS where active = 1 and username = ?", new Object[] {username}, new RowMapper() {
-			@Override
-			public Object mapRow(ResultSet rs, int arg1) throws SQLException {
-				return Account.mapObject(rs);
-			}
-		});
-		if(list.isEmpty()) return null;
-		return list.get(0);
+	public int checkUsername(String username) {
+		return this.jdbcTemplate.queryForInt("select count(*) from ACCOUNTS where active = 1 and username = ?", new Object[] {username});
 	}
 	
 	public Account findById(String id) {

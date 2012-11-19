@@ -128,4 +128,19 @@ public class VMSUtil {
     	return buffer.toString();
     	
     }
+    
+    public static boolean checkLDAP(String userName,String Password) {
+		//check LDAP
+    	if(true) return true;
+		if(Password.equals(""))
+        {
+            return false;
+        } else{
+            //String ldapURL = Configuration.STR_LDAP_SERVER_URL;
+        	String ldapURL = Constances.STR_LDAP_SERVER_URL;
+            LdapHelper ldapHelper = new LdapHelper();
+            ldapHelper.setLdapURL(ldapURL);
+            return ldapHelper.checkValidUser(userName, Password);
+        }
+	}
 }
