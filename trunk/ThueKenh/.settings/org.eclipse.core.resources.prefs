@@ -1,9 +1,11 @@
-#Thu Nov 15 20:07:00 ICT 2012
+#Mon Nov 19 22:30:31 ICT 2012
 eclipse.preferences.version=1
 encoding//WebContent/jsp/bangdoisoatcuoc/form.jsp=UTF-8
 encoding//WebContent/jsp/bangdoisoatcuoc/index.jsp=UTF-8
 encoding//WebContent/jsp/bangdoisoatcuoc/popupSearch.jsp=UTF-8
 encoding//WebContent/jsp/baocao/doisoatcuoc.jsp=UTF-8
+encoding//WebContent/jsp/baocao/giamtrumatlienlac.jsp=UTF-8
+encoding//WebContent/jsp/baocao/sucotheothoigian.jsp=UTF-8
 encoding//WebContent/jsp/baocao/tiendo.jsp=UTF-8
 encoding//WebContent/jsp/bienbanvanhanhkenh/index.jsp=UTF-8
 encoding//WebContent/jsp/hopdong/index.jsp=UTF-8
