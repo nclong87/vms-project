@@ -192,6 +192,40 @@ public class ReportAction implements Preparable {
 		return Action.SUCCESS;
 	}
 	
+	public String rpGiamTruMatLienLac() throws Exception {
+		if(account == null) {
+			session.setAttribute("URL", VMSUtil.getFullURL(request));
+			return "login_page";
+		}
+		File fileXmlData = new File(ServletActionContext.getServletContext().getRealPath("files/templates/giamtrumll.xml")); 
+		String xmlData = FileUtils.readFileToString(fileXmlData, "UTF-8");
+		
+		String pathXslTemplate = ServletActionContext.getServletContext().getRealPath("files/templates/giamtrumatlienlac.xsl");
+		String transformedString = XMLUtil.transformStringXML_FileXSL(xmlData, pathXslTemplate);
+		//System.out.println("transformedString = "+transformedString);
+		FileUtils.writeStringToFile(new File("D:\\log.txt"), transformedString,"UTF-8");
+		setExcelStream(transformedString);
+		filename = "GiamTruMatLienLac_"+System.currentTimeMillis()+".xls";
+		return Action.SUCCESS;
+	}
+	
+	public String rpSuCoTheoThoiGian() throws Exception {
+		if(account == null) {
+			session.setAttribute("URL", VMSUtil.getFullURL(request));
+			return "login_page";
+		}
+		File fileXmlData = new File(ServletActionContext.getServletContext().getRealPath("files/templates/sucotheothoigian.xml")); 
+		String xmlData = FileUtils.readFileToString(fileXmlData, "UTF-8");
+		
+		String pathXslTemplate = ServletActionContext.getServletContext().getRealPath("files/templates/sucotheothoigian.xsl");
+		String transformedString = XMLUtil.transformStringXML_FileXSL(xmlData, pathXslTemplate);
+		//System.out.println("transformedString = "+transformedString);
+		FileUtils.writeStringToFile(new File("D:\\log.txt"), transformedString,"UTF-8");
+		setExcelStream(transformedString);
+		filename = "SuCoTheoThoiGian_"+System.currentTimeMillis()+".xls";
+		return Action.SUCCESS;
+	}
+	
 	/* Getter and Setter */
 	
 	public InputStream getInputStream() {

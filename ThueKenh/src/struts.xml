@@ -853,6 +853,12 @@
 		<action name="doisoatcuoc" class="reportAction">
 			<result>/jsp/baocao/doisoatcuoc.jsp</result>
 		</action>
+		<action name="giamtrumatlienlac" class="reportAction">
+			<result>/jsp/baocao/giamtrumatlienlac.jsp</result>
+		</action>
+		<action name="suco" class="reportAction">
+			<result>/jsp/baocao/sucotheothoigian.jsp</result>
+		</action>
 		<action name="rpTuyenKenhChuaBanGiao" class="reportAction" method="rpTuyenKenhChuaBanGiao">
 			<result name="success" type="stream">
 				<param name="contentType">application/vnd.ms-excel</param>
@@ -886,6 +892,22 @@
 			 </result>
 		</action>
 		<action name="rpDoiSoatCuoc" class="reportAction" method="rpDoiSoatCuoc">
+			<result name="success" type="stream">
+				<param name="contentType">application/vnd.ms-excel</param>
+				<param name="inputName">excelStream</param>
+				<param name="contentDisposition">attachment; filename="${filename}"</param>
+				<param name="bufferSize">1024</param>
+			 </result>
+		</action>
+		<action name="rpSuCoTheoThoiGian" class="reportAction" method="rpSuCoTheoThoiGian">
+			<result name="success" type="stream">
+				<param name="contentType">application/vnd.ms-excel</param>
+				<param name="inputName">excelStream</param>
+				<param name="contentDisposition">attachment; filename="${filename}"</param>
+				<param name="bufferSize">1024</param>
+			 </result>
+		</action>
+		<action name="rpGiamTruMatLienLac" class="reportAction" method="rpGiamTruMatLienLac">
 			<result name="success" type="stream">
 				<param name="contentType">application/vnd.ms-excel</param>
 				<param name="inputName">excelStream</param>
