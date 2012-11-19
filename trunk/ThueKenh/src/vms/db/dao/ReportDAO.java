@@ -15,9 +15,11 @@ import javax.sql.DataSource;
 import oracle.jdbc.OracleTypes;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import vms.db.dto.DoiTacDTO;
 import vms.db.dto.report.rptDoiSoatCuoc;
 import vms.db.dto.report.rptGiamTruMLL;
 import vms.db.dto.report.rptSuCo;
+import vms.utils.DateUtils;
 import vms.utils.NumberUtil;
 import vms.utils.VMSUtil;
 
@@ -268,6 +270,14 @@ public class ReportDAO {
 		if(connection == null)
 			connection = this.jdbcDatasource.getConnection();
 		System.out.println("***BEGIN reportGiamTruMatLienLac***");
+		String tendoitac = "";
+		if(doitac_id.isEmpty() == false) {
+			DoiTacDAO doiTacDAO = new DoiTacDAO(daoFactory);
+			DoiTacDTO dto = doiTacDAO.get(doitac_id);
+			tendoitac = dto.getTendoitac().toUpperCase();
+		}
+		java.util.Date date = new java.util.Date(from);
+		String thang = DateUtils.formatDate(date, DateUtils.SDF_MMYYYY);
 		CallableStatement stmt = connection.prepareCall(SQL_BC_GIAMTRUMLL);
 		stmt.registerOutParameter(1, OracleTypes.CURSOR);
 		stmt.setString(2, doitac_id);
@@ -277,7 +287,10 @@ public class ReportDAO {
 		ResultSet rs = (ResultSet) stmt.getObject(1);
 		StringBuffer stringBuffer = new StringBuffer(1024);
 		stringBuffer.append("<root>");
-		stringBuffer.append("<header></header>");
+		stringBuffer.append("<header>");
+		stringBuffer.append(VMSUtil.xml("thang", thang));
+		stringBuffer.append(VMSUtil.xml("tendoitac", tendoitac));
+		stringBuffer.append("</header>");
 		stringBuffer.append("<data>");
 		int stt = 1;
 		int tonggiamtru = 0;
@@ -310,6 +323,14 @@ public class ReportDAO {
 		if(connection == null)
 			connection = this.jdbcDatasource.getConnection();
 		System.out.println("***BEGIN reportSuCoTheoThoiGian***");
+		String tendoitac = "";
+		if(doitac_id.isEmpty() == false) {
+			DoiTacDAO doiTacDAO = new DoiTacDAO(daoFactory);
+			DoiTacDTO dto = doiTacDAO.get(doitac_id);
+			tendoitac = dto.getTendoitac().toUpperCase();
+		}
+		java.util.Date date = new java.util.Date(from);
+		String thang = DateUtils.formatDate(date, DateUtils.SDF_MMYYYY);
 		CallableStatement stmt = connection.prepareCall(SQL_BC_GIAMTRUMLL);
 		stmt.registerOutParameter(1, OracleTypes.CURSOR);
 		stmt.setString(2, doitac_id);
@@ -319,7 +340,10 @@ public class ReportDAO {
 		ResultSet rs = (ResultSet) stmt.getObject(1);
 		StringBuffer stringBuffer = new StringBuffer(1024);
 		stringBuffer.append("<root>");
-		stringBuffer.append("<header></header>");
+		stringBuffer.append("<header>");
+		stringBuffer.append(VMSUtil.xml("thang", thang));
+		stringBuffer.append(VMSUtil.xml("tendoitac", tendoitac));
+		stringBuffer.append("</header>");
 		stringBuffer.append("<data>");
 		int stt = 1;
 		int tongthoigianmll = 0;

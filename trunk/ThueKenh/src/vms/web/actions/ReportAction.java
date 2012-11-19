@@ -36,6 +36,7 @@ import vms.db.dto.PhongBanDTO;
 import vms.db.dto.TuyenKenh;
 import vms.utils.Constances;
 import vms.utils.DateUtils;
+import vms.utils.NumberUtil;
 import vms.utils.VMSUtil;
 import vms.utils.XMLUtil;
 
@@ -197,8 +198,21 @@ public class ReportAction implements Preparable {
 			session.setAttribute("URL", VMSUtil.getFullURL(request));
 			return "login_page";
 		}
-		File fileXmlData = new File(ServletActionContext.getServletContext().getRealPath("files/templates/giamtrumll.xml")); 
-		String xmlData = FileUtils.readFileToString(fileXmlData, "UTF-8");
+		//File fileXmlData = new File(ServletActionContext.getServletContext().getRealPath("files/templates/giamtrumll.xml")); 
+		//String xmlData = FileUtils.readFileToString(fileXmlData, "UTF-8");
+		String doitac_id = request.getParameter("doitac");
+		int thang = NumberUtil.parseInt(request.getParameter("thang"));
+		int nam = NumberUtil.parseInt(request.getParameter("nam"));
+		Calendar calendar = Calendar.getInstance();
+		calendar.set(nam, thang, 1);
+		long from = calendar.getTimeInMillis();
+		int maxDay = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+		calendar.set(nam, thang, maxDay);
+		long end = calendar.getTimeInMillis();
+		System.out.println("from ="+from);
+		System.out.println("end ="+end);
+		ReportDAO dao = new ReportDAO(daoFactory);
+		String xmlData = dao.reportGiamTruMatLienLac(doitac_id, from, end);
 		
 		String pathXslTemplate = ServletActionContext.getServletContext().getRealPath("files/templates/giamtrumatlienlac.xsl");
 		String transformedString = XMLUtil.transformStringXML_FileXSL(xmlData, pathXslTemplate);
@@ -214,8 +228,19 @@ public class ReportAction implements Preparable {
 			session.setAttribute("URL", VMSUtil.getFullURL(request));
 			return "login_page";
 		}
-		File fileXmlData = new File(ServletActionContext.getServletContext().getRealPath("files/templates/sucotheothoigian.xml")); 
-		String xmlData = FileUtils.readFileToString(fileXmlData, "UTF-8");
+		String doitac_id = request.getParameter("doitac");
+		int thang = NumberUtil.parseInt(request.getParameter("thang"));
+		int nam = NumberUtil.parseInt(request.getParameter("nam"));
+		Calendar calendar = Calendar.getInstance();
+		calendar.set(nam, thang, 1);
+		long from = calendar.getTimeInMillis();
+		int maxDay = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+		calendar.set(nam, thang, maxDay);
+		long end = calendar.getTimeInMillis();
+		System.out.println("from ="+from);
+		System.out.println("end ="+end);
+		ReportDAO dao = new ReportDAO(daoFactory);
+		String xmlData = dao.reportSuCoTheoThoiGian(doitac_id, from, end);
 		
 		String pathXslTemplate = ServletActionContext.getServletContext().getRealPath("files/templates/sucotheothoigian.xsl");
 		String transformedString = XMLUtil.transformStringXML_FileXSL(xmlData, pathXslTemplate);

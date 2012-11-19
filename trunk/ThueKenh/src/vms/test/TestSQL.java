@@ -1,18 +1,14 @@
 package vms.test;
 
-import java.sql.CallableStatement;
 import java.sql.Connection;
-import java.sql.Date;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.sql.DataSource;
-
-import oracle.jdbc.OracleTypes;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 
@@ -20,14 +16,14 @@ import vms.db.dao.DaoFactory;
 import vms.db.dao.DoiSoatCuocDAO;
 import vms.db.dao.DoiTacDAO;
 import vms.db.dao.HopDongDAO;
+import vms.db.dao.LichSuTuyenKenhDAO;
 import vms.db.dao.PhuLucDAO;
 import vms.db.dao.ReportDAO;
 import vms.utils.DateUtils;
 import vms.utils.ResourceManager;
-import vms.utils.VMSUtil;
 
 
-public class TestCallStore {
+public class TestSQL {
 	private static DaoFactory daoFactory;
 	private static Connection connection;
 	private static void instance() {
@@ -38,16 +34,13 @@ public class TestCallStore {
 	public static void main(String arg[]) throws Exception {
 		System.out.println("Begin");
 		instance();
-		String sohoso = "HS02";
-		Date ngaykyunc = DateUtils.parseToSQLDate("10/12/2012", "dd/MM/yyyy");
-		Date ngaychuyenkhoan = DateUtils.parseToSQLDate("13/12/2012", "dd/MM/yyyy");
-		CallableStatement stmt = connection.prepareCall("{ call PROC_UPDATE_THANHTOAN(?,?,?) }");
-		stmt.setString(1, sohoso);
-		stmt.setDate(2, ngaykyunc);
-		stmt.setDate(3, ngaychuyenkhoan);
-		stmt.execute();
-		stmt.close();
-		connection.close();
+		LichSuTuyenKenhDAO dao = new LichSuTuyenKenhDAO(daoFactory);
+		List<Map<String, Object>> list = dao.getData(1, "BD_0015");
+		for (Map<String, Object> map : list) {
+			System.out.println(map.get("timeaction"));
+		}
+		//dao.insertLichSu("ada", "121", "hello");
 		System.out.println("Done!");
+		
     }
 }

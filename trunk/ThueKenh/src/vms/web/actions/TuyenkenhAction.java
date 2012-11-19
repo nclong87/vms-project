@@ -190,7 +190,7 @@ public class TuyenkenhAction implements Preparable {
 			}
 			if(ids != null && ids.length >0 ) {
 				TuyenkenhDao tuyenkenhDao = new TuyenkenhDao(daoFactory);
-				tuyenkenhDao.deleteByIds(ids);
+				tuyenkenhDao.deleteByIds(ids,account);
 			}
 			setInputStream("OK");
 		} catch (Exception e) {

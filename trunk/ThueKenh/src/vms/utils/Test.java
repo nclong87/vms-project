@@ -67,7 +67,7 @@ public class Test {
 		}
 		
 		System.out.println(strOutput);*/
-		Date date = DateUtils.parseDate("23/11/2012", "dd/MM/yyyy");
+		/*Date date = DateUtils.parseDate("23/11/2012", "dd/MM/yyyy");
 		date = DateUtils.add(DateUtils.parseDate("23/11/2012", "dd/MM/yyyy"), Calendar.DATE, -1);
 		java.sql.Date sqlDate = DateUtils.convertToSQLDate(DateUtils.add(DateUtils.parseDate("23/11/2012", "dd/MM/yyyy"), Calendar.DATE, -1));
 		
@@ -80,8 +80,14 @@ public class Test {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 		
+		int thang = 10;
+		int nam = 2012;
+		Calendar calendar = Calendar.getInstance();
+		calendar.set(nam, thang, 1);
+		int maxDay = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+		System.out.println(maxDay);
 		
 		System.out.println("Done!");
     }
