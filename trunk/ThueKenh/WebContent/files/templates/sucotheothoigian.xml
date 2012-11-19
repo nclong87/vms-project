@@ -1,5 +1,8 @@
 <root>
-	<header></header>
+	<header>
+		<thang>12/2012</thang>
+		<tendoitac>BÌNH DƯƠNG</tendoitac>
+	</header>
 	<data>
 		<row>
 			<stt>1</stt>
@@ -7,17 +10,18 @@
 			<madiemdau>D1805</madiemdau>
 			<madiemcuoi>D1803</madiemcuoi>
 			<loaigiaotiep>E1</loaigiaotiep>
+			<dungluong>4</dungluong>
 			<soluong>4</soluong>
+			<hopdong>HDBD_VMSC6_01 / PL02</hopdong>
 			<ngaybatdau>08/11/2012</ngaybatdau>
 			<ngayketthuc>08/11/2012</ngayketthuc>
 			<thoigianbatdau>03:00:00</thoigianbatdau>
 			<thoigianketthuc>13:00:00</thoigianketthuc>
+			<thoigianmll>600</thoigianmll>
 			<nguyennhan>lada</nguyennhan>
-			<hopdong>HDBD_VMSC6_01 / PL02</hopdong>
+			<phuonganxuly>wada</phuonganxuly>
 			<loaisuco>Thường</loaisuco>
 			<nguoixacnhan>nclong</nguoixacnhan>
-			<phuonganxuly>wada</phuonganxuly>
-			<thoigianmll>600</thoigianmll>
 		</row>
 	</data>
 	<summary>
