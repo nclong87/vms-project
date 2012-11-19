@@ -515,7 +515,7 @@
 		<action name="popupSearch" class="sucoAction">
 			<result>/jsp/sucokenh/popupSearch.jsp</result>
 		</action>
-		<action name="popupSearchForThanhToan" class="sucoAction">
+		<action name="popupSearchForThanhToan" class="sucoAction" method="popupSearchForThanhToan">
 			<result>/jsp/sucokenh/popupSearchForThanhToan.jsp</result>
 		</action>
 		<action name="findByBienbanvanhanh" class="sucoAction"
