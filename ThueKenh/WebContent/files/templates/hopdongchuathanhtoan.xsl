@@ -24,7 +24,7 @@ xmlns:html="http://www.w3.org/TR/REC-html40"
    <Protection/>
   </Style>
   <Style ss:ID="s43" ss:Name="Comma">
-   <NumberFormat ss:Format="_(* #,##0.00_);_(* \(#,##0.00\);_(* &quot;-&quot;??_);_(@_)"/>
+   <NumberFormat ss:Format="#,##0"/>
   </Style>
   <Style ss:ID="s62">
    <Font ss:FontName="Arial" x:Family="Swiss" ss:Color="#000000"/>
@@ -76,17 +76,17 @@ xmlns:html="http://www.w3.org/TR/REC-html40"
   <Style ss:ID="s69" ss:Parent="s43">
    <Alignment ss:Horizontal="Center" ss:Vertical="Center"/>
    <Font ss:FontName="Arial" x:Family="Swiss" ss:Color="#000000" ss:Bold="1"/>
-   <NumberFormat ss:Format="_(* #,##0_);_(* \(#,##0\);_(* &quot;-&quot;??_);_(@_)"/>
+   <NumberFormat ss:Format="#,##0"/>
   </Style>
   <Style ss:ID="s70" ss:Parent="s43">
    <Font ss:FontName="Arial" x:Family="Swiss" ss:Color="#000000"/>
-   <NumberFormat ss:Format="_(* #,##0_);_(* \(#,##0\);_(* &quot;-&quot;??_);_(@_)"/>
+   <NumberFormat ss:Format="#,##0"/>
   </Style>
   <Style ss:ID="s71" ss:Parent="s43">
    <Alignment ss:Horizontal="Center" ss:Vertical="Center"/>
    <Font ss:FontName="Arial" x:Family="Swiss" ss:Size="12" ss:Color="#000000"
     ss:Bold="1"/>
-   <NumberFormat ss:Format="_(* #,##0_);_(* \(#,##0\);_(* &quot;-&quot;??_);_(@_)"/>
+   <NumberFormat ss:Format="#,##0"/>
   </Style>
   <Style ss:ID="s72" ss:Parent="s43">
    <Alignment ss:Horizontal="Center" ss:Vertical="Center"/>
@@ -97,7 +97,7 @@ xmlns:html="http://www.w3.org/TR/REC-html40"
     <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
    </Borders>
    <Font ss:FontName="Arial" x:Family="Swiss" ss:Color="#000000" ss:Bold="1"/>
-   <NumberFormat ss:Format="_(* #,##0_);_(* \(#,##0\);_(* &quot;-&quot;??_);_(@_)"/>
+   <NumberFormat ss:Format="#,##0"/>
   </Style>
   <Style ss:ID="s73" ss:Parent="s43">
    <Alignment ss:Horizontal="Center" ss:Vertical="Center"/>
@@ -108,7 +108,7 @@ xmlns:html="http://www.w3.org/TR/REC-html40"
     <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
    </Borders>
    <Font ss:FontName="Arial" x:Family="Swiss" ss:Color="#000000"/>
-   <NumberFormat ss:Format="_(* #,##0_);_(* \(#,##0\);_(* &quot;-&quot;??_);_(@_)"/>
+   <NumberFormat ss:Format="#,##0"/>
   </Style>
   <Style ss:ID="s74" ss:Parent="s43">
    <Borders>
@@ -118,12 +118,12 @@ xmlns:html="http://www.w3.org/TR/REC-html40"
     <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
    </Borders>
    <Font ss:FontName="Arial" x:Family="Swiss" ss:Color="#000000"/>
-   <NumberFormat ss:Format="_(* #,##0_);_(* \(#,##0\);_(* &quot;-&quot;??_);_(@_)"/>
+   <NumberFormat ss:Format="#,##0"/>
   </Style>
   <Style ss:ID="s75" ss:Parent="s43">
    <Alignment ss:Horizontal="Center" ss:Vertical="Center"/>
    <Font ss:FontName="Arial" x:Family="Swiss" ss:Color="#000000"/>
-   <NumberFormat ss:Format="_(* #,##0_);_(* \(#,##0\);_(* &quot;-&quot;??_);_(@_)"/>
+   <NumberFormat ss:Format="#,##0"/>
   </Style>
   <Style ss:ID="s76">
    <Alignment ss:Horizontal="Center" ss:Vertical="Center"/>

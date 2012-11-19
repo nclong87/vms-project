@@ -24,7 +24,7 @@ xmlns:html="http://www.w3.org/TR/REC-html40"
    <Protection/>
   </Style>
   <Style ss:ID="s59" ss:Name="Comma">
-   <NumberFormat ss:Format="_(* #,##0.00_);_(* \(#,##0.00\);_(* &quot;-&quot;??_);_(@_)"/>
+   <NumberFormat ss:Format="#,##0"/>
   </Style>
   <Style ss:ID="m43579904">
    <Alignment ss:Horizontal="Center" ss:Vertical="Center" ss:WrapText="1"/>
@@ -93,7 +93,7 @@ xmlns:html="http://www.w3.org/TR/REC-html40"
    </Borders>
    <Font ss:FontName="Times New Roman" x:Family="Roman" ss:Color="#000000"
     ss:Bold="1"/>
-   <NumberFormat ss:Format="_(* #,##0_);_(* \(#,##0\);_(* &quot;-&quot;??_);_(@_)"/>
+   <NumberFormat ss:Format="#,##0"/>
   </Style>
   <Style ss:ID="m43579524">
    <Alignment ss:Horizontal="Center" ss:Vertical="Center" ss:WrapText="1"/>
@@ -116,7 +116,7 @@ xmlns:html="http://www.w3.org/TR/REC-html40"
    </Borders>
    <Font ss:FontName="Times New Roman" x:Family="Roman" ss:Color="#000000"
     ss:Bold="1"/>
-   <NumberFormat ss:Format="_(* #,##0_);_(* \(#,##0\);_(* &quot;-&quot;??_);_(@_)"/>
+   <NumberFormat ss:Format="#,##0"/>
   </Style>
   <Style ss:ID="s16">
    <Alignment ss:Horizontal="Center" ss:Vertical="Center"/>
