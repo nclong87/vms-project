@@ -853,7 +853,7 @@
 		<action name="doisoatcuoc" class="reportAction">
 			<result>/jsp/baocao/doisoatcuoc.jsp</result>
 		</action>
-		<action name="giamtrumatlienlac" class="reportAction">
+		<action name="giamtrumll" class="reportAction">
 			<result>/jsp/baocao/giamtrumatlienlac.jsp</result>
 		</action>
 		<action name="suco" class="reportAction">
