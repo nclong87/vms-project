@@ -248,7 +248,7 @@ xmlns:html="http://www.w3.org/TR/REC-html40"
    <Alignment ss:Horizontal="Center" ss:Vertical="Center"/>
    <Font ss:FontName="Times New Roman" x:Family="Roman" ss:Size="12"
     ss:Color="#000000"/>
-   <NumberFormat ss:Format="_(* #,##0_);_(* \(#,##0\);_(* &quot;-&quot;??_);_(@_)"/>
+   <NumberFormat ss:Format="#,##0"/>
   </Style>
   <Style ss:ID="s118" ss:Parent="s59">
    <Alignment ss:Horizontal="Center" ss:Vertical="Center"/>
@@ -259,7 +259,7 @@ xmlns:html="http://www.w3.org/TR/REC-html40"
     <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
    </Borders>
    <Font ss:FontName="Times New Roman" x:Family="Roman" ss:Color="#000000"/>
-   <NumberFormat ss:Format="_(* #,##0_);_(* \(#,##0\);_(* &quot;-&quot;??_);_(@_)"/>
+   <NumberFormat ss:Format="#,##0"/>
   </Style>
   <Style ss:ID="s124">
    <Alignment ss:Horizontal="Center" ss:Vertical="Center"/>
@@ -307,7 +307,7 @@ xmlns:html="http://www.w3.org/TR/REC-html40"
    </Borders>
    <Font ss:FontName="Times New Roman" x:Family="Roman" ss:Color="#000000"
     ss:Bold="1"/>
-   <NumberFormat ss:Format="_(* #,##0_);_(* \(#,##0\);_(* &quot;-&quot;??_);_(@_)"/>
+   <NumberFormat ss:Format="#,##0"/>
   </Style>
   <Style ss:ID="s184" ss:Parent="s59">
    <Alignment ss:Vertical="Top"/>
@@ -318,7 +318,7 @@ xmlns:html="http://www.w3.org/TR/REC-html40"
    </Borders>
    <Font ss:FontName="Times New Roman" x:Family="Roman" ss:Color="#000000"
     ss:Bold="1"/>
-   <NumberFormat ss:Format="_(* #,##0_);_(* \(#,##0\);_(* &quot;-&quot;??_);_(@_)"/>
+   <NumberFormat ss:Format="#,##0"/>
   </Style>
  </Styles>
  <Worksheet ss:Name="Doi soat giam tru MLL">
