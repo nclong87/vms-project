@@ -1,5 +1,8 @@
 <root>
-	<header></header>
+	<header>
+		<thang>8/2012</thang>
+		<tendoitac>BÌNH DƯƠNG</tendoitac>
+	</header>
 	<data>
 		<row>
 			<stt>1</stt>
