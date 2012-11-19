@@ -41,8 +41,8 @@ public class DoiSoatCuocDAO {
 	}
 	
 	//private static final String PROC_BC_DOISOATCUOC = "{ call BC_DOISOATCUOC(?,?,?,?,?,?) }";
-	private static final String SQL_FN_SAVEDOISOATCUOC = "{ ? = call FN_SAVEDOISOATCUOC(?,?,?,?,?,?) }";
-	public Map<String,Object> saveDoiSoatCuoc(String doitac_id,Date sqlTuNgay,Date sqlDenNgay,String[] phulucs, String[] sucos) throws Exception {
+	private static final String SQL_FN_SAVEDOISOATCUOC = "{ ? = call FN_SAVEDOISOATCUOC(?,?,?,?,?,?,?,?) }";
+	public Map<String,Object> saveDoiSoatCuoc(String doitac_id,Date sqlTuNgay,Date sqlDenNgay,String[] phulucs, String[] sucos,Date matlienlactu, Date matlienlacden) throws Exception {
 		if(connection == null)
 			connection = this.jdbcDatasource.getConnection();
 		System.out.println("***BEGIN saveDoiSoatCuoc***");
@@ -57,6 +57,8 @@ public class DoiSoatCuocDAO {
 		stmt.setArray(5, arrPhuLuc);
 		stmt.setArray(6, arrSuCo);
 		stmt.setLong(7, System.currentTimeMillis());
+		stmt.setDate(8, matlienlactu);
+		stmt.setDate(9, matlienlacden);
 		stmt.execute();
 		ResultSet rs = (ResultSet) stmt.getObject(1);
 		rs.next();
