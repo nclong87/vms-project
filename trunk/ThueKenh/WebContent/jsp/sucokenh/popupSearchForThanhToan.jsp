@@ -1,5 +1,5 @@
 ﻿<%@ taglib prefix="s" uri="/struts-tags"%>
-<s:url action="ajLoadSuCo" namespace="/sucokenh" id="ajLoadSuCoURL"/>
+<s:url action="ajLoadSuCoForThanhToan" namespace="/sucokenh" id="ajLoadSuCoForThanhToanURL"/>
 <s:url action="popupSearch" namespace="/tuyenkenh" id="popupSearchURL" />
 <s:url action="detail" namespace="/sucokenh" id="detailURL"/>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -18,73 +18,11 @@ margin-left: 10px;
 </style>
 </head>
 <body>
-	<div id="bg_wrapper">
-		<div style="width: 100%; margin-bottom: 10px;" class="ovf">
-			<div class="s10">
-				<div class="fl">
-					<div class="fl tsl" id="t_1">
-					</div>
-					<div class="fl clg b tsc d" id="t_2">
-						<div class="p3t">Tìm kiếm sự cố</div>
-					</div>
-					<div class="fl tsr" id="t_3">
-					</div>
-				</div>
-				<div class="lineU"></div>
-			</div>
-			<div id="divSearch" class="ovf" style="padding-right: 0px;">
-				<div class="kc4 p5l p15t bgw">
-					<div class="bgw p5b ovf" id="tabnd_2">
-						<div class="ovf p5l p5t">
-							<table width="970px">
-								<form id="form">
-								<tbody id="display">
-								<tr>
-									<td align="right">Mã tuyến kênh</td>
-									<td><input type="text" style="width: 182px" name="tuyenkenh_id" id="tuyenkenh_id"/><input type="hidden" style="width: 218px" name="bienbanvanhanh_id" id="bienbanvanhanh_id" value="0" /><input type="button" id="btPopupSearchTuyenkenh" value="..."/></td>
-									<td align="right">Dung lượng (MB) :</td>
-									<td><input type="text" style="width: 218px" name="dungluong" id="dungluong" /></td>
-									
-								</tr>
-								<tr>
-									<td align="right">Mã điểm đầu :</td>
-									<td><input type="text" style="width: 218px" name="madiemdau" id="madiemdau"/></td>
-									<td align="right">Mã điểm cuối :</td>
-									<td><input type="text" style="width: 218px" name="madiemcuoi" id="madiemcuoi"/></td>
-								</tr>
-								<tr>
-									<td align="right">Thời điểm bắt đầu :</td>
-									<td align="left"><input type="text"
-										name="thoidiembatdau" id="thoidiembatdau" style="width: 218px" class="datetimepicker"/>
-									</td>
-									<td align="right">Thời điểm kết thúc :</td>
-									<td align="left"><input type="text"
-										name="thoidiemketthuc" id="thoidiemketthuc" style="width: 218px" class="datetimepicker"/>
-									</td>
-
-								</tr>
-								<tr>
-									<td align="right">Người xác nhận :</td>
-									<td><input type="text"
-										name="nguoixacnhan" id="nguoixacnhan" style="width: 218px"/></td>
-								</tr>
-								<tfoot>
-									<td></td>
-									<td align="left">
-									<input class="button" type="button" value="Tìm Kiếm" onclick="doSearch()"/>
-									<input class="button" type="button" value="Reset" onclick="reset()"/>
-									<input class="button" id="btSelect" style="display:none" type="button" value="Chọn" onclick="doClose()"/>
-									</td>
-								</tfoot>
-							</table>
-						</div>
-					</div>
-					<div class="clearb">
-					</div>
-				</div>
-			</div>
-			<div style="height: 1px;"></div>
-		</div>
+	<form id="form">
+		<input type="text" name="tungay" value="<s:property value='tungay'/>" style="display:none" />
+		<input type="text" name="denngay" value="<s:property value='denngay'/>" style="display:none"/>
+		<input type="text" value="<s:property value='ids'/>" name="phulucids" id="phulucids" style="display:none"/>									
+		<input class="button" id="btSelect" style="display:none" type="button" value="Chọn" onclick="doClose()"/>
 		<table width="100%" id="dataTable" class="display">
 		<thead>
 			<tr>
@@ -111,7 +49,7 @@ margin-left: 10px;
 			</tr>
 		</tbody>
 		</table>
-	</div>
+	</form>
 	<div id="footer"></div>
 </body>
 </html>
@@ -131,24 +69,14 @@ function doSearch() {
 	oTable.fnFilter(dat);
 }
 $(document).ready(function(){	 
-	// load datetime
-	LoadDateTimePicker(".datetimepicker");
-	// popup search tuyen kenh
-	popup_search_tuyenkenh.init({
-		url : "${popupSearchURL}",
-		afterSelected : function(data) {
-			// list tuyen kenh tra ve, sau do xu ly du lieu cho nay
-			data = data[0];
-			$("#tuyenkenh_id").val(data["id"]);
-		}
-	});
+	var seq=0;
 	// Load table
 	oTable = $('#dataTable').dataTable({
 		"bJQueryUI": true,
 		"bProcessing": true,
 		"bServerSide": true,
 		"bAutoWidth": false,
-		"sAjaxSource": "${ajLoadSuCoURL}",
+		"sAjaxSource": "${ajLoadSuCoForThanhToanURL}",
 		"aoColumns": [
 					{ "mDataProp": "stt","bSortable": false,"bSearchable": false },
 					{ "mDataProp": "tuyenkenh_id","bSortable": false,"bSearchable": false,"sClass":'td_center'},
@@ -175,6 +103,8 @@ $(document).ready(function(){
 					}
 				],
 		"fnServerData": function ( sSource, aoData, fnCallback ) {
+			seq++;
+			if(seq == 1) return;
 			$.ajax( {
 				"dataType": 'json', 
 				"type": "POST", 
@@ -185,6 +115,7 @@ $(document).ready(function(){
 		},
 		"sPaginationType": "two_button"
 	});
+	doSearch();
 	$('#dataTable input[type=checkbox]').live("click",function(){
 		if($('#dataTable input:checked').size()>0) {
 			$("#btSelect").show();
