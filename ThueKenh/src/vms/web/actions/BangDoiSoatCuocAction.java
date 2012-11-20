@@ -188,6 +188,8 @@ public class BangDoiSoatCuocAction implements Preparable {
 			String doitac_id=request.getParameter("doitac_id");
 			String thang=request.getParameter("thang");
 			String nam=request.getParameter("nam");
+			String mlltu=request.getParameter("thoidiembatdautu");
+			String mllden=request.getParameter("thoidiembatdauden");
 			int year = NumberUtil.parseInt(nam);
 			int month = NumberUtil.parseInt(thang)-1;
 			int date = 1;
@@ -196,6 +198,8 @@ public class BangDoiSoatCuocAction implements Preparable {
 			int maxDay = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
 			Date sqlTuNgay = DateUtils.parseToSQLDate("01/"+thang+"/"+nam,"dd/MM/yyyy");
 			Date sqlDenNgay = DateUtils.parseToSQLDate(maxDay+"/"+thang+"/"+nam,"dd/MM/yyyy");
+			Date sqlmatlienlactu=DateUtils.parseToSQLDate(mlltu,"dd/MM/yyyy");
+			Date sqlmatlienlacden=DateUtils.parseToSQLDate(mllden,"dd/MM/yyyy");
 			DoiSoatCuocDAO reportdao=new DoiSoatCuocDAO(daoFactory);
 			for(int i=0;i<phuluc_ids.length;i++)
 				System.out.println("phuluc_ids[i]:"+phuluc_ids[i]);

@@ -82,21 +82,21 @@ margin:0;
 
 <body>
 	<%@include file="/include/top.jsp"%>
-		<form id="form" onsubmit="return false;">
-			<div id="bg_wrapper">
-				<div style="width: 100%; margin-bottom: 10px;" class="ovf">
-					<div class="s10">
-						<div class="fl">
-							<div class="fl tsl" id="t_1">
-							</div>
-							<div class="fl clg b tsc d" id="t_2">
-								<div class="p3t">Xuất bảng đối soát cước</div>
-							</div>
-							<div class="fl tsr" id="t_3">
-							</div>
+		<div id="bg_wrapper">
+			<div style="width: 100%; margin-bottom: 10px;" class="ovf">
+				<div class="s10">
+					<div class="fl">
+						<div class="fl tsl" id="t_1">
 						</div>
-						<div class="lineU"></div>
+						<div class="fl clg b tsc d" id="t_2">
+							<div class="p3t">Xuất bảng đối soát cước</div>
+						</div>
+						<div class="fl tsr" id="t_3">
+						</div>
 					</div>
+					<div class="lineU"></div>
+				</div>
+				<form id="form" onsubmit="return false;">
 					<div id="divSearch" class="ovf" style="padding-right: 0px;">
 						<div class="kc4 p5l p15t bgw">
 							<div class="bgw p5b ovf" id="tabnd_2">
@@ -148,51 +148,65 @@ margin:0;
 							<div class="clearb"></div>
 						</div>
 					</div>
-					<div style="height: 1px;"></div>
-				</div>
-				<div style="width: 100%; margin-top: 10px;">
-					<fieldset class="data_list">
-						<legend>Danh sách hợp đồng</legend>
-						<div style="width: 100%; padding-bottom: 5px;text-align: right;"><input class="button" type="button" value="Chọn hợp đồng" id="btPopupSearchHopDong"></div>
-						<div id="tab">		
-						</div>
-					</fieldset>
-					<div style="clear:both;margin-top:10px"></div>
-					<fieldset class="data_list">
-						<legend>Danh sách sự cố giảm trừ</legend>
-						<div style="width: 100%; padding-bottom: 5px;text-align: right;"><input class="button" type="button" value="Chọn sự cố" id="btPopupSearchSuCo"></div>
-						<table width="100%" id="dataTable" class="display">
-						<thead>
-								<tr>
-									<th width="3px">STT</th>
-									<th width="30px">Mã tuyến kênh</th>
-									<th>Mã điểm đầu</th>
-									<th>Mã điểm cuối</th>
-									<th>Giao tiếp</th>
-									<th>Dung lượng</th>
-									<th width="50px">Thời gian bắt đầu</th>
-									<th width="50px">Thời gian kết thúc</th>
-									<th width="50px">Thời gian mất liên lạc</th>
-									<th width="50px">Nguyên nhân</th>
-									<th width="50px">Phương án xử lý</th>
-									<th width="50px">Người xác nhận</th>
-									<th width="50px">Người tạo</th>
-									<th width="50px">Ngày tạo</th>
-									<th width="5px" align="center">Xóa</th>
-								</tr>
-							</thead>
-							<tbody>						
-							</tbody>
-						</table>
-					</fieldset>
-				</div>
+				</form>
+				<div style="height: 1px;"></div>
 			</div>
-		</form>
+			<div style="width: 100%; margin-top: 10px;">
+				<fieldset class="data_list">
+					<legend>Danh sách hợp đồng</legend>
+					<div style="width: 100%; padding-bottom: 5px;text-align: right;"><input class="button" type="button" value="Chọn hợp đồng" id="btPopupSearchHopDong"></div>
+					<div id="tab">		
+					</div>
+				</fieldset>
+				<div style="clear:both;margin-top:10px"></div>
+				<fieldset class="data_list">
+					<legend>Danh sách sự cố giảm trừ</legend>
+					<form id="form-chonsuco">
+						<div style="width: 87px; padding-bottom: 5px;float: right;"><input class="button" type="button" value="Chọn sự cố" id="btPopupSearchSuCo"></div>
+						<table style="float:right">
+							<tr>
+								<td align="right">Thời điểm từ:</td>
+								<td align="left"><input type="text"
+									name="thoidiembatdautu" id="thoidiembatdautu" style="width: 100px" class="datepicker"/>
+								</td>
+								<td align="right">đến :</td>
+								<td align="left"><input type="text"
+									name="thoidiembatdauden" id="thoidiembatdauden" style="width: 100px" class="datepicker"/>
+								</td>
+
+							</tr>
+						</table>
+					</form>
+					<table width="100%" id="dataTable" class="display">
+					<thead>
+							<tr>
+								<th width="3px">STT</th>
+								<th width="30px">Mã tuyến kênh</th>
+								<th>Mã điểm đầu</th>
+								<th>Mã điểm cuối</th>
+								<th>Giao tiếp</th>
+								<th>Dung lượng</th>
+								<th width="50px">Thời gian bắt đầu</th>
+								<th width="50px">Thời gian kết thúc</th>
+								<th width="50px">Thời gian mất liên lạc</th>
+								<th width="50px">Nguyên nhân</th>
+								<th width="50px">Phương án xử lý</th>
+								<th width="50px">Người xác nhận</th>
+								<th width="50px">Người tạo</th>
+								<th width="50px">Ngày tạo</th>
+								<th width="5px" align="center">Xóa</th>
+							</tr>
+						</thead>
+						<tbody>						
+						</tbody>
+					</table>
+				</fieldset>
+			</div>
+		</div>
 		<div style="clear:both"></div>
 		<div style="margin-top: 5px; margin-bottom: 5px; text-align: right;">
 			<input type="button" class="button" value="Lưu" id="btSubmit"></input>
 			<input type="button" class="button" value="Làm lại" id="btReset"></input>
-			<input type="button" class="button" value="Thoát" id="btThoat" onclick="window.parent.CloseWindow();"></input>
 		</div>
 		<!--end bg_wrapper-->
 	</div>
@@ -412,6 +426,19 @@ margin:0;
 				}
 			}
 		});
+		
+		$("#form-chonsuco").validate({
+			rules : {
+				"thoidiembatdautu" : {
+					required : true,
+					date:true
+				},
+				"thoidiembatdauden" : {
+					required : true,
+					date:true
+				}
+			}
+		});
 		// load edit
 		var thanhtoan_id = '';
 		var form_data = '<s:property value="form_data" escape="false"/>';
@@ -480,12 +507,12 @@ margin:0;
 			});
 		}
 		$("#btSubmit").click(function() {
-			$(this).disabled = true;
+			//this.disabled = true;
 			if (!$("#form").valid()) {
 				alert("Dữ liệu nhập chưa hợp lệ, vui lòng kiểm tra lại!",0);
-				$(this).disabled = false;
+				this.disabled = false;
 			} else {
-				var dataString = $("#form").serialize();
+				var dataString = $("#form").serialize()+"&"+$("#form-chonsuco").serialize();
 				var i=0;
 				var error="";
 				$(".listphuluc").each(function(){
@@ -518,6 +545,10 @@ margin:0;
 				}
 				else
 				{
+					// suco
+					$("#dataTable tr input[type='text']").each(function(){
+						dataString+="&suco_ids="+$(this).val();
+					});
 					$.ajax({
 						url : "${doSaveURL}",
 						type : 'POST',
@@ -531,11 +562,12 @@ margin:0;
 								}
 								alert(response.data);
 							} else if(response.status == "OK") {
+								this.disabled = false;
 								showDialogUrl("${formURL}?thanhtien="+response.data.thanhtien+"&giamtrumll="+response.data.giamtrumll+"&id="+response.data.id,"Lưu bảng đối soát cước",450);
 							}
 						},
 						error : function(response) {
-							$(this).disabled = false;
+							this.disabled = false;
 							message(" Lưu không thành công, vui lòng thử lại.",0);
 						}
 					});	

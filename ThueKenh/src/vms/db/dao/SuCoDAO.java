@@ -205,4 +205,32 @@ public class SuCoDAO {
 		connection.close();
 		return result;
 	}
+	
+	private static final String SQL_FN_FIND_SUCO_FOR_THANHTOAN = "{ ? = call FN_FIND_SUCO_FOR_TT(?,?,?,?,?) }";
+	public List<FN_FIND_SUCO> findSuCoforthanhtoan(int iDisplayStart,int iDisplayLength,Map<String, String> conditions) throws SQLException {
+		System.out.println("Begin FindSuCoforthanhtoan");
+		Connection connection = jdbcDatasource.getConnection();
+		CallableStatement stmt = connection.prepareCall(SQL_FN_FIND_SUCO_FOR_THANHTOAN);
+		stmt.registerOutParameter(1, OracleTypes.CURSOR);
+		stmt.setInt(2, iDisplayStart);
+		stmt.setInt(3, iDisplayLength);
+		String tungay="";
+		if(conditions.get("tungay")!=null)
+			tungay=String.valueOf(DateUtils.parseDate(conditions.get("tungay"), "dd/MM/yyyy").getTime());
+		stmt.setString(4, tungay);
+		String denngay="";
+		if(conditions.get("denngay")!=null)
+			denngay=String.valueOf(DateUtils.parseDate(conditions.get("denngay"), "dd/MM/yyyy").getTime());
+		stmt.setString(5, denngay);
+		stmt.setString(6, conditions.get("phulucids"));
+		stmt.execute();
+		ResultSet rs = (ResultSet) stmt.getObject(1);
+		List<FN_FIND_SUCO> result = new ArrayList<FN_FIND_SUCO>();
+		while(rs.next()) {
+			result.add(FN_FIND_SUCO.mapObject(rs));
+		}
+		stmt.close();
+		connection.close();
+		return result;
+	}
 }
