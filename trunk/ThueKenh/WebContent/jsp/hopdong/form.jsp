@@ -171,12 +171,12 @@ var contextPath = '<%=contextPath%>
 						$("#btSubmit")
 								.click(
 										function() {
-											$(this).disabled = true;
+											this.disabled = true;
 											if (!$("#form").valid()) {
 												alert(
 														"Dữ liệu nhập chưa hợp lệ, vui lòng kiểm tra lại!",
 														0);
-												$(this).disabled = false;
+												this.disabled = false;
 											} else {
 												var dataString = $("#form")
 														.serialize();
@@ -187,9 +187,9 @@ var contextPath = '<%=contextPath%>
 															data : dataString,
 															success : function(
 																	response) {
-																$(this).disabled = false;
+																this.disabled = false;
 																if (response == "OK") {
-																	$(this).disabled = true;
+																	this.disabled = true;
 																	message(
 																			" Lưu thành công!",
 																			1);
@@ -198,13 +198,13 @@ var contextPath = '<%=contextPath%>
 																}
 																else if(response=="Date")
 																{
-																	$(this).disabled = true;
+																	this.disabled = true;
 																	message(" Ngày hết hạn phải lớn hơn ngày ký.",0);
 																	return;
 																}
 																else if(response=="exist")
 																{
-																	$(this).disabled = true;
+																	this.disabled = true;
 																	message(" Số hợp đồng đã tồn tại trong cơ sở dữ liệu. Vui lòng nhập số hợp đồng khác.",0);
 																	return;
 																}
@@ -214,7 +214,7 @@ var contextPath = '<%=contextPath%>
 															},
 															error : function(
 																	response) {
-																$(this).disabled = false;
+																this.disabled = false;
 																message(
 																		" Lưu không thành công, vui lòng thử lại.",
 																		0);
