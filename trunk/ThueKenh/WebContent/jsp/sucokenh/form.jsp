@@ -180,11 +180,11 @@ $(document).ready(function(){
 		}
 	} 
 	$("#btSubmit").click(function(){
-		$(this).disabled = true;
+		this.disabled = true;
 		if(!$("#form").valid())
 		{
 			alert("Dữ liệu nhập chưa hợp lệ, vui lòng kiểm tra lại!",0);
-			$(this).disabled=false;
+			this.disabled=false;
 		}
 		else
 		{
@@ -194,41 +194,41 @@ $(document).ready(function(){
 				type:'POST',
 				data:dataString,
 				success:function(response){
-					$(this).disabled = false;
+					this.disabled = false;
 					if(response == "OK") {
-						$(this).disabled = true;
+						this.disabled = false;
 						message(" Lưu thành công!",1);
 						parent.reload = true;
 						return;
 					}
 					else if(response=="ngayhientai")
 					{
-						$(this).disabled = true;
+						this.disabled = false;
 						message(" Thời điểm bắt đầu và thời điểm kết thúc phải nhỏ hơn hoặc bằng ngày hiện tại",0);
 						return;
 					}
 					else if(response=="Date")
 					{
-						$(this).disabled = true;
+						this.disabled = false;
 						message(" Thời điểm kết thúc sự cố phải lớn hơn thời điểm bắt đầu sự cố",0);
 						return;
 					}
 					else if(response=="TuyenKenhNotExist")
 					{
-						$(this).disabled = true;
+						this.disabled = false;
 						message(" Tuyến kênh bạn chọn không tồn tại",0);
 						return;
 					}
 					else if(response=="ERROR_PHULUCNOTFOUND")
 					{
-						$(this).disabled = true;
+						this.disabled = false;
 						message(" Tuyến kênh bạn chọn không hiện tại không hoạt động, vui lòng chọn tuyến kênh khác",0);
 						return;
 					}
 					message(" Lưu không thành công, vui lòng thử lại.",0);
 				},
 				error:function(response){
-					$(this).disabled = false;
+					this.disabled = false;
 					message(" Lưu không thành công, vui lòng thử lại.",0);
 				}
 			});

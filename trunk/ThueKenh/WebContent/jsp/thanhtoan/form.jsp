@@ -464,7 +464,7 @@ function byId(id) { //Viet tat cua ham document.getElementById
 						success : function(response) {
 							this.disabled = false;
 							if (response == "OK") {
-								this.disabled = true;
+								this.disabled = false;
 								message(" Lưu thành công!",1);
 								parent.reload = true;
 								return;

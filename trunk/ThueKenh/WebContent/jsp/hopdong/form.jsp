@@ -189,7 +189,7 @@ var contextPath = '<%=contextPath%>
 																	response) {
 																this.disabled = false;
 																if (response == "OK") {
-																	this.disabled = true;
+																	this.disabled = false;
 																	message(
 																			" Lưu thành công!",
 																			1);
@@ -198,13 +198,13 @@ var contextPath = '<%=contextPath%>
 																}
 																else if(response=="Date")
 																{
-																	this.disabled = true;
+																	this.disabled = false;
 																	message(" Ngày hết hạn phải lớn hơn ngày ký.",0);
 																	return;
 																}
 																else if(response=="exist")
 																{
-																	this.disabled = true;
+																	this.disabled = false;
 																	message(" Số hợp đồng đã tồn tại trong cơ sở dữ liệu. Vui lòng nhập số hợp đồng khác.",0);
 																	return;
 																}
