@@ -8,6 +8,7 @@
 <s:url action="findphulucByhopdong" namespace="/phuluc" id="findphulucByhopdongURL" />
 <s:url action="form" namespace="/bangdoisoatcuoc" var="formURL"/>
 <s:url action="detail" namespace="/phuluc" id="detailPhuLucURL"/>
+<s:url action="detail" namespace="/sucokenh" id="detailSuCoURL"/>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -39,13 +40,12 @@
 		.hopdonginfo
 		{
 			position: absolute;
-	    	left: 185px;
+	    	left: 200px;
 	    	top: 3px;
 		}
 		.hopdonginfo td
 		{
-			padding: 0;
-	    	width: 210px;
+			padding: 0 10px;
 		}
 		.ui-accordion .ui-accordion-content-active
 		{
@@ -250,7 +250,7 @@ margin:0;
 	}
 	function addRow(stt,data) {
 		oTable.fnAddData([
-			stt,data.tuyenkenh_id,'<center>'+data.madiemdau+'</center>','<center>'+data.madiemcuoi+'</center>','<center>'+data.loaigiaotiep+'</center>','<center>'+data.dungluong+' MB</center>','<center>'+data.thoidiembatdau+'</center>','<center>'+data.thoidiemketthuc+'</center>','<center>'+data.thoigianmll+'</center>',data.nguyennhan,data.phuonganxuly,'<center>'+data.nguoixacnhan+'</center>','<center>'+data.usercreate+'</center>',data.timecreate,'<center><input type="text" style="display:none" name="suco_ids" value="'+data.id+'" id="suco_id_'+data.id+'"/><img title="Remove" src="'+baseUrl+'/images/icons/remove.png" onclick="doRemoveRow(this)" style="cursor:pointer"></center>'
+			stt,'<a href="${detailSuCoURL}?id='+data.id+'" target="_blank" title="Xem chi tiết">'+data.tuyenkenh_id+'</a>','<center>'+data.madiemdau+'</center>','<center>'+data.madiemcuoi+'</center>','<center>'+data.loaigiaotiep+'</center>','<center>'+data.dungluong+' MB</center>','<center>'+data.thoidiembatdau+'</center>','<center>'+data.thoidiemketthuc+'</center>','<center>'+data.thoigianmll+'</center>',data.nguyennhan,data.phuonganxuly,'<center>'+data.nguoixacnhan+'</center>','<center>'+data.usercreate+'</center>',data.timecreate,'<center><input type="text" style="display:none" name="suco_ids" value="'+data.id+'" id="suco_id_'+data.id+'"/><img title="Remove" src="'+baseUrl+'/images/icons/remove.png" onclick="doRemoveRow(this)" style="cursor:pointer"></center>'
 		]);
 	}
 
@@ -271,7 +271,7 @@ margin:0;
 				trangthai+='Bị thay thế bởi phụ lục: <a href="${detailPhuLucURL}?id='+this.id+'" title="'+this.tenphuluc+'">'+this.tenphuluc.vmsSubstr(20)+"</a><br>";
 			});
 		obj.fnAddData([
-			'<center>'+stt+'</center>',data.tenphuluc,'<center>'+loaiphuluc+'/<center>','<center>'+data.tendoitac+'</center>','<center>'+data.soluongkenh+'</center>','<center class="currency">'+data.giatritruocthue+'</center>','<center class="currency">'+data.giatrisauthue+'</center>','<center>'+data.ngayhieuluc+'</center>','<center>'+trangthai+'</center>','<center>'+thanhtoan+'</center>'
+			'<center>'+stt+'</center>','<center><a href="${detailPhuLucURL}?id='+data.id+'" target="_blank" title="'+data.tenphuluc+'" style="color:blue !important"><center>'+data.tenphuluc+'</a>','<center>'+loaiphuluc+'/<center>','<center>'+data.tendoitac+'</center>','<center>'+data.soluongkenh+'</center>','<center class="currency">'+data.giatritruocthue+'</center>','<center class="currency">'+data.giatrisauthue+'</center>','<center>'+data.ngayhieuluc+'</center>','<center>'+trangthai+'</center>','<center>'+thanhtoan+'</center>'
     		,'<center><input type="checkbox" checked="true"/><input id="phuluc_id" style="display:none" value="'+data.id+'"/></center>'
 		]);
 	}
@@ -370,6 +370,10 @@ margin:0;
 				selectAllPhuLuc('datatable_'+id,this);
 			});
 		});
+	}
+	function enableSubmit()
+	{
+		$("#btSubmit").disabled=false;
 	}
 	$(document).ready(function() {
 		// combobox nam
@@ -507,7 +511,7 @@ margin:0;
 			});
 		}
 		$("#btSubmit").click(function() {
-			//this.disabled = true;
+			this.disabled = true;
 			if (!$("#form").valid()) {
 				alert("Dữ liệu nhập chưa hợp lệ, vui lòng kiểm tra lại!",0);
 				this.disabled = false;
@@ -556,6 +560,7 @@ margin:0;
 						success : function(response) {
 							this.disabled = false;
 							if(response.status == "ERROR") {
+								this.disabled = false;
 								if(response.data == "END_SESSION") {
 									location.href = LOGIN_PATH;
 									return;

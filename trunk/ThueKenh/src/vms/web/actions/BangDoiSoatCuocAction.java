@@ -198,8 +198,12 @@ public class BangDoiSoatCuocAction implements Preparable {
 			int maxDay = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
 			Date sqlTuNgay = DateUtils.parseToSQLDate("01/"+thang+"/"+nam,"dd/MM/yyyy");
 			Date sqlDenNgay = DateUtils.parseToSQLDate(maxDay+"/"+thang+"/"+nam,"dd/MM/yyyy");
-			Date sqlmatlienlactu=DateUtils.parseToSQLDate(mlltu,"dd/MM/yyyy");
-			Date sqlmatlienlacden=DateUtils.parseToSQLDate(mllden,"dd/MM/yyyy");
+			Date sqlmatlienlactu=null;
+			if(!mlltu.isEmpty())
+				sqlmatlienlactu= DateUtils.parseToSQLDate(mlltu,"dd/MM/yyyy");
+			Date sqlmatlienlacden=null;
+			if(!mllden.isEmpty())
+				sqlmatlienlacden=DateUtils.parseToSQLDate(mllden,"dd/MM/yyyy");
 			DoiSoatCuocDAO reportdao=new DoiSoatCuocDAO(daoFactory);
 			for(int i=0;i<phuluc_ids.length;i++)
 				System.out.println("phuluc_ids[i]:"+phuluc_ids[i]);

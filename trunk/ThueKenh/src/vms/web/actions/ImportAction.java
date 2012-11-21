@@ -17,14 +17,19 @@ import jxl.Workbook;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.struts2.ServletActionContext;
+
+import vms.db.dao.ChiTietPhuLucTuyenKenhDAO;
 import vms.db.dao.DaoFactory;
+import vms.db.dao.PhuLucDAO;
 import vms.db.dao.SuCoImportDAO;
 import vms.db.dao.TuyenkenhDao;
 import vms.db.dao.TuyenkenhImportDAO;
+import vms.db.dto.ChiTietPhuLucTuyenKenhDTO;
 import vms.db.dto.SuCoImportDTO;
 import vms.db.dto.TuyenKenh;
 import vms.db.dto.TuyenKenhImportDTO;
 import vms.utils.Constances;
+import vms.utils.DateUtils;
 import vms.utils.StringUtil;
 import vms.utils.VMSUtil;
 import com.opensymphony.xwork2.Action;
@@ -229,6 +234,8 @@ public class ImportAction implements Preparable {
 			List<SuCoImportDTO> list = new ArrayList<SuCoImportDTO>();
 			TuyenkenhDao tuyenkenhDao = new TuyenkenhDao(daoFactory);
 			TuyenKenh tuyenKenh = null;
+			String thoidiembatdau="";
+			String thoidiemketthuc="";
 			for(int i=1;i<maxrow;i++) {
 				SuCoImportDTO dto = new SuCoImportDTO();
 				dto.setStt(i);
@@ -241,9 +248,15 @@ public class ImportAction implements Preparable {
 				if( (index = map.get("MAGIAOTIEP")) != null)
 					dto.setMagiaotiep(sheet.getCell(index, i).getContents());
 				if( (index = map.get("THOIDIEMBATDAU")) != null)
-					dto.setThoidiembatdau(sheet.getCell(index, i).getContents());
+				{
+					thoidiembatdau=sheet.getCell(index, i).getContents();
+					dto.setThoidiembatdau(thoidiembatdau);
+				}
 				if( (index = map.get("THOIDIEMKETTHUC")) != null)
-					dto.setThoidiemketthuc(sheet.getCell(index, i).getContents());
+				{
+					thoidiemketthuc=sheet.getCell(index, i).getContents();
+					dto.setThoidiemketthuc(thoidiemketthuc);
+				}
 				if( (index = map.get("NGUYENNHAN")) != null)
 					dto.setNguyennhan(sheet.getCell(index, i).getContents());
 				if( (index = map.get("PHUONGANXULY")) != null)
@@ -265,6 +278,38 @@ public class ImportAction implements Preparable {
 				if(	!dto.getThoidiembatdau().isEmpty() &&
 					!dto.getThoidiemketthuc().isEmpty()) {
 					list.add(dto);
+				}
+				
+				// phuluc_id
+				PhuLucDAO phuLucDAO = new PhuLucDAO(daoFactory);
+				if(!thoidiembatdau.isEmpty())
+				{
+					Date dateThoiDiemBatDau = DateUtils.parseDate(thoidiembatdau, "dd/MM/yyyy HH:mm:ss");
+					java.sql.Date sqlDateThoiDiemBatDau= DateUtils.convertToSQLDate(dateThoiDiemBatDau);
+					System.out.println(thoidiembatdau);
+					System.out.println(dto.getTuyenkenh_id());
+					Map<String, Object> mapPhuluc = phuLucDAO.findPhuLucCoHieuLuc(dto.getTuyenkenh_id(), sqlDateThoiDiemBatDau);
+					if(mapPhuluc != null) {
+						dto.setPhuluc_id(mapPhuluc.get("id").toString());
+					
+						//Tim don gia tuyen kenh
+						ChiTietPhuLucTuyenKenhDAO ptDao=new ChiTietPhuLucTuyenKenhDAO(daoFactory);
+						ChiTietPhuLucTuyenKenhDTO ptDto=ptDao.findByPhuLuc_TuyenKenh(mapPhuluc.get("id").toString(), dto.getTuyenkenh_id());
+						if(ptDto!=null)
+						{
+							long batdau=dateThoiDiemBatDau.getTime();
+							long ketthuc=DateUtils.parseDate(thoidiemketthuc, "dd/MM/yyyy HH:mm:ss").getTime();
+							float thoigianmatll= (float)Math.round(((float)(ketthuc-batdau)/(60000))*100)/100;
+							// tinh giam tru mat lien lac
+							if(thoigianmatll<=30)
+								dto.setGiamtrumll("0");
+							else 
+							{
+								double giamtrumatll=(thoigianmatll*ptDto.getDongia())/(30*24*60);
+								dto.setGiamtrumll(String.valueOf(Math.floor(giamtrumatll)));
+							}
+						}
+					}
 				}
 			}
 			SuCoImportDAO dao = new SuCoImportDAO(daoFactory);

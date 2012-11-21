@@ -7,6 +7,7 @@
 <s:url action="findByDoiSoatCuoc" namespace="/sucokenh" id="findsucoByDoiSoatCuocURL" />
 <s:url action="popupSearch" namespace="/bangdoisoatcuoc" id="popupSearchbangdoisoatcuocURL" />
 <s:url action="detail" namespace="/phuluc" id="detailPhuLucURL"/>
+<s:url action="detail" namespace="/sucokenh" id="detailSuCoURL"/>
 <s:url action="loadformbydoisoatcuoc" namespace="/thanhtoan" id="loadformbydoisoatcuocURL"/>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <%
@@ -54,13 +55,12 @@ function byId(id) { //Viet tat cua ham document.getElementById
 	.hopdonginfo
 	{
 		position: absolute;
-    	left: 185px;
+    	left: 200px;
     	top: 3px;
 	}
 	.hopdonginfo td
 	{
-		padding: 0;
-    	width: 210px;
+		padding: 0 10px;
 	}
 	.ui-accordion .ui-accordion-content-active
 	{
@@ -197,7 +197,7 @@ function byId(id) { //Viet tat cua ham document.getElementById
 	}
 	function addRow(stt,data) {
 		oTable.fnAddData([
-			stt,data.tuyenkenh_id,'<center>'+data.madiemdau+'</center>','<center>'+data.madiemcuoi+'</center>','<center>'+data.loaigiaotiep+'</center>','<center>'+data.dungluong+' MB</center>','<center>'+data.thoidiembatdau+'</center>','<center>'+data.thoidiemketthuc+'</center>','<center>'+data.thoigianmll+'</center>',data.nguyennhan,data.phuonganxuly,'<center>'+data.nguoixacnhan+'</center>','<center>'+data.usercreate+'</center>',data.timecreate+'<input type="text" style="display:none" name="suco_ids" value="'+data.id+'" id="suco_id_'+data.id+'"/>'
+			stt,'<a href="${detailSuCoURL}?id='+data.id+'" target="_blank" title="Xem chi tiết">'+data.tuyenkenh_id+'</a>','<center>'+data.madiemdau+'</center>','<center>'+data.madiemcuoi+'</center>','<center>'+data.loaigiaotiep+'</center>','<center>'+data.dungluong+' MB</center>','<center>'+data.thoidiembatdau+'</center>','<center>'+data.thoidiemketthuc+'</center>','<center>'+data.thoigianmll+'</center>',data.nguyennhan,data.phuonganxuly,'<center>'+data.nguoixacnhan+'</center>','<center>'+data.usercreate+'</center>',data.timecreate+'<input type="text" style="display:none" name="suco_ids" value="'+data.id+'" id="suco_id_'+data.id+'"/>'
 		]);
 	}
 
@@ -218,7 +218,7 @@ function byId(id) { //Viet tat cua ham document.getElementById
 				trangthai+='Bị thay thế bởi phụ lục: <a href="${detailPhuLucURL}?id='+this.id+'" title="'+this.tenphuluc+'">'+this.tenphuluc.vmsSubstr(20)+"</a><br>";
 			});
 		obj.fnAddData([
-			'<center>'+stt+'</center>',data.tenphuluc,'<center>'+loaiphuluc+'/<center>','<center>'+data.tendoitac+'</center>','<center>'+data.soluongkenh+'</center>','<center class="currency">'+data.giatritruocthue+'</center>','<center class="currency">'+data.giatrisauthue+'</center>','<center>'+data.ngayhieuluc+'</center>','<center>'+trangthai+'</center>','<center>'+thanhtoan+'</center>'
+			'<center>'+stt+'</center>','<center><a href="${detailPhuLucURL}?id='+data.id+'" target="_blank" title="Xem chi tiết phụ lục" style="color:blue !important"></center>'+data.tenphuluc+'</a>','<center>'+loaiphuluc+'/<center>','<center>'+data.tendoitac+'</center>','<center>'+data.soluongkenh+'</center>','<center class="currency">'+data.giatritruocthue+'</center>','<center class="currency">'+data.giatrisauthue+'</center>','<center>'+data.ngayhieuluc+'</center>','<center>'+trangthai+'</center>','<center>'+thanhtoan+'</center>'
 		]);
 	}
 	function addhopdong(container,data,i)
