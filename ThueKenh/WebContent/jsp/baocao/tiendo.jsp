@@ -206,13 +206,13 @@ $(document).ready(function(){
 	});
 	// 
 	$("#btSubmit4").click(function() {
-		$(this).disabled = true;
+		this.disabled = true;
 		if (!$("#form").valid()) {
 			alert("Dữ liệu chưa hợp lệ. Vui lòng chọn lại",0);
-			$(this).disabled = false;
+			this.disabled = false;
 		} else {
 			location.href="${rpTienThueKenhPhatSinhURL}?thang="+$("#thang").val()+"&nam="+$("#nam").val();
-			$(this).disabled = false;
+			this.disabled = false;
 		}
 	});
 });

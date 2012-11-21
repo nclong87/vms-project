@@ -258,7 +258,7 @@ $(document).ready(function(){
 					},
 					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,
 						"fnRender": function( oObj ) {
-							if(oObj.aData.tuyenkenh_id == '' || response.aData.phuluc_id=='') 
+							if(oObj.aData.tuyenkenh_id == '' || oObj.aData.phuluc_id == '') 
 								return '';
 							else 
 								return '<center><input type="checkbox" value="'+oObj.aData.id+'"/></center>';  

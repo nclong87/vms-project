@@ -220,18 +220,18 @@ $(document).ready(function(){
 		});
 	}
 	$("#btSubmit").click(function(){
-		$(this).disabled = true;
+		this.disabled = true;
 		if(!$("#form").valid())
 		{
 			alert("Dữ liệu nhập chưa hợp lệ, vui lòng kiểm tra lại!",0);
-			$(this).disabled=false;
+			this.disabled=false;
 		}
 		else
 		{
 			if($("#dataTable tbody td:first").hasClass("dataTables_empty"))
 			{
 				alert("Vui lòng chọn danh sách sự cố");
-				$(this).disabled = false;
+				this.disabled = false;
 				
 			}
 			else
@@ -245,12 +245,12 @@ $(document).ready(function(){
 						$(this).disabled = false;					
 						if(response=="exist")
 						{
-							$(this).disabled = false;
+							this.disabled = false;
 							message("Số biên bản này đã tồn tại trong hệ thống. Vui lòng nhập số biên bản khác",0);
 							return;
 						}
 						else if(response == "OK") {
-							$(this).disabled = true;
+							this.disabled = true;
 							message(" Lưu thành công!",1);
 							parent.reload = true;
 							return;
@@ -258,7 +258,7 @@ $(document).ready(function(){
 						message(" Lưu không thành công, vui lòng thử lại.",0);
 					},
 					error:function(response){
-						$(this).disabled = false;
+						this.disabled = false;
 						message(" Lưu không thành công, vui lòng thử lại.",0);
 					}
 				});

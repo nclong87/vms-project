@@ -445,10 +445,10 @@ function byId(id) { //Viet tat cua ham document.getElementById
 		} 
 		
 		$("#btSubmit").click(function() {
-			$(this).disabled = true;
+			this.disabled = true;
 			if (!$("#form").valid()) {
 				alert("Dữ liệu nhập chưa hợp lệ, vui lòng kiểm tra lại!",0);
-				$(this).disabled = false;
+				this.disabled = false;
 			} else {
 				var dataString = $("#form").serialize();
 				if($("#doisoatcuoc_id").val()=="")
@@ -462,23 +462,23 @@ function byId(id) { //Viet tat cua ham document.getElementById
 						type : 'POST',
 						data : dataString,
 						success : function(response) {
-							$(this).disabled = false;
+							this.disabled = false;
 							if (response == "OK") {
-								$(this).disabled = true;
+								this.disabled = true;
 								message(" Lưu thành công!",1);
 								parent.reload = true;
 								return;
 							}
 							else if(response=="exist")
 							{
-								$(this).disabled = false;
+								this.disabled = false;
 								message("Số hồ sơ này đã tồn tại trong hệ thống. Vui lòng nhập số hồ sơ khác",0);
 								return;
 							}
 							message(" Lưu không thành công, vui lòng thử lại.",0);
 						},
 						error : function(response) {
-							$(this).disabled = false;
+							this.disabled = false;
 							message(" Lưu không thành công, vui lòng thử lại.",0);
 						}
 					});	
