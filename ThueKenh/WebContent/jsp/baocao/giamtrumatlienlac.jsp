@@ -146,13 +146,13 @@ $(document).ready(function(){
 	});
 	// 
 	$("#btSubmit").click(function() {
-		$(this).disabled = true;
+		this.disabled = true;
 		if (!$("#form").valid()) {
 			alert("Dữ liệu chưa hợp lệ. Vui lòng chọn lại",0);
-			$(this).disabled = false;
+			this.disabled = false;
 		} else {
 			location.href="${rpGiamTruMatLienLacURL}?doitac="+$("#doitac").val()+"&thang="+$("#thang").val()+"&nam="+$("#nam").val();
-			$(this).disabled = false;
+			this.disabled = false;
 		}
 	});
 });
