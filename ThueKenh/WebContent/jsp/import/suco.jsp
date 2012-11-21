@@ -224,9 +224,12 @@ $(document).ready(function(){
 					{ "mDataProp": null,"bSortable": false,"bSearchable": false,
 						"fnRender": function(response) {
 							if(response.aData.tuyenkenh_id != '')
-								return response.aData.tuyenkenh_id;
-							else
-								return '<span style="color:red">Tuyến kênh không tồn tại</span>';
+							{
+								if(response.aData.phuluc_id=='')
+									return '<span style="color:red">Tuyến kênh không hoạt động</span>';
+								return response.aData.tuyenkenh_id;	
+							}
+							return '<span style="color:red">Tuyến kênh không tồn tại</span>';
 						}
 					},
 					{ "mDataProp": "madiemdau","bSortable": false,"bSearchable": false },
@@ -255,8 +258,8 @@ $(document).ready(function(){
 					},
 					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,
 						"fnRender": function( oObj ) {
-							if(oObj.aData.tuyenkenh_id == '') 
-								return ''; 
+							if(oObj.aData.tuyenkenh_id == '' || response.aData.phuluc_id=='') 
+								return '';
 							else 
 								return '<center><input type="checkbox" value="'+oObj.aData.id+'"/></center>';  
 						}
