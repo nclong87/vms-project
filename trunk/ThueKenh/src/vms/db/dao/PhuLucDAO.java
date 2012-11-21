@@ -182,14 +182,17 @@ public class PhuLucDAO {
 				return map;
 			}
 		});
-		java.sql.Date date = DateUtils.convertToSQLDate(DateUtils.add(DateUtils.parseDate(sNgayHieuLuc, "dd/MM/yyyy"), Calendar.DATE, -1));
+		java.sql.Date date = DateUtils.convertToSQLDate(DateUtils.parseDate(sNgayHieuLuc, "dd/MM/yyyy"));
 		for(int i=0; i< list.size();i++) {
 			if(list.get(i).get("doitac_id").equals(dtoHopDong.getDoitac_id()) == false) {
 				result.add("Tuyến kênh "+list.get(i).get("tuyenkenh_id")+" không thuộc đối tác đã chọn.");
 			} else {
 				try {
 					Map<String, Object> mapPhuLuc = this.findPhuLucCoHieuLuc( list.get(i).get("tuyenkenh_id"), date);
+					System.out.println("1");
 					if(mapPhuLuc==null) continue;
+					System.out.println("mapPhuLuc.get(id)="+mapPhuLuc.get("id"));
+					System.out.println("phuLucDTO.getId()="+phuLucDTO.getId());
 					if(setPhuLucThayThe.contains(mapPhuLuc.get("id")) == false && mapPhuLuc.get("id").equals(phuLucDTO.getId()) == false) {
 						result.add("Tuyến kênh "+list.get(i).get("tuyenkenh_id")+" đang thuộc phụ lục "+mapPhuLuc.get("tenphuluc"));
 					}
