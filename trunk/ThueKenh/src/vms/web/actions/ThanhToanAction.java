@@ -3,8 +3,6 @@ package vms.web.actions;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,27 +16,15 @@ import org.json.simple.JSONValue;
 
 import vms.db.dao.DaoFactory;
 import vms.db.dao.DoiSoatCuocDAO;
-import vms.db.dao.DoiTacDAO;
-import vms.db.dao.PhuLucDAO;
 import vms.db.dao.SuCoDAO;
 import vms.db.dao.ThanhToanDAO;
-import vms.db.dao.HopDongDAO;
-import vms.db.dao.LoaiGiaoTiepDao;
-import vms.db.dao.ThanhToanPhuLucDAO;
-import vms.db.dao.TuyenkenhDao;
-import vms.db.dto.DoiTacDTO;
 import vms.db.dto.HopDongDetailDTO;
 import vms.db.dto.SuCoDTO;
 import vms.db.dto.ThanhToanDTO;
-import vms.db.dto.HopDongDTO;
-import vms.db.dto.LoaiGiaoTiep;
-import vms.db.dto.ThanhToanPhuLucDTO;
-import vms.db.dto.TuyenKenh;
 import vms.db.dto.PhuLucHopDongDTO;
 import vms.utils.Constances;
 import vms.utils.DateUtils;
 import vms.utils.VMSUtil;
-import vms.web.models.FN_FIND_SUCO;
 
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.Preparable;
@@ -56,6 +42,7 @@ public class ThanhToanAction implements Preparable {
 	private String[] suco_ids;
 	private Map<String,Object> detail;
 	private List<PhuLucHopDongDTO> phuluchopdongDtos;
+	private boolean permission = true;
 	
 	public String getDoisoatcuoc_info() {
 		return doisoatcuoc_info;
@@ -139,6 +126,10 @@ public class ThanhToanAction implements Preparable {
 		request = ServletActionContext.getRequest();
 		session = request.getSession();
 		account = (Map<String, Object>) session.getAttribute(Constances.SESS_USERLOGIN);
+		List<Integer> menus = (List<Integer>) session.getAttribute(Constances.SESS_MENUIDS);
+		if(menus == null || menus.contains(Constances.QUAN_LY_HOSOTHANHTOAN) == false) {
+			permission = false;
+		}
 	}
 	
 	public String execute() throws Exception {
@@ -146,6 +137,7 @@ public class ThanhToanAction implements Preparable {
 			session.setAttribute("URL", VMSUtil.getFullURL(request));
 			return "login_page";
 		}
+		if(permission == false) return "error_permission";
 		return Action.SUCCESS;
 	}
 	
@@ -186,6 +178,7 @@ public class ThanhToanAction implements Preparable {
 				session.setAttribute("URL", VMSUtil.getFullURL(request));
 				return "login_page";
 			}
+			if(permission == false) return "error_permission";
 			String doisoatcuoc_id=request.getParameter("doisoatcuoc_id");
 			System.out.println("doisoatcuoc_id:"+doisoatcuoc_id);
 			if(doisoatcuoc_id != null && doisoatcuoc_id.isEmpty()==false) {

@@ -85,7 +85,7 @@ public class DanhMucLoaiGiaoTiepAction implements Preparable {
 	public void setFlag(String flag) {
 		this.flag = flag;
 	}
-
+	private boolean permission = true;
 	@SuppressWarnings("unchecked")
 	@Override
 	public void prepare() throws Exception {
@@ -94,6 +94,10 @@ public class DanhMucLoaiGiaoTiepAction implements Preparable {
 		this.session = request.getSession();
 		this.account = (Map<String, Object>) session
 				.getAttribute(Constances.SESS_USERLOGIN);
+		List<Integer> menus = (List<Integer>) session.getAttribute(Constances.SESS_MENUIDS);
+		if(menus == null || menus.contains(Constances.QUAN_LY_LOAIGIAOTIEP) == false) {
+			permission = false;
+		}
 	}
 
 	public DanhMucLoaiGiaoTiepAction(DaoFactory factory) {
@@ -114,6 +118,7 @@ public class DanhMucLoaiGiaoTiepAction implements Preparable {
 			session.setAttribute("URL", VMSUtil.getFullURL(request));
 			return "login_page";
 		}
+		if(permission == false) return "error_permission";
 		return Action.SUCCESS;
 	}
 

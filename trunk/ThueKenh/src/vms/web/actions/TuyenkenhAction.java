@@ -49,6 +49,7 @@ public class TuyenkenhAction implements Preparable {
 	private String id;
 	private String[] ids;
 	private Map<String,Object> detail;
+	private boolean permission = true;
 	public TuyenkenhAction( DaoFactory factory) {
 		daoFactory = factory;
 	}
@@ -59,6 +60,10 @@ public class TuyenkenhAction implements Preparable {
 		request = ServletActionContext.getRequest();
 		session = request.getSession();
 		account = (Map<String, Object>) session.getAttribute(Constances.SESS_USERLOGIN);
+		List<Integer> menus = (List<Integer>) session.getAttribute(Constances.SESS_MENUIDS);
+		if(menus == null || menus.contains(Constances.QUAN_LY_TUYEN_KENH) == false) {
+			permission = false;
+		}
 	}
 	
 	public String execute() throws Exception {
@@ -66,6 +71,7 @@ public class TuyenkenhAction implements Preparable {
 			session.setAttribute("URL", VMSUtil.getFullURL(request));
 			return "login_page";
 		}
+		if(permission == false) return "error_permission";
 		LoaiGiaoTiepDao loaiGiaoTiepDao = new LoaiGiaoTiepDao(daoFactory);
 		loaiGiaoTieps = loaiGiaoTiepDao.getAll();
 		DuAnDAO duAnDAO = new DuAnDAO(daoFactory);
@@ -122,6 +128,7 @@ public class TuyenkenhAction implements Preparable {
 				session.setAttribute("URL", VMSUtil.getFullURL(request));
 				return "login_page";
 			}
+			if(permission == false) return "error_permission";
 			LoaiGiaoTiepDao loaiGiaoTiepDao = new LoaiGiaoTiepDao(daoFactory);
 			loaiGiaoTieps = loaiGiaoTiepDao.getAll();
 			DuAnDAO duAnDAO = new DuAnDAO(daoFactory);

@@ -1,23 +1,32 @@
 package vms.db.dao;
 
 
+import java.sql.CallableStatement;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.sql.DataSource;
+
+import oracle.jdbc.OracleTypes;
+
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
 import vms.db.dto.Menu;
 import vms.db.dto.Rootmenu;
+import vms.utils.NumberUtil;
 import vms.utils.VMSUtil;
 
 public class MenuDao {
 	private JdbcTemplate jdbcTemplate;
+	private DataSource jdbcDatasource;
 	public MenuDao(DaoFactory daoFactory) {
 		this.jdbcTemplate = daoFactory.getJdbcTemplate();
+		this.jdbcDatasource = daoFactory.getJdbcDataSource();
 	}
 	
 	
@@ -74,5 +83,22 @@ public class MenuDao {
 			return String.valueOf(list.get(0).get("action"));
 		}
 		return null;
+	}
+	
+	private static final String SQL_FN_GETMENUIDBYUSER = "{ ? = call FN_GETMENUIDBYUSER(?,?) }";
+	public List<Integer> getListMenuByUser(Map<String,Object> account) throws SQLException {
+		Connection connection = this.jdbcDatasource.getConnection();
+		System.out.println("***BEGIN getListMenuByUser***");
+		CallableStatement stmt = connection.prepareCall(SQL_FN_GETMENUIDBYUSER);
+		stmt.registerOutParameter(1, OracleTypes.CURSOR);
+		stmt.setString(2, account.get("id").toString());
+		stmt.setString(3, account.get("idgroup").toString());
+		stmt.execute();
+		ResultSet rs = (ResultSet) stmt.getObject(1);
+		List<Integer> result = new ArrayList<Integer>();
+		while(rs.next()) {
+			result.add(rs.getInt("ID"));
+		}
+		return result;
 	}
 }

@@ -264,6 +264,7 @@ public class AjaxAction implements Preparable {
 			LichSuTuyenKenhDAO dao = new LichSuTuyenKenhDAO(daoFactory);
 			List<Map<String, Object>> result = dao.getData(page, tuyenkenh_id);
 			jsonData.put("status", 1);
+			jsonData.put("LS_MAX_PAGE_LENGHT", Constances.LS_MAX_PAGE_LENGHT);
 			jsonData.put("data", result);
 		} catch (Exception e) {
 			jsonData.put("status", 0);

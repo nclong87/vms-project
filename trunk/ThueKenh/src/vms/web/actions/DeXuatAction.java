@@ -21,7 +21,6 @@ import vms.db.dao.DeXuatDao;
 import vms.db.dao.DoiTacDAO;
 import vms.db.dao.TuyenKenhDeXuatDAO;
 import vms.db.dto.DeXuatDTO;
-import vms.db.dto.DoiTacDTO;
 import vms.utils.Constances;
 import vms.utils.DateUtils;
 import vms.utils.VMSUtil;
@@ -50,6 +49,8 @@ public class DeXuatAction implements Preparable {
 	private Map<String,Object> detail;
 	
 	private DeXuatDao deXuatDao;
+	private boolean permission = true;
+
 	public DeXuatAction( DaoFactory factory) {
 		daoFactory = factory;
 		deXuatDao = new DeXuatDao(factory);
@@ -61,6 +62,10 @@ public class DeXuatAction implements Preparable {
 		request = ServletActionContext.getRequest();
 		session = request.getSession();
 		account = (Map<String, Object>) session.getAttribute(Constances.SESS_USERLOGIN);
+		List<Integer> menus = (List<Integer>) session.getAttribute(Constances.SESS_MENUIDS);
+		if(menus == null || menus.contains(Constances.QUAN_LY_VANBANDEXUAT) == false) {
+			permission = false;
+		}
 	}
 	
 	public String execute() throws Exception {
@@ -70,6 +75,7 @@ public class DeXuatAction implements Preparable {
 		}
 		//DoiTacDAO doiTacDAO = new DoiTacDAO(daoFactory);
 		//doiTacDTOs = doiTacDAO.findAll();
+		if(permission == false) return "error_permission";
 		return Action.SUCCESS;
 	}
 	
@@ -117,6 +123,7 @@ public class DeXuatAction implements Preparable {
 				session.setAttribute("URL", VMSUtil.getFullURL(request));
 				return "login_page";
 			}
+			if(permission == false) return "error_permission";
 			DoiTacDAO doiTacDAO = new DoiTacDAO(daoFactory);
 			doiTacDTOs = doiTacDAO.findAll();
 			form_data = "";

@@ -37,6 +37,8 @@ public class GroupAction implements Preparable {
 	private String id;
 	private String[] ids;
 	private Vmsgroup vmsgroup;
+	private boolean permission = true;
+
 	public GroupAction( DaoFactory factory) {
 		daoFactory = factory;
 	}
@@ -47,6 +49,10 @@ public class GroupAction implements Preparable {
 		request = ServletActionContext.getRequest();
 		session = request.getSession();
 		account = (Map<String, Object>) session.getAttribute(Constances.SESS_USERLOGIN);
+		List<Integer> menus = (List<Integer>) session.getAttribute(Constances.SESS_MENUIDS);
+		if(menus == null || menus.contains(Constances.QUAN_LY_NHOM) == false) {
+			permission = false;
+		}
 	}
 	
 	public String execute() throws Exception {
@@ -54,6 +60,7 @@ public class GroupAction implements Preparable {
 			session.setAttribute("URL", VMSUtil.getFullURL(request));
 			return "login_page";
 		}
+		if(permission == false) return "error_permission";
 		return Action.SUCCESS;
 	}
 	
@@ -81,6 +88,7 @@ public class GroupAction implements Preparable {
 				session.setAttribute("URL", VMSUtil.getFullURL(request));
 				return "login_page";
 			}
+			if(permission == false) return "error_permission";
 			MenuDao menuDao = new MenuDao(daoFactory);
 			menus = menuDao.getAll();
 			form_data = "";

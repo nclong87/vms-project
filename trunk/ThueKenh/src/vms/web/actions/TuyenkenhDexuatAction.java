@@ -55,6 +55,8 @@ public class TuyenkenhDexuatAction implements Preparable {
 	private String id;
 	private String[] ids;
 	private String json_data;
+	private boolean permission = true;
+
 	public TuyenkenhDexuatAction( DaoFactory factory) {
 		daoFactory = factory;
 	}
@@ -65,6 +67,10 @@ public class TuyenkenhDexuatAction implements Preparable {
 		request = ServletActionContext.getRequest();
 		session = request.getSession();
 		account = (Map<String, Object>) session.getAttribute(Constances.SESS_USERLOGIN);
+		List<Integer> menus = (List<Integer>) session.getAttribute(Constances.SESS_MENUIDS);
+		if(menus == null || menus.contains(Constances.QUAN_LY_DEXUATTUYENKENH) == false) {
+			permission = false;
+		}
 	}
 	
 	public String execute() throws Exception {
@@ -72,6 +78,7 @@ public class TuyenkenhDexuatAction implements Preparable {
 			session.setAttribute("URL", VMSUtil.getFullURL(request));
 			return "login_page";
 		}
+		if(permission == false) return "error_permission";
 		LoaiGiaoTiepDao loaiGiaoTiepDao = new LoaiGiaoTiepDao(daoFactory);
 		loaiGiaoTieps = loaiGiaoTiepDao.getAll();
 		DuAnDAO duAnDAO = new DuAnDAO(daoFactory);
@@ -125,6 +132,7 @@ public class TuyenkenhDexuatAction implements Preparable {
 				session.setAttribute("URL", VMSUtil.getFullURL(request));
 				return "login_page";
 			}
+			if(permission == false) return "error_permission";
 			LoaiGiaoTiepDao loaiGiaoTiepDao = new LoaiGiaoTiepDao(daoFactory);
 			loaiGiaoTieps = loaiGiaoTiepDao.getAll();
 			DuAnDAO duAnDAO = new DuAnDAO(daoFactory);
@@ -218,6 +226,7 @@ public class TuyenkenhDexuatAction implements Preparable {
 		PhongBanDao phongBanDao = new PhongBanDao(daoFactory);
 		phongBans = phongBanDao.getAll();
 		json_data = "";
+		@SuppressWarnings("unchecked")
 		Enumeration<String> enumeration = request.getParameterNames();
 		Map<String,Object> map = new LinkedHashMap<String, Object>();
 		while(enumeration.hasMoreElements()) {

@@ -11,11 +11,10 @@
  */
 package vms.utils;
 
-import java.io.IOException;
-
 public class Constances {
 	public static String DEFAULT_HOME_PAGE = "/index/index.action";
 	public static String SESS_USERLOGIN = "SESS_USERLOGIN";
+	public static String SESS_MENUIDS = "SESS_MENUIDS";
 	public static String SESS_MENU = "SESS_MENU";
 	public static String OK = "OK";
 	public static String ERROR = "ERROR";
@@ -41,4 +40,32 @@ public class Constances {
 	
 	//Lich su
 	public static int LS_MAX_PAGE_LENGHT = 2;
+	
+	//Menu
+	public static final int QUAN_LY_USER = 1;
+	public static final int QUAN_LY_NHOM = 2;
+	public static final int QUAN_LY_QUYEN = 3;
+	public static final int QUAN_LY_PHONGBAN = 4;
+	public static final int QUAN_LY_DOITAC = 5;
+	public static final int QUAN_LY_DUAN = 6;
+	public static final int QUAN_LY_CACHTINHCUOC = 7;
+	public static final int QUAN_LY_TIEUCHUANBANGIAO = 8;
+	public static final int QUAN_LY_KHUVUC = 9;
+	public static final int QUAN_LY_TUYEN_KENH = 10;
+	public static final int IMPORT_TUYENKENH = 11;
+	public static final int QUAN_LY_TIENDOBANGIAO = 12;
+	public static final int QUAN_LY_VANBANDEXUAT = 13;
+	public static final int QUAN_LY_BIENBANBANGIAO = 14;
+	public static final int QUAN_LY_BIENBANVANHANH = 15;
+	public static final int QUAN_LY_HOPDONG = 16;
+	public static final int QUAN_LY_PHULUC = 17;
+	public static final int BAOCAO_TIENDO = 18;
+	public static final int BAOCAO_DOISOATCUOC = 19;
+	public static final int BAOCAO_GIAMTRUMLL = 20;
+	public static final int BAOCAO_SUCOTHEOTHOIGIAN = 21;
+	public static final int QUAN_LY_SUCOKENH = 22;
+	public static final int QUAN_LY_HOSOTHANHTOAN = 23;
+	public static final int QUAN_LY_LOAIGIAOTIEP = 24;
+	public static final int QUAN_LY_DEXUATTUYENKENH = 25;
+	public static final int QUAN_LY_TRAMDAUCUOI = 26;
 }

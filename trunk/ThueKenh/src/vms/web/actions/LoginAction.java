@@ -15,7 +15,6 @@ import org.json.simple.JSONValue;
 import vms.db.dao.AccountDao;
 import vms.db.dao.DaoFactory;
 import vms.db.dao.MenuDao;
-import vms.db.dto.Account;
 import vms.utils.Constances;
 import vms.utils.VMSUtil;
 
@@ -78,10 +77,13 @@ public class LoginAction implements Preparable {
 			url = (String) session.getAttribute("URL");
 			if(url == null) {
 				MenuDao menuDao = new MenuDao(daoFactory);
-				url = menuDao.getDefaultMenu((Map<String, Object>)session.getAttribute(Constances.SESS_USERLOGIN));
+				@SuppressWarnings("unchecked")
+				Map<String, Object> account = (Map<String, Object>) session.getAttribute(Constances.SESS_USERLOGIN);
+				url = menuDao.getDefaultMenu(account);
 				if(url == null) {
 					url = Constances.DEFAULT_HOME_PAGE;
 				}
+				session.setAttribute(Constances.SESS_MENUIDS, menuDao.getListMenuByUser(account));
 			}
 			System.out.println("url="+url);
 			return "index_page";

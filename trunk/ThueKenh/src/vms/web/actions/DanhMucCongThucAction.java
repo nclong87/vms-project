@@ -86,15 +86,18 @@ public class DanhMucCongThucAction implements Preparable {
 	public void setFlag(String flag) {
 		this.flag = flag;
 	}
-
+	private boolean permission = true;
 	@SuppressWarnings("unchecked")
 	@Override
 	public void prepare() throws Exception {
 		// TODO Auto-generated method stub
 		request = ServletActionContext.getRequest();
 		this.session = request.getSession();
-		this.account = (Map<String, Object>) session
-				.getAttribute(Constances.SESS_USERLOGIN);
+		this.account = (Map<String, Object>) session.getAttribute(Constances.SESS_USERLOGIN);
+		List<Integer> menus = (List<Integer>) session.getAttribute(Constances.SESS_MENUIDS);
+		if(menus == null || menus.contains(Constances.QUAN_LY_CACHTINHCUOC) == false) {
+			permission = false;
+		}
 	}
 
 	public DanhMucCongThucAction(DaoFactory factory) {
@@ -128,6 +131,7 @@ public String detail() {
 			session.setAttribute("URL", VMSUtil.getFullURL(request));
 			return "login_page";
 		}
+		if(permission == false) return "error_permission";
 		return Action.SUCCESS;
 	}
 

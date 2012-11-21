@@ -34,10 +34,10 @@ public class TestDoiSoatCuoc {
 		String[] sucos = {"21"};
 		Map<String, Object> map = null;
 		try {
-			map = dao.saveDoiSoatCuoc(doitac_id, sqlTuNgay, sqlDenNgay, phulucs, sucos);
+			/*map = dao.saveDoiSoatCuoc(doitac_id, sqlTuNgay, sqlDenNgay, phulucs, sucos);
 			System.out.println("Doi soat cuoc ID =" +map.get("id"));
 			System.out.println("Tong tien thanh toan = "+map.get("thanhtien"));
-			System.out.println("Tong tien giam tru mat lien lac =" +map.get("giamtrumll"));
+			System.out.println("Tong tien giam tru mat lien lac =" +map.get("giamtrumll"));*/
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -5,16 +5,10 @@ import java.io.File;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.LinkedHashMap;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.struts2.ServletActionContext;
 
 import vms.db.dao.DaoFactory;
-import vms.utils.Constances;
 import vms.utils.StringUtil;
 import vms.utils.VMSUtil;
 
@@ -22,10 +16,10 @@ import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.Preparable;
 
 public class FileUploadAction implements Preparable {
-	private DaoFactory daoFactory;
-	private HttpServletRequest request;
-	private HttpSession session;
-	private Map<String,Object> account;
+	//private DaoFactory daoFactory;
+	//private HttpServletRequest request;
+	//private HttpSession session;
+	//private Map<String,Object> account;
 	
 	private InputStream inputStream;
 	private LinkedHashMap<String, Object> jsonData = new LinkedHashMap<String, Object>();
@@ -35,15 +29,14 @@ public class FileUploadAction implements Preparable {
     private String uploadFileFileName;
     private long fileSize;
 	public FileUploadAction( DaoFactory factory) {
-		daoFactory = factory;
+		//daoFactory = factory;
 	}
-	@SuppressWarnings("unchecked")
 	@Override
 	public void prepare() throws Exception {
 		// TODO Auto-generated method stub
-		request = ServletActionContext.getRequest();
-		session = request.getSession();
-		account = (Map<String, Object>) session.getAttribute(Constances.SESS_USERLOGIN);
+		//request = ServletActionContext.getRequest();
+		//session = request.getSession();
+		//account = (Map<String, Object>) session.getAttribute(Constances.SESS_USERLOGIN);
 	}
 	
 	public String doUpload() throws Exception {

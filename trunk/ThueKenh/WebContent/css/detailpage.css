@@ -47,3 +47,24 @@ table.display td {
 	border: 1px solid #DDD;
 	padding: 3px;
 }
+ul#history {
+margin: 5px 5px 5px 0;
+padding-left: 0;
+list-style: none outside none;
+}
+ul#history li {
+padding-bottom: 5px;
+padding-top: 5px;
+}
+ul#history  li.error{
+background-color: red;
+color: white;
+}
+span#load_more {
+color: blue;
+cursor: pointer;
+font-size: 11px;
+}
+span#load_more.inactive {
+color: gray;
+}

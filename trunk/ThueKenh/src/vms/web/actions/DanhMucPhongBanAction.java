@@ -75,7 +75,7 @@ public class DanhMucPhongBanAction implements Preparable {
 	public void setFlag(String flag) {
 		this.flag = flag;
 	}
-
+	private boolean permission = true;
 	@SuppressWarnings("unchecked")
 	@Override
 	public void prepare() throws Exception {
@@ -84,6 +84,10 @@ public class DanhMucPhongBanAction implements Preparable {
 		this.session = request.getSession();
 		this.account = (Map<String, Object>) session
 				.getAttribute(Constances.SESS_USERLOGIN);
+		List<Integer> menus = (List<Integer>) session.getAttribute(Constances.SESS_MENUIDS);
+		if(menus == null || menus.contains(Constances.QUAN_LY_PHONGBAN) == false) {
+			permission = false;
+		}
 	}
 
 	public DanhMucPhongBanAction(DaoFactory factory) {
@@ -104,6 +108,7 @@ public class DanhMucPhongBanAction implements Preparable {
 			session.setAttribute("URL", VMSUtil.getFullURL(request));
 			return "login_page";
 		}
+		if(permission == false) return "error_permission";
 		return Action.SUCCESS;
 	}
 

@@ -43,16 +43,22 @@ public class BanGiaoAction implements Preparable {
 	private Map<String,Object> detail;
 	
 	private BanGiaoDAO banGiaoDAO;
+	private boolean permission = true;
 	public BanGiaoAction( DaoFactory factory) {
 		daoFactory = factory;
 		banGiaoDAO = new BanGiaoDAO(factory);
 	}
+	@SuppressWarnings("unchecked")
 	@Override
 	public void prepare() throws Exception {
 		// TODO Auto-generated method stub
 		request = ServletActionContext.getRequest();
 		session = request.getSession();
 		account = (Map<String, Object>) session.getAttribute(Constances.SESS_USERLOGIN);
+		List<Integer> menus = (List<Integer>) session.getAttribute(Constances.SESS_MENUIDS);
+		if(menus == null || menus.contains(Constances.QUAN_LY_BIENBANBANGIAO) == false) {
+			permission = false;
+		}
 	}
 	
 	public String execute() throws Exception {
@@ -60,6 +66,7 @@ public class BanGiaoAction implements Preparable {
 			session.setAttribute("URL", VMSUtil.getFullURL(request));
 			return "login_page";
 		}
+		if(permission == false) return "error_permission";
 		return Action.SUCCESS;
 	}
 	
@@ -107,6 +114,7 @@ public class BanGiaoAction implements Preparable {
 				session.setAttribute("URL", VMSUtil.getFullURL(request));
 				return "login_page";
 			}
+			if(permission == false) return "error_permission";
 			form_data = "";
 			if(id != null && id.isEmpty()==false) {
 				System.out.println("id=" + id);

@@ -27,6 +27,9 @@
 			<result name="redirect-login" type="redirect">
 				/jsp/redirect-login.jsp
 			</result>
+			<result name="error_permission" type="redirect">
+				/jsp/error_permission.jsp
+			</result>
 		</global-results>
 
 	</package>
