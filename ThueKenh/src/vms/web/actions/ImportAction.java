@@ -50,6 +50,8 @@ public class ImportAction implements Preparable {
 	private String fileuploadContentType;
 	
 	private String[] ids;
+	private boolean permission = true;
+
 	public ImportAction( DaoFactory factory) {
 		daoFactory = factory;
 	}
@@ -60,6 +62,10 @@ public class ImportAction implements Preparable {
 		request = ServletActionContext.getRequest();
 		session = request.getSession();
 		account = (Map<String, Object>) session.getAttribute(Constances.SESS_USERLOGIN);
+		List<Integer> menus = (List<Integer>) session.getAttribute(Constances.SESS_MENUIDS);
+		if(menus == null || menus.contains(Constances.IMPORT_TUYENKENH) == false) {
+			permission = false;
+		}
 	}
 	
 	public String tuyenkenh() throws Exception {
@@ -67,6 +73,7 @@ public class ImportAction implements Preparable {
 			session.setAttribute("URL", VMSUtil.getFullURL(request));
 			return "login_page";
 		}
+		if(permission == false) return "error_permission";
 		return Action.SUCCESS;
 	}
 	public String loadTuyenkenhImport() {

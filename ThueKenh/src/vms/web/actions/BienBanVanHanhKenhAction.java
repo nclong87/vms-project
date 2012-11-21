@@ -17,14 +17,9 @@ import org.json.simple.JSONValue;
 
 import vms.db.dao.DaoFactory;
 import vms.db.dao.SuCoDAO;
-import vms.db.dao.TuyenKenhDeXuatDAO;
-import vms.db.dao.VanHanhSuCoKenhDAO;
-
 import vms.db.dao.BienBanVanHanhKenhDAO;
-import vms.db.dto.Account;
 import vms.db.dto.BienBanVanHanhKenhDTO;
 import vms.db.dto.SuCoDTO;
-import vms.db.dto.VanHanhSuCoKenhDTO;
 import vms.utils.Constances;
 import vms.utils.DateUtils;
 import vms.utils.VMSUtil;
@@ -107,6 +102,7 @@ public class BienBanVanHanhKenhAction implements Preparable {
 			System.out.println("ERROR :" + e.getMessage());
 		}
 	}
+	private boolean permission = true;
 	@SuppressWarnings("unchecked")
 	@Override
 	public void prepare() throws Exception {
@@ -115,6 +111,10 @@ public class BienBanVanHanhKenhAction implements Preparable {
 		request = ServletActionContext.getRequest();
 		session = request.getSession();
 		account = (Map<String, Object>) session.getAttribute(Constances.SESS_USERLOGIN);
+		List<Integer> menus = (List<Integer>) session.getAttribute(Constances.SESS_MENUIDS);
+		if(menus == null || menus.contains(Constances.QUAN_LY_BIENBANVANHANH) == false) {
+			permission = false;
+		}
 	}
 	
 	public String execute() throws Exception {
@@ -122,6 +122,7 @@ public class BienBanVanHanhKenhAction implements Preparable {
 			session.setAttribute("URL", VMSUtil.getFullURL(request));
 			return "login_page";
 		}
+		if(permission == false) return "error_permission";
 		return Action.SUCCESS;
 	}
 	
@@ -132,7 +133,7 @@ public class BienBanVanHanhKenhAction implements Preparable {
 				session.setAttribute("URL", VMSUtil.getFullURL(request));
 				return "login_page";
 			}
-			
+			if(permission == false) return "error_permission";
 			form_data = "";
 			System.out.println("id:"+id);
 			if(id != null && id.isEmpty()==false) {

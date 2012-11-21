@@ -50,6 +50,8 @@ public class PhuLucAction implements Preparable {
 	public String doisoatcuoc_id;
 	
 	private PhuLucDAO phuLucDAO;
+	private boolean permission = true;
+
 	public PhuLucAction( DaoFactory factory) {
 		daoFactory = factory;
 		phuLucDAO = new PhuLucDAO(factory);
@@ -61,6 +63,10 @@ public class PhuLucAction implements Preparable {
 		request = ServletActionContext.getRequest();
 		session = request.getSession();
 		account = (Map<String, Object>) session.getAttribute(Constances.SESS_USERLOGIN);
+		List<Integer> menus = (List<Integer>) session.getAttribute(Constances.SESS_MENUIDS);
+		if(menus == null || menus.contains(Constances.QUAN_LY_PHULUC) == false) {
+			permission = false;
+		}
 	}
 	
 	public String execute() throws Exception {
@@ -68,6 +74,7 @@ public class PhuLucAction implements Preparable {
 			session.setAttribute("URL", VMSUtil.getFullURL(request));
 			return "login_page";
 		}
+		if(permission == false) return "error_permission";
 		HopDongDAO dao = new HopDongDAO(daoFactory);
 		hopDongDTOs = dao.findAllHopDongByDoitac();
 		return Action.SUCCESS;
@@ -114,6 +121,7 @@ public class PhuLucAction implements Preparable {
 				session.setAttribute("URL", VMSUtil.getFullURL(request));
 				return "login_page";
 			}
+			if(permission == false) return "error_permission";
 			//DoiTacDAO doiTacDAO = new DoiTacDAO(daoFactory);
 			//doiTacDTOs = doiTacDAO.findAll();
 			HopDongDAO dao = new HopDongDAO(daoFactory);

@@ -51,6 +51,7 @@ public class UserAction implements Preparable {
 	private String id;
 	private String[] ids;
 	private Account user;
+	private boolean permission = true;
 	public UserAction( DaoFactory factory) {
 		daoFactory = factory;
 	}
@@ -61,6 +62,10 @@ public class UserAction implements Preparable {
 		request = ServletActionContext.getRequest();
 		session = request.getSession();
 		account = (Map<String, Object>) session.getAttribute(Constances.SESS_USERLOGIN);
+		List<Integer> menus = (List<Integer>) session.getAttribute(Constances.SESS_MENUIDS);
+		if(menus == null || menus.contains(Constances.QUAN_LY_USER) == false) {
+			permission = false;
+		}
 	}
 	
 	public String execute() throws Exception {
@@ -68,6 +73,7 @@ public class UserAction implements Preparable {
 			session.setAttribute("URL", VMSUtil.getFullURL(request));
 			return "login_page";
 		}
+		if(permission == false) return "error_permission";
 		PhongBanDao phongBanDao = new PhongBanDao(daoFactory);
 		phongbans = phongBanDao.getAll();
 		KhuVucDao khuVucDao = new KhuVucDao(daoFactory);
@@ -117,6 +123,7 @@ public class UserAction implements Preparable {
 				session.setAttribute("URL", VMSUtil.getFullURL(request));
 				return "login_page";
 			}
+			if(permission == false) return "error_permission";
 			PhongBanDao phongBanDao = new PhongBanDao(daoFactory);
 			phongbans = phongBanDao.getAll();
 			KhuVucDao khuVucDao = new KhuVucDao(daoFactory);

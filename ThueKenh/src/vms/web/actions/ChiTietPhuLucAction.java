@@ -3,7 +3,6 @@ package vms.web.actions;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,28 +13,14 @@ import javax.servlet.http.HttpSession;
 import org.apache.struts2.ServletActionContext;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.json.simple.JSONValue;
-
 import vms.db.dao.ChiTietPhuLucDAO;
 import vms.db.dao.CongThucDAO;
 import vms.db.dao.DaoFactory;
-import vms.db.dao.DeXuatDao;
-import vms.db.dao.DoiTacDAO;
-import vms.db.dao.DuAnDAO;
-import vms.db.dao.LoaiGiaoTiepDao;
-import vms.db.dao.PhongBanDao;
-import vms.db.dao.TuyenKenhDeXuatDAO;
-import vms.db.dao.TuyenkenhDao;
 import vms.db.dto.ChiTietPhuLucDTO;
 import vms.db.dto.ChiTietPhuLucTuyenKenhDTO;
-import vms.db.dto.DeXuatDTO;
-import vms.db.dto.DoiTacDTO;
 import vms.utils.Constances;
 import vms.utils.DateUtils;
 import vms.utils.VMSUtil;
-import vms.web.models.FIND_DEXUAT;
-import vms.web.models.MessageStore;
-
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.Preparable;
 
@@ -57,6 +42,7 @@ public class ChiTietPhuLucAction implements Preparable {
 	private ChiTietPhuLucDTO chiTietPhuLucDTO;
 	
 	private ChiTietPhuLucDAO chiTietPhuLucDAO;
+	private boolean permission = true;
 	public ChiTietPhuLucAction( DaoFactory factory) {
 		daoFactory = factory;
 		chiTietPhuLucDAO = new ChiTietPhuLucDAO(factory);
@@ -75,6 +61,7 @@ public class ChiTietPhuLucAction implements Preparable {
 			session.setAttribute("URL", VMSUtil.getFullURL(request));
 			return "login_page";
 		}
+		if(permission == false) return "error_permission";
 		return Action.SUCCESS;
 	}
 	
@@ -144,6 +131,7 @@ public class ChiTietPhuLucAction implements Preparable {
 			session.setAttribute("URL", VMSUtil.getFullURL(request));
 			return "login_page";
 		}
+		if(permission == false) return "error_permission";
 		json = new LinkedHashMap<String, Object>();
 		json.put("cuocDauNoi", request.getParameter("cuocDauNoi"));
 		json.put("giaTriTruocThue", request.getParameter("giaTriTruocThue"));

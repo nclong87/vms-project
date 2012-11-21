@@ -39,6 +39,8 @@ public class TramAction implements Preparable {
 	private String id;
 	private String[] ids;
 	private Map<String,Object> detail;
+	private boolean permission = true;
+
 	public TramAction( DaoFactory factory) {
 		//daoFactory = factory;
 		tramDAO = new TramDAO(factory);
@@ -50,6 +52,10 @@ public class TramAction implements Preparable {
 		request = ServletActionContext.getRequest();
 		session = request.getSession();
 		account = (Map<String, Object>) session.getAttribute(Constances.SESS_USERLOGIN);
+		List<Integer> menus = (List<Integer>) session.getAttribute(Constances.SESS_MENUIDS);
+		if(menus == null || menus.contains(Constances.QUAN_LY_TRAMDAUCUOI) == false) {
+			permission = false;
+		}
 	}
 	
 	public String execute() throws Exception {
@@ -57,6 +63,7 @@ public class TramAction implements Preparable {
 			session.setAttribute("URL", VMSUtil.getFullURL(request));
 			return "login_page";
 		}
+		if(permission == false) return "error_permission";
 		return Action.SUCCESS;
 	}
 	
@@ -101,6 +108,7 @@ public class TramAction implements Preparable {
 				session.setAttribute("URL", VMSUtil.getFullURL(request));
 				return "login_page";
 			}
+			if(permission == false) return "error_permission";
 			form_data = "";
 			if(id != null && id.isEmpty()==false) {
 				tramDTO = tramDAO.findById(id);

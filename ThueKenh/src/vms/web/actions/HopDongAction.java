@@ -3,8 +3,6 @@ package vms.web.actions;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,19 +17,10 @@ import org.json.simple.JSONValue;
 import vms.db.dao.DaoFactory;
 import vms.db.dao.DoiTacDAO;
 import vms.db.dao.HopDongDAO;
-import vms.db.dao.LoaiGiaoTiepDao;
-import vms.db.dao.PhuLucDAO;
-import vms.db.dao.SuCoDAO;
-import vms.db.dao.TuyenkenhDao;
-import vms.db.dto.DoiTacDTO;
 import vms.db.dto.HopDongDTO;
-import vms.db.dto.LoaiGiaoTiep;
-import vms.db.dto.SuCoDTO;
-import vms.db.dto.TuyenKenh;
 import vms.utils.Constances;
 import vms.utils.DateUtils;
 import vms.utils.VMSUtil;
-import vms.web.models.FN_FIND_SUCO;
 
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.Preparable;
@@ -48,6 +37,7 @@ public class HopDongAction implements Preparable {
 	private String thanhtoan_id;
 	private String[] ids;
 	private Map<String,Object> detail;
+	private boolean permission = true;
 	
 	public String getThanhtoan_id() {
 		return thanhtoan_id;
@@ -125,6 +115,10 @@ public class HopDongAction implements Preparable {
 		request = ServletActionContext.getRequest();
 		session = request.getSession();
 		account = (Map<String, Object>) session.getAttribute(Constances.SESS_USERLOGIN);
+		List<Integer> menus = (List<Integer>) session.getAttribute(Constances.SESS_MENUIDS);
+		if(menus == null || menus.contains(Constances.QUAN_LY_HOPDONG) == false) {
+			permission = false;
+		}
 	}
 	
 	public String execute() throws Exception {
@@ -132,6 +126,7 @@ public class HopDongAction implements Preparable {
 			session.setAttribute("URL", VMSUtil.getFullURL(request));
 			return "login_page";
 		}
+		if(permission == false) return "error_permission";
 		DoiTacDAO doitacDao = new DoiTacDAO(daoFactory);
 		doiTacs = doitacDao.findAll();
 		return Action.SUCCESS;
@@ -171,6 +166,7 @@ public class HopDongAction implements Preparable {
 				session.setAttribute("URL", VMSUtil.getFullURL(request));
 				return "login_page";
 			}
+			if(permission == false) return "error_permission";
 			// validation
 			long ngayky=DateUtils.parseDate(hopdongDTO.getNgayky(), "dd/MM/yyyy").getTime();
 			if(!hopdongDTO.getNgayhethan().isEmpty())

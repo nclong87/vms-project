@@ -67,6 +67,7 @@ public class TienDoBanGiaoAction implements Preparable {
 	public TienDoBanGiaoAction(DaoFactory factory) {
 		daoFactory = factory;
 	}
+	private boolean permission = true;
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -75,6 +76,10 @@ public class TienDoBanGiaoAction implements Preparable {
 		request = ServletActionContext.getRequest();
 		session = request.getSession();
 		account = (Map<String, Object>) session.getAttribute(Constances.SESS_USERLOGIN);
+		List<Integer> menus = (List<Integer>) session.getAttribute(Constances.SESS_MENUIDS);
+		if(menus == null || menus.contains(Constances.QUAN_LY_TIENDOBANGIAO) == false) {
+			permission = false;
+		}
 	}
 
 	public String execute() throws Exception {
@@ -82,6 +87,7 @@ public class TienDoBanGiaoAction implements Preparable {
 			session.setAttribute("URL", VMSUtil.getFullURL(request));
 			return "login_page";
 		}
+		if(permission == false) return "error_permission";
 		LoaiGiaoTiepDao loaiGiaoTiepDao = new LoaiGiaoTiepDao(daoFactory);
 		loaiGiaoTieps = loaiGiaoTiepDao.getAll();
 		DuAnDAO duAnDAO = new DuAnDAO(daoFactory);
@@ -162,12 +168,8 @@ public class TienDoBanGiaoAction implements Preparable {
 			session.setAttribute("URL", VMSUtil.getFullURL(request));
 			return "login_page";
 		}
+		if(permission == false) return "error_permission";
 		id = request.getParameter("id");
-
-		
-		
-		
-
 		TieuChuanDAO tieuChuanDAO = new TieuChuanDAO(daoFactory);
 		this.listTieuChuan = tieuChuanDAO.getAll();
 		TuyenKenhBanGiaoDAO dao = new TuyenKenhBanGiaoDAO(daoFactory);
