@@ -250,7 +250,7 @@ $(document).ready(function(){
 							return;
 						}
 						else if(response == "OK") {
-							this.disabled = true;
+							this.disabled = false;
 							message(" Lưu thành công!",1);
 							parent.reload = true;
 							return;
