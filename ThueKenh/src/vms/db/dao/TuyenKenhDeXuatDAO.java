@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.Map;
 import javax.sql.DataSource;
 import oracle.jdbc.OracleTypes;
+import oracle.sql.ARRAY;
+import oracle.sql.ArrayDescriptor;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -101,16 +103,18 @@ public class TuyenKenhDeXuatDAO {
 		return rs;
 	}
 	
-	public void deleteByIds(String[] ids) {
-		for(int i=0;i<ids.length;i++) {
-			String id = ids[i];
-			TuyenKenhDeXuatDTO dto = this.findById(id);
-			if(dto!=null) {
-				int soluong = dto.getSoluong();
-				this.jdbcTemplate.update("update TUYENKENHDEXUAT set DELETED = "+System.currentTimeMillis()+" where ID = ?",new Object[]{id});
-				this.jdbcTemplate.update("update TUYENKENH set TRANGTHAI = TRANGTHAI_BAK,SOLUONG = SOLUONG - ? where ID = ?",new Object[]{soluong,dto.getTuyenkenh_id()});
-			}
-		}
+	public void deleteByIds(String[] ids,String username) throws SQLException {
+		Connection connection = this.jdbcDatasource.getConnection();
+		System.out.println("***BEGIN TuyenKenhDeXuatDAO.deleteByIds***");
+		ArrayDescriptor descriptor = ArrayDescriptor.createDescriptor( "TABLE_VARCHAR", connection );
+		ARRAY array =new ARRAY( descriptor, connection, ids );
+		CallableStatement stmt = connection.prepareCall("call PROC_DELETE_TUYENKENHDEXUAT(?,?,?)");
+		stmt.setArray(1, array);
+		stmt.setString(2, username);
+		stmt.setLong(3, System.currentTimeMillis());
+		stmt.execute();
+		stmt.close();
+		connection.close();
 	}
 	public void updateDexuatByIds(String[] ids,String dexuat_id) {
 		String str = StringUtils.join(ids, ",");

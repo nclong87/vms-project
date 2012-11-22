@@ -174,39 +174,7 @@ public class TienDoBanGiaoAction implements Preparable {
 		this.listTieuChuan = tieuChuanDAO.getAll();
 		TuyenKenhBanGiaoDAO dao = new TuyenKenhBanGiaoDAO(daoFactory);
 		this.listTieuChuanDatDuoc = dao.getTieuChuanDatDuoc(id);
-		return Action.SUCCESS;/*
-							 * try { if(account == null) {
-							 * session.setAttribute("URL",
-							 * VMSUtil.getFullURL(request)); return
-							 * "login_page"; } LoaiGiaoTiepDao loaiGiaoTiepDao =
-							 * new LoaiGiaoTiepDao(daoFactory); loaiGiaoTieps =
-							 * loaiGiaoTiepDao.getAll(); DuAnDAO duAnDAO = new
-							 * DuAnDAO(daoFactory); duAnDTOs =
-							 * duAnDAO.findAll(); KhuVucDao khuVucDao = new
-							 * KhuVucDao(daoFactory); khuVucDTOs =
-							 * khuVucDao.findAll(); PhongBanDao phongBanDao =
-							 * new PhongBanDao(daoFactory); phongBans =
-							 * phongBanDao.getAll(); tuyenKenh_data = "";
-							 * tuyenKenhDeXuatDTO_data = ""; if(id != null &&
-							 * id.isEmpty()==false) { System.out.println("id=" +
-							 * id); TuyenKenhBanGiaoDAO TuyenKenhBanGiaoDAO =
-							 * new TuyenKenhBanGiaoDAO(daoFactory);
-							 * tuyenKenhDeXuatDTO =
-							 * TuyenKenhBanGiaoDAO.findById(id); TuyenkenhDao
-							 * tuyenkenhDao = new TuyenkenhDao(daoFactory);
-							 * tuyenKenh =
-							 * tuyenkenhDao.findById(tuyenKenhDeXuatDTO
-							 * .getTuyenkenh_id());
-							 * //System.out.println(tuyenKenhDeXuatDTO.getId());
-							 * Map<String,String> map =
-							 * tuyenKenhDeXuatDTO.getMap();
-							 * tuyenKenhDeXuatDTO_data =
-							 * JSONValue.toJSONString(map); map =
-							 * tuyenKenh.getMap(); tuyenKenh_data =
-							 * JSONValue.toJSONString(map); } } catch (Exception
-							 * e) { e.printStackTrace(); return Action.ERROR; }
-							 * return Action.SUCCESS;
-							 */
+		return Action.SUCCESS;
 	}
 
 	public List<TieuChuanDTO> getListTieuChuanDatDuoc() {
@@ -239,7 +207,6 @@ public class TienDoBanGiaoAction implements Preparable {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
-			// session.setAttribute("message", e.getMessage());
 			setInputStream(e.getMessage());
 		}
 		return Action.SUCCESS;

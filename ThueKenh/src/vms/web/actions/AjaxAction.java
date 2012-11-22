@@ -18,7 +18,9 @@ import vms.db.dao.AccountDao;
 import vms.db.dao.ChiTietPhuLucDAO;
 import vms.db.dao.CongThucDAO;
 import vms.db.dao.DaoFactory;
+import vms.db.dao.DeXuatDao;
 import vms.db.dao.HopDongDAO;
+import vms.db.dao.LichSuPhuLucDAO;
 import vms.db.dao.LichSuTuyenKenhDAO;
 import vms.db.dao.LoaiGiaoTiepDao;
 import vms.db.dao.MenuDao;
@@ -256,6 +258,21 @@ public class AjaxAction implements Preparable {
 		return Action.SUCCESS;
 	}
 	
+	public String findVanBanDeXuatByTuyenKenhDeXuat() {
+		jsonData =  new LinkedHashMap<String, Object>();
+		try {
+			String tuyenkenhdexuat_id = request.getParameter("id");
+			DeXuatDao dao = new DeXuatDao(daoFactory);
+			Map<String, Object> result = dao.findVanBanDeXuatByTuyenKenhDeXuat(tuyenkenhdexuat_id);
+			jsonData.put("status", 1);
+			jsonData.put("data", result);
+		} catch (Exception e) {
+			jsonData.put("status", 0);
+			jsonData.put("data", e.getMessage());
+		}
+		return Action.SUCCESS;
+	}
+	
 	public String lichSuTuyenKenh() {
 		jsonData =  new LinkedHashMap<String, Object>();
 		try {
@@ -263,6 +280,23 @@ public class AjaxAction implements Preparable {
 			int page = NumberUtil.parseInt(request.getParameter("p"));
 			LichSuTuyenKenhDAO dao = new LichSuTuyenKenhDAO(daoFactory);
 			List<Map<String, Object>> result = dao.getData(page, tuyenkenh_id);
+			jsonData.put("status", 1);
+			jsonData.put("LS_MAX_PAGE_LENGHT", Constances.LS_MAX_PAGE_LENGHT);
+			jsonData.put("data", result);
+		} catch (Exception e) {
+			jsonData.put("status", 0);
+			jsonData.put("data", e.getMessage());
+		}
+		return Action.SUCCESS;
+	}
+	
+	public String lichSuPhuLuc() {
+		jsonData =  new LinkedHashMap<String, Object>();
+		try {
+			String phuluc_id = request.getParameter("id");
+			int page = NumberUtil.parseInt(request.getParameter("p"));
+			LichSuPhuLucDAO dao = new LichSuPhuLucDAO(daoFactory);
+			List<Map<String, Object>> result = dao.getData(page, phuluc_id);
 			jsonData.put("status", 1);
 			jsonData.put("LS_MAX_PAGE_LENGHT", Constances.LS_MAX_PAGE_LENGHT);
 			jsonData.put("data", result);

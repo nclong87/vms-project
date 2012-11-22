@@ -368,6 +368,16 @@
 				<param name="root">jsonData</param>
 			</result>
 		</action>
+		<action name="findVanBanDeXuatByTuyenKenhDeXuat" class="ajaxAction" method="findVanBanDeXuatByTuyenKenhDeXuat">
+			<result name="success" type="json">
+				<param name="root">jsonData</param>
+			</result>
+		</action>
+		<action name="lichSuPhuLuc" class="ajaxAction" method="lichSuPhuLuc">
+			<result name="success" type="json">
+				<param name="root">jsonData</param>
+			</result>
+		</action>
 	</package>
 	<package name="group" extends="default" namespace="/group">
 		<action name="index" class="groupAction">

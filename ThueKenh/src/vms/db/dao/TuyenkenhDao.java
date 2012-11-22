@@ -16,7 +16,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
 import vms.db.dto.TuyenKenh;
-import vms.utils.StringUtil;
 import vms.utils.VMSUtil;
 
 public class TuyenkenhDao {

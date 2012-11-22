@@ -206,7 +206,7 @@ public class TuyenkenhDexuatAction implements Preparable {
 			}
 			if(ids != null && ids.length >0 ) {
 				TuyenKenhDeXuatDAO tuyenKenhDeXuatDAO = new TuyenKenhDeXuatDAO(daoFactory);
-				tuyenKenhDeXuatDAO.deleteByIds(ids);
+				tuyenKenhDeXuatDAO.deleteByIds(ids,account.get("username").toString());
 			}
 			setInputStream("OK");
 		} catch (Exception e) {

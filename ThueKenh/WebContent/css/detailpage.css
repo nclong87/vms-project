@@ -65,6 +65,11 @@ color: blue;
 cursor: pointer;
 font-size: 11px;
 }
-span#load_more.inactive {
+.link {
+color:blue;
+cursor:pointer;
+}
+.inactive {
 color: gray;
+cursor:default;
 }
