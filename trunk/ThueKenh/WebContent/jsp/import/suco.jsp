@@ -87,6 +87,7 @@ margin-left: 10px;
 					<th>Mã điểm cuối</th>
 					<th>Dung lượng</th>
 					<th>Giao tiếp</th>
+					<th>Phụ lục</th>
 					<th>Thời điểm bắt đầu</th>
 					<th>Thời điểm kết thúc</th>
 					<th>Nguyên nhân</th>
@@ -225,9 +226,7 @@ $(document).ready(function(){
 						"fnRender": function(response) {
 							if(response.aData.tuyenkenh_id != '')
 							{
-								if(response.aData.phuluc_id=='')
-									return '<span style="color:red">Tuyến kênh không hoạt động</span>';
-								return response.aData.tuyenkenh_id;	
+								return response.aData.tuyenkenh_id;
 							}
 							return '<span style="color:red">Tuyến kênh không tồn tại</span>';
 						}
@@ -241,6 +240,13 @@ $(document).ready(function(){
 								return response.aData.loaigiaotiep;
 							else
 								return '<span title="Chưa có danh mục" class="warning">'+response.aData.magiaotiep+'</span>';
+						}
+					},
+					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,
+						"fnRender": function(response) {
+							if(response.aData.phuluc_id=='')
+								return '<span style="color:red">Tuyến kênh chưa có phụ lục</span>';
+							return response.aData.tenphuluc;	
 						}
 					},
 					{ "mDataProp": "thoidiembatdau","bSortable": false,"bSearchable": false,"sClass":'td_center' },

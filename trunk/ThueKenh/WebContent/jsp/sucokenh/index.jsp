@@ -82,6 +82,7 @@
 											<td align="right">Loại sự cố :</td>
 											<td>
 												<select name="loaisuco" id="loaisuco" style="width:220px">
+													<option value="">Tất cả</option>
 													<option value="0">Sự cố bình thường</option>
 													<option value="1">Sự cố lớn</option>
 												</select>

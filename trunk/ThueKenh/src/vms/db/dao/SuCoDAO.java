@@ -32,7 +32,6 @@ public class SuCoDAO {
 	private static final String SQL_SAVE_SUCO = "{ ? = call SAVE_SUCOKENH(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) }";
 	public String save(SuCoDTO dto) throws Exception {
 		System.out.println("begin call SAVE_SUCOKENH");
-		System.out.println("dto.getPhuluc_id() ="+dto.getPhuluc_id());
 		Connection connection = jdbcTemplate.getDataSource().getConnection();
 		CallableStatement stmt = connection.prepareCall(SQL_SAVE_SUCO);
 		stmt.registerOutParameter(1, OracleTypes.VARCHAR);
@@ -65,7 +64,7 @@ public class SuCoDAO {
 	}
 	
 	private static final String SQL_FN_FIND_SUCO = "{ ? = call FN_FIND_SUCO(?,?,?,?,?,?,?,?,?,?,?,?,?) }";
-	public List<FN_FIND_SUCO> findSuCo(int iDisplayStart,int iDisplayLength,Map<String, String> conditions) throws SQLException {
+	public List<Map<String,Object>> findSuCo(int iDisplayStart,int iDisplayLength,Map<String, String> conditions) throws SQLException {
 		System.out.println("Begin FindSuCo");
 		Connection connection = jdbcDatasource.getConnection();
 		CallableStatement stmt = connection.prepareCall(SQL_FN_FIND_SUCO);
@@ -98,9 +97,16 @@ public class SuCoDAO {
 		stmt.setString(14, conditions.get("bienbanvanhanh_id"));
 		stmt.execute();
 		ResultSet rs = (ResultSet) stmt.getObject(1);
-		List<FN_FIND_SUCO> result = new ArrayList<FN_FIND_SUCO>();
+		List<Map<String,Object>> result = new ArrayList<Map<String,Object>>();
+		int i = 1;
 		while(rs.next()) {
-			result.add(FN_FIND_SUCO.mapObject(rs));
+			Map<String,Object> map = VMSUtil.resultSetToMap(rs);
+			map.put("stt", i);
+			map.put("thoidiembatdau",DateUtils.formatDate(new Date(rs.getLong("THOIDIEMBATDAU")), DateUtils.SDF_DDMMYYYYHHMMSS2));
+			map.put("thoidiemketthuc",DateUtils.formatDate(new Date(rs.getLong("THOIDIEMKETTHUC")), DateUtils.SDF_DDMMYYYYHHMMSS2));
+			map.put("timecreate",DateUtils.formatDate(rs.getDate("timecreate"),DateUtils.SDF_DDMMYYYY));
+			result.add(map);
+			i++;
 		}
 		stmt.close();
 		connection.close();

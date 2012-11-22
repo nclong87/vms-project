@@ -247,11 +247,19 @@ margin:0;
 	function doRemoveRow(this_){
 		var row = $(this_).closest("tr").get(0);
 		oTable.fnDeleteRow(oTable.fnGetPosition(row));
+		rowChanges(0);
 	}
 	function addRow(stt,data) {
 		oTable.fnAddData([
-			stt,'<a href="${detailSuCoURL}?id='+data.id+'" target="_blank" title="Xem chi tiết">'+data.tuyenkenh_id+'</a>','<center>'+data.madiemdau+'</center>','<center>'+data.madiemcuoi+'</center>','<center>'+data.loaigiaotiep+'</center>','<center>'+data.dungluong+' MB</center>','<center>'+data.thoidiembatdau+'</center>','<center>'+data.thoidiemketthuc+'</center>','<center>'+data.thoigianmll+'</center>',data.nguyennhan,data.phuonganxuly,'<center>'+data.nguoixacnhan+'</center>','<center>'+data.usercreate+'</center>',data.timecreate,'<center><input type="text" style="display:none" name="suco_ids" value="'+data.id+'" id="suco_id_'+data.id+'"/><img title="Remove" src="'+baseUrl+'/images/icons/remove.png" onclick="doRemoveRow(this)" style="cursor:pointer"></center>'
+			"<center id='stt'></center>",'<a href="${detailSuCoURL}?id='+data.id+'" target="_blank" title="Xem chi tiết">'+data.tuyenkenh_id+'</a>','<center>'+data.madiemdau+'</center>','<center>'+data.madiemcuoi+'</center>','<center>'+data.loaigiaotiep+'</center>','<center>'+data.dungluong+' MB</center>','<center>'+data.thoidiembatdau+'</center>','<center>'+data.thoidiemketthuc+'</center>','<center>'+data.thoigianmll+'</center>',data.nguyennhan,data.phuonganxuly,'<center>'+data.nguoixacnhan+'</center>','<center>'+data.usercreate+'</center>',data.timecreate,'<center><input type="text" style="display:none" name="suco_ids" value="'+data.id+'" id="suco_id_'+data.id+'"/><img title="Remove" src="'+baseUrl+'/images/icons/remove.png" onclick="doRemoveRow(this)" style="cursor:pointer"></center>'
 		]);
+	}
+	function rowChanges(flag){
+		var i = 1;
+		$("#dataTable tbody tr #stt").each(function(){
+			$(this).text(i);
+			i++;
+		});
 	}
 
 	function addphuluc(obj,stt,data){
@@ -400,6 +408,7 @@ margin:0;
 						i++;
 					}
 				});
+				rowChanges(1);
 			}
 		});
 		
@@ -500,6 +509,7 @@ margin:0;
 										addRow(i+1,this);
 										i++;
 									});
+									rowChanges(1);
 								} else {
 									oTable.fnAddData([0,'','','','','','','','','','','','','','']);
 									oTable.fnDeleteRow(0);
@@ -511,10 +521,11 @@ margin:0;
 			});
 		}
 		$("#btSubmit").click(function() {
-			this.disabled = true;
+			var button=this;
+			button.disabled = true;
 			if (!$("#form").valid()) {
 				alert("Dữ liệu nhập chưa hợp lệ, vui lòng kiểm tra lại!",0);
-				this.disabled = false;
+				button.disabled = false;
 			} else {
 				var dataString = $("#form").serialize()+"&"+$("#form-chonsuco").serialize();
 				var i=0;
@@ -558,21 +569,21 @@ margin:0;
 						type : 'POST',
 						data : dataString,
 						success : function(response) {
-							this.disabled = false;
+							button.disabled = false;
 							if(response.status == "ERROR") {
-								this.disabled = false;
+								button.disabled = false;
 								if(response.data == "END_SESSION") {
 									location.href = LOGIN_PATH;
 									return;
 								}
 								alert(response.data);
 							} else if(response.status == "OK") {
-								this.disabled = false;
+								button.disabled = false;
 								showDialogUrl("${formURL}?thanhtien="+response.data.thanhtien+"&giamtrumll="+response.data.giamtrumll+"&id="+response.data.id,"Lưu bảng đối soát cước",450);
 							}
 						},
 						error : function(response) {
-							this.disabled = false;
+							button.disabled = false;
 							message(" Lưu không thành công, vui lòng thử lại.",0);
 						}
 					});	

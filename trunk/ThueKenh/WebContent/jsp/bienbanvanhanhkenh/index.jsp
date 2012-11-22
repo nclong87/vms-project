@@ -63,7 +63,7 @@
 				</div>
 			</div>
 			<div style="clear: both; margin: 5px 0">
-				<input type="button" class="button" value="Thêm biên bản vận hành kênh" onclick="ShowWindow('Thêm biên bản vận hành kênh',1000,600,'${formURL}',true);" style="float: left; margin-right: 10px;"></input>
+				<input type="button" class="button" value="Thêm biên bản vận hành kênh" onclick="ShowWindow('Thêm biên bản vận hành kênh',1100,600,'${formURL}',true);" style="float: left; margin-right: 10px;"></input>
 				<input class="button" type="button" id="btXoa" value="Xóa" style="float: left; margin-right: 10px;"/>
 			</div>
 			<table width="100%" id="dataTable" class="display">
