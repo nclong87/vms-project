@@ -196,12 +196,13 @@ var contextPath = '<%=contextPath%>
 						$("#btSubmit")
 								.click(
 										function() {
-											this.disabled = true;
+											var button=this;
+											button.disabled = true;
 											if (!$("#form").valid()) {
 												alert(
 														"Dữ liệu nhập chưa hợp lệ, vui lòng kiểm tra lại!",
 														0);
-												this.disabled = false;
+												button.disabled = false;
 											} else {
 												var dataString = $("#form")
 														.serialize();
@@ -212,24 +213,24 @@ var contextPath = '<%=contextPath%>
 															data : dataString,
 															success : function(
 																	response) {
-																this.disabled = false;
+																button.disabled = false;
 																if (response == "OK") {
-																	this.disabled = false;
+																	button.disabled = false;
 																	message(
 																			" Lưu thành công!",
-																			1);
+																			button	1);
 																	parent.reload = true;
 																	return;
 																}
 																else if(response=="Date")
 																{
-																	this.disabled = false;
+																	button.disabled = false;
 																	message(" Ngày hết hạn phải lớn hơn ngày ký.",0);
 																	return;
 																}
 																else if(response=="exist")
 																{
-																	this.disabled = false;
+																	button.disabled = false;
 																	message(" Số hợp đồng đã tồn tại trong cơ sở dữ liệu. Vui lòng nhập số hợp đồng khác.",0);
 																	return;
 																}
@@ -239,7 +240,7 @@ var contextPath = '<%=contextPath%>
 															},
 															error : function(
 																	response) {
-																this.disabled = false;
+																button.disabled = false;
 																message(
 																		" Lưu không thành công, vui lòng thử lại.",
 																		0);
