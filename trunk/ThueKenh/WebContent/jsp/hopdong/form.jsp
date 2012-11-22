@@ -193,61 +193,51 @@ var contextPath = '<%=contextPath%>
 							}
 						}
 						validateForm();
-						$("#btSubmit")
-								.click(
-										function() {
-											var button=this;
-											button.disabled = true;
-											if (!$("#form").valid()) {
-												alert(
-														"Dữ liệu nhập chưa hợp lệ, vui lòng kiểm tra lại!",
-														0);
-												button.disabled = false;
-											} else {
-												var dataString = $("#form")
-														.serialize();
-												$
-														.ajax({
-															url : "${doSaveURL}",
-															type : 'POST',
-															data : dataString,
-															success : function(
-																	response) {
-																button.disabled = false;
-																if (response == "OK") {
-																	button.disabled = false;
-																	message(
-																			" Lưu thành công!",
-																			button	1);
-																	parent.reload = true;
-																	return;
-																}
-																else if(response=="Date")
-																{
-																	button.disabled = false;
-																	message(" Ngày hết hạn phải lớn hơn ngày ký.",0);
-																	return;
-																}
-																else if(response=="exist")
-																{
-																	button.disabled = false;
-																	message(" Số hợp đồng đã tồn tại trong cơ sở dữ liệu. Vui lòng nhập số hợp đồng khác.",0);
-																	return;
-																}
-																message(
-																		" Lưu không thành công, vui lòng thử lại.",
-																		0);
-															},
-															error : function(
-																	response) {
-																button.disabled = false;
-																message(
-																		" Lưu không thành công, vui lòng thử lại.",
-																		0);
-															}
-														});
-											}
-										});
+						$("#btSubmit").click(function() {
+							var button=this;
+							button.disabled = true;
+							if (!$("#form").valid()) {
+								alert("Dữ liệu nhập chưa hợp lệ, vui lòng kiểm tra lại!",0);
+								button.disabled = false;
+							} else {
+								var dataString = $("#form").serialize();
+								$.ajax({
+									url : "${doSaveURL}",
+									type : 'POST',
+									data : dataString,
+									success : function(
+											response) {
+										button.disabled = false;
+										if (response == "OK") {
+											button.disabled = false;
+											message(" Lưu thành công!",1);
+											parent.reload = true;
+											return;
+										}
+										else if(response=="Date")
+										{
+											button.disabled = false;
+											message(" Ngày hết hạn phải lớn hơn ngày ký.",0);
+											return;
+										}
+										else if(response=="exist")
+										{
+											button.disabled = false;
+											message(" Số hợp đồng đã tồn tại trong cơ sở dữ liệu. Vui lòng nhập số hợp đồng khác.",0);
+											return;
+										}
+										message(" Lưu không thành công, vui lòng thử lại.",0);
+									},
+									error : function(
+											response) {
+										button.disabled = false;
+										message(
+												" Lưu không thành công, vui lòng thử lại.",
+												0);
+									}
+								});
+							}
+						});
 
 					});
 </script>
