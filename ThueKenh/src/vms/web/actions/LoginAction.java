@@ -75,15 +75,15 @@ public class LoginAction implements Preparable {
 		}
 		if(session.getAttribute(Constances.SESS_USERLOGIN) != null) {
 			url = (String) session.getAttribute("URL");
+			MenuDao menuDao = new MenuDao(daoFactory);
+			@SuppressWarnings("unchecked")
+			Map<String, Object> account = (Map<String, Object>) session.getAttribute(Constances.SESS_USERLOGIN);
+			session.setAttribute(Constances.SESS_MENUIDS, menuDao.getListMenuByUser(account));
 			if(url == null) {
-				MenuDao menuDao = new MenuDao(daoFactory);
-				@SuppressWarnings("unchecked")
-				Map<String, Object> account = (Map<String, Object>) session.getAttribute(Constances.SESS_USERLOGIN);
 				url = menuDao.getDefaultMenu(account);
 				if(url == null) {
 					url = Constances.DEFAULT_HOME_PAGE;
 				}
-				session.setAttribute(Constances.SESS_MENUIDS, menuDao.getListMenuByUser(account));
 			}
 			System.out.println("url="+url);
 			return "index_page";
