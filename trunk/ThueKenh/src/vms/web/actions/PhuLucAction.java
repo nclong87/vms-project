@@ -168,7 +168,7 @@ public class PhuLucAction implements Preparable {
 			if(phuLucDTO.getLoaiphuluc() == Constances.PHU_LUC_THAY_THE) {
 				if(arrPhuLucThayThe!= null && arrPhuLucThayThe.length>0) {
 					Date date = DateUtils.add(DateUtils.parseDate(phuLucDTO.getNgayhieuluc(), "dd-MMM-yyyy"), Calendar.DATE, -1);
-					phuLucDAO.updatePhuLucThayThe(phuLucDTO, arrPhuLucThayThe,date);
+					phuLucDAO.updatePhuLucThayThe(phuLucDTO, arrPhuLucThayThe,date,account.get("username").toString());
 				}
 			}
 			jsonData.put("status", "OK");
@@ -188,7 +188,7 @@ public class PhuLucAction implements Preparable {
 				throw new Exception("END_SESSION");
 			}
 			if(ids != null && ids.length >0 ) {
-				phuLucDAO.deleteByIds(ids);
+				phuLucDAO.deleteByIds(ids,account.get("username").toString());
 			}
 			setInputStream("OK");
 		} catch (Exception e) {

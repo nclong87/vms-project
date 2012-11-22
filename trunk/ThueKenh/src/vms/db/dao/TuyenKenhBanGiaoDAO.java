@@ -143,7 +143,7 @@ public class TuyenKenhBanGiaoDAO {
 	private static final String SQL_PROC_UPDATE_TIEN_DO = "{ call PROC_UPDATE_TIEN_DO(?,?,?,?) }";
 	public void capNhatTienDo(String tuyenkenh_tieuchuan_id, String[] tieuchuan_id,String username) throws Exception  {
 		Connection connection = this.jdbcDatasource.getConnection();
-		System.out.println("***BEGIN saveAccountMenus***");
+		System.out.println("***BEGIN capNhatTienDo***");
 		ArrayDescriptor descriptor = ArrayDescriptor.createDescriptor( "TABLE_VARCHAR", connection );
 		ARRAY array =new ARRAY( descriptor, connection, tieuchuan_id );
 		CallableStatement stmt = connection.prepareCall(SQL_PROC_UPDATE_TIEN_DO);

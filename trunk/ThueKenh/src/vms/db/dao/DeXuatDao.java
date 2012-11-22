@@ -27,7 +27,13 @@ public class DeXuatDao {
 		this.jdbcTemplate = daoFactory.getJdbcTemplate();
 		this.jdbcDatasource = daoFactory.getJdbcDataSource();
 	}
-	
+	public static Map<String, Object> resultSetToMap(ResultSet rs) throws SQLException {
+		Map<String,Object> map = VMSUtil.resultSetToMap(rs);
+		map.put("ngaygui",DateUtils.formatDate(rs.getDate("NGAYGUI"), DateUtils.SDF_DDMMYYYY));
+		map.put("ngaydenghibangiao",DateUtils.formatDate(rs.getDate("NGAYDENGHIBANGIAO"), DateUtils.SDF_DDMMYYYY));
+    	return map;
+    	
+    } 
 	private static final String SQL_FIND_DEXUAT = "{ ? = call FIND_DEXUAT(?,?,?,?,?,?,?) }";
 	public List<FIND_DEXUAT> search(int iDisplayStart,int iDisplayLength,Map<String, String> conditions) throws SQLException {
 		Connection connection = jdbcDatasource.getConnection();
@@ -95,10 +101,19 @@ public class DeXuatDao {
 		List<Map<String,Object>> list =  this.jdbcTemplate.query(SQL_DETAIL_DEXUAT ,new Object[] {id}, new RowMapper() {
 			@Override
 			public Object mapRow(ResultSet rs, int arg1) throws SQLException {
-				Map<String,Object> map = VMSUtil.resultSetToMap(rs);
-				map.put("ngaygui",DateUtils.formatDate(rs.getDate("NGAYGUI"), DateUtils.SDF_DDMMYYYY));
-				map.put("ngaydenghibangiao",DateUtils.formatDate(rs.getDate("NGAYDENGHIBANGIAO"), DateUtils.SDF_DDMMYYYY));
-				return map;
+				return resultSetToMap(rs);
+			}
+		});
+		if(list.isEmpty()) return null;
+		return list.get(0);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public Map<String,Object> findVanBanDeXuatByTuyenKenhDeXuat(String tuyenkenhdexuat_id) {
+		List<Map<String,Object>> list =  this.jdbcTemplate.query("select t1.* from TUYENKENHDEXUAT t left join DEXUAT t1 on t.DEXUAT_ID = t1.ID where t1.DELETED = 0 and t.id = ?" ,new Object[] {tuyenkenhdexuat_id}, new RowMapper() {
+			@Override
+			public Object mapRow(ResultSet rs, int arg1) throws SQLException {
+				return resultSetToMap(rs);
 			}
 		});
 		if(list.isEmpty()) return null;

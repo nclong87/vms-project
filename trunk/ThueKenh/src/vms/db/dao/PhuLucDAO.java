@@ -7,7 +7,6 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
@@ -17,6 +16,8 @@ import java.util.Set;
 
 import javax.sql.DataSource;
 import oracle.jdbc.OracleTypes;
+import oracle.sql.ARRAY;
+import oracle.sql.ArrayDescriptor;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -106,9 +107,19 @@ public class PhuLucDAO {
 		return stmt.getString(1);
 	}
 	
-	public void deleteByIds(String[] ids) {
-		String str = StringUtils.join(ids, ",");
-		this.jdbcTemplate.update("update PHULUC set DELETED = "+System.currentTimeMillis()+" where ID in ("+str+")");
+	public void deleteByIds(String[] ids,String username) throws SQLException {
+		Connection connection = this.jdbcDatasource.getConnection();
+		System.out.println("***BEGIN PhuLucDAO.deleteByIds***");
+		ArrayDescriptor descriptor = ArrayDescriptor.createDescriptor( "TABLE_VARCHAR", connection );
+		ARRAY array =new ARRAY( descriptor, connection, ids );
+		CallableStatement stmt = connection.prepareCall("call PROC_DELETE_PHULUC(?,?,?)");
+		stmt.setArray(1, array);
+		stmt.setString(2, username);
+		stmt.setLong(3, System.currentTimeMillis());
+		stmt.execute();
+		stmt.close();
+		connection.close();
+		//this.jdbcTemplate.update("update PHULUC set DELETED = "+System.currentTimeMillis()+" where ID in ("+str+")");
 	}
 	
 	private static final String SQL_DETAIL_PHULUC = "SELECT t.*,t0.SOHOPDONG,t0.LOAIHOPDONG,t0.DOITAC_ID,t2.TENDOITAC,FIND_PHULUC_BITHAYTHE(t.ID) as PHULUCBITHAYTHE FROM PHULUC t "+
@@ -137,8 +148,21 @@ public class PhuLucDAO {
 		return list.get(0);
 	}
 	
-	public void updatePhuLucThayThe(PhuLucDTO dtoPhulucThayThe,String[] arrPhulucBiThayThe,Date ngayHetHieuLuc) {
-		this.jdbcTemplate.update("update PHULUC set PHULUCTHAYTHE_ID = ?, NGAYHETHIEULUC =? where ID in ("+StringUtils.join(arrPhulucBiThayThe, ",")+")", new Object[] {dtoPhulucThayThe.getId(), DateUtils.parseToSQLDate(ngayHetHieuLuc)});
+	public void updatePhuLucThayThe(PhuLucDTO dtoPhulucThayThe,String[] arrPhulucBiThayThe,Date ngayHetHieuLuc,String username) throws SQLException {
+		//this.jdbcTemplate.update("update PHULUC set PHULUCTHAYTHE_ID = ?, NGAYHETHIEULUC =? where ID in ("+StringUtils.join(arrPhulucBiThayThe, ",")+")", new Object[] {dtoPhulucThayThe.getId(), DateUtils.parseToSQLDate(ngayHetHieuLuc)});
+		Connection connection = this.jdbcDatasource.getConnection();
+		System.out.println("***BEGIN PhuLucDAO.updatePhuLucThayThe***");
+		ArrayDescriptor descriptor = ArrayDescriptor.createDescriptor( "TABLE_VARCHAR", connection );
+		ARRAY array =new ARRAY( descriptor, connection, arrPhulucBiThayThe );
+		CallableStatement stmt = connection.prepareCall("call PROC_UPDATE_PLTHAYTHE(?,?,?,?,?)");
+		stmt.setArray(1, array);
+		stmt.setString(2, dtoPhulucThayThe.getId());
+		stmt.setString(3, dtoPhulucThayThe.getTenphuluc());
+		stmt.setDate(4, DateUtils.convertToSQLDate(ngayHetHieuLuc));
+		stmt.setString(5, username);
+		stmt.execute();
+		stmt.close();
+		connection.close();
 	}
 	
 	private static final String SQL_FIND_PHULUC_HIEULUC = "{ ? = call FIND_PHULUC_HIEULUC(?,?) }";
