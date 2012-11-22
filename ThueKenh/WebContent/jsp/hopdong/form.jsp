@@ -24,8 +24,6 @@
 <script type='text/javascript' src='<%=contextPath%>/js/utils.js'></script>
 <script type="text/javascript"
 	src="<%=contextPath%>/js/jquery-ui/jquery.ui.datepicker-vi.js"></script>
-
-
 <script>
 var contextPath = '<%=contextPath%>
 	';
@@ -34,8 +32,6 @@ var contextPath = '<%=contextPath%>
 		return document.getElementById(id);
 	}
 </script>
-<script type="text/javascript"
-	src="<%=contextPath%>/js/mylibs/popup_search_tuyenkenh.js"></script>
 <script type="text/javascript" src="<%=contextPath%>/js/templates.js"></script>
 <script type="text/javascript" src="<%=contextPath%>/js/jquery.form.js"></script>
 
@@ -120,7 +116,54 @@ var contextPath = '<%=contextPath%>
 			this.checked = _this.checked;
 		});
 	}
-
+	function validateForm()
+	{
+		//validation form
+		if($("#loaihopdong").val()==1)
+		{
+			$("#form").validate({
+				rules : {
+					"hopdongDTO.loaihopdong" : {
+						required : true
+					},
+					"hopdongDTO.sohopdong" : {
+						required : true
+					},
+					"hopdongDTO.doitac_id" : {
+						required : true
+					},
+					"hopdongDTO.ngayky" : {
+						required : true,
+						date : true
+					},
+					"hopdongDTO.ngayhethan" : {
+						required : true,
+						date : true
+					}
+				}
+			});
+		}
+		else
+		{
+			$("#form").validate({
+				rules : {
+					"hopdongDTO.loaihopdong" : {
+						required : true
+					},
+					"hopdongDTO.sohopdong" : {
+						required : true
+					},
+					"hopdongDTO.doitac_id" : {
+						required : true
+					},
+					"hopdongDTO.ngayky" : {
+						required : true,
+						date : true
+					}
+				}
+			});
+		}
+	}
 	$(document)
 			.ready(
 					function() {
@@ -133,25 +176,6 @@ var contextPath = '<%=contextPath%>
 						$("#btReset").click(function() {
 							$("#form")[0].reset();
 							message('', 0);
-						});
-
-						//validation form
-						$("#form").validate({
-							rules : {
-								"hopdongDTO.loaihopdong" : {
-									required : true
-								},
-								"hopdongDTO.sohopdong" : {
-									required : true
-								},
-								"hopdongDTO.doitac_id" : {
-									required : true
-								},
-								"hopdongDTO.ngayky" : {
-									required : true,
-									date : true
-								}
-							}
 						});
 						// load edit
 						var form_data = '<s:property value="form_data" escape="false"/>';
@@ -168,6 +192,7 @@ var contextPath = '<%=contextPath%>
 								});
 							}
 						}
+						validateForm();
 						$("#btSubmit")
 								.click(
 										function() {

@@ -248,7 +248,7 @@ $(document).ready(function() {
 		});
 	}
 	$(document).delegate("#btSubmit","click",function() {
-		var button = this;
+		var button =this;
 		button.disabled = true;
 		if (!$("#form").valid()) {
 			alert("Dữ liệu nhập chưa hợp lệ, vui lòng kiểm tra lại!");
@@ -262,7 +262,7 @@ $(document).ready(function() {
 				success:function(response){
 					button.disabled = false;
 					if(response == "OK") {
-						button.disabled = true;
+						button.disabled = false;
 						message("Lưu thành công!",1);
 						parent.reload = true;
 						return;

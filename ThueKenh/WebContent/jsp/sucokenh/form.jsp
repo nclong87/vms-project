@@ -36,6 +36,8 @@ function byId(id) { //Viet tat cua ham document.getElementById
 <body>
 	<form id="form" onsubmit="return false;">
 		<input type="text" style="display:none" name="sucoDTO.id" id="id" />
+		<input type="text" style="display:none" name="sucoDTO.bienbanvanhanh_id" id="bienbanvanhanh_id" value="0" />
+		<input type="text" style="display:none" name="sucoDTO.thanhtoan_id" id="thanhtoan_id" value="0"/>
 		<input type="text" style="display:none" name="sucoDTO.filename" id="filename" value=""/>
 		<input type="text" style="display:none" name="sucoDTO.filepath" id="filepath" value=""/>
 		<input type="text" style="display:none" name="sucoDTO.filesize" id="filesize" value=""/>
@@ -180,11 +182,12 @@ $(document).ready(function(){
 		}
 	} 
 	$("#btSubmit").click(function(){
-		this.disabled = true;
+		var button=this;
+		button.disabled = true;
 		if(!$("#form").valid())
 		{
 			alert("Dữ liệu nhập chưa hợp lệ, vui lòng kiểm tra lại!",0);
-			this.disabled=false;
+			button.disabled=false;
 		}
 		else
 		{
@@ -194,41 +197,41 @@ $(document).ready(function(){
 				type:'POST',
 				data:dataString,
 				success:function(response){
-					this.disabled = false;
+					button.disabled = false;
 					if(response == "OK") {
-						this.disabled = false;
+						button.disabled = false;
 						message(" Lưu thành công!",1);
 						parent.reload = true;
 						return;
 					}
 					else if(response=="ngayhientai")
 					{
-						this.disabled = false;
+						button.disabled = false;
 						message(" Thời điểm bắt đầu và thời điểm kết thúc phải nhỏ hơn hoặc bằng ngày hiện tại",0);
 						return;
 					}
 					else if(response=="Date")
 					{
-						this.disabled = false;
+						button.disabled = false;
 						message(" Thời điểm kết thúc sự cố phải lớn hơn thời điểm bắt đầu sự cố",0);
 						return;
 					}
 					else if(response=="TuyenKenhNotExist")
 					{
-						this.disabled = false;
+						button.disabled = false;
 						message(" Tuyến kênh bạn chọn không tồn tại",0);
 						return;
 					}
 					else if(response=="ERROR_PHULUCNOTFOUND")
 					{
-						this.disabled = false;
+						button.disabled = false;
 						message(" Tuyến kênh bạn chọn không hiện tại không hoạt động, vui lòng chọn tuyến kênh khác",0);
 						return;
 					}
 					message(" Lưu không thành công, vui lòng thử lại.",0);
 				},
 				error:function(response){
-					this.disabled = false;
+					button.disabled = false;
 					message(" Lưu không thành công, vui lòng thử lại.",0);
 				}
 			});

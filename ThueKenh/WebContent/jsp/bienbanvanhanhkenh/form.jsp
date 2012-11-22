@@ -118,11 +118,19 @@ function selectAll(_this) {
 function doRemoveRow(this_){
 	var row = $(this_).closest("tr").get(0);
 	oTable.fnDeleteRow(oTable.fnGetPosition(row));
+	rowChanges(0);
 }
 function addRow(stt,data) {
 	oTable.fnAddData([
-		stt,data.tuyenkenh_id,data.madiemdau,data.madiemcuoi,data.loaigiaotiep,data.dungluong,data.thoidiembatdau,data.thoidiemketthuc,data.thoigianmll,data.nguyennhan,data.phuonganxuly,data.nguoixacnhan,data.usercreate,data.timecreate,'<center><input type="text" style="display:none" name="suco_ids" value="'+data.id+'" id="suco_id_'+data.id+'"/><img title="Remove" src="'+baseUrl+'/images/icons/remove.png" onclick="doRemoveRow(this)" style="cursor:pointer"></center>'
+		"<center id='stt'></center>",'<a href="${detailSuCoURL}?id='+data.id+'" target="_blank" title="Xem chi tiết">'+data.tuyenkenh_id+'</a>','<center>'+data.madiemdau+'</center>','<center>'+data.madiemcuoi+'</center>','<center>'+data.loaigiaotiep+'</center>','<center>'+data.dungluong+' MB</center>','<center>'+data.thoidiembatdau+'</center>','<center>'+data.thoidiemketthuc+'</center>','<center>'+data.thoigianmll+'</center>',data.nguyennhan,data.phuonganxuly,'<center>'+data.nguoixacnhan+'</center>','<center>'+data.usercreate+'</center>',data.timecreate,'<center><input type="text" style="display:none" name="suco_ids" value="'+data.id+'" id="suco_id_'+data.id+'"/><img title="Remove" src="'+baseUrl+'/images/icons/remove.png" onclick="doRemoveRow(this)" style="cursor:pointer"></center>'
 	]);
+}
+function rowChanges(flag){
+	var i = 1;
+	$("#dataTable tbody tr #stt").each(function(){
+		$(this).text(i);
+		i++;
+	});
 }
 $(document).ready(function(){	
 	//
@@ -137,6 +145,7 @@ $(document).ready(function(){
 					i++;
 				}
 			});
+			rowChanges(1);
 		}
 	});
 	//Reset form
@@ -209,6 +218,7 @@ $(document).ready(function(){
 									addRow(i+1,this);
 									i++;
 								});
+								rowChanges(1);
 							} else {
 								oTable.fnAddData([0,'','','','','','','','','','','','','','']);
 								oTable.fnDeleteRow(0);
@@ -220,18 +230,19 @@ $(document).ready(function(){
 		});
 	}
 	$("#btSubmit").click(function(){
-		this.disabled = true;
+		var button=this;
+		button.disabled = true;
 		if(!$("#form").valid())
 		{
 			alert("Dữ liệu nhập chưa hợp lệ, vui lòng kiểm tra lại!",0);
-			this.disabled=false;
+			button.disabled=false;
 		}
 		else
 		{
 			if($("#dataTable tbody td:first").hasClass("dataTables_empty"))
 			{
 				alert("Vui lòng chọn danh sách sự cố");
-				this.disabled = false;
+				button.disabled = false;
 				
 			}
 			else
@@ -245,12 +256,12 @@ $(document).ready(function(){
 						$(this).disabled = false;					
 						if(response=="exist")
 						{
-							this.disabled = false;
+							button.disabled = false;
 							message("Số biên bản này đã tồn tại trong hệ thống. Vui lòng nhập số biên bản khác",0);
 							return;
 						}
 						else if(response == "OK") {
-							this.disabled = false;
+							button.disabled = false;
 							message(" Lưu thành công!",1);
 							parent.reload = true;
 							return;
@@ -258,7 +269,7 @@ $(document).ready(function(){
 						message(" Lưu không thành công, vui lòng thử lại.",0);
 					},
 					error:function(response){
-						this.disabled = false;
+						button.disabled = false;
 						message(" Lưu không thành công, vui lòng thử lại.",0);
 					}
 				});

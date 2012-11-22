@@ -214,8 +214,12 @@ public class SuCoAction implements Preparable {
 			sucoDTO.setThoigianmll(thoigianmatll);
 			sucoDTO.setUsercreate(account.get("username").toString());
 			sucoDTO.setTimecreate(DateUtils.getCurrentDateSQL());
-			sucoDTO.setBienbanvanhanh_id("0");
-			sucoDTO.setThanhtoan_id("0");
+			if(sucoDTO.getId().isEmpty())
+				sucoDTO.setBienbanvanhanh_id("0");
+			if(sucoDTO.getId().isEmpty() || sucoDTO.getThanhtoan_id().isEmpty())
+				sucoDTO.setThanhtoan_id("0");
+			System.out.println("thanhtoan:"+sucoDTO.getThanhtoan_id());
+			System.out.println("bienbanvanhanh:"+sucoDTO.getBienbanvanhanh_id());
 			PhuLucDAO phuLucDAO = new PhuLucDAO(daoFactory);
 			System.out.println("sqlDateThoiDiemBatDau:"+sqlDateThoiDiemBatDau);
 			System.out.println("sucoDTO.getTuyenkenh_id():"+sucoDTO.getTuyenkenh_id());
@@ -273,19 +277,13 @@ public class SuCoAction implements Preparable {
 			}
 			SuCoDAO sucoDao = new SuCoDAO(daoFactory);
 			System.out.println("conditions="+conditions);
-			List<FN_FIND_SUCO> lstSuCo = sucoDao.findSuCo(iDisplayStart, iDisplayLength+1, conditions);
+			List<Map<String,Object>> lstSuCo = sucoDao.findSuCo(iDisplayStart, iDisplayLength+1, conditions);
 			int iTotalRecords=lstSuCo.size();
 			jsonData = new LinkedHashMap<String, Object>();
-			List<Map<String, String>> items = new ArrayList<Map<String, String>>();
-			for(int i=0;i<lstSuCo.size() && i<iDisplayLength;i++) {
-				Map<String, String> map = lstSuCo.get(i).getMap();
-				map.put("stt", String.valueOf(i+1));
-				items.add(map);
-			}
 			jsonData.put("sEcho", Integer.parseInt(request.getParameter("sEcho")));
 			jsonData.put("iTotalRecords", iDisplayStart+iTotalRecords);
 			jsonData.put("iTotalDisplayRecords", iDisplayStart+iTotalRecords);
-			jsonData.put("aaData", items);
+			jsonData.put("aaData", lstSuCo);
 			return Action.SUCCESS;
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -317,20 +315,13 @@ public class SuCoAction implements Preparable {
 			conditions.put("bienbanvanhanh_id", "0");
 			SuCoDAO sucoDao = new SuCoDAO(daoFactory);
 			System.out.println("conditions="+conditions);
-			List<FN_FIND_SUCO> lstSuCo = sucoDao.findSuCo(iDisplayStart, iDisplayLength+1, conditions);
+			List<Map<String,Object>> lstSuCo = sucoDao.findSuCo(iDisplayStart, iDisplayLength+1, conditions);
 			int iTotalRecords=lstSuCo.size();
 			jsonData = new LinkedHashMap<String, Object>();
-			List<Map<String, String>> items = new ArrayList<Map<String, String>>();
-			for(int i=0;i<lstSuCo.size() && i<iDisplayLength;i++) {
-				Map<String, String> map = lstSuCo.get(i).getMap();
-				map.put("stt", String.valueOf(i+1));
-				map.put("suco_id", lstSuCo.get(i).getSuco_id());
-				items.add(map);
-			}
 			jsonData.put("sEcho", Integer.parseInt(request.getParameter("sEcho")));
 			jsonData.put("iTotalRecords", iDisplayStart+iTotalRecords);
 			jsonData.put("iTotalDisplayRecords", iDisplayStart+iTotalRecords);
-			jsonData.put("aaData", items);
+			jsonData.put("aaData", lstSuCo);
 			return Action.SUCCESS;
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -375,7 +366,7 @@ public class SuCoAction implements Preparable {
 				Map<String, String> conditions = new LinkedHashMap<String, String>();
 				conditions.put("bienbanvanhanh_id", id);
 				SuCoDAO sucoDao = new SuCoDAO(daoFactory);
-				List<FN_FIND_SUCO> list = sucoDao.findSuCo(0, 1000, conditions);
+				List<Map<String,Object>> list = sucoDao.findSuCo(0, 1000, conditions);
 				jsonData.put("result", "OK");
 				jsonData.put("aaData", list);
 			}
@@ -394,7 +385,7 @@ public class SuCoAction implements Preparable {
 				Map<String, String> conditions = new LinkedHashMap<String, String>();
 				conditions.put("thanhtoan_id", id);
 				SuCoDAO sucoDao = new SuCoDAO(daoFactory);
-				List<FN_FIND_SUCO> list = sucoDao.findSuCo(0, 1000, conditions);
+				List<Map<String,Object>> list = sucoDao.findSuCo(0, 1000, conditions);
 				jsonData.put("result", "OK");
 				jsonData.put("aaData", list);
 			}
@@ -413,7 +404,7 @@ public class SuCoAction implements Preparable {
 				Map<String, String> conditions = new LinkedHashMap<String, String>();
 				conditions.put("doisoatcuoc_id", id);
 				SuCoDAO sucoDao = new SuCoDAO(daoFactory);
-				List<FN_FIND_SUCO> list = sucoDao.findSuCo(0, 1000, conditions);
+				List<Map<String,Object>> list = sucoDao.findSuCo(0, 1000, conditions);
 				jsonData.put("result", "OK");
 				jsonData.put("aaData", list);
 			}

@@ -239,6 +239,7 @@ public class SuCoDTO {
 		dto.setFilepath(rs.getString("FILEPATH"));
 		dto.setFilesize(rs.getString("FILESIZE"));
 		dto.setBienbanvanhanh_id(rs.getString("BIENBANVANHANH_ID"));
+		dto.setPhuluc_id(rs.getString("PHULUC_ID"));
         return dto;
 	}
 }
