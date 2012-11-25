@@ -176,7 +176,7 @@ $(document).ready(function(){
 					},
 					{ "mDataProp": "tendoitac","bSortable": false,"bSearchable": false,"sClass":'td_center'},
 					{ "mDataProp": "ngayky","bSortable": false,"bSearchable": false,"sClass":'td_center'},
-					{ "mDataProp": "ngayhethan","bSortable": false,"bSearchable": false},
+					{ "mDataProp": "ngayhethan","bSortable": false,"bSearchable": false,"sClass":'td_center'},
 					{ "mDataProp": null,"bSortable": false,"bSearchable": false,
 						"fnRender": function( oObj ) {
 							return '<center><span class="edit_icon" data-ref-id="'+oObj.aData.id+'" title="Sửa" href="#"></span></center>'; 
