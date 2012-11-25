@@ -151,13 +151,13 @@ $(document).ready(function(){
 					{ "mDataProp": "ngaychuyenkt","bSortable": false,"bSearchable": false,"sClass":'td_center' },
 					{ "mDataProp": "ngaykyunc","bSortable": false,"bSearchable": false,"sClass":'td_center' },
 					{ "mDataProp": "ngaychuyenkhoan","bSortable": false,"bSearchable": false,"sClass":'td_center' },
-					{ "mDataProp": "giatritt","bSortable": false,"bSearchable": false,"sClass":'td_center' },
+					{ "mDataProp": "giatritt","bSortable": false,"bSearchable": false,"sClass":'td_right number' },
 					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,"sClass":'td_center',
 						"fnRender": function( oObj ) {
 							if(oObj.aData.trangthai==0)
-								return "Chưa thanh toán";
+								return "<span style='color:red'>Chưa thanh toán</span>";
 							else 
-								return "Đã thanh toán";
+								return "<span style='color:green'>Đã thanh toán</span>";
 						}
 					},
 					{ "mDataProp": null,"bSortable": false,"bSearchable": false,"sClass":'td_center',
@@ -185,8 +185,16 @@ $(document).ready(function(){
 				"success": fnCallback
 			} );
 		},
+		"fnRowCallback": function( nRow, aData, iDisplayIndex ) {
+			$(".number",nRow).formatCurrency({ 
+				region : 'vn',
+				roundToDecimalPlace: 0, 
+				eventOnDecimalsEntered: true 
+			});
+        },
 		"sPaginationType": "two_button"
 	});
+	
 	// edit
 	$("span.edit_icon").live("click",function(){
 		var id = $(this).attr("data-ref-id");

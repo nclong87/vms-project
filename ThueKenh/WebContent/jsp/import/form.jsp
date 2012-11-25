@@ -248,6 +248,7 @@ $(document).ready(function() {
 		});
 	}
 	$(document).delegate("#btSubmit","click",function() {
+		$("#msg").html("");
 		var button =this;
 		button.disabled = true;
 		if (!$("#form").valid()) {

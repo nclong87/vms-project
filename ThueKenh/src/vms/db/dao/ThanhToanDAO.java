@@ -82,6 +82,10 @@ public class ThanhToanDAO {
 			Map<String,Object> map = VMSUtil.resultSetToMap(rs);
 			map.put("stt", i);
 			map.put("ngaychuyenkt", DateUtils.formatDate(rs.getDate("ngaychuyenkt"), DateUtils.SDF_DDMMYYYY));
+			if(rs.getDate("ngaykyunc")!=null)
+				map.put("ngaykyunc", DateUtils.formatDate(rs.getDate("ngaykyunc"), DateUtils.SDF_DDMMYYYY));
+			if(rs.getDate("ngaychuyenkhoan")!=null)
+				map.put("ngaychuyenkhoan", DateUtils.formatDate(rs.getDate("ngaychuyenkhoan"), DateUtils.SDF_DDMMYYYY));
 			result.add(map);
 			i++;
 		}

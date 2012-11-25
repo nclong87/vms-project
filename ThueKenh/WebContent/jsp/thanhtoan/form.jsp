@@ -79,7 +79,7 @@ function byId(id) { //Viet tat cua ham document.getElementById
 		<div style="clear: both; margin: 5px 0">
 			<table class="input" style="width: 782px">
 				<tr>
-					<td colspan='4' align="left" id="msg"></td>
+					<td colspan='4' align="left" id="msg"><a name="msg"></a></td>
 				</tr>
 				<tr>
 					<td colspan='4' align="center">
@@ -445,6 +445,7 @@ function byId(id) { //Viet tat cua ham document.getElementById
 		} 
 		
 		$("#btSubmit").click(function() {
+			$("#msg").html("");
 			this.disabled = true;
 			if (!$("#form").valid()) {
 				alert("Dữ liệu nhập chưa hợp lệ, vui lòng kiểm tra lại!",0);
@@ -484,6 +485,7 @@ function byId(id) { //Viet tat cua ham document.getElementById
 					});	
 				}
 			}
+			window.location.href="#msg";
 		});
 	});
 </script>

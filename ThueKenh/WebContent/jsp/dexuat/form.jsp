@@ -239,6 +239,7 @@ $(document).ready(function() {
 		});
 	}
 	$(document).delegate("#btSubmit","click",function() {
+		$("#msg").html("");
 		var button = this;
 		if (!$("#form").valid()) {
 			alert("Dữ liệu nhập chưa hợp lệ, vui lòng kiểm tra lại!");

@@ -194,6 +194,7 @@ var contextPath = '<%=contextPath%>
 						}
 						validateForm();
 						$("#btSubmit").click(function() {
+							$("#msg").html("");
 							var button=this;
 							button.disabled = true;
 							if (!$("#form").valid()) {

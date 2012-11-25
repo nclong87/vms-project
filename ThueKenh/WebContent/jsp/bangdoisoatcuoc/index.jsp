@@ -103,7 +103,7 @@ margin:0;
 								<div class="ovf p5l p5t">
 									<table>
 										<tr>
-											<td colspan='5' align="left" id="msg"></td>
+											<td colspan='5' align="left" id="msg"><a name="msg"></a></td>
 										</tr>
 										<tr>
 											<td align="right" width="50px"><label for="xxxx">Đối tác :</label></td>
@@ -589,6 +589,7 @@ margin:0;
 					});	
 				}
 			}
+			window.location.href="#msg";
 		});
 	});
 </script>
