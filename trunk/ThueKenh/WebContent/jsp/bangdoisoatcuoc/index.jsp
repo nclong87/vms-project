@@ -276,7 +276,7 @@ margin:0;
 		var trangthai = "";
 		if(data.phulucbithaythe!="<root></root>")
 			$.each(data.phulucbithaythe,function(){
-				trangthai+='Bị thay thế bởi phụ lục: <a href="${detailPhuLucURL}?id='+this.id+'" title="'+this.tenphuluc+'">'+this.tenphuluc.vmsSubstr(20)+"</a><br>";
+				trangthai+='Thay thế các phụ lục: <a href="${detailPhuLucURL}?id='+this.id+'" title="Xem chi tiết phụ lục" style="color:blue !important">'+this.tenphuluc.vmsSubstr(20)+"</a><br>";
 			});
 		obj.fnAddData([
 			'<center>'+stt+'</center>','<center><a href="${detailPhuLucURL}?id='+data.id+'" target="_blank" title="'+data.tenphuluc+'" style="color:blue !important"><center>'+data.tenphuluc+'</a>','<center>'+loaiphuluc+'/<center>','<center>'+data.tendoitac+'</center>','<center>'+data.soluongkenh+'</center>','<center class="currency">'+data.giatritruocthue+'</center>','<center class="currency">'+data.giatrisauthue+'</center>','<center>'+data.ngayhieuluc+'</center>','<center>'+trangthai+'</center>','<center>'+thanhtoan+'</center>'

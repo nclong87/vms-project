@@ -85,7 +85,7 @@ margin-left: 10px;
 									<td align="left">
 									<input class="button" type="button" value="Tìm Kiếm" onclick="doSearch()"/>
 									<input class="button" type="button" value="Reset" onclick="reset()"/>
-									<input class="button" id="btSelect" style="display:none" type="button" value="Chọn" onclick="doClose()"/>
+									<input class="button" id="btSelect" style="display:none" type="button" value="Chọn" onclick="doClose()"></input>
 									</td>
 								</tfoot>
 							</table>

@@ -3,7 +3,7 @@
 <s:url action="index" namespace="/login" var="loginURL"/>
 <s:url action="form" namespace="/sucokenh" id="formURL"/>
 <s:url action="ajLoadSuCo" namespace="/sucokenh" id="ajLoadSuCo"/>
-<s:url action="popupSearch" namespace="/tuyenkenh" id="popupSearchURL" />
+<s:url action="popupSearchForSuCo" namespace="/tuyenkenh" id="popupSearchForSuCoURL" />
 <s:url action="delete" namespace="/sucokenh" id="deleteURL"/>
 <s:url action="detail" namespace="/sucokenh" id="detailURL"/>
 <s:url action="suco" namespace="/import" id="importSuCoURL"/>
@@ -172,11 +172,11 @@ $(document).ready(function(){
 	LoadDateTimePicker(".datetimepicker");
 	// popup search tuyen kenh
 	popup_search_tuyenkenh.init({
-		url : "${popupSearchURL}",
+		url : "${popupSearchForSuCoURL}",
 		afterSelected : function(data) {
 			// list tuyen kenh tra ve, sau do xu ly du lieu cho nay
 			data = data[0];
-			$("#tuyenkenh_id").val(data["id"]);
+			$("#tuyenkenh_id").val(data["id"]) ;
 		}
 	});
 	
