@@ -592,3 +592,7 @@ width: 202px;
 	background:transparent url(../images/icons/documents.png) 23px 0 no-repeat;
 	height:16px;
 }
+.ui-datepicker-trigger
+{
+	display: none !important;
+}

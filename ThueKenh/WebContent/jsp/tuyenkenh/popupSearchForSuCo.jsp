@@ -35,13 +35,13 @@ margin-left: 10px;
 								<form id="form">
 								<tbody id="display">
 								<tr>
-									<td width="150px" align="right">
+									<td align="right">
 										Mã kênh :
 									</td>
 									<td align="left">
 										<input type="text" name="makenh" id="makenh"/>
 									</td>
-									<td align="right" width="150px">
+									<td align="right">
 										Loại giao tiếp :
 									</td>
 									<td align="left">
@@ -54,13 +54,13 @@ margin-left: 10px;
 									</td>
 								</tr>
 								<tr>
-									<td width="150px" align="right">
+									<td align="right">
 										Mã điểm đầu :
 									</td>
 									<td align="left">
 										<input type="text" name="madiemdau" id="madiemdau"/>
 									</td>
-									<td width="150px" align="right">
+									<td align="right">
 										Mã điểm cuối :
 									</td>
 									<td align="left">
@@ -127,10 +127,10 @@ margin-left: 10px;
 								</tbody>
 								<tfoot>
 									<td></td>
-									<td align="left">
+									<td align="left" colspan="3">
 									<input class="button" type="button" value="Tìm Kiếm" onclick="doSearch()"/>
 									<input class="button" type="button" value="Reset" onclick="reset()"/>
-									<input class="button" id="btSelect" style="display:none" type="button" value="Chọn" onclick="doClose()"/>
+									<input class="button" id="btSelect" type="button" value="Chọn" onclick="doClose()"/>
 									</td>
 								</tfoot>
 							</table>
@@ -160,7 +160,7 @@ margin-left: 10px;
 				<th width="120px">ĐV nhận kênh</th>
 				<th width="80px">Đối tác</th>
 				<th width="5px">Trạng thái</th>
-				<th width="5px" align="center"><input type="checkbox" onclick="selectAll(this)"/></th>
+				<th width="5px" align="center">Chọn</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -235,7 +235,7 @@ $(document).ready(function(){
 					},
 					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,
 						"fnRender": function( oObj ) {
-							return '<center><input type="checkbox" value="'+oObj.iDataRow+'"/></center>'; 
+							return '<center><input type="radio" name="radTuyenKenh" value="'+oObj.iDataRow+'"/></center>'; 
 						}
 					}
 				],
@@ -259,6 +259,10 @@ function doClose(){
 	$('#dataTable tbody input:checked').each(function(){
 		data.push(oTable.fnGetData(this.value));
 	});
+	if(data.length == 0) {
+		alert("Vui lòng chọn 1 tuyến kênh!");
+		return;
+	}
 	window.opener.popup_search_tuyenkenh.afterSelected(data);
 	window.close();
 }
