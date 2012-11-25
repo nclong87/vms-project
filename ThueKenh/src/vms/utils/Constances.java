@@ -39,7 +39,7 @@ public class Constances {
 	public static final String STR_LDAP_SERVER_URL		= "ldap://10.151.70.249:389/ou=system";
 	
 	//Lich su
-	public static int LS_MAX_PAGE_LENGHT = 2;
+	public static int LS_MAX_PAGE_LENGHT = 10;
 	
 	//Menu
 	public static final int QUAN_LY_USER = 1;
