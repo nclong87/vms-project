@@ -267,7 +267,7 @@ $(document).ready(function() {
 				success:function(response){
 					button.disabled = false;
 					if(response == "OK") {
-						button.disabled = true;
+						//button.disabled = true;
 						message("Lưu thành công!",1);
 						parent.reload = true;
 						return;

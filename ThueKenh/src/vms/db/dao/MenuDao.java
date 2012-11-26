@@ -99,6 +99,8 @@ public class MenuDao {
 		while(rs.next()) {
 			result.add(rs.getInt("ID"));
 		}
+		stmt.close();
+		connection.close();
 		return result;
 	}
 }

@@ -29,8 +29,11 @@ public class VanHanhSuCoKenhDAO {
 		stmt.setString(2, dto.getBienban_id());
 		stmt.setString(3, dto.getSucokenh_id());
 		stmt.execute();
+		String rs = stmt.getString(1);
+		stmt.close();
+		connection.close();
 		System.out.println("end call SQL_SAVE_VANHANH_SUCOKENH");
-		return stmt.getString(1);
+		return rs;
 	}
 	
 	public void deleteByBienBanIds(String bienban_id) {

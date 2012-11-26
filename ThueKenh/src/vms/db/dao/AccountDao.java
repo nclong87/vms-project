@@ -111,7 +111,10 @@ public class AccountDao {
 		stmt.setString(8, account.getIdgroup());
 		stmt.setString(9, account.getMainmenu()!=null?String.valueOf(account.getMainmenu()):"-1");
 		stmt.execute();
-		return stmt.getLong(1);
+		Long rs = stmt.getLong(1);
+		stmt.close();
+		connection.close();
+		return rs;
 	}
 	
 	public void lock(String[] ids,String active) {

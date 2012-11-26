@@ -155,6 +155,7 @@ $(document).ready(function(){
 	});
 	$("#btThem").click(function(){
 		ShowWindow('Thêm mới  văn bản đề xuất',750,500,"${formURL}",false);
+		MaxWindow();
 	});
 	$("#btXoa").click(function(){
 		var dataString = '';
@@ -196,6 +197,7 @@ $(document).ready(function(){
 	$("span.edit_icon").live("click",function(){
 		var id = $(this).attr("data-ref-id");
 		ShowWindow('Cập nhật văn bản đề xuất',750,500,"${formURL}?id="+id,false);
+		MaxWindow();
 	});
 	$('ul.sf-menu').superfish();
 	oTable = $('#dataTable').dataTable({

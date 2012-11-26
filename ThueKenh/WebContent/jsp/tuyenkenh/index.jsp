@@ -240,6 +240,9 @@ $(document).ready(function(){
 	});
 	$("#btXoa").click(function(){
 		var dataString = '';
+		var button = this;
+		$("#btXoa").button("disable");
+		//button.disabled = true;
 		$('#dataTable input[type=checkbox]').each(function(){
 			if(this.checked==true) {
 				if(this.value!='on')
@@ -251,8 +254,8 @@ $(document).ready(function(){
 			return;
 		}
 		if(!confirm("Bạn muốn xóa dữ liệu?")) return;
-		var button = this;
-		button.disabled = true;
+		alert('da');
+		return;
 		$.ajax({
 			type: "POST",
 			cache: false,

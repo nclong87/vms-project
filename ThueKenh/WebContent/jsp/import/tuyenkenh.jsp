@@ -125,12 +125,12 @@ var seq = 0;
 $(document).ready(function(){	 
 	$("#btImport").click(function(){
 		var dataString = '';
-		var flagOverwrite = false;
+		var flagOverwrite = 0;
 		$('#dataTable input[type=checkbox]').each(function(){
 			if(this.checked==true) {
 				if(this.value!='on') {
 					dataString+='&ids='+this.value;
-					if($(this).attr("data-ref") != "0") flagOverwrite = true;
+					if($(this).attr("data-ref") != "") flagOverwrite++;
 				}
 					
 			}
@@ -139,8 +139,8 @@ $(document).ready(function(){
 			alert('Bạn chưa chọn dòng để import!');
 			return;
 		}
-		if(flagOverwrite) {
-			if(!confirm("Bạn muốn cập nhật những tuyến kênh đã tồn tại trong hệ thống?")) return;
+		if(flagOverwrite > 0) {
+			if(!confirm("Cảnh báo : có "+flagOverwrite+" tuyến kênh đã tồn tại trong hệ thống.\nBạn muốn cập nhật những tuyến kênh này?")) return;
 		}
 		if(!confirm("Bạn muốn import những dòng đã chọn?")) return;
 		var button = this;

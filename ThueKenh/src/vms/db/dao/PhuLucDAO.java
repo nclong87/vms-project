@@ -104,7 +104,10 @@ public class PhuLucDAO {
 		stmt.setString(16, String.valueOf(dto.getGiatrisauthue()));
 		stmt.setString(17, dto.getSoluongkenh());
 		stmt.execute();
-		return stmt.getString(1);
+		String rs = stmt.getString(1); 
+		stmt.close();
+		connection.close();
+		return rs;
 	}
 	
 	public void deleteByIds(String[] ids,String username) throws SQLException {
