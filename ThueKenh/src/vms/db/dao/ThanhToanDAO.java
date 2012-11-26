@@ -108,7 +108,7 @@ public class ThanhToanDAO {
 		this.jdbcTemplate.update("update THANHTOAN set DELETED= "+System.currentTimeMillis()+" where ID in ("+str+")");
 	}
 	
-	private static final String SQL_DETAIL_HOSOTHANHTOAN = " SELECT tt.*,d.thanhtien,d.tungay,d.giamtrumll "+
+	private static final String SQL_DETAIL_HOSOTHANHTOAN = " SELECT tt.*,d.thanhtien,d.tungay,d.giamtrumll,extract(month from d.DENNGAY) as thang,extract(year from d.DENNGAY) as nam "+
                                                  		   " FROM THANHTOAN tt "+
                                                   		   " LEFT JOIN DOISOATCUOC d ON d.ID = tt.DOISOATCUOC_ID "+
                                                   	       " WHERE tt.id=? AND tt.DELETED=0";
@@ -120,6 +120,10 @@ public class ThanhToanDAO {
 				Map<String,Object> map = VMSUtil.resultSetToMap(rs);
 				map.put("ngaychuyenkt", DateUtils.formatDate(rs.getDate("ngaychuyenkt"), DateUtils.SDF_DDMMYYYY));
 				map.put("timecreate",DateUtils.formatDate(rs.getDate("timecreate"), DateUtils.SDF_DDMMYYYY));
+				if(rs.getDate("ngaykyunc")!=null)
+					map.put("ngaykyunc", DateUtils.formatDate(rs.getDate("ngaykyunc"), DateUtils.SDF_DDMMYYYY));
+				if(rs.getDate("ngaychuyenkhoan")!=null)
+					map.put("ngaychuyenkhoan", DateUtils.formatDate(rs.getDate("ngaychuyenkhoan"), DateUtils.SDF_DDMMYYYY));
 				return map;
 			}
 		});
