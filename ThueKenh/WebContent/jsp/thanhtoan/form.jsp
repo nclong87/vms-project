@@ -91,7 +91,7 @@ function byId(id) { //Viet tat cua ham document.getElementById
 					<td align="left">
 						<input  type="text" name="thanhtoanDTO.sohoso" id="sohoso" />
 					</td>	
-					<td align="right" width="150px"><label for="xxxx">Tháng thanh toán:</label></td>
+					<td align="right" width="150px"><label for="xxxx">Tháng thanh toán <font title="Bắt buộc nhập" color="red">*</font>:</label></td>
 					<td align="left">
 						<select name="thanhtoanDTO.thang" id="thang" style="width:96px">
 							<option value="">Tháng</option>
@@ -108,22 +108,19 @@ function byId(id) { //Viet tat cua ham document.getElementById
 							<option value="11">11</option>
 							<option value="12">12</option>
 						</select>
-						<font title="Bắt buộc nhập" color="red">*</font>
 						<select name="thanhtoanDTO.nam" id="nam" style="width:95px">
-							<option value="">Năm</option>
+							<option value="">Năm <font title="Bắt buộc nhập" color="red">*</font>:</option>
 						</select>
-						<font title="Bắt buộc nhập" color="red">*</font>
 					</td>	
 				</tr>
 				<tr>
-					<td align="right" ><label for="xxxx">Ngày chuyển kế toán :</label></td>
+					<td align="right" ><label for="xxxx">Ngày chuyển kế toán <font title="Bắt buộc nhập" color="red">*</font>:</label></td>
 					<td align="left" >
-						<input  type="text" name="thanhtoanDTO.ngaychuyenkt" id="ngaychuyenkt" class="datepicker"/><font title="Bắt buộc nhập" color="red">*</font>
+						<input  type="text" name="thanhtoanDTO.ngaychuyenkt" id="ngaychuyenkt" class="datepicker"/>
 					</td>
-					<td align="right" ><label for="xxxx">Giá trị thanh toán :</label></td>
+					<td align="right" ><label for="xxxx">Giá trị thanh toán <font title="Bắt buộc nhập" color="red">*</font>:</label></td>
 					<td align="left">
 						<input  type="text" name="thanhtoanDTO.giatritt" id="giatritt"/>
-						<font title="Bắt buộc nhập" color="red">*</font>
 					</td>
 				</tr>
 			</table>
