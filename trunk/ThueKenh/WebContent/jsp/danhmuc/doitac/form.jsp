@@ -155,11 +155,12 @@ var contextPath = '<%=contextPath%>';
 										"#btSubmit",
 										"click",
 										function() {
-											var button = this;
-											button.disabled = true;
+											//var button = this;
+											//button.disabled = true;
+											//$("#btSubmit").attr("disabled", "disabled");
 											if (!$("#form").valid()) {
 												alert("Dữ liệu nhập chưa hợp lệ, vui lòng kiểm tra lại!");
-												button.disabled = false;
+												//button.disabled = false;
 											} else {
 												var stt = $("#stt").attr("value");
 
@@ -167,6 +168,7 @@ var contextPath = '<%=contextPath%>';
 													$("#stt").attr("value", "0");
 													//alert(stt);
 												}
+												$("#btSubmit").attr("disabled", "disabled");
 												var dataString = $("#form")
 														.serialize();
 												$
@@ -176,7 +178,8 @@ var contextPath = '<%=contextPath%>';
 															data : dataString,
 															success : function(
 																	response) {
-																button.disabled = false;
+																$("#btSubmit").removeAttr("disabled");
+																//button.disabled = false;
 																if (response == "EXIST") {
 																	message(
 																			"Đã tồn tại tuyến kênh này trong hệ thống!",
@@ -196,7 +199,7 @@ var contextPath = '<%=contextPath%>';
 															},
 															error : function(
 																	response) {
-																button.disabled = false;
+																//button.disabled = false;
 																alert("Server is too busy, please try again!");
 															}
 														});

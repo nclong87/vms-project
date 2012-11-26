@@ -72,7 +72,7 @@ margin-left: 10px;
 						<form id="form">
 			<div style=" padding-top: 5px; padding-bottom: 3px; display: block;">
 			<div class="block">
-				Username : <input type="text" class="field" name="username" id="username"/>
+				Username : <input style="padding: 4px;" type="text" class="field" name="username" id="username"/>
 			</div>
 			<div class="block">
 				<select class="field" name="phongban_id" id="phongban_id">

@@ -1,0 +1,25 @@
+create or replace
+FUNCTION            "SAVE_VMSGROUP" 
+(
+	id_	in VARCHAR2,
+	namegroup_ in VARCHAR2,
+  mainmenu_ in VARCHAR2
+)
+RETURN NUMBER AS
+n NUMBER;
+BEGIN
+	if(id_ is not null) then --update
+      update VMSGROUP set NAMEGROUP = namegroup_, MAINMENU = mainmenu_ where ID = to_number(id_);
+	else --insert
+		n := SEQ_VMSGROUP.nextval;
+    if(mainmenu_ <> '-1') then
+      insert into VMSGROUP(ID,NAMEGROUP,ACTIVE,MAINMENU) values (n,namegroup_,1,mainmenu_);
+    else
+      insert into VMSGROUP(ID,NAMEGROUP,ACTIVE,MAINMENU) values (n,namegroup_,1,null);
+    end if;
+    return n;
+  end if;
+  RETURN id_;
+END SAVE_VMSGROUP;
+
+

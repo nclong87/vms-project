@@ -102,19 +102,23 @@ $(document).ready(function() {
 		}
 	} 
 	$(document).delegate("#btSubmit","click",function() {
-		var button = this;
+		//var button = this;
+		
+		
 		if (!$("#form").valid()) {
 			alert("Dữ liệu nhập chưa hợp lệ, vui lòng kiểm tra lại!");
-			button.disabled = false;
+			//button.disabled = false;
 		} else {
-			button.disabled = true;
+			//button.disabled = true;
+			$("#btSubmit").attr("disabled", "disabled");
 			var dataString = $("#form").serialize();
 				$.ajax({
 				url: "${doSaveURL}",
 				type:'POST',
 				data:dataString,
 				success:function(response){
-					button.disabled = false;
+					//button.disabled = false;
+					$("#btSubmit").removeAttr("disabled");
 					if(response == "EXIST") {
 						message("Mã trạm này đã tồn tại trong hệ thống!",0);
 						return;
@@ -127,7 +131,7 @@ $(document).ready(function() {
 					message("Lưu không thành công, vui lòng thử lại.",0);
 				},
 				error:function(response){
-					button.disabled = false;
+					//button.disabled = false;
 					alert("Server is too busy, please try again!");
 				}
 			});
