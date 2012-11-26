@@ -109,7 +109,7 @@ public class AccountDao {
 		stmt.setString(6, account.getIdkhuvuc());
 		stmt.setString(7, account.getIdphongban());
 		stmt.setString(8, account.getIdgroup());
-		stmt.setString(9, String.valueOf(account.getMainmenu()));
+		stmt.setString(9, account.getMainmenu()!=null?String.valueOf(account.getMainmenu()):"-1");
 		stmt.execute();
 		return stmt.getLong(1);
 	}
