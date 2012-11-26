@@ -69,7 +69,10 @@ public class BanGiaoDAO  {
 		stmt.setString(8, dto.getFilesize());
 		stmt.setString(9, dto.getNgaybangiao());
 		stmt.execute();
-		return stmt.getString(1);
+		String rs = stmt.getString(1);
+		stmt.close();
+		connection.close();
+		return rs;
 	}
 	
 	public void deleteByIds(String[] ids) {

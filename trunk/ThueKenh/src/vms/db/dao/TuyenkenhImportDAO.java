@@ -80,26 +80,16 @@ public class TuyenkenhImportDAO {
 	
 	private static final String SQL_PROC_IMPORT_TUYENKENH = "{ call PROC_IMPORT_TUYENKENH(?,?,?) }";
 	public void importTuyenkenh(String[] ids,String account) throws SQLException {
-		System.out.println("1");
 		Connection connection = jdbcDatasource.getConnection();
-		System.out.println("2");
 		ArrayDescriptor descriptor = ArrayDescriptor.createDescriptor( "TABLE_NUMBER", connection );
-		System.out.println("3");
 		ARRAY array =new ARRAY( descriptor, connection, ids );
-		System.out.println("4");
 		CallableStatement stmt = connection.prepareCall(SQL_PROC_IMPORT_TUYENKENH);
-		System.out.println("5");
 		stmt.setArray(1, array);
-		System.out.println("6");
 		stmt.setString(2, account);
-		System.out.println("7");
 		stmt.setDate(3, DateUtils.convertToSQLDate(new Date()));
-		System.out.println("8");
 		stmt.execute();
-		System.out.println("9");
 		stmt.close();
 		connection.close();
-		System.out.println("0");
 	}
 	
 	public void deleteByIds(String[] ids) {

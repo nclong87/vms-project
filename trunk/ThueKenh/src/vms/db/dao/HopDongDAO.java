@@ -113,7 +113,10 @@ public class HopDongDAO {
 		stmt.setString(9, dto.getTimecreate());
 		stmt.setString(10, dto.getHistory());
 		stmt.execute();
-		return stmt.getString(1);
+		String rs = stmt.getString(1);
+		stmt.close();
+		connection.close();
+		return rs;
 	}
 	
 	public void deleteByIds(String[] ids) {
