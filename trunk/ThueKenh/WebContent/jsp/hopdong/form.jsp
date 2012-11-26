@@ -46,37 +46,37 @@ var contextPath = '<%=contextPath%>
 					<td colspan='4' align="left" id="msg"></td>
 				</tr>
 				<tr>
-					<td align="right">Loại hợp đồng :</td>
+					<td align="right">Loại hợp đồng <font title="Bắt buộc nhập" color="red">*</font>:</td>
 					<td><select style="width: 220px" name="hopdongDTO.loaihopdong"
 						id="loaihopdong">
 							<option value="">---Chọn---</option>
 							<option value="1">Có thời hạn</option>
 							<option value="0">Không thời hạn</option>
-					</select><font title="Bắt buộc nhập" color="red">*</font></td>
+					</select></td>
 				</tr>
 				<tr>
-					<td align="right">Số hợp đồng :</td>
+					<td align="right">Số hợp đồng <font title="Bắt buộc nhập"
+						color="red">*</font>:</td>
 					<td><input type="text" name="hopdongDTO.sohopdong"
-						id="sohopdong" style="width: 218px" /><font title="Bắt buộc nhập"
-						color="red">*</font></td>
-					<td align="right">Đối tác :</td>
+						id="sohopdong" style="width: 218px" /></td>
+					<td align="right">Đối tác <font title="Bắt buộc nhập" color="red">*</font>:</td>
 					<td><select style="width: 220px" name="hopdongDTO.doitac_id"
 						id="doitac_id">
 							<option value="">---Chọn---</option>
 							<s:iterator value="doiTacs">
 								<option value='<s:property value="id" />'><s:property value="tendoitac" /></option>									
 							</s:iterator>
-					</select><font title="Bắt buộc nhập" color="red">*</font></td>
+					</select></td>
 				</tr>
 				<tr>
-					<td align="right">Ngày ký :</td>
+					<td align="right">Ngày ký <font
+						title="Bắt buộc nhập" color="red">*</font>:</td>
 					<td align="left"><input type="text" name="hopdongDTO.ngayky"
-						id="ngayky" style="width: 218px" class="datepicker" /><font
-						title="Bắt buộc nhập" color="red">*</font></td>
-					<td align="right">Ngày hết hạn :</td>
+						id="ngayky" style="width: 218px" class="datepicker" /></td>
+					<td align="right">Ngày hết hạn <font title="Bắt buộc nhập" color="red">*</font>:</td>
 					<td align="left"><input type="text"
 						name="hopdongDTO.ngayhethan" id="ngayhethan" style="width: 218px"
-						class="datepicker" /><font title="Bắt buộc nhập" color="red">*</font>
+						class="datepicker" />
 					</td>
 				</tr>
 				<tr height="30px">

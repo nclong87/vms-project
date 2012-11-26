@@ -98,7 +98,7 @@ table.display thead th div.DataTables_sort_wrapper span {
  * DataTables features
  */
 .dataTables_wrapper {
-
+	clear:both;
 }
 
 .dataTables_processing {

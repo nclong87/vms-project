@@ -47,40 +47,39 @@ function byId(id) { //Viet tat cua ham document.getElementById
 					<td colspan='4' align="left" id="msg"></td>
 				</tr>
 				<tr>
-					<td align="right">Tuyến kênh :</td>
-					<td align="left"><input type="text" style="width:181px" name="sucoDTO.tuyenkenh_id" id="tuyenkenh_id"></input><input type="button" id="btPopupSearchTuyenkenh" value="..."/></select><font title="Bắt buộc nhập" color="red">*</font></td>
-					<td align="right">Loại sự cố :</td>
+					<td align="right">Tuyến kênh <font title="Bắt buộc nhập" color="red">*</font>:</td>
+					<td align="left"><input type="text" style="width:181px" name="sucoDTO.tuyenkenh_id" id="tuyenkenh_id"></input><input type="button" id="btPopupSearchTuyenkenh" value="..."/></select></td>
+					<td align="right">Loại sự cố <font title="Bắt buộc nhập" color="red">*</font>:</td>
 					<td align="left">
 						<select name="sucoDTO.loaisuco" id="loaisuco" style="width: 215px">
 							<option value="0">Sự cố bình thường</option>
 							<option value="1">Sự cố lớn</option>
 						</select>
-						<font title="Bắt buộc nhập" color="red">*</font>
 					</td>
 				</tr>
 				<tr>
-					<td align="right">Thời điểm bắt đầu :</td>
-					<td align="left"><input type="text" name="sucoDTO.thoidiembatdau" id="thoidiembatdau" style="width: 214px" class="datetimepicker"/><font title="Bắt buộc nhập"
-						color="red">*</font></td>
-					<td align="right">Thời điểm kết thúc :</td>
-					<td align="left"><input type="text" name="sucoDTO.thoidiemketthuc" id="thoidiemketthuc" style="width: 214px" class="datetimepicker"/><font title="Bắt buộc nhập"
-						color="red">*</font></td>
+					<td align="right">Thời điểm bắt đầu <font title="Bắt buộc nhập"
+						color="red">*</font>:</td>
+					<td align="left"><input type="text" name="sucoDTO.thoidiembatdau" id="thoidiembatdau" style="width: 214px" class="datetimepicker"/></td>
+					<td align="right">Thời điểm kết thúc <font title="Bắt buộc nhập"
+						color="red">*</font>:</td>
+					<td align="left"><input type="text" name="sucoDTO.thoidiemketthuc" id="thoidiemketthuc" style="width: 214px" class="datetimepicker"/></td>
 	
 				</tr>
 				<tr>
-					<td align="right">Nguyên nhân sự cố :</td>
-					<td colspan="3"><textarea style="width: 601px" name="sucoDTO.nguyennhan" id="nguyennhan"></textarea><font
-						title="Bắt buộc nhập" color="red">*</font></td>
+					<td align="right">Nguyên nhân sự cố <font
+						title="Bắt buộc nhập" color="red">*</font>:</td>
+					<td colspan="3"><textarea style="width: 601px" name="sucoDTO.nguyennhan" id="nguyennhan"></textarea></td>
 				</tr>
 				<tr>
-					<td align="right">Phương án xử lý :</td>
-					<td colspan="3"><textarea style="width: 601px" name="sucoDTO.phuonganxuly" id="phuonganxuly"></textarea><font
-						title="Bắt buộc nhập" color="red">*</font></td>
+					<td align="right">Phương án xử lý <font
+						title="Bắt buộc nhập" color="red">*</font>:</td>
+					<td colspan="3"><textarea style="width: 601px" name="sucoDTO.phuonganxuly" id="phuonganxuly"></textarea></td>
 				</tr>
 				<tr>
-					<td align="right">Người xác nhận :</td>
-					<td><input type="text" style="width: 214px" name="sucoDTO.nguoixacnhan" id="nguoixacnhan"/><font
-						title="Bắt buộc nhập" color="red">*</font></td>
+					<td align="right">Người xác nhận <font
+						title="Bắt buộc nhập" color="red">*</font>:</td>
+					<td><input type="text" style="width: 214px" name="sucoDTO.nguoixacnhan" id="nguoixacnhan"/></td>
 				</tr>
 			</table>
 			

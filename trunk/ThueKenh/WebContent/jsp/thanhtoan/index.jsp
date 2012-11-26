@@ -90,6 +90,7 @@
 					<tr>
 						<th width="30px">STT</th>
 						<th>Số hồ sơ</th>
+						<th>Tháng/Năm thanh toán</th>
 						<th>Ngày chuyển hồ sơ kế toán</th>
 						<th>Ngày ký UNC</th>
 						<th>Ngày chuyển khoản</th>
@@ -148,6 +149,11 @@ $(document).ready(function(){
 		"aoColumns": [
 					{ "mDataProp": "stt","bSortable": false,"bSearchable": false,"sClass":'td_center' },
 					{ "mDataProp": "sohoso","bSortable": false,"bSearchable": false,"sClass":'td_center' },
+					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,"sClass":'td_center',
+						"fnRender": function( oObj ) {
+							return oObj.aData.thang+"/"+oObj.aData.nam;
+						}
+					},
 					{ "mDataProp": "ngaychuyenkt","bSortable": false,"bSearchable": false,"sClass":'td_center' },
 					{ "mDataProp": "ngaykyunc","bSortable": false,"bSearchable": false,"sClass":'td_center' },
 					{ "mDataProp": "ngaychuyenkhoan","bSortable": false,"bSearchable": false,"sClass":'td_center' },

@@ -106,7 +106,7 @@ margin:0;
 											<td colspan='5' align="left" id="msg"><a name="msg"></a></td>
 										</tr>
 										<tr>
-											<td align="right" width="50px"><label for="xxxx">Đối tác :</label></td>
+											<td align="right" width="55px"><label for="xxxx">Đối tác: <font title="Bắt buộc nhập" color="red">*</font></label></td>
 											<td align="left">
 												<select style="width: 210px" name="doitac_id" id="doitac_id">
 													<option value="">---Chọn---</option>
@@ -114,9 +114,8 @@ margin:0;
 														<option value='<s:property value="id" />'><s:property value="tendoitac" /></option>									
 													</s:iterator>
 												</select>
-												<font title="Bắt buộc nhập" color="red">*</font>
 											</td>	
-											<td align="right" width="110px"><label for="xxxx">Tháng thanh toán:</label></td>
+											<td align="right" width="110px"><label for="xxxx">Tháng thanh toán: </label><font title="Bắt buộc nhập" color="red">*</font></td>
 											<td align="left">
 												<select name="thang" id="thang" style="width:96px">
 													<option value="">Tháng</option>
@@ -133,13 +132,12 @@ margin:0;
 													<option value="11">11</option>
 													<option value="12">12</option>
 												</select>
-												<font title="Bắt buộc nhập" color="red">*</font>
 											</td>	
+											<td align="right">Năm: <font title="Bắt buộc nhập" color="red">*</font></td>
 											<td>
 												<select name="nam" id="nam" style="width:95px">
 													<option value="">Năm</option>
 												</select>
-												<font title="Bắt buộc nhập" color="red">*</font>
 											</td>
 										</tr>
 									</table>
@@ -165,11 +163,11 @@ margin:0;
 						<div style="padding-bottom: 5px;float: right"><input class="button" type="button" value="Chọn sự cố" id="btPopupSearchSuCo"></div>
 						<table style="float:right">
 							<tr>
-								<td align="right">Thời điểm từ:</td>
+								<td align="right">Thời điểm từ: <font title="Bắt buộc nhập" color="red">*</font></td>
 								<td align="left"><input type="text"
 									name="thoidiembatdautu" id="thoidiembatdautu" style="width: 100px" class="datepicker"/>
 								</td>
-								<td align="right">đến :</td>
+								<td align="right">đến :<font title="Bắt buộc nhập" color="red">*</font></td>
 								<td align="left"><input type="text"
 									name="thoidiembatdauden" id="thoidiembatdauden" style="width: 100px" class="datepicker"/>
 								</td>
