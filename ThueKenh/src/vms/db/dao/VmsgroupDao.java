@@ -58,7 +58,9 @@ public class VmsgroupDao {
 		stmt.registerOutParameter(1, OracleTypes.INTEGER);
 		stmt.setString(2, vmsgroup.getId());
 		stmt.setString(3, vmsgroup.getNamegroup());
-		stmt.setString(4, String.valueOf(vmsgroup.getMainmenu()));
+		stmt.setString(4, vmsgroup.getMainmenu()!=null?String.valueOf(vmsgroup.getMainmenu()):"-1");
+		//System.out.println("vmsgroup.getNamegroup()"+vmsgroup.getNamegroup());
+		System.out.println("vmsgroup.getMainmenu()"+String.valueOf(vmsgroup.getMainmenu()));
 		stmt.execute();
 		Long rs = stmt.getLong(1);
 		stmt.close();
