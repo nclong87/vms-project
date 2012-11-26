@@ -162,7 +162,7 @@ margin:0;
 				<fieldset class="data_list">
 					<legend>Danh sách sự cố giảm trừ</legend>
 					<form id="form-chonsuco">
-						<div style="width: 87px; padding-bottom: 5px;float: right;"><input class="button" type="button" value="Chọn sự cố" id="btPopupSearchSuCo"></div>
+						<div style="padding-bottom: 5px;float: right"><input class="button" type="button" value="Chọn sự cố" id="btPopupSearchSuCo"></div>
 						<table style="float:right">
 							<tr>
 								<td align="right">Thời điểm từ:</td>
@@ -177,6 +177,7 @@ margin:0;
 							</tr>
 						</table>
 					</form>
+					<div style="clear:both"></div>
 					<table width="100%" id="dataTable" class="display">
 					<thead>
 							<tr>
@@ -552,11 +553,13 @@ margin:0;
 				if(i==0)
 				{
 					alert("Vui lòng chọn hợp đồng.");
+					button.disabled = false;
 					return;
 				}
 				if(error!="")
 				{
 					alert("Hợp đồng :"+error+" chưa chọn phụ lục. Vui lòng chọn đầy đủ phụ lục cho hợp đồng.");
+					button.disabled = false;
 				}
 				else
 				{
