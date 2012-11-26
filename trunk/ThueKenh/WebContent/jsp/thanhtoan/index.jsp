@@ -81,7 +81,7 @@
 					</div>
 				</div>
 			</div>
-			<div style="clear: both; margin: 5px 0">
+			<div style="clear: both; margin: 5px 0 0 0">
 				<input type="button" class="button" value="Thêm hồ sơ thanh toán" onclick="ShowWindow('Thêm hồ sơ thanh toán',800,600,'${formURL}',true);MaxWindow();"></input>
 				<input class="button" type="button" id="btXoa" value="Xóa" style="float: right; margin-right: 10px;"/>
 			</div>
@@ -204,7 +204,7 @@ $(document).ready(function(){
 	// edit
 	$("span.edit_icon").live("click",function(){
 		var id = $(this).attr("data-ref-id");
-		ShowWindow('Cập nhật thông tin hợp đồng',800,600,"${formURL}?id="+id,true);
+		ShowWindow('Cập nhật thông tin hồ sơ thanh toán',800,600,"${formURL}?id="+id,true);
 		MaxWindow();
 	});
 	

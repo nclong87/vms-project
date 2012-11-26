@@ -62,25 +62,24 @@
 					</div>
 				</div>
 			</div>
-			<div style="clear: both; margin: 5px 0">
+			<div style="clear: both; margin: 5px 0 0 0">
 				<input type="button" class="button" value="Thêm biên bản vận hành kênh" onclick="ShowWindow('Thêm biên bản vận hành kênh',1100,600,'${formURL}',true);" style="float: left; margin-right: 10px;"></input>
 				<input class="button" type="button" id="btXoa" value="Xóa" style="float: right; margin-right: 10px;"/>
 			</div>
-			<div style="clear:both;margin-bottom:5px"></div>
 			<table width="100%" id="dataTable" class="display">
 				<thead>
 					<tr>
-						<th width="50px">STT</th>
-						<th width="100px">Số biên bản</th>
-						<th width="200px">Người tạo</th>
-						<th width="200px">Ngày tạo</th>
-						<th width="200px">File scan</th>
-						<th width="50px">Sửa</th>
-						<th width="50px" align="center"><input type="checkbox" onclick="selectAll(this)"/></th>
+						<th width="3%">STT</th>
+						<th width="15%">Số biên bản</th>
+						<th width="15%">Người tạo</th>
+						<th width="15%">Ngày tạo</th>
+						<th width="15%">File scan</th>
+						<th width="5%">Sửa</th>
+						<th width="3%" align="center"><input type="checkbox" onclick="selectAll(this)"/></th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr><td colspan="13" class="dataTables_empty">Đang tải dữ liệu...</td></tr>
+					<tr><td colspan="7" class="dataTables_empty">Đang tải dữ liệu...</td></tr>
 				</tbody>
 			</table>
 		</div>
