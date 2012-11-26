@@ -179,17 +179,23 @@ $(document).ready(function(){
 	
 	// bao cao 1: Các kênh chưa bàn giao
 	$("#btSubmit1").click(function() {
+		this.disabled=true;
 		location.href="${rpTuyenKenhChuaBanGiaoURL}?doitac_id="+$("#doitac_id1").val();
+		this.disabled=false;
 	});
 	
 	// bao cao 2 : Các hợp đồng chưa thanh toán
 	$("#btSubmit2").click(function() {
+		this.disabled=true;
 		location.href="${rpKenhDaBanGiaoNhungChuaCoHopDongURL}?doitac_id="+$("#doitac_id2").val();
+		this.disabled=false;
 	});
 	
 	// bao cao 3 : Các kênh đã bàn giao nhưng chưa có hợp đồng
 	$("#btSubmit3").click(function() {
+		this.disabled=true;
 		location.href="${rpHopDongChuaThanhToanURL}?doitac_id="+$("#doitac_id3").val();
+		this.disabled=false;
 	});
 	//validation form
 	$("#form").validate({
