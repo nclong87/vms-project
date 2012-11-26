@@ -97,14 +97,14 @@
 					</div>
 				</div>
 			</div>
-			<div style="clear: both; margin: 5px 0">
+			<div style="clear: both; margin: 5px 0 0 0">
 				<input type="button" class="button" value="Thêm hợp đồng" onclick="ShowWindow('Thêm hợp đồng',800,600,'${formURL}',false);"></input>
 				<input class="button" type="button" id="btXoa" value="Xóa" style="float: right; margin-right: 10px;"/>
 			</div>
 			<table width="100%" id="dataTable" class="display">
 				<thead>
 					<tr>
-						<th width="3px">STT</th>
+						<th width="3%">STT</th>
 						<th width="30px">Số hợp đồng</th>
 						<th width="30px">Loại hợp đồng</th>
 						<th width="30px">Đối tác</th>
@@ -115,7 +115,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr><td colspan="13" class="dataTables_empty">Đang tải dữ liệu...</td></tr>
+					<tr><td colspan="8" class="dataTables_empty">Đang tải dữ liệu...</td></tr>
 				</tbody>
 			</table>
 		</div>

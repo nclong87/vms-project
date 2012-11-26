@@ -99,6 +99,7 @@ table.display thead th div.DataTables_sort_wrapper span {
  */
 .dataTables_wrapper {
 	clear:both;
+	padding-top:5px;
 }
 
 .dataTables_processing {

@@ -115,7 +115,7 @@ margin:0;
 													</s:iterator>
 												</select>
 											</td>	
-											<td align="right" width="110px"><label for="xxxx">Tháng thanh toán: </label><font title="Bắt buộc nhập" color="red">*</font></td>
+											<td align="right" width="113px"><label for="xxxx">Tháng thanh toán: </label><font title="Bắt buộc nhập" color="red">*</font></td>
 											<td align="left">
 												<select name="thang" id="thang" style="width:96px">
 													<option value="">Tháng</option>
