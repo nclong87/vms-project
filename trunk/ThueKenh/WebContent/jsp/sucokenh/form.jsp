@@ -161,7 +161,7 @@ $(document).ready(function(){
 				required : true
 			},
 			"sucoDTO.nguoixacnhan" : {
-				required : true,
+				required : true
 			}
 		}
 	});
