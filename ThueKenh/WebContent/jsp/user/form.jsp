@@ -67,8 +67,7 @@ input.error,select.error,textarea.error {
 							id="username" /> <label style="display: none"
 							for="user.username" generated="false" class="error"></label>
 						</td>
-						<td class="td_label" align="right">Mật khẩu <span class="required"
-							title="Yêu cầu nhập">*</span>:
+						<td class="td_label" align="right">Mật khẩu :
 						</td>
 						<td align="left">
 							<input type="password"
@@ -187,13 +186,6 @@ $(document).ready(function() {
 								uniqueUserName : true,
 								minlength : 3,
 								maxlength : 25
-							},
-							"user.password" : {
-								required : true,
-								regex : '^[a-zA-Z0-9]+([a-zA-Z0-9](_|-| )[a-zA-Z0-9])*[a-zA-Z0-9]+$',
-								//uniqueUserName : true,
-								minlength : 3,
-								maxlength : 25
 							}
 						},
 						messages : {
@@ -203,13 +195,6 @@ $(document).ready(function() {
 								uniqueUserName : "Username này đã được sử dụng, vui lòng chọn username khác!",
 								minlength : "Tên đăng nhập ít nhất là 6 kí tự",
 								maxlength : "Tên đăng nhập ít nhất là 25 kí tự",
-							},
-							"user.password" : {
-								required : "Vui lòng nhập password",
-								regex : "Password chỉ bao gồm các ký tự từ A-z, 0-9 và các ký tự -",
-								//uniqueUserName : "Username này đã được sử dụng, vui lòng chọn username khác!",
-								minlength : "Password ít nhất là 6 kí tự",
-								maxlength : "Password ít nhất là 25 kí tự",
 							}
 						}
 					});
