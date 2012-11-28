@@ -225,7 +225,7 @@ function byId(id) { //Viet tat cua ham document.getElementById
 			loaihopdong="Có thời hạn";
 		else 
 			loaihopdong="Không có thời hạn";
-		var rowhopdong=  '<h3 class="div_'+data.id+'"><a href="#">Số hợp đồng: '+data.sohopdong+'</a><table class="hopdonginfo"><tr><td>Loại hợp đồng: '+loaihopdong+'</td><td>Đối tác: '+data.tendoitac+'</td><td>Ngày ký: '+data.ngayky+'</td><td>Ngày hết hạn: '+data.ngayhethan+'</td></tr></table></h3>'
+		var rowhopdong=  '<h3 class="div_'+data.id+'"><a href="#" style="margin-left:15px">Số hợp đồng: '+data.sohopdong+'</a><table class="hopdonginfo"><tr><td>Loại hợp đồng: '+loaihopdong+'</td><td>Đối tác: '+data.tendoitac+'</td><td>Ngày ký: '+data.ngayky+'</td><td>Ngày hết hạn: '+data.ngayhethan+'</td></tr></table></h3>'
 						+'<div class="div_'+data.id+' listphuluc">'
 							+'<input id="hopdong_id" style="display:none" value="'+data.id+'"/>'
 							+'<input id="sohopdong" style="display:none" value="'+data.sohopdong+'"/>'
@@ -370,7 +370,7 @@ function byId(id) { //Viet tat cua ham document.getElementById
 			button : "#btPopupSearchBangDoiSoatCuoc",
 			afterSelected : function(data) {	
 				data = data[0];
-				LoadInfo(data.id,data.thanhtien,data.tungay);
+				LoadInfo(data.id,data.tongconthanhtoan,data.tungay);
 			}
 		}); 
 		
@@ -437,7 +437,7 @@ function byId(id) { //Viet tat cua ham document.getElementById
 			if(doisoatcuoc_info!='')
 			{
 				dscData=$.parseJSON(doisoatcuoc_info);
-				LoadInfo(dscData[0].id,dscData[0].thanhtien,dscData[0].tungay);
+				LoadInfo(dscData[0].id,dscData[0].tongthanhtien,dscData[0].tungay);
 			}
 		} 
 		
