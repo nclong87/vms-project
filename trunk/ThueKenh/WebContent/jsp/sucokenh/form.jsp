@@ -69,12 +69,12 @@ function byId(id) { //Viet tat cua ham document.getElementById
 				<tr>
 					<td align="right">Nguyên nhân sự cố <font
 						title="Bắt buộc nhập" color="red">*</font>:</td>
-					<td colspan="3"><textarea style="width: 601px" name="sucoDTO.nguyennhan" id="nguyennhan"></textarea></td>
+					<td colspan="3"><textarea style="width: 580px" name="sucoDTO.nguyennhan" id="nguyennhan"></textarea></td>
 				</tr>
 				<tr>
 					<td align="right">Phương án xử lý <font
 						title="Bắt buộc nhập" color="red">*</font>:</td>
-					<td colspan="3"><textarea style="width: 601px" name="sucoDTO.phuonganxuly" id="phuonganxuly"></textarea></td>
+					<td colspan="3"><textarea style="width: 580px" name="sucoDTO.phuonganxuly" id="phuonganxuly"></textarea></td>
 				</tr>
 				<tr>
 					<td align="right">Người xác nhận <font
