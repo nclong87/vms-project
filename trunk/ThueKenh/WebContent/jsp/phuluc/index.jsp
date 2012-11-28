@@ -181,7 +181,7 @@ $(document).ready(function(){
 		dateFormat : "dd/mm/yy"
 	});
 	$("#btThem").click(function(){
-		ShowWindow('Thêm mới phụ lục hợp đồng',750,500,"${formURL}",false);
+		ShowWindow('Thêm mới phụ lục hợp đồng',750,500,"${formURL}",true);
 		MaxWindow();
 	});
 	$("#btXoa").click(function(){
