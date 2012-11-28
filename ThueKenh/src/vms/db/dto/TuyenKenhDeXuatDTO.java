@@ -123,7 +123,11 @@ public class TuyenKenhDeXuatDTO {
 		dto.setSoluong(rs.getInt("SOLUONG"));
 		dto.setNgaydenghibangiao(DateUtils.formatDate(rs.getDate("NGAYDENGHIBANGIAO"), DateUtils.SDF_DDMMYYYY));
 		dto.setNgayhenbangiao(DateUtils.formatDate(rs.getDate("NGAYHENBANGIAO"), DateUtils.SDF_DDMMYYYY));
-		dto.setThongtinlienhe(rs.getString("THONGTINLIENHE"));
+		String thongtinlienhe=rs.getString("THONGTINLIENHE");
+		System.out.println("thongtinlienhe:"+thongtinlienhe);
+		if(thongtinlienhe=="null")
+			thongtinlienhe="";
+		dto.setThongtinlienhe(thongtinlienhe);
 		dto.setTrangthai(rs.getInt("TRANGTHAI"));
         return dto;
 	}
