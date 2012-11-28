@@ -20,6 +20,7 @@ import vms.db.dao.LoaiGiaoTiepDao;
 import vms.db.dao.PhongBanDao;
 import vms.db.dao.TieuChuanDAO;
 import vms.db.dao.TuyenKenhBanGiaoDAO;
+import vms.db.dao.TuyenKenhDeXuatDAO;
 import vms.db.dto.DuAnDTO;
 import vms.db.dto.KhuVucDTO;
 import vms.db.dto.PhongBanDTO;
@@ -174,6 +175,8 @@ public class TienDoBanGiaoAction implements Preparable {
 		this.listTieuChuan = tieuChuanDAO.getAll();
 		TuyenKenhBanGiaoDAO dao = new TuyenKenhBanGiaoDAO(daoFactory);
 		this.listTieuChuanDatDuoc = dao.getTieuChuanDatDuoc(id);
+		TuyenKenhDeXuatDAO tkdx=new TuyenKenhDeXuatDAO(daoFactory);
+		this.tuyenKenhDeXuatDTO=tkdx.findById(id);
 		return Action.SUCCESS;
 	}
 
