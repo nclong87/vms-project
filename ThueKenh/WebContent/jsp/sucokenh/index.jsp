@@ -110,7 +110,7 @@
 				</div>
 			</div>
 			<div style="clear: both; margin: 5px 0 0 0">
-				<input type="button" class="button" value="Thêm sự cố" onclick="ShowWindow('Thêm sự cố',800,600,'${formURL}',false);"></input>
+				<input type="button" class="button" value="Thêm sự cố" onclick="ShowWindow('Thêm sự cố',800,500,'${formURL}',false);"></input>
 				<input type="button" class="button" value="Import Excel" onclick="location.href='${importSuCoURL}'"></input>
 				<input class="button" type="button" id="btXoa" value="Xóa" style="float: right; margin-right: 10px;"/>
 			</div>
