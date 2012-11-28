@@ -34,11 +34,11 @@ input[type="text"], select {
 	<div style="background: none repeat scroll 0pt 0pt rgb(242, 242, 242); padding: 5px; width: 99%;">
 		<table class="input" style="width:475px">
 			<tr>
-				<td colspan='2' align="left" id="msg">
+				<td colspan="2" align="left" id="msg">
 				</td>
 			</tr>
 			<tr>
-				<td align="right" width="80px">
+				<td align="right">
 					Mã trạm <font title="Bắt buộc nhập" color="red">*</font> :
 				</td>
 				<td align="left">
