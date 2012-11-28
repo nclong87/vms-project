@@ -70,9 +70,10 @@ var contextPath = '<%=contextPath%>';
 	<s:iterator value="listTieuChuanDatDuoc">
     				
 					<input type="hidden" class="tieuchuandatduoc" value="<s:property value="id" />"/>
-    				
+    				<input type="hidden" class="trangthai" value="<s:property value="tuyenKenhDeXuatDTO.Trangthai"/>"/>
 	</s:iterator>
 	<script>
+	//alert($(".trangthai").val());
 		function fillOption(){
 			//them text loai tieu chuan
 			var tieuchuan=$(".listTieuChuan .tieuchuan");
@@ -88,6 +89,12 @@ var contextPath = '<%=contextPath%>';
 			}
 		}
 		fillOption();
+		var trangthai=$(".trangthai").val();
+		if(trangthai==2){
+			//trang thai da ban giao
+			//disable check box
+			$(".listTieuChuan input[type=checkbox][checked]").attr("disabled","disabled");
+		}
 		
 		function checkFill(){
 			var tieuchuan=$(".listTieuChuan .tieuchuan");
