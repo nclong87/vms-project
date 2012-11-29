@@ -180,6 +180,11 @@ public class TuyenkenhDexuatAction implements Preparable {
 					} else {
 						
 					}
+					System.out.println("Check tuyen kenh de xuat");
+					Map<String, String> m = tuyenKenhDeXuatDAO.findTuyenKenhDangDeXuat(tuyenKenh.getId());
+					if(m != null && tuyenKenhDeXuatDTO.getId().equals(m.get("id")) == false) { //dang ton tai de xuat cho tuyen kenh nay
+						throw new Exception("DUPLICATE");
+					}
 				}
 			}
 			int soluong_old = NumberUtil.parseInt(request.getParameter("soluong_old"));

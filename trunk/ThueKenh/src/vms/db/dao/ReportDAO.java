@@ -186,6 +186,10 @@ public class ReportDAO {
 		stringBuffer.append("<root>");
 		stringBuffer.append("<header>");
 		int tonggiamtru = 0;
+		int tongthanhtien = 0;
+		int tongdaunoihoamang = 0;
+		int tongdathanhtoan = 0;
+		int tongconthanhtoan = 0;
 		if(doisoatcuoc != null ) {
 			stringBuffer.append(VMSUtil.xml("tungay", doisoatcuoc.get("tungay").toString()));
 			stringBuffer.append(VMSUtil.xml("denngay", doisoatcuoc.get("denngay").toString()));
@@ -193,16 +197,16 @@ public class ReportDAO {
 			stringBuffer.append(VMSUtil.xml("matlienlacden", doisoatcuoc.get("matlienlacden").toString()));
 			stringBuffer.append(VMSUtil.xml("tendoitac", doisoatcuoc.get("tendoitac").toString().toUpperCase()));
 			tonggiamtru = Integer.valueOf(doisoatcuoc.get("giamtrumll").toString());
+			tongthanhtien = Integer.valueOf(doisoatcuoc.get("thanhtien").toString());
+			tongdaunoihoamang = Integer.valueOf(doisoatcuoc.get("tongdaunoihoamang").toString());
+			tongdathanhtoan = Integer.valueOf(doisoatcuoc.get("tongdathanhtoan").toString());
+			tongconthanhtoan = Integer.valueOf(doisoatcuoc.get("tongconthanhtoan").toString());
 		}
 		stringBuffer.append("</header>");
 		stringBuffer.append("<data>");
 		int stt = 1;
 		Map<Integer,Object> map = new LinkedHashMap<Integer,Object>();
 		int hopdong_id = -1;
-		int tongthanhtien = 0;
-		int tongdaunoihoamang = 0;
-		int tongdathanhtoan = 0;
-		int tongconthanhtoan = 0;
 		while(rs.next()) {
 			//String hopdong_id = rs.getString("HOPDONG_ID");
 			List<String> list = null;
@@ -220,10 +224,6 @@ public class ReportDAO {
 				list = (List<String>) tmpMap1.get("childs");
 			}
 			list.add(rptDoiSoatCuoc.toXML(rs));
-			tongthanhtien += rs.getInt("THANHTIEN");
-			tongdaunoihoamang += rs.getInt("DAUNOIHOAMANG");
-			tongdathanhtoan += rs.getInt("DATHANHTOAN");
-			tongconthanhtoan += rs.getInt("CONTHANHTOAN");
 			tmpMap1.put("childs", list);
 			map.put(hopdong_id, tmpMap1);
 		}
@@ -245,7 +245,6 @@ public class ReportDAO {
 		System.out.println("map.size()="+map.size());
 		stringBuffer.append("</data>");
 		stringBuffer.append("<summary>");
-		tongconthanhtoan = tongconthanhtoan - tonggiamtru;
 		int tongvat = (int) Math.floor(tongconthanhtoan * 10 / 100);
 		int tongcong = tongconthanhtoan + tongvat;
 		stringBuffer.append(VMSUtil.xml("tongthanhtien", String.valueOf(tongthanhtien)));

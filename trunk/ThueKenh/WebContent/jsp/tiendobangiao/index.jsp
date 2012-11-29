@@ -116,7 +116,7 @@
 											<td align="left"><select name="iTrangThai">
 													<option value="0">Đang bàn giao</option>
 													<option value="1">Đã bàn giao</option>
-
+													<option value="2">Đã có biên bản bàn giao</option>
 											</select></td>
 										</tr>
 									</tbody>

@@ -27,6 +27,7 @@ import vms.db.dto.SuCoDTO;
 import vms.db.dto.TuyenKenh;
 import vms.utils.Constances;
 import vms.utils.DateUtils;
+import vms.utils.NumberUtil;
 import vms.utils.VMSUtil;
 import vms.web.models.FN_FIND_SUCO;
 
@@ -225,23 +226,17 @@ public class SuCoAction implements Preparable {
 			System.out.println("sucoDTO.getTuyenkenh_id():"+sucoDTO.getTuyenkenh_id());
 			Map<String, Object> mapPhuluc = phuLucDAO.findPhuLucCoHieuLuc(sucoDTO.getTuyenkenh_id(), sqlDateThoiDiemBatDau);
 			if(mapPhuluc == null) {
+				System.out.println("ERROR_PHULUCNOTFOUND1");
 				throw new Exception("ERROR_PHULUCNOTFOUND");
 			}
 			System.out.println("setPhuluc_id:"+mapPhuluc.get("id").toString());
 			sucoDTO.setPhuluc_id(mapPhuluc.get("id").toString());
-			//Tim don gia tuyen kenh
-			ChiTietPhuLucTuyenKenhDAO ptDao=new ChiTietPhuLucTuyenKenhDAO(daoFactory);
-			ChiTietPhuLucTuyenKenhDTO ptDto=ptDao.findByPhuLuc_TuyenKenh(mapPhuluc.get("id").toString(), sucoDTO.getTuyenkenh_id());
-			if(ptDto==null)
-			{
-				throw new Exception("ERROR_PHULUCNOTFOUND");
-			}
 			// tinh giam tru mat lien lac
 			if(thoigianmatll<=30)
 				sucoDTO.setGiamtrumll(0);
 			else 
 			{
-				double giamtrumatll=(thoigianmatll*ptDto.getDongia())/(30*24*60);
+				double giamtrumatll=(thoigianmatll*NumberUtil.parseLong(mapPhuluc.get("dongia").toString()))/(30*24*60);
 				sucoDTO.setGiamtrumll(Math.floor(giamtrumatll));
 			}
  			String id=sucoDao.save(sucoDTO);

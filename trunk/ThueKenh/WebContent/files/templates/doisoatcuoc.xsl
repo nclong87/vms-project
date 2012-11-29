@@ -190,7 +190,7 @@ xmlns:html="http://www.w3.org/TR/REC-html40"
    <NumberFormat ss:Format="#,##0"/>
   </Style>
   <Style ss:ID="s94" ss:Parent="s16">
-   <Alignment ss:Horizontal="Center" ss:Vertical="Center"/>
+   <Alignment ss:Horizontal="Right" ss:Vertical="Center"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
     <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -198,7 +198,7 @@ xmlns:html="http://www.w3.org/TR/REC-html40"
     <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
    </Borders>
    <Font ss:FontName="Arial" x:Family="Swiss" ss:Color="#000000" ss:Bold="1"/>
-   <NumberFormat ss:Format="_(* #,##0_);_(* \(#,##0\);_(* &quot;-&quot;??_);_(@_)"/>
+   <NumberFormat ss:Format="#,##0"/>
   </Style>
   <Style ss:ID="s95">
    <Alignment ss:Horizontal="Right" ss:Vertical="Center"/>
@@ -209,13 +209,13 @@ xmlns:html="http://www.w3.org/TR/REC-html40"
    <Font ss:FontName="Arial" x:Family="Swiss" ss:Color="#000000" ss:Bold="1"/>
   </Style>
   <Style ss:ID="s96" ss:Parent="s16">
-   <Alignment ss:Horizontal="Center" ss:Vertical="Center"/>
+   <Alignment ss:Horizontal="Right" ss:Vertical="Center"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Double" ss:Weight="3"/>
     <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
    </Borders>
    <Font ss:FontName="Arial" x:Family="Swiss" ss:Color="#000000" ss:Bold="1"/>
-   <NumberFormat ss:Format="_(* #,##0_);_(* \(#,##0\);_(* &quot;-&quot;??_);_(@_)"/>
+   <NumberFormat ss:Format="#,##0"/>
   </Style>
   <Style ss:ID="s97">
    <Alignment ss:Horizontal="Right" ss:Vertical="Center"/>
@@ -224,7 +224,7 @@ xmlns:html="http://www.w3.org/TR/REC-html40"
   <Style ss:ID="s98" ss:Parent="s16">
    <Alignment ss:Vertical="Center"/>
    <Font ss:FontName="Arial" x:Family="Swiss" ss:Color="#000000" ss:Bold="1"/>
-   <NumberFormat ss:Format="_(* #,##0_);_(* \(#,##0\);_(* &quot;-&quot;??_);_(@_)"/>
+   <NumberFormat ss:Format="#,##0"/>
   </Style>
   <Style ss:ID="s99">
    <Alignment ss:Horizontal="Left" ss:Vertical="Center"/>

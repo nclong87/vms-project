@@ -99,7 +99,7 @@ margin-left: 10px;
 										<select name="phongban" id="phongban">
 											<option value="">-- Tất cả --</option>
 											<s:iterator value="phongBans">
-												<option value='<s:property value="id" />'><s:property value="name" /></option>									
+												<option value='<s:property value="id" />'><s:property value="tenphongban" /></option>									
 											</s:iterator>
 										</select>
 									</td>

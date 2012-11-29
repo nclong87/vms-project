@@ -125,4 +125,16 @@ public class TuyenKenhDeXuatDAO {
 		this.jdbcTemplate.update("update TUYENKENH set TRANGTHAI = 3,FLAG = 1 where ID in ( select TUYENKENH_ID from TUYENKENHDEXUAT where ID in("+str+") )");
 		this.jdbcTemplate.update("update TUYENKENHDEXUAT set BANGIAO_ID = ?, TRANGTHAI = 2 where ID in ("+str+")", new Object[] {bangiao_id});
 	}
+	@SuppressWarnings("unchecked")
+	public Map<String,String> findTuyenKenhDangDeXuat(String tuyenkenhId) throws Exception {
+		List<Map<String,String>> list = this.jdbcTemplate.query("select * from TUYENKENHDEXUAT where DELETED = 0 and TRANGTHAI = 0 and TUYENKENH_ID=?" ,new Object[] {tuyenkenhId}, new RowMapper() {
+			@Override
+			public Object mapRow(ResultSet rs, int arg1) throws SQLException {
+				return VMSUtil.resultSetToMap(rs);
+			}
+		});
+		if(list.size()>1) throw new Exception("SYSTEM_ERROR");
+		if(list.size()>0) return list.get(0);
+		return null;
+	}
 }

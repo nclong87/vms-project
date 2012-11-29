@@ -246,6 +246,10 @@ $(document).ready(function() {
 						message("Đã tồn tại tuyến kênh này trong hệ thống!",0);
 						return;
 					}
+					if(response == "DUPLICATE") {
+						message("Tuyến kênh này đang thuộc một đề xuất khác!",0);
+						return;
+					}
 					if(response == "OK") {
 						message("Lưu thành công!",1);
 						parent.reload = true;

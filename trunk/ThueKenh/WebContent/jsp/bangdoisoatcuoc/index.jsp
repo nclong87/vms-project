@@ -577,7 +577,7 @@ margin:0;
 								alert(response.data);
 							} else if(response.status == "OK") {
 								button.disabled = false;
-								showDialogUrl("${formURL}?thanhtien="+response.data.thanhtien+"&giamtrumll="+response.data.giamtrumll+"&id="+response.data.id,"Lưu bảng đối soát cước",450);
+								showDialogUrl("${formURL}?thanhtien="+response.data.tongconthanhtoan+"&giamtrumll="+response.data.giamtrumll+"&id="+response.data.id,"Lưu bảng đối soát cước",450);
 							}
 						},
 						error : function(response) {
