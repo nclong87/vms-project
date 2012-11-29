@@ -30,6 +30,7 @@ import vms.db.dto.TuyenKenh;
 import vms.db.dto.TuyenKenhImportDTO;
 import vms.utils.Constances;
 import vms.utils.DateUtils;
+import vms.utils.NumberUtil;
 import vms.utils.StringUtil;
 import vms.utils.VMSUtil;
 import com.opensymphony.xwork2.Action;
@@ -300,21 +301,18 @@ public class ImportAction implements Preparable {
 						dto.setPhuluc_id(mapPhuluc.get("id").toString());
 					
 						//Tim don gia tuyen kenh
-						ChiTietPhuLucTuyenKenhDAO ptDao=new ChiTietPhuLucTuyenKenhDAO(daoFactory);
-						ChiTietPhuLucTuyenKenhDTO ptDto=ptDao.findByPhuLuc_TuyenKenh(mapPhuluc.get("id").toString(), dto.getTuyenkenh_id());
-						if(ptDto!=null)
+						//ChiTietPhuLucTuyenKenhDAO ptDao=new ChiTietPhuLucTuyenKenhDAO(daoFactory);
+						//ChiTietPhuLucTuyenKenhDTO ptDto=ptDao.findByPhuLuc_TuyenKenh(mapPhuluc.get("id").toString(), dto.getTuyenkenh_id());
+						long batdau=dateThoiDiemBatDau.getTime();
+						long ketthuc=DateUtils.parseDate(thoidiemketthuc, "dd/MM/yyyy HH:mm:ss").getTime();
+						float thoigianmatll= (float)Math.round(((float)(ketthuc-batdau)/(60000))*100)/100;
+						// tinh giam tru mat lien lac
+						if(thoigianmatll<=30)
+							dto.setGiamtrumll("0");
+						else 
 						{
-							long batdau=dateThoiDiemBatDau.getTime();
-							long ketthuc=DateUtils.parseDate(thoidiemketthuc, "dd/MM/yyyy HH:mm:ss").getTime();
-							float thoigianmatll= (float)Math.round(((float)(ketthuc-batdau)/(60000))*100)/100;
-							// tinh giam tru mat lien lac
-							if(thoigianmatll<=30)
-								dto.setGiamtrumll("0");
-							else 
-							{
-								double giamtrumatll=(thoigianmatll*ptDto.getDongia())/(30*24*60);
-								dto.setGiamtrumll(String.valueOf(Math.floor(giamtrumatll)));
-							}
+							double giamtrumatll=(thoigianmatll*NumberUtil.parseLong(mapPhuluc.get("dongia").toString()))/(30*24*60);
+							dto.setGiamtrumll(String.valueOf(Math.floor(giamtrumatll)));
 						}
 					}
 				}

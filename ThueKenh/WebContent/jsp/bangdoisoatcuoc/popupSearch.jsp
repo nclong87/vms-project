@@ -104,11 +104,7 @@ $(document).ready(function(){
 					{ "mDataProp": "stt","bSortable": false,"bSearchable": false },
 					{ "mDataProp": "id","bSortable": false,"bSearchable": false,"sClass":'td_hidden'},
 					{ "mDataProp": "tendoisoatcuoc","bSortable": false,"bSearchable": false,"sClass":'td_center'},
-					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,
-						"fnRender": function( oObj ) {
-							return '<label class="currency">'+oObj.aData.thanhtien+'</label>'; 
-						}
-					},
+					{ "mDataProp": "tongconthanhtoan","bSortable": false,"bSearchable": false,"sClass":'td_center number'},
 					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,
 						"fnRender": function( oObj ) {
 							return '<label class="currency">'+oObj.aData.giamtrumll+'</label>'; 

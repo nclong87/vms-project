@@ -307,7 +307,7 @@ $(document).ready(function(){
 					},
 					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,
 						"fnRender": function( oObj ) {
-							if(oObj.aData.loaigiaotiep == '') 
+							if(oObj.aData.loaigiaotiep == '' ) 
 								return '<span class="remove" data-ref="'+oObj.aData.id+'">Xóa</span>'; 
 							else 
 								return '<center><input type="checkbox" data-ref="'+oObj.aData.duplicate+'" value="'+oObj.aData.id+'"/></center>';  
