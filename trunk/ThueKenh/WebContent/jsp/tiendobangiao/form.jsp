@@ -94,6 +94,7 @@ var contextPath = '<%=contextPath%>';
 			//trang thai da ban giao
 			//disable check box
 			$(".listTieuChuan input[type=checkbox][checked]").attr("disabled","disabled");
+			$("#btnSubmit").attr("disabled","disabled");
 		}
 		
 		function checkFill(){
