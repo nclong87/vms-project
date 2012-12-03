@@ -1,4 +1,5 @@
-﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
+﻿
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <s:url action="index" namespace="/login" var="loginURL" />
@@ -14,6 +15,7 @@
 %>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
+
 <link rel="stylesheet" href="<%=contextPath%>/css/addedit.css"
 	type="text/css" media="screen" />
 <link rel="stylesheet"
@@ -162,9 +164,11 @@ $(document).ready(function() {
 						dataString+='&ids='+this.value;
 				}
 			});
+			//alert(dataString);
 			$.ajax({
-						url : "${doSaveURL}",
+						url :"${doSaveURL}",
 						type : 'GET',
+						cache: false,
 						data : dataString,
 						success : function(
 								response) {

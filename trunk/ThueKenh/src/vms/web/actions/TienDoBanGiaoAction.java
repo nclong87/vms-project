@@ -189,6 +189,7 @@ public class TienDoBanGiaoAction implements Preparable {
 	}
 
 	public String doSave() {
+		System.out.println("_____________________doSave Tien Do Ban Giao");
 		try {
 			if (account == null) {
 				session.setAttribute("URL", VMSUtil.getFullURL(request));
@@ -201,6 +202,7 @@ public class TienDoBanGiaoAction implements Preparable {
 				if(ids == null) {
 					ids = new String[0];
 				}
+				System.out.println(ids);
 				TuyenKenhBanGiaoDAO.capNhatTienDo(id, ids,account.get("username").toString());
 				setInputStream("OK");
 			} catch (Exception e) {
