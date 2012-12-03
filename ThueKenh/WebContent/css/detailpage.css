@@ -48,13 +48,14 @@ table.display td {
 	padding: 3px;
 }
 ul#history {
-margin: 5px 5px 5px 0;
-padding-left: 0;
+margin-top: 0;
 list-style: none outside none;
 }
 ul#history li {
 padding-bottom: 5px;
 padding-top: 5px;
+padding-left:0;
+margin-left:0;
 }
 ul#history  li.error{
 background-color: red;
@@ -64,6 +65,9 @@ span#load_more {
 color: blue;
 cursor: pointer;
 font-size: 11px;
+margin-left: 40px;
+margin-top: 0;
+padding-top: 0;
 }
 .link {
 color:blue;

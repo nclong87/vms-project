@@ -274,6 +274,7 @@ function processErrorMessage(message) {
 var windowObj;
 var status = "closing";
 var reload = false;
+var isUpdate = false;
 function RefreshSite() {
     window.location.href = window.location;
 }
@@ -293,8 +294,15 @@ function ShowWindow(_title, _width, _height, _url, _scrollable) {
             scrollable:_scrollable,
             onClose: function () {
                 status = "closing";
-				if(reload == true)
-					oTable.fnDraw(false);
+				debugger;
+				if(reload == true) {
+					if(isUpdate == false) {
+						reset();
+						doSearch();
+					} else {
+						oTable.fnDraw(false);
+					}
+				}
             }
         });
         status = "opening";
