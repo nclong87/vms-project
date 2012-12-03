@@ -313,7 +313,8 @@ function byId(id) { //Viet tat cua ham document.getElementById
 	{
 		oTable.fnClearTable();
 		$("#doisoatcuoc_id").val(id);
-		$("#giatritt").val(thanhtien);
+		var fThanhTien=parseFloat(thanhtien);
+		$("#giatritt").val(fThanhTien+fThanhTien*10/100);
 		$("#giatritt").attr("disabled","disabled");
 		tungay=tungay.replace(" 00:00:00.0","");
 		tungay=tungay.split("-");
@@ -437,16 +438,17 @@ function byId(id) { //Viet tat cua ham document.getElementById
 			if(doisoatcuoc_info!='')
 			{
 				dscData=$.parseJSON(doisoatcuoc_info);
-				LoadInfo(dscData[0].id,dscData[0].tongthanhtien,dscData[0].tungay);
+				LoadInfo(dscData[0].id,dscData[0].tongconthanhtoan,dscData[0].tungay);
 			}
 		} 
 		
 		$("#btSubmit").click(function() {
 			$("#msg").html("");
-			this.disabled = true;
+			var button=this;
+			button.disabled = true;
 			if (!$("#form").valid()) {
 				alert("Dữ liệu nhập chưa hợp lệ, vui lòng kiểm tra lại!",0);
-				this.disabled = false;
+				button.disabled = false;
 			} else {
 				var dataString = $("#form").serialize();
 				if($("#doisoatcuoc_id").val()=="")
@@ -460,23 +462,23 @@ function byId(id) { //Viet tat cua ham document.getElementById
 						type : 'POST',
 						data : dataString,
 						success : function(response) {
-							this.disabled = false;
+							button.disabled = false;
 							if (response == "OK") {
-								this.disabled = false;
+								button.disabled = false;
 								message(" Lưu thành công!",1);
 								parent.reload = true;
 								return;
 							}
 							else if(response=="exist")
 							{
-								this.disabled = false;
+								button.disabled = false;
 								message("Số hồ sơ này đã tồn tại trong hệ thống. Vui lòng nhập số hồ sơ khác",0);
 								return;
 							}
 							message(" Lưu không thành công, vui lòng thử lại.",0);
 						},
 						error : function(response) {
-							this.disabled = false;
+							button.disabled = false;
 							message(" Lưu không thành công, vui lòng thử lại.",0);
 						}
 					});	

@@ -49,12 +49,13 @@ margin-left: 10px;
 										<td><input type="text" name="sohopdong" id="sohopdong" style="width: 218px"/></td>
 										<td align="right">Đối tác :</td>
 										<td>
-											<select style="width: 220px" name="doitac_id" id="doitac_id">
+											<select style="width: 220px" name="sdoitac_id" id="sdoitac_id">
 													<option value="">---Chọn---</option>
 													<s:iterator value="doiTacs">
 														<option value='<s:property value="id" />'><s:property value="tendoitac" /></option>									
 													</s:iterator>
 											</select>
+											<input type='text' name="doitac_id" id="doitac_id" style="display:none"></input>
 										</td>
 
 									</tr>
@@ -83,7 +84,7 @@ margin-left: 10px;
 								<tfoot>
 									<td></td>
 									<td align="left">
-									<input class="button" type="button" value="Tìm Kiếm" onclick="doSearch()"/>
+									<input class="button" type="button" value="Tìm Kiếm" onclick="doSearch()" id="btsearch"/>
 									<input class="button" type="button" value="Reset" onclick="reset()"/>
 									<input class="button" id="btSelect" style="display:none" type="button" value="Chọn" onclick="doClose()"></input>
 									</td>
@@ -135,6 +136,15 @@ function doSearch() {
 	oTable.fnFilter(dat);
 }
 $(document).ready(function(){	 
+	
+	//doitac
+	var doitac="<s:property value='doitac'/>";
+	if(doitac!="")
+	{
+		$("#sdoitac_id").val(doitac);
+		$("#sdoitac_id").attr("disabled",true);
+		$("#doitac_id").val(doitac);
+	}
 	// load datetime
 	$( ".datepicker" ).datepicker({
 		showButtonPanel: true,
@@ -189,6 +199,7 @@ $(document).ready(function(){
 			$("#btSelect").hide();
 		}
 	});
+	$("#btsearch").click();
 });
 function doClose(){
 	var data = [];

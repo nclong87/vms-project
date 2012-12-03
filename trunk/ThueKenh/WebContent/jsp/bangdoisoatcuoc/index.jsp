@@ -147,56 +147,59 @@ margin:0;
 				<div style="height: 1px;"></div>
 			</div>
 			<div style="width: 100%; margin-top: 10px;">
-				<fieldset class="data_list">
-					<legend>Danh sách hợp đồng</legend>
-					<div style="width: 100%; padding-bottom: 5px;text-align: right;"><input class="button" type="button" value="Chọn hợp đồng" id="btPopupSearchHopDong"></div>
-					<div id="tab">		
-					</div>
-				</fieldset>
-				<div style="clear:both;margin-top:10px"></div>
-				<fieldset class="data_list">
-					<legend>Danh sách sự cố giảm trừ</legend>
-					<form id="form-chonsuco">
-						<div style="padding-bottom: 5px;float: right"><input class="button" type="button" value="Chọn sự cố" id="btPopupSearchSuCo"></div>
-						<table style="float:right">
-							<tr>
-								<td align="right">Thời điểm từ <font title="Bắt buộc nhập" color="red">*</font>:</td>
-								<td align="left"><input type="text"
-									name="thoidiembatdautu" id="thoidiembatdautu" style="width: 100px" class="datepicker"/>
-								</td>
-								<td align="right">đến <font title="Bắt buộc nhập" color="red">*</font>:</td>
-								<td align="left"><input type="text"
-									name="thoidiembatdauden" id="thoidiembatdauden" style="width: 100px" class="datepicker"/>
-								</td>
-
-							</tr>
+				<div id="list_hopdong">
+					<fieldset class="data_list">
+						<legend>Danh sách hợp đồng</legend>
+						<div style="width: 100%; padding-bottom: 5px;text-align: right;"><input class="button" type="button" value="Chọn hợp đồng" id="btPopupSearchHopDong"></div>
+						<div id="tab">		
+						</div>
+					</fieldset>
+				</div>
+				<div style="clear:both;margin-top:10px" id="list_suco">
+					<fieldset class="data_list">
+						<legend>Danh sách sự cố giảm trừ</legend>
+						<form id="form-chonsuco">
+							<div style="padding-bottom: 5px;float: right"><input class="button" type="button" value="Chọn sự cố" id="btPopupSearchSuCo"></div>
+							<table style="float:right">
+								<tr>
+									<td align="right">Thời điểm từ <font title="Bắt buộc nhập" color="red">*</font>:</td>
+									<td align="left"><input type="text"
+										name="thoidiembatdautu" id="thoidiembatdautu" style="width: 100px" class="datepicker"/>
+									</td>
+									<td align="right">đến <font title="Bắt buộc nhập" color="red">*</font>:</td>
+									<td align="left"><input type="text"
+										name="thoidiembatdauden" id="thoidiembatdauden" style="width: 100px" class="datepicker"/>
+									</td>
+	
+								</tr>
+							</table>
+						</form>
+						<div style="clear:both"></div>
+						<table width="100%" id="dataTable" class="display">
+						<thead>
+								<tr>
+									<th width="3px">STT</th>
+									<th width="30px">Mã tuyến kênh</th>
+									<th>Mã điểm đầu</th>
+									<th>Mã điểm cuối</th>
+									<th>Giao tiếp</th>
+									<th>Dung lượng</th>
+									<th width="50px">Thời gian bắt đầu</th>
+									<th width="50px">Thời gian kết thúc</th>
+									<th width="50px">Thời gian mất liên lạc</th>
+									<th width="50px">Nguyên nhân</th>
+									<th width="50px">Phương án xử lý</th>
+									<th width="50px">Người xác nhận</th>
+									<th width="50px">Người tạo</th>
+									<th width="50px">Ngày tạo</th>
+									<th width="5px" align="center">Xóa</th>
+								</tr>
+							</thead>
+							<tbody>						
+							</tbody>
 						</table>
-					</form>
-					<div style="clear:both"></div>
-					<table width="100%" id="dataTable" class="display">
-					<thead>
-							<tr>
-								<th width="3px">STT</th>
-								<th width="30px">Mã tuyến kênh</th>
-								<th>Mã điểm đầu</th>
-								<th>Mã điểm cuối</th>
-								<th>Giao tiếp</th>
-								<th>Dung lượng</th>
-								<th width="50px">Thời gian bắt đầu</th>
-								<th width="50px">Thời gian kết thúc</th>
-								<th width="50px">Thời gian mất liên lạc</th>
-								<th width="50px">Nguyên nhân</th>
-								<th width="50px">Phương án xử lý</th>
-								<th width="50px">Người xác nhận</th>
-								<th width="50px">Người tạo</th>
-								<th width="50px">Ngày tạo</th>
-								<th width="5px" align="center">Xóa</th>
-							</tr>
-						</thead>
-						<tbody>						
-						</tbody>
-					</table>
-				</fieldset>
+					</fieldset>
+				</div>
 			</div>
 		</div>
 		<div style="clear:both"></div>
@@ -245,6 +248,11 @@ margin:0;
 		oTable.fnDeleteRow(oTable.fnGetPosition(row));
 		rowChanges(0);
 	}
+	function doRemoveAllRow(){
+		var table=document.getElementById("dataTable");
+		for(var i=0;i<table.rows.length;i++)
+			oTable.fnDeleteRow(i);
+	}
 	function addRow(stt,data) {
 		oTable.fnAddData([
 			"<center id='stt'></center>",'<a href="${detailSuCoURL}?id='+data.id+'" target="_blank" title="Xem chi tiết">'+data.tuyenkenh_id+'</a>','<center>'+data.madiemdau+'</center>','<center>'+data.madiemcuoi+'</center>','<center>'+data.loaigiaotiep+'</center>','<center>'+data.dungluong+' MB</center>','<center>'+data.thoidiembatdau+'</center>','<center>'+data.thoidiemketthuc+'</center>','<center>'+data.thoigianmll+'</center>',data.nguyennhan,data.phuonganxuly,'<center>'+data.nguoixacnhan+'</center>','<center>'+data.usercreate+'</center>',data.timecreate,'<center><input type="text" style="display:none" name="suco_ids" value="'+data.id+'" id="suco_id_'+data.id+'"/><img title="Remove" src="'+baseUrl+'/images/icons/remove.png" onclick="doRemoveRow(this)" style="cursor:pointer"></center>'
@@ -286,7 +294,7 @@ margin:0;
 			loaihopdong="Có thời hạn";
 		else 
 			loaihopdong="Không có thời hạn";
-		var rowhopdong=  '<h3 class="div_'+data.id+'"><a href="#">Số hợp đồng: '+data.sohopdong+'</a><table class="hopdonginfo"><tr><td>Loại hợp đồng: '+loaihopdong+'</td><td>Đối tác: '+data.tendoitac+'</td><td>Ngày ký: '+data.ngayky+'</td><td>Ngày hết hạn: '+data.ngayhethan+'</td></tr></table><div class="del" title="Xóa hợp đồng" id="'+data.id+'"></div></h3>'
+		var rowhopdong=  '<h3 class="div_'+data.id+'"><a href="#" style="margin-left:15px">Số hợp đồng: '+data.sohopdong+'</a><table class="hopdonginfo"><tr><td>Loại hợp đồng: '+loaihopdong+'</td><td>Đối tác: '+data.tendoitac+'</td><td>Ngày ký: '+data.ngayky+'</td><td>Ngày hết hạn: '+data.ngayhethan+'</td></tr></table><div class="del" title="Xóa hợp đồng" id="'+data.id+'"></div></h3>'
 						+'<div class="div_'+data.id+' listphuluc">'
 							+'<input id="hopdong_id" style="display:none" value="'+data.id+'"/>'
 							+'<input id="sohopdong" style="display:none" value="'+data.sohopdong+'"/>'
@@ -325,6 +333,18 @@ margin:0;
 		$(".del").click(function(){
 			var id=$(this).attr("id");
 			$(".div_"+id).remove();
+			
+			// kiem tra load su co
+			var i=0;
+			$(".listphuluc").each(function(){
+				i++;
+			});
+			if(i==0)
+			{
+				$("#list_suco").hide();
+			}
+			else
+				$("#list_suco").show();
 		});
 		$.each(data,function(){
 			var oPLtable=$('#datatable_'+this.id).dataTable({
@@ -379,19 +399,31 @@ margin:0;
 	{
 		$("#btSubmit").disabled=false;
 	}
+	
 	$(document).ready(function() {
-		// combobox nam
+		// combobox nam,thang
 		var currentTime = new Date();
 		var year = currentTime.getFullYear();
 		for(var i=year-10;i<year+10;i++)
 		{
 			$("#nam").append("<option value='"+i+"'>"+i+"</option>");
 		}
+		$("#thang").val(currentTime.getMonth());
+		$("#nam").val(year);
 		//
 		popup_search_hopdong.init({
 			url : "${popupSearchHopDongURL}",
 			afterSelected : function(data) {
 				LoadHopDong(data);
+				if(data.length>0)
+				{
+					$("#list_suco").show();
+				}
+				else 
+				{
+					doRemoveAllRow();
+					$("#list_suco").hide();
+				}
 			}
 		});
 		popup_search_suco.init({
@@ -589,5 +621,36 @@ margin:0;
 			}
 			window.location.href="#msg";
 		});
+		InitData();
 	});
+	function InitData()
+	{
+		$("#list_hopdong").hide();
+		$("#list_suco").hide();
+		if($("#doitac_id").val()!="")
+		{
+			$("#list_hopdong").show();
+		}
+		else
+		{
+			$("#tab").html("");
+			$("#list_hopdong").hide();
+			$("#list_suco").hide();
+		}
+		$("#doitac_id").change(function(){
+			if($(this).val()!="")
+			{
+				$("#tab").html("");
+				doRemoveAllRow();
+				$("#list_hopdong").show();
+			}
+			else
+			{
+				$("#tab").html("");
+				doRemoveAllRow();
+				$("#list_hopdong").hide();
+				$("#list_suco").hide();
+			}
+		});
+	}
 </script>
