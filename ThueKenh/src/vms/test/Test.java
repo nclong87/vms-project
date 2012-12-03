@@ -94,10 +94,11 @@ public class Test {
 		//Date ngayhieuluc = new Date(nam, thang, 1);
 		//System.out.println(ngayhieuluc.toString());
 		//System.out.println(Calendar.OCTOBER);
-		
-		long num = Long.valueOf("1352318400000");
+		Date date = DateUtils.getCurrentDate();
+		System.out.println(date.toString());
+		/*long num = Long.valueOf("1352318400000");
 		java.util.Date date = new java.util.Date(num);
-		System.out.println(DateUtils.formatDate(date, DateUtils.SDF_DDMMYYYYHHMMSS));
+		System.out.println(DateUtils.formatDate(date, DateUtils.SDF_DDMMYYYYHHMMSS));*/
 		
 		System.out.println("Done!");
     }

@@ -5,6 +5,7 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -110,7 +111,8 @@ public class HopDongDAO {
 		stmt.setString(6, dto.getNgayky());
 		stmt.setString(7, dto.getNgayhethan());
 		stmt.setString(8, dto.getUsercreate());
-		stmt.setString(9, dto.getTimecreate());
+		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+		stmt.setTimestamp(9, timestamp);
 		stmt.setString(10, dto.getHistory());
 		stmt.execute();
 		String rs = stmt.getString(1);
