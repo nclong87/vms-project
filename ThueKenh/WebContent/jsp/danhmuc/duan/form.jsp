@@ -187,6 +187,7 @@ var contextPath = '<%=contextPath%>
 														.ajax({
 															url : "${doSaveURL}",
 															type : 'POST',
+															cache: false,
 															data : dataString,
 															success : function(
 																	response) {

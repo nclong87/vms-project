@@ -115,6 +115,7 @@ $(document).ready(function() {
 				$.ajax({
 				url: "${doSaveURL}",
 				type:'POST',
+				cache: false,
 				data:dataString,
 				success:function(response){
 					//button.disabled = false;
