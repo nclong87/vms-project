@@ -20,7 +20,7 @@ margin-left: 10px;
 					<div class="fl tsl" id="t_1">
 					</div>
 					<div class="fl clg b tsc d" id="t_2">
-						<div class="p3t">Tìm kiếm bảng đối soát cướcc</div>
+						<div class="p3t">Tìm kiếm bảng đối soát cước</div>
 					</div>
 					<div class="fl tsr" id="t_3">
 					</div>

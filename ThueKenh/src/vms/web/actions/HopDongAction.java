@@ -38,7 +38,14 @@ public class HopDongAction implements Preparable {
 	private String[] ids;
 	private Map<String,Object> detail;
 	private boolean permission = true;
+	private String doitac;
 	
+	public String getDoitac() {
+		return doitac;
+	}
+	public void setDoitac(String doitac) {
+		this.doitac = doitac;
+	}
 	public String getThanhtoan_id() {
 		return thanhtoan_id;
 	}
@@ -107,6 +114,7 @@ public class HopDongAction implements Preparable {
 			System.out.println("ERROR :" + e.getMessage());
 		}
 	}
+	
 	@SuppressWarnings("unchecked")
 	@Override
 	public void prepare() throws Exception {

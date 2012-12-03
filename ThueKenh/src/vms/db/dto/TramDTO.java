@@ -66,7 +66,11 @@ public class TramDTO {
 		TramDTO dto = new TramDTO();
 		dto.setId(rs.getString("ID"));
 		dto.setMatram(rs.getString("MATRAM"));
-		dto.setDiachi(rs.getString("DIACHI"));
+		String diachi=rs.getString("DIACHI");
+		System.out.println("diachi:"+diachi);
+		if(diachi=="null")
+			diachi="";
+		dto.setDiachi(diachi);
 		dto.setDeleted(rs.getInt("DELETED"));
         return dto;
 	}
