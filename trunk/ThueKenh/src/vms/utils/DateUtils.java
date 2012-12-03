@@ -99,5 +99,8 @@ public class DateUtils {
 		if(format == null) format = "dd/MM/yyyy";
 		return DateUtils.convertToSQLDate(DateUtils.parseDate(sDate, format));
 	}
+	public static java.sql.Date getCurrentDate() {
+		return new java.sql.Date(System.currentTimeMillis());
+	}
 }
 

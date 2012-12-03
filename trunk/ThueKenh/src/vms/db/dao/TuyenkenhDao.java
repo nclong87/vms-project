@@ -5,6 +5,7 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -16,6 +17,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
 import vms.db.dto.TuyenKenh;
+import vms.utils.DateUtils;
 import vms.utils.VMSUtil;
 
 public class TuyenkenhDao {
@@ -148,7 +150,8 @@ public class TuyenkenhDao {
 		//stmt.setString(13, dto.getThongtinlienhe());
 		stmt.setString(11, String.valueOf(dto.getTrangthai()));
 		stmt.setString(12, dto.getUsercreate());
-		stmt.setString(13, dto.getTimecreate());
+		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+		stmt.setTimestamp(13, timestamp);
 		stmt.setString(14, String.valueOf(dto.getDeleted()));
 		stmt.execute();
 		String id = stmt.getString(1);
