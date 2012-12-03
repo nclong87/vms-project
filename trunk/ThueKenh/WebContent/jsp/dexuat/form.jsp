@@ -78,7 +78,7 @@ function byId(id) { //Viet tat cua ham document.getElementById
 		<div style="width: 100%; margin-top: 10px;">
 		<fieldset class="data_list">
 			<legend>Danh sách đề xuất</legend>
-			<div style="width: 100%; padding-bottom: 5px;text-align: right;"><input class="button" type="button" value="Chọn đề xuất..." id="btPopupSearchTuyenkenhDexuat"></div>
+			<div style="width: 100%; padding-bottom: 5px;text-align: right;"><input class="button" type="button" value="Chọn tuyến kênh đề xuất..." id="btPopupSearchTuyenkenhDexuat"></div>
 			<table width="100%" id="dataTable" class="display">
 			<thead>
 				<tr>

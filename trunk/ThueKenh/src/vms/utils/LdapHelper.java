@@ -77,6 +77,7 @@ public class LdapHelper {
                     "com.sun.jndi.ldap.LdapCtxFactory");
             env.put(Context.PROVIDER_URL, ldapURL);
             env.put(Context.SECURITY_AUTHENTICATION, "simple");
+            env.put("com.sun.jndi.ldap.read.timeout", "5000");
            // env.put(Context.SECURITY_PRINCIPAL, "vms\\"+userName);
             env.put(Context.SECURITY_PRINCIPAL, "vms\\"+userName);
             env.put(Context.SECURITY_CREDENTIALS, password);
