@@ -260,7 +260,8 @@ $(document).ready(function() {
 			button.disabled = true;
 			$("form #doitac_id").val(doitac_id);
 			var dataString = $("#form").serialize();
-				$.ajax({
+			$("#msg").html('Vui lòng đợi....');
+			$.ajax({
 				url: "${doSaveURL}",
 				type:'POST',
 				data:dataString,

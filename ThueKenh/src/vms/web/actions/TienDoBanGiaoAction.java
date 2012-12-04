@@ -115,7 +115,7 @@ public class TienDoBanGiaoAction implements Preparable {
 			String sSearch = request.getParameter("sSearch").trim();
 			System.out.println("sSearch=" + sSearch);
 			Map<String, String> conditions = new LinkedHashMap<String, String>();
-			conditions.put("khuvuc_id", account.get("idkhuvuc").toString());
+			conditions.put("account_id", account.get("id").toString());
 			conditions.put("phongban_id", account.get("idphongban").toString());
 			// kiem tra neu la phong KT
 			if(account.get("maphongban")!= null && account.get("maphongban").equals("KTKT")) {

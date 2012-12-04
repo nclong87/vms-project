@@ -89,19 +89,6 @@ input.error,select.error,textarea.error {
 								</s:iterator>
 							</select>
 						</td>
-						<td class="td_label" align="right">Khu vực :</td>
-						<td align="left">
-							<select name="user.idkhuvuc" id="idkhuvuc">
-								<option value="">-- Chọn khu vực --</option>
-								<s:iterator value="khuvucs">
-									<option value='<s:property value="id" />'>
-										<s:property value="tenkhuvuc" />
-									</option>
-								</s:iterator>
-							</select>
-						</td>
-					</tr>
-					<tr>
 						<td class="td_label" align="right">Nhóm chức năng:</td>
 						<td align="left">
 							<select name="user.idgroup" id="idgroup">
@@ -113,6 +100,8 @@ input.error,select.error,textarea.error {
 								</s:iterator>
 							</select>
 						</td>
+					</tr>
+					<tr>
 						<td class="td_label" align="right">Menu chính:</td>
 						<td align="left">
 							<select name="user.mainmenu" id="mainmenu">
@@ -124,8 +113,6 @@ input.error,select.error,textarea.error {
 								</s:iterator>
 							</select>
 						</td>
-					</tr>
-					<tr>
 						<td class="td_label" align="right">Trạng thái :</td>
 						<td align="left">
 							<select name="user.active" id="active">
@@ -133,8 +120,6 @@ input.error,select.error,textarea.error {
 								<option value="0">Khóa</option>
 							</select>
 						</td>
-						<td class="td_label" align="right"></td>
-						<td align="left"></td>
 					</tr>
 					<tr height="30px">
 						<td colspan="6" align="right">

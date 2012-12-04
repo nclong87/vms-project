@@ -20,6 +20,7 @@ import vms.db.dao.CongThucDAO;
 import vms.db.dao.DaoFactory;
 import vms.db.dao.DeXuatDao;
 import vms.db.dao.HopDongDAO;
+import vms.db.dao.KhuVucDao;
 import vms.db.dao.LichSuPhuLucDAO;
 import vms.db.dao.LichSuTuyenKenhDAO;
 import vms.db.dao.LoaiGiaoTiepDao;
@@ -307,6 +308,20 @@ public class AjaxAction implements Preparable {
 		return Action.SUCCESS;
 	}
 	
+	public String findKhuVucByAccount() {
+		jsonData =  new LinkedHashMap<String, Object>();
+		try {
+			String accountId = request.getParameter("id");
+			KhuVucDao dao = new KhuVucDao(daoFactory);
+			List<Map<String, String>> result = dao.findKhuVucByAccount(accountId);
+			jsonData.put("status", 1);
+			jsonData.put("data", result);
+		} catch (Exception e) {
+			jsonData.put("status", 0);
+			jsonData.put("data", e.getMessage());
+		}
+		return Action.SUCCESS;
+	}
 	
 	/* Getter and Setter */
 	

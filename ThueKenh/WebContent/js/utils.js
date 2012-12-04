@@ -297,7 +297,9 @@ function ShowWindow(_title, _width, _height, _url, _scrollable) {
 				debugger;
 				if(reload == true) {
 					if(isUpdate == false) {
-						reset();
+						if($("#form").length !=0) {
+							$("#form")[0].reset();
+						}
 						doSearch();
 					} else {
 						oTable.fnDraw(false);

@@ -152,4 +152,17 @@ public class AccountDao {
 		stmt.close();
 		connection.close();
 	}
+	
+	private static final String SQL_PROC_SAVE_ACCOUNTKHUVUC = "{ call PROC_SAVE_ACCOUNTKHUVUC(?,?) }";
+	public void saveAccountKhuvuc(String[] khuvucs,String account_id) throws Exception {
+		Connection connection = this.jdbcDatasource.getConnection();
+		ArrayDescriptor descriptor = ArrayDescriptor.createDescriptor( "TABLE_VARCHAR", connection );
+		ARRAY array =new ARRAY( descriptor, connection, khuvucs );
+		CallableStatement stmt = connection.prepareCall(SQL_PROC_SAVE_ACCOUNTKHUVUC);
+		stmt.setArray(1, array);
+		stmt.setString(2, account_id);
+		stmt.execute();
+		stmt.close();
+		connection.close();
+	}
 }

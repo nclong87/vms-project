@@ -301,6 +301,9 @@
 				<param name="root">jsonData</param>
 			</result>
 		</action>
+		<action name="chonKhuVucPhuTrach" class="userAction" method="chonKhuVucPhuTrach">
+			<result>/jsp/user/khuvucphutrach.jsp</result>
+		</action>
 	</package>
 	<package name="ajax" extends="default" namespace="/ajax">
 		<action name="uniqueUsername" class="ajaxAction" method="uniqueUsername">
@@ -378,6 +381,11 @@
 				<param name="root">jsonData</param>
 			</result>
 		</action>
+		<action name="findKhuVucByAccount" class="ajaxAction" method="findKhuVucByAccount">
+			<result name="success" type="json">
+				<param name="root">jsonData</param>
+			</result>
+		</action>
 	</package>
 	<package name="group" extends="default" namespace="/group">
 		<action name="index" class="groupAction">
@@ -412,6 +420,11 @@
 			</result>
 		</action>
 		<action name="saveAccountMenu" class="permissionAction" method="saveAccountMenu">
+			<result name="success" type="json">
+				<param name="root">jsonData</param>
+			</result>
+		</action>
+		<action name="saveAccountKhuvuc" class="permissionAction" method="saveAccountKhuvuc">
 			<result name="success" type="json">
 				<param name="root">jsonData</param>
 			</result>

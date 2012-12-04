@@ -5,6 +5,7 @@
 <s:url action="index" namespace="/settings" var="settingsIndexURL"/>
 <s:url action="ajLoadAccounts" namespace="/user" id="ajLoadAccountsURL"/>
 <s:url action="lockAccounts" namespace="/user" id="lockAccountsURL"/>
+<s:url action="chonKhuVucPhuTrach" namespace="/user" id="chonKhuVucPhuTrachURL"/>
 <s:url action="form" namespace="/user" id="formURL"/>
 <s:url action="popup" namespace="/permission" id="permissionPopupURL"/>
 <s:url action="saveAccountMenu" namespace="/permission" id="saveAccountMenuURL"/>
@@ -127,9 +128,9 @@ margin-left: 10px;
 					<th width="5%">ID</th>
 					<th>Username</th>
 					<th>Phòng ban</th>
-					<th>Khu vực</th>
 					<th>Menu chính</th>
 					<th width="5%">Active</th>
+					<th>Khu vực</th>
 					<th width="100px">Phân quyền</th>
 					<th width="5px">Edit</th>
 					<th width="5px" align="center"><input type="checkbox" onclick="selectAll(this)"/></th>
@@ -205,6 +206,10 @@ function openPermissionWindow(id) {
 	permission_popup.url_init = "${getMenusByAccountURL}?account_id="+account_id;
 	showDialogUrl("${permissionPopupURL}?id="+id,'Phân quyền user',610);
 }
+function openKhuVucPhuTrachWindow(id) {
+	account_id = id;
+	showDialogUrl("${chonKhuVucPhuTrachURL}?id="+id,'Phân quyền khu vực phụ trách',610);
+}
 $(document).ready(function(){	 
 	$('ul.sf-menu').superfish();
 	$("#btLock").click(function(){
@@ -251,11 +256,15 @@ $(document).ready(function(){
 					{ "mDataProp": "id","bSortable": false,"bSearchable": false,"sClass":'td_center'},
 					{ "mDataProp": "username","bSortable": false,"bSearchable": false},
 					{ "mDataProp": "tenphongban","bSortable": false,"bSearchable": false},
-					{ "mDataProp": "tenkhuvuc","bSortable": false,"bSearchable": false},
 					{ "mDataProp": "namemenu","bSortable": false,"bSearchable": false},
 					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,
 						"fnRender": function( oObj ) {
 							return '<center>'+trangthai_utils.userDisplay(oObj.aData.active)+'</center>'; 
+						}
+					},
+					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,
+						"fnRender": function( oObj ) {
+							return '<center><img title="Chọn khu vực phụ trách" src="'+contextPath+'/images/icons/location.png" height="25px" onclick="openKhuVucPhuTrachWindow('+oObj.aData.id+')" style="cursor:pointer"></center>'; 
 						}
 					},
 					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,

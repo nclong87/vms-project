@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -13,6 +14,7 @@ import org.springframework.jdbc.core.RowMapper;
 
 import vms.db.dto.KhuVucDTO;
 import vms.db.dto.KhuVuc;
+import vms.utils.VMSUtil;
 
 public class KhuVucDao {
 	private JdbcTemplate jdbcTemplate;
@@ -121,6 +123,15 @@ public class KhuVucDao {
 		String str = StringUtils.join(ids, ",");
 		System.out.println(ids);
 		return this.jdbcTemplate.update("update khuvuc set DELETED = "+System.currentTimeMillis()+" where ID in ("+str+")")>0;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Map<String,String>> findKhuVucByAccount(String accountId) {
+		return this.jdbcTemplate.query("select t1.* from ACCOUNT_KHUVUC t left join KHUVUC t1 on t.KHUVUC_ID = t1.ID where t1.DELETED=0 and t.ACCOUNT_ID = ?", new Object[] {accountId},new RowMapper() {
+	        public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
+	        	return VMSUtil.resultSetToMap(rs);
+	        }
+	    });
 	}
 
 }

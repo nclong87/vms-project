@@ -185,6 +185,17 @@ public class UserAction implements Preparable {
 		return Action.SUCCESS;
 	}
 	
+	public String chonKhuVucPhuTrach() throws Exception {
+		if(account == null) {
+			session.setAttribute("URL", VMSUtil.getFullURL(request));
+			return "login_page";
+		}
+		if(permission == false) return "error_permission";
+		KhuVucDao khuVucDao = new KhuVucDao(daoFactory);
+		khuvucs = khuVucDao.getAll();
+		return Action.SUCCESS;
+	}
+	
 	/* Getter and Setter */
 	
 	public MessageStore getMessage() {

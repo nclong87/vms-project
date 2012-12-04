@@ -50,7 +50,7 @@ public class TuyenKenhBanGiaoDAO {
 		stmt.setString(9, conditions.get("ngaydenghibangiao"));
 		stmt.setString(10, conditions.get("ngayhenbangiao"));
 		stmt.setString(11, conditions.get("dexuat_id"));
-		stmt.setString(12, conditions.get("khuvuc_id"));
+		stmt.setString(12, conditions.get("account_id"));
 		stmt.setString(13, conditions.get("phongban_id"));
 		stmt.setString(14, conditions.get("isAllow"));
 		String strTemp=conditions.get("iTrangThai");
