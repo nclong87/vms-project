@@ -37,6 +37,7 @@ public class PermissionAction implements Preparable {
 	
 	private String id;
 	private String[] menu_id;
+	private String[] khuvucs;
 	private List<Rootmenu> rootmenus;
 	public PermissionAction( DaoFactory factory) {
 		daoFactory = factory;
@@ -102,6 +103,23 @@ public class PermissionAction implements Preparable {
 		return Action.SUCCESS;
 	}
 	
+	public String saveAccountKhuvuc() {
+		jsonData =  new LinkedHashMap<String, Object>();
+		try {
+			if(account == null) throw new Exception("END_SESSION");
+			if(id==null) throw new Exception("ERROR");
+			if(khuvucs == null) khuvucs = new String[] {};
+			AccountDao dao = new AccountDao(daoFactory);
+			dao.saveAccountKhuvuc(khuvucs, id);
+			jsonData.put("status", 1);
+			jsonData.put("data", "");
+		} catch (Exception e) {
+			jsonData.put("status", 0);
+			jsonData.put("data", e.getMessage());
+		}
+		return Action.SUCCESS;
+	}
+	
 	/* Getter and Setter */
 	
 	public MessageStore getMessage() {
@@ -157,6 +175,12 @@ public class PermissionAction implements Preparable {
 	}
 	public void setRootmenus(List<Rootmenu> rootmenus) {
 		this.rootmenus = rootmenus;
+	}
+	public String[] getKhuvucs() {
+		return khuvucs;
+	}
+	public void setKhuvucs(String[] khuvucs) {
+		this.khuvucs = khuvucs;
 	}
 	
 	

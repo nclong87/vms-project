@@ -354,22 +354,27 @@ $(document).ready(function() {
 				}
 			});
 		}
-		$.get("${findTuyenKenhByChiTietPhuLucURL}?id="+chitietphuluc_id,function(response){
-			if(response.result == "ERROR") {
-				alert(response.data);
-			} else {
-				if(response.data.length != 0) {
-					var i = 1;
-					$.each(response.data,function(){
-						addRow(i,this);
-						i++;
-					});
+		$.ajax({
+			type: "GET",
+			cache: false,
+			url : "${findTuyenKenhByChiTietPhuLucURL}?id="+chitietphuluc_id,
+			success: function(response){
+				if(response.result == "ERROR") {
+					alert(response.data);
 				} else {
-					oTable.fnAddData([0,'','','','','','','','','']);
-					oTable.fnDeleteRow(0);
+					if(response.data.length != 0) {
+						var i = 1;
+						$.each(response.data,function(){
+							addRow(i,this);
+							i++;
+						});
+					} else {
+						oTable.fnAddData([0,'','','','','','','','','']);
+						oTable.fnDeleteRow(0);
+					}
 				}
 			}
-		});
+		});	
 	}
 	$(document).delegate("#btSubmit","click",function() {
 		if($("#chitietphuluc_id").val() == "") {
