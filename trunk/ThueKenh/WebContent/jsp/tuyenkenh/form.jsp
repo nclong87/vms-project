@@ -179,8 +179,8 @@ $(document).ready(function() {
 		for( key in form_data) {
 			$("#form #"+key).val(form_data[key]);
 		}
-		$("#madiemdau").attr("readonly","true");
-		$("#madiemcuoi").attr("readonly","true");
+		//$("#madiemdau").attr("readonly","true");
+		//$("#madiemcuoi").attr("readonly","true");
 		//$("#giaotiep_id").attr("disabled","true");
 	} 
 	$(document).delegate("#btSubmit","click",function() {
