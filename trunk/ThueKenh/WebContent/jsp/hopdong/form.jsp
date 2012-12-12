@@ -164,81 +164,79 @@ var contextPath = '<%=contextPath%>
 			});
 		}
 	}
-	$(document)
-			.ready(
-					function() {
-						// load datetime
-						$( ".datepicker" ).datepicker({
-							showButtonPanel: true,
-							dateFormat : "dd/mm/yy"
-						});
-						
-						$("#btReset").click(function() {
-							$("#form")[0].reset();
-							message('', 0);
-						});
-						// load edit
-						var form_data = '<s:property value="form_data" escape="false"/>';
-						if (form_data != '') {
-							var form_data = $.parseJSON(form_data);
-							for (key in form_data) {
-								$("#form #" + key).val(form_data[key]);
-							}
-							if (form_data["filename"] != null) {
-								upload_utils.createFileLabel({
-									filename : form_data["filename"],
-									filepath : form_data["filepath"],
-									filesize : form_data["filesize"]
-								});
-							}
+	$(document).ready(function() {
+		// load datetime
+		$( ".datepicker" ).datepicker({
+			showButtonPanel: true,
+			dateFormat : "dd/mm/yy"
+		});
+		
+		$("#btReset").click(function() {
+			$("#form")[0].reset();
+			message('', 0);
+		});
+		// load edit
+		var form_data = '<s:property value="form_data" escape="false"/>';
+		if (form_data != '') {
+			var form_data = $.parseJSON(form_data);
+			for (key in form_data) {
+				$("#form #" + key).val(form_data[key]);
+			}
+			if (form_data["filename"] != null) {
+				upload_utils.createFileLabel({
+					filename : form_data["filename"],
+					filepath : form_data["filepath"],
+					filesize : form_data["filesize"]
+				});
+			}
+		}
+		validateForm();
+		$("#btSubmit").click(function() {
+			$("#msg").html("");
+			var button=this;
+			button.disabled = true;
+			if (!$("#form").valid()) {
+				alert("Dữ liệu nhập chưa hợp lệ, vui lòng kiểm tra lại!",0);
+				button.disabled = false;
+			} else {
+				var dataString = $("#form").serialize();
+				$.ajax({
+					url : "${doSaveURL}",
+					type : 'POST',
+					data : dataString,
+					success : function(
+							response) {
+						button.disabled = false;
+						if (response == "OK") {
+							button.disabled = false;
+							message(" Lưu thành công!",1);
+							parent.reload = true;
+							return;
 						}
-						validateForm();
-						$("#btSubmit").click(function() {
-							$("#msg").html("");
-							var button=this;
-							button.disabled = true;
-							if (!$("#form").valid()) {
-								alert("Dữ liệu nhập chưa hợp lệ, vui lòng kiểm tra lại!",0);
-								button.disabled = false;
-							} else {
-								var dataString = $("#form").serialize();
-								$.ajax({
-									url : "${doSaveURL}",
-									type : 'POST',
-									data : dataString,
-									success : function(
-											response) {
-										button.disabled = false;
-										if (response == "OK") {
-											button.disabled = false;
-											message(" Lưu thành công!",1);
-											parent.reload = true;
-											return;
-										}
-										else if(response=="Date")
-										{
-											button.disabled = false;
-											message(" Ngày hết hạn phải lớn hơn ngày ký.",0);
-											return;
-										}
-										else if(response=="exist")
-										{
-											button.disabled = false;
-											message(" Số hợp đồng đã tồn tại trong cơ sở dữ liệu. Vui lòng nhập số hợp đồng khác.",0);
-											return;
-										}
-										message(" Lưu không thành công, vui lòng thử lại.",0);
-									},
-									error : function(
-											response) {
-										button.disabled = false;
-										message(
-												" Lưu không thành công, vui lòng thử lại.",
-												0);
-									}
-								});
-							}
-						});
+						else if(response=="Date")
+						{
+							button.disabled = false;
+							message(" Ngày hết hạn phải lớn hơn ngày ký.",0);
+							return;
+						}
+						else if(response=="exist")
+						{
+							button.disabled = false;
+							message(" Số hợp đồng đã tồn tại trong cơ sở dữ liệu. Vui lòng nhập số hợp đồng khác.",0);
+							return;
+						}
+						message(" Lưu không thành công, vui lòng thử lại.",0);
+					},
+					error : function(
+							response) {
+						button.disabled = false;
+						message(
+								" Lưu không thành công, vui lòng thử lại.",
+								0);
+					}
+				});
+			}
+		});
 
-					});
+	});
 </script>

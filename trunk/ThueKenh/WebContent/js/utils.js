@@ -294,7 +294,6 @@ function ShowWindow(_title, _width, _height, _url, _scrollable) {
             scrollable:_scrollable,
             onClose: function () {
                 status = "closing";
-				debugger;
 				if(reload == true) {
 					if(isUpdate == false) {
 						if($("#form").length !=0) {

@@ -401,7 +401,7 @@ margin:0;
 	}
 	
 	$(document).ready(function() {
-		// combobox nam,thang
+		// combobox nam,thangs
 		var currentTime = new Date();
 		var year = currentTime.getFullYear();
 		for(var i=year-10;i<year+10;i++)

@@ -265,6 +265,9 @@ $(document).ready(function(){
 							button.disabled = false;
 							message(" Lưu thành công!",1);
 							parent.reload = true;
+							if($("#id").val()!="") {
+							   parent.isUpdate = true;
+							}
 							return;
 						}
 						message(" Lưu không thành công, vui lòng thử lại.",0);

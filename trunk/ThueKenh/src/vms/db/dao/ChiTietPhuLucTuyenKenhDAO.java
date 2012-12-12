@@ -4,6 +4,8 @@ package vms.db.dao;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.sql.DataSource;
+
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -29,4 +31,11 @@ public class ChiTietPhuLucTuyenKenhDAO {
 				});
 	}
 	
+	public boolean deleteByChiTietPhuLucId(String chitietphuluc_id) {
+
+		// TODO Auto-generated method stub
+		return this.jdbcTemplate
+				.update("DELETE FROM CHITIETPHULUC_TUYENKENH where CHITIETPHULUC_ID = (" + chitietphuluc_id
+						+ ")") > 0;
+	}
 }
