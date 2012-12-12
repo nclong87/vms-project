@@ -16,6 +16,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
+import vms.db.dto.BanGiaoDTO;
 import vms.db.dto.ChiTietPhuLucDTO;
 import vms.db.dto.ChiTietPhuLucTuyenKenhDTO;
 import vms.utils.Constances;
@@ -150,6 +151,40 @@ public class ChiTietPhuLucDAO {
 			@Override
 			public Object mapRow(ResultSet rs, int arg1) throws SQLException {
 				return VMSUtil.resultSetToMap(rs);
+			}
+		});
+	}
+	
+	public void deleteByIds(String[] ids) {
+		String str = StringUtils.join(ids, ",");
+		this.jdbcTemplate.update("update CHITIETPHULUC set DELETED = 1 where ID in ("+str+")");
+	}
+	
+	private static final String SQL_FIND_CHITIETPHULUCBYID = "{ ? = call FIND_CHITIETPHULUCBYID(?,?,?) }";
+	public List<Map<String,Object>> FindChiTietPhuLucById(int iDisplayStart,int iDisplayLength,String chitietphuluc_id) throws SQLException {
+		Connection connection = jdbcDatasource.getConnection();
+		CallableStatement stmt = connection.prepareCall(SQL_FIND_CHITIETPHULUCBYID);
+		stmt.registerOutParameter(1, OracleTypes.CURSOR);
+		stmt.setInt(2, iDisplayStart);
+		stmt.setInt(3, iDisplayLength);
+		stmt.setString(4, chitietphuluc_id);
+		stmt.execute();
+		ResultSet rs = (ResultSet) stmt.getObject(1);
+		List<Map<String,Object>> result = new ArrayList<Map<String,Object>>();
+		while(rs.next()) {
+			Map<String,Object> map = VMSUtil.resultSetToMap(rs);
+			result.add(map);
+		}
+		stmt.close();
+		connection.close();
+		return result;
+	}
+	
+	public ChiTietPhuLucDTO findById(String id) {
+		return (ChiTietPhuLucDTO) this.jdbcTemplate.queryForObject("select * from CHITIETPHULUC where ID = ? and DELETED = 0" ,new Object[] {id}, new RowMapper() {
+			@Override
+			public Object mapRow(ResultSet rs, int arg1) throws SQLException {
+				return ChiTietPhuLucDTO.mapObject(rs);
 			}
 		});
 	}

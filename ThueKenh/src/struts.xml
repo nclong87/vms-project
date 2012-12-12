@@ -792,8 +792,11 @@
 		</action>
 	</package>
 	<package name="chitietphuluc" extends="default" namespace="/chitietphuluc">
-		<action name="index" class="chiTietPhuLucAction">
-			<result>/jsp/chitietphuluc/index.jsp</result>
+		<action name="giatriphuluc" class="chiTietPhuLucAction">
+			<result>/jsp/chitietphuluc/giatriphuluc.jsp</result>
+		</action>
+		<action name="index" class="chiTietPhuLucAction" method="index">
+			<result>/jsp/chitietphuluc/formpage.jsp</result>
 		</action>
 		<action name="doSave" class="chiTietPhuLucAction" method="doSave">
 			<result name="success" type="json">
@@ -815,6 +818,11 @@
 		</action>
 		<action name="popupSearch" class="chiTietPhuLucAction" method="popupSearch">
 			<result>/jsp/chitietphuluc/popupSearch.jsp</result>
+		</action>
+		<action name="delete" class="chiTietPhuLucAction" method="delete">
+			<result name="success" type="stream">
+				<param name="inputName">inputStream</param>
+			</result>
 		</action>
 	</package>
 	<package name="phuluc" extends="default" namespace="/phuluc">

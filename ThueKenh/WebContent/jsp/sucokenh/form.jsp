@@ -202,6 +202,9 @@ $(document).ready(function(){
 						button.disabled = false;
 						message(" Lưu thành công!",1);
 						parent.reload = true;
+						if($("#id").val()!="") {
+						   parent.isUpdate = true;
+						}
 						return;
 					}
 					else if(response=="ngayhientai")

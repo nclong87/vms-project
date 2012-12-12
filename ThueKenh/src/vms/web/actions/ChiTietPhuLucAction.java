@@ -13,9 +13,14 @@ import javax.servlet.http.HttpSession;
 import org.apache.struts2.ServletActionContext;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.json.simple.JSONValue;
+
 import vms.db.dao.ChiTietPhuLucDAO;
+import vms.db.dao.ChiTietPhuLucTuyenKenhDAO;
 import vms.db.dao.CongThucDAO;
 import vms.db.dao.DaoFactory;
+import vms.db.dao.DoiTacDAO;
+import vms.db.dao.HopDongDAO;
 import vms.db.dto.ChiTietPhuLucDTO;
 import vms.db.dto.ChiTietPhuLucTuyenKenhDTO;
 import vms.utils.Constances;
@@ -137,9 +142,43 @@ public class ChiTietPhuLucAction implements Preparable {
 		json.put("giaTriTruocThue", request.getParameter("giaTriTruocThue"));
 		json.put("giaTriSauThue", request.getParameter("giaTriSauThue"));
 		json.put("soLuongKenh", request.getParameter("soLuongKenh"));
+
+		id=request.getParameter("id");
+		json.put("id", id);
+		
+		String tenchitietphuluc="";
+		if(id!=null)
+		{
+			ChiTietPhuLucDTO ctplDto=chiTietPhuLucDAO.findById(id);
+			if(ctplDto!=null)
+				tenchitietphuluc=ctplDto.getTenchitietphuluc();
+		}
+		json.put("tenchitietphuluc", tenchitietphuluc);
 		return Action.SUCCESS;
 	}
 	
+	//load form
+	public String index() {
+		try {
+			if(account == null) {
+				session.setAttribute("URL", VMSUtil.getFullURL(request));
+				return "login_page";
+			}
+			form_data = "";
+			System.out.println("id:"+id);
+			if(id != null && id.isEmpty()==false) {
+				System.out.println("id=" + id);
+				ChiTietPhuLucDAO chitietPLDao = new ChiTietPhuLucDAO(daoFactory);
+				List<Map<String,Object>> result = chitietPLDao.FindChiTietPhuLucById(0, 1000, id);
+				form_data = JSONValue.toJSONString(result);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Action.ERROR;
+		}
+		return Action.SUCCESS;
+	}
+		
 	public String doSaveChiTietPhuLuc() {
 		jsonData = new LinkedHashMap<String, Object>();
 		try {
@@ -148,7 +187,7 @@ public class ChiTietPhuLucAction implements Preparable {
 				throw new Exception("END_SESSION");
 			}
 			if(chiTietPhuLucDTO == null) throw new Exception("ERROR");
-			if(chiTietPhuLucDAO.findByKey(chiTietPhuLucDTO.getTenchitietphuluc()) != null) {
+			if(chiTietPhuLucDTO.getId()==null && chiTietPhuLucDAO.findByKey(chiTietPhuLucDTO.getTenchitietphuluc()) != null) {
 				throw new Exception("DUPLICATE");
 			}
 			chiTietPhuLucDTO.setUsercreate(account.get("username").toString());
@@ -164,6 +203,23 @@ public class ChiTietPhuLucAction implements Preparable {
 		return Action.SUCCESS;
 	}
 	
+	public String delete() {
+		try {
+			if(account == null) {
+				session.setAttribute("URL", VMSUtil.getFullURL(request));
+				throw new Exception("END_SESSION");
+			}
+			if(ids != null && ids.length >0 ) {
+				ChiTietPhuLucDAO chitietplDao = new ChiTietPhuLucDAO(daoFactory);
+				chitietplDao.deleteByIds(ids);
+			}
+			setInputStream("OK");
+		} catch (Exception e) {
+			e.printStackTrace();
+			setInputStream(e.getMessage());
+		}
+		return Action.SUCCESS;
+	}
 	/*
 	 * Tim kiem chi tiet phu luc (gia tri phu luc) dang popup
 	 */
@@ -238,9 +294,5 @@ public class ChiTietPhuLucAction implements Preparable {
 	public void setChiTietPhuLucDTO(ChiTietPhuLucDTO chiTietPhuLucDTO) {
 		this.chiTietPhuLucDTO = chiTietPhuLucDTO;
 	}
-	
-	
-	
-	
 	
 }

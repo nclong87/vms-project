@@ -9,6 +9,7 @@
 <s:url action="detail" namespace="/phuluc" id="detailPhuLucURL"/>
 <s:url action="detail" namespace="/hopdong" id="detailHopDongURL"/>
 <s:url action="index" namespace="/chitietphuluc" id="indexChiTietPhuLucURL"/>
+<s:url action="giatriphuluc" namespace="/chitietphuluc" id="giatriphulucURL"/>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -129,7 +130,8 @@ margin-left: 10px;
 		<div style="width: 100%; clear: both; float: left; margin: 5px;">
 		<input class="button" type="button" id="btThem" value="Thêm mới phụ lục" style="float: left; margin-right: 10px;" />
 		<input class="button" type="button" id="btXoa" value="Xóa" style="float: left; margin-right: 10px;"/>
-		<input class="button" type="button" value="Tính giá trị phụ lục" style="float: left; margin-right: 10px;" onclick="location.href='${indexChiTietPhuLucURL}'"/>
+		<input class="button" type="button" value="Tính giá trị phụ lục" style="float: left; margin-right: 10px;" onclick="ShowWindow('Tính giá trị phụ lục',750,500,'${indexChiTietPhuLucURL}',true);MaxWindow();"/>
+		<input class="button" type="button" value="Quản lý giá trị phụ lục" style="float: left; margin-right: 10px;" onclick="location.href='${giatriphulucURL}'"/>
 		</div>
 			<table width="100%" id="dataTable" class="display">
 			<thead>

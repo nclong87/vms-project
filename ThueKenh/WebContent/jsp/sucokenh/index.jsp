@@ -170,16 +170,6 @@ function newPopupWindow(file, window, width, height) {
 $(document).ready(function(){	
 	// load datetime
 	LoadDateTimePicker(".datetimepicker");
-	// popup search tuyen kenh
-	popup_search_tuyenkenh.init({
-		url : "${popupSearchForSuCoURL}",
-		afterSelected : function(data) {
-			// list tuyen kenh tra ve, sau do xu ly du lieu cho nay
-			data = data[0];
-			$("#tuyenkenh_id").val(data["id"]) ;
-		}
-	});
-	
 	// Load table
 	oTable = $('#dataTable').dataTable({
 		"bJQueryUI": true,
