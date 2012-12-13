@@ -26,6 +26,7 @@ import vms.db.dao.LichSuTuyenKenhDAO;
 import vms.db.dao.LoaiGiaoTiepDao;
 import vms.db.dao.MenuDao;
 import vms.db.dao.PhuLucDAO;
+import vms.db.dao.ThanhToanDAO;
 import vms.db.dao.TramDAO;
 import vms.db.dao.VmsgroupDao;
 import vms.db.dto.Menu;
@@ -316,6 +317,22 @@ public class AjaxAction implements Preparable {
 			List<Map<String, String>> result = dao.findKhuVucByAccount(accountId);
 			jsonData.put("status", 1);
 			jsonData.put("data", result);
+		} catch (Exception e) {
+			jsonData.put("status", 0);
+			jsonData.put("data", e.getMessage());
+		}
+		return Action.SUCCESS;
+	}
+	
+	public String updateTrangThaiThanhToan() {
+		jsonData =  new LinkedHashMap<String, Object>();
+		try {
+			String sohoso = request.getParameter("sohoso");
+			String sNgaykyunc = request.getParameter("ngaykyunc");
+			String sNgaychuyenkhoan = request.getParameter("ngaychuyenkhoan");
+			ThanhToanDAO dao = new ThanhToanDAO(daoFactory);
+			dao.updateTrangThaiThanhToan(sohoso, sNgaykyunc, sNgaychuyenkhoan);
+			jsonData.put("status", 1);
 		} catch (Exception e) {
 			jsonData.put("status", 0);
 			jsonData.put("data", e.getMessage());

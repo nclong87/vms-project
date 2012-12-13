@@ -98,9 +98,9 @@
 										<tr>
 											<td align="right">Ngày hẹn BG :</td>
 											<td align="left"><input type="text"
-												name="ngayhenbangiao" id="ngayhenbangiao" /></td>
+												name="ngayhenbangiao" class="date" id="ngayhenbangiao" /></td>
 											<td align="right">Ngày ĐNBG :</td>
-											<td align="left"><input type="text" name="ngaybangiao"
+											<td align="left"><input type="text" class="date" name="ngaybangiao"
 												id="ngaybangiao" /></td>
 										</tr>
 										<tr>
@@ -200,6 +200,7 @@
 							showButtonPanel : true,
 							dateFormat : "dd/mm/yy"
 						});
+						document.title = "QUẢN LÝ TIẾN ĐỘ BÀN GIAO KÊNH - VMS MOBIFONE";
 						$("#btThem").click(
 								function() {
 									ShowWindow('Thêm mới tuyến kênh', 750, 500,

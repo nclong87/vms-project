@@ -67,5 +67,6 @@ $(document).ready(function(){
 		}
 	}
 	$("input[type=button]").button();
+	$("#username").focus();
 });
 </script>

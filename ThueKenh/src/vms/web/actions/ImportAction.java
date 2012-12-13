@@ -18,13 +18,15 @@ import jxl.Workbook;
 import org.apache.commons.io.FileUtils;
 import org.apache.struts2.ServletActionContext;
 
-import vms.db.dao.ChiTietPhuLucTuyenKenhDAO;
+import vms.db.dao.CongThucDAO;
 import vms.db.dao.DaoFactory;
+import vms.db.dao.LoaiGiaoTiepDao;
 import vms.db.dao.PhuLucDAO;
 import vms.db.dao.SuCoImportDAO;
 import vms.db.dao.TuyenkenhDao;
 import vms.db.dao.TuyenkenhImportDAO;
-import vms.db.dto.ChiTietPhuLucTuyenKenhDTO;
+import vms.db.dto.CongThucDTO;
+import vms.db.dto.LoaiGiaoTiepDTO;
 import vms.db.dto.SuCoImportDTO;
 import vms.db.dto.TuyenKenh;
 import vms.db.dto.TuyenKenhImportDTO;
@@ -393,6 +395,97 @@ public class ImportAction implements Preparable {
 	public String error() throws Exception {
 		message = (String) session.getAttribute("message");
 		session.removeAttribute("message");
+		return Action.SUCCESS;
+	}
+	
+	private Map<String,String> mapReturn(int flag) {
+		Map<String,String> dto = new LinkedHashMap<String, String>();
+		if(flag == 1) { //tinh gia tri phu luc
+			dto.put("id", "");
+			dto.put("madiemdau", "");
+			dto.put("madiemcuoi", "");
+			dto.put("giaotiep_id", "");
+			dto.put("giaotiep_ma", "");
+			dto.put("loaigiaotiep", "");
+			dto.put("soluong", "0");
+			dto.put("dungluong", "0");
+			dto.put("cuocdaunoi", "0");
+			dto.put("cuoccong", "0");
+			dto.put("dongia", "0");
+			dto.put("giamgia", "0");
+			dto.put("congthuc_id", "");
+			dto.put("congthuc_ma", "");
+		}
+		return dto;
+	}
+	/**
+	 * Import tuyen kenh de tinh gia tri phu luc
+	 * @return
+	 */
+	public String doUploadTuyenkenh2() {
+		jsonData = new LinkedHashMap<String, Object>();
+		Workbook workBook = null;
+		try {
+			System.out.println("Begin upload");
+			String filetype = StringUtil.getExtension(fileuploadFileName);
+			if(filetype.equals("xls") == false && filetype.equals("xlsx") == false)
+				throw new Exception("Vui lòng chọn file excel 2003 hay excel 2007!");
+			String filename = System.currentTimeMillis()+"_"+StringUtil.getUnsignedString(fileuploadFileName);
+			String filepath = VMSUtil.getUploadImportFolder()+filename;
+	        // write file to local file system or to database as blob
+	        File newFile = new File(filepath);
+	        FileUtils.copyFile(fileupload, newFile);
+			if(StringUtil.isEmpty(fileuploadFileName)) throw new Exception("File upload bị lỗi.");
+			workBook = Workbook.getWorkbook(new File(filepath));
+			Sheet sheet = workBook.getSheet(0);
+			int maxrow = sheet.getRows();
+			System.out.println("maxrow = "+maxrow);
+			int max_col = sheet.getColumns();
+			Map<Integer, String> map = new LinkedHashMap<Integer, String>();
+			for(int i = 0;i< max_col; i++) {
+				map.put(i, sheet.getCell(i, 0).getContents().toLowerCase());
+			}
+			List<Map<String,String>> list = new ArrayList<Map<String,String>>();
+			TuyenkenhDao tuyenkenhDao = new TuyenkenhDao(daoFactory);
+			CongThucDAO congThucDAO = new CongThucDAO(daoFactory);
+			LoaiGiaoTiepDao loaiGiaoTiepDao = new LoaiGiaoTiepDao(daoFactory);
+			for(int i=1;i<maxrow;i++) {
+				Map<String,String> dto = this.mapReturn(1);
+				for (Integer key : map.keySet()) {
+					dto.put(map.get(key), sheet.getCell(key, i).getContents());
+				}
+				if(dto.get("giamgia").isEmpty()) dto.put("giamgia", "0");
+				LoaiGiaoTiepDTO loaiGiaoTiep = loaiGiaoTiepDao.findByMa(dto.get("giaotiep_ma"));
+				if(loaiGiaoTiep != null) {
+					dto.put("giaotiep_id", loaiGiaoTiep.getId());
+					dto.put("loaigiaotiep", loaiGiaoTiep.getLoaigiaotiep());
+					TuyenKenh tk = tuyenkenhDao.findByKey(dto.get("madiemdau"), dto.get("madiemcuoi"), loaiGiaoTiep.getId(), NumberUtil.parseInt(dto.get("dungluong")));
+					if(tk!=null) {
+						dto.put("id", tk.getId());
+						dto.put("soluong", tk.getSoluong().toString());
+					}
+					if(dto.get("cuoccong").isEmpty()) {
+						dto.put("cuoccong", loaiGiaoTiep.getCuoccong().toString());
+					}
+				}
+				
+				if(dto.get("congthuc_ma").isEmpty() == false) {
+					CongThucDTO congThucDTO = congThucDAO.findByMa(dto.get("congthuc_ma"));
+					dto.put("congthuc_id",congThucDTO.getId());
+				}
+				list.add(dto);
+			}
+			newFile.delete();
+			jsonData.put("result", "OK");
+			jsonData.put("data", list);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			jsonData.put("result", "ERROR");
+			jsonData.put("data", e.getMessage());
+		} finally {
+			workBook.close();
+		}
 		return Action.SUCCESS;
 	}
 	

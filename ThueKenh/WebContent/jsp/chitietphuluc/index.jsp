@@ -1,5 +1,4 @@
-﻿
-<%@ taglib prefix="s" uri="/struts-tags"%>
+﻿<%@ taglib prefix="s" uri="/struts-tags"%>
 <s:url action="doLogout" namespace="/login" var="doLogoutURL"/>
 <s:url action="index" namespace="/login" var="loginURL"/>
 <s:url action="index" namespace="/settings" var="settingsIndexURL"/>
@@ -8,6 +7,7 @@
 <s:url action="popupSearch2" namespace="/tuyenkenh" id="popupSearch2URL" />
 <s:url action="getAllCongThuc" namespace="/ajax" id="getAllCongThucURL" />
 <s:url action="getAllLoaiGiaoTiep" namespace="/ajax" id="getAllLoaiGiaoTiepURL" />
+<s:url action="index" namespace="/popup" id="popupURL" />
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -15,8 +15,9 @@
 	<script>
 	var LOGIN_PATH = "${loginURL}";
 	</script>
-	<%@include file="/include/header.jsp"%>
+	<%@include file="/include/header1.jsp"%>
 	<script type="text/javascript" src="<%=contextPath%>/js/mylibs/popup_search_tuyenkenh.js"></script>
+	<script type="text/javascript" src="<%=contextPath%>/js/jquery.form.js"></script>
 <style>
 .block {
 float: left;
@@ -37,24 +38,15 @@ padding: 0px; list-style: none outside none;
 #frmLuuPhuLuc ul li{
 padding: 5px; 
 }
+tr.error {
+color:red;
+}
 </style>
 </head>
 <body>
-	<%@include file="/include/top.jsp"%>
+	<div id="dialog" title="Welcome to VMS"><center>Loading...</center></div>
 	<div id="bg_wrapper">
 		<div style="width: 100%; margin-bottom: 10px;" class="ovf">
-			<div class="s10">
-				<div class="fl">
-					<div class="fl tsl" id="t_1">
-					</div>
-					<div class="fl clg b tsc d" id="t_2">
-						<div class="p3t">Tính giá trị phụ lục hợp đồng</div>
-					</div>
-					<div class="fl tsr" id="t_3">
-					</div>
-				</div>
-				<div class="lineU"></div>
-			</div>
 			<div id="divSearch" class="ovf" style="padding-right: 0px;">
 				<div class="kc4 p5l p15t bgw">
 					<div class="bgw p5b ovf" id="tabnd_2">
@@ -63,6 +55,7 @@ padding: 5px;
 								<tr>
 									<td align="left">
 										<input class="button" type="button" value="Chọn kênh cần tính giá trị" id="btPopupSearchTuyenkenh">
+										<input class="button" type="button" value="Import từ excel" id="btPopupImport">
 										<input type="button" class="button" value="Tính giá trị phụ lục" id="btTinhGiaTriPhuLuc" style="display:none"></input>
 									</td>
 
@@ -120,11 +113,19 @@ function doSearch() {
 }
 function rowChanges(flag){
 	var i = 1;
-	$("#dataTable tbody tr #stt").each(function(){
-		$(this).text(i);
+	var numError = 0;
+	$("#dataTable tbody tr").each(function(){
+		$("#stt",this).text(i);
+		if($("#tuyenkenh_id",this).val() =="") {
+			$(this).addClass("error");
+			numError++;
+		}
 		i++;
 	});
-	if(i > 1) {
+	if(numError > 0) {
+		alert("Phát hiện có "+numError+" tuyến kênh bị lỗi, vui lòng kiểm tra lại những dòng màu đỏ!");
+	}
+	if(i > 1 && numError ==0) {
 		$("#btTinhGiaTriPhuLuc").show();
 	} else {
 		$("#btTinhGiaTriPhuLuc").hide();
@@ -137,13 +138,18 @@ function rowChanges(flag){
 		});
 	}
 }
+function clearDatatable(){
+	$("#dataTable tbody tr").each(function(){
+		oTable.fnDeleteRow(oTable.fnGetPosition(this));
+	});
+}
 function doRemoveRow(this_){
 	var row = $(this_).closest("tr").get(0);
 	oTable.fnDeleteRow(oTable.fnGetPosition(row));
 	rowChanges(0);
 }
 var arrCongThuc = null;
-function generateCongThucOptions(){
+function generateCongThucOptions(congthuc_id){
 	if(arrCongThuc == null) {
 		$.ajax({
 			type: "GET",
@@ -162,7 +168,7 @@ function generateCongThucOptions(){
 	var result = '';
 	if(arrCongThuc != null) {
 		$.each(arrCongThuc, function(){
-			if(this.isdefault == 1) { // cong thuc mac dinh
+			if((this.isdefault == "1" && congthuc_id=="") || this.id == congthuc_id) { // cong thuc mac dinh
 				result+= '<option selected value="'+this.id+'">'+this.tencongthuc+'</option>';
 			} else {
 				result+= '<option value="'+this.id+'">'+this.tencongthuc+'</option>';
@@ -197,17 +203,17 @@ function generateCuocCongValue(i){
 	}
 	return result;
 }
-function addRow(stt,data) {
+function addRow(data) {
 	oTable.fnAddData([
 		'<input type="text" id="loaigiaotiep" style="display:none" value="'+data.loaigiaotiep+'"/><span id="stt"></span>',
 		'<a target="_blank" href="tuyenkenh/Chi tiet tuyen kenh.html">'+data.id+'</a>',
 		data.madiemdau,data.madiemcuoi,data.loaigiaotiep,data.dungluong,
 		'<input type="text" id="soluong" disabled="true" style="width:30px;text-align:center" value="'+data.soluong+'"/>',
-		'<input type="text" class="currency" id="cuoccong" style="width:120px;text-align:right" value="'+generateCuocCongValue(data.giaotiep_id)+'"/>',
-		'<input type="text" class="currency" id="cuocdaunoi" style="width:120px" />',
-		'<input type="text" class="currency" id="dongia" style="width:120px" />',
-		'<input type="text" maxlength="2" id="giamgia" style="width:30px;text-align:center" value="10"/> %',
-		'<select id="congthuc_id" style="width: 100px"><option>---SELECT---</option>'+generateCongThucOptions()+'</select>',
+		'<input type="text" class="currency" id="cuoccong" style="width:120px;text-align:right" value="'+(data.cuoccong != ''?data.cuoccong:generateCuocCongValue(data.giaotiep_id))+'"/>',
+		'<input type="text" class="currency" id="cuocdaunoi" style="width:120px" value="'+data.cuocdaunoi+'" />',
+		'<input type="text" class="currency" id="dongia" style="width:120px" value="'+data.dongia+'"/>',
+		'<input type="text" maxlength="2" id="giamgia" style="width:30px;text-align:center" value="'+data.giamgia+'"/> %',
+		'<select id="congthuc_id" style="width: 100px"><option>---SELECT---</option>'+generateCongThucOptions(data.congthuc_id)+'</select>',
 		'<input type="text" style="display:none" value="'+data.id+'" id="tuyenkenh_id"/><input type="text" style="display:none" value="'+data.id+'" id="tuyenkenh_'+data.id+'"/><img title="Remove" src="'+baseUrl+'/images/icons/remove.png" onclick="doRemoveRow(this)" style="cursor:pointer">'
 	]);
 }
@@ -216,11 +222,14 @@ $(document).ready(function(){
 	popup_search_tuyenkenh.init({
 		url : "${popupSearch2URL}",
 		afterSelected : function(data) {
-			var i = 1;
 			$.each(data,function(){
 				if($("#frmTinhGiaTriPhuLuc #tuyenkenh_"+this.id).length == 0) {
-					addRow(i,this);
-					i++;
+					this.congthuc_id="";
+					this.cuocdaunoi=0;
+					this.dongia = 0;
+					this.giamgia = 0;
+					this.cuoccong = '';
+					addRow(this);
 				}
 			});
 			rowChanges(1);
@@ -228,6 +237,10 @@ $(document).ready(function(){
 	});
 	$("#btThem").click(function(){
 		ShowWindow('Thêm mới  văn bản đề xuất',750,500,"${formURL}",false);
+	});
+	$("#btPopupImport").click(function(){
+		//clearDatatable();
+		showDialogUrl("${popupURL}?action=1",'Import tuyến kênh tính giá trị phụ lục',520);
 	});
 	$("#btTinhGiaTriPhuLuc").click(function(){
 		//$('#frmTinhGiaTriPhuLuc .currency').toNumber({region:'vn'});
@@ -285,7 +298,6 @@ $(document).ready(function(){
 	$('#frmTinhGiaTriPhuLuc .currency').live("focusin",function(){
 		$(this).toNumber({region:'vn'}).select();
 	});
-	$('ul.sf-menu').superfish();
 	oTable = $('#dataTable').dataTable({
 		"bJQueryUI": true,
 		"bProcessing": true,

@@ -5,6 +5,7 @@
 <s:url action="ajLoadThanhToan" namespace="/thanhtoan" id="ajLoadThanhToanURL"/>
 <s:url action="delete" namespace="/thanhtoan" id="deleteURL"/>
 <s:url action="detail" namespace="/thanhtoan" id="detailURL"/>
+<s:url action="index" namespace="/popup" id="popupURL"/>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -28,7 +29,6 @@
 						<div class="fl tsr" id="t_3"></div>
 					</div>
 					<div class="lineU">
-						<img height="1px" alt="" class="w100" src="../images/spacer.gif">
 					</div>
 				</div>
 				<div id="divSearch" class="ovf" style="padding-right: 0px;">
@@ -90,14 +90,15 @@
 					<tr>
 						<th width="30px">STT</th>
 						<th>Số hồ sơ</th>
-						<th>Tháng/Năm thanh toán</th>
-						<th>Ngày chuyển hồ sơ kế toán</th>
+						<th>Thời gian TT</th>
+						<th>Ngày chuyển kế toán</th>
 						<th>Ngày ký UNC</th>
 						<th>Ngày chuyển khoản</th>
 						<th>Giá trị thanh toán</th>
 						<th>Trạng thái</th>
 						<th>Chi tiết</th>
 						<th width="30px">Sửa</th>
+						<th width="30px"></th>
 						<th width="5px" align="center"><input type="checkbox" onclick="selectAll(this)"/></th>
 					</tr>
 				</thead>
@@ -131,6 +132,9 @@ function doSearch() {
 function newPopupWindow(file, window, width, height) {
     msgWindow = open(file, window, 'resizable=yes, width=' + width + ', height=' + height + ', titlebar=yes, toolbar=no, scrollbars=yes');
     if (msgWindow.opener == null) msgWindow.opener = self;
+}
+function updateTrangThaiThanhToan(sohoso) {
+	showDialogUrl("${popupURL}?action=2&sohoso="+sohoso,'Cập nhật trạng thái thanh toán',520);
 }
 $(document).ready(function(){	
 	// load datetime
@@ -174,6 +178,14 @@ $(document).ready(function(){
 					{ "mDataProp": null,"bSortable": false,"bSearchable": false,
 						"fnRender": function( oObj ) {
 							return '<center><span class="edit_icon" data-ref-id="'+oObj.aData.id+'" title="Sửa" href="#"></span></center>'; 
+						}
+					},
+					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,
+						"fnRender": function( oObj ) {
+							if(oObj.aData.trangthai==0 && oObj.aData.sohoso!='')
+								return '<center><img title="Cập nhật trạng thái thanh toán" src="'+contextPath+'/images/icons/refresh_icon.png" height="25px" onclick="updateTrangThaiThanhToan(\''+oObj.aData.sohoso+'\')" style="cursor:pointer"></center>'; 
+							else 
+								return "";
 						}
 					},
 					{ "mDataProp": null,"bSortable": false,"bSearchable": false,
