@@ -92,6 +92,7 @@ color:red;
 			<tbody>
 			</tbody>
 		</table>	
+		<div style="clear:both;float:right; padding-top:5px"><input class="button" type="button" id="btThoat" onclick="window.parent.CloseWindow();" value="Thoát"/></div>
 		</form>
 		</div>
 	<div id="footer"></div>
@@ -282,6 +283,10 @@ $(document).ready(function(){
 					}
 					alert(response.data);
 				} else if(response.status == "OK") {
+					parent.reload = true;
+					if($("#id").val()!="") {
+					   parent.isUpdate = true;
+					}
 					showDialogUrl("${formURL}?cuocDauNoi="+response.data.cuocDauNoi+"&giaTriTruocThue="+response.data.giaTriTruocThue+"&giaTriSauThue="+response.data.giaTriSauThue+"&soLuongKenh="+response.data.soLuongKenh+"&id=","Lưu giá trị phụ lục",500);
 				}
 			},
