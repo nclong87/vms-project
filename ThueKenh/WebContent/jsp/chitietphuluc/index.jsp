@@ -282,7 +282,7 @@ $(document).ready(function(){
 					}
 					alert(response.data);
 				} else if(response.status == "OK") {
-					showDialogUrl("${formURL}?cuocDauNoi="+response.data.cuocDauNoi+"&giaTriTruocThue="+response.data.giaTriTruocThue+"&giaTriSauThue="+response.data.giaTriSauThue+"&soLuongKenh="+response.data.soLuongKenh,"Lưu giá trị phụ lục",500);
+					showDialogUrl("${formURL}?cuocDauNoi="+response.data.cuocDauNoi+"&giaTriTruocThue="+response.data.giaTriTruocThue+"&giaTriSauThue="+response.data.giaTriSauThue+"&soLuongKenh="+response.data.soLuongKenh+"&id=","Lưu giá trị phụ lục",500);
 				}
 			},
 			error: function(data){ alert (data);button.disabled = false;}	
