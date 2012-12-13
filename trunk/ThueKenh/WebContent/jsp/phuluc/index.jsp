@@ -129,8 +129,8 @@ margin-left: 10px;
 		</div>
 		<div style="width: 100%; clear: both; float: left; margin: 5px;">
 		<input class="button" type="button" id="btThem" value="Thêm mới phụ lục" style="float: left; margin-right: 10px;" />
-		<input class="button" type="button" id="btXoa" value="Xóa" style="float: left; margin-right: 10px;"/>
-		<input class="button" type="button" value="Tính giá trị phụ lục" style="float: left; margin-right: 10px;" onclick="ShowWindow('Tính giá trị phụ lục',750,500,'${indexChiTietPhuLucURL}',true);MaxWindow();"/>
+		<input class="button" type="button" id="btXoa" value="Xóa phụ lục" style="float: left; margin-right: 10px;"/>
+		<input class="button" type="button" id="btShowTinhGiaTriPhuLuc" value="Thêm mới giá trị phụ lục" style="float: left; margin-right: 10px;"/>
 		<input class="button" type="button" value="Quản lý giá trị phụ lục" style="float: left; margin-right: 10px;" onclick="location.href='${giatriphulucURL}'"/>
 		</div>
 			<table width="100%" id="dataTable" class="display">
@@ -226,6 +226,10 @@ $(document).ready(function(){
 	$("span.edit_icon").live("click",function(){
 		var id = $(this).attr("data-ref-id");
 		ShowWindow('Cập nhật phụ lục hợp đồng',750,500,"${formURL}?id="+id,false);
+		MaxWindow();
+	});
+	$("#btShowTinhGiaTriPhuLuc").click(function(){
+		ShowWindow('Tính giá trị phụ lục',750,500,"${indexChiTietPhuLucURL}",false);
 		MaxWindow();
 	});
 	$('ul.sf-menu').superfish();

@@ -144,4 +144,17 @@ public class ThanhToanDAO {
 		if(list.isEmpty()) return null;
 		return list.get(0);
 	}
+	
+	public void updateTrangThaiThanhToan(String sohoso, String sNgaykyunc, String sNgaychuyenkhoan) throws SQLException {
+		Connection connection = jdbcDatasource.getConnection();
+		java.sql.Date ngaykyunc = DateUtils.parseToSQLDate(sNgaykyunc, "dd/MM/yyyy");
+		java.sql.Date ngaychuyenkhoan = DateUtils.parseToSQLDate(sNgaychuyenkhoan, "dd/MM/yyyy");
+		CallableStatement stmt = connection.prepareCall("{ call PROC_UPDATE_THANHTOAN(?,?,?) }");
+		stmt.setString(1, sohoso);
+		stmt.setDate(2, ngaykyunc);
+		stmt.setDate(3, ngaychuyenkhoan);
+		stmt.execute();
+		stmt.close();
+		connection.close();
+	}
 }

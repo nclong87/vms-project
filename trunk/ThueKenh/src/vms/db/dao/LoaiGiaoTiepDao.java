@@ -13,7 +13,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
 import vms.db.dto.LoaiGiaoTiepDTO;
-import vms.db.dto.LoaiGiaoTiep;
 import vms.utils.VMSUtil;
 
 public class LoaiGiaoTiepDao {
@@ -157,4 +156,18 @@ public class LoaiGiaoTiepDao {
 						+ ")") > 0;
 	}
 
+	public LoaiGiaoTiepDTO findByMa(String id) {
+		@SuppressWarnings("unchecked")
+		List<LoaiGiaoTiepDTO> lst = this.jdbcTemplate.query(
+				"select * from loaigiaotiep where deleted = 0 and MA=?", new Object[] {id},
+				new RowMapper() {
+					public Object mapRow(ResultSet rs, int rowNum)
+							throws SQLException {
+						return LoaiGiaoTiepDTO.mapObject(rs);
+					}
+				});
+		if (lst.size() == 0)
+			return null;
+		return lst.get(0);
+	}
 }

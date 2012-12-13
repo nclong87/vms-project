@@ -96,6 +96,7 @@ public class DateUtils {
 		return new java.sql.Date(date.getTime());
 	}
 	public static java.sql.Date parseToSQLDate(String sDate,String format) {
+		if(sDate.isEmpty()) return null;
 		if(format == null) format = "dd/MM/yyyy";
 		return DateUtils.convertToSQLDate(DateUtils.parseDate(sDate, format));
 	}

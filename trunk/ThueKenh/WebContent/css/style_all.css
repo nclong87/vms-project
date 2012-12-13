@@ -111,9 +111,8 @@ z-index: 2;
 	2.2) Main
 	----------------------------------------*/
 #bg_wrapper{
-/*border-left: 1px solid #C0C0C0;*/
 float: left;
-/*min-height: 400px;*/
+margin-top: 3px;
 position: relative;
 width: 100%;
 		}

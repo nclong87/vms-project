@@ -185,22 +185,22 @@ public class ReportDAO {
 		StringBuffer stringBuffer = new StringBuffer(1024);
 		stringBuffer.append("<root>");
 		stringBuffer.append("<header>");
-		int tonggiamtru = 0;
-		int tongthanhtien = 0;
-		int tongdaunoihoamang = 0;
-		int tongdathanhtoan = 0;
-		int tongconthanhtoan = 0;
+		long tonggiamtru = 0;
+		long tongthanhtien = 0;
+		long tongdaunoihoamang = 0;
+		long tongdathanhtoan = 0;
+		long tongconthanhtoan = 0;
 		if(doisoatcuoc != null ) {
 			stringBuffer.append(VMSUtil.xml("tungay", doisoatcuoc.get("tungay").toString()));
 			stringBuffer.append(VMSUtil.xml("denngay", doisoatcuoc.get("denngay").toString()));
 			stringBuffer.append(VMSUtil.xml("matlienlactu", doisoatcuoc.get("matlienlactu").toString()));
 			stringBuffer.append(VMSUtil.xml("matlienlacden", doisoatcuoc.get("matlienlacden").toString()));
 			stringBuffer.append(VMSUtil.xml("tendoitac", doisoatcuoc.get("tendoitac").toString().toUpperCase()));
-			tonggiamtru = Integer.valueOf(doisoatcuoc.get("giamtrumll").toString());
-			tongthanhtien = Integer.valueOf(doisoatcuoc.get("thanhtien").toString());
-			tongdaunoihoamang = Integer.valueOf(doisoatcuoc.get("tongdaunoihoamang").toString());
-			tongdathanhtoan = Integer.valueOf(doisoatcuoc.get("tongdathanhtoan").toString());
-			tongconthanhtoan = Integer.valueOf(doisoatcuoc.get("tongconthanhtoan").toString());
+			tonggiamtru = Long.valueOf(doisoatcuoc.get("giamtrumll").toString());
+			tongthanhtien = Long.valueOf(doisoatcuoc.get("thanhtien").toString());
+			tongdaunoihoamang = Long.valueOf(doisoatcuoc.get("tongdaunoihoamang").toString());
+			tongdathanhtoan = Long.valueOf(doisoatcuoc.get("tongdathanhtoan").toString());
+			tongconthanhtoan = Long.valueOf(doisoatcuoc.get("tongconthanhtoan").toString());
 		}
 		stringBuffer.append("</header>");
 		stringBuffer.append("<data>");
@@ -245,8 +245,8 @@ public class ReportDAO {
 		System.out.println("map.size()="+map.size());
 		stringBuffer.append("</data>");
 		stringBuffer.append("<summary>");
-		int tongvat = (int) Math.floor(tongconthanhtoan * 10 / 100);
-		int tongcong = tongconthanhtoan + tongvat;
+		long tongvat = (int) Math.floor(tongconthanhtoan * 10 / 100);
+		long tongcong = tongconthanhtoan + tongvat;
 		stringBuffer.append(VMSUtil.xml("tongthanhtien", String.valueOf(tongthanhtien)));
 		stringBuffer.append(VMSUtil.xml("tonggiamtru", String.valueOf(tonggiamtru)));
 		stringBuffer.append(VMSUtil.xml("tongdaunoihoamang", String.valueOf(tongdaunoihoamang)));

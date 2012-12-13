@@ -154,5 +154,20 @@ public class CongThucDAO {
 				}
 			});
 	}
+	
+	public CongThucDTO findByMa(String macongthuc) {
+		@SuppressWarnings("unchecked")
+		List<CongThucDTO> lst = this.jdbcTemplate.query(
+				"select * from congthuc where deleted = 0 and MA=?", new Object[] {macongthuc},
+				new RowMapper() {
+					public Object mapRow(ResultSet rs, int rowNum)
+							throws SQLException {
+						return CongThucDTO.mapObject(rs);
+					}
+				});
+		if (lst.size() == 0)
+			return null;
+		return lst.get(0);
+	}
 
 }
