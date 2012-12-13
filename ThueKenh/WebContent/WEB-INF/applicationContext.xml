@@ -8,21 +8,19 @@
     http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd
     http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
 
-	<bean id="jdbcDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+	<!--bean id="jdbcDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
         <property name="url" value="jdbc:oracle:thin:@10.18.18.12:1521:hrm6" />
         <property name="username" value="THUEKENH" />
         <property name="password" value="123456" />       
-    </bean>
-    <!--
+    </bean-->
+    <!-- -->
 	<bean id="jdbcDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
         <property name="url" value="jdbc:oracle:thin:@192.168.1.105:1521:TEST" />
         <property name="username" value="THUEKENH" />
         <property name="password" value="123456" />       
     </bean>
-	-->
-    
 	<bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
 		<property name="jndiName" value="java:comp/env/jdbc/ORACLE_VMS" />
 		<property name="resourceRef" value="true"/>
