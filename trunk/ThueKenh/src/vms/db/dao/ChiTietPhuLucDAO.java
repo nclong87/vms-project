@@ -181,6 +181,7 @@ public class ChiTietPhuLucDAO {
 	}
 	
 	public ChiTietPhuLucDTO findById(String id) {
+		System.out.println("Begin findbyId - Id:"+id);
 		return (ChiTietPhuLucDTO) this.jdbcTemplate.queryForObject("select * from CHITIETPHULUC where ID = ? and DELETED = 0" ,new Object[] {id}, new RowMapper() {
 			@Override
 			public Object mapRow(ResultSet rs, int arg1) throws SQLException {
