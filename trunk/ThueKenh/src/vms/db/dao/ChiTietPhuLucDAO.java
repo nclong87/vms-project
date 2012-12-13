@@ -132,6 +132,7 @@ public class ChiTietPhuLucDAO {
 		while(rs.next()) {
 			Map<String,Object> map = VMSUtil.resultSetToMap(rs);
 			map.put("stt", i);
+			//map.put("isblock",true);
 			result.add(map);
 			i++;
 		}

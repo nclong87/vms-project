@@ -185,8 +185,20 @@ public class ChiTietPhuLucAction implements Preparable {
 				throw new Exception("END_SESSION");
 			}
 			if(chiTietPhuLucDTO == null) throw new Exception("ERROR");
-			if(chiTietPhuLucDTO.getId()==null && chiTietPhuLucDAO.findByKey(chiTietPhuLucDTO.getTenchitietphuluc()) != null) {
-				throw new Exception("DUPLICATE");
+			ChiTietPhuLucDTO temp=chiTietPhuLucDAO.findByKey(chiTietPhuLucDTO.getTenchitietphuluc());
+			if(temp != null) {
+				// edit
+				if(!chiTietPhuLucDTO.getId().isEmpty())
+				{
+					System.out.println("temp.getId():"+temp.getId());
+					System.out.println("chiTietPhuLucDTO.getId():"+chiTietPhuLucDTO.getId());
+					if(temp.getId().compareTo(chiTietPhuLucDTO.getId())!=0)
+						throw new Exception("DUPLICATE");
+				}
+				else // add
+				{
+					throw new Exception("DUPLICATE");
+				}
 			}
 			chiTietPhuLucDTO.setUsercreate(account.get("username").toString());
 			chiTietPhuLucDTO.setTimecreate(DateUtils.getCurrentDateSQL());
