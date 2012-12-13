@@ -132,14 +132,20 @@ $(document).ready(function(){
 					{ "mDataProp": "giatritruocthue","bSortable": false,"bSearchable": false,"sClass":'td_right number'},
 					{ "mDataProp": "giatrisauthue","bSortable": false,"bSearchable": false,"sClass":'td_right number'},
 					{ "mDataProp": "cuocdaunoi","bSortable": false,"bSearchable": false,"sClass":'td_right number'},
-					{ "mDataProp": null,"bSortable": false,"bSearchable": false,
+					{ "mDataProp": null,"bSortable": false,"bSearchable": false,"sClass":"td_center",
 						"fnRender": function( oObj ) {
-							return '<center><span class="edit_icon" data-ref-id="'+oObj.aData.id+'" title="Sửa" href="#"></span></center>'; 
+							if(oObj.aData.isblock==true)
+								return '<center><img title="permission" src="'+contextPath+'/images/icons/permission.png" title="Giá trị phụ lục này đã được sử dụng nên bạn không được phép sửa"></center>'; 
+							else
+								return '<center><span class="edit_icon" data-ref-id="'+oObj.aData.id+'" title="Sửa" href="#"></span></center>'; 
 						}
 					},
 					{ "mDataProp": null,"bSortable": false,"bSearchable": false,
 						"fnRender": function( oObj ) {
-							return '<center><input type="checkbox" value="'+oObj.aData.id+'"/></center>'; 
+							if(oObj.aData.isblock==true)
+								return '<center><img title="permission" src="'+contextPath+'/images/icons/permission.png" title="Giá trị phụ lục này đã được sử dụng nên bạn không được phép sửa"></center>'; 
+							else
+								return '<center><input type="checkbox" value="'+oObj.aData.id+'"/></center>'; 
 						}
 					}
 				],
