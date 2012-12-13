@@ -806,7 +806,10 @@
 		<action name="giatriphuluc" class="chiTietPhuLucAction">
 			<result>/jsp/chitietphuluc/giatriphuluc.jsp</result>
 		</action>
-		<action name="index" class="chiTietPhuLucAction" method="index">
+		<action name="index" class="chiTietPhuLucAction">
+			<result>/jsp/chitietphuluc/index.jsp</result>
+		</action>
+		<action name="edit" class="chiTietPhuLucAction" method="edit">
 			<result>/jsp/chitietphuluc/formpage.jsp</result>
 		</action>
 		<action name="doSave" class="chiTietPhuLucAction" method="doSave">
