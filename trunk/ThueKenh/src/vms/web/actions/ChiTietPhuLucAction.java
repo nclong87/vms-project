@@ -155,8 +155,8 @@ public class ChiTietPhuLucAction implements Preparable {
 		return Action.SUCCESS;
 	}
 	
-	//load form
-	public String index() {
+	//load form for edit
+	public String edit() {
 		try {
 			if(account == null) {
 				session.setAttribute("URL", VMSUtil.getFullURL(request));

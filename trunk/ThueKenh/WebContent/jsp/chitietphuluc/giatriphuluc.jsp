@@ -2,6 +2,7 @@
 <s:url action="doLogout" namespace="/login" var="doLogoutURL"/>
 <s:url action="index" namespace="/login" var="loginURL"/>
 <s:url action="index" namespace="/chitietphuluc" id="formURL"/>
+<s:url action="edit" namespace="/chitietphuluc" id="editURL"/>
 <s:url action="load" namespace="/chitietphuluc" id="loadURL"/>
 <s:url action="delete" namespace="/chitietphuluc" id="deleteURL"/>
 <s:url action="detail" namespace="/chitietphuluc" id="detailURL"/>
@@ -163,7 +164,7 @@ $(document).ready(function(){
 	// edit
 	$("span.edit_icon").live("click",function(){
 		var id = $(this).attr("data-ref-id");
-		ShowWindow('Cập nhật thông tin giá trị phụ lục',800,600,"${formURL}?id="+id,false);
+		ShowWindow('Cập nhật thông tin giá trị phụ lục',800,600,"${editURL}?id="+id,false);
 		MaxWindow();
 	});
 	
