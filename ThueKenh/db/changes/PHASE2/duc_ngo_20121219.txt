@@ -1,0 +1,34 @@
+create or replace
+PROCEDURE            "PROC_SAVE_CONGTHUC" (
+  id_	in number,
+	name_ in VARCHAR2,
+  congthuc_ in VARCHAR2,
+	usercreate_ in VARCHAR2,
+  stt_ IN number,
+  deleted_ IN number,
+  ma_ in varchar2,
+  isdefault_ IN number
+) AS 
+i INTEGER := 0;
+BEGIN
+    if(isdefault_ = 1) then
+        update congthuc set isdefault= 0;
+    end if;
+    --i=0 update
+      if(id_ is not null and id_>0) then --update
+        update CONGTHUC set 
+        TENCONGTHUC = name_,
+        CHUOICONGTHUC=congthuc_,
+        deleted=deleted_,
+        stt=STT_,
+        ma=ma_,
+        isdefault=isdefault_
+        where ID = id_;
+    else --insert
+    --i=n insert
+      i:=SEQ_CONGTHUC.nextval;
+      insert into CONGTHUC(ID,TENCONGTHUC,CHUOICONGTHUC,TIMECREATE,USERCREATE,STT,DELETED,MA,ISDEFAULT)
+      VALUES(i,name_,congthuc_,sysdate,usercreate_,stt_,deleted_,ma_,isdefault_);
+    end if;
+
+END PROC_SAVE_CONGTHUC;

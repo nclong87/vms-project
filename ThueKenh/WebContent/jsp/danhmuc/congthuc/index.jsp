@@ -99,6 +99,7 @@
 					<tr>
 						<th width="5%">ID</th>
 						<th width="5%">STT</th>
+						<th width="5%">Mặc định</th>
 						<th width="5%">Mã</th>
 						<th>Tên công thức</th>
 						<th>Chuỗi công thức</th>
@@ -303,7 +304,18 @@
 														"bSearchable" : false,
 														"sClass" : 'td_center'
 													},
-
+													{
+														"mDataProp" : null,
+														"bSortable" : false,
+														"bSearchable" : false,
+														"fnRender" : function(
+																oObj) {
+													if(oObj.aData.ISDEFAULT==0) 
+														return '<input type="checkbox" disabled/>';
+														if(oObj.aData.ISDEFAULT==1)
+															return '<input type="checkbox" disabled checked/>';
+														}
+													},
 													{
 														"mDataProp" : "MA",
 														"bSortable" : false,

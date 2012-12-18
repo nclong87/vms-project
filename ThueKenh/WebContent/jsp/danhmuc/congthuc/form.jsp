@@ -9,6 +9,7 @@
 <s:set value="opEdit.tencongthuc" var="tencongthuc"/>
 <s:set value="opEdit.chuoicongthuc" var="chuoicongthuc"/>
 
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <%
 	String contextPath = request.getContextPath();
@@ -32,7 +33,6 @@ var contextPath = '<%=contextPath%>';
 	function byId(id) { //Viet tat cua ham document.getElementById
 		return document.getElementById(id);
 	}
-
 </script>
 <style>
 </style>
@@ -71,8 +71,28 @@ var contextPath = '<%=contextPath%>';
 						</td>
 				</tr>
 				<tr>
-					<td align="right"></td>
-					<td align="left"></td>
+					<td align="right">Công thức mặc định</td>
+					<td align="left">
+					<input id="ckisdefault" type='checkbox'  onchange="doChange()"/>
+					<input id="isdefault" name="opEdit.isdefault" type="hidden" value="<s:property value="opEdit.isdefault" />"/>
+					<script>
+						var isdefault=$("#isdefault").val();
+						if(isdefault==1){
+							$("#ckisdefault").attr("checked","checked");
+						}else{
+							$("#ckisdefault").removeAttr("checked");
+						}
+						
+						function doChange(){
+							if($("#ckisdefault").attr("checked")!='checked'){
+								$("#isdefault").val(0);
+							}else{
+								$("#isdefault").val(1);
+							}
+						}
+						
+					</script>
+					</td>
 					<style>
 						.congthuc button{
 							float:right
