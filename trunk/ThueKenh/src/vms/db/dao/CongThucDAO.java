@@ -80,7 +80,7 @@ public class CongThucDAO {
 					.getConnection();
 			
 			CallableStatement stmt = connection
-					.prepareCall("{ call PROC_SAVE_congthuc(?,?,?,?) }");
+					.prepareCall("{ call PROC_SAVE_congthuc(?,?,?,?,?) }");
 			//stmt.registerOutParameter(1, OracleTypes.INTEGER);
 			System.out.println("***BEGIN PROC_SAVE_congthuc***");
 			stmt.setString(1, congthuc.getId());
@@ -88,6 +88,7 @@ public class CongThucDAO {
 			stmt.setString(2, congthuc.getTencongthuc());
 			stmt.setString(3, congthuc.getChuoicongthuc());
 			stmt.setLong(4, 0);//is deleted
+			stmt.setInt(5, congthuc.getIsdefault());
 			System.out.println("***execute***");
 			stmt.execute();
 			stmt.close();
@@ -110,9 +111,9 @@ public class CongThucDAO {
 					.getConnection();
 			
 			CallableStatement stmt = connection
-					.prepareCall("{ call PROC_SAVE_CONGTHUC(?,?,?,?,?,?,?) }");
+					.prepareCall("{ call PROC_SAVE_CONGTHUC(?,?,?,?,?,?,?,?) }");
 			//stmt.registerOutParameter(1, OracleTypes.INTEGER);
-			System.out.println("***BEGIN PROC_SAVE_congthuc***");
+			System.out.println("***BEGIN PROC_SAVE_congthuc***"+congthuc.getIsdefault());
 			stmt.setString(1, congthuc.getId());
 			System.out.println(congthuc.getId());
 			stmt.setString(2, congthuc.getTencongthuc());
@@ -121,6 +122,7 @@ public class CongThucDAO {
 			stmt.setInt(5, congthuc.getStt());
 			stmt.setInt(6, 0);//is deleted
 			stmt.setString(7, congthuc.getMa());
+			stmt.setInt(8, congthuc.getIsdefault());
 			System.out.println("***execute***");
 			stmt.execute();
 			stmt.close();

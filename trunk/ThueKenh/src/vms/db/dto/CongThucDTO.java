@@ -15,7 +15,16 @@ public class CongThucDTO {
 	private String timecreate;
 	private Integer stt;
 	private Integer deleted;
+	private Integer isdefault;
 	
+	public Integer getIsdefault() {
+		return isdefault;
+	}
+
+	public void setIsdefault(Integer isdefault) {
+		this.isdefault = isdefault;
+	}
+
 	public static CongThucDTO mapObject(ResultSet rs) throws SQLException {
 		CongThucDTO dto = new CongThucDTO();
 		dto.setId(rs.getString("ID"));
@@ -27,6 +36,8 @@ public class CongThucDTO {
 		dto.setStt(rs.getInt("STT"));
 		dto.setMa(rs.getString("MA"));
 		dto.setDeleted(rs.getInt("DELETED"));
+		
+		dto.setIsdefault(rs.getInt("ISDEFAULT"));
         return dto;
 	}
 	
@@ -40,6 +51,7 @@ public class CongThucDTO {
 		map.put("CHUOICONGTHUC", this.chuoicongthuc);
 		map.put("USERCREATE", this.usercreate);
 		map.put("TIMECREATE", this.timecreate);
+		map.put("ISDEFAULT", this.isdefault.toString());
 		return map;
 	}
 	
