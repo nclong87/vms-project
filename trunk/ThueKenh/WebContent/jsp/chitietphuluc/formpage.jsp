@@ -9,6 +9,7 @@
 <s:url action="popupSearch2" namespace="/tuyenkenh" id="popupSearch2URL" />
 <s:url action="getAllCongThuc" namespace="/ajax" id="getAllCongThucURL" />
 <s:url action="getAllLoaiGiaoTiep" namespace="/ajax" id="getAllLoaiGiaoTiepURL" />
+<s:url action="detail" namespace="/tuyenkenh" id="detailTuyenKenhURL"/>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <%
 	String contextPath = request.getContextPath();
@@ -202,7 +203,7 @@ function generateCuocCongValue(i){
 function addRow(stt,data) {
 	oTable.fnAddData([
 		'<input type="text" id="loaigiaotiep" style="display:none" value="'+data.loaigiaotiep+'"/><span id="stt"></span>',
-		'<a target="_blank" href="tuyenkenh/Chi tiet tuyen kenh.html">'+data.id+'</a>',
+		'<a target="_blank" href="${detailTuyenKenhURL}?id='+data.id+'">'+data.id+'</a>',
 		data.madiemdau,data.madiemcuoi,data.loaigiaotiep,data.dungluong,
 		'<input type="text" id="soluong" disabled="true" style="width:30px;text-align:center" value="'+data.soluong+'"/>',
 		'<input type="text" class="currency" id="cuoccong" style="width:120px;text-align:right" value="'+generateCuocCongValue(data.giaotiep_id)+'"/>',
@@ -216,7 +217,7 @@ function addRow(stt,data) {
 function addRowForEdit(stt,data) {
 	oTable.fnAddData([
 		'<input type="text" id="loaigiaotiep" style="display:none" value="'+data.loaigiaotiep+'"/><span id="stt"></span>',
-		'<a target="_blank" href="tuyenkenh/Chi tiet tuyen kenh.html">'+data.id+'</a>',
+		'<a target="_blank" href="${detailTuyenKenhURL}?id='+data.id+'">'+data.id+'</a>',
 		data.madiemdau,data.madiemcuoi,data.loaigiaotiep,data.dungluong,
 		'<input type="text" id="soluong" disabled="true" style="width:30px;text-align:center" value="'+data.sltuyenkenh+'"/>',
 		'<input type="text" class="currency" id="cuoccong" style="width:120px;text-align:right" value="'+data.cuoccong+'"/>',
