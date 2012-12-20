@@ -457,6 +457,14 @@
 				<param name="inputName">inputStream</param>
 			</result>
 		</action>
+		<action name="export" class="tuyenkenhAction" method="export">
+			<result name="success" type="stream">
+				<param name="contentType">application/vnd.ms-excel</param>
+				<param name="inputName">excelStream</param>
+				<param name="contentDisposition">attachment; filename="${filename}"</param>
+				<param name="bufferSize">1024</param>
+			 </result>
+		</action>
 		<action name="popupSearch" class="tuyenkenhAction" method="popupSearch">
 			<result>/jsp/tuyenkenh/popupSearch.jsp</result>
 		</action>

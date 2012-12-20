@@ -467,6 +467,9 @@ function byId(id) { //Viet tat cua ham document.getElementById
 								button.disabled = false;
 								message(" Lưu thành công!",1);
 								parent.reload = true;
+								if($("#id").val()!="") {
+								   parent.isUpdate = true;
+								}
 								return;
 							}
 							else if(response=="exist")
