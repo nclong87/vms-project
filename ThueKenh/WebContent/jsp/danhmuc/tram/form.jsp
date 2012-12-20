@@ -127,6 +127,9 @@ $(document).ready(function() {
 					if(response == "OK") {
 						message("Lưu thành công!",1);
 						parent.reload = true;
+						if($("#id").val()!="") {
+						   parent.isUpdate = true;
+						}
 						return;
 					}
 					message("Lưu không thành công, vui lòng thử lại.",0);

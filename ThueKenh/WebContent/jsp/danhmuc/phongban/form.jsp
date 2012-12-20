@@ -184,6 +184,9 @@ var contextPath = '<%=contextPath%>
 																			"Lưu thành công!",
 																			1);
 																	parent.reload = true;
+																	if($("#id").val()!="") {
+																	   parent.isUpdate = true;
+																	}
 																	return;
 																}
 																message(
