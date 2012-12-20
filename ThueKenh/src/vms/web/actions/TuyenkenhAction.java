@@ -1,6 +1,7 @@
 package vms.web.actions;
 
 import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.LinkedHashMap;
@@ -10,6 +11,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.struts2.ServletActionContext;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -27,6 +29,7 @@ import vms.db.dto.TuyenKenh;
 import vms.utils.Constances;
 import vms.utils.DateUtils;
 import vms.utils.VMSUtil;
+import vms.utils.XMLUtil;
 
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.Preparable;
@@ -39,6 +42,8 @@ public class TuyenkenhAction implements Preparable {
 	private TuyenKenh tuyenKenh;
 	
 	private InputStream inputStream;
+	private InputStream excelStream;
+	private String filename = "";
 	private LinkedHashMap<String, Object> jsonData;
 	private String form_data;
 	
@@ -207,6 +212,24 @@ public class TuyenkenhAction implements Preparable {
 		return Action.SUCCESS;
 	}
 	
+	public String export() throws Exception {
+		if(account == null) {
+			session.setAttribute("URL", VMSUtil.getFullURL(request));
+			return "login_page";
+		}
+		if(ids != null && ids.length >0 ) {
+			File fileXmlData = new File(ServletActionContext.getServletContext().getRealPath("files/templates/TuyenKenhChuaBanGiao.xml")); 
+			String xmlData = FileUtils.readFileToString(fileXmlData, "UTF-8");
+			String pathXslTemplate = ServletActionContext.getServletContext().getRealPath("files/templates/tuyenkenhchuabangiao.xsl");
+			String transformedString = XMLUtil.transformStringXML_FileXSL(xmlData, pathXslTemplate);
+			//System.out.println("transformedString = "+transformedString);
+			FileUtils.writeStringToFile(new File("D:\\log.txt"), transformedString,"UTF-8");
+			setExcelStream(transformedString);
+			filename = "TuyenKenhChuaBanGiao_"+System.currentTimeMillis()+".xls";
+		}	
+		return Action.SUCCESS;
+	}
+	
 	public String popupSearch() {
 		LoaiGiaoTiepDao loaiGiaoTiepDao = new LoaiGiaoTiepDao(daoFactory);
 		loaiGiaoTieps = loaiGiaoTiepDao.getAll();
@@ -300,7 +323,13 @@ public class TuyenkenhAction implements Preparable {
 			System.out.println("ERROR :" + e.getMessage());
 		}
 	}
-	
+	public void setExcelStream(String str) {
+		try {
+			this.excelStream =  new ByteArrayInputStream( str.getBytes("UTF-8") );
+		} catch (UnsupportedEncodingException e) {			
+			System.out.println("ERROR :" + e.getMessage());
+		}
+	}
 	public LinkedHashMap<String, Object> getJsonData() {
 		return jsonData;
 	}
@@ -362,7 +391,13 @@ public class TuyenkenhAction implements Preparable {
 	public void setDetail(Map<String, Object> detail) {
 		this.detail = detail;
 	}
-	
-	
-	
+	public InputStream getExcelStream() {
+		return excelStream;
+	}
+	public void setExcelStream(InputStream excelStream) {
+		this.excelStream = excelStream;
+	}
+	public String getFilename() {
+		return filename;
+	}
 }

@@ -6,6 +6,7 @@
 <s:url action="ajLoadTuyenkenh" namespace="/tuyenkenh" id="ajLoadTuyenkenh"/>
 <s:url action="form" namespace="/tuyenkenh" id="formURL"/>
 <s:url action="delete" namespace="/tuyenkenh" id="deleteURL"/>
+<s:url action="export" namespace="/tuyenkenh" id="exportURL"/>
 <s:url action="detail" namespace="/tuyenkenh" id="detailURL"/>
 <s:url action="detailLoaiGiaoTiep" namespace="/danhmuc" id="detailGiaoTiepURL"/>
 <s:url action="detailduan" namespace="/danhmuc" id="detailDuAnURL"/>
@@ -180,6 +181,7 @@ margin-left: 10px;
 		<div style="clear:both;margin:5px 0 ">
 		<input class="button" type="button" id="btThem" value="Thêm tuyến kênh" style="float: left; margin-right: 10px;"/>
 		<input class="button" type="button" id="btXoa" value="Xóa" style="float: left; margin-right: 10px;"/>
+		<input class="button" type="button" id="btExport" value="Export excel" style="float: left; margin-right: 10px;"/>
 		</div>
 		<table width="100%" id="dataTable" class="display">
 		<thead>
@@ -275,6 +277,27 @@ $(document).ready(function(){
 			error: function(data){ alert (data);button.disabled = false;}	
 		});	
 	});
+	$("#btExport").click(function(){
+		var dataString = '';
+		$('#dataTable input[type=checkbox]').each(function(){
+			if(this.checked==true) {
+				if(this.value!='on')
+				{
+					if(dataString!="")
+						dataString+="&";
+					dataString+='ids='+this.value;
+				}
+			}
+		});
+		if(dataString=='') {
+			alert('Bạn chưa chọn tuyến kênh export!');
+			return;
+		}
+		var button = this;
+		button.disabled = true;
+		location.href="${exportURL}?"+dataString;
+		button.disabled=false;
+	});
 	$("span.edit_icon").live("click",function(){
 		var id = $(this).attr("data-ref-id");
 		ShowWindow('Cập nhật tuyến kênh',750,500,"${formURL}?id="+id,false);
@@ -284,7 +307,7 @@ $(document).ready(function(){
 		if(this.checked == true) {
 			$("#hidden").show();
 		} else {
-			$("#hidden").hide();
+			$("#hidden").hides();
 		}
 	});
 	oTable = $('#dataTable').dataTable({
