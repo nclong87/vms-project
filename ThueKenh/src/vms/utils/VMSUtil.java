@@ -147,7 +147,7 @@ public class VMSUtil {
 				} else {
 					data = rs.getString(i)==null?"":rs.getString(i);
 				}
-				buffer.append("<"+tagName +" hid=\""+i+"\" "+">"+cData(data)+"</"+tagName+">");
+				buffer.append("<cell hid=\""+tagName+"\" "+">"+cData(data)+"</cell>");
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

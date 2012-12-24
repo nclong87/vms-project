@@ -1,26 +1,215 @@
 <root>
-	<header></header>
-	<data>
+	<header>
+		<cell id="madiemdau" type="String" style="Text">MÃ£ Äiá»m Äáº§u
+		</cell>
+		<cell id="madiemcuoi" type="String" style="Text">MÃ£ Äiá»m cuá»i
+		</cell>
+		<cell id="loaigiaotiep" type="String" style="Text">Giao tiáº¿p</cell>
+		<cell id="dungluong" type="Number" style="Double">Dung lÆ°á»£ng</cell>
+		<cell id="soluong" type="Number" style="Number">Sá» lÆ°á»£ng</cell>
+		<cell id="tenduan" type="String" style="Text">Dá»± Ã¡n</cell>
+		<cell id="tenphongban" type="String" style="Text">PhÃ²ng ban</cell>
+		<cell id="tendoitac" type="String" style="Text">Äá»i tÃ¡c</cell>
+		<cell id="trangthai" type="String" style="Text">Tráº¡ng thÃ¡i</cell>
+	</header>
+	<rows>
 		<row>
-			<stt>1</stt>
-			<id>BD_0018</id>
-			<madiemdau>D1805</madiemdau>
-			<madiemcuoi>D1803</madiemcuoi>
-			<loaigiaotiep>E1</loaigiaotiep>
-			<soluong>4</soluong>
-			<ngaybatdau>08/11/2012</ngaybatdau>
-			<ngayketthuc>08/11/2012</ngayketthuc>
-			<thoigianbatdau>03:00:00</thoigianbatdau>
-			<thoigianketthuc>13:00:00</thoigianketthuc>
-			<nguyennhan>lada</nguyennhan>
-			<hopdong>HDBD_VMSC6_01 / PL02</hopdong>
-			<loaisuco>Thường</loaisuco>
-			<nguoixacnhan>nclong</nguoixacnhan>
-			<phuonganxuly>wada</phuonganxuly>
-			<thoigianmll>600</thoigianmll>
+			<cell hid="rn"><![CDATA[1]]></cell>
+			<cell hid="id"><![CDATA[VTBT_0045]]></cell>
+			<cell hid="madiemdau"><![CDATA[PTPQ00]]></cell>
+			<cell hid="madiemcuoi"><![CDATA[PTPT12]]></cell>
+			<cell hid="giaotiep_id"><![CDATA[101]]></cell>
+			<cell hid="duan_id"><![CDATA[31]]></cell>
+			<cell hid="phongban_id"><![CDATA[306]]></cell>
+			<cell hid="doitac_id"><![CDATA[181]]></cell>
+			<cell hid="dungluong"><![CDATA[2.5]]></cell>
+			<cell hid="trangthai"><![CDATA[3]]></cell>
+			<cell hid="usercreate"><![CDATA[ktkt]]></cell>
+			<cell hid="timecreate"><![CDATA[2012-11-29T00:00:00.000]]></cell>
+			<cell hid="deleted"><![CDATA[0]]></cell>
+			<cell hid="soluong"><![CDATA[1]]></cell>
+			<cell hid="trangthai_bak"><![CDATA[0]]></cell>
+			<cell hid="flag"><![CDATA[0]]></cell>
+			<cell hid="tenduan"><![CDATA[Pha 30A]]></cell>
+			<cell hid="tendoitac"><![CDATA[VTBT]]></cell>
+			<cell hid="loaigiaotiep"><![CDATA[E1]]></cell>
+			<cell hid="tenphongban"><![CDATA[Đài VTĐN]]></cell>
 		</row>
-	</data>
-	<summary>
-		<tong>600</tong>
-	</summary>
+		<row>
+			<cell hid="rn"><![CDATA[2]]></cell>
+			<cell hid="id"><![CDATA[VTBT_0046]]></cell>
+			<cell hid="madiemdau"><![CDATA[PTDL05]]></cell>
+			<cell hid="madiemcuoi"><![CDATA[PTHT06]]></cell>
+			<cell hid="giaotiep_id"><![CDATA[101]]></cell>
+			<cell hid="duan_id"><![CDATA[2]]></cell>
+			<cell hid="phongban_id"><![CDATA[306]]></cell>
+			<cell hid="doitac_id"><![CDATA[181]]></cell>
+			<cell hid="dungluong"><![CDATA[2]]></cell>
+			<cell hid="trangthai"><![CDATA[3]]></cell>
+			<cell hid="usercreate"><![CDATA[ktkt]]></cell>
+			<cell hid="timecreate"><![CDATA[2012-11-29T00:00:00.000]]></cell>
+			<cell hid="deleted"><![CDATA[0]]></cell>
+			<cell hid="soluong"><![CDATA[1]]></cell>
+			<cell hid="trangthai_bak"><![CDATA[0]]></cell>
+			<cell hid="flag"><![CDATA[0]]></cell>
+			<cell hid="tenduan"><![CDATA[1054Alcatel]]></cell>
+			<cell hid="tendoitac"><![CDATA[VTBT]]></cell>
+			<cell hid="loaigiaotiep"><![CDATA[E1]]></cell>
+			<cell hid="tenphongban"><![CDATA[Đài VTĐN]]></cell>
+		</row>
+		<row>
+			<cell hid="rn"><![CDATA[3]]></cell>
+			<cell hid="id"><![CDATA[VTBT_0047]]></cell>
+			<cell hid="madiemdau"><![CDATA[PTTL13]]></cell>
+			<cell hid="madiemcuoi"><![CDATA[PTHT06]]></cell>
+			<cell hid="giaotiep_id"><![CDATA[101]]></cell>
+			<cell hid="duan_id"><![CDATA[4]]></cell>
+			<cell hid="phongban_id"><![CDATA[306]]></cell>
+			<cell hid="doitac_id"><![CDATA[181]]></cell>
+			<cell hid="dungluong"><![CDATA[2]]></cell>
+			<cell hid="trangthai"><![CDATA[3]]></cell>
+			<cell hid="usercreate"><![CDATA[ktkt]]></cell>
+			<cell hid="timecreate"><![CDATA[2012-11-29T00:00:00.000]]></cell>
+			<cell hid="deleted"><![CDATA[0]]></cell>
+			<cell hid="soluong"><![CDATA[1]]></cell>
+			<cell hid="trangthai_bak"><![CDATA[0]]></cell>
+			<cell hid="flag"><![CDATA[0]]></cell>
+			<cell hid="tenduan"><![CDATA[2024ALC]]></cell>
+			<cell hid="tendoitac"><![CDATA[VTBT]]></cell>
+			<cell hid="loaigiaotiep"><![CDATA[E1]]></cell>
+			<cell hid="tenphongban"><![CDATA[Đài VTĐN]]></cell>
+		</row>
+		<row>
+			<cell hid="rn"><![CDATA[4]]></cell>
+			<cell hid="id"><![CDATA[VTBT_0048]]></cell>
+			<cell hid="madiemdau"><![CDATA[PTDL08]]></cell>
+			<cell hid="madiemcuoi"><![CDATA[PTHT06]]></cell>
+			<cell hid="giaotiep_id"><![CDATA[101]]></cell>
+			<cell hid="duan_id"><![CDATA[27]]></cell>
+			<cell hid="phongban_id"><![CDATA[306]]></cell>
+			<cell hid="doitac_id"><![CDATA[181]]></cell>
+			<cell hid="dungluong"><![CDATA[2]]></cell>
+			<cell hid="trangthai"><![CDATA[3]]></cell>
+			<cell hid="usercreate"><![CDATA[ktkt]]></cell>
+			<cell hid="timecreate"><![CDATA[2012-11-29T00:00:00.000]]></cell>
+			<cell hid="deleted"><![CDATA[0]]></cell>
+			<cell hid="soluong"><![CDATA[1]]></cell>
+			<cell hid="trangthai_bak"><![CDATA[0]]></cell>
+			<cell hid="flag"><![CDATA[0]]></cell>
+			<cell hid="tenduan"><![CDATA[Pha 20]]></cell>
+			<cell hid="tendoitac"><![CDATA[VTBT]]></cell>
+			<cell hid="loaigiaotiep"><![CDATA[E1]]></cell>
+			<cell hid="tenphongban"><![CDATA[Đài VTĐN]]></cell>
+		</row>
+		<row>
+			<cell hid="rn"><![CDATA[5]]></cell>
+			<cell hid="id"><![CDATA[VTBT_0049]]></cell>
+			<cell hid="madiemdau"><![CDATA[PTPT04]]></cell>
+			<cell hid="madiemcuoi"><![CDATA[PTPT12]]></cell>
+			<cell hid="giaotiep_id"><![CDATA[101]]></cell>
+			<cell hid="duan_id"><![CDATA[27]]></cell>
+			<cell hid="phongban_id"><![CDATA[306]]></cell>
+			<cell hid="doitac_id"><![CDATA[181]]></cell>
+			<cell hid="dungluong"><![CDATA[2]]></cell>
+			<cell hid="trangthai"><![CDATA[3]]></cell>
+			<cell hid="usercreate"><![CDATA[ktkt]]></cell>
+			<cell hid="timecreate"><![CDATA[2012-11-29T00:00:00.000]]></cell>
+			<cell hid="deleted"><![CDATA[0]]></cell>
+			<cell hid="soluong"><![CDATA[1]]></cell>
+			<cell hid="trangthai_bak"><![CDATA[0]]></cell>
+			<cell hid="flag"><![CDATA[0]]></cell>
+			<cell hid="tenduan"><![CDATA[Pha 20]]></cell>
+			<cell hid="tendoitac"><![CDATA[VTBT]]></cell>
+			<cell hid="loaigiaotiep"><![CDATA[E1]]></cell>
+			<cell hid="tenphongban"><![CDATA[Đài VTĐN]]></cell>
+		</row>
+		<row>
+			<cell hid="rn"><![CDATA[6]]></cell>
+			<cell hid="id"><![CDATA[VTBT_0050]]></cell>
+			<cell hid="madiemdau"><![CDATA[PTPT07]]></cell>
+			<cell hid="madiemcuoi"><![CDATA[PTPT12]]></cell>
+			<cell hid="giaotiep_id"><![CDATA[101]]></cell>
+			<cell hid="duan_id"><![CDATA[2]]></cell>
+			<cell hid="phongban_id"><![CDATA[306]]></cell>
+			<cell hid="doitac_id"><![CDATA[181]]></cell>
+			<cell hid="dungluong"><![CDATA[2]]></cell>
+			<cell hid="trangthai"><![CDATA[3]]></cell>
+			<cell hid="usercreate"><![CDATA[ktkt]]></cell>
+			<cell hid="timecreate"><![CDATA[2012-11-29T00:00:00.000]]></cell>
+			<cell hid="deleted"><![CDATA[0]]></cell>
+			<cell hid="soluong"><![CDATA[1]]></cell>
+			<cell hid="trangthai_bak"><![CDATA[0]]></cell>
+			<cell hid="flag"><![CDATA[0]]></cell>
+			<cell hid="tenduan"><![CDATA[1054Alcatel]]></cell>
+			<cell hid="tendoitac"><![CDATA[VTBT]]></cell>
+			<cell hid="loaigiaotiep"><![CDATA[E1]]></cell>
+			<cell hid="tenphongban"><![CDATA[Đài VTĐN]]></cell>
+		</row>
+		<row>
+			<cell hid="rn"><![CDATA[7]]></cell>
+			<cell hid="id"><![CDATA[VTBT_0051]]></cell>
+			<cell hid="madiemdau"><![CDATA[PTPT02]]></cell>
+			<cell hid="madiemcuoi"><![CDATA[PTPT12]]></cell>
+			<cell hid="giaotiep_id"><![CDATA[101]]></cell>
+			<cell hid="duan_id"><![CDATA[28]]></cell>
+			<cell hid="phongban_id"><![CDATA[306]]></cell>
+			<cell hid="doitac_id"><![CDATA[181]]></cell>
+			<cell hid="dungluong"><![CDATA[2]]></cell>
+			<cell hid="trangthai"><![CDATA[3]]></cell>
+			<cell hid="usercreate"><![CDATA[ktkt]]></cell>
+			<cell hid="timecreate"><![CDATA[2012-11-29T00:00:00.000]]></cell>
+			<cell hid="deleted"><![CDATA[0]]></cell>
+			<cell hid="soluong"><![CDATA[1]]></cell>
+			<cell hid="trangthai_bak"><![CDATA[0]]></cell>
+			<cell hid="flag"><![CDATA[0]]></cell>
+			<cell hid="tenduan"><![CDATA[Pha 23]]></cell>
+			<cell hid="tendoitac"><![CDATA[VTBT]]></cell>
+			<cell hid="loaigiaotiep"><![CDATA[E1]]></cell>
+			<cell hid="tenphongban"><![CDATA[Đài VTĐN]]></cell>
+		</row>
+		<row>
+			<cell hid="rn"><![CDATA[8]]></cell>
+			<cell hid="id"><![CDATA[VTBT_0052]]></cell>
+			<cell hid="madiemdau"><![CDATA[PTPT08]]></cell>
+			<cell hid="madiemcuoi"><![CDATA[PTPT12]]></cell>
+			<cell hid="giaotiep_id"><![CDATA[101]]></cell>
+			<cell hid="duan_id"><![CDATA[28]]></cell>
+			<cell hid="phongban_id"><![CDATA[306]]></cell>
+			<cell hid="doitac_id"><![CDATA[181]]></cell>
+			<cell hid="dungluong"><![CDATA[2]]></cell>
+			<cell hid="trangthai"><![CDATA[3]]></cell>
+			<cell hid="usercreate"><![CDATA[ktkt]]></cell>
+			<cell hid="timecreate"><![CDATA[2012-11-29T00:00:00.000]]></cell>
+			<cell hid="deleted"><![CDATA[0]]></cell>
+			<cell hid="soluong"><![CDATA[2]]></cell>
+			<cell hid="trangthai_bak"><![CDATA[0]]></cell>
+			<cell hid="flag"><![CDATA[0]]></cell>
+			<cell hid="tenduan"><![CDATA[Pha 23]]></cell>
+			<cell hid="tendoitac"><![CDATA[VTBT]]></cell>
+			<cell hid="loaigiaotiep"><![CDATA[E1]]></cell>
+			<cell hid="tenphongban"><![CDATA[Đài VTĐN]]></cell>
+		</row>
+		<row>
+			<cell hid="rn"><![CDATA[9]]></cell>
+			<cell hid="id"><![CDATA[VTBT_0053]]></cell>
+			<cell hid="madiemdau"><![CDATA[PTPT13]]></cell>
+			<cell hid="madiemcuoi"><![CDATA[PTHT06]]></cell>
+			<cell hid="giaotiep_id"><![CDATA[101]]></cell>
+			<cell hid="duan_id"><![CDATA[27]]></cell>
+			<cell hid="phongban_id"><![CDATA[306]]></cell>
+			<cell hid="doitac_id"><![CDATA[181]]></cell>
+			<cell hid="dungluong"><![CDATA[2]]></cell>
+			<cell hid="trangthai"><![CDATA[3]]></cell>
+			<cell hid="usercreate"><![CDATA[ktkt]]></cell>
+			<cell hid="timecreate"><![CDATA[2012-11-29T00:00:00.000]]></cell>
+			<cell hid="deleted"><![CDATA[0]]></cell>
+			<cell hid="soluong"><![CDATA[1]]></cell>
+			<cell hid="trangthai_bak"><![CDATA[0]]></cell>
+			<cell hid="flag"><![CDATA[0]]></cell>
+			<cell hid="tenduan"><![CDATA[Pha 20]]></cell>
+			<cell hid="tendoitac"><![CDATA[VTBT]]></cell>
+			<cell hid="loaigiaotiep"><![CDATA[E1]]></cell>
+			<cell hid="tenphongban"><![CDATA[Đài VTĐN]]></cell>
+		</row>
+	</rows>
 </root>

@@ -222,15 +222,14 @@ public class TuyenkenhAction implements Preparable {
 		for(int i=0;i<fieldNames.length;i++)
 			System.out.println("fieldNames[i]:"+fields[i]);
 		if(fields != null && fields.length >0 && fieldNames!=null && fieldNames.length>0) {
-			
-			File fileXmlData = new File(ServletActionContext.getServletContext().getRealPath("files/templates/TuyenKenhChuaBanGiao.xml")); 
-			String xmlData = FileUtils.readFileToString(fileXmlData, "UTF-8");
-			String pathXslTemplate = ServletActionContext.getServletContext().getRealPath("files/templates/tuyenkenhchuabangiao.xsl");
+			TuyenkenhDao tuyenkenhDao = new TuyenkenhDao(daoFactory);
+			String xmlData = tuyenkenhDao.exportTuyenkenh(fields, fieldNames);
+			String pathXslTemplate = ServletActionContext.getServletContext().getRealPath("files/templates/export.xsl");
 			String transformedString = XMLUtil.transformStringXML_FileXSL(xmlData, pathXslTemplate);
 			//System.out.println("transformedString = "+transformedString);
-			FileUtils.writeStringToFile(new File("D:\\log.txt"), transformedString,"UTF-8");
+			FileUtils.writeStringToFile(new File("D:\\log2.txt"), "Nguyễn Chí Long "+fieldNames[0],"UTF-8");
 			setExcelStream(transformedString);
-			filename = "TuyenKenhChuaBanGiao_"+System.currentTimeMillis()+".xls";
+			filename = "DanhSachTuyenKenh_"+System.currentTimeMillis()+".xls";
 		}	
 		return Action.SUCCESS;
 	}
