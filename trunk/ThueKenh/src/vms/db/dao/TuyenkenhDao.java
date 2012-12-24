@@ -4,6 +4,7 @@ package vms.db.dao;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -16,6 +17,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import vms.db.dto.TuyenKenh;
+import vms.utils.DateUtils;
+import vms.utils.NumberUtil;
 import vms.utils.VMSUtil;
 
 public class TuyenkenhDao {
@@ -190,5 +193,44 @@ public class TuyenkenhDao {
 		});
 		if(list.isEmpty()) return null;
 		return list.get(0);
+	}
+	
+	/*
+	 * Danh sach tuyen kenh da de xuat nhung chua ban giao
+	 */
+	private static final String SQL_EXPORT_TUYENKENH = "{ ? = call EXPORT_TUYENKENH(?,?) }";
+	public String exportTuyenkenh(String[] fields,String[] fieldNames) throws Exception {
+		Connection connection = jdbcTemplate.getDataSource().getConnection();
+		if(connection == null)
+			connection = this.jdbcDatasource.getConnection();
+		System.out.println("***BEGIN exportTuyenkenh***");
+		CallableStatement stmt = connection.prepareCall(SQL_EXPORT_TUYENKENH);
+		stmt.registerOutParameter(1, OracleTypes.CURSOR);
+		stmt.execute();
+		ResultSet rs = (ResultSet) stmt.getObject(1);
+		StringBuffer stringBuffer = new StringBuffer(1024);
+		stringBuffer.append("<root>");
+		stringBuffer.append("<header>");
+		for(int i=0;i<fields.length;i++)
+		{
+			if(fields[i].compareTo("soluong")==0)
+				stringBuffer.append("<cell id=\""+(i+1)+"\" type=\"Number\" style=\"Number\">"+fieldNames+"</cell>");
+			else if(fields[i].compareTo("dungluong")==0)
+				stringBuffer.append("<cell id=\""+(i+1)+"\" type=\"Number\" style=\"Double\">"+fieldNames+"</cell>");
+			else
+				stringBuffer.append("<cell id=\""+(i+1)+"\" type=\"String\" style=\"Text\">"+fieldNames+"</cell>");
+		}
+		stringBuffer.append("</header>");
+		stringBuffer.append("<rows>");
+		while(rs.next()) {
+			stringBuffer.append("<row>");
+			stringBuffer.append(VMSUtil.resultSetToXMLWithProperties(rs));
+			stringBuffer.append("</row>");
+		}
+		stringBuffer.append("</rows>");
+		stringBuffer.append("</root>");
+		stmt.close();
+		connection.close();
+		return stringBuffer.toString();
 	}
 }
