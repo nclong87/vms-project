@@ -219,7 +219,10 @@ public class TuyenkenhAction implements Preparable {
 			session.setAttribute("URL", VMSUtil.getFullURL(request));
 			return "login_page";
 		}
+		for(int i=0;i<fieldNames.length;i++)
+			System.out.println("fieldNames[i]:"+fields[i]);
 		if(fields != null && fields.length >0 && fieldNames!=null && fieldNames.length>0) {
+			
 			File fileXmlData = new File(ServletActionContext.getServletContext().getRealPath("files/templates/TuyenKenhChuaBanGiao.xml")); 
 			String xmlData = FileUtils.readFileToString(fileXmlData, "UTF-8");
 			String pathXslTemplate = ServletActionContext.getServletContext().getRealPath("files/templates/tuyenkenhchuabangiao.xsl");
