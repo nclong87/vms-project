@@ -30,6 +30,13 @@ public class NumberUtil {
 			return 0;
 		}
 	}
+	public static double parseDouble(String value) {
+		try {
+			return Double.parseDouble(value);
+		} catch (Exception e) {
+			return 0;
+		}
+	}
 	public static void main(String arg[]) {
 		//String src ="  Toi  a ha   Long    ";
 		//src.equals(arg0)

@@ -2,9 +2,6 @@ package vms.db.dto.report;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 import vms.utils.DateUtils;
 import vms.utils.VMSUtil;
 

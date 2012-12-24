@@ -2,7 +2,6 @@ package vms.db.dao;
 
 
 import java.sql.CallableStatement;
-import java.sql.Clob;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.ResultSet;
@@ -17,15 +16,10 @@ import oracle.jdbc.OracleTypes;
 import oracle.sql.ARRAY;
 import oracle.sql.ArrayDescriptor;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
-import vms.db.dto.Account;
 import vms.db.dto.HopDongDetailDTO;
-import vms.db.dto.Menu;
-import vms.db.dto.PhuLucDTO;
 import vms.utils.DateUtils;
-import vms.utils.StringUtil;
 import vms.utils.VMSUtil;
 
 public class DoiSoatCuocDAO {

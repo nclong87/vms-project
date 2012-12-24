@@ -129,5 +129,8 @@
 	<bean id="popupAction" scope="prototype" class="vms.web.actions.PopupAction">
         <constructor-arg ref="daoFactory" />
     </bean>
+	<bean id="exportAction" scope="prototype" class="vms.web.actions.ExportAction">
+        <constructor-arg ref="daoFactory" />
+    </bean>
 </beans>
 

@@ -17,14 +17,11 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
-import com.opensymphony.xwork2.Action;
 
 import vms.db.dto.TieuChuanDTO;
-import vms.db.dto.TuyenKenh;
 import vms.db.dto.TuyenKenhDeXuatDTO;
 import vms.utils.DateUtils;
 import vms.utils.VMSUtil;
-import vms.web.models.FIND_TUYENKENHBANGIAO;
 
 public class TuyenKenhBanGiaoDAO {
 	private JdbcTemplate jdbcTemplate;
@@ -96,7 +93,7 @@ public class TuyenKenhBanGiaoDAO {
 		});
 	}
 	
-	private static final String SQL_SAVE_TUYENKENHDEXUAT = "{ ? = call SAVE_TUYENKENHDEXUAT(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) }";
+	//private static final String SQL_SAVE_TUYENKENHDEXUAT = "{ ? = call SAVE_TUYENKENHDEXUAT(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) }";
 	/*public String save(TuyenKenh tuyenKenh,TuyenKenhDeXuatDTO tuyenKenhDeXuatDTO,int soluong_old) throws Exception {
 		Connection connection = this.jdbcDatasource.getConnection();
 		CallableStatement stmt = connection.prepareCall(SQL_SAVE_TUYENKENHDEXUAT);

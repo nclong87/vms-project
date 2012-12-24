@@ -15,9 +15,7 @@ import oracle.jdbc.OracleTypes;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
-
 import vms.db.dto.TuyenKenh;
-import vms.utils.DateUtils;
 import vms.utils.VMSUtil;
 
 public class TuyenkenhDao {
@@ -29,7 +27,11 @@ public class TuyenkenhDao {
 		this.jdbcDatasource = daoFactory.getJdbcDataSource();
 		this.daoFactory = daoFactory;
 	}
-	
+	public static Map<String, Object> resultSetToMap(ResultSet rs) throws SQLException {
+    	Map<String, Object> map = VMSUtil.resultSetToMap(rs);
+    	return map;
+    	
+    } 
 	private static final String SQL_FN_FIND_TUYENKENH = "{ ? = call FN_FIND_TUYENKENH(?,?,?,?,?,?,?,?,?,?,?,?,?) }";
 	public List<Map<String,Object>> findTuyenkenh(int iDisplayStart,int iDisplayLength,Map<String, String> conditions) throws SQLException {
 		Connection connection = jdbcDatasource.getConnection();
@@ -53,7 +55,7 @@ public class TuyenkenhDao {
 		List<Map<String,Object>> result = new ArrayList<Map<String,Object>>();
 		int i = 1;
 		while(rs.next()) {
-			Map<String,Object> map = VMSUtil.resultSetToMap(rs);
+			Map<String,Object> map = TuyenkenhDao.resultSetToMap(rs);
 			map.put("stt", i);
 			result.add(map);
 			i++;
@@ -86,7 +88,7 @@ public class TuyenkenhDao {
 		List<Map<String,Object>> result = new ArrayList<Map<String,Object>>();
 		int i = 1;
 		while(rs.next()) {
-			Map<String,Object> map = VMSUtil.resultSetToMap(rs);
+			Map<String,Object> map = TuyenkenhDao.resultSetToMap(rs);
 			map.put("stt", i);
 			result.add(map);
 			i++;
@@ -106,7 +108,7 @@ public class TuyenkenhDao {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public TuyenKenh findByKey(String madiemdau,String madiemcuoi,String giaotiep_id,int dungluong) {
+	public TuyenKenh findByKey(String madiemdau,String madiemcuoi,String giaotiep_id,Double dungluong) {
 		/*if(StringUtil.isEmpty(madiemdau) || StringUtil.isEmpty(madiemcuoi) || StringUtil.isEmpty(giaotiep_id))
 			return null;*/
 		List<TuyenKenh> list =  this.jdbcTemplate.query("select * from TUYENKENH where DELETED = 0 and MADIEMDAU = ? and MADIEMCUOI =? and GIAOTIEP_ID =? and DUNGLUONG = ?" ,new Object[] {madiemdau,madiemcuoi,giaotiep_id,dungluong}, new RowMapper() {
@@ -183,7 +185,7 @@ public class TuyenkenhDao {
 		List<Map<String,Object>> list =  this.jdbcTemplate.query(SQL_DETAIL_TUYENKENH ,new Object[] {id}, new RowMapper() {
 			@Override
 			public Object mapRow(ResultSet rs, int arg1) throws SQLException {
-				return VMSUtil.resultSetToMap(rs);
+				return TuyenkenhDao.resultSetToMap(rs);
 			}
 		});
 		if(list.isEmpty()) return null;

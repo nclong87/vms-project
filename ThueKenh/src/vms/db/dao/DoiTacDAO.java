@@ -18,6 +18,7 @@ import vms.utils.VMSUtil;
 public class DoiTacDAO {
 
 	private JdbcTemplate jdbcTemplate;
+	@SuppressWarnings("unused")
 	private Connection connection;
 	public DoiTacDAO(Connection conn) {
 		connection = conn;

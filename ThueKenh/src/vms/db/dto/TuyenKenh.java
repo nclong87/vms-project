@@ -19,7 +19,7 @@ public class TuyenKenh {
 	private String duan_id = "";
 	private String phongban_id = "";
 	private String doitac_id = "";
-	private Integer dungluong = 0;
+	private Double dungluong;
 	private Integer soluong = 0;
 	private Integer trangthai = 0;
 	private String usercreate = "";
@@ -110,16 +110,6 @@ public class TuyenKenh {
 		this.doitac_id = doitac_id;
 	}
 
-
-
-	public Integer getDungluong() {
-		return dungluong;
-	}
-
-	public void setDungluong(Integer dungluong) {
-		this.dungluong = dungluong;
-	}
-
 	public Integer getSoluong() {
 		return soluong;
 	}
@@ -159,6 +149,12 @@ public class TuyenKenh {
 	public void setDeleted(Integer deleted) {
 		this.deleted = deleted;
 	}
+	public Double getDungluong() {
+		return dungluong;
+	}
+	public void setDungluong(Double dungluong) {
+		this.dungluong = dungluong;
+	}
 
 	public Map<String,String> getMap() {
 		Map<String, String> map = new LinkedHashMap<String, String>();
@@ -187,7 +183,7 @@ public class TuyenKenh {
 		dto.setDuan_id(rs.getString("DUAN_ID"));
 		dto.setPhongban_id(rs.getString("PHONGBAN_ID"));
 		dto.setDoitac_id(rs.getString("DOITAC_ID"));
-		dto.setDungluong(rs.getInt("DUNGLUONG"));
+		dto.setDungluong(rs.getDouble("DUNGLUONG"));
 		dto.setSoluong(rs.getInt("SOLUONG"));
 		dto.setTrangthai(rs.getInt("TRANGTHAI"));
 		dto.setUsercreate(rs.getString("USERCREATE"));

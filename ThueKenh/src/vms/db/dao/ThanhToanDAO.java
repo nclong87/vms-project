@@ -6,7 +6,6 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import javax.sql.DataSource;
@@ -16,9 +15,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
-import vms.db.dto.BienBanVanHanhKenhDTO;
 import vms.db.dto.ThanhToanDTO;
-import vms.db.dto.SuCoDTO;
 import vms.utils.DateUtils;
 import vms.utils.StringUtil;
 import vms.utils.VMSUtil;

@@ -16,11 +16,8 @@ import org.json.JSONObject;
 import org.json.simple.JSONValue;
 
 import vms.db.dao.ChiTietPhuLucDAO;
-import vms.db.dao.ChiTietPhuLucTuyenKenhDAO;
 import vms.db.dao.CongThucDAO;
 import vms.db.dao.DaoFactory;
-import vms.db.dao.DoiTacDAO;
-import vms.db.dao.HopDongDAO;
 import vms.db.dto.ChiTietPhuLucDTO;
 import vms.db.dto.ChiTietPhuLucTuyenKenhDTO;
 import vms.utils.Constances;

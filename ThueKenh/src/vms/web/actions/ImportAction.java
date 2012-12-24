@@ -459,7 +459,7 @@ public class ImportAction implements Preparable {
 				if(loaiGiaoTiep != null) {
 					dto.put("giaotiep_id", loaiGiaoTiep.getId());
 					dto.put("loaigiaotiep", loaiGiaoTiep.getLoaigiaotiep());
-					TuyenKenh tk = tuyenkenhDao.findByKey(dto.get("madiemdau"), dto.get("madiemcuoi"), loaiGiaoTiep.getId(), NumberUtil.parseInt(dto.get("dungluong")));
+					TuyenKenh tk = tuyenkenhDao.findByKey(dto.get("madiemdau"), dto.get("madiemcuoi"), loaiGiaoTiep.getId(), NumberUtil.parseDouble(dto.get("dungluong")));
 					if(tk!=null) {
 						dto.put("id", tk.getId());
 						dto.put("soluong", tk.getSoluong().toString());

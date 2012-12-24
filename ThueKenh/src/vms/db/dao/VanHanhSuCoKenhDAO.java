@@ -11,6 +11,7 @@ import vms.db.dto.VanHanhSuCoKenhDTO;
 
 public class VanHanhSuCoKenhDAO {
 	private JdbcTemplate jdbcTemplate;
+	@SuppressWarnings("unused")
 	private DataSource jdbcDatasource;
 
 	public VanHanhSuCoKenhDAO(DaoFactory daoFactory) {

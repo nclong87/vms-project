@@ -15,8 +15,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
 import vms.db.dto.BienBanVanHanhKenhDTO;
-import vms.db.dto.SuCoDTO;
-import vms.db.dto.TuyenKenh;
 import vms.utils.DateUtils;
 import vms.utils.StringUtil;
 import vms.utils.VMSUtil;
