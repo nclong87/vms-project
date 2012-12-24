@@ -59,6 +59,7 @@ public class TuyenkenhAction implements Preparable {
 		daoFactory = factory;
 	}
 	private String[] fields;
+	private String[] fieldNames;
 	@SuppressWarnings("unchecked")
 	@Override
 	public void prepare() throws Exception {
@@ -218,7 +219,7 @@ public class TuyenkenhAction implements Preparable {
 			session.setAttribute("URL", VMSUtil.getFullURL(request));
 			return "login_page";
 		}
-		if(fields != null && fields.length >0 ) {
+		if(fields != null && fields.length >0 && fieldNames!=null && fieldNames.length>0) {
 			File fileXmlData = new File(ServletActionContext.getServletContext().getRealPath("files/templates/TuyenKenhChuaBanGiao.xml")); 
 			String xmlData = FileUtils.readFileToString(fileXmlData, "UTF-8");
 			String pathXslTemplate = ServletActionContext.getServletContext().getRealPath("files/templates/tuyenkenhchuabangiao.xsl");
@@ -409,5 +410,13 @@ public class TuyenkenhAction implements Preparable {
 	public void setFields(String[] fields) {
 		this.fields = fields;
 	}
-	
+
+	public String[] getFieldNames() {
+		return fieldNames;
+	}
+
+	public void setFieldNames(String[] fieldNames) {
+		this.fieldNames = fieldNames;
+	}
+
 }
