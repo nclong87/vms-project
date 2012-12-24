@@ -35,63 +35,63 @@ function byId(id) { //Viet tat cua ham document.getElementById
 			<tr>
 				<td>
 					<input type="checkbox" value="madiemdau" name="fields"/>
-					<input type="hidden" value="Mã điểm đầu" name="fieldNames"/>
+					<input type="checkbox" style="display:none" value="Mã điểm đầu" name="fieldNames"/>
 					<label for="madiemcuoi">Mã điểm đầu</label>
 				</td>
 			</tr>
 			<tr>
 				<td>
 					<input type="checkbox" value="madiemcuoi" name="fields"/>
-					<input type="hidden" value="Mã điểm cuối" name="fieldNames"/>
+					<input type="checkbox" style="display:none"  value="Mã điểm cuối" name="fieldNames"/>
 					<label for="madiemcuoi">Mã điểm cuối</label>
 				</td>
 			</tr>
 			<tr>
 				<td>
 					<input type="checkbox" value="loaigiaotiep" name="fields"/>
-					<input type="hidden" value="Giao tiếp" name="fieldNames"/>
+					<input type="checkbox" style="display:none"  value="Giao tiếp" name="fieldNames"/>
 					<label for="loaigiaotiep">Giao tiếp</label>
 				</td>
 			</tr>
 			<tr>
 				<td>
 					<input type="checkbox" value="dungluong" name="fields"/>
-					<input type="hidden" value="Dung lượng" name="fieldNames"/>
+					<input type="checkbox" style="display:none"  value="Dung lượng" name="fieldNames"/>
 					<label for="dungluong">Dung lượng</label>
 				</td>
 			</tr>
 			<tr>
 				<td>
 					<input type="checkbox" value="soluong" name="fields"/>
-					<input type="hidden" value="Số lượng" name="fieldNames"/>
+					<input type="checkbox" style="display:none"  value="Số lượng" name="fieldNames"/>
 					<label for="soluong">Số lượng</label>
 				</td>
 			</tr>
 			<tr>
 				<td>
 					<input type="checkbox" value="tenduan" name="fields"/>
-					<input type="hidden" value="Dự án" name="fieldNames"/>
+					<input type="checkbox" style="display:none"  value="Dự án" name="fieldNames"/>
 					<label for="tenduan">Dự án</label>
 				</td>
 			</tr>
 			<tr>
 				<td>
 					<input type="checkbox" value="tenphongban" name="fields"/>
-					<input type="hidden" value="Phòng ban" name="fieldNames"/>
+					<input type="checkbox" style="display:none"  value="Phòng ban" name="fieldNames"/>
 					<label for="tenphongban">Phòng ban</label>
 				</td>
 			</tr>
 			<tr>
 				<td>
 					<input type="checkbox" value="tendoitac" name="fields"/>
-					<input type="hidden" value="Đối tác" name="fieldNames"/>
+					<input type="checkbox" style="display:none"  value="Đối tác" name="fieldNames"/>
 					<label for="tendoitac">Đối tác</label>
 				</td>
 			</tr>
 			<tr>
 				<td>
 					<input type="checkbox" value="trangthai" name="fields"/>
-					<input type="hidden" value="Trạng thái" name="fieldNames"/>
+					<input type="checkbox" style="display:none"  value="Trạng thái" name="fieldNames"/>
 					<label for="trangthai">Trạng thái</label>
 				</td>
 			</tr>
@@ -115,6 +115,9 @@ function selectAll(_this) {
 	});
 }
 $(document).ready(function() {	
+	$("#form input[type=checkbox]").click(function(){
+		$(this).next()[0].checked = this.checked;
+	});
 	/* $("#btExport").click(function() {
 		var fields="";
 		var fieldNames="";
