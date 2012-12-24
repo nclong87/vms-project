@@ -1,0 +1,12 @@
+<root>
+	<header>
+		<cell id="1" type="String">Cot 1</cell>
+		<cell id="2" type="String">Cot 2</cell>
+	</header>
+	<rows>
+		<row>
+			<cell hid="1">1</cell>
+			<cell hid="2">2</cell>
+		</row>
+	</rows>
+</root>
