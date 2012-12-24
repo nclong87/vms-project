@@ -22,7 +22,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import vms.db.dto.TuyenKenhImportDTO;
 import vms.utils.DateUtils;
 import vms.utils.VMSUtil;
-import vms.web.models.FN_FIND_TUYENKENH;
 
 public class TuyenkenhImportDAO {
 	private JdbcTemplate jdbcTemplate;
@@ -31,7 +30,11 @@ public class TuyenkenhImportDAO {
 		this.jdbcTemplate = daoFactory.getJdbcTemplate();
 		this.jdbcDatasource = daoFactory.getJdbcDataSource();
 	}
-	
+	public static Map<String, Object> resultSetToMap(ResultSet rs) throws SQLException {
+    	Map<String, Object> map = VMSUtil.resultSetToMap(rs);
+    	return map;
+    	
+    } 
 	private static final String SQL_SAVE_TUYENKENH_IMPORT = "{ call SAVE_TUYENKENH_IMPORT(?,?,?,?,?,?,?,?,?,?,?) }";
 	public void save(TuyenKenhImportDTO dto) throws Exception {
 		Connection connection = jdbcTemplate.getDataSource().getConnection();
@@ -68,7 +71,7 @@ public class TuyenkenhImportDAO {
 		List<Map<String,Object>> result = new ArrayList<Map<String,Object>>();
 		int i = 1;
 		while(rs.next()) {
-			Map<String,Object> map = VMSUtil.resultSetToMap(rs);
+			Map<String,Object> map = TuyenkenhImportDAO.resultSetToMap(rs);
 			map.put("stt", i);
 			result.add(map);
 			i++;

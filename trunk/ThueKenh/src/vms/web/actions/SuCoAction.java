@@ -17,12 +17,10 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.simple.JSONValue;
 
-import vms.db.dao.ChiTietPhuLucTuyenKenhDAO;
 import vms.db.dao.DaoFactory;
 import vms.db.dao.PhuLucDAO;
 import vms.db.dao.SuCoDAO;
 import vms.db.dao.TuyenkenhDao;
-import vms.db.dto.ChiTietPhuLucTuyenKenhDTO;
 import vms.db.dto.SuCoDTO;
 import vms.db.dto.TuyenKenh;
 import vms.utils.Constances;

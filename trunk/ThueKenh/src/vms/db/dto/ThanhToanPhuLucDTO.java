@@ -5,8 +5,6 @@ import java.sql.SQLException;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import vms.utils.DateUtils;
-
 
 /**
  * The persistent class for the ACCOUNTS database table.

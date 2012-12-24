@@ -996,4 +996,9 @@
 			<result name="update_hsthanhtoan">/jsp/popup/update_hsthanhtoan.jsp</result>
 		</action>
 	</package>
+	<package name="export" extends="default" namespace="/export">
+		<action name="exportTuyenKenh" class="exportAction" method="exportTuyenKenh">
+			<result name="success">/jsp/export/exportTuyenKenh.jsp</result>
+		</action>
+	</package>
 </struts>

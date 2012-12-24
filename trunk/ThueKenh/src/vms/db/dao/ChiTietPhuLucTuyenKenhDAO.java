@@ -5,7 +5,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.sql.DataSource;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -13,6 +12,7 @@ import vms.db.dto.ChiTietPhuLucTuyenKenhDTO;
 
 public class ChiTietPhuLucTuyenKenhDAO {
 	private JdbcTemplate jdbcTemplate;
+	@SuppressWarnings("unused")
 	private DataSource jdbcDatasource;
 	public ChiTietPhuLucTuyenKenhDAO(DaoFactory daoFactory) {
 		this.jdbcTemplate = daoFactory.getJdbcTemplate();

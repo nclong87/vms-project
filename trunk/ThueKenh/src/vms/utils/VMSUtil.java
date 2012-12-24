@@ -64,7 +64,12 @@ public class VMSUtil {
 			ResultSetMetaData resultSetMetaData = rs.getMetaData();
 			int n = resultSetMetaData.getColumnCount();
 			for(int i=1;i<=n;i++) {
-				map.put(resultSetMetaData.getColumnName(i).toLowerCase(), rs.getString(i)==null?"":rs.getString(i));
+				String columnName = resultSetMetaData.getColumnName(i).toLowerCase();
+				if(columnName.equals("dungluong")) {
+					map.put(resultSetMetaData.getColumnName(i).toLowerCase(), rs.getDouble(i));
+				} else {
+					map.put(resultSetMetaData.getColumnName(i).toLowerCase(), rs.getString(i)==null?"":rs.getString(i));
+				}
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

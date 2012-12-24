@@ -15,7 +15,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
 import vms.db.dto.BanGiaoDTO;
-import vms.utils.VMSUtil;
 
 public class BanGiaoDAO  {
 	private JdbcTemplate jdbcTemplate;

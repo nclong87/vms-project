@@ -1,9 +1,5 @@
 package vms.db.dto;
 
-import java.util.Date;
-
-
-
 
 /**
  * The persistent class for the ACCOUNTS database table.

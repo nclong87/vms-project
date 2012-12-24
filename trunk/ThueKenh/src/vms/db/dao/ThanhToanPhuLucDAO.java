@@ -6,23 +6,14 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Map;
 import javax.sql.DataSource;
 import oracle.jdbc.OracleTypes;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 
-import vms.db.dto.BienBanVanHanhKenhDTO;
-import vms.db.dto.HopDongDTO;
 import vms.db.dto.HopDongDetailDTO;
 import vms.db.dto.ThanhToanPhuLucDTO;
-import vms.db.dto.SuCoDTO;
-import vms.utils.DateUtils;
-import vms.utils.VMSUtil;
 
 public class ThanhToanPhuLucDAO {
 	private JdbcTemplate jdbcTemplate;

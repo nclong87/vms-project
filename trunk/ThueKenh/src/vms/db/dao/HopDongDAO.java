@@ -10,16 +10,12 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-
 import javax.sql.DataSource;
 import oracle.jdbc.OracleTypes;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
-
-import vms.db.dto.BienBanVanHanhKenhDTO;
 import vms.db.dto.HopDongDTO;
 import vms.utils.DateUtils;
 import vms.utils.StringUtil;

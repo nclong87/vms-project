@@ -4,7 +4,6 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,19 +11,14 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.struts2.ServletActionContext;
 
-import vms.db.dao.AccountDao;
 import vms.db.dao.DaoFactory;
-import vms.db.dao.MenuDao;
-import vms.db.dao.VmsgroupDao;
-import vms.db.dto.Rootmenu;
 import vms.utils.Constances;
 import vms.utils.VMSUtil;
-import vms.web.models.MessageStore;
-
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.Preparable;
 
 public class PopupAction implements Preparable {
+	@SuppressWarnings("unused")
 	private DaoFactory daoFactory;
 	private HttpServletRequest request;
 	private HttpSession session;
