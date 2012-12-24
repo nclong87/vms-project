@@ -146,6 +146,19 @@ public class VMSUtil {
 					data = DateUtils.formatDate(rs.getDate(i), DateUtils.SDF_DDMMYYYYHHMMSS3);
 				} else {
 					data = rs.getString(i)==null?"":rs.getString(i);
+					if(tagName.compareTo("trangthai")==0)
+					{
+						if(data.compareTo("0")==0)
+							data="Không hoạt động";
+						else if(data.compareTo("1")==0)
+							data="Đang bàn giao";
+						else if(data.compareTo("2")==0)
+							data="Đang cập nhật số lượng";
+						else if(data.compareTo("3")==0)
+							data="Đã bàn giao";
+						else if(data.compareTo("4")==0)
+							data="Đã có hợp đồng";
+					}
 				}
 				buffer.append("<cell hid=\""+tagName+"\" "+">"+cData(data)+"</cell>");
 			}

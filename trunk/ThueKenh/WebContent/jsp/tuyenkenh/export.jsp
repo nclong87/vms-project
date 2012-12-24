@@ -125,16 +125,13 @@ $(document).ready(function() {
 				if(fields!="")
 					fields+="&";
 				fields+="fields="+$(this).val();
-				if(fieldNames!="")
-					fieldNames+="&";
-				fieldNames+="fieldNames="+$(this).attr("name");
 				number++;
 			}
 		});
 		if(number==0)
 			alert("Vui lòng chọn các trường thông tin cần export");
 		else
-			location.href="${doexportURL}?"+fields+"&"+fieldNames;
+			location.href="${doexportURL}?"+fields;
 	}); */
 });
 
