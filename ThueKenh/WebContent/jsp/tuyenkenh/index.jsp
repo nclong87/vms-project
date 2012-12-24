@@ -6,7 +6,7 @@
 <s:url action="ajLoadTuyenkenh" namespace="/tuyenkenh" id="ajLoadTuyenkenh"/>
 <s:url action="form" namespace="/tuyenkenh" id="formURL"/>
 <s:url action="delete" namespace="/tuyenkenh" id="deleteURL"/>
-<s:url action="export" namespace="/tuyenkenh" id="exportURL"/>
+<s:url action="exportpage" namespace="/tuyenkenh" id="exportURL"/>
 <s:url action="detail" namespace="/tuyenkenh" id="detailURL"/>
 <s:url action="detailLoaiGiaoTiep" namespace="/danhmuc" id="detailGiaoTiepURL"/>
 <s:url action="detailduan" namespace="/danhmuc" id="detailDuAnURL"/>
@@ -278,25 +278,7 @@ $(document).ready(function(){
 		});	
 	});
 	$("#btExport").click(function(){
-		var dataString = '';
-		$('#dataTable input[type=checkbox]').each(function(){
-			if(this.checked==true) {
-				if(this.value!='on')
-				{
-					if(dataString!="")
-						dataString+="&";
-					dataString+='ids='+this.value;
-				}
-			}
-		});
-		if(dataString=='') {
-			alert('Bạn chưa chọn tuyến kênh export!');
-			return;
-		}
-		var button = this;
-		button.disabled = true;
-		location.href="${exportURL}?"+dataString;
-		button.disabled=false;
+		ShowWindow('Export tuyến kênh',500,500,"${exportURL}",false);
 	});
 	$("span.edit_icon").live("click",function(){
 		var id = $(this).attr("data-ref-id");
