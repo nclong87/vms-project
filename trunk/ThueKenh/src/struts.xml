@@ -457,7 +457,10 @@
 				<param name="inputName">inputStream</param>
 			</result>
 		</action>
-		<action name="export" class="tuyenkenhAction" method="export">
+		<action name="exportpage" class="tuyenkenhAction">
+			<result>/jsp/tuyenkenh/export.jsp</result>
+		</action>
+		<action name="doexport" class="tuyenkenhAction" method="doexport">
 			<result name="success" type="stream">
 				<param name="contentType">application/vnd.ms-excel</param>
 				<param name="inputName">excelStream</param>

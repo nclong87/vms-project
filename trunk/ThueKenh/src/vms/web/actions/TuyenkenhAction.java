@@ -58,6 +58,7 @@ public class TuyenkenhAction implements Preparable {
 	public TuyenkenhAction( DaoFactory factory) {
 		daoFactory = factory;
 	}
+	private String[] fields;
 	@SuppressWarnings("unchecked")
 	@Override
 	public void prepare() throws Exception {
@@ -212,12 +213,12 @@ public class TuyenkenhAction implements Preparable {
 		return Action.SUCCESS;
 	}
 	
-	public String export() throws Exception {
+	public String doexport() throws Exception {
 		if(account == null) {
 			session.setAttribute("URL", VMSUtil.getFullURL(request));
 			return "login_page";
 		}
-		if(ids != null && ids.length >0 ) {
+		if(fields != null && fields.length >0 ) {
 			File fileXmlData = new File(ServletActionContext.getServletContext().getRealPath("files/templates/TuyenKenhChuaBanGiao.xml")); 
 			String xmlData = FileUtils.readFileToString(fileXmlData, "UTF-8");
 			String pathXslTemplate = ServletActionContext.getServletContext().getRealPath("files/templates/tuyenkenhchuabangiao.xsl");
@@ -400,4 +401,13 @@ public class TuyenkenhAction implements Preparable {
 	public String getFilename() {
 		return filename;
 	}
+
+	public String[] getFields() {
+		return fields;
+	}
+
+	public void setFields(String[] fields) {
+		this.fields = fields;
+	}
+	
 }
