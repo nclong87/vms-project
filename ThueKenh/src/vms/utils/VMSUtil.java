@@ -134,6 +134,29 @@ public class VMSUtil {
     	
     }
     
+    public static String resultSetToXMLWithProperties(ResultSet rs) {
+    	StringBuffer buffer = new StringBuffer(512);
+    	try {
+			ResultSetMetaData resultSetMetaData = rs.getMetaData();
+			int n = resultSetMetaData.getColumnCount();
+			for(int i=1;i<=n;i++) {
+				String tagName = resultSetMetaData.getColumnName(i).toLowerCase();
+				String data = "";
+				if(resultSetMetaData.getColumnType(i) == java.sql.Types.DATE) {
+					data = DateUtils.formatDate(rs.getDate(i), DateUtils.SDF_DDMMYYYYHHMMSS3);
+				} else {
+					data = rs.getString(i)==null?"":rs.getString(i);
+				}
+				buffer.append("<"+tagName +" hid=\""+i+"\" "+">"+cData(data)+"</"+tagName+">");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	return buffer.toString();
+    	
+    }
+    
     public static boolean checkLDAP(String userName,String Password) {
 		//check LDAP
     	if(true) return true;
