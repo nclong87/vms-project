@@ -73,7 +73,7 @@ public class ReportAction implements Preparable {
 		String pathXslTemplate = ServletActionContext.getServletContext().getRealPath("files/templates/test2.xsl");
 		String transformedString = XMLUtil.transformStringXML_FileXSL(xmlData, pathXslTemplate);
 		//System.out.println("transformedString = "+transformedString);
-		FileUtils.writeStringToFile(new File("D:\\log.txt"), transformedString,"UTF-8");
+		//FileUtils.writeStringToFile(new File("D:\\log.txt"), transformedString,"UTF-8");
 		setExcelStream(transformedString);
 		filename = "Test_"+System.currentTimeMillis()+".xls";
 		return Action.SUCCESS;
@@ -92,7 +92,7 @@ public class ReportAction implements Preparable {
 		String pathXslTemplate = ServletActionContext.getServletContext().getRealPath("files/templates/tuyenkenhchuabangiao.xsl");
 		String transformedString = XMLUtil.transformStringXML_FileXSL(xmlData, pathXslTemplate);
 		//System.out.println("transformedString = "+transformedString);
-		FileUtils.writeStringToFile(new File("D:\\log.txt"), transformedString,"UTF-8");
+		//FileUtils.writeStringToFile(new File("D:\\log.txt"), transformedString,"UTF-8");
 		setExcelStream(transformedString);
 		filename = "TuyenKenhChuaBanGiao_"+System.currentTimeMillis()+".xls";
 		return Action.SUCCESS;
@@ -116,7 +116,7 @@ public class ReportAction implements Preparable {
 		String pathXslTemplate = ServletActionContext.getServletContext().getRealPath("files/templates/hopdongchuathanhtoan.xsl");
 		String transformedString = XMLUtil.transformStringXML_FileXSL(xmlData, pathXslTemplate);
 		//System.out.println("transformedString = "+transformedString);
-		FileUtils.writeStringToFile(new File("D:\\log.txt"), transformedString,"UTF-8");
+		//FileUtils.writeStringToFile(new File("D:\\log.txt"), transformedString,"UTF-8");
 		setExcelStream(transformedString);
 		filename = "HopDongChuaThanhToan_"+System.currentTimeMillis()+".xls";
 		return Action.SUCCESS;
@@ -135,7 +135,7 @@ public class ReportAction implements Preparable {
 		String pathXslTemplate = ServletActionContext.getServletContext().getRealPath("files/templates/tuyenkenhdabangiaonhungchuacohopdong.xsl");
 		String transformedString = XMLUtil.transformStringXML_FileXSL(xmlData, pathXslTemplate);
 		//System.out.println("transformedString = "+transformedString);
-		FileUtils.writeStringToFile(new File("D:\\log.txt"), transformedString,"UTF-8");
+		//FileUtils.writeStringToFile(new File("D:\\log.txt"), transformedString,"UTF-8");
 		setExcelStream(transformedString);
 		filename = "CacKenhDaBanGiaoNhungChuaCoHopDong_"+System.currentTimeMillis()+".xls";
 		return Action.SUCCESS;
@@ -152,7 +152,7 @@ public class ReportAction implements Preparable {
 		String pathXslTemplate = ServletActionContext.getServletContext().getRealPath("files/templates/tienthuekenhphatsinh.xsl");
 		String transformedString = XMLUtil.transformStringXML_FileXSL(xmlData, pathXslTemplate);
 		//System.out.println("transformedString = "+transformedString);
-		FileUtils.writeStringToFile(new File("D:\\log.txt"), transformedString,"UTF-8");
+		//FileUtils.writeStringToFile(new File("D:\\log.txt"), transformedString,"UTF-8");
 		setExcelStream(transformedString);
 		filename = "TienThueKenhPhatSinh_"+System.currentTimeMillis()+".xls";
 		return Action.SUCCESS;
@@ -171,7 +171,7 @@ public class ReportAction implements Preparable {
 		String pathXslTemplate = ServletActionContext.getServletContext().getRealPath("files/templates/doisoatcuoc.xsl");
 		String transformedString = XMLUtil.transformStringXML_FileXSL(xmlData, pathXslTemplate);
 		//System.out.println("transformedString = "+transformedString);
-		FileUtils.writeStringToFile(new File("D:\\log.txt"), transformedString,"UTF-8");
+		//FileUtils.writeStringToFile(new File("D:\\log.txt"), transformedString,"UTF-8");
 		setExcelStream(transformedString);
 		filename = "DOISOATCUOC_"+System.currentTimeMillis()+".xls";
 		return Action.SUCCESS;
@@ -201,7 +201,7 @@ public class ReportAction implements Preparable {
 		String pathXslTemplate = ServletActionContext.getServletContext().getRealPath("files/templates/giamtrumatlienlac.xsl");
 		String transformedString = XMLUtil.transformStringXML_FileXSL(xmlData, pathXslTemplate);
 		//System.out.println("transformedString = "+transformedString);
-		FileUtils.writeStringToFile(new File("D:\\log.txt"), transformedString,"UTF-8");
+		//FileUtils.writeStringToFile(new File("D:\\log.txt"), transformedString,"UTF-8");
 		setExcelStream(transformedString);
 		filename = "GiamTruMatLienLac_"+System.currentTimeMillis()+".xls";
 		return Action.SUCCESS;
@@ -229,7 +229,7 @@ public class ReportAction implements Preparable {
 		String pathXslTemplate = ServletActionContext.getServletContext().getRealPath("files/templates/sucotheothoigian.xsl");
 		String transformedString = XMLUtil.transformStringXML_FileXSL(xmlData, pathXslTemplate);
 		//System.out.println("transformedString = "+transformedString);
-		FileUtils.writeStringToFile(new File("D:\\log.txt"), transformedString,"UTF-8");
+		//FileUtils.writeStringToFile(new File("D:\\log.txt"), transformedString,"UTF-8");
 		setExcelStream(transformedString);
 		filename = "SuCoTheoThoiGian_"+System.currentTimeMillis()+".xls";
 		return Action.SUCCESS;

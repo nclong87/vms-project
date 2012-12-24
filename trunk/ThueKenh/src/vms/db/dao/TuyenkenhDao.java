@@ -198,7 +198,8 @@ public class TuyenkenhDao {
 	/*
 	 * Danh sach tuyen kenh da de xuat nhung chua ban giao
 	 */
-	private static final String SQL_EXPORT_TUYENKENH = "{ ? = call EXPORT_TUYENKENH(?,?) }";
+	//private static final String SQL_EXPORT_TUYENKENH = "select t.*,TENDUAN,TENDOITAC,LOAIGIAOTIEP,TENPHONGBAN from TUYENKENH t left join LOAIGIAOTIEP t0 on t.GIAOTIEP_ID = t0.ID left join DUAN t1 on t.DUAN_ID = t1.ID left join PHONGBAN t2 on t.PHONGBAN_ID = t2.ID left join DOITAC t3 on t.DOITAC_ID = t3.ID where t.DELETED = ?";
+	private static final String SQL_EXPORT_TUYENKENH = "{ ? = call FN_EXPORT_TUYENKENH(?) }";
 	public String exportTuyenkenh(String[] fields,String[] fieldNames) throws Exception {
 		Connection connection = jdbcTemplate.getDataSource().getConnection();
 		if(connection == null)
@@ -206,6 +207,7 @@ public class TuyenkenhDao {
 		System.out.println("***BEGIN exportTuyenkenh***");
 		CallableStatement stmt = connection.prepareCall(SQL_EXPORT_TUYENKENH);
 		stmt.registerOutParameter(1, OracleTypes.CURSOR);
+		stmt.setString(2, StringUtils.join(fields, ","));
 		stmt.execute();
 		ResultSet rs = (ResultSet) stmt.getObject(1);
 		StringBuffer stringBuffer = new StringBuffer(1024);
@@ -214,11 +216,11 @@ public class TuyenkenhDao {
 		for(int i=0;i<fields.length;i++)
 		{
 			if(fields[i].compareTo("soluong")==0)
-				stringBuffer.append("<cell id=\""+(i+1)+"\" type=\"Number\" style=\"Number\">"+fieldNames+"</cell>");
+				stringBuffer.append("<cell id=\""+fields[i]+"\" type=\"Number\" style=\"Number\">"+fieldNames[i]+"</cell>");
 			else if(fields[i].compareTo("dungluong")==0)
-				stringBuffer.append("<cell id=\""+(i+1)+"\" type=\"Number\" style=\"Double\">"+fieldNames+"</cell>");
+				stringBuffer.append("<cell id=\""+fields[i]+"\" type=\"Number\" style=\"Double\">"+fieldNames[i]+"</cell>");
 			else
-				stringBuffer.append("<cell id=\""+(i+1)+"\" type=\"String\" style=\"Text\">"+fieldNames+"</cell>");
+				stringBuffer.append("<cell id=\""+fields[i]+"\" type=\"String\" style=\"Text\">"+fieldNames[i]+"</cell>");
 		}
 		stringBuffer.append("</header>");
 		stringBuffer.append("<rows>");
