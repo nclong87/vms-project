@@ -69,7 +69,7 @@ xmlns:html="http://www.w3.org/TR/REC-html40"
  <Worksheet ss:Name="Sheet1">
   <Table>
 	<xsl:for-each select="/root/header/cell">
-		<Column ss:AutoFitWidth="1"/>
+		<Column ss:AutoFitWidth="1" ss:Width="71.25"/>
 	</xsl:for-each>
 	<Row ss:AutoFitHeight="0" ss:Height="19.5" ss:StyleID="s23">
 		<xsl:for-each select="/root/header/cell">

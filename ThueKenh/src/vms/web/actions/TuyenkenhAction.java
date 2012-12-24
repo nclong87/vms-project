@@ -219,8 +219,8 @@ public class TuyenkenhAction implements Preparable {
 			session.setAttribute("URL", VMSUtil.getFullURL(request));
 			return "login_page";
 		}
-		for(int i=0;i<fieldNames.length;i++)
-			System.out.println("fieldNames[i]:"+fields[i]);
+		/*for(int i=0;i<fieldNames.length;i++)
+			System.out.println("fieldNames[i]:"+fields[i]);*/
 		if(fields != null && fields.length >0 && fieldNames!=null && fieldNames.length>0) {
 			TuyenkenhDao tuyenkenhDao = new TuyenkenhDao(daoFactory);
 			String xmlData = tuyenkenhDao.exportTuyenkenh(fields, fieldNames);
