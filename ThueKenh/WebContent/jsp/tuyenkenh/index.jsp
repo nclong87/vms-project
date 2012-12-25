@@ -10,6 +10,7 @@
 <s:url action="detail" namespace="/tuyenkenh" id="detailURL"/>
 <s:url action="detailLoaiGiaoTiep" namespace="/danhmuc" id="detailGiaoTiepURL"/>
 <s:url action="detailduan" namespace="/danhmuc" id="detailDuAnURL"/>
+<s:url action="findPhuLucByHopDong" namespace="/ajax" id="findPhuLucByHopDongURL"/>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -149,6 +150,26 @@ margin-left: 10px;
 											<option value="1">Đang bàn giao</option>
 											<option value="2">Đang cập nhật số lượng</option>
 											<option value="3">Đã bàn giao</option>
+											<option value="4">Đang hoạt động</option>
+										</select>
+									</td>
+								</tr>
+								<tr>
+									<td align="right" >
+										Phụ lục :
+									</td>
+									<td align="left" colspan="3">
+										<select id="hopdong_id">
+											<option value="">---Chọn hợp đồng---</option>
+											<s:iterator value="hopDongDTOs">
+												<option disabled="true"/><s:property value="value.tendoitac" /></option>
+												<s:iterator value="value.hopdong">
+													<option style="padding-left:20px" value='<s:property value="id" />'><s:property value="sohopdong" /></option>
+												</s:iterator>
+											</s:iterator>
+										</select>
+										<select id="phuluc_id" name="phuluc_id" disabled="true">
+											<option value="">---Chọn phụ lục---</option>
 										</select>
 									</td>
 								</tr>
@@ -289,8 +310,30 @@ $(document).ready(function(){
 		if(this.checked == true) {
 			$("#hidden").show();
 		} else {
-			$("#hidden").hides();
+			$("#hidden").hide();
 		}
+	});
+	$("#hopdong_id").change(function(){
+		if(this.value == "") return;
+		var phuluc = $("#phuluc_id");
+		phuluc.html('<option value="">Loading...</option>');
+		phuluc[0].disabled = true;
+		$.ajax({
+			type: "GET",
+			cache: false,
+			url : "${findPhuLucByHopDongURL}?hopdong_id="+this.value,
+			success: function(response){
+				if(response.status == 0) {
+					alert("Có lỗi xảy ra, vui lòng thử lại sau!");
+				} else {
+					phuluc.html('<option value="">---Chọn phụ lục---</option>');
+					$.each(response.data, function(){
+						phuluc.append('<option value="'+this.id+'">'+this.tenphuluc+'</option>');
+					});
+					phuluc[0].disabled = false;
+				}
+			}
+		});	
 	});
 	oTable = $('#dataTable').dataTable({
 		"bJQueryUI": true,

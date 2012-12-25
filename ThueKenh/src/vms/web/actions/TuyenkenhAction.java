@@ -20,6 +20,7 @@ import org.json.simple.JSONValue;
 import vms.db.dao.DaoFactory;
 import vms.db.dao.DoiTacDAO;
 import vms.db.dao.DuAnDAO;
+import vms.db.dao.HopDongDAO;
 import vms.db.dao.LoaiGiaoTiepDao;
 import vms.db.dao.PhongBanDao;
 import vms.db.dao.TuyenkenhDao;
@@ -60,6 +61,7 @@ public class TuyenkenhAction implements Preparable {
 	}
 	private String[] fields;
 	private String[] fieldNames;
+	private Map<String,Map<String,Object>> hopDongDTOs;
 	@SuppressWarnings("unchecked")
 	@Override
 	public void prepare() throws Exception {
@@ -87,6 +89,8 @@ public class TuyenkenhAction implements Preparable {
 		doiTacDTOs = doiTacDAO.findAll();
 		PhongBanDao phongBanDao = new PhongBanDao(daoFactory);
 		phongBans = phongBanDao.getAll();
+		HopDongDAO dao = new HopDongDAO(daoFactory);
+		hopDongDTOs = dao.findAllHopDongByDoitac();
 		return Action.SUCCESS;
 	}
 	
@@ -227,7 +231,7 @@ public class TuyenkenhAction implements Preparable {
 			String pathXslTemplate = ServletActionContext.getServletContext().getRealPath("files/templates/export.xsl");
 			String transformedString = XMLUtil.transformStringXML_FileXSL(xmlData, pathXslTemplate);
 			//System.out.println("transformedString = "+transformedString);
-			FileUtils.writeStringToFile(new File("D:\\log2.txt"), "Nguyễn Chí Long "+fieldNames[0],"UTF-8");
+			//FileUtils.writeStringToFile(new File("D:\\log2.txt"), "Nguyễn Chí Long "+fieldNames[0],"UTF-8");
 			setExcelStream(transformedString);
 			filename = "DanhSachTuyenKenh_"+System.currentTimeMillis()+".xls";
 		}	
@@ -421,4 +425,12 @@ public class TuyenkenhAction implements Preparable {
 		this.fieldNames = fieldNames;
 	}
 
+	public Map<String, Map<String, Object>> getHopDongDTOs() {
+		return hopDongDTOs;
+	}
+
+	public void setHopDongDTOs(Map<String, Map<String, Object>> hopDongDTOs) {
+		this.hopDongDTOs = hopDongDTOs;
+	}
+	
 }

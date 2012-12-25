@@ -35,7 +35,7 @@ public class TuyenkenhDao {
     	return map;
     	
     } 
-	private static final String SQL_FN_FIND_TUYENKENH = "{ ? = call FN_FIND_TUYENKENH(?,?,?,?,?,?,?,?,?,?,?,?,?) }";
+	private static final String SQL_FN_FIND_TUYENKENH = "{ ? = call FN_FIND_TUYENKENH(?,?,?,?,?,?,?,?,?,?,?,?,?,?) }";
 	public List<Map<String,Object>> findTuyenkenh(int iDisplayStart,int iDisplayLength,Map<String, String> conditions) throws SQLException {
 		Connection connection = jdbcDatasource.getConnection();
 		CallableStatement stmt = connection.prepareCall(SQL_FN_FIND_TUYENKENH);
@@ -53,6 +53,7 @@ public class TuyenkenhDao {
 		stmt.setString(12, conditions.get("ngayhenbangiao"));
 		stmt.setString(13, conditions.get("trangthai"));
 		stmt.setString(14, conditions.get("flag"));
+		stmt.setString(15, conditions.get("phuluc_id"));
 		stmt.execute();
 		ResultSet rs = (ResultSet) stmt.getObject(1);
 		List<Map<String,Object>> result = new ArrayList<Map<String,Object>>();
