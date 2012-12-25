@@ -42,14 +42,16 @@ margin-left: 10px;
 										<input type="text" name="makenh" id="makenh"/>
 									</td>
 									<td align="right" width="150px">
-										Loại giao tiếp :
+										Trạng thái kênh :
 									</td>
 									<td align="left">
-										<select name="loaigiaotiep" id="loaigiaotiep">
-											<option value="">---Chọn---</option>
-											<s:iterator value="loaiGiaoTieps">
-												<option value='<s:property value="id" />'><s:property value="loaigiaotiep" /></option>									
-											</s:iterator>
+										<select name="trangthai" id="trangthai">
+											<option value="">-- Tất cả --</option>
+											<option value="0">Không hoạt động</option>
+											<option value="1">Đang bàn giao</option>
+											<option value="2">Đang cập nhật số lượng</option>
+											<option value="3" selected>Đã bàn giao</option>
+											<option value="4">Đang hoạt động</option>
 										</select>
 									</td>
 								</tr>
@@ -103,16 +105,15 @@ margin-left: 10px;
 											</s:iterator>
 										</select>
 									</td>
-									<td align="right">
-										Trạng thái kênh :
+									<td align="right" >
+										Loại giao tiếp :
 									</td>
 									<td align="left">
-										<select name="trangthai" id="trangthai">
-											<option value="">-- Tất cả --</option>
-											<option value="0">Không hoạt động</option>
-											<option value="1">Đang bàn giao</option>
-											<option value="2">Đang cập nhật số lượng</option>
-											<option value="3" selected>Đã bàn giao</option>
+										<select name="loaigiaotiep" id="loaigiaotiep">
+											<option value="">---Chọn---</option>
+											<s:iterator value="loaiGiaoTieps">
+												<option value='<s:property value="id" />'><s:property value="loaigiaotiep" /></option>									
+											</s:iterator>
 										</select>
 									</td>
 								</tr>

@@ -157,7 +157,7 @@ public class VMSUtil {
 						else if(data.compareTo("3")==0)
 							data="Đã bàn giao";
 						else if(data.compareTo("4")==0)
-							data="Đã có hợp đồng";
+							data="Đang hoạt động";
 					}
 				}
 				buffer.append("<cell hid=\""+tagName+"\" "+">"+cData(data)+"</cell>");

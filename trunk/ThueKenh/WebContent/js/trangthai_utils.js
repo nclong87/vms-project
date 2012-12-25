@@ -14,7 +14,7 @@ var trangthai_utils = {
 				return '<div class="mau_xanh_la" title="Đã bàn giao"></div>';
 				break;
 			case 4 :
-				return '<div class="mau_xanh_bien" title="Đã có hợp đồng"></div>';
+				return '<div class="mau_xanh_bien" title="Đang hoạt động"></div>';
 				break;
 			default:
 				return '';
@@ -36,7 +36,7 @@ var trangthai_utils = {
 				return 'Đã bàn giao';
 				break;
 			case 4 :
-				return 'Đã có hợp đồng';
+				return 'Đang hoạt động';
 				break;
 			default:
 				return '';

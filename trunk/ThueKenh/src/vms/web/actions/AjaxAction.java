@@ -340,6 +340,23 @@ public class AjaxAction implements Preparable {
 		return Action.SUCCESS;
 	}
 	
+	public String findPhuLucByHopDong() {
+		jsonData =  new LinkedHashMap<String, Object>();
+		try {
+			String hopdong_id = request.getParameter("hopdong_id");
+			PhuLucDAO dao = new PhuLucDAO(daoFactory);
+			Map<String,String> conditions = new LinkedHashMap<String, String>();
+			conditions.put("hopdong_id", hopdong_id);
+			List<Map<String, Object>> result = dao.search(0, 1000, conditions);
+			jsonData.put("status", 1);
+			jsonData.put("data", result);
+		} catch (Exception e) {
+			jsonData.put("status", 0);
+			jsonData.put("data", e.getMessage());
+		}
+		return Action.SUCCESS;
+	}
+	
 	/* Getter and Setter */
 	
 	public InputStream getInputStream() {
