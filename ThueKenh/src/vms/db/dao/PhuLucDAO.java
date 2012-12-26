@@ -81,7 +81,7 @@ public class PhuLucDAO {
 		});
 	}
 	
-	private static final String SQL_SAVE_PHULUC = "{ ? = call SAVE_PHULUC(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) }";
+	private static final String SQL_SAVE_PHULUC = "{ ? = call SAVE_PHULUC(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) }";
 	public String save(PhuLucDTO dto) throws Exception {
 		Connection connection = jdbcDatasource.getConnection();
 		CallableStatement stmt = connection.prepareCall(SQL_SAVE_PHULUC);
@@ -102,6 +102,8 @@ public class PhuLucDAO {
 		stmt.setString(15, String.valueOf(dto.getGiatritruocthue()));
 		stmt.setString(16, String.valueOf(dto.getGiatrisauthue()));
 		stmt.setString(17, dto.getSoluongkenh());
+		stmt.setString(18, String.valueOf(dto.getThang()));
+		stmt.setString(19, String.valueOf(dto.getNam()));
 		stmt.execute();
 		String rs = stmt.getString(1); 
 		stmt.close();

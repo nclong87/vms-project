@@ -122,6 +122,9 @@ $(document).ready(function() {
 					} else {
 						message("Lưu thành công!",1);
 						parent.reload = true;
+						if($("#id").val()!="") {
+						   parent.isUpdate = true;
+						}
 					}
 				},
 				error:function(response){
