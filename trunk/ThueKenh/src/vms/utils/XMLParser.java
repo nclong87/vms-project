@@ -28,12 +28,12 @@ public class XMLParser implements ContentHandler{
 
     public void startDocument() throws SAXException {
         //Bat dau tai lieu xml
-        System.out.print("Bat dau");
+        //System.out.print("Bat dau");
     }
 
     public void endDocument() throws SAXException {
         //Ket thuc tai lieu xml
-        System.out.print("Ket thuc");
+        //System.out.print("Ket thuc");
         //throw new SAXException();
     }
 

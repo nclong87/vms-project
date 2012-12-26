@@ -125,6 +125,35 @@ function byId(id) { //Viet tat cua ham document.getElementById
 					<input type="text" name="phuLucDTO.ngayhieuluc" id="ngayhieuluc" class="date">
 				</td>
 			</tr>
+			<tr>
+				<td align="right" valign="center">
+					Đã thanh toán đến:
+				</td>
+				<td align="left">
+					<select name="phuLucDTO.thang" id="thang" style="width:104px">
+						<option value="">--Chọn tháng--</option>
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+						<option value="6">6</option>
+						<option value="7">7</option>
+						<option value="8">8</option>
+						<option value="9">9</option>
+						<option value="10">10</option>
+						<option value="11">11</option>
+						<option value="12">12</option> 
+					</select>
+					<select name="phuLucDTO.nam" id="nam" style="width:95px">
+						<option value="">--Chọn năm--</option>
+					</select>
+				</td>
+				<td align="right">
+				</td>
+				<td align="left">
+				</td>
+			</tr>
 		</table>
 		</form>
 		<div style="width: 100%; margin-top: 10px;">
@@ -212,6 +241,13 @@ $(document).ready(function() {
 			}
 		});
 	}); */
+	// combobox nam
+	var currentTime = new Date();
+	var year = currentTime.getFullYear();
+	for(var i=year-10;i<year+10;i++)
+	{
+		$("#nam").append("<option value='"+i+"'>"+i+"</option>");
+	}
 	$("#loaiphuluc").change(function(){
 		if(this.value == "1") { //phu luc doc lap
 			$("#fieldsetPhuLucThayThe").hide();
@@ -410,6 +446,9 @@ $(document).ready(function() {
 					} else {
 						message("Lưu thành công!",1);
 						parent.reload = true;
+						if($("#id").val()!="") {
+							parent.isUpdate = true;
+						}
 						return;
 					}
 					message("Lưu không thành công, vui lòng thử lại.",0);
