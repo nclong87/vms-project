@@ -16,8 +16,12 @@ import oracle.jdbc.OracleTypes;
 import oracle.sql.ARRAY;
 import oracle.sql.ArrayDescriptor;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+
+import vms.db.dto.ChiTietPhuLucDTO;
+import vms.db.dto.DoiSoatCuocDTO;
 import vms.db.dto.HopDongDetailDTO;
 import vms.utils.DateUtils;
 import vms.utils.VMSUtil;
@@ -63,8 +67,8 @@ public class DoiSoatCuocDAO {
 	}
 	
 	public void updateDoiSoatCuoc(String tendoisoatcuoc,String doisoatcuoc_id) throws Exception {
-		int nDuplicateName = this.jdbcTemplate.queryForInt("select count(*) as NUM from DOISOATCUOC where DELETED = 0 and TENDOISOATCUOC = ?", new Object[] {tendoisoatcuoc});
-		if(nDuplicateName > 0) throw new Exception("DUPLICATE");
+		//int nDuplicateName = this.jdbcTemplate.queryForInt("select count(*) as NUM from DOISOATCUOC where DELETED = 0 and TENDOISOATCUOC = ?", new Object[] {tendoisoatcuoc});
+		//if(nDuplicateName > 0) throw new Exception("DUPLICATE");
 		String query = "update DOISOATCUOC set TENDOISOATCUOC = ?, DELETED = 0 where ID = ?";
 		this.jdbcTemplate.update(query,new Object[] {tendoisoatcuoc,doisoatcuoc_id});
 	}
@@ -146,6 +150,7 @@ public class DoiSoatCuocDAO {
 			@Override
 			public Object mapRow(ResultSet rs, int arg1) throws SQLException {
 				Map<String,Object> map = VMSUtil.resultSetToMap(rs);
+				//map.put("tendoisoatcuoc", rs.getString("tendoisoatcuoc"));
 				map.put("tungay",DateUtils.formatDate(rs.getDate("TUNGAY"), DateUtils.SDF_DDMMYYYY));
 				map.put("denngay",DateUtils.formatDate(rs.getDate("DENNGAY"), DateUtils.SDF_DDMMYYYY));
 				map.put("matlienlactu",DateUtils.formatDate(rs.getDate("MATLIENLACTU"), DateUtils.SDF_MMYYYY));
@@ -153,5 +158,32 @@ public class DoiSoatCuocDAO {
 				return map;
 			}
 		});
+	}
+	
+	public void deleteByIds(String[] ids) {
+		String str = StringUtils.join(ids, ",");
+		this.jdbcTemplate.update("update DOISOATCUOC set DELETED = 1 where ID in ("+str+")");
+	}
+	
+	public DoiSoatCuocDTO findById2(String id) {
+		System.out.println("Begin findbyId - Id:"+id);
+		return (DoiSoatCuocDTO) this.jdbcTemplate.queryForObject("select * from DOISOATCUOC where ID = ? and DELETED = 0" ,new Object[] {id}, new RowMapper() {
+			@Override
+			public Object mapRow(ResultSet rs, int arg1) throws SQLException {
+				return DoiSoatCuocDTO.mapObject(rs);
+			}
+		});
+	}
+	
+	@SuppressWarnings("unchecked")
+	public DoiSoatCuocDTO findByKey(String tenbangdoisoatcuoc) {
+		List<DoiSoatCuocDTO> list =  this.jdbcTemplate.query("select * from DOISOATCUOC where DELETED = 0 and TENDOISOATCUOC = ?" ,new Object[] {tenbangdoisoatcuoc}, new RowMapper() {
+			@Override
+			public Object mapRow(ResultSet rs, int arg1) throws SQLException {
+				return DoiSoatCuocDTO.mapObject(rs);
+			}
+		});
+		if(list.isEmpty()) return null;
+		return list.get(0);
 	}
 }
