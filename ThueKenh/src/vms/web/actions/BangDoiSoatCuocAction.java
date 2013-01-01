@@ -14,9 +14,15 @@ import javax.servlet.http.HttpSession;
 import org.apache.struts2.ServletActionContext;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.json.simple.JSONValue;
+
+import vms.db.dao.ChiTietPhuLucDAO;
 import vms.db.dao.DaoFactory;
 import vms.db.dao.DoiSoatCuocDAO;
 import vms.db.dao.DoiTacDAO;
+import vms.db.dao.ThanhToanDAO;
+import vms.db.dto.ChiTietPhuLucDTO;
+import vms.db.dto.DoiSoatCuocDTO;
 import vms.utils.Constances;
 import vms.utils.DateUtils;
 import vms.utils.NumberUtil;
@@ -41,7 +47,14 @@ public class BangDoiSoatCuocAction implements Preparable {
 	private List<Map<String,Object>> doiTacs;
 	private LinkedHashMap<String, Object> jsonData;
 	private Map<String,Object> json;
+	private String doisoatcuoc_info;
 	
+	public String getDoisoatcuoc_info() {
+		return doisoatcuoc_info;
+	}
+	public void setDoisoatcuoc_info(String doisoatcuoc_info) {
+		this.doisoatcuoc_info = doisoatcuoc_info;
+	}
 	
 	public Map<String, Object> getJson() {
 		return json;
@@ -158,7 +171,19 @@ public class BangDoiSoatCuocAction implements Preparable {
 		json = new LinkedHashMap<String, Object>();
 		json.put("thanhtien", request.getParameter("thanhtien"));
 		json.put("giamtrumll", request.getParameter("giamtrumll"));
-		json.put("id", request.getParameter("id"));
+		json.put("id", id);
+
+		String tendoisoatcuoc="";
+		if(!id.isEmpty())
+		{
+			System.out.println("id:"+id);
+			DoiSoatCuocDAO dscDao=new DoiSoatCuocDAO(daoFactory);
+			Map<String,Object> dscMap=dscDao.findById(id);
+			if(dscMap!=null && !dscMap.isEmpty())
+				tendoisoatcuoc=dscMap.get("tendoisoatcuoc").toString() ;
+		}
+		System.out.println("tendoisoatcuoc: "+tendoisoatcuoc);
+		json.put("tendoisoatcuoc", tendoisoatcuoc);
 		return Action.SUCCESS;
 	}
 	
@@ -213,10 +238,27 @@ public class BangDoiSoatCuocAction implements Preparable {
 				session.setAttribute("URL", VMSUtil.getFullURL(request));
 				throw new Exception("END_SESSION");
 			}
+
 			String tenbangdoisoatcuoc=request.getParameter("tenbangdoisoatcuoc");
+			
 			String check=request.getParameter("check");
 			String id=request.getParameter("id");
 			DoiSoatCuocDAO doisoatcuocDao=new DoiSoatCuocDAO(daoFactory);
+			DoiSoatCuocDTO temp=doisoatcuocDao.findByKey(tenbangdoisoatcuoc);
+			if(temp != null) {
+				// edit
+				if(!id.isEmpty())
+				{
+					System.out.println("temp.getId():"+temp.getId());
+					System.out.println("bangdoisoatcuoc.getId():"+id);
+					if(temp.getId().compareTo(id)!=0)
+						throw new Exception("DUPLICATE");
+				}
+				else // add
+				{
+					throw new Exception("DUPLICATE");
+				}
+			}
 			if(check.compareTo("1")==0) // luu
 			{
 				doisoatcuocDao.updateDoiSoatCuoc(tenbangdoisoatcuoc, id);
@@ -267,6 +309,48 @@ public class BangDoiSoatCuocAction implements Preparable {
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
+		}
+		return Action.SUCCESS;
+	}
+	
+	public String delete() {
+		try {
+			if(account == null) {
+				session.setAttribute("URL", VMSUtil.getFullURL(request));
+				throw new Exception("END_SESSION");
+			}
+			if(ids != null && ids.length >0 ) {
+				DoiSoatCuocDAO dscDao = new DoiSoatCuocDAO(daoFactory);
+				dscDao.deleteByIds(ids);
+			}
+			setInputStream("OK");
+		} catch (Exception e) {
+			e.printStackTrace();
+			setInputStream(e.getMessage());
+		}
+		return Action.SUCCESS;
+	}
+	
+	//load form
+	public String index() {
+		try {
+			if(account == null) {
+				session.setAttribute("URL", VMSUtil.getFullURL(request));
+				return "login_page";
+			}
+			DoiTacDAO doitacDao = new DoiTacDAO(daoFactory);
+			doiTacs = doitacDao.findAll();
+			if(id != null && id.isEmpty()==false) {
+				System.out.println("id=" + id);
+				DoiSoatCuocDAO dscDao=new DoiSoatCuocDAO(daoFactory);
+				Map<String, String> conditions=new LinkedHashMap<String, String>();
+				conditions.put("id", id);
+				List<Map<String,Object>> doisoatcuoc=dscDao.search(0, 1000, conditions);
+				doisoatcuoc_info=JSONValue.toJSONString(doisoatcuoc);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Action.ERROR;
 		}
 		return Action.SUCCESS;
 	}

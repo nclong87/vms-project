@@ -55,7 +55,7 @@ function byId(id) { //Viet tat cua ham document.getElementById
 	.hopdonginfo
 	{
 		position: absolute;
-    	left: 200px;
+    	left: 280px;
     	top: 3px;
 	}
 	.hopdonginfo td

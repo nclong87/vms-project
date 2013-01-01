@@ -9,15 +9,35 @@
 <s:url action="form" namespace="/bangdoisoatcuoc" var="formURL"/>
 <s:url action="detail" namespace="/phuluc" id="detailPhuLucURL"/>
 <s:url action="detail" namespace="/sucokenh" id="detailSuCoURL"/>
+<s:url action="loadformbydoisoatcuoc" namespace="/thanhtoan" id="loadformbydoisoatcuocURL"/>
+<s:url action="findphulucByhopdonganddoisoatcuoc" namespace="/phuluc" id="findphulucByhopdonganddoisoatcuocURL" />
+<s:url action="findByDoiSoatCuoc" namespace="/sucokenh" id="findsucoByDoiSoatCuocURL" />
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<%
+	String contextPath = request.getContextPath();
+%>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
+	<link rel="stylesheet" href="<%= contextPath %>/css/addedit.css" type="text/css" media="screen" />
+	<link rel="stylesheet" href="<%= contextPath %>/css/cupertino/jquery-ui.css" type="text/css" media="screen" />
+	<link rel="stylesheet" type="text/css" href="<%= contextPath %>/css/demo_table_jui.css" />
+	<script type='text/javascript' src='<%= contextPath %>/js/jquery.js'></script>
+	<script type='text/javascript' src='<%= contextPath %>/js/jquery-ui.js'></script>
+	<script type="text/javascript" src="<%=contextPath%>/js/jquery.validate.js"></script>
+	<script type="text/javascript" src="<%=contextPath%>/js/mylibs/my.validate.js"></script>
+	<script type='text/javascript' src='<%= contextPath %>/js/jquery.formatCurrency.min.js'></script>
+	<script type='text/javascript' src='<%= contextPath %>/js/utils.js'></script>
+	<script type="text/javascript" src="<%= contextPath %>/js/jquery.dataTables.min.js"></script>
+	<script>
+		var contextPath = '<%=contextPath%>';
+		var baseUrl = contextPath;
+		function byId(id) { //Viet tat cua ham document.getElementById
+			return document.getElementById(id);
+		}
+	</script>
 	<script>
 	var LOGIN_PATH = "${loginURL}";
 	</script>
-	<%@include file="/include/header.jsp"%>
-	<script type="text/javascript" src="<%=contextPath%>/js/jquery.validate.js"></script>
-	<script type="text/javascript" src="<%=contextPath%>/js/mylibs/my.validate.js"></script>
 	<script type="text/javascript" src="<%=contextPath%>/js/jquery-ui/jquery.ui.datepicker-vi.js"></script>
 	<script type="text/javascript" src="<%=contextPath%>/js/jquery-ui/jquery.ui.datetimepicker.js"></script>
 	<script type="text/javascript" src="<%=contextPath%>/js/templates.js"></script>
@@ -37,7 +57,7 @@
 		.hopdonginfo
 		{
 			position: absolute;
-	    	left: 200px;
+	    	left: 280px;
 	    	top: 3px;
 		}
 		.hopdonginfo td
@@ -78,21 +98,9 @@ margin:0;
 </head>
 
 <body>
-	<%@include file="/include/top.jsp"%>
-		<div id="bg_wrapper">
-			<div style="width: 100%; margin-bottom: 10px;" class="ovf">
-				<div class="s10">
-					<div class="fl">
-						<div class="fl tsl" id="t_1">
-						</div>
-						<div class="fl clg b tsc d" id="t_2">
-							<div class="p3t">Xuất bảng đối soát cước</div>
-						</div>
-						<div class="fl tsr" id="t_3">
-						</div>
-					</div>
-					<div class="lineU"></div>
-				</div>
+	<div id="dialog" title="Welcome to VMS" style="display:none"><center>Loading...</center></div>
+	<input type="text" style="display:none" id="id" />
+			<div style="width: 100%; margin-bottom: 10px;">	
 				<form id="form" onsubmit="return false;">
 					<div id="divSearch" class="ovf" style="padding-right: 0px;">
 						<div class="kc4 p5l p15t bgw">
@@ -201,11 +209,11 @@ margin:0;
 					</fieldset>
 				</div>
 			</div>
-		</div>
 		<div style="clear:both"></div>
 		<div style="margin-top: 5px; margin-bottom: 5px; text-align: right;">
 			<input type="button" class="button" value="Lưu" id="btSubmit"></input>
 			<input type="button" class="button" value="Làm lại" id="btReset"></input>
+			<input class="button" type="button" id="btThoat" onclick="window.parent.CloseWindow();" value="Thoát"/>
 		</div>
 		<!--end bg_wrapper-->
 	</div>
@@ -287,7 +295,7 @@ margin:0;
     		,'<center><input type="checkbox" checked="true"/><input id="phuluc_id" style="display:none" value="'+data.id+'"/></center>'
 		]);
 	}
-	function addhopdong(container,data,i)
+	function addhopdong(container,data)
 	{
 		var loaihopdong="Có thời hạn";
 		if(data.loaihopdong==1)
@@ -399,8 +407,149 @@ margin:0;
 	{
 		$("#btSubmit").disabled=false;
 	}
-	
+	function LoadHopDongEdit(data,doisoatcuoc_id)
+	{
+		$("#tab").html("");
+		var div=document.createElement("div");
+		$(div).attr("id","accordion");
+		$(data).each(function(){
+			addhopdong($(div),this);
+		});
+		
+		$("#tab").append(div);
+		$(div).accordion();
+		// kiem tra load su co
+		var i=0;
+		$(".listphuluc").each(function(){
+			i++;
+		});
+		if(i==0)
+		{
+			$("#list_suco").hide();
+		}
+		else
+			$("#list_suco").show();
+		
+		$(".del").click(function(){
+			var id=$(this).attr("id");
+			$(".div_"+id).remove();
+			
+			// kiem tra load su co
+			var i=0;
+			$(".listphuluc").each(function(){
+				i++;
+			});
+			if(i==0)
+			{
+				$("#list_suco").hide();
+			}
+			else
+				$("#list_suco").show();
+		});
+		$(data).each(function(){
+			var oPLtable=$('#datatable_'+this.id).dataTable({
+				"bJQueryUI": true,
+				"bProcessing": false,
+				"bScrollCollapse": true,
+				"bAutoWidth": true,
+				"bSort":false,
+				"bFilter": false,"bInfo": false,
+				"bPaginate" : false,
+				"sAjaxSource": "${findphulucByhopdonganddoisoatcuocURL}?hopdong_id="+this.id+"&doisoatcuoc_id="+doisoatcuoc_id,
+				"aoColumns": null,
+				"fnServerData": function ( sSource, aoData, fnCallback ) {
+					$.ajax( {
+						"dataType": 'json', 
+						"type": "POST", 
+						"url": sSource, 
+						"data": aoData, 
+						"success": function(response){
+							if(response.result == "ERROR") {
+								alert("Lỗi kết nối server, vui lòng thử lại.");
+							} else {
+								if(response.aaData.length != 0) {
+									var i = 0;
+									$.each(response.aaData,function(){
+										addphuluc(oPLtable,i+1,this);
+										i++;
+									});
+									$(".currency,#giatritt").formatCurrency({ 
+										region : 'vn',
+										roundToDecimalPlace: 0, 
+										eventOnDecimalsEntered: true 
+									});
+								} else {
+									oPLtable.fnAddData([0,'','','','','','','','','','']);
+									oPLtable.fnDeleteRow(0);
+								}
+							}
+						}
+					} );
+				}
+			});
+		});
+		$.each(data,function(){
+			var id=this.id;
+			$('#datatable_'+this.id+' .checkall').click(function() {
+				selectAllPhuLuc('datatable_'+id,this);
+			});
+		});
+	}
+	function LoadInfo(dscdata)
+	{
+		oTable.fnClearTable();
+		$("#doitac_id").val(dscdata.doitac_id);
+		tungay=dscdata.tungay.replace(" 00:00:00.0","");
+		tungay=tungay.split("-");
+		if(tungay.length>=3)
+		{
+			$("#thang").val(tungay[1]);
+			//$("#thang").attr("disabled","disabled");
+			$("#nam").val(tungay[0]);
+			//$("#nam").attr("disabled","disabled");
+		}
+		$("#id").val(dscdata.id);
+		$.ajax( {
+			"dataType": 'json', 
+			"type": "POST", 
+			"url": "${loadformbydoisoatcuocURL}", 
+			"data": "doisoatcuoc_id="+dscdata.id, 
+			"success": function(response){
+				if(response.result == "ERROR") {
+					alert("Lỗi kết nối server, vui lòng thử lại.");
+				} else {
+					if(response.phuluc_hopdongs.length!=0)
+					{
+						var phuluc_hopdong=$.parseJSON(response.phuluc_hopdongs);
+						LoadHopDongEdit(phuluc_hopdong,dscdata.id);
+					}
+					// load su co
+					if(response.sucos.length != 0) {
+						var i = 0;
+						$.each(response.sucos,function(){
+							addRow(i+1,this);
+							i++;
+						});
+					} else {
+						oTable.fnAddData([0,'','','','','','','','','','','','','','']);
+						oTable.fnDeleteRow(0);
+					}
+				}
+			}
+		});
+	}
 	$(document).ready(function() {
+		
+		oTable = $('#dataTable').dataTable({
+			"bJQueryUI": true,
+			"bProcessing": false,
+			"bScrollCollapse": true,
+			"bAutoWidth": true,
+			"bSort":false,
+			"bFilter": false,"bInfo": false,
+			"bPaginate" : false
+		});	
+		
 		// combobox nam,thangs
 		var currentTime = new Date();
 		var year = currentTime.getFullYear();
@@ -482,71 +631,11 @@ margin:0;
 		});
 		// load edit
 		var thanhtoan_id = '';
-		var form_data = '<s:property value="form_data" escape="false"/>';
-		var phuluchopdongs_data='<s:property value="phuluchopdongs_data" escape="false"/>';
-		
-		if(form_data != '') {
-			var form_data = $.parseJSON(form_data);
-			for( key in form_data) {
-				$("#form #"+key).val(form_data[key]);
-			}
-			if(form_data["filename"]!=null)
-			{
-				upload_utils.createFileLabel({
-					filename : form_data["filename"],
-					filepath : form_data["filepath"],
-					filesize : form_data["filesize"]
-				});
-			}
-			thanhtoan_id = form_data['id'];
-		} 
-		if(thanhtoan_id == '') {
-			oTable = $('#dataTable').dataTable({
-				"bJQueryUI": true,
-				"bProcessing": false,
-				"bScrollCollapse": true,
-				"bAutoWidth": true,
-				"bSort":false,
-				"bFilter": false,"bInfo": false,
-				"bPaginate" : false
-			});
-		} else {
-			oTable = $('#dataTable').dataTable({
-				"bJQueryUI": true,
-				"bProcessing": false,
-				"bScrollCollapse": true,
-				"bAutoWidth": true,
-				"bSort":false,
-				"bFilter": false,"bInfo": false,
-				"bPaginate" : false,
-				"sAjaxSource": "${findsucoBythanhtoanURL}?id="+thanhtoan_id,
-				"aoColumns": null,
-				"fnServerData": function ( sSource, aoData, fnCallback ) {
-					$.ajax( {
-						"dataType": 'json', 
-						"type": "POST", 
-						"url": sSource, 
-						"data": aoData, 
-						"success": function(response){
-							if(response.result == "ERROR") {
-								alert("Lỗi kết nối server, vui lòng thử lại.");
-							} else {
-								if(response.aaData.length != 0) {
-									var i = 0;
-									$.each(response.aaData,function(){
-										addRow(i+1,this);
-										i++;
-									});
-									rowChanges(1);
-								} else {
-									oTable.fnAddData([0,'','','','','','','','','','','','','','']);
-									oTable.fnDeleteRow(0);
-								}
-							}
-						}
-					} );
-				}
-			});
+		var doisoatcuoc_info='<s:property value="doisoatcuoc_info" escape="false"/>';
+		if(doisoatcuoc_info!='')
+		{
+			dscData=$.parseJSON(doisoatcuoc_info);
+			LoadInfo(dscData[0]);
 		}
 		$("#btSubmit").click(function() {
 			var button=this;
@@ -609,7 +698,14 @@ margin:0;
 								alert(response.data);
 							} else if(response.status == "OK") {
 								button.disabled = false;
-								showDialogUrl("${formURL}?thanhtien="+response.data.tongconthanhtoan+"&giamtrumll="+response.data.giamtrumll+"&id="+response.data.id,"Lưu bảng đối soát cước",450);
+								parent.reload = true;
+								if($("#id").val()!="") {
+								   parent.isUpdate = true;
+								}
+								var strId=response.data.id;
+								if($("#id").val()!="")
+									strId=$("#id").val();
+								showDialogUrl("${formURL}?thanhtien="+response.data.tongconthanhtoan+"&giamtrumll="+response.data.giamtrumll+"&id="+strId,"Lưu bảng đối soát cước",450);
 							}
 						},
 						error : function(response) {
