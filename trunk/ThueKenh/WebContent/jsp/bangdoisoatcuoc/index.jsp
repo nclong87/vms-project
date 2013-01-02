@@ -683,6 +683,7 @@ margin:0;
 					$("#dataTable tr input[type='text']").each(function(){
 						dataString+="&suco_ids="+$(this).val();
 					});
+					dataString+="&id="+$("#id").val();
 					$.ajax({
 						url : "${doSaveURL}",
 						type : 'POST',
