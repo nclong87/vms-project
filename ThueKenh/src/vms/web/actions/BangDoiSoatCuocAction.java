@@ -217,7 +217,7 @@ public class BangDoiSoatCuocAction implements Preparable {
 			DoiSoatCuocDAO reportdao=new DoiSoatCuocDAO(daoFactory);
 			for(int i=0;i<phuluc_ids.length;i++)
 				System.out.println("phuluc_ids[i]:"+phuluc_ids[i]);
-			Map<String, Object> map = reportdao.saveDoiSoatCuoc(doitac_id, sqlTuNgay, sqlDenNgay, phuluc_ids, suco_ids,sqlmatlienlactu,sqlmatlienlacden);
+			Map<String, Object> map = reportdao.saveDoiSoatCuoc(id,doitac_id, sqlTuNgay, sqlDenNgay, phuluc_ids, suco_ids,sqlmatlienlactu,sqlmatlienlacden);
 			System.out.println("Doi soat cuoc ID =" +map.get("id"));
 			System.out.println("Tong tien thanh toan = "+map.get("thanhtien"));
 			System.out.println("Tong tien giam tru mat lien lac =" +map.get("giamtrumll"));
