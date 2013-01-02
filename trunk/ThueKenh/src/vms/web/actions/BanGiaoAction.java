@@ -19,10 +19,13 @@ import org.json.simple.JSONValue;
 import vms.db.dao.BanGiaoDAO;
 import vms.db.dao.DaoFactory;
 import vms.db.dao.TuyenKenhDeXuatDAO;
+import vms.db.dao.TuyenkenhDao;
 import vms.db.dto.BanGiaoDTO;
 import vms.utils.Constances;
 import vms.utils.DateUtils;
 import vms.utils.VMSUtil;
+import vms.utils.XMLUtil;
+
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.Preparable;
 
@@ -34,6 +37,8 @@ public class BanGiaoAction implements Preparable {
 	private BanGiaoDTO banGiaoDTO;
 	
 	private InputStream inputStream;
+	private InputStream excelStream;
+	private String filename = "";
 	private LinkedHashMap<String, Object> jsonData;
 	private String form_data;
 	
@@ -48,6 +53,9 @@ public class BanGiaoAction implements Preparable {
 		daoFactory = factory;
 		banGiaoDAO = new BanGiaoDAO(factory);
 	}
+	private String[] fields;
+	private String[] fieldNames;
+	
 	@SuppressWarnings("unchecked")
 	@Override
 	public void prepare() throws Exception {
@@ -177,6 +185,26 @@ public class BanGiaoAction implements Preparable {
 		return Action.SUCCESS;
 	}
 	
+	public String doexport() throws Exception {
+		if(account == null) {
+			session.setAttribute("URL", VMSUtil.getFullURL(request));
+			return "login_page";
+		}
+		/*for(int i=0;i<fieldNames.length;i++)
+			System.out.println("fieldNames[i]:"+fields[i]);*/
+		if(fields != null && fields.length >0 && fieldNames!=null && fieldNames.length>0) {
+			TuyenkenhDao tuyenkenhDao = new TuyenkenhDao(daoFactory);
+			String xmlData = tuyenkenhDao.exportTuyenkenh(fields, fieldNames);
+			String pathXslTemplate = ServletActionContext.getServletContext().getRealPath("files/templates/export.xsl");
+			String transformedString = XMLUtil.transformStringXML_FileXSL(xmlData, pathXslTemplate);
+			//System.out.println("transformedString = "+transformedString);
+			//FileUtils.writeStringToFile(new File("D:\\log2.txt"), "Nguyễn Chí Long "+fieldNames[0],"UTF-8");
+			setExcelStream(transformedString);
+			filename = "DanhSachTuyenKenh_"+System.currentTimeMillis()+".xls";
+		}	
+		return Action.SUCCESS;
+	}
+	
 	/* Getter and Setter */
 	public InputStream getInputStream() {
 		
@@ -234,6 +262,41 @@ public class BanGiaoAction implements Preparable {
 	}
 	public void setDetail(Map<String, Object> detail) {
 		this.detail = detail;
+	}
+
+	public InputStream getExcelStream() {
+		return excelStream;
+	}
+
+	public void setExcelStream(String str) {
+		try {
+			this.excelStream =  new ByteArrayInputStream( str.getBytes("UTF-8") );
+		} catch (UnsupportedEncodingException e) {			
+			System.out.println("ERROR :" + e.getMessage());
+		}
+	}
+	public String getFilename() {
+		return filename;
+	}
+
+	public void setFilename(String filename) {
+		this.filename = filename;
+	}
+
+	public String[] getFields() {
+		return fields;
+	}
+
+	public void setFields(String[] fields) {
+		this.fields = fields;
+	}
+
+	public String[] getFieldNames() {
+		return fieldNames;
+	}
+
+	public void setFieldNames(String[] fieldNames) {
+		this.fieldNames = fieldNames;
 	}
 	
 }
