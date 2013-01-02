@@ -626,8 +626,16 @@
 		<action name="detail" class="dexuatAction" method="detail">
 			<result>/jsp/dexuat/detail.jsp</result>
 		</action>
-		<action name="exportpage" class="tuyenkenhAction">
+		<action name="exportpage" class="dexuatAction">
 			<result>/jsp/dexuat/export.jsp</result>
+		</action>
+		<action name="doexport" class="dexuatAction" method="doexport">
+			<result name="success" type="stream">
+				<param name="contentType">application/vnd.ms-excel</param>
+				<param name="inputName">excelStream</param>
+				<param name="contentDisposition">attachment; filename="${filename}"</param>
+				<param name="bufferSize">1024</param>
+			 </result>
 		</action>
 	</package>
 	<package name="fileupload" extends="default" namespace="/fileupload">

@@ -20,10 +20,12 @@ import vms.db.dao.DaoFactory;
 import vms.db.dao.DeXuatDao;
 import vms.db.dao.DoiTacDAO;
 import vms.db.dao.TuyenKenhDeXuatDAO;
+import vms.db.dao.TuyenkenhDao;
 import vms.db.dto.DeXuatDTO;
 import vms.utils.Constances;
 import vms.utils.DateUtils;
 import vms.utils.VMSUtil;
+import vms.utils.XMLUtil;
 import vms.web.models.FIND_DEXUAT;
 import vms.web.models.MessageStore;
 
@@ -38,6 +40,8 @@ public class DeXuatAction implements Preparable {
 	private DeXuatDTO deXuatDTO;
 	
 	private InputStream inputStream;
+	private InputStream excelStream;
+	private String filename = "";
 	private MessageStore message ;
 	private LinkedHashMap<String, Object> jsonData;
 	private String form_data;
@@ -55,6 +59,11 @@ public class DeXuatAction implements Preparable {
 		daoFactory = factory;
 		deXuatDao = new DeXuatDao(factory);
 	}
+	
+	private String[] fields;
+	private String[] fieldNames;
+	
+	
 	@SuppressWarnings("unchecked")
 	@Override
 	public void prepare() throws Exception {
@@ -190,6 +199,26 @@ public class DeXuatAction implements Preparable {
 		return Action.SUCCESS;
 	}
 	
+	public String doexport() throws Exception {
+		if(account == null) {
+			session.setAttribute("URL", VMSUtil.getFullURL(request));
+			return "login_page";
+		}
+		/*for(int i=0;i<fieldNames.length;i++)
+			System.out.println("fieldNames[i]:"+fields[i]);*/
+		if(fields != null && fields.length >0 && fieldNames!=null && fieldNames.length>0) {
+			TuyenkenhDao tuyenkenhDao = new TuyenkenhDao(daoFactory);
+			String xmlData = tuyenkenhDao.exportTuyenkenh(fields, fieldNames);
+			String pathXslTemplate = ServletActionContext.getServletContext().getRealPath("files/templates/export.xsl");
+			String transformedString = XMLUtil.transformStringXML_FileXSL(xmlData, pathXslTemplate);
+			//System.out.println("transformedString = "+transformedString);
+			//FileUtils.writeStringToFile(new File("D:\\log2.txt"), "Nguyễn Chí Long "+fieldNames[0],"UTF-8");
+			setExcelStream(transformedString);
+			filename = "DanhSachTuyenKenh_"+System.currentTimeMillis()+".xls";
+		}	
+		return Action.SUCCESS;
+	}
+	
 	/* Getter and Setter */
 	
 	public MessageStore getMessage() {
@@ -210,6 +239,14 @@ public class DeXuatAction implements Preparable {
 	
 		try {
 			this.inputStream =  new ByteArrayInputStream( str.getBytes("UTF-8") );
+		} catch (UnsupportedEncodingException e) {			
+			System.out.println("ERROR :" + e.getMessage());
+		}
+	}
+	
+	public void setExcelStream(String str) {
+		try {
+			this.excelStream =  new ByteArrayInputStream( str.getBytes("UTF-8") );
 		} catch (UnsupportedEncodingException e) {			
 			System.out.println("ERROR :" + e.getMessage());
 		}
@@ -264,6 +301,34 @@ public class DeXuatAction implements Preparable {
 	}
 	public void setDetail(Map<String, Object> detail) {
 		this.detail = detail;
+	}
+
+	public String[] getFields() {
+		return fields;
+	}
+
+	public void setFields(String[] fields) {
+		this.fields = fields;
+	}
+
+	public String[] getFieldNames() {
+		return fieldNames;
+	}
+
+	public void setFieldNames(String[] fieldNames) {
+		this.fieldNames = fieldNames;
+	}
+
+	public InputStream getExcelStream() {
+		return excelStream;
+	}
+
+	public String getFilename() {
+		return filename;
+	}
+
+	public void setFilename(String filename) {
+		this.filename = filename;
 	}
 	
 }

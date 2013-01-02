@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <s:url action="index" namespace="/login" var="loginURL" />
-<s:url action="doexport" namespace="/tuyenkenh" id="doexportURL" />
+<s:url action="doexport" namespace="/dexuat" id="doexportURL" />
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <%
 	String contextPath = request.getContextPath();
@@ -29,63 +29,42 @@ function byId(id) { //Viet tat cua ham document.getElementById
 </head>
 <body>
 	<form id="form" method="post" action="${doexportURL}">
-		<div style="display:block;font-weight: bold;">Chọn các trường dữ liệu đề xuất cần xuất:</div>
+		<div style="display:block;font-weight: bold;">Chọn các trường dữ liệu văn bản đề xuất cần xuất:</div>
 		<table id="lstfields">
 			<tr><td><input type="checkbox" value="" id="checkall" onclick="selectAll(this)"></input><label for="checkall">Chọn tất cả</label></td></tr>
 			<tr>
 				<td>
-					<input type="checkbox" value="madiemdau" name="fields"/>
-					<input type="checkbox" style="display:none" value="Mã điểm đầu" name="fieldNames"/>
-					<label for="madiemcuoi">Mã điểm đầu</label>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<input type="checkbox" value="madiemcuoi" name="fields"/>
-					<input type="checkbox" style="display:none"  value="Mã điểm cuối" name="fieldNames"/>
-					<label for="madiemcuoi">Mã điểm cuối</label>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<input type="checkbox" value="loaigiaotiep" name="fields"/>
-					<input type="checkbox" style="display:none"  value="Giao tiếp" name="fieldNames"/>
-					<label for="loaigiaotiep">Giao tiếp</label>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<input type="checkbox" value="dungluong" name="fields"/>
-					<input type="checkbox" style="display:none"  value="Dung lượng" name="fieldNames"/>
-					<label for="dungluong">Dung lượng</label>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<input type="checkbox" value="soluong" name="fields"/>
-					<input type="checkbox" style="display:none"  value="Số lượng" name="fieldNames"/>
-					<label for="soluong">Số lượng</label>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<input type="checkbox" value="tenduan" name="fields"/>
-					<input type="checkbox" style="display:none"  value="Dự án" name="fieldNames"/>
-					<label for="tenduan">Dự án</label>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<input type="checkbox" value="tenphongban" name="fields"/>
-					<input type="checkbox" style="display:none"  value="Phòng ban" name="fieldNames"/>
-					<label for="tenphongban">Phòng ban</label>
-				</td>
-			</tr>
-			<tr>
-				<td>
 					<input type="checkbox" value="tendoitac" name="fields"/>
-					<input type="checkbox" style="display:none"  value="Đối tác" name="fieldNames"/>
-					<label for="tendoitac">Đối tác</label>
+					<input type="checkbox" style="display:none" value="Tên đối tác" name="fieldNames"/>
+					<label for="tendoitac">Tên đối tác</label>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<input type="checkbox" value="tenvanban" name="fields"/>
+					<input type="checkbox" style="display:none"  value="Tên văn bản" name="fieldNames"/>
+					<label for="tenvanban">Tên văn bản</label>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<input type="checkbox" value="ngaygui" name="fields"/>
+					<input type="checkbox" style="display:none"  value="Ngày gửi" name="fieldNames"/>
+					<label for="ngaygui">Ngày gửi</label>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<input type="checkbox" value="ngaydenghibangiao" name="fields"/>
+					<input type="checkbox" style="display:none"  value="Ngày đề nghị bàn giao" name="fieldNames"/>
+					<label for="ngaydenghibangiao">Ngày đề nghị bàn giao</label>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<input type="checkbox" value="thongtinthem" name="fields"/>
+					<input type="checkbox" style="display:none"  value="Thông tin thêm" name="fieldNames"/>
+					<label for="thongtinthem">Thông tin thêm</label>
 				</td>
 			</tr>
 			<tr>
