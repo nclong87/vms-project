@@ -153,7 +153,7 @@ var seq = 0;
 $(document).ready(function(){	 
 	
 	$("#btExport").click(function(){
-		ShowWindow('Export tuyến kênh',500,350,"${exportURL}",false);
+		ShowWindow('Export văn bản đề xuất',500,350,"${exportURL}",false);
 	});
 	
 	$( "input.date" ).datepicker({
