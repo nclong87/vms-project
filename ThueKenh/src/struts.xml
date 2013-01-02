@@ -626,6 +626,9 @@
 		<action name="detail" class="dexuatAction" method="detail">
 			<result>/jsp/dexuat/detail.jsp</result>
 		</action>
+		<action name="exportpage" class="tuyenkenhAction">
+			<result>/jsp/dexuat/export.jsp</result>
+		</action>
 	</package>
 	<package name="fileupload" extends="default" namespace="/fileupload">
 		<action name="doUpload" class="fileuploadAction" method="doUpload">
