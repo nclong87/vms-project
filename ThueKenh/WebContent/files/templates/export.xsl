@@ -65,6 +65,16 @@ xmlns:html="http://www.w3.org/TR/REC-html40"
    </Borders>
     <NumberFormat ss:Format="Standard"/>
   </Style>
+  <Style ss:ID="Date">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Center"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+   </Borders>
+   <NumberFormat ss:Format="dd/mm/yyyy"/>
+  </Style>
  </Styles>
  <Worksheet ss:Name="Sheet1">
   <Table>

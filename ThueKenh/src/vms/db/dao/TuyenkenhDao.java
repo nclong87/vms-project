@@ -18,7 +18,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import vms.db.dto.TuyenKenh;
 import vms.utils.DateUtils;
-import vms.utils.NumberUtil;
 import vms.utils.VMSUtil;
 
 public class TuyenkenhDao {
@@ -196,10 +195,40 @@ public class TuyenkenhDao {
 		return list.get(0);
 	}
 	
-	/*
-	 * Danh sach tuyen kenh da de xuat nhung chua ban giao
-	 */
-	//private static final String SQL_EXPORT_TUYENKENH = "select t.*,TENDUAN,TENDOITAC,LOAIGIAOTIEP,TENPHONGBAN from TUYENKENH t left join LOAIGIAOTIEP t0 on t.GIAOTIEP_ID = t0.ID left join DUAN t1 on t.DUAN_ID = t1.ID left join PHONGBAN t2 on t.PHONGBAN_ID = t2.ID left join DOITAC t3 on t.DOITAC_ID = t3.ID where t.DELETED = ?";
+	private static String resultSetToXMLWithProperties(ResultSet rs) {
+    	StringBuffer buffer = new StringBuffer(512);
+    	try {
+			ResultSetMetaData resultSetMetaData = rs.getMetaData();
+			int n = resultSetMetaData.getColumnCount();
+			for(int i=1;i<=n;i++) {
+				String tagName = resultSetMetaData.getColumnName(i).toLowerCase();
+				String data = "";
+				if(resultSetMetaData.getColumnType(i) == java.sql.Types.DATE) {
+					data = DateUtils.formatDate(rs.getDate(i), DateUtils.SDF_DDMMYYYYHHMMSS3);
+				} else {
+					data = rs.getString(i)==null?"":rs.getString(i);
+					if(tagName.compareTo("trangthai")==0)
+					{
+						if(data.compareTo("0")==0)
+							data="Không hoạt động";
+						else if(data.compareTo("1")==0)
+							data="Đang bàn giao";
+						else if(data.compareTo("2")==0)
+							data="Đang cập nhật số lượng";
+						else if(data.compareTo("3")==0)
+							data="Đã bàn giao";
+						else if(data.compareTo("4")==0)
+							data="Đang hoạt động";
+					}
+				}
+				buffer.append("<cell hid=\""+tagName+"\" "+">"+data+"</cell>");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+    	return buffer.toString();
+    }
+	
 	private static final String SQL_EXPORT_TUYENKENH = "{ ? = call FN_EXPORT_TUYENKENH(?) }";
 	public String exportTuyenkenh(String[] fields,String[] fieldNames) throws Exception {
 		Connection connection = jdbcTemplate.getDataSource().getConnection();
@@ -227,7 +256,7 @@ public class TuyenkenhDao {
 		stringBuffer.append("<rows>");
 		while(rs.next()) {
 			stringBuffer.append("<row>");
-			stringBuffer.append(VMSUtil.resultSetToXMLWithProperties(rs));
+			stringBuffer.append(TuyenkenhDao.resultSetToXMLWithProperties(rs));
 			stringBuffer.append("</row>");
 		}
 		stringBuffer.append("</rows>");

@@ -207,14 +207,14 @@ public class DeXuatAction implements Preparable {
 		/*for(int i=0;i<fieldNames.length;i++)
 			System.out.println("fieldNames[i]:"+fields[i]);*/
 		if(fields != null && fields.length >0 && fieldNames!=null && fieldNames.length>0) {
-			TuyenkenhDao tuyenkenhDao = new TuyenkenhDao(daoFactory);
-			String xmlData = tuyenkenhDao.exportTuyenkenh(fields, fieldNames);
+			DeXuatDao dao = new DeXuatDao(daoFactory);
+			String xmlData = dao.exportExcel(fields, fieldNames);
 			String pathXslTemplate = ServletActionContext.getServletContext().getRealPath("files/templates/export.xsl");
 			String transformedString = XMLUtil.transformStringXML_FileXSL(xmlData, pathXslTemplate);
 			//System.out.println("transformedString = "+transformedString);
 			//FileUtils.writeStringToFile(new File("D:\\log2.txt"), "Nguyễn Chí Long "+fieldNames[0],"UTF-8");
 			setExcelStream(transformedString);
-			filename = "DanhSachTuyenKenh_"+System.currentTimeMillis()+".xls";
+			filename = "DanhSachDeXuat_"+System.currentTimeMillis()+".xls";
 		}	
 		return Action.SUCCESS;
 	}

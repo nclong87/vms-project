@@ -4,6 +4,7 @@ package vms.db.dao;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -118,5 +119,69 @@ public class DeXuatDao {
 		});
 		if(list.isEmpty()) return null;
 		return list.get(0);
+	}
+	
+	private static String resultSetToXMLWithProperties(ResultSet rs) {
+    	StringBuffer buffer = new StringBuffer(512);
+    	try {
+			ResultSetMetaData resultSetMetaData = rs.getMetaData();
+			int n = resultSetMetaData.getColumnCount();
+			for(int i=1;i<=n;i++) {
+				String tagName = resultSetMetaData.getColumnName(i).toLowerCase();
+				String data = "";
+				if(resultSetMetaData.getColumnType(i) == java.sql.Types.DATE) {
+					data = DateUtils.formatDate(rs.getDate(i), DateUtils.SDF_DDMMYYYYHHMMSS3);
+				} else {
+					data = rs.getString(i)==null?"":rs.getString(i);
+					if(tagName.compareTo("trangthai")==0)
+					{
+						if(data.equals("0"))
+							data="Đang bàn giao";
+						else if(data.equals("1"))
+							data="Đã bàn giao";
+						else
+							data= "";
+					}
+				}
+				buffer.append("<cell hid=\""+tagName+"\" "+">"+VMSUtil.cData(data)+"</cell>");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+    	return buffer.toString();
+    }
+	private static final String SQL_FN_EXPORT_DEXUAT = "{ ? = call FN_EXPORT_DEXUAT(?) }";
+	public String exportExcel(String[] fields,String[] fieldNames) throws Exception {
+		Connection connection = jdbcTemplate.getDataSource().getConnection();
+		if(connection == null)
+			connection = this.jdbcDatasource.getConnection();
+		System.out.println("***BEGIN exportExcel Dexuat***");
+		CallableStatement stmt = connection.prepareCall(SQL_FN_EXPORT_DEXUAT);
+		stmt.registerOutParameter(1, OracleTypes.CURSOR);
+		stmt.setString(2, StringUtils.join(fields, ","));
+		stmt.execute();
+		ResultSet rs = (ResultSet) stmt.getObject(1);
+		StringBuffer stringBuffer = new StringBuffer(1024);
+		stringBuffer.append("<root>");
+		stringBuffer.append("<header>");
+		for(int i=0;i<fields.length;i++)
+		{
+			if(fields[i].equals("ngaygui") || fields[i].equals("ngaydenghibangiao"))
+				stringBuffer.append("<cell id=\""+fields[i]+"\" type=\"DateTime\" style=\"Date\">"+fieldNames[i]+"</cell>");
+			else
+				stringBuffer.append("<cell id=\""+fields[i]+"\" type=\"String\" style=\"Text\">"+fieldNames[i]+"</cell>");
+		}
+		stringBuffer.append("</header>");
+		stringBuffer.append("<rows>");
+		while(rs.next()) {
+			stringBuffer.append("<row>");
+			stringBuffer.append(DeXuatDao.resultSetToXMLWithProperties(rs));
+			stringBuffer.append("</row>");
+		}
+		stringBuffer.append("</rows>");
+		stringBuffer.append("</root>");
+		stmt.close();
+		connection.close();
+		return stringBuffer.toString();
 	}
 }
