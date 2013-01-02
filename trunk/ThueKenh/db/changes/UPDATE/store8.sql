@@ -137,3 +137,20 @@ END FN_SAVEDOISOATCUOC;
 
 /
 
+--------------------------------------------------------
+--  DDL for Function FN_EXPORT_DEXUAT
+--------------------------------------------------------
+
+  CREATE OR REPLACE FUNCTION "THUEKENH"."FN_EXPORT_DEXUAT" (
+select_ in varchar2
+) RETURN SYS_REFCURSOR AS
+l_cursor SYS_REFCURSOR;
+v_vcsql VARCHAR2(2000);
+BEGIN
+  v_vcsql := 'select '||select_||' from (select rownum as rn,t.ID,TENDOITAC,TENVANBAN,NGAYGUI,NGAYDENGHIBANGIAO,THONGTINTHEM,t.TRANGTHAI from DEXUAT t left join DOITAC t0 on t.DOITAC_ID = t0.ID where t.DELETED = 0) dulieu';
+  OPEN l_cursor FOR v_vcsql;
+  RETURN l_cursor;
+END FN_EXPORT_DEXUAT; 
+
+/
+
