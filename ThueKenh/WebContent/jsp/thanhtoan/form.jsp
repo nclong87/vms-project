@@ -320,7 +320,7 @@ function byId(id) { //Viet tat cua ham document.getElementById
 		tungay=tungay.split("-");
 		if(tungay.length>=3)
 		{
-			$("#thang").val(tungay[1]);
+			$("#thang").val(parseInt(tungay[1],10));
 			$("#thang").attr("disabled","disabled");
 			$("#nam").val(tungay[0]);
 			$("#nam").attr("disabled","disabled");

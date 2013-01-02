@@ -757,6 +757,17 @@
 		<action name="detail" class="bangiaoAction" method="detail">
 			<result>/jsp/bangiao/detail.jsp</result>
 		</action>
+		<action name="exportpage" class="bangiaoAction">
+			<result>/jsp/bangiao/export.jsp</result>
+		</action>
+		<action name="doexport" class="bangiaoAction" method="doexport">
+			<result name="success" type="stream">
+				<param name="contentType">application/vnd.ms-excel</param>
+				<param name="inputName">excelStream</param>
+				<param name="contentDisposition">attachment; filename="${filename}"</param>
+				<param name="bufferSize">1024</param>
+			 </result>
+		</action>
 	</package>
 	<package name="tiendobangiao" extends="default" namespace="/tiendobangiao">
 		<action name="index" class="tiendobangiaoAction">

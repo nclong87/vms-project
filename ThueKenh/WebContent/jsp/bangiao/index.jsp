@@ -7,6 +7,7 @@
 <s:url action="form" namespace="/bangiao" id="formURL"/>
 <s:url action="delete" namespace="/bangiao" id="deleteURL"/>
 <s:url action="detail" namespace="/bangiao" id="detailURL"/>
+<s:url action="exportpage" namespace="/bangiao" id="exportURL"/>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -75,6 +76,7 @@ margin-left: 10px;
 		<div style="clear:both;margin:5px 0 ">
 		<input class="button" type="button" id="btThem" value="Thêm văn bản bàn giao" style="float: left; margin-right: 10px;"/>
 		<input class="button" type="button" id="btXoa" value="Xóa" style="float: left; margin-right: 10px;"/>
+		<input class="button" type="button" id="btExport" value="Export excel" style="float: left; margin-right: 10px;"/>
 		</div>
 			<table width="100%" id="dataTable" class="display">
 			<thead>
@@ -109,6 +111,9 @@ function doSearch() {
 }
 var seq = 0;
 $(document).ready(function(){	 
+	$("#btExport").click(function(){
+		ShowWindow('Export biên bản bàn giao',500,350,"${exportURL}",false);
+	});
 	$( "input.date" ).datepicker({
 		showButtonPanel: true,
 		dateFormat : "dd/mm/yy"
