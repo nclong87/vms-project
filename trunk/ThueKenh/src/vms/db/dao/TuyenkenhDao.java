@@ -229,7 +229,7 @@ public class TuyenkenhDao {
     	return buffer.toString();
     }
 	
-	private static final String SQL_EXPORT_TUYENKENH = "{ ? = call FN_EXPORT_TUYENKENH(?) }";
+	private static final String SQL_EXPORT_TUYENKENH = "{ ? = call FN_EXPORT_TUYENKENH(?,?) }";
 	public String exportTuyenkenh(String[] fields,String[] fieldNames) throws Exception {
 		Connection connection = jdbcTemplate.getDataSource().getConnection();
 		if(connection == null)
@@ -238,6 +238,14 @@ public class TuyenkenhDao {
 		CallableStatement stmt = connection.prepareCall(SQL_EXPORT_TUYENKENH);
 		stmt.registerOutParameter(1, OracleTypes.CURSOR);
 		stmt.setString(2, StringUtils.join(fields, ","));
+		int flag = 0;
+		for(int i=0;i<fields.length;i++) {
+			if(fields[i].equals("tenphuluc") || fields[i].equals("sohopdong")) {
+				flag = 1;
+				break;
+			}
+		}
+		stmt.setInt(3, flag);
 		stmt.execute();
 		ResultSet rs = (ResultSet) stmt.getObject(1);
 		StringBuffer stringBuffer = new StringBuffer(1024);
