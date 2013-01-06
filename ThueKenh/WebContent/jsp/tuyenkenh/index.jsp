@@ -299,7 +299,7 @@ $(document).ready(function(){
 		});	
 	});
 	$("#btExport").click(function(){
-		ShowWindow('Export tuyến kênh',500,350,"${exportURL}",false);
+		ShowWindow('Export tuyến kênh',500,400,"${exportURL}",false);
 	});
 	$("span.edit_icon").live("click",function(){
 		var id = $(this).attr("data-ref-id");

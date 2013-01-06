@@ -95,6 +95,20 @@ function byId(id) { //Viet tat cua ham document.getElementById
 					<label for="trangthai">Trạng thái</label>
 				</td>
 			</tr>
+			<tr>
+				<td>
+					<input type="checkbox" value="tenphuluc" name="fields"/>
+					<input type="checkbox" style="display:none"  value="Phụ lục" name="fieldNames"/>
+					<label for="tenphuluc">Phụ lục</label>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<input type="checkbox" value="sohopdong" name="fields"/>
+					<input type="checkbox" style="display:none"  value="Hợp đồng" name="fieldNames"/>
+					<label for="sohopdong">Hợp đồng</label>
+				</td>
+			</tr>
 		</table>
 		<div style="background: none repeat scroll 0pt 0pt rgb(242, 242, 242); padding: 5px; width: 99%;">
 			<input class="button" type="submit" id="btExport" value="Export"/>
@@ -117,6 +131,10 @@ function selectAll(_this) {
 $(document).ready(function() {	
 	$("#form input[type=checkbox]").click(function(){
 		$(this).next()[0].checked = this.checked;
+	});
+	$("#btExport").click(function() {
+		this.disabled = true;
+		return true;
 	});
 	/* $("#btExport").click(function() {
 		var fields="";
