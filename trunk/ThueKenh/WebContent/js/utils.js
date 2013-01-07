@@ -231,7 +231,7 @@ function showDialogUrl(url,title_,width_) {
 	$("#dialog").html('');
 	$("#dialog").load(url);
 	$("#dialog").dialog({ 
-		modal: true,
+		modal: false,
 		closeOnEscape : true,
         resizable: false,
 		title : title_,
@@ -291,7 +291,6 @@ function ShowWindow(_title, _width, _height, _url, _scrollable) {
             scrollable: true,
             minimizable: true,
             bookmarkable: false,
-            scrollable:_scrollable,
             onClose: function () {
                 status = "closing";
 				if(reload == true) {
