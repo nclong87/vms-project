@@ -134,7 +134,7 @@ $(document).ready(function() {
 	});
 	$("#btExport").click(function() {
 		this.disabled = true;
-		return true;
+		$("#form").submit();
 	});
 	/* $("#btExport").click(function() {
 		var fields="";
