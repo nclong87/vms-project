@@ -170,7 +170,7 @@ $(document).ready(function(){
 	// edit
 	$("span.edit_icon").live("click",function(){
 		var id = $(this).attr("data-ref-id");
-		ShowWindow('Cập nhật thông tin giá trị phụ lục',800,600,"${editURL}?id="+id,false);
+		ShowWindow('Cập nhật thông tin giá trị phụ lục',800,600,"${editURL}?id="+id,true);
 		MaxWindow();
 	});
 	
