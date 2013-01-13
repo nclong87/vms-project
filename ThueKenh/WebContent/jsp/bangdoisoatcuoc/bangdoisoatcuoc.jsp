@@ -171,7 +171,7 @@ $(document).ready(function(){
 	// edit
 	$("span.edit_icon").live("click",function(){
 		var id = $(this).attr("data-ref-id");
-		ShowWindow('Cập nhật bảng đối soát cước',800,600,"${formURL}?id="+id,false);
+		ShowWindow('Cập nhật bảng đối soát cước',800,600,"${formURL}?id="+id,true);
 		MaxWindow();
 	});
 	
