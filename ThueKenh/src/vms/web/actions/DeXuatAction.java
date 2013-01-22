@@ -11,6 +11,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import oracle.sql.DATE;
+
 import org.apache.struts2.ServletActionContext;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -22,6 +24,8 @@ import vms.db.dao.DoiTacDAO;
 import vms.db.dao.TuyenKenhDeXuatDAO;
 import vms.db.dao.TuyenkenhDao;
 import vms.db.dto.DeXuatDTO;
+import vms.db.dto.TuyenKenh;
+import vms.db.dto.TuyenKenhDeXuatDTO;
 import vms.utils.Constances;
 import vms.utils.DateUtils;
 import vms.utils.VMSUtil;
@@ -165,6 +169,26 @@ public class DeXuatAction implements Preparable {
 			if(dexuat_ids!= null && dexuat_ids.length > 0) {
 				TuyenKenhDeXuatDAO tuyenKenhDeXuatDAO = new TuyenKenhDeXuatDAO(daoFactory);
 				tuyenKenhDeXuatDAO.updateDexuatByIds(dexuat_ids, id);
+				
+				// send sms and email
+				TuyenKenhDeXuatDTO tkdxDto=tuyenKenhDeXuatDAO.findById(dexuat_ids[0]);
+				if(tkdxDto!=null)
+				{
+					String content="";
+					for(int i=0;i<dexuat_ids.length;i++)
+					{
+						TuyenkenhDao tkDao=new TuyenkenhDao(daoFactory);
+						TuyenKenhDeXuatDTO temptkdxDto=tuyenKenhDeXuatDAO.findById(dexuat_ids[0]);
+						if(temptkdxDto!=null)
+						{
+							if(!content.isEmpty())
+								content+=", ";
+						}
+						content+=temptkdxDto.getTuyenkenh_id();
+					}
+					VMSUtil.sendMail(daoFactory,tkdxDto.getTuyenkenh_id(), 1, "Danh sách các tuyến kênh đề xuất: " +content);
+					VMSUtil.sendSMS(daoFactory, tkdxDto.getTuyenkenh_id(), 1, "Danh sách các tuyến kênh đề xuất: "+content);
+				}
 			}
 			setInputStream("OK");
 		} catch (Exception e) {

@@ -17,10 +17,12 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
+import vms.db.dto.SuCoDTO;
 import vms.db.dto.TuyenKenh;
 import vms.db.dto.TuyenKenhDeXuatDTO;
 import vms.utils.DateUtils;
 import vms.utils.VMSUtil;
+import vms.web.models.FIND_TUYENKENHDEXUAT;
 
 public class TuyenKenhDeXuatDAO {
 	private JdbcTemplate jdbcTemplate;
@@ -136,5 +138,23 @@ public class TuyenKenhDeXuatDAO {
 		if(list.size()>1) throw new Exception("SYSTEM_ERROR");
 		if(list.size()>0) return list.get(0);
 		return null;
+	}
+	
+	public List<TuyenKenhDeXuatDTO> findTuyenKenhDeXuatByDeXuatId(String dexuat_id) throws SQLException {
+		System.out.println("Begin findTuyenKenhDeXuatByDeXuatId");
+		Connection connection = jdbcDatasource.getConnection();
+		CallableStatement stmt = connection.prepareCall(SQL_FIND_TUYENKENHDEXUAT);
+		stmt.registerOutParameter(1, OracleTypes.CURSOR);
+		System.out.println("dexuat_id:"+dexuat_id);
+		stmt.setString(14, dexuat_id);
+		stmt.execute();
+		ResultSet rs = (ResultSet) stmt.getObject(1);
+		List<TuyenKenhDeXuatDTO> result = new ArrayList<TuyenKenhDeXuatDTO>();
+		while(rs.next()) {
+			result.add(TuyenKenhDeXuatDTO.mapObject(rs));
+		}
+		stmt.close();
+		connection.close();
+		return result;
 	}
 }
