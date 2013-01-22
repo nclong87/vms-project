@@ -97,7 +97,7 @@ public class AccountDao {
 		connection.close();
 		return result;
 	}
-	private static final String SAVE_ACCOUNT = "{ ? = call SAVE_ACCOUNT(?,?,?,?,?,?,?,?) }";
+	private static final String SAVE_ACCOUNT = "{ ? = call SAVE_ACCOUNT(?,?,?,?,?,?,?,?,?,?) }";
 	public Long save(Account account) throws Exception {
 		Connection connection = jdbcTemplate.getDataSource().getConnection();
 		CallableStatement stmt = connection.prepareCall(SAVE_ACCOUNT);
@@ -110,6 +110,8 @@ public class AccountDao {
 		stmt.setString(7, account.getIdphongban());
 		stmt.setString(8, account.getIdgroup());
 		stmt.setString(9, account.getMainmenu()!=null?String.valueOf(account.getMainmenu()):"-1");
+		stmt.setString(10, account.getEmail());
+		stmt.setString(11, account.getPhone());
 		stmt.execute();
 		Long rs = stmt.getLong(1);
 		stmt.close();

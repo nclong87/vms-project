@@ -131,6 +131,8 @@ margin-left: 10px;
 					<th>Menu chính</th>
 					<th width="5%">Active</th>
 					<th>Khu vực</th>
+					<th>Email</th>
+					<th>Số điện thoại</th>
 					<th width="100px">Phân quyền</th>
 					<th width="5px">Edit</th>
 					<th width="5px" align="center"><input type="checkbox" onclick="selectAll(this)"/></th>
@@ -267,6 +269,8 @@ $(document).ready(function(){
 							return '<center><img title="Chọn khu vực phụ trách" src="'+contextPath+'/images/icons/location.png" height="25px" onclick="openKhuVucPhuTrachWindow('+oObj.aData.id+')" style="cursor:pointer"></center>'; 
 						}
 					},
+					{ "mDataProp": "email","bSortable": false,"bSearchable": false},
+					{ "mDataProp": "phone","bSortable": false,"bSearchable": false},
 					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,
 						"fnRender": function( oObj ) {
 							return '<center><img title="permission" src="'+contextPath+'/images/icons/permission.png" onclick="openPermissionWindow('+oObj.aData.id+')" style="cursor:pointer"></center>'; 
