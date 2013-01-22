@@ -27,6 +27,10 @@ public class Account {
 	private String username;
 	
 	private Integer mainmenu;
+	
+	private String email;
+	
+	private String phone;
 
     public Account() {
     }
@@ -103,6 +107,22 @@ public class Account {
 	public void setMainmenu(Integer mainmenu) {
 		this.mainmenu = mainmenu;
 	}
+	
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
 
 	public Map<String,String> getMap() {
 		Map<String, String> map = new LinkedHashMap<String, String>();
@@ -113,6 +133,8 @@ public class Account {
 		map.put("idkhuvuc", this.getIdkhuvuc());
 		map.put("active", String.valueOf(this.getActive()));
 		map.put("mainmenu", String.valueOf(this.mainmenu));
+		map.put("email", this.email);
+		map.put("phone", this.phone);
 		return map;
 	}
 	
@@ -126,6 +148,8 @@ public class Account {
 		account.setUsername(rs.getString("USERNAME"));
 		account.setIdgroup(rs.getString("IDGROUP"));
 		account.setMainmenu(rs.getInt("MAINMENU"));
+		account.setEmail(rs.getString("EMAIL"));
+		account.setPhone(rs.getString("PHONE"));
 		//System.out.println(rs.getString("USERNAME"));
         return account;
 	}

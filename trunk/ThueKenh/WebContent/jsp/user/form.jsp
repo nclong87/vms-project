@@ -102,6 +102,18 @@ input.error,select.error,textarea.error {
 						</td>
 					</tr>
 					<tr>
+						<td class="td_label" align="right">Email:</td>
+						<td align="left">
+							<input type="text" name="user.email"
+							id="email" />
+						</td>
+						<td class="td_label" align="right">Số điện thoại :</td>
+						<td align="left">
+							<input type="text" name="user.phone"
+							id="phone" />
+						</td>
+					</tr>
+					<tr>
 						<td class="td_label" align="right">Menu chính:</td>
 						<td align="left">
 							<select name="user.mainmenu" id="mainmenu">
