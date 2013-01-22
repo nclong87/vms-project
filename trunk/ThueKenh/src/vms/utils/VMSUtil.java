@@ -3,9 +3,12 @@ package vms.utils;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringWriter;
+import java.sql.CallableStatement;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.Enumeration;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -15,7 +18,12 @@ import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
 import javax.servlet.http.HttpServletRequest;
 
+import oracle.sql.ARRAY;
+import oracle.sql.ArrayDescriptor;
+
 import org.apache.commons.io.IOUtils;
+
+import vms.db.dao.DaoFactory;
 
 public class VMSUtil {
     @SuppressWarnings("unchecked")
@@ -185,11 +193,36 @@ public class VMSUtil {
         }
 	}
     
-    private static final String sendmail = "{ ? = call FN_SENDEMAIL(?,?,?) }";
-    public static boolean sendMail(Integer phongbanid, String subject, String content){
+    private static final String SQL_SENDMAIL = "{ call SEND_EMAIL(?,?,?) }";
+    public static boolean sendMail(DaoFactory daoFactory, String tuyenkenhId, int type, String content){
+    	try {
+    		Connection connection = daoFactory.getDataSource().getConnection();
+    		CallableStatement stmt = connection.prepareCall(SQL_SENDMAIL);
+    		stmt.setString(1, tuyenkenhId);
+    		stmt.setInt(2, type);
+    		stmt.setString(3, content);
+    		stmt.execute();
+    		stmt.close();
+    		connection.close();
+		} catch (Exception e) {
+			return false;
+		}
     	return true;
     }
-    public static boolean sendSMS(String foneNumber,String content){
+    private static final String SQL_SENDSMS = "{ call SEND_SMS(?,?,?) }";
+    public static boolean sendSMS(DaoFactory daoFactory, String tuyenkenhId, int type, String content){
+    	try {
+    		Connection connection = daoFactory.getDataSource().getConnection();
+    		CallableStatement stmt = connection.prepareCall(SQL_SENDSMS);
+    		stmt.setString(1, tuyenkenhId);
+    		stmt.setInt(2, type);
+    		stmt.setString(3, content);
+    		stmt.execute();
+    		stmt.close();
+    		connection.close();
+		} catch (Exception e) {
+			return false;
+		}
     	return true;
     }
 }
