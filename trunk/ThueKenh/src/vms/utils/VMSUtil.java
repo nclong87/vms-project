@@ -184,4 +184,12 @@ public class VMSUtil {
             return ldapHelper.checkValidUser(userName, Password);
         }
 	}
+    
+    private static final String sendmail = "{ ? = call FN_SENDEMAIL(?,?,?) }";
+    public static boolean sendMail(Integer phongbanid, String subject, String content){
+    	return true;
+    }
+    public static boolean sendSMS(String foneNumber,String content){
+    	return true;
+    }
 }
