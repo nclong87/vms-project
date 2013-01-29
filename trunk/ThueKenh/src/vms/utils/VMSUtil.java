@@ -180,7 +180,7 @@ public class VMSUtil {
     
     public static boolean checkLDAP(String userName,String Password) {
 		//check LDAP
-    	if(true) return true;
+    	//if(true) return true;
 		if(Password.equals(""))
         {
             return false;
