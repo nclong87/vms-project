@@ -24,6 +24,7 @@ import vms.db.dto.HopDongDTO;
 import vms.db.dto.PhuLucDTO;
 import vms.utils.Constances;
 import vms.utils.DateUtils;
+import vms.utils.NumberUtil;
 import vms.utils.VMSUtil;
 
 import com.opensymphony.xwork2.Action;
@@ -218,6 +219,11 @@ public class PhuLucAction implements Preparable {
 				Map<String, String> conditions = new LinkedHashMap<String, String>();
 				System.out.println("hopdong_id:"+hopdong_id);
 				conditions.put("hopdong_id", hopdong_id);
+				conditions.put("ischeckAvailable","1");
+				String thang=request.getParameter("thang");
+				String nam=request.getParameter("nam");
+				String ngayDSC=nam+"-"+thang+"-1";
+				conditions.put("ngayDSC",ngayDSC );
 				PhuLucDAO phulucDao = new PhuLucDAO(daoFactory);
 				List<Map<String, Object>> items = phulucDao.search(0, 1000, conditions);
 				jsonData.put("result", "OK");
@@ -335,5 +341,4 @@ public class PhuLucAction implements Preparable {
 	public void setDoisoatcuoc_id(String doisoatcuoc_id) {
 		this.doisoatcuoc_id = doisoatcuoc_id;
 	}
-	
 }

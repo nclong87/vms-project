@@ -288,11 +288,17 @@ margin:0;
 			loaiphuluc="Thay thế";
 		var trangthai = "";
 		if(data.phulucbithaythe!="<root></root>")
+		{
 			$.each(data.phulucbithaythe,function(){
-				trangthai+='Thay thế các phụ lục: <a href="${detailPhuLucURL}?id='+this.id+'" title="Xem chi tiết phụ lục" style="color:blue !important">'+this.tenphuluc.vmsSubstr(20)+"</a><br>";
+				if(trangthai!="")
+					trangthai+=", ";
+				trangthai+='<a href="${detailPhuLucURL}?id='+this.id+'" title="Xem chi tiết phụ lục" style="color:blue !important">'+this.tenphuluc.vmsSubstr(20)+"</a><br>";
 			});
+			if(trangthai!="")
+				trangthai="Thay thế các phụ lục: "+trangthai;
+		}
 		obj.fnAddData([
-			'<center>'+stt+'</center>','<center><a href="${detailPhuLucURL}?id='+data.id+'" target="_blank" title="'+data.tenphuluc+'" style="color:blue !important"><center>'+data.tenphuluc+'</a>','<center>'+loaiphuluc+'/<center>','<center>'+data.tendoitac+'</center>','<center>'+data.soluongkenh+'</center>','<center class="currency">'+data.giatritruocthue+'</center>','<center class="currency">'+data.giatrisauthue+'</center>','<center>'+data.ngayhieuluc+'</center>','<center>'+trangthai+'</center>','<center>'+thanhtoan+'</center>'
+			'<center>'+stt+'</center>','<center><a href="${detailPhuLucURL}?id='+data.id+'" target="_blank" title="'+data.tenphuluc+'" style="color:blue !important"><center>'+data.tenphuluc+'</a>','<center>'+loaiphuluc+'/<center>','<center>'+data.tendoitac+'</center>','<center>'+data.soluongkenh+'</center>','<center class="currency">'+data.giatritruocthue+'</center>','<center class="currency">'+data.giatrisauthue+'</center>','<center>'+data.ngayhieuluc+'</center>','<center>'+data.ngayhethieuluc+'</center>','<center>'+trangthai+'</center>','<center>'+thanhtoan+'</center>'
     		,'<center><input type="checkbox" checked="true"/><input id="phuluc_id" style="display:none" value="'+data.id+'"/></center>'
 		]);
 	}
@@ -318,7 +324,8 @@ margin:0;
 										+'<th>Giá trị trước thuế</th>'
 										+'<th>Giá trị sau thuế</th>'
 										+'<th>Ngày hiệu lực</th>'
-										+'<th>Trạng thái</th>'
+										+'<th>Ngày hết hiệu lực</th>'
+										+'<th width="150px">Trạng thái</th>'
 										+'<th>Thanh toán</th>'
 										+'<th><input type="checkbox" class="checkall"/></th>'
 									+'</tr>'
@@ -364,7 +371,7 @@ margin:0;
 				"bSort":false,
 				"bFilter": false,"bInfo": false,
 				"bPaginate" : false,
-				"sAjaxSource": "${findphulucByhopdongURL}?hopdong_id="+this.id,
+				"sAjaxSource": "${findphulucByhopdongURL}?hopdong_id="+this.id+"&thang="+$("#thang").val()+"&nam="+$("#nam").val(),
 				"aoColumns": null,
 				"fnServerData": function ( sSource, aoData, fnCallback ) {
 					$.ajax( {
@@ -388,7 +395,7 @@ margin:0;
 										eventOnDecimalsEntered: true 
 									});
 								} else {
-									oPLtable.fnAddData([0,'','','','','','','','','','']);
+									oPLtable.fnAddData([0,'','','','','','','','','','','']);
 									oPLtable.fnDeleteRow(0);
 								}
 							}
@@ -523,6 +530,7 @@ margin:0;
 					{
 						var phuluc_hopdong=$.parseJSON(response.phuluc_hopdongs);
 						LoadHopDongEdit(phuluc_hopdong,dscdata.id);
+						hidHopDongData=phuluc_hopdong;
 					}
 					// load su co
 					if(response.sucos.length != 0) {
@@ -539,8 +547,8 @@ margin:0;
 			}
 		});
 	}
+	var hidHopDongData=null;
 	$(document).ready(function() {
-		
 		oTable = $('#dataTable').dataTable({
 			"bJQueryUI": true,
 			"bProcessing": false,
@@ -565,6 +573,7 @@ margin:0;
 			url : "${popupSearchHopDongURL}",
 			afterSelected : function(data) {
 				LoadHopDong(data);
+				hidHopDongData=data;
 				if(data.length>0)
 				{
 					$("#list_suco").show();
@@ -749,6 +758,10 @@ margin:0;
 				$("#list_hopdong").hide();
 				$("#list_suco").hide();
 			}
+		});
+		$("#thang,#nam").change(function(){
+			if(hidHopDongData!=null)
+				LoadHopDong(hidHopDongData);
 		});
 	}
 </script>

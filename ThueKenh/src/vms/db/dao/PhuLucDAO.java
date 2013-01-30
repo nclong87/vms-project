@@ -37,7 +37,7 @@ public class PhuLucDAO {
 		this.jdbcDatasource = daoFactory.getJdbcDataSource();
 	}
 	
-	private static final String SQL_FIND_PHULUC = "{ ? = call FIND_PHULUC(?,?,?,?,?,?,?,?,?,?,?) }";
+	private static final String SQL_FIND_PHULUC = "{ ? = call FIND_PHULUC(?,?,?,?,?,?,?,?,?,?,?,?,?) }";
 	public List<Map<String,Object>> search(int iDisplayStart,int iDisplayLength,Map<String, String> conditions) throws SQLException, SAXException, IOException {
 		Connection connection = jdbcDatasource.getConnection();
 		CallableStatement stmt = connection.prepareCall(SQL_FIND_PHULUC);
@@ -53,6 +53,8 @@ public class PhuLucDAO {
 		stmt.setString(10, conditions.get("ngayhieuluc_from"));
 		stmt.setString(11, conditions.get("ngayhieuluc_end"));
 		stmt.setString(12, conditions.get("hopdong_id"));
+		stmt.setString(13, conditions.get("ischeckAvailable"));
+		stmt.setString(14, conditions.get("ngayDSC"));
 		stmt.execute();
 		ResultSet rs = (ResultSet) stmt.getObject(1);
 		List<Map<String,Object>> result = new ArrayList<Map<String,Object>>();
