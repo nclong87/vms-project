@@ -235,7 +235,7 @@ public class HopDongAction implements Preparable {
 			}
 			HopDongDAO hopdongDao = new HopDongDAO(daoFactory);
 			System.out.println("conditions="+conditions);
-			List<Map<String, Object>> items = hopdongDao.search(iDisplayStart, iDisplayLength, conditions);
+			List<Map<String, Object>> items = hopdongDao.search(iDisplayStart, iDisplayLength+1, conditions);
 			int iTotalRecords = items.size();
 			if(iTotalRecords > iDisplayLength) {
 				items.remove(iTotalRecords - 1);
