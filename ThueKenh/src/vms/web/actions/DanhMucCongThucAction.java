@@ -154,7 +154,7 @@ public String detail() {
 		if (this.opEdit != null) {
 			// edit
 			
-			System.out.println("edit mode id=" + this.opEdit.getId());
+			System.out.println("edit mode id=" + opEdit.getChuoicongthuc());
 			if (this.opEdit.getId() != "") {
 				System.out.println("Begin Edit");
 				if (this.congThucDAO.update(this.opEdit.getId(), this.opEdit)) {
@@ -202,31 +202,16 @@ public String detail() {
 		if (this.opEdit != null) {
 			// edit
 			this.opEdit.setUsercreate(account.get("username").toString());
-			System.out.println("edit mode id=" + this.opEdit.getId());
-			if (this.opEdit.getId() != "") {
-				System.out.println("Begin Edit");
-				if (this.congThucDAO.update(this.opEdit.getId(), this.opEdit)) {
-					this.flag = "1";// updated
-					System.out.println("Cập nhật thành công");
-					setInputStream("OK");
-				} else {
-					this.flag = "-1";// failure
-					System.out.println("Cập nhật lỗi");
-				}
+			//System.out.println("edit mode id=" + this.opEdit.getChuoicongthuc());
+			if (this.congThucDAO.update(this.opEdit.getId(), this.opEdit)) {
+				this.flag = "1";// updated
+				//System.out.println("Cập nhật thành công");
+				setInputStream("OK");
 			} else {
-				// new
-				System.out.println("Begin New");
-				if(this.congThucDAO.insert(this.opEdit)){
-					this.flag = "1";// updated
-					System.out.println("Thêm thành công");
-					setInputStream("OK");
-				}else{
-					this.flag = "-1";// failure
-					System.out.println("Thêm lỗi");
-				}
+				this.flag = "-1";// failure
+				setInputStream("ERROR");
+				//System.out.println("Cập nhật lỗi");
 			}
-			System.out.println("result=" + flag);
-
 		} 
 
 		return Action.SUCCESS;
@@ -244,18 +229,7 @@ public String detail() {
 		this.request = ServletActionContext.getRequest();
 		// CongThucDAO CongThucDAO = new CongThucDAO(factory);
 		List<CongThucDTO> lstCongThuc = congThucDAO.get();
-		String strSearch = this.request.getParameter("sSearch");
-		if (strSearch.isEmpty() == false) {
-			JSONArray arrayJson = (JSONArray) new JSONObject(strSearch)
-					.get("array");
-
-			String name = arrayJson.getJSONObject(0).getString("value");
-			lstCongThuc = congThucDAO.search(name);
-			System.out.println("strSearch=" + strSearch);
-
-		} else
-			lstCongThuc = congThucDAO.get();
-
+		lstCongThuc = congThucDAO.get();
 		jsonData = new LinkedHashMap<String, Object>();
 		List<HashMap<String, Object>> items = new ArrayList<HashMap<String, Object>>();
 		for (int i = 0; i < lstCongThuc.size(); i++) {
@@ -266,6 +240,7 @@ public String detail() {
 		}
 		// jsonData.put("sEcho",
 		// Integer.parseInt(request.getParameter("sEcho")));
+		jsonData.put("sEcho", Integer.parseInt(request.getParameter("sEcho")));
 		jsonData.put("iTotalRecords", lstCongThuc.size());
 		jsonData.put("iTotalDisplayRecords", lstCongThuc.size());
 		jsonData.put("aaData", items);

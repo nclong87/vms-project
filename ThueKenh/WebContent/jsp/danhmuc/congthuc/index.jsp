@@ -287,6 +287,7 @@
 											"bProcessing" : true,
 											"bServerSide" : true,
 											"bAutoWidth" : false,
+											"iDisplayLength" : 100,
 											"sAjaxSource" : "${ajLoadData}",
 											"aoColumns" : [
 													{
