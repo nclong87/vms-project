@@ -1,5 +1,9 @@
-create or replace
-PROCEDURE            "PROC_SAVE_CONGTHUC" (
+--------------------------------------------------------
+--  DDL for Procedure PROC_SAVE_CONGTHUC
+--------------------------------------------------------
+set define off;
+
+  CREATE OR REPLACE PROCEDURE "THUEKENH"."PROC_SAVE_CONGTHUC" (
   id_	in number,
 	name_ in VARCHAR2,
   congthuc_ in VARCHAR2,
@@ -32,6 +36,9 @@ BEGIN
     end if;
 
 END PROC_SAVE_CONGTHUC;
+
+/
+
 
 
 --------------------------------------------------------
@@ -262,7 +269,7 @@ vNgayDSC date;
 BEGIN
   vNgayDSC := to_date(pNgayDSC,'RRRR-MM-DD');
    -- select count(*) into v_num from PHULUC where DELETED = 0 and ID = pPhuLucID and NGAYHIEULUC <= to_date(pNgayDSC,'RRRR-MM-DD') and ( NGAYHETHIEULUC is null or (PHULUCTHAYTHE_ID is null and NGAYHETHIEULUC >= to_date(pNgayDSC,'RRRR-MM-DD')) or (PHULUCTHAYTHE_ID is not null and GET_THOIGIANTHANHTOAN(PHULUCTHAYTHE_ID) is null));
-	select count(*) into v_num from PHULUC where DELETED = 0 and ID = pPhuLucID and NGAYHIEULUC <= vNgayDSC 
+	select count(*) into v_num from PHULUC where DELETED = 0 and ID = pPhuLucID and NGAYHIEULUC <= LAST_DAY(vNgayDSC) 
 and ( 
 NGAYHETHIEULUC is null or 
 (PHULUCTHAYTHE_ID is null and NGAYHETHIEULUC >= vNgayDSC) or 
@@ -272,6 +279,8 @@ NGAYHETHIEULUC is null or
 END FN_PHULUC_AVAILABLE;
 
 /
+
+
 
 --------------------------------------------------------
 --  DDL for Function FIND_PHULUC

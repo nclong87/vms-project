@@ -45,7 +45,7 @@ public class CongThucDAO {
 	public List<CongThucDTO> get() {
 		// TODO Auto-generated method stub
 		return this.jdbcTemplate.query(
-				"select * from congthuc where deleted = 0", new RowMapper() {
+				"select * from congthuc where deleted = 0 order by ID desc", new RowMapper() {
 					public Object mapRow(ResultSet rs, int rowNum)
 							throws SQLException {
 						
@@ -122,7 +122,8 @@ public class CongThucDAO {
 			stmt.setInt(5, congthuc.getStt());
 			stmt.setInt(6, 0);//is deleted
 			stmt.setString(7, congthuc.getMa());
-			stmt.setInt(8, congthuc.getIsdefault());
+			//System.out.println("congthuc.getIsdefault() = "+congthuc.getIsdefault());
+			stmt.setInt(8, congthuc.getIsdefault()==null?0:congthuc.getIsdefault());
 			System.out.println("***execute***");
 			stmt.execute();
 			stmt.close();
