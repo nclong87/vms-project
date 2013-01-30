@@ -251,18 +251,27 @@ END GET_THOIGIANTHANHTOAN;
 
 /
 
-
 --------------------------------------------------------
 --  DDL for Function FN_PHULUC_AVAILABLE
 --------------------------------------------------------
 
   CREATE OR REPLACE FUNCTION "THUEKENH"."FN_PHULUC_AVAILABLE" (pPhuLucID IN NUMBER,pNgayDSC IN VARCHAR2) RETURN NUMBER AS 
 v_num NUMBER := 0;
+vNgayDSC date;
 BEGIN
-    select count(*) into v_num from PHULUC where DELETED = 0 and ID = pPhuLucID and NGAYHIEULUC <= to_date(pNgayDSC,'RRRR-MM-DD') and ( NGAYHETHIEULUC is null or (PHULUCTHAYTHE_ID is null and NGAYHETHIEULUC >= to_date(pNgayDSC,'RRRR-MM-DD')) or (PHULUCTHAYTHE_ID is not null and GET_THOIGIANTHANHTOAN(PHULUCTHAYTHE_ID) is null));
-	return v_num;
+  vNgayDSC := to_date(pNgayDSC,'RRRR-MM-DD');
+   -- select count(*) into v_num from PHULUC where DELETED = 0 and ID = pPhuLucID and NGAYHIEULUC <= to_date(pNgayDSC,'RRRR-MM-DD') and ( NGAYHETHIEULUC is null or (PHULUCTHAYTHE_ID is null and NGAYHETHIEULUC >= to_date(pNgayDSC,'RRRR-MM-DD')) or (PHULUCTHAYTHE_ID is not null and GET_THOIGIANTHANHTOAN(PHULUCTHAYTHE_ID) is null));
+	select count(*) into v_num from PHULUC where DELETED = 0 and ID = pPhuLucID and NGAYHIEULUC <= vNgayDSC 
+and ( 
+NGAYHETHIEULUC is null or 
+(PHULUCTHAYTHE_ID is null and NGAYHETHIEULUC >= vNgayDSC) or 
+(PHULUCTHAYTHE_ID is not null and GET_THOIGIANTHANHTOAN(PHULUCTHAYTHE_ID) is null)) and
+(THANG is null or to_date(NAM||'-'||THANG||'-01','RRRR-MM-DD') < vNgayDSC );
+  return v_num;
 END FN_PHULUC_AVAILABLE;
 
 /
+
+
 
 
