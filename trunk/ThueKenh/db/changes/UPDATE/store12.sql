@@ -234,5 +234,35 @@ END TIME_BETWEEN;
 
 /
 
+--------------------------------------------------------
+--  DDL for Function GET_THOIGIANTHANHTOAN
+--------------------------------------------------------
+
+  CREATE OR REPLACE FUNCTION "THUEKENH"."GET_THOIGIANTHANHTOAN" (pPhuLucId IN NUMBER) RETURN VARCHAR2 AS 
+vThang NUMBER;
+vNam NUMBER;
+BEGIN
+	select THANG,NAM into vThang,vNam from PHULUC where ID = pPhuLucId;
+	if(vThang is null) then
+		return null;
+	end if;
+	return vThang||'/'||vNam;
+END GET_THOIGIANTHANHTOAN; 
+
+/
+
+
+--------------------------------------------------------
+--  DDL for Function FN_PHULUC_AVAILABLE
+--------------------------------------------------------
+
+  CREATE OR REPLACE FUNCTION "THUEKENH"."FN_PHULUC_AVAILABLE" (pPhuLucID IN NUMBER,pNgayDSC IN VARCHAR2) RETURN NUMBER AS 
+v_num NUMBER := 0;
+BEGIN
+    select count(*) into v_num from PHULUC where DELETED = 0 and ID = pPhuLucID and NGAYHIEULUC <= to_date(pNgayDSC,'RRRR-MM-DD') and ( NGAYHETHIEULUC is null or (PHULUCTHAYTHE_ID is null and NGAYHETHIEULUC >= to_date(pNgayDSC,'RRRR-MM-DD')) or (PHULUCTHAYTHE_ID is not null and GET_THOIGIANTHANHTOAN(PHULUCTHAYTHE_ID) is null));
+	return v_num;
+END FN_PHULUC_AVAILABLE;
+
+/
 
 
