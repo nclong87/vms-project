@@ -67,10 +67,10 @@ public class ReportAction implements Preparable {
 			session.setAttribute("URL", VMSUtil.getFullURL(request));
 			return "login_page";
 		}*/
-		File fileXmlData = new File(ServletActionContext.getServletContext().getRealPath("files/templates/test2.xml")); 
+		File fileXmlData = new File(ServletActionContext.getServletContext().getRealPath("files/templates/doisoatcuoc.xml")); 
 		String xmlData = FileUtils.readFileToString(fileXmlData, "UTF-8");
 		
-		String pathXslTemplate = ServletActionContext.getServletContext().getRealPath("files/templates/test2.xsl");
+		String pathXslTemplate = ServletActionContext.getServletContext().getRealPath("files/templates/doisoatcuoc.xsl");
 		String transformedString = XMLUtil.transformStringXML_FileXSL(xmlData, pathXslTemplate);
 		//System.out.println("transformedString = "+transformedString);
 		//FileUtils.writeStringToFile(new File("D:\\log.txt"), transformedString,"UTF-8");

@@ -37,6 +37,7 @@ function byId(id) { //Viet tat cua ham document.getElementById
 <script type="text/javascript" src="<%=contextPath%>/js/templates.js"></script>
 <script type="text/javascript" src="<%=contextPath%>/js/upload_utils.js"></script>
 <script type="text/javascript" src="<%=contextPath%>/js/jquery.form.js"></script>
+<script type="text/javascript" src="<%=contextPath%>/js/jquery-ui/jquery.ui.datepicker-vi.js"></script>
 <script type="text/javascript" src="<%=contextPath%>/js/mylibs/popup_search_hopdong.js"></script>
 <script type="text/javascript" src="<%=contextPath%>/js/mylibs/popup_search_suco_for_thanhtoan.js"></script>
 <style>
