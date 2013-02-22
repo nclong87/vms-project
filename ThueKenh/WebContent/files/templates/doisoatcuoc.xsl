@@ -1056,7 +1056,7 @@ xmlns:html="http://www.w3.org/TR/REC-html40"
 </xsl:template>
 <xsl:template match="row">
 	<xsl:variable name="mergeDown" select="./num_child"/>
-	<Row ss:Hidden="1">
+	<Row ss:Hidden="1" >
 		<Cell ss:MergeDown="{$mergeDown}" ss:StyleID="s103"><Data ss:Type="Number"><xsl:value-of select='./stt'/></Data></Cell>
 		<Cell ss:MergeDown="{$mergeDown}" ss:StyleID="s103"><Data ss:Type="String"><xsl:value-of select='./sohopdong'/></Data></Cell>
    </Row>
@@ -1064,7 +1064,7 @@ xmlns:html="http://www.w3.org/TR/REC-html40"
 </xsl:template>
 <xsl:template match="child">
 	<xsl:variable name="plthaythe" select="./plthaythe"/>
-	<Row>
+	<Row ss:AutoFitHeight="0" ss:Height="37.5">
 		<xsl:choose>
 			<xsl:when test="$plthaythe='1'">
 				<Cell ss:Index="3" ss:StyleID="s860"><Data ss:Type="String"><xsl:value-of select='./tenphuluc'/></Data></Cell>
