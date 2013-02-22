@@ -82,13 +82,13 @@ public class Test {
 			e.printStackTrace();
 		}*/
 		
-		int thang = 10;
+		/*int thang = 10;
 		int nam = 2012;
 		Calendar calendar = Calendar.getInstance();
 		calendar.set(nam, thang, 1);
 		int maxDay = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
-		System.out.println(maxDay);
-		
+		System.out.println(maxDay);*/
+		System.out.println(ReadNumber.read("11123456789"));
 		System.out.println("Done!");
     }
 }

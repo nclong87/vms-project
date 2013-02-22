@@ -103,5 +103,20 @@ public class DateUtils {
 	public static java.sql.Date getCurrentDate() {
 		return new java.sql.Date(System.currentTimeMillis());
 	}
+	public static String[] extractDate(String sDate,char seperate) {
+		String[] result = new String[3];
+		int i = 0;
+		int j = 0;
+		int len = sDate.length();
+		while(i<len) {
+			if(sDate.charAt(i) == seperate) {
+				j++;
+			} else {
+				result[j] = ((result[j]==null)?"":result[j])+ sDate.charAt(i);
+			}
+			i++;
+		}
+		return result;
+	}
 }
 
