@@ -1,109 +1,121 @@
 <root>
 	<header>
-		<tungay><![CDATA[01/12/2012]]></tungay>
-		<denngay><![CDATA[31/12/2012]]></denngay>
-		<matlienlactu><![CDATA[05/2012]]></matlienlactu>
-		<matlienlacden><![CDATA[10/2012]]></matlienlacden>
-		<tendoitac><![CDATA[VIỄN THÔNG BÌNH DƯƠNG]]></tendoitac>
+		<thang>12</thang>
+		<nam>2012</nam>
+		<matlienlactu>5/2012</matlienlactu>
+		<matlienlacden>12/2012</matlienlacden>
+		<tendoitac>Viễn Thông Bình Dương</tendoitac>
 	</header>
 	<data>
 		<row>
 			<stt>1</stt>
-			<sohopdong><![CDATA[HDBD_VMSC6_01]]></sohopdong>
-			<num_child><![CDATA[4]]></num_child>
+			<sohopdong>HDBD_VMSC6_01</sohopdong>
+			<num_child>4</num_child>
 			<childs>
 				<child>
-					<tenphuluc><![CDATA[PL01]]></tenphuluc>
-					<giatriphuluc><![CDATA[1080000]]></giatriphuluc>
-					<tungay><![CDATA[01/12/2012]]></tungay>
-					<denngay><![CDATA[31/12/2012]]></denngay>
-					<sothang><![CDATA[1]]></sothang>
-					<songay><![CDATA[0]]></songay>
-					<soluongkenh><![CDATA[2E359]]></soluongkenh>
-					<thanhtien><![CDATA[1080000]]></thanhtien>
-					<giamtrumll><![CDATA[]]>
-					</giamtrumll>
-					<cuocdaunoi><![CDATA[0]]></cuocdaunoi>
-					<dathanhtoan><![CDATA[0]]></dathanhtoan>
-					<conthanhtoan><![CDATA[1080000]]></conthanhtoan>
+					<tenphuluc>PL01</tenphuluc>
+					<ngaycohieuluc>1/12/2012</ngaycohieuluc>
+					<giatriphuluc>1080000</giatriphuluc>
+					<tungay>01/12/2012</tungay>
+					<denngay>31/12/2012</denngay>
+					<sothang>1</sothang>
+					<songay>0</songay>
+					<soluongkenh>2E</soluongkenh>
+					<thanhtien>1080000</thanhtien>
+					<cuocdaunoi>0</cuocdaunoi>
+					<giamtrumll></giamtrumll>
+					<dathanhtoan>0</dathanhtoan>
+					<conthanhtoan>1080000</conthanhtoan>
+					<ghichu>Đã TT tháng 10,11/2012</ghichu>
+					<plthaythe>0</plthaythe>
 				</child>
 				<child>
-					<tenphuluc><![CDATA[PL02]]></tenphuluc>
-					<giatriphuluc><![CDATA[1152000]]></giatriphuluc>
-					<tungay><![CDATA[16/10/2012]]></tungay>
-					<denngay><![CDATA[31/12/2012]]></denngay>
-					<sothang><![CDATA[2]]></sothang>
-					<songay><![CDATA[16]]></songay>
-					<soluongkenh><![CDATA[4E1]]></soluongkenh>
-					<thanhtien><![CDATA[2918400]]></thanhtien>
-					<giamtrumll><![CDATA[]]>
-					</giamtrumll>
-					<cuocdaunoi><![CDATA[270000]]></cuocdaunoi>
-					<dathanhtoan><![CDATA[0]]></dathanhtoan>
-					<conthanhtoan><![CDATA[3188400]]></conthanhtoan>
+					<tenphuluc>PL01</tenphuluc>
+					<ngaycohieuluc>1/12/2012</ngaycohieuluc>
+					<giatriphuluc>1080000</giatriphuluc>
+					<tungay>01/12/2012</tungay>
+					<denngay>31/12/2012</denngay>
+					<sothang>1</sothang>
+					<songay>0</songay>
+					<soluongkenh>2E</soluongkenh>
+					<thanhtien>1080000</thanhtien>
+					<cuocdaunoi>0</cuocdaunoi>
+					<giamtrumll></giamtrumll>
+					<dathanhtoan>0</dathanhtoan>
+					<conthanhtoan>1080000</conthanhtoan>
+					<ghichu>Đã TT tháng 10,11/2012</ghichu>
+					<plthaythe>0</plthaythe>
 				</child>
 				<child>
-					<tenphuluc><![CDATA[PL10]]></tenphuluc>
-					<giatriphuluc><![CDATA[1280000]]></giatriphuluc>
-					<tungay><![CDATA[20/10/2012]]></tungay>
-					<denngay><![CDATA[20/11/2012]]></denngay>
-					<sothang><![CDATA[1]]></sothang>
-					<songay><![CDATA[0]]></songay>
-					<soluongkenh><![CDATA[2E1]]></soluongkenh>
-					<thanhtien><![CDATA[1279980]]></thanhtien>
-					<giamtrumll><![CDATA[]]>
-					</giamtrumll>
-					<cuocdaunoi><![CDATA[0]]></cuocdaunoi>
-					<dathanhtoan><![CDATA[2344253]]></dathanhtoan>
-					<conthanhtoan><![CDATA[-1064273]]></conthanhtoan>
+					<tenphuluc>PL01</tenphuluc>
+					<ngaycohieuluc>1/12/2012</ngaycohieuluc>
+					<giatriphuluc>1080000</giatriphuluc>
+					<tungay>01/12/2012</tungay>
+					<denngay>31/12/2012</denngay>
+					<sothang>1</sothang>
+					<songay>0</songay>
+					<soluongkenh>2E</soluongkenh>
+					<thanhtien>1080000</thanhtien>
+					<cuocdaunoi>0</cuocdaunoi>
+					<giamtrumll></giamtrumll>
+					<dathanhtoan>0</dathanhtoan>
+					<conthanhtoan>1080000</conthanhtoan>
+					<ghichu>Đã TT tháng 10,11/2012</ghichu>
+					<plthaythe>0</plthaythe>
 				</child>
 				<child>
-					<tenphuluc><![CDATA[PL11]]></tenphuluc>
-					<giatriphuluc><![CDATA[1280000]]></giatriphuluc>
-					<tungay><![CDATA[21/11/2012]]></tungay>
-					<denngay><![CDATA[31/12/2012]]></denngay>
-					<sothang><![CDATA[1]]></sothang>
-					<songay><![CDATA[10]]></songay>
-					<soluongkenh><![CDATA[2E1]]></soluongkenh>
-					<thanhtien><![CDATA[1706640]]></thanhtien>
-					<giamtrumll><![CDATA[]]>
-					</giamtrumll>
-					<cuocdaunoi><![CDATA[420000]]></cuocdaunoi>
-					<dathanhtoan><![CDATA[0]]></dathanhtoan>
-					<conthanhtoan><![CDATA[2126640]]></conthanhtoan>
+					<tenphuluc>PL01</tenphuluc>
+					<ngaycohieuluc>1/12/2012</ngaycohieuluc>
+					<giatriphuluc>1080000</giatriphuluc>
+					<tungay>01/12/2012</tungay>
+					<denngay>31/12/2012</denngay>
+					<sothang>1</sothang>
+					<songay>0</songay>
+					<soluongkenh>2E</soluongkenh>
+					<thanhtien>1080000</thanhtien>
+					<cuocdaunoi>0</cuocdaunoi>
+					<giamtrumll></giamtrumll>
+					<dathanhtoan>0</dathanhtoan>
+					<conthanhtoan>1080000</conthanhtoan>
+					<ghichu>Thay thế PL02</ghichu>
+					<plthaythe>1</plthaythe>
 				</child>
 			</childs>
 		</row>
 		<row>
 			<stt>2</stt>
-			<sohopdong><![CDATA[HDBD_VMSC6_02]]></sohopdong>
-			<num_child><![CDATA[1]]></num_child>
+			<sohopdong>HDBD_VMSC6_02</sohopdong>
+			<num_child>1</num_child>
 			<childs>
 				<child>
-					<tenphuluc><![CDATA[PL01]]></tenphuluc>
-					<giatriphuluc><![CDATA[3440000]]></giatriphuluc>
-					<tungay><![CDATA[01/12/2012]]></tungay>
-					<denngay><![CDATA[31/12/2012]]></denngay>
-					<sothang><![CDATA[1]]></sothang>
-					<songay><![CDATA[0]]></songay>
-					<soluongkenh><![CDATA[6E1]]></soluongkenh>
-					<thanhtien><![CDATA[3439980]]></thanhtien>
-					<giamtrumll><![CDATA[]]>
-					</giamtrumll>
-					<cuocdaunoi><![CDATA[300000]]></cuocdaunoi>
-					<dathanhtoan><![CDATA[0]]></dathanhtoan>
-					<conthanhtoan><![CDATA[3739980]]></conthanhtoan>
+					<tenphuluc>PL01</tenphuluc>
+					<ngaycohieuluc>1/12/2012</ngaycohieuluc>
+					<giatriphuluc>1080000</giatriphuluc>
+					<tungay>01/12/2012</tungay>
+					<denngay>31/12/2012</denngay>
+					<sothang>1</sothang>
+					<songay>0</songay>
+					<soluongkenh>2E</soluongkenh>
+					<thanhtien>1080000</thanhtien>
+					<cuocdaunoi>0</cuocdaunoi>
+					<giamtrumll></giamtrumll>
+					<dathanhtoan>0</dathanhtoan>
+					<conthanhtoan>1080000</conthanhtoan>
+					<ghichu>Thay thế PL02</ghichu>
+					<plthaythe>1</plthaythe>
 				</child>
 			</childs>
 		</row>
 	</data>
 	<summary>
-		<tongthanhtien><![CDATA[10425000]]></tongthanhtien>
-		<tonggiamtru><![CDATA[7250]]></tonggiamtru>
-		<tongdaunoihoamang><![CDATA[990000]]></tongdaunoihoamang>
-		<tongdathanhtoan><![CDATA[2344253]]></tongdathanhtoan>
-		<tongconthanhtoan><![CDATA[9063497]]></tongconthanhtoan>
-		<tongvat><![CDATA[906349]]></tongvat>
-		<tongcong><![CDATA[9969846]]></tongcong>
+		<tongsokenh>- Số kênh E1: 256 - Số kênh STM1: 19 - Số kênh GE:147 GE</tongsokenh>
+		<tongthanhtien>10425000</tongthanhtien>
+		<tonggiamtru>7250</tonggiamtru>
+		<tongdaunoihoamang>990000</tongdaunoihoamang>
+		<tongdathanhtoan>2344253</tongdathanhtoan>
+		<tongconthanhtoan>9063497</tongconthanhtoan>
+		<tongvat>906349</tongvat>
+		<tongcong>9969846</tongcong>
+		<bangchu>Tong tien bang chu</bangchu>
 	</summary>
 </root>
