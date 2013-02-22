@@ -75,7 +75,7 @@ public class ChiTietPhuLucDAO {
 		System.out.println("***END saveChiTietPhuLucTuyenKenh***");
 		String[] soLuongKenh = new String[sLoaiGiaoTiep.size()];
 		for(int i=0;i<sLoaiGiaoTiep.size();i++) {
-			soLuongKenh[i] = String.valueOf(mapSoKenh.get(sLoaiGiaoTiep.get(i)))+sLoaiGiaoTiep.get(i);
+			soLuongKenh[i] = String.valueOf(mapSoKenh.get(sLoaiGiaoTiep.get(i)))+" "+sLoaiGiaoTiep.get(i);
 		}
 		result.put("cuocDauNoi", cuocDauNoi);
 		result.put("giaTriTruocThue", giaTri);

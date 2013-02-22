@@ -976,7 +976,7 @@ xmlns:html="http://www.w3.org/TR/REC-html40"
    <xsl:apply-templates select="/root/data/row"/>
    <Row ss:AutoFitHeight="0" ss:Height="36">
     <Cell ss:MergeAcross="7" ss:StyleID="m69914968"><Data ss:Type="String">Tổng </Data></Cell>
-    <Cell ss:StyleID="s102"><Data ss:Type="String" x:Ticked="1"><xsl:value-of select="/root/summary/tongsokenh"/></Data></Cell>
+    <Cell ss:StyleID="s102"><Data ss:Type="String" x:Ticked="1"><xsl:value-of disable-output-escaping="yes" select="/root/summary/tongsokenh"/></Data></Cell>
     <Cell ss:StyleID="s103"><Data ss:Type="Number"><xsl:value-of select="/root/summary/tongthanhtien"/></Data></Cell>
     <Cell ss:StyleID="s103"><Data ss:Type="Number"><xsl:value-of select="/root/summary/tongdaunoihoamang"/></Data></Cell>
     <Cell ss:StyleID="s103"><Data ss:Type="Number"><xsl:value-of select="/root/summary/tonggiamtru"/></Data></Cell>

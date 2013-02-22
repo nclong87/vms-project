@@ -31,7 +31,7 @@ import vms.utils.VMSUtil;
 public class Test {
 	public static void main(String arg[]) {
 		System.out.println("Begin");
-		Workbook workBook = null;
+		/*Workbook workBook = null;
 		try {
 			System.out.println("Begin upload");
 	        File file = new File("D:\\test.xls");
@@ -63,8 +63,9 @@ public class Test {
 			e.printStackTrace();
 		} finally {
 			workBook.close();
-		}
-		
+		}*/
+		String[] test = DateUtils.extractDate("22/2/2013", '/');
+		System.out.println(test[2]);
 		System.out.println("Done!");
     }
 }

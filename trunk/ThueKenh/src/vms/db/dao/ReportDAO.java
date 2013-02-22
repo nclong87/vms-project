@@ -13,6 +13,8 @@ import java.util.Map.Entry;
 
 import javax.sql.DataSource;
 import oracle.jdbc.OracleTypes;
+
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import vms.db.dto.DoiTacDTO;
@@ -21,6 +23,7 @@ import vms.db.dto.report.rptGiamTruMLL;
 import vms.db.dto.report.rptSuCo;
 import vms.utils.DateUtils;
 import vms.utils.NumberUtil;
+import vms.utils.ReadNumber;
 import vms.utils.VMSUtil;
 
 public class ReportDAO {
@@ -191,8 +194,9 @@ public class ReportDAO {
 		long tongdathanhtoan = 0;
 		long tongconthanhtoan = 0;
 		if(doisoatcuoc != null ) {
-			stringBuffer.append(VMSUtil.xml("tungay", doisoatcuoc.get("tungay").toString()));
-			stringBuffer.append(VMSUtil.xml("denngay", doisoatcuoc.get("denngay").toString()));
+			String[] extractResult = DateUtils.extractDate(doisoatcuoc.get("tungay").toString(), '/');
+			stringBuffer.append(VMSUtil.xml("thang", extractResult[1]));
+			stringBuffer.append(VMSUtil.xml("nam", extractResult[2]));
 			stringBuffer.append(VMSUtil.xml("matlienlactu", doisoatcuoc.get("matlienlactu").toString()));
 			stringBuffer.append(VMSUtil.xml("matlienlacden", doisoatcuoc.get("matlienlacden").toString()));
 			stringBuffer.append(VMSUtil.xml("tendoitac", doisoatcuoc.get("tendoitac").toString().toUpperCase()));
@@ -207,6 +211,7 @@ public class ReportDAO {
 		int stt = 1;
 		Map<Integer,Object> map = new LinkedHashMap<Integer,Object>();
 		int hopdong_id = -1;
+		Map<String,Integer> tongsokenh = new LinkedHashMap<String, Integer>();
 		while(rs.next()) {
 			//String hopdong_id = rs.getString("HOPDONG_ID");
 			List<String> list = null;
@@ -224,6 +229,16 @@ public class ReportDAO {
 				list = (List<String>) tmpMap1.get("childs");
 			}
 			list.add(rptDoiSoatCuoc.toXML(rs));
+			String[] arrayStr = StringUtils.split(rs.getString("SOLUONGKENH"), ";");
+			for(int i=0;i<arrayStr.length;i++) {
+				String[] tmp = StringUtils.split(arrayStr[i], " ");
+				if(tmp.length != 2) break;
+				if(tongsokenh.containsKey(tmp[1])) {
+					tongsokenh.put(tmp[1], tongsokenh.get(tmp[1]) + NumberUtil.parseInt(tmp[0]));
+				} else {
+					tongsokenh.put(tmp[1], NumberUtil.parseInt(tmp[0]));
+				}
+			}
 			tmpMap1.put("childs", list);
 			map.put(hopdong_id, tmpMap1);
 		}
@@ -247,6 +262,11 @@ public class ReportDAO {
 		stringBuffer.append("<summary>");
 		long tongvat = (int) Math.floor(tongconthanhtoan * 10 / 100);
 		long tongcong = tongconthanhtoan + tongvat;
+		String sTongsokenh = "";
+		for (Entry<String, Integer> entry : tongsokenh.entrySet()) {
+			sTongsokenh += "- Số kênh "+entry.getKey()+": "+entry.getValue()+"&amp;#10;";
+		}
+		stringBuffer.append(VMSUtil.xml("tongsokenh", sTongsokenh));
 		stringBuffer.append(VMSUtil.xml("tongthanhtien", String.valueOf(tongthanhtien)));
 		stringBuffer.append(VMSUtil.xml("tonggiamtru", String.valueOf(tonggiamtru)));
 		stringBuffer.append(VMSUtil.xml("tongdaunoihoamang", String.valueOf(tongdaunoihoamang)));
@@ -254,6 +274,9 @@ public class ReportDAO {
 		stringBuffer.append(VMSUtil.xml("tongconthanhtoan", String.valueOf(tongconthanhtoan)));
 		stringBuffer.append(VMSUtil.xml("tongvat", String.valueOf(tongvat)));
 		stringBuffer.append(VMSUtil.xml("tongcong", String.valueOf(tongcong)));
+		String bangchu = ReadNumber.read(String.valueOf(tongcong)) + " đồng";
+		bangchu = Character.toUpperCase(bangchu.charAt(0)) + bangchu.substring(1);
+		stringBuffer.append(VMSUtil.xml("bangchu", bangchu));
 		stringBuffer.append("</summary>");
 		stringBuffer.append("</root>");
 		stmt.close();
