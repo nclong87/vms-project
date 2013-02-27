@@ -918,6 +918,11 @@
 				<param name="root">jsonData</param>
 			</result>
 		</action>
+		<action name="findphulucByhopdong2" class="phuLucAction" method="findphulucByhopdong2">
+			<result name="success" type="json">
+				<param name="root">jsonData</param>
+			</result>
+		</action>
 		<action name="findphulucByhopdonganddoisoatcuoc" class="phuLucAction" method="findphulucByhopdonganddoisoatcuoc">
 			<result name="success" type="json">
 				<param name="root">jsonData</param>

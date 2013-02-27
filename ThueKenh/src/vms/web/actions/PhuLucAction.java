@@ -237,6 +237,30 @@ public class PhuLucAction implements Preparable {
 		}
 		return Action.SUCCESS;
 	}
+	public String findphulucByhopdong2() {
+		jsonData = new LinkedHashMap<String, Object>();
+		try {
+			if(hopdong_id!= null) {
+				Map<String, String> conditions = new LinkedHashMap<String, String>();
+				System.out.println("hopdong_id:"+hopdong_id);
+				conditions.put("hopdong_id", hopdong_id);
+				String thang=request.getParameter("thang");
+				String nam=request.getParameter("nam");
+				String ngayDSC=nam+"-"+thang+"-1";
+				conditions.put("ngayDSC",ngayDSC );
+				PhuLucDAO phulucDao = new PhuLucDAO(daoFactory);
+				List<Map<String, Object>> items = phulucDao.search(0, 1000, conditions);
+				jsonData.put("result", "OK");
+				jsonData.put("aaData", items);
+				return Action.SUCCESS;
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			jsonData.put("result", "ERROR");
+		}
+		return Action.SUCCESS;
+	}
 	
 	public String findphulucByhopdonganddoisoatcuoc() {
 		jsonData = new LinkedHashMap<String, Object>();
