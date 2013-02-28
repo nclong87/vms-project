@@ -187,7 +187,7 @@ public class DeXuatAction implements Preparable {
 						content+=temptkdxDto.getTuyenkenh_id();
 					}
 					VMSUtil.sendMail(daoFactory,tkdxDto.getTuyenkenh_id(), 1, "Danh sách các tuyến kênh đề xuất: " +content);
-					VMSUtil.sendSMS(daoFactory, tkdxDto.getTuyenkenh_id(), 1, "Danh sách các tuyến kênh đề xuất: "+content);
+					VMSUtil.sendSMS(daoFactory, tkdxDto.getTuyenkenh_id(), 1, "Danh sach cac tuyen kenh de xuat: "+content);
 				}
 			}
 			setInputStream("OK");
