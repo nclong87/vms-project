@@ -140,7 +140,7 @@ public class ChiTietPhuLucAction implements Preparable {
 		json.put("giaTriSauThue", request.getParameter("giaTriSauThue"));
 		json.put("soLuongKenh", request.getParameter("soLuongKenh"));
 		json.put("id", id);
-		
+		System.out.println("id-toan:"+id);
 		String tenchitietphuluc="";
 		if(!id.isEmpty())
 		{

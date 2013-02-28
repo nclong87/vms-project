@@ -314,7 +314,7 @@ $(document).ready(function(){
 					if($("#id").val()!="") {
 					   parent.isUpdate = true;
 					}
-					showDialogUrl("${formURL}?cuocDauNoi="+response.data.cuocDauNoi+"&giaTriTruocThue="+response.data.giaTriTruocThue+"&giaTriSauThue="+response.data.giaTriSauThue+"&soLuongKenh="+response.data.soLuongKenh+"&id="+$("#id").val(),"Lưu giá trị phụ lục",500);
+					showDialogUrl("${formURL}?cuocDauNoi="+response.data.cuocDauNoi+"&giaTriTruocThue="+response.data.giaTriTruocThue+"&giaTriSauThue="+response.data.giaTriSauThue+"&soLuongKenh="+encodeURIComponent(response.data.soLuongKenh)+"&id="+$("#id").val(),"Lưu giá trị phụ lục",500);
 				}
 			},
 			error: function(data){ alert (data);button.disabled = false;}	
