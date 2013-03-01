@@ -168,6 +168,14 @@ function newPopupWindow(file, window, width, height) {
     if (msgWindow.opener == null) msgWindow.opener = self;
 }
 $(document).ready(function(){	
+	popup_search_tuyenkenh.init({
+		url : "${popupSearchForSuCoURL}",
+		afterSelected : function(data) {
+			// list tuyen kenh tra ve, sau do xu ly du lieu cho nay
+			data = data[0];
+			$("#tuyenkenh_id").val(data["id"]) ;
+		}
+	});
 	// load datetime
 	LoadDateTimePicker(".datetimepicker");
 	// Load table
