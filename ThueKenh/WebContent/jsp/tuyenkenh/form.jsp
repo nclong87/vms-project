@@ -101,6 +101,13 @@ function byId(id) { //Viet tat cua ham document.getElementById
 				</td>
 			</tr>
 			<tr>
+				<td align="right">Loại kênh :</td>
+				<td align="left">
+					<select name="tuyenKenh.loaikenh" id="loaikenh">
+						<option value="1">Nội hạt</option>
+						<option value="2">Liên tỉnh</option>
+					</select>
+				</td>
 				<td align="right">Trạng thái kênh :</td>
 				<td align="left">
 					<select name="tuyenKenh.trangthai" id="trangthai">
@@ -109,9 +116,6 @@ function byId(id) { //Viet tat cua ham document.getElementById
 						<option value="2">Đang cập nhật số lượng</option>
 						<option value="3">Đã bàn giao</option>
 					</select>
-				</td>
-				<td align="right"></td>
-				<td align="left">
 				</td>
 			</tr>
 			<tr height="30px">

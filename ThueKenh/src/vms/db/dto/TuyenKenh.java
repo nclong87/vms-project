@@ -25,6 +25,7 @@ public class TuyenKenh {
 	private String usercreate = "";
 	private String timecreate = "";
 	private Integer deleted = 0;
+	private Integer loaikenh=0;
 
     public TuyenKenh() {
 
@@ -155,6 +156,12 @@ public class TuyenKenh {
 	public void setDungluong(Double dungluong) {
 		this.dungluong = dungluong;
 	}
+	public Integer getLoaikenh() {
+		return loaikenh;
+	}
+	public void setLoaikenh(Integer loaikenh) {
+		this.loaikenh = loaikenh;
+	}
 
 	public Map<String,String> getMap() {
 		Map<String, String> map = new LinkedHashMap<String, String>();
@@ -171,6 +178,7 @@ public class TuyenKenh {
 		map.put("usercreate", this.usercreate);
 		map.put("timecreate", this.timecreate);
 		map.put("deleted", String.valueOf(this.deleted));
+		map.put("loaikenh", String.valueOf(this.loaikenh));
 		return map;
 	}
 	
@@ -189,6 +197,7 @@ public class TuyenKenh {
 		dto.setUsercreate(rs.getString("USERCREATE"));
 		dto.setTimecreate(rs.getString("TIMECREATE"));
 		dto.setDeleted(rs.getInt("DELETED"));
+		dto.setLoaikenh(rs.getInt("LOAIKENH"));
         return dto;
 	}
 	

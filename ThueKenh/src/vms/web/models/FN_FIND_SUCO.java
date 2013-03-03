@@ -34,7 +34,7 @@ public class FN_FIND_SUCO {
 	private String filepath;
 	private String filesize;
 	private String bienbanvanhanh_id;
-	
+	private String phuluc_id;
 	public String getSuco_id() {
 		return suco_id;
 	}
@@ -202,10 +202,19 @@ public class FN_FIND_SUCO {
 	public void setGiaotiep_id(String giaotiep_id) {
 		this.giaotiep_id = giaotiep_id;
 	}
+	
+	public String getPhuluc_id() {
+		return phuluc_id;
+	}
+
+	public void setPhuluc_id(String phuluc_id) {
+		this.phuluc_id = phuluc_id;
+	}
 
 	public Map<String,String> getMap() {
 		Map<String, String> map = new LinkedHashMap<String, String>();
 		map.put("id", this.suco_id);
+		map.put("phuluc_id", this.phuluc_id);
 		map.put("tuyenkenh_id", this.tuyenkenh_id);
 		map.put("loaisuco", this.loaisuco);
 		map.put("madiemdau", this.madiemdau);
@@ -232,6 +241,7 @@ public class FN_FIND_SUCO {
 	public static FN_FIND_SUCO mapObject(ResultSet rs) throws SQLException {
 		FN_FIND_SUCO dto = new FN_FIND_SUCO();
 		dto.setSuco_id(rs.getString("id"));
+		dto.setPhuluc_id(rs.getString("phuluc_id"));
 		dto.setTuyenkenh_id(rs.getString("tuyenkenh_id"));
 		dto.setLoaisuco(rs.getString("loaisuco"));
 		dto.setMadiemdau(rs.getString("madiemdau"));

@@ -98,7 +98,11 @@ $(document).ready(function(){
 					},
 					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,
 						"fnRender": function( oObj ) {
-							return '<center><input type="checkbox" value="'+oObj.iDataRow+'"/></center>'; 
+							if(oObj.aData.phuluc_id == null) {
+								return '<center><input type="checkbox" disabled title="Sự cố này hiện chưa thuộc phụ lục nào" /></center>'; 
+							} else {
+								return '<center><input type="checkbox" value="'+oObj.iDataRow+'"/></center>'; 
+							}
 						}
 					}
 				],

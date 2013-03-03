@@ -18,6 +18,7 @@ import org.springframework.jdbc.core.RowMapper;
 
 import vms.db.dto.SuCoDTO;
 import vms.utils.DateUtils;
+import vms.utils.NumberUtil;
 import vms.utils.VMSUtil;
 import vms.web.models.FN_FIND_SUCO;
 
@@ -238,5 +239,51 @@ public class SuCoDAO {
 		stmt.close();
 		connection.close();
 		return result;
+	}
+	
+	private static final String SQL_FIND_SUCOBYPHULUC = "{ ? = call FIND_SUCOBYPHULUC(?) }";
+	public List<Map<String,Object>> findSuCoByPhuLuc(String phulucId) throws SQLException {
+		Connection connection = jdbcDatasource.getConnection();
+		CallableStatement stmt = connection.prepareCall(SQL_FIND_SUCOBYPHULUC);
+		stmt.registerOutParameter(1, OracleTypes.CURSOR);
+		stmt.setString(2, phulucId);
+		stmt.execute();
+		ResultSet rs = (ResultSet) stmt.getObject(1);
+		List<Map<String,Object>> result = new ArrayList<Map<String,Object>>();
+		while(rs.next()) {
+			Map<String,Object> map = VMSUtil.resultSetToMap(rs);
+			result.add(map);
+		}
+		stmt.close();
+		connection.close();
+		return result;
+	}
+	
+	private static final String SQL_SUCOKENH_UPDATE_PHULUC = "{ call SUCOKENH_UPDATE_PHULUC(?,?,?,?) }";
+	public void updatePhuLuc(Map<String,Object> map,String sPhuLucId,int flag) throws Exception {
+		Connection connection = jdbcTemplate.getDataSource().getConnection();
+		CallableStatement stmt = connection.prepareCall(SQL_SUCOKENH_UPDATE_PHULUC);
+		stmt.setLong(1, NumberUtil.parseLong(map.get("id").toString()));
+		stmt.setLong(2, NumberUtil.parseLong(sPhuLucId));
+		double giamtrumll = 0;
+		float thoigianmatll = NumberUtil.parseFloat(map.get("thoigianmll").toString());
+		if(thoigianmatll > 30) {
+			giamtrumll=(thoigianmatll*NumberUtil.parseLong(map.get("dongia").toString()))/(30*24*60);
+		}
+		stmt.setDouble(3, Math.floor(giamtrumll));
+		stmt.setInt(4, flag);
+		stmt.execute();
+		stmt.close();
+		connection.close();
+	}
+	
+	private static final String SQL_PROC_SUCO_RESET = "{ call PROC_SUCO_RESET(?) }";
+	public void resetSuco(String sPhuLucId) throws Exception {
+		Connection connection = jdbcTemplate.getDataSource().getConnection();
+		CallableStatement stmt = connection.prepareCall(SQL_PROC_SUCO_RESET);
+		stmt.setString(1, sPhuLucId);
+		stmt.execute();
+		stmt.close();
+		connection.close();
 	}
 }

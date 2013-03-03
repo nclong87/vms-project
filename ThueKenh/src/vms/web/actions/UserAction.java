@@ -27,6 +27,7 @@ import vms.db.dto.KhuVuc;
 import vms.db.dto.Menu;
 import vms.db.dto.PhongBanDTO;
 import vms.utils.Constances;
+import vms.utils.NumberUtil;
 import vms.utils.VMSUtil;
 import vms.web.models.MessageStore;
 
@@ -131,13 +132,16 @@ public class UserAction implements Preparable {
 			VmsgroupDao vmsgroupDao = new VmsgroupDao(daoFactory);
 			vmsgroups = vmsgroupDao.getAll();
 			MenuDao menuDao = new MenuDao(daoFactory);
-			menus = menuDao.getAll();
 			form_data = "";
 			if(id != null && id.isEmpty()==false) {
 				AccountDao accountDao = new AccountDao(daoFactory);
 				user = accountDao.findById(id);
 				Map<String,String> map = user.getMap();
 				form_data = JSONValue.toJSONString(map);
+				Long idGroup = NumberUtil.parseLong(user.getIdgroup());
+				menus = menuDao.getAllByUser(user.getId(), idGroup.toString());
+			} else {
+				menus = menuDao.getAll();
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -193,6 +197,55 @@ public class UserAction implements Preparable {
 		if(permission == false) return "error_permission";
 		KhuVucDao khuVucDao = new KhuVucDao(daoFactory);
 		khuvucs = khuVucDao.getAll();
+		return Action.SUCCESS;
+	}
+	
+	public String updateAccount() {
+		try {
+			if(account == null) {
+				session.setAttribute("URL", VMSUtil.getFullURL(request));
+				return "login_page";
+			}
+			//if(permission == false) return "error_permission";
+			PhongBanDao phongBanDao = new PhongBanDao(daoFactory);
+			phongbans = phongBanDao.getAll();
+			KhuVucDao khuVucDao = new KhuVucDao(daoFactory);
+			khuvucs = khuVucDao.getAll();
+			VmsgroupDao vmsgroupDao = new VmsgroupDao(daoFactory);
+			vmsgroups = vmsgroupDao.getAll();
+			MenuDao menuDao = new MenuDao(daoFactory);
+			menus = menuDao.getAllByUser(account.get("id").toString(),account.get("idgroup").toString());
+			AccountDao accountDao = new AccountDao(daoFactory);
+			user = accountDao.findById(account.get("id").toString());
+			Map<String,String> map = user.getMap();
+			form_data = JSONValue.toJSONString(map);
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.setAttribute("message", e.getMessage());
+			return Action.ERROR;
+		}
+		return Action.SUCCESS;
+	}
+	public String doUpdateAccount() {
+		jsonData = new LinkedHashMap<String, Object>();
+		try {
+			if(account == null) {
+				session.setAttribute("URL", VMSUtil.getFullURL(request));
+				return "login_page";
+			}
+			AccountDao accountDao = new AccountDao(daoFactory);
+			user.setUsername(account.get("username").toString());
+			user.setIdgroup(account.get("idgroup").toString());
+			user.setIdphongban(account.get("idphongban").toString());
+			user.setActive(Integer.valueOf(account.get("active").toString()));
+			id = String.valueOf(accountDao.save(user));
+			if(id == null) throw new Exception("ERROR");
+			jsonData.put("result", "OK");
+		} catch (Exception e) {
+			e.printStackTrace();
+			jsonData.put("result", "ERROR");
+			jsonData.put("data", e.getMessage());
+		}
 		return Action.SUCCESS;
 	}
 	

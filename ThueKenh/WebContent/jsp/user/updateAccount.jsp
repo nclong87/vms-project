@@ -3,8 +3,7 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <s:url action="doLogout" namespace="/login" var="doLogoutURL" />
 <s:url action="index" namespace="/login" var="loginURL" />
-<s:url action="index" namespace="/settings" var="settingsIndexURL" />
-<s:url action="doSave" namespace="/user" id="doSaveURL" />
+<s:url action="doUpdateAccount" namespace="/user" id="doSaveURL" />
 <s:url action="index" namespace="/user" id="userIndexURL" />
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <%
@@ -64,8 +63,8 @@ input.error,select.error,textarea.error {
 						</td>
 						<td align="left">
 							<input type="text" name="user.username"
-							id="username" /> <label style="display: none"
-							for="user.username" generated="false" class="error"></label>
+							id="username" disabled /> <label style="display: none"
+							for="user.username" generated="false" class="error" ></label>
 						</td>
 						<td class="td_label" align="right">Mật khẩu :
 						</td>
@@ -80,7 +79,7 @@ input.error,select.error,textarea.error {
 						<td class="td_label" align="right">Phòng ban :</td>
 						<td align="left">
 							<select name="user.idphongban"
-							id="idphongban">
+							id="idphongban" disabled>
 								<option value="">-- Chọn phòng ban --</option>
 								<s:iterator value="phongbans">
 									<option value='<s:property value="id" />'>
@@ -91,7 +90,7 @@ input.error,select.error,textarea.error {
 						</td>
 						<td class="td_label" align="right">Nhóm chức năng:</td>
 						<td align="left">
-							<select name="user.idgroup" id="idgroup">
+							<select name="user.idgroup" id="idgroup" disabled>
 								<option value="">-- Chọn nhóm chức năng --</option>
 								<s:iterator value="vmsgroups">
 									<option data-ref='<s:property value="mainmenu" />' value='<s:property value="id" />'>
@@ -127,7 +126,7 @@ input.error,select.error,textarea.error {
 						</td>
 						<td class="td_label" align="right">Trạng thái :</td>
 						<td align="left">
-							<select name="user.active" id="active">
+							<select name="user.active" id="active" disabled>
 								<option value="1">Đang hoạt động</option>
 								<option value="0">Khóa</option>
 							</select>
@@ -228,10 +227,6 @@ $(document).ready(function() {
 						message(response.data,0);
 					} else {
 						message("Lưu thành công!",1);
-						parent.reload = true;
-						if($("#id").val()!="") {
-						   parent.isUpdate = true;
-						}
 					}
 				},
 				error:function(response){

@@ -23,6 +23,13 @@ public class NumberUtil {
 			return 0;
 		}
 	}
+	public static float parseFloat(String value) {
+		try {
+			return Float.parseFloat(value);
+		} catch (Exception e) {
+			return 0;
+		}
+	}
 	public static long parseLong(String value) {
 		try {
 			return Long.parseLong(value);

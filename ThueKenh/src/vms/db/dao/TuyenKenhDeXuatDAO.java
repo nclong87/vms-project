@@ -77,7 +77,7 @@ public class TuyenKenhDeXuatDAO {
 		});
 	}
 	
-	private static final String SQL_SAVE_TUYENKENHDEXUAT = "{ ? = call SAVE_TUYENKENHDEXUAT(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) }";
+	private static final String SQL_SAVE_TUYENKENHDEXUAT = "{ ? = call SAVE_TUYENKENHDEXUAT(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) }";
 	public String save(TuyenKenh tuyenKenh,TuyenKenhDeXuatDTO tuyenKenhDeXuatDTO,int soluong_old) throws Exception {
 		Connection connection = this.jdbcDatasource.getConnection();
 		CallableStatement stmt = connection.prepareCall(SQL_SAVE_TUYENKENHDEXUAT);
@@ -98,6 +98,7 @@ public class TuyenKenhDeXuatDAO {
 		stmt.setInt(15, soluong_old);
 		stmt.setString(16, tuyenKenh.getUsercreate());
 		stmt.setString(17, tuyenKenh.getTimecreate());
+		stmt.setString(18, String.valueOf(tuyenKenh.getLoaikenh()));
 		stmt.execute();
 		String rs = stmt.getString(1);
 		stmt.close();

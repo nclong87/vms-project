@@ -60,6 +60,16 @@ public class MenuDao {
 	}
 	
 	@SuppressWarnings("unchecked")
+	public List<Menu> getAllByUser(String accountId,String groupId) {
+		return this.jdbcTemplate.query("select m.* from menu m,user_menu u where m.active = 1 and m.id=u.menuid and accountid="+accountId+" union select t3.* from group_menu t1,vmsgroup t2,menu t3 where t3.active = 1 and t1.idmenu=t3.id and t1.idgroup=t2.id  and t2.active=1 and t2.id='"+groupId+"'", new RowMapper() {
+			@Override
+			public Object mapRow(ResultSet rs, int arg1) throws SQLException {
+				return Menu.mapObject(rs);
+			}
+		});
+	}
+	
+	@SuppressWarnings("unchecked")
 	public String getDefaultMenu(Map<String,Object> account) {
 		List<Map<String,Object>> list = new ArrayList<Map<String,Object>>();
 		if(account.get("mainmenu") != null ) {

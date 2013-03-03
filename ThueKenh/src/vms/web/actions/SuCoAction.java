@@ -224,18 +224,18 @@ public class SuCoAction implements Preparable {
 			System.out.println("sucoDTO.getTuyenkenh_id():"+sucoDTO.getTuyenkenh_id());
 			Map<String, Object> mapPhuluc = phuLucDAO.findPhuLucCoHieuLuc(sucoDTO.getTuyenkenh_id(), sqlDateThoiDiemBatDau);
 			if(mapPhuluc == null) {
-				System.out.println("ERROR_PHULUCNOTFOUND1");
-				throw new Exception("ERROR_PHULUCNOTFOUND");
-			}
-			System.out.println("setPhuluc_id:"+mapPhuluc.get("id").toString());
-			sucoDTO.setPhuluc_id(mapPhuluc.get("id").toString());
-			// tinh giam tru mat lien lac
-			if(thoigianmatll<=30)
 				sucoDTO.setGiamtrumll(0);
-			else 
-			{
-				double giamtrumatll=(thoigianmatll*NumberUtil.parseLong(mapPhuluc.get("dongia").toString()))/(30*24*60);
-				sucoDTO.setGiamtrumll(Math.floor(giamtrumatll));
+			} else {
+				System.out.println("setPhuluc_id:"+mapPhuluc.get("id").toString());
+				sucoDTO.setPhuluc_id(mapPhuluc.get("id").toString());
+				// tinh giam tru mat lien lac
+				if(thoigianmatll<=30)
+					sucoDTO.setGiamtrumll(0);
+				else 
+				{
+					double giamtrumatll=(thoigianmatll*NumberUtil.parseLong(mapPhuluc.get("dongia").toString()))/(30*24*60);
+					sucoDTO.setGiamtrumll(Math.floor(giamtrumatll));
+				}
 			}
  			String id=sucoDao.save(sucoDTO);
 			if(id==null) throw new Exception(Constances.MSG_ERROR);
