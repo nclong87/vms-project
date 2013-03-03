@@ -64,8 +64,8 @@ public class Test {
 		} finally {
 			workBook.close();
 		}*/
-		String[] test = DateUtils.extractDate("22/2/2013", '/');
-		System.out.println(test[2]);
+		Date date = DateUtils.parseDate("1/3/2013", "dd/MM/yyyy");
+		System.out.println(date.getTime());
 		System.out.println("Done!");
     }
 }

@@ -122,6 +122,17 @@ function byId(id) { //Viet tat cua ham document.getElementById
 					id="ngaydenghibangiao" class="date"/></td>
 			</tr>
 			<tr>
+				<td align="right">Loại kênh :</td>
+				<td align="left">
+					<select name="tuyenKenh.loaikenh" id="loaikenh">
+						<option value="1">Nội hạt</option>
+						<option value="2">Liên tỉnh</option>
+					</select>
+				</td>
+				<td align="right"></td>
+				<td align="left"></td>
+			</tr>
+			<tr>
 				<td align="right"><label for="thongtinlienhe">Thông tin
 						liên hệ : </label></td>
 				<td align="left" colspan="5"><textarea rows="2"

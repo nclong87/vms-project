@@ -111,7 +111,13 @@ public class AccountDao {
 		stmt.setString(8, account.getIdgroup());
 		stmt.setString(9, account.getMainmenu()!=null?String.valueOf(account.getMainmenu()):"-1");
 		stmt.setString(10, account.getEmail());
-		stmt.setString(11, account.getPhone());
+		String phone = account.getPhone();
+		if(phone.isEmpty() == false) {
+			if(phone.charAt(0) == '0') {
+				phone = phone.substring(1);
+			}
+		}
+		stmt.setString(11, phone);
 		stmt.execute();
 		Long rs = stmt.getLong(1);
 		stmt.close();

@@ -136,7 +136,7 @@ public class TuyenkenhDao {
 		return list.get(0);
 	}
 	
-	private static final String SQL_SAVE_TUYENKENH = "{ ? = call SAVE_TUYENKENH(?,?,?,?,?,?,?,?,?,?,?,?,?) }";
+	private static final String SQL_SAVE_TUYENKENH = "{ ? = call SAVE_TUYENKENH(?,?,?,?,?,?,?,?,?,?,?,?,?,?) }";
 	public String save(TuyenKenh dto) throws Exception {
 		Connection connection = jdbcTemplate.getDataSource().getConnection();
 		CallableStatement stmt = connection.prepareCall(SQL_SAVE_TUYENKENH);
@@ -158,6 +158,7 @@ public class TuyenkenhDao {
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 		stmt.setTimestamp(13, timestamp);
 		stmt.setString(14, String.valueOf(dto.getDeleted()));
+		stmt.setString(15, String.valueOf(dto.getLoaikenh()));
 		stmt.execute();
 		String id = stmt.getString(1);
 		stmt.close();

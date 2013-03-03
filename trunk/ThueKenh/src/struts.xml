@@ -286,7 +286,15 @@
 		<action name="form" class="userAction" method="form">
 			<result>/jsp/user/form.jsp</result>
 		</action>
+		<action name="updateAccount" class="userAction" method="updateAccount">
+			<result>/jsp/user/updateAccount.jsp</result>
+		</action>
 		<action name="doSave" class="userAction" method="doSave">
+			<result name="success" type="json">
+				<param name="root">jsonData</param>
+			</result>
+		</action>
+		<action name="doUpdateAccount" class="userAction" method="doUpdateAccount">
 			<result name="success" type="json">
 				<param name="root">jsonData</param>
 			</result>

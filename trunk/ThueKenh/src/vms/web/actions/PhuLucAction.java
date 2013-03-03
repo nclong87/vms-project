@@ -20,11 +20,11 @@ import org.json.simple.JSONValue;
 import vms.db.dao.DaoFactory;
 import vms.db.dao.HopDongDAO;
 import vms.db.dao.PhuLucDAO;
+import vms.db.dao.SuCoDAO;
 import vms.db.dto.HopDongDTO;
 import vms.db.dto.PhuLucDTO;
 import vms.utils.Constances;
 import vms.utils.DateUtils;
-import vms.utils.NumberUtil;
 import vms.utils.VMSUtil;
 
 import com.opensymphony.xwork2.Action;
@@ -162,13 +162,32 @@ public class PhuLucAction implements Preparable {
 			phuLucDTO.setUsercreate(account.get("username").toString());
 			phuLucDTO.setTimecreate(String.valueOf(System.currentTimeMillis()));
 			phuLucDTO.setNgayky(DateUtils.parseStringDateSQL(phuLucDTO.getNgayky(), "dd/MM/yyyy"));
+			Date date = DateUtils.parseDate(phuLucDTO.getNgayhieuluc(), "dd/MM/yyyy");
 			phuLucDTO.setNgayhieuluc(DateUtils.parseStringDateSQL(phuLucDTO.getNgayhieuluc(), "dd/MM/yyyy"));
 			id = phuLucDAO.save(phuLucDTO);
 			if(id == null) throw new Exception(Constances.MSG_ERROR);
+			SuCoDAO suCoDAO = new SuCoDAO(daoFactory);
+			if(phuLucDTO.getId().isEmpty() == false) { //update phu luc
+				suCoDAO.resetSuco(id);
+			}
+			List<Map<String,Object>> listSuco = suCoDAO.findSuCoByPhuLuc(id);
+			if(listSuco.isEmpty()==false) {
+				System.out.println("listSuco.size()="+listSuco.size());
+				for(int i=0; i < listSuco.size(); i++) {
+					Map<String,Object> map = listSuco.get(i);
+					if(map.get("suco_phuluc").toString().isEmpty()) { //su co chua co phu luc
+						System.out.println("1");
+						suCoDAO.updatePhuLuc(map, id, 0);
+					} else {
+						System.out.println("2");
+						suCoDAO.updatePhuLuc(map, id, 1);
+					}
+				}
+			}
 			phuLucDTO.setId(id);
 			if(phuLucDTO.getLoaiphuluc() == Constances.PHU_LUC_THAY_THE) {
 				if(arrPhuLucThayThe!= null && arrPhuLucThayThe.length>0) {
-					Date date = DateUtils.add(DateUtils.parseDate(phuLucDTO.getNgayhieuluc(), "dd-MMM-yyyy"), Calendar.DATE, -1);
+					date = DateUtils.add(date, Calendar.DATE, -1);
 					phuLucDAO.updatePhuLucThayThe(phuLucDTO, arrPhuLucThayThe,date,account.get("username").toString());
 				}
 			}

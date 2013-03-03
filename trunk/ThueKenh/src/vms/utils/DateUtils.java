@@ -118,5 +118,20 @@ public class DateUtils {
 		}
 		return result;
 	}
+	public static long[] getTime(int thang,int nam) {
+		long[] result = new long[2];
+		String str = "1/"+thang+"/"+nam;
+		System.out.println("from="+str);
+		Date date = DateUtils.parseDate(str, "dd/MM/yyyy");
+		result[0] = date.getTime();
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(date);
+		int maxDay = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+		str = maxDay+"/"+thang+"/"+nam;
+		System.out.println("end="+str);
+		date = DateUtils.parseDate(str, "dd/MM/yyyy");
+		result[1] = date.getTime();
+		return result;
+	}
 }
 
