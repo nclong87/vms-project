@@ -173,4 +173,7 @@ public class AccountDao {
 		stmt.close();
 		connection.close();
 	}
+	public void loginSuccess(String id) {
+		this.jdbcTemplate.update("update ACCOUNTS set LOGIN_TIME = sysdate where ID = ?",new Object[] {id});
+	}
 }

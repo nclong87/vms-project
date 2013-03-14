@@ -63,6 +63,7 @@ public class LoginAction implements Preparable {
 						message = Constances.MSG_LOGINFAIL;
 						return Action.SUCCESS;
 					}
+					accountDao.loginSuccess(account.get("id").toString());
 					session.setAttribute(Constances.SESS_USERLOGIN, account);
 					String sMenu = accountDao.getMenu(account);
 					session.setAttribute(Constances.SESS_MENU, sMenu);
