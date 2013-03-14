@@ -274,4 +274,9 @@ public class TuyenkenhDao {
 		connection.close();
 		return stringBuffer.toString();
 	}
+	
+	public void runScript(String sql) {
+		this.jdbcTemplate.execute(sql);
+		//("update TUYENKENH set NGAYBATDAU = ?,LOAIKENH = ? where ID = ?", new Object[] {});
+	}
 }

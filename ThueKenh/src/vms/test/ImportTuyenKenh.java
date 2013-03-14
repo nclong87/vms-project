@@ -43,7 +43,7 @@ import vms.utils.StringUtil;
 import vms.utils.VMSUtil;
 
 
-public class TestSQL {
+public class ImportTuyenKenh {
 	private static DaoFactory daoFactory;
 	private static Connection connection;
 	private static void instance() {
@@ -84,13 +84,15 @@ public class TestSQL {
 			}
 			instance();
 			TuyenkenhDao tuyenkenhDao = new TuyenkenhDao(daoFactory);
-			for(int i=0;i<10;i++) {
+			for(int i=0;i<list.size();i++) {
 				Map<String,String> dto = list.get(i);
 				TuyenKenh tk = tuyenkenhDao.findByKey2(dto.get("MADIEMDAU"), dto.get("MADIEMCUOI"), dto.get("GIAOTIEP_MA"), NumberUtil.parseInt(dto.get("DUNGLUONG")));
 				if(tk != null) {
-					System.out.println("Uodate tuyen kenh ID : "+tk.getId());
+					//System.out.println("Uodate tuyen kenh ID : "+tk.getId());
 					//int loaikenh = dto.get("LOAIKENH").equals("Nội hạt")
-					tuyenkenhDao.runScript("update TUYENKENH set NGAYBATDAU = TO_DATE('"+dto.get("NGAYBATDAU")+"','MM/DD/RRRR'),LOAIKENH = "+dto.get("LOAIKENH")+" where ID = 'TEST_0001'");
+					tuyenkenhDao.runScript("update TUYENKENH set NGAYBATDAU = TO_DATE('"+dto.get("NGAYBATDAU")+"','MM/DD/RRRR'),LOAIKENH = "+dto.get("LOAIKENH")+" where ID = '"+tk.getId()+"'");
+				} else {
+					System.out.println(dto.get("MADIEMDAU")+";"+dto.get("MADIEMCUOI")+";"+ dto.get("GIAOTIEP_MA"));
 				}
 				
 			}
