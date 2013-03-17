@@ -577,7 +577,6 @@ public class ImportAction implements Preparable {
 					dto.setNgaydenghibangiao(sheet.getCell(index, i).getContents());
 				if( (index = map.get("THONGTINLIENHE")) != null)
 					dto.setThongtinlienhe(sheet.getCell(index, i).getContents());
-				dto.setDateimport(date);
 				
 				if(	!dto.getMadiemdau().isEmpty() &&
 					!dto.getMadiemcuoi().isEmpty() &&
