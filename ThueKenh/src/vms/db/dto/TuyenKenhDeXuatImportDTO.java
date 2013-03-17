@@ -27,7 +27,7 @@ public class TuyenKenhDeXuatImportDTO {
 	private Date dateimport = null;
 	private String duplicate="";
 	private String tuyenkenh_id="";
-	
+	private Integer soluong_old=0;
     public TuyenKenhDeXuatImportDTO() {
 
     }
@@ -158,6 +158,14 @@ public class TuyenKenhDeXuatImportDTO {
 
 	public void setTuyenkenh_id(String tuyenkenh_id) {
 		this.tuyenkenh_id = tuyenkenh_id;
+	}
+
+	public Integer getSoluong_old() {
+		return soluong_old;
+	}
+
+	public void setSoluong_old(Integer soluong_old) {
+		this.soluong_old = soluong_old;
 	}
     
 }

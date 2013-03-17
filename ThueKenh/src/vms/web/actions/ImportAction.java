@@ -590,7 +590,10 @@ public class ImportAction implements Preparable {
 						TuyenKenhDeXuatDAO tkdxDao=new TuyenKenhDeXuatDAO(daoFactory);
 						Map<String,String> lst=tkdxDao.findTuyenKenhDangDeXuat(tkDto.getId());
 						if(lst!=null)
+						{
 							dto.setDuplicate(lst.get("ID"));
+							dto.setSoluong_old(Integer.parseInt(lst.get("soluong")));
+						}
 						dto.setTuyenkenh_id(tkDto.getId());
 					}
 					list.add(dto);
