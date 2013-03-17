@@ -4,10 +4,10 @@
 <s:url action="index" namespace="/login" var="loginURL"/>
 <s:url action="index" namespace="/settings" var="settingsIndexURL"/>
 <s:url action="detail" namespace="/tuyenkenh" id="tuyenkenhDetailURL"/>
-<s:url action="doUploadTuyenkenhDeXuat" namespace="/import" id="doUploadTuyenkenhDeXuatURL"/>
-<s:url action="loadTuyenkenhDeXuatImport" namespace="/import" id="loadTuyenkenhDeXuatImportURL"/>
-<s:url action="doImportTuyenkenhDeXuat" namespace="/import" id="doImportTuyenkenhDeXuatURL"/>
-<s:url action="doDeleteTuyenkenhDeXuat" namespace="/import" id="doDeleteTuyenkenhDeXuatURL"/>
+<s:url action="doUploadTuyenKenhDeXuat" namespace="/import" id="doUploadTuyenKenhDeXuatURL"/>
+<s:url action="loadTuyenKenhDeXuatImport" namespace="/import" id="loadTuyenKenhDeXuatImportURL"/>
+<s:url action="doImportTuyenKenhDeXuat" namespace="/import" id="doImportTuyenKenhDeXuatURL"/>
+<s:url action="doDeleteTuyenKenhDeXuat" namespace="/import" id="doDeleteTuyenKenhDeXuatURL"/>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -151,7 +151,7 @@ $(document).ready(function(){
 		$.ajax({
 			type: "POST",
 			cache: false,
-			url : "${doImportTuyenkenhDeXuatURL}",
+			url : "${doImportTuyenKenhDeXuatURL}",
 			data: dataString,
 			success: function(response){
 				button.disabled = false;
@@ -187,7 +187,7 @@ $(document).ready(function(){
 		$.ajax({
 			type: "POST",
 			cache: false,
-			url : "${doDeleteTuyenkenhDeXuatURL}",
+			url : "${doDeleteTuyenKenhDeXuatURL}",
 			data: dataString,
 			success: function(response){
 				button.disabled = false;
@@ -210,7 +210,7 @@ $(document).ready(function(){
 		$.ajax({
 			type: "GET",
 			cache: false,
-			url : "${doDeleteTuyenkenhDeXuatURL}?ids="+id,
+			url : "${doDeleteTuyenKenhDeXuatURL}?ids="+id,
 			success: function(response){
 				if(response.result == "ERROR") {
 					if(response.data == "ERROR") {
@@ -227,7 +227,7 @@ $(document).ready(function(){
 	});
 	$('ul.sf-menu').superfish();
 	$('#frmUpload').ajaxForm({ 
-		url:  "${doUploadTuyenkenhDeXuatURL}",
+		url:  "${doUploadTuyenKenhDeXuatURL}",
 		type: "post",
 		dataType : "json",
 		success:    function(response) { 
@@ -252,7 +252,7 @@ $(document).ready(function(){
 		"bProcessing": true,
 		"bServerSide": true,
 		"bAutoWidth": false,
-		"sAjaxSource": "${loadTuyenkenhDeXuatImportURL}",
+		"sAjaxSource": "${loadTuyenKenhDeXuatImportURL}",
 		"aoColumns": [
 					{ "mDataProp": "stt","bSortable": false,"bSearchable": false,"sClass":'td_center' },
 					{ "mDataProp": "madiemdau","bSortable": false,"bSearchable": false },
