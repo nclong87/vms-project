@@ -35,7 +35,7 @@ public class TuyenKenhDeXuatImportDAO {
     	return map;
     	
     } 
-	private static final String SQL_SAVE_TUYENKENHDEXUAT_IMPORT = "{ call SAVE_TUYENKENHDEXUAT_IMPORT(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) }";
+	private static final String SQL_SAVE_TUYENKENHDEXUAT_IMPORT = "{ call SAVE_TUYENKENHDEXUAT_IMPORT(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) }";
 	public void save(TuyenKenhDeXuatImportDTO dto) throws Exception {
 		Connection connection = jdbcTemplate.getDataSource().getConnection();
 		CallableStatement stmt = connection.prepareCall(SQL_SAVE_TUYENKENHDEXUAT_IMPORT);
@@ -54,7 +54,6 @@ public class TuyenKenhDeXuatImportDAO {
 		stmt.setString(13, dto.getDuplicate());
 		stmt.setString(14, dto.getTuyenkenh_id());
 		stmt.setInt(15, dto.getSoluong_old());
-		stmt.setDate(16, DateUtils.convertToSQLDate(dto.getDateimport()) );
 		stmt.execute();
 		stmt.close();
 		connection.close();

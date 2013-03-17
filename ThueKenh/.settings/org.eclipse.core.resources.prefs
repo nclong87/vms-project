@@ -1,4 +1,4 @@
-#Wed Jan 02 22:37:16 ICT 2013
+#Sun Mar 17 17:46:31 ICT 2013
 eclipse.preferences.version=1
 encoding//WebContent/jsp/bangdoisoatcuoc/bangdoisoatcuoc.jsp=UTF-8
 encoding//WebContent/jsp/bangdoisoatcuoc/form.jsp=UTF-8
@@ -7,6 +7,7 @@ encoding//WebContent/jsp/bangdoisoatcuoc/popupSearch.jsp=UTF-8
 encoding//WebContent/jsp/bangiao/index.jsp=UTF-8
 encoding//WebContent/jsp/baocao/doisoatcuoc.jsp=UTF-8
 encoding//WebContent/jsp/baocao/giamtrumatlienlac.jsp=UTF-8
+encoding//WebContent/jsp/baocao/iso.jsp=UTF-8
 encoding//WebContent/jsp/baocao/sucotheothoigian.jsp=UTF-8
 encoding//WebContent/jsp/baocao/tiendo.jsp=UTF-8
 encoding//WebContent/jsp/bienbanvanhanhkenh/index.jsp=UTF-8
@@ -18,6 +19,7 @@ encoding//WebContent/jsp/dexuat/index.jsp=UTF-8
 encoding//WebContent/jsp/hopdong/index.jsp=UTF-8
 encoding//WebContent/jsp/hopdong/popupSearch.jsp=UTF-8
 encoding//WebContent/jsp/import/suco.jsp=UTF-8
+encoding//WebContent/jsp/import/tuyenkenhdexuat.jsp=UTF-8
 encoding//WebContent/jsp/phuluc/index.jsp=UTF-8
 encoding//WebContent/jsp/sucokenh/form.jsp=UTF-8
 encoding//WebContent/jsp/sucokenh/index.jsp=UTF-8
@@ -28,5 +30,6 @@ encoding//WebContent/jsp/tiendobangiao/index.jsp=UTF-8
 encoding//WebContent/jsp/tuyenkenh/index.jsp=UTF-8
 encoding//WebContent/jsp/tuyenkenh/popupSearch2.jsp=UTF-8
 encoding//WebContent/jsp/tuyenkenh/popupSearchForSuCo.jsp=UTF-8
+encoding//WebContent/jsp/tuyenkenhdexuat/index.jsp=UTF-8
 encoding//src/vms/utils/StringUtil.java=UTF-8
 encoding/<project>=UTF-8
