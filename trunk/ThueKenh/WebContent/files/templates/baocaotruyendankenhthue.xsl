@@ -172,7 +172,7 @@ xmlns:html="http://www.w3.org/TR/REC-html40"
   </Style>
  </Styles>
  <Worksheet ss:Name="Báo cáo truyền dẫn kênh thuê">
-  <Table ss:ExpandedColumnCount="17" ss:ExpandedRowCount="872" x:FullColumns="1"
+  <Table ss:ExpandedColumnCount="17" x:FullColumns="1"
    x:FullRows="1" ss:StyleID="s15" ss:DefaultRowHeight="15">
    <Column ss:StyleID="s15" ss:AutoFitWidth="0" ss:Width="21"/>
    <Column ss:StyleID="s15" ss:AutoFitWidth="0" ss:Width="192" ss:Span="1"/>
