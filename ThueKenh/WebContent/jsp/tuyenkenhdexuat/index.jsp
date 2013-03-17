@@ -7,6 +7,7 @@
 <s:url action="form" namespace="/tuyenkenhdexuat" id="formURL"/>
 <s:url action="delete" namespace="/tuyenkenhdexuat" id="deleteURL"/>
 <s:url action="detail" namespace="/tuyenkenh" id="tuyenkenhDetailURL"/>
+<s:url action="tuyenkenhdexuat" namespace="/import" id="importTuyenKenhDeXuatURL"/>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -165,6 +166,7 @@ margin-left: 10px;
 		</div>
 		<div style="clear:both;margin:5px 0 ">
 		<input class="button" type="button" id="btThem" value="Thêm đề xuất tuyến kênh" style="float: left; margin-right: 10px;"/>
+		<input type="button" class="button" value="Import Excel" onclick="location.href='${importTuyenKenhDeXuatURL}'"></input>
 		<input class="button" type="button" id="btXoa" value="Xóa" style="float: left; margin-right: 10px;"/>
 		</div>
 			<table width="100%" id="dataTable" class="display">
