@@ -189,6 +189,19 @@ public class VMSUtil {
         }
 	}
     
+    /*public static boolean CheckUser(String usr, String pwd) {
+    	boolean authenticated = false;
+        try {
+            DirectoryEntry entry = new DirectoryEntry("LDAP://vms.com.vn", usr, pwd);
+            object nativeObject = entry.NativeObject;
+            authenticated = true;
+        }
+        catch (Exception ex) {
+            Log.Write(ex);
+        }
+        return authenticated;
+    }*/
+    
     private static final String SQL_SENDMAIL = "{ call SEND_EMAIL(?,?,?) }";
     public static boolean sendMail(DaoFactory daoFactory, String tuyenkenhId, int type, String content){
     	try {

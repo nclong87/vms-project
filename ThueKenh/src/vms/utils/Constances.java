@@ -36,7 +36,8 @@ public class Constances {
 	public static int PHU_LUC_THAY_THE = 2;
 	
 	//LDAP
-	public static final String STR_LDAP_SERVER_URL		= "ldap://10.151.70.249:389/ou=system";
+	//public static final String STR_LDAP_SERVER_URL		= "ldap://10.151.70.249:389/ou=system";
+	public static final String STR_LDAP_SERVER_URL		= "ldap://vms.com.vn";
 	
 	//Lich su
 	public static int LS_MAX_PAGE_LENGHT = 10;
