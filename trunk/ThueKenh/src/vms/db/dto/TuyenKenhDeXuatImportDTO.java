@@ -25,6 +25,8 @@ public class TuyenKenhDeXuatImportDTO {
 	private String loaikenh = "";
 	private String thongtinlienhe = "";
 	private Date dateimport = null;
+	private String duplicate="";
+	private String tuyenkenh_id="";
 	
     public TuyenKenhDeXuatImportDTO() {
 
@@ -140,6 +142,22 @@ public class TuyenKenhDeXuatImportDTO {
 
 	public void setDateimport(Date dateimport) {
 		this.dateimport = dateimport;
+	}
+
+	public String getDuplicate() {
+		return duplicate;
+	}
+
+	public void setDuplicate(String duplicate) {
+		this.duplicate = duplicate;
+	}
+
+	public String getTuyenkenh_id() {
+		return tuyenkenh_id;
+	}
+
+	public void setTuyenkenh_id(String tuyenkenh_id) {
+		this.tuyenkenh_id = tuyenkenh_id;
 	}
     
 }

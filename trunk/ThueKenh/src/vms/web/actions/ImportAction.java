@@ -23,6 +23,7 @@ import vms.db.dao.DaoFactory;
 import vms.db.dao.LoaiGiaoTiepDao;
 import vms.db.dao.PhuLucDAO;
 import vms.db.dao.SuCoImportDAO;
+import vms.db.dao.TuyenKenhDeXuatDAO;
 import vms.db.dao.TuyenKenhDeXuatImportDAO;
 import vms.db.dao.TuyenkenhDao;
 import vms.db.dao.TuyenkenhImportDAO;
@@ -577,9 +578,21 @@ public class ImportAction implements Preparable {
 				if( (index = map.get("THONGTINLIENHE")) != null)
 					dto.setThongtinlienhe(sheet.getCell(index, i).getContents());
 				dto.setDateimport(date);
+				
 				if(	!dto.getMadiemdau().isEmpty() &&
 					!dto.getMadiemcuoi().isEmpty() &&
-					!dto.getGiaotiep_ma().isEmpty()) {
+					!dto.getGiaotiep_ma().isEmpty() &&
+					!dto.getDungluong().isEmpty()) {
+					TuyenkenhDao tkDao=new TuyenkenhDao(daoFactory);
+					TuyenKenh tkDto=tkDao.findByKey2(dto.getMadiemdau(), dto.getMadiemcuoi(), dto.getGiaotiep_ma(), Integer.parseInt(dto.getDungluong()));
+					if(tkDto!=null )
+					{
+						TuyenKenhDeXuatDAO tkdxDao=new TuyenKenhDeXuatDAO(daoFactory);
+						Map<String,String> lst=tkdxDao.findTuyenKenhDangDeXuat(tkDto.getId());
+						if(lst!=null)
+							dto.setDuplicate(lst.get("ID"));
+						dto.setTuyenkenh_id(tkDto.getId());
+					}
 					list.add(dto);
 				}
 			}
