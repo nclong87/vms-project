@@ -23,12 +23,14 @@ import vms.db.dao.DaoFactory;
 import vms.db.dao.LoaiGiaoTiepDao;
 import vms.db.dao.PhuLucDAO;
 import vms.db.dao.SuCoImportDAO;
+import vms.db.dao.TuyenKenhDeXuatImportDAO;
 import vms.db.dao.TuyenkenhDao;
 import vms.db.dao.TuyenkenhImportDAO;
 import vms.db.dto.CongThucDTO;
 import vms.db.dto.LoaiGiaoTiepDTO;
 import vms.db.dto.SuCoImportDTO;
 import vms.db.dto.TuyenKenh;
+import vms.db.dto.TuyenKenhDeXuatImportDTO;
 import vms.db.dto.TuyenKenhImportDTO;
 import vms.utils.Constances;
 import vms.utils.DateUtils;
@@ -486,6 +488,146 @@ public class ImportAction implements Preparable {
 		} finally {
 			workBook.close();
 		}
+		return Action.SUCCESS;
+	}
+	
+	/*
+	 * tuyen kenh de xuat
+	 * */
+	public String tuyenkenhdexuat() throws Exception {
+		if(account == null) {
+			session.setAttribute("URL", VMSUtil.getFullURL(request));
+			return "login_page";
+		}
+		return Action.SUCCESS;
+	}
+	public String loadTuyenKenhDeXuatImport() {
+		try {
+			//if(account == null) throw new Exception("END_SESSION");
+			Integer iDisplayStart = Integer.parseInt(request.getParameter("iDisplayStart"));
+			Integer iDisplayLength = Integer.parseInt(request.getParameter("iDisplayLength"));
+			System.out.println("toannguyenbao");
+			TuyenKenhDeXuatImportDAO dao = new TuyenKenhDeXuatImportDAO(daoFactory);
+			List<Map<String, Object>> items = dao.search(iDisplayStart, iDisplayLength + 1);
+			int iTotalRecords = items.size();
+			if(iTotalRecords > iDisplayLength) {
+				items.remove(iTotalRecords - 1);
+			}
+			jsonData = new LinkedHashMap<String, Object>();
+			jsonData.put("sEcho", Integer.parseInt(request.getParameter("sEcho")));
+			jsonData.put("iTotalRecords", iDisplayStart + iTotalRecords);
+			jsonData.put("iTotalDisplayRecords", iDisplayStart + iTotalRecords);
+			jsonData.put("aaData", items);
+			return Action.SUCCESS;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return Action.SUCCESS;
+	}
+	
+	public String doUploadTuyenKenhDeXuat() {
+		jsonData = new LinkedHashMap<String, Object>();
+		Workbook workBook = null;
+		try {
+			System.out.println("Begin upload");
+			String filetype = StringUtil.getExtension(fileuploadFileName);
+			if(filetype.equals("xls") == false && filetype.equals("xlsx") == false)
+				throw new Exception("Vui lòng chọn file excel 2003 hay excel 2007!");
+			String filename = System.currentTimeMillis()+"_"+StringUtil.getUnsignedString(fileuploadFileName);
+			String filepath = VMSUtil.getUploadImportFolder()+filename;
+	        // write file to local file system or to database as blob
+	        File newFile = new File(filepath);
+	        FileUtils.copyFile(fileupload, newFile);
+			if(StringUtil.isEmpty(fileuploadFileName)) throw new Exception("File upload bị lỗi.");
+			workBook = Workbook.getWorkbook(new File(filepath));
+			Sheet sheet = workBook.getSheet(0);
+			int maxrow = sheet.getRows();
+			System.out.println("maxrow = "+maxrow);
+			int max_col = sheet.getColumns();
+			Map<String, Integer> map = new LinkedHashMap<String, Integer>();
+			for(int i = 0;i < max_col; i++) {
+				map.put(sheet.getCell(i, 0).getContents(), i);
+			}
+			Integer index;
+			List<TuyenKenhDeXuatImportDTO> list = new ArrayList<TuyenKenhDeXuatImportDTO>();
+			Date date = new Date();
+			for(int i=1;i<maxrow;i++) {
+				TuyenKenhDeXuatImportDTO dto = new TuyenKenhDeXuatImportDTO();
+				dto.setStt(i);
+				if( (index = map.get("MADIEMDAU")) != null)
+					dto.setMadiemdau(sheet.getCell(index, i).getContents());
+				if( (index = map.get("MADIEMCUOI")) != null)
+					dto.setMadiemcuoi(sheet.getCell(index, i).getContents());
+				if( (index = map.get("GIAOTIEP_MA")) != null)
+					dto.setGiaotiep_ma(sheet.getCell(index, i).getContents());
+				if( (index = map.get("DUNGLUONG")) != null)
+					dto.setDungluong(sheet.getCell(index, i).getContents());
+				if( (index = map.get("SOLUONGDEXUAT")) != null)
+					dto.setSoluongdexuat(sheet.getCell(index, i).getContents());
+				if( (index = map.get("DUAN_MA")) != null)
+					dto.setDuan_ma(sheet.getCell(index, i).getContents());
+				if( (index = map.get("DONVINHANKENH_MA")) != null)
+					dto.setDonvinhankenh(sheet.getCell(index, i).getContents());
+				if( (index = map.get("DOITAC_MA")) != null)
+					dto.setDoitac_ma(sheet.getCell(index, i).getContents());
+				if( (index = map.get("NGAYHENBANGIAO")) != null)
+					dto.setNgayhenbangiao(sheet.getCell(index, i).getContents());
+				if( (index = map.get("NGAYDENGHIBANGIAO")) != null)
+					dto.setNgaydenghibangiao(sheet.getCell(index, i).getContents());
+				dto.setDateimport(date);
+				if(	!dto.getMadiemdau().isEmpty() &&
+					!dto.getMadiemcuoi().isEmpty() &&
+					!dto.getGiaotiep_ma().isEmpty()) {
+					list.add(dto);
+				}
+			}
+			TuyenKenhDeXuatImportDAO dao = new TuyenKenhDeXuatImportDAO(daoFactory);
+			dao.clear();
+			for(int i =0; i < list.size();i++) {
+				dao.save(list.get(i));
+			}
+			newFile.delete();
+			jsonData.put("result", "OK");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			jsonData.put("result", "ERROR");
+			jsonData.put("data", e.getMessage());
+		} finally {
+			workBook.close();
+		}
+		return Action.SUCCESS;
+	}
+	
+	public String doImportTuyenKenhDeXuat() {
+		jsonData = new LinkedHashMap<String, Object>();
+		try {
+			if(ids == null || ids.length==0) throw new Exception("ERROR");
+			TuyenKenhDeXuatImportDAO dao = new TuyenKenhDeXuatImportDAO(daoFactory);
+			dao.importTuyenkenhDeXuat(ids, account.get("username").toString());
+			jsonData.put("result", "OK");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			jsonData.put("result", "ERROR");
+			jsonData.put("data", e.getMessage());
+		} 
+		return Action.SUCCESS;
+	}
+	
+	public String doDeleteTuyenKenhDeXuat() {
+		jsonData = new LinkedHashMap<String, Object>();
+		try {
+			if(ids == null || ids.length==0) throw new Exception("ERROR");
+			TuyenKenhDeXuatImportDAO dao = new TuyenKenhDeXuatImportDAO(daoFactory);
+			dao.deleteByIds(ids);
+			jsonData.put("result", "OK");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			jsonData.put("result", "ERROR");
+			jsonData.put("data", e.getMessage());
+		} 
 		return Action.SUCCESS;
 	}
 	
