@@ -266,7 +266,7 @@ $(document).ready(function(){
 						}
 					},
 					{ "mDataProp": "dungluong","bSortable": false,"bSearchable": false,"sClass":'td_center' },
-					{ "mDataProp": "soluong","bSortable": false,"bSearchable": false,"sClass":'td_center' },
+					{ "mDataProp": "soluongdexuat","bSortable": false,"bSearchable": false,"sClass":'td_center' },
 					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,
 						"fnRender": function(response) {
 							if(response.aData.tenduan != '')
@@ -277,8 +277,8 @@ $(document).ready(function(){
 					},
 					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,
 						"fnRender": function(response) {
-							if(response.aData.donvinhankenh != '')
-								return response.aData.donvinhankenh;
+							if(response.aData.tenphongban != '')
+								return response.aData.tenphongban;
 							else
 								return '<span title="Chưa có danh mục" class="warning">'+response.aData.donvinhankenh_ma+'</span>';
 						}
@@ -293,7 +293,6 @@ $(document).ready(function(){
 					},
 					{ "mDataProp": "ngayhenbangiao","bSortable": false,"bSearchable": false },
 					{ "mDataProp": "ngaydenghibangiao","bSortable": false,"bSearchable": false },
-					{ "mDataProp": "loaikenh","bSortable": false,"bSearchable": false },
 					{ "mDataProp": "thongtinlienhe","bSortable": false,"bSearchable": false },
 					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,
 						"fnRender": function(response) {
