@@ -48,8 +48,8 @@ public class TuyenKenhDeXuatImportDAO {
 		stmt.setString(7, dto.getDoitac_ma());
 		stmt.setString(8, dto.getDungluong());
 		stmt.setString(9, dto.getSoluongdexuat());
-		stmt.setString(10, dto.getNgayhenbangiao());
-		stmt.setString(11, dto.getNgaydenghibangiao());
+		stmt.setString(10, DateUtils.parseStringDateSQL(dto.getNgayhenbangiao(), "dd/MM/yyyy"));
+		stmt.setString(11, DateUtils.parseStringDateSQL(dto.getNgaydenghibangiao(), "dd/MM/yyyy"));
 		stmt.setDate(12, DateUtils.convertToSQLDate(dto.getDateimport()) );
 		stmt.execute();
 		stmt.close();
@@ -73,7 +73,7 @@ public class TuyenKenhDeXuatImportDAO {
 		int i = 1;
 		while(rs.next()) {
 			Map<String,Object> map = TuyenKenhDeXuatImportDAO.resultSetToMap(rs);
-			map.put("stt", i);
+			//map.put("stt", i);
 			result.add(map);
 			i++;
 		}
