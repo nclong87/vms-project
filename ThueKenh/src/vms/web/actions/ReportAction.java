@@ -225,6 +225,26 @@ public class ReportAction implements Preparable {
 		return Action.SUCCESS;
 	}
 	
+	public String rpISO() throws Exception {
+		if(account == null) {
+			session.setAttribute("URL", VMSUtil.getFullURL(request));
+			return "login_page";
+		}
+		int thang = NumberUtil.parseInt(request.getParameter("thang"));
+		int nam = NumberUtil.parseInt(request.getParameter("nam"));
+		ReportDAO dao = new ReportDAO(daoFactory);
+		File fileXmlData = new File(ServletActionContext.getServletContext().getRealPath("files/templates/baocaotruyendankenhthue.xml")); 
+		String xmlData = FileUtils.readFileToString(fileXmlData, "UTF-8");
+		
+		String pathXslTemplate = ServletActionContext.getServletContext().getRealPath("files/templates/baocaotruyendankenhthue.xsl");
+		String transformedString = XMLUtil.transformStringXML_FileXSL(xmlData, pathXslTemplate);
+		//System.out.println("transformedString = "+transformedString);
+		FileUtils.writeStringToFile(new File("D:\\log.txt"), transformedString,"UTF-8");
+		setExcelStream(transformedString);
+		filename = "BaoCaoTruyenDanKenhThue_"+System.currentTimeMillis()+".xls";
+		return Action.SUCCESS;
+	}
+	
 	/* Getter and Setter */
 	
 	public InputStream getInputStream() {
