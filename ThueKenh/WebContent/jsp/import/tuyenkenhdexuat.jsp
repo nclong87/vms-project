@@ -3,7 +3,7 @@
 <s:url action="doLogout" namespace="/login" var="doLogoutURL"/>
 <s:url action="index" namespace="/login" var="loginURL"/>
 <s:url action="index" namespace="/settings" var="settingsIndexURL"/>
-<s:url action="detail" namespace="/tuyenkenh" id="tuyenkenhDetailURL"/>
+<s:url action="detail" namespace="/tuyenkenhdexuat" id="tuyenkenhdexuatDetailURL"/>
 <s:url action="doUploadTuyenKenhDeXuat" namespace="/import" id="doUploadTuyenKenhDeXuatURL"/>
 <s:url action="loadTuyenKenhDeXuatImport" namespace="/import" id="loadTuyenKenhDeXuatImportURL"/>
 <s:url action="doImportTuyenKenhDeXuat" namespace="/import" id="doImportTuyenKenhDeXuatURL"/>
@@ -297,8 +297,8 @@ $(document).ready(function(){
 					{ "mDataProp": "thongtinlienhe","bSortable": false,"bSearchable": false },
 					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,
 						"fnRender": function(response) {
-							if(response.aData.duplicate != '0')
-								return '<a class="warning" target="_blank" title="Xem tuyến kênh trùng" href="${tuyenkenhDetailURL}?id='+response.aData.duplicate+'">'+response.aData.duplicate+'</a>';
+							if(response.aData.duplicate != '')
+								return '<a class="warning" target="_blank" title="Xem tuyến kênh trùng" href="${tuyenkenhdexuatDetailURL}?id='+response.aData.duplicate+'">'+response.aData.duplicate+'</a>';
 							else
 								return '';
 						}
