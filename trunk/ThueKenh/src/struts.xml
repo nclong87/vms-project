@@ -730,7 +730,7 @@
 				<param name="root">jsonData</param>
 			</result>
 		</action>
-		<action name="doDeleteTuyenKenhDeXuat" class="importAction" method="doDeleteTuyenKenhDeXuat>
+		<action name="doDeleteTuyenKenhDeXuat" class="importAction" method="doDeleteTuyenKenhDeXuat">
 			<result name="success" type="json">
 				<param name="root">jsonData</param>
 			</result>
