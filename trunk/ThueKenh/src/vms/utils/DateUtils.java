@@ -133,5 +133,19 @@ public class DateUtils {
 		result[1] = date.getTime();
 		return result;
 	}
+	public static java.sql.Date[] getTime2(int thang,int nam) {
+		java.sql.Date[] result = new java.sql.Date[2];
+		String str = "1/"+thang+"/"+nam;
+		System.out.println("from="+str);
+		result[0] = DateUtils.parseToSQLDate(str, "dd/MM/yyyy");
+		Calendar calendar = Calendar.getInstance();
+		Date date = DateUtils.parseDate(str, "dd/MM/yyyy");
+		calendar.setTime(date);
+		int maxDay = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+		str = maxDay+"/"+thang+"/"+nam;
+		System.out.println("end="+str);
+		result[1] = DateUtils.parseToSQLDate(str, "dd/MM/yyyy");
+		return result;
+	}
 }
 

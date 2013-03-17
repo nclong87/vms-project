@@ -233,9 +233,8 @@ public class ReportAction implements Preparable {
 		int thang = NumberUtil.parseInt(request.getParameter("thang"));
 		int nam = NumberUtil.parseInt(request.getParameter("nam"));
 		ReportDAO dao = new ReportDAO(daoFactory);
-		File fileXmlData = new File(ServletActionContext.getServletContext().getRealPath("files/templates/baocaotruyendankenhthue.xml")); 
-		String xmlData = FileUtils.readFileToString(fileXmlData, "UTF-8");
-		
+		String xmlData = dao.reportIsoTruyenDanKenhThue(thang, nam);
+		//FileUtils.writeStringToFile(new File("D:\\log.txt"), xmlData,"UTF-8");
 		String pathXslTemplate = ServletActionContext.getServletContext().getRealPath("files/templates/baocaotruyendankenhthue.xsl");
 		String transformedString = XMLUtil.transformStringXML_FileXSL(xmlData, pathXslTemplate);
 		//System.out.println("transformedString = "+transformedString);
