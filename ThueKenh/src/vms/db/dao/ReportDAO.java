@@ -25,6 +25,8 @@ import vms.utils.DateUtils;
 import vms.utils.NumberUtil;
 import vms.utils.ReadNumber;
 import vms.utils.VMSUtil;
+import vms.utils.XMLParser;
+import vms.utils.XMLUtil;
 
 public class ReportDAO {
 	@SuppressWarnings("unused")
@@ -382,6 +384,65 @@ public class ReportDAO {
 		stringBuffer.append(VMSUtil.xml("tong", String.valueOf(tongthoigianmll)));
 		stringBuffer.append("</summary>");
 		stringBuffer.append("</root>");
+		stmt.close();
+		connection.close();
+		return stringBuffer.toString();
+	}
+	
+	/*
+	 * Bao cao ISO : bao cao truyen dan kenh thue
+	 */
+	private static final String SQL_BC_ISO_TRUYENDANKENHTHUE = "{ ? = call BC_ISO_TRUYENDANKENHTHUE(?,?) }";
+	public String reportIsoTruyenDanKenhThue(int thang,int nam) throws Exception {
+		if(connection == null)
+			connection = this.jdbcDatasource.getConnection();
+		java.sql.Date[] time = DateUtils.getTime2(thang, nam);
+		java.sql.Date from = time[0];
+		java.sql.Date end = time[1];
+		CallableStatement stmt = connection.prepareCall(SQL_BC_ISO_TRUYENDANKENHTHUE);
+		stmt.registerOutParameter(1, OracleTypes.CURSOR);
+		stmt.setDate(2, from);
+		stmt.setDate(3, end);
+		stmt.execute();
+		ResultSet rs = (ResultSet) stmt.getObject(1);
+		StringBuffer stringBuffer = new StringBuffer(1024);
+		stringBuffer.append("<root><data>");
+		int stt = 1; 
+		while(rs.next()) {
+			StringBuffer buffer = new StringBuffer(512);
+			buffer.append(VMSUtil.xml("diemdau", VMSUtil.cData(rs.getString("DIEMDAU"))));
+			buffer.append(VMSUtil.xml("diemcuoi", VMSUtil.cData(rs.getString("DIEMCUOI"))));
+			String tongdungluong = rs.getString("DUNGLUONG") + " " + rs.getString("LOAIGIAOTIEP");
+			buffer.append(VMSUtil.xml("tongdungluong", tongdungluong));
+			buffer.append(VMSUtil.xml("dungluongduphong", ""));
+			String loaikenh = "";
+			if(rs.getString("LOAIKENH") == null) {
+				loaikenh = "";
+			}else if(rs.getString("LOAIKENH").equals("1")) {
+				loaikenh = "Nội hạt";
+			} else if(rs.getString("LOAIKENH").equals("2")) {
+				loaikenh = "Liên tỉnh";	
+			}
+			buffer.append(VMSUtil.xml("loaikenh", loaikenh));
+			buffer.append(VMSUtil.xml("mucvungcuoc", ""));
+			buffer.append(VMSUtil.xml("donvithuekenh", rs.getString("TENDOITAC")));
+			buffer.append(VMSUtil.xml("sohopdong", VMSUtil.cData(rs.getString("SOHOPDONG"))));
+			buffer.append(VMSUtil.xml("ngayhieuluc", rs.getString("NGAYBATDAU")));
+			buffer.append(VMSUtil.xml("kinhphithuebaothang", rs.getString("THANHTIEN")));
+			buffer.append(VMSUtil.xml("vanbanpheduyetkenhthue", ""));
+			List<Map<String,String>> list = XMLUtil.parseXMLString(rs.getString("SUCOKENH"));
+			buffer.append(VMSUtil.xml("solanmatlienlac",list.get(0).get("solanmll")));
+			buffer.append(VMSUtil.xml("tongthoigianmatlienlac",list.get(0).get("thoigianmll")));
+			buffer.append(VMSUtil.xml("trungtam", "TT6"));
+			buffer.append(VMSUtil.xml("thang", String.valueOf(thang)));
+			buffer.append(VMSUtil.xml("nam", String.valueOf(nam)));
+			stringBuffer.append("<row>");
+			stringBuffer.append("<stt>"+stt+"</stt>");
+			stringBuffer.append(buffer.toString());
+			stringBuffer.append("</row>");
+			stt++;
+		}
+		stringBuffer.append("</data></root>");
 		stmt.close();
 		connection.close();
 		return stringBuffer.toString();

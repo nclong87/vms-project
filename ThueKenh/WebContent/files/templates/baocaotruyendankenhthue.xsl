@@ -250,8 +250,8 @@ xmlns:html="http://www.w3.org/TR/REC-html40"
 		<Cell ss:StyleID="s78"><Data ss:Type="Number"><xsl:value-of select='./solanmatlienlac'/></Data></Cell>
 		<Cell ss:StyleID="s78"><Data ss:Type="Number"><xsl:value-of select='./tongthoigianmatlienlac'/></Data></Cell>
 		<Cell ss:StyleID="s76"><Data ss:Type="String"><xsl:value-of select='./trungtam'/></Data></Cell>
-		<Cell ss:StyleID="s76"><Data ss:Type="Number"><xsl:value-of select='./thang'/></Data></Cell>
-		<Cell ss:StyleID="s76"><Data ss:Type="Number"><xsl:value-of select='./nam'/></Data></Cell>
+		<Cell ss:StyleID="s76"><Data ss:Type="String"><xsl:value-of select='./thang'/></Data></Cell>
+		<Cell ss:StyleID="s76"><Data ss:Type="String"><xsl:value-of select='./nam'/></Data></Cell>
    </Row>
 </xsl:template>
 </xsl:stylesheet>

@@ -96,7 +96,6 @@ cursor: pointer;
 					<th width="80px">Đối tác</th>
 					<th width="80px">Ngày hẹn bàn giao</th>
 					<th width="80px">Ngày đề nghị bàn giao</th>
-					<th width="80px">Loại kênh</th>
 					<th width="80px">Thông tin liên hệ</th>
 					<th width="80px">Trùng</th>
 					<th width="5px" align="center"><input type="checkbox" onclick="selectAll(this)"/></th>
