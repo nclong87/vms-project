@@ -154,4 +154,18 @@ public class ThanhToanDAO {
 		stmt.close();
 		connection.close();
 	}
+	
+	private static final String SQL_HOSOTHANHTOAN_INFO = " SELECT * FROM THANHTOAN_INFO WHERE DELETED = 0 and THANHTOAN_ID = ?";
+	@SuppressWarnings("unchecked")
+	public Map<String,Object> getInfo(String id) {
+	List<Map<String,Object>> list =  this.jdbcTemplate.query(SQL_HOSOTHANHTOAN_INFO ,new Object[] {id}, new RowMapper() {
+	@Override
+	public Object mapRow(ResultSet rs, int arg1) throws SQLException {
+		Map<String,Object> map = VMSUtil.resultSetToMap(rs);
+		return map;
+		}
+	});
+	if(list.isEmpty()) return null;
+		return list.get(0);
+	}
 }

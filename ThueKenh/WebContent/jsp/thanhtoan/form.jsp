@@ -399,6 +399,9 @@ function byId(id) { //Viet tat cua ham document.getElementById
 		//validation form
 		$("#form").validate({
 			rules : {
+				"thanhtoanDTO.sohoso" : {
+					number:true
+				},
 				"thanhtoanDTO.giatritt" : {
 					required : true,
 					number:true
