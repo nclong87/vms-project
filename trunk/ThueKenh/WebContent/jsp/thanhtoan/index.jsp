@@ -5,6 +5,7 @@
 <s:url action="ajLoadThanhToan" namespace="/thanhtoan" id="ajLoadThanhToanURL"/>
 <s:url action="delete" namespace="/thanhtoan" id="deleteURL"/>
 <s:url action="detail" namespace="/thanhtoan" id="detailURL"/>
+<s:url action="info" namespace="/thanhtoan" id="infoURL"/>
 <s:url action="index" namespace="/popup" id="popupURL"/>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -92,8 +93,6 @@
 						<th>Số hồ sơ</th>
 						<th>Thời gian TT</th>
 						<th>Ngày chuyển kế toán</th>
-						<th>Ngày ký UNC</th>
-						<th>Ngày chuyển khoản</th>
 						<th>Giá trị thanh toán</th>
 						<th>Trạng thái</th>
 						<th>Chi tiết</th>
@@ -159,15 +158,13 @@ $(document).ready(function(){
 						}
 					},
 					{ "mDataProp": "ngaychuyenkt","bSortable": false,"bSearchable": false,"sClass":'td_center' },
-					{ "mDataProp": "ngaykyunc","bSortable": false,"bSearchable": false,"sClass":'td_center' },
-					{ "mDataProp": "ngaychuyenkhoan","bSortable": false,"bSearchable": false,"sClass":'td_center' },
 					{ "mDataProp": "giatritt","bSortable": false,"bSearchable": false,"sClass":'td_right number' },
 					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,"sClass":'td_center',
 						"fnRender": function( oObj ) {
 							if(oObj.aData.trangthai==0)
 								return "<span style='color:red'>Chưa thanh toán</span>";
 							else 
-								return "<span style='color:green'>Đã thanh toán</span>";
+								return '<a style="color:green" href="${infoURL}?id='+oObj.aData.id+'" title="Xem chi tiết thông tin thanh toán" target="_blank">Đã thanh toán</a>';
 						}
 					},
 					{ "mDataProp": null,"bSortable": false,"bSearchable": false,"sClass":'td_center',

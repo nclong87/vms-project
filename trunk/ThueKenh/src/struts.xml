@@ -880,6 +880,9 @@
 		<action name="detail" class="thanhtoanAction" method="detail">
 			<result>/jsp/thanhtoan/detail.jsp</result>
 		</action>
+		<action name="info" class="thanhtoanAction" method="info">
+			<result>/jsp/thanhtoan/info.jsp</result>
+		</action>
 	</package>
 	<package name="chitietphuluc" extends="default" namespace="/chitietphuluc">
 		<action name="giatriphuluc" class="chiTietPhuLucAction">

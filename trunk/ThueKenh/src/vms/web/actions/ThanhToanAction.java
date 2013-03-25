@@ -409,4 +409,15 @@ public class ThanhToanAction implements Preparable {
 		return Action.SUCCESS;
 	}
 	
+	public String info() {
+		System.out.println("Begin get info");
+		ThanhToanDAO hosothanhtoanDao = new ThanhToanDAO(daoFactory);
+		if(id == null) return Action.ERROR;
+		detail = hosothanhtoanDao.getInfo(id);
+		if(detail == null) return Action.ERROR;
+		/*jsonData = new LinkedHashMap<String, Object>();
+		jsonData.put("test", "Hello world!");*/
+		return Action.SUCCESS;
+	}
+	
 }
