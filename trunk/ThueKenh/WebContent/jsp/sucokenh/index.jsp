@@ -44,6 +44,17 @@
 								<form id="form">
 									<table>
 										<tr>
+											<td>Đối tác</td>
+											<td colspan="3">
+												<select name="doitac" id="doitac" style="width:220px">
+													<option value="">---Tất cả---</option>
+													<s:iterator value="doiTacDTOs">
+														<option value='<s:property value="id" />'><s:property value="tendoitac" /></option>									
+													</s:iterator>
+												</select>
+											</td>
+										</tr>
+										<tr>
 											<td align="right">Mã tuyến kênh</td>
 											<td><input type="text" style="width: 182px" name="tuyenkenh_id" id="tuyenkenh_id"/><input type="button" id="btPopupSearchTuyenkenh" value="..."/></td>
 											<td align="right">Dung lượng (MB) :</td>
