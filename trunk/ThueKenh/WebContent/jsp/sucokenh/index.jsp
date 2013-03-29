@@ -254,8 +254,15 @@ $(document).ready(function(){
 		},
 		"sPaginationType": "two_button",
 		"fnFooterCallback": function (nRow, aaData, iStart, iEnd, aiDisplay ) {
-			var total=aaData[0].result_count;
-			$("#dataTable_filter label.total").text("Tổng sự cố: "+total);
+			if(aaData.length>0)
+			{
+				var total=aaData[0].result_count;
+				$("#dataTable_filter label.total").text("Tổng sự cố: "+total);
+			}
+			else
+			{
+				$("#dataTable_filter label.total").text("Tổng sự cố: 0");
+			}
 		}
 	});
 	$("#dataTable_filter").append("<label class='total' style='font-weight:bold'></label>");
