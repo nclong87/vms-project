@@ -18,12 +18,11 @@ import vms.utils.VMSUtil;
 public class DoiTacDAO {
 
 	private JdbcTemplate jdbcTemplate;
-	@SuppressWarnings("unused")
-	private Connection connection;
-	public DoiTacDAO(Connection conn) {
-		connection = conn;
+	//private Connection connection;
+	/*public DoiTacDAO(Connection conn) {
+		//connection = conn;
 		
-	}
+	}*/
 	public DoiTacDAO(DaoFactory daoFactory) {
 		this.jdbcTemplate=daoFactory.getJdbcTemplate();
 		// TODO Auto-generated constructor stub
