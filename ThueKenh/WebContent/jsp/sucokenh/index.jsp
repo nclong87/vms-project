@@ -125,6 +125,7 @@
 				<input type="button" class="button" value="Import Excel" onclick="location.href='${importSuCoURL}'"></input>
 				<input class="button" type="button" id="btXoa" value="Xóa" style="float: right; margin-right: 10px;"/>
 			</div>
+			<div style="float:right"><label id="totalDiv"></label></div>
 			<table width="100%" id="dataTable" class="display">
 				<thead>
 					<tr>
@@ -251,8 +252,13 @@ $(document).ready(function(){
 				"success": fnCallback
 			} );
 		},
-		"sPaginationType": "two_button"
+		"sPaginationType": "two_button",
+		"fnFooterCallback": function (nRow, aaData, iStart, iEnd, aiDisplay ) {
+			var total=aaData[0].result_count;
+			$("#dataTable_filter label.total").text("Tổng sự cố: "+total);
+		}
 	});
+	$("#dataTable_filter").append("<label class='total' style='font-weight:bold'></label>");
 	// edit
 	$("span.edit_icon").live("click",function(){
 		var id = $(this).attr("data-ref-id");

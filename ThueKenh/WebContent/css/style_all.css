@@ -446,7 +446,7 @@ width: 100%;
 .dataTables_info {
 	visibility:hidden;
 }
-.dataTables_filter {
+.dataTables_filter label:first-child {
 	visibility:hidden;
 }
 input.blur {
