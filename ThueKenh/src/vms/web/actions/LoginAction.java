@@ -49,7 +49,7 @@ public class LoginAction implements Preparable {
 			jsonData = JSONValue.toJSONString(map);
 			if(username.isEmpty()==false) {
 				AccountDao accountDao = new AccountDao(daoFactory);
-				boolean flag = VMSUtil.checkLDAP(username, password);
+				boolean flag = false;//VMSUtil.checkLDAP(username, password);
 				if(flag == false) {
 					System.out.println("Check LDAP false, try check in DB");
 					flag = accountDao.checkLogin(username, password);
