@@ -18,6 +18,7 @@ import org.json.JSONObject;
 import org.json.simple.JSONValue;
 
 import vms.db.dao.DaoFactory;
+import vms.db.dao.DoiTacDAO;
 import vms.db.dao.PhuLucDAO;
 import vms.db.dao.SuCoDAO;
 import vms.db.dao.TuyenkenhDao;
@@ -45,7 +46,7 @@ public class SuCoAction implements Preparable {
 	private String tungay;
 	private String denngay;
 	private String[] phulucids;
-	
+	private List<Map<String,Object>> doiTacDTOs;
 	
 	public String[] getPhulucids() {
 		return phulucids;
@@ -120,6 +121,12 @@ public class SuCoAction implements Preparable {
 			System.out.println("ERROR :" + e.getMessage());
 		}
 	}
+	public List<Map<String,Object>> getDoiTacDTOs() {
+		return doiTacDTOs;
+	}
+	public void setDoiTacDTOs(List<Map<String,Object>> doiTacDTOs) {
+		this.doiTacDTOs = doiTacDTOs;
+	}
 	private boolean permission = true;
 
 	@SuppressWarnings("unchecked")
@@ -142,6 +149,8 @@ public class SuCoAction implements Preparable {
 			return "login_page";
 		}
 		if(permission == false) return "error_permission";
+		DoiTacDAO doiTacDAO = new DoiTacDAO(daoFactory);
+		doiTacDTOs = doiTacDAO.findAll();
 		return Action.SUCCESS;
 	}
 	

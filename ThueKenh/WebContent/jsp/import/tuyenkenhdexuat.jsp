@@ -141,9 +141,6 @@ $(document).ready(function(){
 			alert('Bạn chưa chọn dòng để import!');
 			return;
 		}
-		if(flagOverwrite > 0) {
-			if(!confirm("Cảnh báo : có "+flagOverwrite+" tuyến kênh đã tồn tại trong hệ thống.\nBạn muốn cập nhật những tuyến kênh này?")) return;
-		}
 		if(!confirm("Bạn muốn import những dòng đã chọn?")) return;
 		var button = this;
 		button.disabled = true;
