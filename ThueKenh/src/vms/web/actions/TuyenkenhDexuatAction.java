@@ -72,8 +72,16 @@ public class TuyenkenhDexuatAction implements Preparable {
 			permission = false;
 		}
 	}
-	
+	private void log(String message){
+		if(account != null) {
+			message = "["+DateUtils.getCurrentTime()+"] ["+account.get("username").toString() + "] "+message;
+		} else {
+			message = "["+DateUtils.getCurrentTime()+"] "+message;
+		}
+		System.out.println(message);
+	}
 	public String execute() throws Exception {
+		log("TuyenkenhDexuatAction.execute");
 		if(account == null) {
 			session.setAttribute("URL", VMSUtil.getFullURL(request));
 			return "login_page";
@@ -91,12 +99,12 @@ public class TuyenkenhDexuatAction implements Preparable {
 	}
 	
 	public String load() {
+		log("TuyenkenhDexuatAction.load");
 		try {
 			//if(account == null) throw new Exception("END_SESSION");
 			Integer iDisplayStart = Integer.parseInt(request.getParameter("iDisplayStart"));
 			Integer iDisplayLength = Integer.parseInt(request.getParameter("iDisplayLength"));
 			String sSearch = request.getParameter("sSearch").trim();
-			System.out.println("sSearch="+sSearch);
 			Map<String, String> conditions = new LinkedHashMap<String, String>();
 			if(sSearch.isEmpty() == false) {
 				JSONArray arrayJson = (JSONArray) new JSONObject(sSearch).get("array");
@@ -128,6 +136,7 @@ public class TuyenkenhDexuatAction implements Preparable {
 	
 	public String form() {
 		try {
+			log("TuyenkenhDexuatAction.form");
 			if(account == null) {
 				session.setAttribute("URL", VMSUtil.getFullURL(request));
 				return "login_page";
@@ -144,12 +153,10 @@ public class TuyenkenhDexuatAction implements Preparable {
 			tuyenKenh_data = "";
 			tuyenKenhDeXuatDTO_data = "";
 			if(id != null && id.isEmpty()==false) {
-				System.out.println("id=" + id);
 				TuyenKenhDeXuatDAO tuyenKenhDeXuatDAO = new TuyenKenhDeXuatDAO(daoFactory);
 				tuyenKenhDeXuatDTO = tuyenKenhDeXuatDAO.findById(id);
 				TuyenkenhDao tuyenkenhDao = new TuyenkenhDao(daoFactory);
 				tuyenKenh = tuyenkenhDao.findById(tuyenKenhDeXuatDTO.getTuyenkenh_id());
-				//System.out.println(tuyenKenhDeXuatDTO.getId());
 				Map<String,String> map = tuyenKenhDeXuatDTO.getMap();
 				tuyenKenhDeXuatDTO_data = JSONValue.toJSONString(map);
 				map = tuyenKenh.getMap();
@@ -163,6 +170,7 @@ public class TuyenkenhDexuatAction implements Preparable {
 	}
 	
 	public String doSave() {
+		log("TuyenkenhDexuatAction.doSave");
 		try {
 			if(account == null) {
 				session.setAttribute("URL", VMSUtil.getFullURL(request));
@@ -180,7 +188,7 @@ public class TuyenkenhDexuatAction implements Preparable {
 					} else {
 						
 					}
-					System.out.println("Check tuyen kenh de xuat");
+					//log("Check tuyen kenh de xuat");
 					Map<String, String> m = tuyenKenhDeXuatDAO.findTuyenKenhDangDeXuat(tuyenKenh.getId());
 					if(m != null && tuyenKenhDeXuatDTO.getId().equals(m.get("id")) == false) { //dang ton tai de xuat cho tuyen kenh nay
 						throw new Exception("DUPLICATE");
@@ -205,6 +213,7 @@ public class TuyenkenhDexuatAction implements Preparable {
 	
 	public String delete() {
 		try {
+			log("TuyenkenhDexuatAction.delete");
 			if(account == null) {
 				session.setAttribute("URL", VMSUtil.getFullURL(request));
 				throw new Exception("END_SESSION");
@@ -222,6 +231,7 @@ public class TuyenkenhDexuatAction implements Preparable {
 	}
 	
 	public String popupSearch() {
+		log("TuyenkenhDexuatAction.popupSearch");
 		LoaiGiaoTiepDao loaiGiaoTiepDao = new LoaiGiaoTiepDao(daoFactory);
 		loaiGiaoTieps = loaiGiaoTiepDao.getAll();
 		DuAnDAO duAnDAO = new DuAnDAO(daoFactory);
@@ -244,6 +254,7 @@ public class TuyenkenhDexuatAction implements Preparable {
 	}
 	
 	public String findByDexuat() {
+		log("TuyenkenhDexuatAction.findByDexuat");
 		jsonData = new LinkedHashMap<String, Object>();
 		try {
 			if(id!= null) {
@@ -263,6 +274,7 @@ public class TuyenkenhDexuatAction implements Preparable {
 	}
 	
 	public String findByBangiao() {
+		log("TuyenkenhDexuatAction.findByBangiao");
 		jsonData = new LinkedHashMap<String, Object>();
 		try {
 			if(id!= null) {
@@ -293,7 +305,7 @@ public class TuyenkenhDexuatAction implements Preparable {
 		try {
 			this.inputStream =  new ByteArrayInputStream( str.getBytes("UTF-8") );
 		} catch (UnsupportedEncodingException e) {			
-			System.out.println("ERROR :" + e.getMessage());
+			log("ERROR :" + e.getMessage());
 		}
 	}
 	

@@ -1,7 +1,6 @@
 package vms.web.actions;
 
 import java.io.ByteArrayInputStream;
-import java.io.File;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.LinkedHashMap;
@@ -11,7 +10,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.io.FileUtils;
 import org.apache.struts2.ServletActionContext;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -74,8 +72,14 @@ public class TuyenkenhAction implements Preparable {
 			permission = false;
 		}
 	}
-	
+	private void log(String message){
+		if(account != null) {
+			message = "["+DateUtils.getCurrentTime()+"] ["+account.get("username").toString() + "] "+message;
+		}
+		System.out.println(message);
+	}
 	public String execute() throws Exception {
+		log("TuyenkenhAction.execute");
 		if(account == null) {
 			session.setAttribute("URL", VMSUtil.getFullURL(request));
 			return "login_page";
@@ -97,10 +101,10 @@ public class TuyenkenhAction implements Preparable {
 	public String ajLoadTuyenkenh() {
 		try {
 			//if(account == null) throw new Exception("END_SESSION");
+			log("TuyenkenhAction.ajLoadTuyenkenh");
 			Integer iDisplayStart = Integer.parseInt(request.getParameter("iDisplayStart"));
 			Integer iDisplayLength = Integer.parseInt(request.getParameter("iDisplayLength"));
 			String sSearch = request.getParameter("sSearch").trim();
-			System.out.println("sSearch="+sSearch);
 			Map<String, String> conditions = new LinkedHashMap<String, String>();
 			if(sSearch.isEmpty() == false) {
 				JSONArray arrayJson = (JSONArray) new JSONObject(sSearch).get("array");
@@ -135,6 +139,7 @@ public class TuyenkenhAction implements Preparable {
 	
 	public String form() {
 		try {
+			log("TuyenkenhAction.form");
 			if(account == null) {
 				session.setAttribute("URL", VMSUtil.getFullURL(request));
 				return "login_page";
@@ -150,10 +155,8 @@ public class TuyenkenhAction implements Preparable {
 			phongBans = phongBanDao.getAll();
 			form_data = "";
 			if(id != null && id.isEmpty()==false) {
-				System.out.println("id=" + id);
 				TuyenkenhDao tuyenkenhDao = new TuyenkenhDao(daoFactory);
 				tuyenKenh = tuyenkenhDao.findById(id);
-				System.out.println(tuyenKenh.getId());
 				Map<String,String> map = tuyenKenh.getMap();
 				form_data = JSONValue.toJSONString(map);
 			}
@@ -166,11 +169,11 @@ public class TuyenkenhAction implements Preparable {
 	
 	public String doSave() {
 		try {
+			log("TuyenkenhAction.doSave");
 			if(account == null) {
 				session.setAttribute("URL", VMSUtil.getFullURL(request));
 				return "login_page";
 			}
-			System.out.println("Do save");
 			TuyenkenhDao tuyenkenhDao = new TuyenkenhDao(daoFactory);
 			TuyenKenh tk = tuyenkenhDao.findByKey(tuyenKenh.getMadiemdau(), tuyenKenh.getMadiemcuoi(), tuyenKenh.getGiaotiep_id(),tuyenKenh.getDungluong());
 			if(tk != null) {
@@ -202,6 +205,7 @@ public class TuyenkenhAction implements Preparable {
 	
 	public String delete() {
 		try {
+			log("TuyenkenhAction.delete");
 			if(account == null) {
 				session.setAttribute("URL", VMSUtil.getFullURL(request));
 				throw new Exception("END_SESSION");
@@ -219,18 +223,19 @@ public class TuyenkenhAction implements Preparable {
 	}
 	
 	public String doexport() throws Exception {
+		log("TuyenkenhAction.doexport");
 		if(account == null) {
 			session.setAttribute("URL", VMSUtil.getFullURL(request));
 			return "login_page";
 		}
 		/*for(int i=0;i<fieldNames.length;i++)
-			System.out.println("fieldNames[i]:"+fields[i]);*/
+			log("fieldNames[i]:"+fields[i]);*/
 		if(fields != null && fields.length >0 && fieldNames!=null && fieldNames.length>0) {
 			TuyenkenhDao tuyenkenhDao = new TuyenkenhDao(daoFactory);
 			String xmlData = tuyenkenhDao.exportTuyenkenh(fields, fieldNames);
 			String pathXslTemplate = ServletActionContext.getServletContext().getRealPath("files/templates/export.xsl");
 			String transformedString = XMLUtil.transformStringXML_FileXSL(xmlData, pathXslTemplate);
-			//System.out.println("transformedString = "+transformedString);
+			//log("transformedString = "+transformedString);
 			//FileUtils.writeStringToFile(new File("D:\\log2.txt"), "Nguyễn Chí Long "+fieldNames[0],"UTF-8");
 			setExcelStream(transformedString);
 			filename = "DanhSachTuyenKenh_"+System.currentTimeMillis()+".xls";
@@ -239,6 +244,7 @@ public class TuyenkenhAction implements Preparable {
 	}
 	
 	public String popupSearch() {
+		log("TuyenkenhAction.popupSearch");
 		LoaiGiaoTiepDao loaiGiaoTiepDao = new LoaiGiaoTiepDao(daoFactory);
 		loaiGiaoTieps = loaiGiaoTiepDao.getAll();
 		DuAnDAO duAnDAO = new DuAnDAO(daoFactory);
@@ -251,6 +257,7 @@ public class TuyenkenhAction implements Preparable {
 	}
 	
 	public String detail() {
+		log("TuyenkenhAction.detail");
 		TuyenkenhDao tuyenkenhDao = new TuyenkenhDao(daoFactory);
 		if(id == null) return Action.ERROR;
 		detail = tuyenkenhDao.getDetail(id);
@@ -265,6 +272,7 @@ public class TuyenkenhAction implements Preparable {
 	 * Chi lay tuyen kenh dang hoat dong hoac da ban giao
 	 */
 	public String popupSearch2() {
+		log("TuyenkenhAction.popupSearch2");
 		LoaiGiaoTiepDao loaiGiaoTiepDao = new LoaiGiaoTiepDao(daoFactory);
 		loaiGiaoTieps = loaiGiaoTiepDao.getAll();
 		DuAnDAO duAnDAO = new DuAnDAO(daoFactory);
@@ -277,13 +285,12 @@ public class TuyenkenhAction implements Preparable {
 	}
 	
 	public String ajLoadTuyenkenhForSuCo() {
-		System.out.println("Begin ajLoadTuyenkenhForSuCo");
+		log("TuyenkenhAction.ajLoadTuyenkenhForSuCo");
 		try {
 			//if(account == null) throw new Exception("END_SESSION");
 			Integer iDisplayStart = Integer.parseInt(request.getParameter("iDisplayStart"));
 			Integer iDisplayLength = Integer.parseInt(request.getParameter("iDisplayLength"));
 			String sSearch = request.getParameter("sSearch").trim();
-			System.out.println("sSearch="+sSearch);
 			Map<String, String> conditions = new LinkedHashMap<String, String>();
 			if(sSearch.isEmpty() == false) {
 				JSONArray arrayJson = (JSONArray) new JSONObject(sSearch).get("array");
@@ -312,7 +319,6 @@ public class TuyenkenhAction implements Preparable {
 			//setInputStream(str)
 			e.printStackTrace();
 		}
-		System.out.println("End ajLoadTuyenkenhForSuCo");
 		return Action.SUCCESS;
 	}
 	
@@ -328,14 +334,14 @@ public class TuyenkenhAction implements Preparable {
 		try {
 			this.inputStream =  new ByteArrayInputStream( str.getBytes("UTF-8") );
 		} catch (UnsupportedEncodingException e) {			
-			System.out.println("ERROR :" + e.getMessage());
+			log("ERROR :" + e.getMessage());
 		}
 	}
 	public void setExcelStream(String str) {
 		try {
 			this.excelStream =  new ByteArrayInputStream( str.getBytes("UTF-8") );
 		} catch (UnsupportedEncodingException e) {			
-			System.out.println("ERROR :" + e.getMessage());
+			log("ERROR :" + e.getMessage());
 		}
 	}
 	public LinkedHashMap<String, Object> getJsonData() {

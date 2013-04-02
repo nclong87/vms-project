@@ -67,6 +67,10 @@ public class DateUtils {
     	Calendar cal = Calendar.getInstance();
         return SDF_SQL.format(cal.getTime());
     }
+    public static String getCurrentTime() {
+    	Calendar cal = Calendar.getInstance();
+        return SDF_DDMMYYYYHHMMSS2.format(cal.getTime());
+    }
 	public static char[] SQLtoDisplay(String str, String string) {
 		// TODO Auto-generated method stub
 		return null;

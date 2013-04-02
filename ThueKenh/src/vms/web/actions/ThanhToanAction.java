@@ -115,14 +115,13 @@ public class ThanhToanAction implements Preparable {
 		try {
 			this.inputStream =  new ByteArrayInputStream( str.getBytes("UTF-8") );
 		} catch (UnsupportedEncodingException e) {			
-			System.out.println("ERROR :" + e.getMessage());
+			log("ERROR :" + e.getMessage());
 		}
 	}
 	@SuppressWarnings("unchecked")
 	@Override
 	public void prepare() throws Exception {
 		// TODO Auto-generated method stub
-		System.out.println("HoSoThanhToanAction");
 		request = ServletActionContext.getRequest();
 		session = request.getSession();
 		account = (Map<String, Object>) session.getAttribute(Constances.SESS_USERLOGIN);
@@ -131,8 +130,16 @@ public class ThanhToanAction implements Preparable {
 			permission = false;
 		}
 	}
-	
+	private void log(String message){
+		if(account != null) {
+			message = "["+DateUtils.getCurrentTime()+"] ["+account.get("username").toString() + "] "+message;
+		} else {
+			message = "["+DateUtils.getCurrentTime()+"] "+message;
+		}
+		System.out.println(message);
+	}
 	public String execute() throws Exception {
+		log("ThanhToanAction.execute");
 		if(account == null) {
 			session.setAttribute("URL", VMSUtil.getFullURL(request));
 			return "login_page";
@@ -143,18 +150,16 @@ public class ThanhToanAction implements Preparable {
 	
 	//load form
 	public String form() {
+		log("ThanhToanAction.form");
 		try {
 			if(account == null) {
 				session.setAttribute("URL", VMSUtil.getFullURL(request));
 				return "login_page";
 			}
 			form_data = "";
-			System.out.println("id:"+id);
 			if(id != null && id.isEmpty()==false) {
-				System.out.println("id=" + id);
 				ThanhToanDAO hosothanhtoanDao = new ThanhToanDAO(daoFactory);
 				thanhtoanDTO = hosothanhtoanDao.findById(id);
-				System.out.println(thanhtoanDTO.getId());
 				Map<String,String> map = thanhtoanDTO.getMap();
 				form_data = JSONValue.toJSONString(map);
 				DoiSoatCuocDAO dscDao=new DoiSoatCuocDAO(daoFactory);
@@ -172,7 +177,7 @@ public class ThanhToanAction implements Preparable {
 	
 	//load form
 	public String loadformbydoisoatcuoc() {
-		System.out.println("Begin load form by doi soat cuoc id");
+		log("ThanhToanAction.loadformbydoisoatcuoc");
 		try {
 			if(account == null) {
 				session.setAttribute("URL", VMSUtil.getFullURL(request));
@@ -180,14 +185,14 @@ public class ThanhToanAction implements Preparable {
 			}
 			if(permission == false) return "error_permission";
 			String doisoatcuoc_id=request.getParameter("doisoatcuoc_id");
-			System.out.println("doisoatcuoc_id:"+doisoatcuoc_id);
+			log("doisoatcuoc_id:"+doisoatcuoc_id);
 			if(doisoatcuoc_id != null && doisoatcuoc_id.isEmpty()==false) {
 				DoiSoatCuocDAO dscDao=new DoiSoatCuocDAO(daoFactory);
 				List<HopDongDetailDTO> lstHopDong=dscDao.findHopDongByDoiSoatCuocId(doisoatcuoc_id);
 				String phuluchopdongs_data="";
 				for(int i=0;i<lstHopDong.size();i++)
 				{
-					System.out.println("lstHopDong.get(i).getId():"+lstHopDong.get(i).getId());
+					log("lstHopDong.get(i).getId():"+lstHopDong.get(i).getId());
 					if(!phuluchopdongs_data.isEmpty())
 						phuluchopdongs_data+=",";
 					phuluchopdongs_data+="{\"id\":"+lstHopDong.get(i).getId()+",";
@@ -201,7 +206,6 @@ public class ThanhToanAction implements Preparable {
 					String phuluc_ids="";
 					for(int j=0;j<lstPhuLuc.size();j++)
 					{
-						System.out.println(lstPhuLuc.get(j));
 						if(!phuluc_ids.isEmpty())
 							phuluc_ids+=",";
 						phuluc_ids+="{\"id\":"+lstPhuLuc.get(j)+"}";
@@ -228,12 +232,12 @@ public class ThanhToanAction implements Preparable {
 			e.printStackTrace();
 			return Action.ERROR;
 		}
-		System.out.println("End load form by doi soat cuoc id");
 		return Action.SUCCESS;
 	}
 	
 	// save ho so thanh toan
 	public String doSave() {
+		log("ThanhToanAction.doSave");
 		try {
 			if(account == null) {
 				session.setAttribute("URL", VMSUtil.getFullURL(request));
@@ -244,8 +248,8 @@ public class ThanhToanAction implements Preparable {
 			thanhtoanDTO.setUsercreate(account.get("username").toString());
 			thanhtoanDTO.setTimecreate(DateUtils.getCurrentDateSQL());
 			ThanhToanDAO hosothanhtoanDao=new ThanhToanDAO(daoFactory);
-			System.out.println("thanhtoanDTO.getId():"+thanhtoanDTO.getId());
-			System.out.println("thanhtoanDTO.getDoisoatcuoc_id():"+thanhtoanDTO.getDoisoatcuoc_id());
+			log("thanhtoanDTO.getId():"+thanhtoanDTO.getId());
+			log("thanhtoanDTO.getDoisoatcuoc_id():"+thanhtoanDTO.getDoisoatcuoc_id());
 			if(thanhtoanDTO.getId().isEmpty())
 			{
 				if(hosothanhtoanDao.findBySoHoSo(thanhtoanDTO.getSohoso())!=null)
@@ -265,7 +269,7 @@ public class ThanhToanAction implements Preparable {
 				{
 					// reset su co kenh ve trang thai chua co thanhtoan_id
 					List<SuCoDTO> listsuco_old=sucoDao.findSuCoByThanhToanId(thanhtoanDTO.getId());
-					System.out.println("Begin reset thanhtoan_id");
+					log("Begin reset thanhtoan_id");
 					if(listsuco_old!=null && listsuco_old.size()>0)
 					{
 						for(int i=0;i<listsuco_old.size();i++)
@@ -280,15 +284,14 @@ public class ThanhToanAction implements Preparable {
 							sucoDao.save(sucoDto);
 						}
 					}
-					System.out.println("end reset thanhtoan_id");
+					log("end reset thanhtoan_id");
 				}
 				// save su co kenh
-				System.out.println("begin save su co");
+				log("begin save su co");
 				if(suco_ids!= null && suco_ids.length > 0) {
 					// update thanhtoan_id cho suco
 					for(int i=0;i<suco_ids.length;i++)
 					{
-						System.out.println("suco_id:"+suco_ids[i]);
 						sucoDto=sucoDao.findById(suco_ids[i]);
 						if(sucoDto!=null)
 						{
@@ -315,12 +318,12 @@ public class ThanhToanAction implements Preparable {
 	
 	// load ho so thanh toan
 	public String ajLoadThanhToan() {
+		log("ThanhToanAction.ajLoadThanhToan");
 		try {
 			//if(account == null) throw new Exception("END_SESSION");
 			Integer iDisplayStart = Integer.parseInt(request.getParameter("iDisplayStart"));
 			Integer iDisplayLength = Integer.parseInt(request.getParameter("iDisplayLength"));
 			String sSearch = request.getParameter("sSearch").trim();
-			System.out.println("sSearch:"+sSearch);
 			Map<String, String> conditions = new LinkedHashMap<String, String>();
 			if(sSearch.isEmpty() == false) {
 				JSONArray arrayJson = (JSONArray) new JSONObject(sSearch).get("array");
@@ -333,7 +336,6 @@ public class ThanhToanAction implements Preparable {
 				}
 			}
 			ThanhToanDAO thanhtoanDao = new ThanhToanDAO(daoFactory);
-			System.out.println("conditions="+conditions);
 			List<Map<String, Object>> items = thanhtoanDao.search(iDisplayStart, iDisplayLength, conditions);
 			int iTotalRecords = items.size();
 			if(iTotalRecords > iDisplayLength) {
@@ -354,6 +356,7 @@ public class ThanhToanAction implements Preparable {
 	}
 		
 	public String delete() {
+		log("ThanhToanAction.delete");
 		try {
 			if(account == null) {
 				session.setAttribute("URL", VMSUtil.getFullURL(request));
@@ -371,7 +374,6 @@ public class ThanhToanAction implements Preparable {
 					// cap nhat su co 
 					// reset thanhtoan_id
 					List<SuCoDTO> listsuco_old=sucoDao.findSuCoByThanhToanId(ids[i]);
-					System.out.println("Begin reset thanhtoan_id - delete sucokenh");
 					if(listsuco_old!=null && listsuco_old.size()>0)
 					{
 						for(int j=0;j<listsuco_old.size();j++)
@@ -398,19 +400,18 @@ public class ThanhToanAction implements Preparable {
 	}
 	
 	public String detail() {
-		System.out.println("Begin get detail");
+		log("ThanhToanAction.detail");
 		ThanhToanDAO hosothanhtoanDao = new ThanhToanDAO(daoFactory);
 		if(id == null) return Action.ERROR;
 		detail = hosothanhtoanDao.getDetail(id);
 		if(detail == null) return Action.ERROR;
 		/*jsonData = new LinkedHashMap<String, Object>();
 		jsonData.put("test", "Hello world!");*/
-		System.out.println("end get detail");
 		return Action.SUCCESS;
 	}
 	
 	public String info() {
-		System.out.println("Begin get info");
+		log("ThanhToanAction.info");
 		ThanhToanDAO hosothanhtoanDao = new ThanhToanDAO(daoFactory);
 		if(id == null) return Action.ERROR;
 		detail = hosothanhtoanDao.getInfo(id);

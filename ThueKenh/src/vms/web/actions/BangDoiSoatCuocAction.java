@@ -16,12 +16,9 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.simple.JSONValue;
 
-import vms.db.dao.ChiTietPhuLucDAO;
 import vms.db.dao.DaoFactory;
 import vms.db.dao.DoiSoatCuocDAO;
 import vms.db.dao.DoiTacDAO;
-import vms.db.dao.ThanhToanDAO;
-import vms.db.dto.ChiTietPhuLucDTO;
 import vms.db.dto.DoiSoatCuocDTO;
 import vms.utils.Constances;
 import vms.utils.DateUtils;
@@ -132,7 +129,7 @@ public class BangDoiSoatCuocAction implements Preparable {
 		try {
 			this.inputStream =  new ByteArrayInputStream( str.getBytes("UTF-8") );
 		} catch (UnsupportedEncodingException e) {			
-			System.out.println("ERROR :" + e.getMessage());
+			log("ERROR :" + e.getMessage());
 		}
 	}
 	private boolean permission = true;
@@ -140,7 +137,6 @@ public class BangDoiSoatCuocAction implements Preparable {
 	@Override
 	public void prepare() throws Exception {
 		// TODO Auto-generated method stub
-		System.out.println("HoSoThanhToanAction");
 		request = ServletActionContext.getRequest();
 		session = request.getSession();
 		account = (Map<String, Object>) session.getAttribute(Constances.SESS_USERLOGIN);
@@ -149,8 +145,16 @@ public class BangDoiSoatCuocAction implements Preparable {
 			permission = false;
 		}
 	}
-	
+	private void log(String message){
+		if(account != null) {
+			message = "["+DateUtils.getCurrentTime()+"] ["+account.get("username").toString() + "] "+message;
+		} else {
+			message = "["+DateUtils.getCurrentTime()+"] "+message;
+		}
+		System.out.println(message);
+	}
 	public String execute() throws Exception {
+		log("BangDoiSoatCuocAction.execute");
 		if(account == null) {
 			session.setAttribute("URL", VMSUtil.getFullURL(request));
 			return "login_page";
@@ -163,6 +167,7 @@ public class BangDoiSoatCuocAction implements Preparable {
 	
 	//load form
 	public String form() {
+		log("BangDoiSoatCuocAction.form");
 		if(account == null) {
 			session.setAttribute("URL", VMSUtil.getFullURL(request));
 			return "login_page";
@@ -176,19 +181,20 @@ public class BangDoiSoatCuocAction implements Preparable {
 		String tendoisoatcuoc="";
 		if(!id.isEmpty())
 		{
-			System.out.println("id:"+id);
+			log("id:"+id);
 			DoiSoatCuocDAO dscDao=new DoiSoatCuocDAO(daoFactory);
 			Map<String,Object> dscMap=dscDao.findById(id);
 			if(dscMap!=null && !dscMap.isEmpty())
 				tendoisoatcuoc=dscMap.get("tendoisoatcuoc").toString() ;
 		}
-		System.out.println("tendoisoatcuoc: "+tendoisoatcuoc);
+		log("tendoisoatcuoc: "+tendoisoatcuoc);
 		json.put("tendoisoatcuoc", tendoisoatcuoc);
 		return Action.SUCCESS;
 	}
 	
 	// save ho so thanh toan
 	public String doSave() {
+		log("BangDoiSoatCuocAction.doSave");
 		jsonData=new LinkedHashMap<String, Object>();
 		try {
 			if(account == null) {
@@ -216,11 +222,11 @@ public class BangDoiSoatCuocAction implements Preparable {
 				sqlmatlienlacden=DateUtils.parseToSQLDate(mllden,"dd/MM/yyyy");
 			DoiSoatCuocDAO reportdao=new DoiSoatCuocDAO(daoFactory);
 			for(int i=0;i<phuluc_ids.length;i++)
-				System.out.println("phuluc_ids[i]:"+phuluc_ids[i]);
+				log("phuluc_ids[i]:"+phuluc_ids[i]);
 			Map<String, Object> map = reportdao.saveDoiSoatCuoc(id,doitac_id, sqlTuNgay, sqlDenNgay, phuluc_ids, suco_ids,sqlmatlienlactu,sqlmatlienlacden);
-			System.out.println("Doi soat cuoc ID =" +map.get("id"));
-			System.out.println("Tong tien thanh toan = "+map.get("thanhtien"));
-			System.out.println("Tong tien giam tru mat lien lac =" +map.get("giamtrumll"));
+			log("Doi soat cuoc ID =" +map.get("id"));
+			log("Tong tien thanh toan = "+map.get("thanhtien"));
+			log("Tong tien giam tru mat lien lac =" +map.get("giamtrumll"));
 			jsonData.put("status", "OK");
 			jsonData.put("data", map);
 		} catch (Exception e) {
@@ -232,6 +238,7 @@ public class BangDoiSoatCuocAction implements Preparable {
 	}
 	
 	public String doSavebangdoisoatcuoc() {
+		log("BangDoiSoatCuocAction.doSavebangdoisoatcuoc");
 		jsonData = new LinkedHashMap<String, Object>();
 		try {
 			if(account == null) {
@@ -249,8 +256,8 @@ public class BangDoiSoatCuocAction implements Preparable {
 				// edit
 				if(!id.isEmpty())
 				{
-					System.out.println("temp.getId():"+temp.getId());
-					System.out.println("bangdoisoatcuoc.getId():"+id);
+					log("temp.getId():"+temp.getId());
+					log("bangdoisoatcuoc.getId():"+id);
 					if(temp.getId().compareTo(id)!=0)
 						throw new Exception("DUPLICATE");
 				}
@@ -277,6 +284,7 @@ public class BangDoiSoatCuocAction implements Preparable {
 		return Action.SUCCESS;
 	}
 	public String load() {
+		log("BangDoiSoatCuocAction.load");
 		try {
 			//if(account == null) throw new Exception("END_SESSION");
 			Integer iDisplayStart = Integer.parseInt(request.getParameter("iDisplayStart"));
@@ -314,6 +322,7 @@ public class BangDoiSoatCuocAction implements Preparable {
 	}
 	
 	public String delete() {
+		log("BangDoiSoatCuocAction.delete");
 		try {
 			if(account == null) {
 				session.setAttribute("URL", VMSUtil.getFullURL(request));
@@ -333,6 +342,7 @@ public class BangDoiSoatCuocAction implements Preparable {
 	
 	//load form
 	public String index() {
+		log("BangDoiSoatCuocAction.index");
 		try {
 			if(account == null) {
 				session.setAttribute("URL", VMSUtil.getFullURL(request));
@@ -341,7 +351,7 @@ public class BangDoiSoatCuocAction implements Preparable {
 			DoiTacDAO doitacDao = new DoiTacDAO(daoFactory);
 			doiTacs = doitacDao.findAll();
 			if(id != null && id.isEmpty()==false) {
-				System.out.println("id=" + id);
+				log("id=" + id);
 				DoiSoatCuocDAO dscDao=new DoiSoatCuocDAO(daoFactory);
 				Map<String, String> conditions=new LinkedHashMap<String, String>();
 				conditions.put("id", id);

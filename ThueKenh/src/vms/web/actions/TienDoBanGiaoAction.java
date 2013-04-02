@@ -28,6 +28,7 @@ import vms.db.dto.TieuChuanDTO;
 import vms.db.dto.TuyenKenh;
 import vms.db.dto.TuyenKenhDeXuatDTO;
 import vms.utils.Constances;
+import vms.utils.DateUtils;
 import vms.utils.VMSUtil;
 import vms.web.models.MessageStore;
 
@@ -82,8 +83,16 @@ public class TienDoBanGiaoAction implements Preparable {
 			permission = false;
 		}
 	}
-
+	private void log(String message){
+		if(account != null) {
+			message = "["+DateUtils.getCurrentTime()+"] ["+account.get("username").toString() + "] "+message;
+		} else {
+			message = "["+DateUtils.getCurrentTime()+"] "+message;
+		}
+		System.out.println(message);
+	}
 	public String execute() throws Exception {
+		log("TienDoBanGiaoAction.execute");
 		if (account == null) {
 			session.setAttribute("URL", VMSUtil.getFullURL(request));
 			return "login_page";
@@ -101,11 +110,11 @@ public class TienDoBanGiaoAction implements Preparable {
 	}
 
 	public String ajLoad() {
+		log("TienDoBanGiaoAction.ajLoad");
 		if (account == null) {
 			session.setAttribute("URL", VMSUtil.getFullURL(request));
 			return "login_page";
 		}
-		System.out.println("ajLoad");
 		try {
 			// if(account == null) throw new Exception("END_SESSION");
 			Integer iDisplayStart = Integer.parseInt(request
@@ -113,13 +122,12 @@ public class TienDoBanGiaoAction implements Preparable {
 			Integer iDisplayLength = Integer.parseInt(request
 					.getParameter("iDisplayLength"));
 			String sSearch = request.getParameter("sSearch").trim();
-			System.out.println("sSearch=" + sSearch);
 			Map<String, String> conditions = new LinkedHashMap<String, String>();
 			conditions.put("account_id", account.get("id").toString());
 			conditions.put("phongban_id", account.get("idphongban").toString());
 			// kiem tra neu la phong KT
 			if(account.get("maphongban")!= null && account.get("maphongban").equals("KTKT")) {
-				System.out.println("La nhan vien phong KTKT => thay duoc toan bo tuyen kenh dang ban giao");
+				log("La nhan vien phong KTKT => thay duoc toan bo tuyen kenh dang ban giao");
 				conditions.put("isAllow", "1");
 			} else {
 				conditions.put("isAllow", "0");
@@ -137,10 +145,8 @@ public class TienDoBanGiaoAction implements Preparable {
 					String name = arrayJson.getJSONObject(i).getString("name");
 					String value = arrayJson.getJSONObject(i)
 							.getString("value");
-					System.out.println(name + ":" + value);
 					if (value.isEmpty() == false) {
 						conditions.put(name, value);
-						System.out.println(name + "-:-" + value);
 					}
 				}
 			}
@@ -165,6 +171,7 @@ public class TienDoBanGiaoAction implements Preparable {
 	}
 
 	public String form() {
+		log("TienDoBanGiaoAction.form");
 		if (account == null) {
 			session.setAttribute("URL", VMSUtil.getFullURL(request));
 			return "login_page";
@@ -189,7 +196,7 @@ public class TienDoBanGiaoAction implements Preparable {
 	}
 
 	public String doSave() {
-		System.out.println("_____________________doSave Tien Do Ban Giao");
+		log("TienDoBanGiaoAction.doSave");
 		try {
 			if (account == null) {
 				session.setAttribute("URL", VMSUtil.getFullURL(request));
@@ -202,7 +209,6 @@ public class TienDoBanGiaoAction implements Preparable {
 				if(ids == null) {
 					ids = new String[0];
 				}
-				System.out.println(ids);
 				TuyenKenhBanGiaoDAO.capNhatTienDo(id, ids,account.get("username").toString());
 				setInputStream("OK");
 			} catch (Exception e) {
@@ -218,6 +224,7 @@ public class TienDoBanGiaoAction implements Preparable {
 	}
 
 	public String delete() {
+		log("TienDoBanGiaoAction.delete");
 		try {
 			if (account == null) {
 				session.setAttribute("URL", VMSUtil.getFullURL(request));
@@ -259,7 +266,7 @@ public class TienDoBanGiaoAction implements Preparable {
 		try {
 			this.inputStream = new ByteArrayInputStream(str.getBytes("UTF-8"));
 		} catch (UnsupportedEncodingException e) {
-			System.out.println("ERROR :" + e.getMessage());
+			log("ERROR :" + e.getMessage());
 		}
 	}
 
