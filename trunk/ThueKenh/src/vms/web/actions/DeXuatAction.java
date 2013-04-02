@@ -178,7 +178,7 @@ public class DeXuatAction implements Preparable {
 					for(int i=0;i<dexuat_ids.length;i++)
 					{
 						TuyenkenhDao tkDao=new TuyenkenhDao(daoFactory);
-						TuyenKenhDeXuatDTO temptkdxDto=tuyenKenhDeXuatDAO.findById(dexuat_ids[0]);
+						TuyenKenhDeXuatDTO temptkdxDto=tuyenKenhDeXuatDAO.findById(dexuat_ids[i]);
 						if(temptkdxDto!=null)
 						{
 							if(!content.isEmpty())
