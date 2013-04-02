@@ -57,8 +57,16 @@ public class ChiTietPhuLucAction implements Preparable {
 		session = request.getSession();
 		account = (Map<String, Object>) session.getAttribute(Constances.SESS_USERLOGIN);
 	}
-	
+	private void log(String message){
+		if(account != null) {
+			message = "["+DateUtils.getCurrentTime()+"] ["+account.get("username").toString() + "] "+message;
+		} else {
+			message = "["+DateUtils.getCurrentTime()+"] "+message;
+		}
+		System.out.println(message);
+	}
 	public String execute() throws Exception {
+		log("ChiTietPhuLucAction.execute");
 		if(account == null) {
 			session.setAttribute("URL", VMSUtil.getFullURL(request));
 			return "login_page";
@@ -68,6 +76,7 @@ public class ChiTietPhuLucAction implements Preparable {
 	}
 	
 	public String load() {
+		log("ChiTietPhuLucAction.load");
 		try {
 			//if(account == null) throw new Exception("END_SESSION");
 			Integer iDisplayStart = Integer.parseInt(request.getParameter("iDisplayStart"));
@@ -104,6 +113,7 @@ public class ChiTietPhuLucAction implements Preparable {
 	}
 	
 	public String doSave() {
+		log("ChiTietPhuLucAction.doSave");
 		jsonData = new LinkedHashMap<String, Object>();
 		try {
 			if(account == null) {
@@ -116,7 +126,7 @@ public class ChiTietPhuLucAction implements Preparable {
 			for(int i=0;i<list.size();i++) {
 				mapCongThuc.put(list.get(i).get("id").toString(), list.get(i).get("chuoicongthuc").toString());
 			}
-			System.out.println("chiTietPhuLucTuyenKenhDTOs.length = " + chiTietPhuLucTuyenKenhDTOs.size());
+			log("chiTietPhuLucTuyenKenhDTOs.length = " + chiTietPhuLucTuyenKenhDTOs.size());
 			Map<String,Object> result = chiTietPhuLucDAO.saveChiTietPhuLucTuyenKenh(chiTietPhuLucTuyenKenhDTOs, mapCongThuc);
 			jsonData.put("status", "OK");
 			jsonData.put("data", result);
@@ -129,6 +139,7 @@ public class ChiTietPhuLucAction implements Preparable {
 	}
 	
 	public String form() {
+		log("ChiTietPhuLucAction.form");
 		if(account == null) {
 			session.setAttribute("URL", VMSUtil.getFullURL(request));
 			return "login_page";
@@ -140,7 +151,6 @@ public class ChiTietPhuLucAction implements Preparable {
 		json.put("giaTriSauThue", request.getParameter("giaTriSauThue"));
 		json.put("soLuongKenh", request.getParameter("soLuongKenh"));
 		json.put("id", id);
-		System.out.println("id-toan:"+id);
 		String tenchitietphuluc="";
 		if(!id.isEmpty())
 		{
@@ -154,15 +164,15 @@ public class ChiTietPhuLucAction implements Preparable {
 	
 	//load form for edit
 	public String edit() {
+		log("ChiTietPhuLucAction.edit");
 		try {
 			if(account == null) {
 				session.setAttribute("URL", VMSUtil.getFullURL(request));
 				return "login_page";
 			}
 			form_data = "";
-			System.out.println("id:"+id);
+			log("id:"+id);
 			if(id != null && id.isEmpty()==false) {
-				System.out.println("id=" + id);
 				ChiTietPhuLucDAO chitietPLDao = new ChiTietPhuLucDAO(daoFactory);
 				List<Map<String,Object>> result = chitietPLDao.FindChiTietPhuLucById(0, 1000, id);
 				form_data = JSONValue.toJSONString(result);
@@ -175,6 +185,7 @@ public class ChiTietPhuLucAction implements Preparable {
 	}
 		
 	public String doSaveChiTietPhuLuc() {
+		log("ChiTietPhuLucAction.doSaveChiTietPhuLuc");
 		jsonData = new LinkedHashMap<String, Object>();
 		try {
 			if(account == null) {
@@ -187,8 +198,8 @@ public class ChiTietPhuLucAction implements Preparable {
 				// edit
 				if(!chiTietPhuLucDTO.getId().isEmpty())
 				{
-					System.out.println("temp.getId():"+temp.getId());
-					System.out.println("chiTietPhuLucDTO.getId():"+chiTietPhuLucDTO.getId());
+					log("temp.getId():"+temp.getId());
+					log("chiTietPhuLucDTO.getId():"+chiTietPhuLucDTO.getId());
 					if(temp.getId().compareTo(chiTietPhuLucDTO.getId())!=0)
 						throw new Exception("DUPLICATE");
 				}
@@ -211,6 +222,7 @@ public class ChiTietPhuLucAction implements Preparable {
 	}
 	
 	public String delete() {
+		log("ChiTietPhuLucAction.delete");
 		try {
 			if(account == null) {
 				session.setAttribute("URL", VMSUtil.getFullURL(request));
@@ -246,7 +258,7 @@ public class ChiTietPhuLucAction implements Preparable {
 		try {
 			this.inputStream =  new ByteArrayInputStream( str.getBytes("UTF-8") );
 		} catch (UnsupportedEncodingException e) {			
-			System.out.println("ERROR :" + e.getMessage());
+			log("ERROR :" + e.getMessage());
 		}
 	}
 	

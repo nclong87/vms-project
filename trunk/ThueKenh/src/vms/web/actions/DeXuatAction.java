@@ -11,8 +11,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import oracle.sql.DATE;
-
 import org.apache.struts2.ServletActionContext;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -22,9 +20,7 @@ import vms.db.dao.DaoFactory;
 import vms.db.dao.DeXuatDao;
 import vms.db.dao.DoiTacDAO;
 import vms.db.dao.TuyenKenhDeXuatDAO;
-import vms.db.dao.TuyenkenhDao;
 import vms.db.dto.DeXuatDTO;
-import vms.db.dto.TuyenKenh;
 import vms.db.dto.TuyenKenhDeXuatDTO;
 import vms.utils.Constances;
 import vms.utils.DateUtils;
@@ -80,8 +76,16 @@ public class DeXuatAction implements Preparable {
 			permission = false;
 		}
 	}
-	
+	private void log(String message){
+		if(account != null) {
+			message = "["+DateUtils.getCurrentTime()+"] ["+account.get("username").toString() + "] "+message;
+		} else {
+			message = "["+DateUtils.getCurrentTime()+"] "+message;
+		}
+		System.out.println(message);
+	}
 	public String execute() throws Exception {
+		log("DeXuatAction.execute");
 		if(account == null) {
 			session.setAttribute("URL", VMSUtil.getFullURL(request));
 			return "login_page";
@@ -93,12 +97,12 @@ public class DeXuatAction implements Preparable {
 	}
 	
 	public String load() {
+		log("DeXuatAction.load");
 		try {
 			//if(account == null) throw new Exception("END_SESSION");
 			Integer iDisplayStart = Integer.parseInt(request.getParameter("iDisplayStart"));
 			Integer iDisplayLength = Integer.parseInt(request.getParameter("iDisplayLength"));
 			String sSearch = request.getParameter("sSearch").trim();
-			System.out.println("sSearch="+sSearch);
 			Map<String, String> conditions = new LinkedHashMap<String, String>();
 			if(sSearch.isEmpty() == false) {
 				JSONArray arrayJson = (JSONArray) new JSONObject(sSearch).get("array");
@@ -131,6 +135,7 @@ public class DeXuatAction implements Preparable {
 	}
 	
 	public String form() {
+		log("DeXuatAction.form");
 		try {
 			if(account == null) {
 				session.setAttribute("URL", VMSUtil.getFullURL(request));
@@ -141,7 +146,7 @@ public class DeXuatAction implements Preparable {
 			doiTacDTOs = doiTacDAO.findAll();
 			form_data = "";
 			if(id != null && id.isEmpty()==false) {
-				System.out.println("id=" + id);
+				log("id=" + id);
 				deXuatDTO = deXuatDao.findById(id);
 				Map<String,String> map = deXuatDTO.getMap();
 				form_data = JSONValue.toJSONString(map);
@@ -154,6 +159,7 @@ public class DeXuatAction implements Preparable {
 	}
 	
 	public String doSave() {
+		log("DeXuatAction.doSave");
 		try {
 			if(account == null) {
 				session.setAttribute("URL", VMSUtil.getFullURL(request));
@@ -165,7 +171,7 @@ public class DeXuatAction implements Preparable {
 			deXuatDTO.setNgaygui(DateUtils.parseStringDateSQL(deXuatDTO.getNgaygui(), "dd/MM/yyyy"));
 			id = deXuatDao.save(deXuatDTO);
 			if(id == null) throw new Exception(Constances.MSG_ERROR);
-			System.out.println("dexuat_ids.length" + dexuat_ids.length);
+			log("dexuat_ids.length" + dexuat_ids.length);
 			if(dexuat_ids!= null && dexuat_ids.length > 0) {
 				TuyenKenhDeXuatDAO tuyenKenhDeXuatDAO = new TuyenKenhDeXuatDAO(daoFactory);
 				tuyenKenhDeXuatDAO.updateDexuatByIds(dexuat_ids, id);
@@ -177,7 +183,6 @@ public class DeXuatAction implements Preparable {
 					String content="";
 					for(int i=0;i<dexuat_ids.length;i++)
 					{
-						TuyenkenhDao tkDao=new TuyenkenhDao(daoFactory);
 						TuyenKenhDeXuatDTO temptkdxDto=tuyenKenhDeXuatDAO.findById(dexuat_ids[i]);
 						if(temptkdxDto!=null)
 						{
@@ -200,6 +205,7 @@ public class DeXuatAction implements Preparable {
 	}
 	
 	public String delete() {
+		log("DeXuatAction.delete");
 		try {
 			if(account == null) {
 				session.setAttribute("URL", VMSUtil.getFullURL(request));
@@ -217,6 +223,7 @@ public class DeXuatAction implements Preparable {
 	}
 	
 	public String detail() {
+		log("DeXuatAction.detail");
 		if(id == null) return Action.ERROR;
 		detail = deXuatDao.getDetail(id);
 		if(detail == null) return Action.ERROR;
@@ -224,18 +231,19 @@ public class DeXuatAction implements Preparable {
 	}
 	
 	public String doexport() throws Exception {
+		log("DeXuatAction.doexport");
 		if(account == null) {
 			session.setAttribute("URL", VMSUtil.getFullURL(request));
 			return "login_page";
 		}
 		/*for(int i=0;i<fieldNames.length;i++)
-			System.out.println("fieldNames[i]:"+fields[i]);*/
+			log("fieldNames[i]:"+fields[i]);*/
 		if(fields != null && fields.length >0 && fieldNames!=null && fieldNames.length>0) {
 			DeXuatDao dao = new DeXuatDao(daoFactory);
 			String xmlData = dao.exportExcel(fields, fieldNames);
 			String pathXslTemplate = ServletActionContext.getServletContext().getRealPath("files/templates/export.xsl");
 			String transformedString = XMLUtil.transformStringXML_FileXSL(xmlData, pathXslTemplate);
-			//System.out.println("transformedString = "+transformedString);
+			//log("transformedString = "+transformedString);
 			//FileUtils.writeStringToFile(new File("D:\\log2.txt"), "Nguyễn Chí Long "+fieldNames[0],"UTF-8");
 			setExcelStream(transformedString);
 			filename = "DanhSachDeXuat_"+System.currentTimeMillis()+".xls";
@@ -264,7 +272,7 @@ public class DeXuatAction implements Preparable {
 		try {
 			this.inputStream =  new ByteArrayInputStream( str.getBytes("UTF-8") );
 		} catch (UnsupportedEncodingException e) {			
-			System.out.println("ERROR :" + e.getMessage());
+			log("ERROR :" + e.getMessage());
 		}
 	}
 	
@@ -272,7 +280,7 @@ public class DeXuatAction implements Preparable {
 		try {
 			this.excelStream =  new ByteArrayInputStream( str.getBytes("UTF-8") );
 		} catch (UnsupportedEncodingException e) {			
-			System.out.println("ERROR :" + e.getMessage());
+			log("ERROR :" + e.getMessage());
 		}
 	}
 	

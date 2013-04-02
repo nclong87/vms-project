@@ -234,4 +234,10 @@ public class VMSUtil {
 		}
     	return true;
     }
+    public static void log(String message,Map<String,Object> account){
+		if(account != null) {
+			message = "["+DateUtils.getCurrentTime()+"] ["+account.get("username").toString() + "] "+message;
+		}
+		System.out.println(message);
+	}
 }

@@ -507,7 +507,6 @@ public class ImportAction implements Preparable {
 			//if(account == null) throw new Exception("END_SESSION");
 			Integer iDisplayStart = Integer.parseInt(request.getParameter("iDisplayStart"));
 			Integer iDisplayLength = Integer.parseInt(request.getParameter("iDisplayLength"));
-			System.out.println("toannguyenbao");
 			TuyenKenhDeXuatImportDAO dao = new TuyenKenhDeXuatImportDAO(daoFactory);
 			List<Map<String, Object>> items = dao.search(iDisplayStart, iDisplayLength + 1);
 			int iTotalRecords = items.size();

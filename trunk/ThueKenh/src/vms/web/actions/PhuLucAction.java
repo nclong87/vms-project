@@ -69,8 +69,16 @@ public class PhuLucAction implements Preparable {
 			permission = false;
 		}
 	}
-	
+	private void log(String message){
+		if(account != null) {
+			message = "["+DateUtils.getCurrentTime()+"] ["+account.get("username").toString() + "] "+message;
+		} else {
+			message = "["+DateUtils.getCurrentTime()+"] "+message;
+		}
+		System.out.println(message);
+	}
 	public String execute() throws Exception {
+		log("PhuLucAction.execute");
 		if(account == null) {
 			session.setAttribute("URL", VMSUtil.getFullURL(request));
 			return "login_page";
@@ -82,6 +90,7 @@ public class PhuLucAction implements Preparable {
 	}
 	
 	public String load() {
+		log("PhuLucAction.load");
 		try {
 			//if(account == null) throw new Exception("END_SESSION");
 			Integer iDisplayStart = Integer.parseInt(request.getParameter("iDisplayStart"));
@@ -117,6 +126,7 @@ public class PhuLucAction implements Preparable {
 	}
 	
 	public String form() {
+		log("PhuLucAction.form");
 		try {
 			if(account == null) {
 				session.setAttribute("URL", VMSUtil.getFullURL(request));
@@ -129,7 +139,6 @@ public class PhuLucAction implements Preparable {
 			hopDongDTOs = dao.findAllHopDongByDoitac();
 			form_data = "";
 			if(id != null && id.isEmpty()==false) {
-				System.out.println("id=" + id);
 				phuLucDTO = phuLucDAO.findById(id);
 				Map<String,String> map = phuLucDTO.getMap();
 				form_data = JSONValue.toJSONString(map);
@@ -142,6 +151,7 @@ public class PhuLucAction implements Preparable {
 	}
 	
 	public String doSave() {
+		log("PhuLucAction.doSave");
 		jsonData = new LinkedHashMap<String, Object>();
 		try {
 			if(account == null) {
@@ -172,14 +182,12 @@ public class PhuLucAction implements Preparable {
 			}
 			List<Map<String,Object>> listSuco = suCoDAO.findSuCoByPhuLuc(id);
 			if(listSuco.isEmpty()==false) {
-				System.out.println("listSuco.size()="+listSuco.size());
+				log("listSuco.size()="+listSuco.size());
 				for(int i=0; i < listSuco.size(); i++) {
 					Map<String,Object> map = listSuco.get(i);
 					if(map.get("suco_phuluc").toString().isEmpty()) { //su co chua co phu luc
-						System.out.println("1");
 						suCoDAO.updatePhuLuc(map, id, 0);
 					} else {
-						System.out.println("2");
 						suCoDAO.updatePhuLuc(map, id, 1);
 					}
 				}
@@ -202,6 +210,7 @@ public class PhuLucAction implements Preparable {
 	}
 	
 	public String delete() {
+		log("PhuLucAction.delete");
 		try {
 			if(account == null) {
 				session.setAttribute("URL", VMSUtil.getFullURL(request));
@@ -219,6 +228,7 @@ public class PhuLucAction implements Preparable {
 	}
 	
 	public String detail() {
+		log("PhuLucAction.detail");
 		if(id == null) return Action.ERROR;
 		json = phuLucDAO.getDetail(id);
 		if(json == null) return Action.ERROR;
@@ -232,11 +242,12 @@ public class PhuLucAction implements Preparable {
 	}
 	
 	public String findphulucByhopdong() {
+		log("PhuLucAction.findphulucByhopdong");
 		jsonData = new LinkedHashMap<String, Object>();
 		try {
 			if(hopdong_id!= null) {
 				Map<String, String> conditions = new LinkedHashMap<String, String>();
-				System.out.println("hopdong_id:"+hopdong_id);
+				log("hopdong_id:"+hopdong_id);
 				conditions.put("hopdong_id", hopdong_id);
 				conditions.put("ischeckAvailable","1");
 				String thang=request.getParameter("thang");
@@ -257,11 +268,12 @@ public class PhuLucAction implements Preparable {
 		return Action.SUCCESS;
 	}
 	public String findphulucByhopdong2() {
+		log("PhuLucAction.findphulucByhopdong2");
 		jsonData = new LinkedHashMap<String, Object>();
 		try {
 			if(hopdong_id!= null) {
 				Map<String, String> conditions = new LinkedHashMap<String, String>();
-				System.out.println("hopdong_id:"+hopdong_id);
+				log("hopdong_id:"+hopdong_id);
 				conditions.put("hopdong_id", hopdong_id);
 				String thang=request.getParameter("thang");
 				String nam=request.getParameter("nam");
@@ -282,11 +294,12 @@ public class PhuLucAction implements Preparable {
 	}
 	
 	public String findphulucByhopdonganddoisoatcuoc() {
+		log("PhuLucAction.findphulucByhopdonganddoisoatcuoc");
 		jsonData = new LinkedHashMap<String, Object>();
 		try {
 			if(hopdong_id!= null && doisoatcuoc_id!=null) {
 				Map<String, String> conditions = new LinkedHashMap<String, String>();
-				System.out.println("hopdong_id:"+hopdong_id);
+				log("hopdong_id:"+hopdong_id);
 				conditions.put("hopdong_id", hopdong_id);
 				conditions.put("doisoatcuoc_id", doisoatcuoc_id);
 				PhuLucDAO phulucDao = new PhuLucDAO(daoFactory);
@@ -314,7 +327,7 @@ public class PhuLucAction implements Preparable {
 		try {
 			this.inputStream =  new ByteArrayInputStream( str.getBytes("UTF-8") );
 		} catch (UnsupportedEncodingException e) {			
-			System.out.println("ERROR :" + e.getMessage());
+			log("ERROR :" + e.getMessage());
 		}
 	}
 	

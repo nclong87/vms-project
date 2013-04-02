@@ -40,6 +40,7 @@ public class LoginAction implements Preparable {
 	}
 	
 	public String execute() throws Exception {
+		System.out.println("LoginAction.execute");
 		jsonData = "";
 		HttpSession session = request.getSession();
 		if(request.getMethod().equals("POST")) {
@@ -63,6 +64,7 @@ public class LoginAction implements Preparable {
 						message = Constances.MSG_LOGINFAIL;
 						return Action.SUCCESS;
 					}
+					System.out.println("User "+username+" login thanh cong!");
 					accountDao.loginSuccess(account.get("id").toString());
 					session.setAttribute(Constances.SESS_USERLOGIN, account);
 					String sMenu = accountDao.getMenu(account);
@@ -92,6 +94,7 @@ public class LoginAction implements Preparable {
 		return Action.SUCCESS;
 	}
 	public String doLogout() {
+		System.out.println("LoginAction.doLogout");
 		HttpSession session = request.getSession();
 		session.invalidate();
 		return Action.SUCCESS;

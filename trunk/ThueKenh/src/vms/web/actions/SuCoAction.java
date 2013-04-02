@@ -118,7 +118,7 @@ public class SuCoAction implements Preparable {
 		try {
 			this.inputStream =  new ByteArrayInputStream( str.getBytes("UTF-8") );
 		} catch (UnsupportedEncodingException e) {			
-			System.out.println("ERROR :" + e.getMessage());
+			log("ERROR :" + e.getMessage());
 		}
 	}
 	public List<Map<String,Object>> getDoiTacDTOs() {
@@ -133,7 +133,6 @@ public class SuCoAction implements Preparable {
 	@Override
 	public void prepare() throws Exception {
 		// TODO Auto-generated method stub
-		System.out.println("SuCoAction");
 		request = ServletActionContext.getRequest();
 		session = request.getSession();
 		account = (Map<String, Object>) session.getAttribute(Constances.SESS_USERLOGIN);
@@ -142,8 +141,16 @@ public class SuCoAction implements Preparable {
 			permission = false;
 		}
 	}
-	
+	private void log(String message){
+		if(account != null) {
+			message = "["+DateUtils.getCurrentTime()+"] ["+account.get("username").toString() + "] "+message;
+		} else {
+			message = "["+DateUtils.getCurrentTime()+"] "+message;
+		}
+		System.out.println(message);
+	}
 	public String execute() throws Exception {
+		log("SuCoAction.execute");
 		if(account == null) {
 			session.setAttribute("URL", VMSUtil.getFullURL(request));
 			return "login_page";
@@ -156,6 +163,7 @@ public class SuCoAction implements Preparable {
 	
 	//load form
 	public String form() {
+		log("SuCoAction.form");
 		try {
 			if(account == null) {
 				session.setAttribute("URL", VMSUtil.getFullURL(request));
@@ -163,12 +171,9 @@ public class SuCoAction implements Preparable {
 			}
 			if(permission == false) return "error_permission";
 			form_data = "";
-			System.out.println("id:"+id);
 			if(id != null && id.isEmpty()==false) {
-				System.out.println("id=" + id);
 				SuCoDAO sucoDao = new SuCoDAO(daoFactory);
 				sucoDTO = sucoDao.findById(id);
-				System.out.println(sucoDTO.getId());
 				Map<String,String> map = sucoDTO.getMap();
 				form_data = JSONValue.toJSONString(map);
 			}
@@ -181,7 +186,7 @@ public class SuCoAction implements Preparable {
 	
 	// save su co
 	public String doSave() {
-		
+		log("SuCoAction.doSave");
 		try {
 			if(account == null) {
 				session.setAttribute("URL", VMSUtil.getFullURL(request));
@@ -216,7 +221,7 @@ public class SuCoAction implements Preparable {
 			}    
 			SuCoDAO sucoDao=new SuCoDAO(daoFactory);
 			float thoigianmatll= (float)Math.round(((float)(thoidiemketthuc-thoidiembatdau)/(60000))*100)/100;
-			System.out.println("thoigianmatlienlac:"+thoigianmatll);
+			log("thoigianmatlienlac:"+thoigianmatll);
 			sucoDTO.setThoidiembatdau(String.valueOf(thoidiembatdau));
 			sucoDTO.setThoidiemketthuc(String.valueOf(thoidiemketthuc));
 			sucoDTO.setThoigianmll(thoigianmatll);
@@ -226,16 +231,16 @@ public class SuCoAction implements Preparable {
 				sucoDTO.setBienbanvanhanh_id("0");
 			if(sucoDTO.getId().isEmpty() || sucoDTO.getThanhtoan_id().isEmpty())
 				sucoDTO.setThanhtoan_id("0");
-			System.out.println("thanhtoan:"+sucoDTO.getThanhtoan_id());
-			System.out.println("bienbanvanhanh:"+sucoDTO.getBienbanvanhanh_id());
+			log("thanhtoan:"+sucoDTO.getThanhtoan_id());
+			log("bienbanvanhanh:"+sucoDTO.getBienbanvanhanh_id());
 			PhuLucDAO phuLucDAO = new PhuLucDAO(daoFactory);
-			System.out.println("sqlDateThoiDiemBatDau:"+sqlDateThoiDiemBatDau);
-			System.out.println("sucoDTO.getTuyenkenh_id():"+sucoDTO.getTuyenkenh_id());
+			log("sqlDateThoiDiemBatDau:"+sqlDateThoiDiemBatDau);
+			log("sucoDTO.getTuyenkenh_id():"+sucoDTO.getTuyenkenh_id());
 			Map<String, Object> mapPhuluc = phuLucDAO.findPhuLucCoHieuLuc(sucoDTO.getTuyenkenh_id(), sqlDateThoiDiemBatDau);
 			if(mapPhuluc == null) {
 				sucoDTO.setGiamtrumll(0);
 			} else {
-				System.out.println("setPhuluc_id:"+mapPhuluc.get("id").toString());
+				log("setPhuluc_id:"+mapPhuluc.get("id").toString());
 				sucoDTO.setPhuluc_id(mapPhuluc.get("id").toString());
 				// tinh giam tru mat lien lac
 				if(thoigianmatll<=30)
@@ -260,12 +265,12 @@ public class SuCoAction implements Preparable {
 	
 	// load su co
 	public String ajLoadSuCo() {
+		log("SuCoAction.ajLoadSuCo");
 		try {
 			//if(account == null) throw new Exception("END_SESSION");
 			Integer iDisplayStart = Integer.parseInt(request.getParameter("iDisplayStart"));
 			Integer iDisplayLength = Integer.parseInt(request.getParameter("iDisplayLength"));
 			String sSearch = request.getParameter("sSearch").trim();
-			System.out.println("sSearch:"+sSearch);
 			Map<String, String> conditions = new LinkedHashMap<String, String>();
 			if(sSearch.isEmpty() == false) {
 				JSONArray arrayJson = (JSONArray) new JSONObject(sSearch).get("array");
@@ -278,7 +283,6 @@ public class SuCoAction implements Preparable {
 				}
 			}
 			SuCoDAO sucoDao = new SuCoDAO(daoFactory);
-			System.out.println("conditions="+conditions);
 			List<Map<String,Object>> lstSuCo = sucoDao.findSuCo(iDisplayStart, iDisplayLength+1, conditions);
 			int iTotalRecords = lstSuCo.size();
 			if(iTotalRecords > iDisplayLength) {
@@ -300,12 +304,12 @@ public class SuCoAction implements Preparable {
 	
 	// load su co chưa thuộc biên bản vận hành kênh nào
 	public String ajLoadSuCoWithBBVH() {
+		log("SuCoAction.ajLoadSuCoWithBBVH");
 		try {
 			//if(account == null) throw new Exception("END_SESSION");
 			Integer iDisplayStart = Integer.parseInt(request.getParameter("iDisplayStart"));
 			Integer iDisplayLength = Integer.parseInt(request.getParameter("iDisplayLength"));
 			String sSearch = request.getParameter("sSearch").trim();
-			System.out.println("sSearch:"+sSearch);
 			Map<String, String> conditions = new LinkedHashMap<String, String>();
 			if(sSearch.isEmpty() == false) {
 				JSONArray arrayJson = (JSONArray) new JSONObject(sSearch).get("array");
@@ -319,7 +323,6 @@ public class SuCoAction implements Preparable {
 			}
 			conditions.put("bienbanvanhanh_id", "0");
 			SuCoDAO sucoDao = new SuCoDAO(daoFactory);
-			System.out.println("conditions="+conditions);
 			List<Map<String,Object>> lstSuCo = sucoDao.findSuCo(iDisplayStart, iDisplayLength+1, conditions);
 			int iTotalRecords = lstSuCo.size();
 			if(iTotalRecords > iDisplayLength) {
@@ -340,6 +343,7 @@ public class SuCoAction implements Preparable {
 	}
 		
 	public String delete() {
+		log("SuCoAction.delete");
 		try {
 			if(account == null) {
 				session.setAttribute("URL", VMSUtil.getFullURL(request));
@@ -358,6 +362,7 @@ public class SuCoAction implements Preparable {
 	}
 	
 	public String detail() {
+		log("SuCoAction.detail");
 		SuCoDAO sucoDao = new SuCoDAO(daoFactory);
 		if(id == null) return Action.ERROR;
 		detail = sucoDao.getDetail(id);
@@ -368,6 +373,7 @@ public class SuCoAction implements Preparable {
 	}
 	
 	public String findByBienbanvanhanh() {
+		log("SuCoAction.findByBienbanvanhanh");
 		jsonData = new LinkedHashMap<String, Object>();
 		try {
 			if(id!= null) {
@@ -387,6 +393,7 @@ public class SuCoAction implements Preparable {
 	}
 	
 	public String findBythanhtoan() {
+		log("SuCoAction.findBythanhtoan");
 		jsonData = new LinkedHashMap<String, Object>();
 		try {
 			if(id!= null) {
@@ -405,7 +412,7 @@ public class SuCoAction implements Preparable {
 		return Action.SUCCESS;
 	}
 	public String findByDoiSoatCuoc() {
-		System.out.println("begin findbydoisoatcuoc");
+		log("SuCoAction.findByDoiSoatCuoc");
 		jsonData = new LinkedHashMap<String, Object>();
 		try {
 			if(id!= null) {
@@ -421,7 +428,6 @@ public class SuCoAction implements Preparable {
 			e.printStackTrace();
 			jsonData.put("result", "ERROR");
 		}
-		System.out.println("end findbydoisoatcuoc");
 		return Action.SUCCESS;
 	}
 	public String popupSearchForThanhToan()
@@ -431,12 +437,12 @@ public class SuCoAction implements Preparable {
 	
 	// load su co
 	public String ajLoadSuCoForThanhToan() {
+		log("SuCoAction.ajLoadSuCoForThanhToan");
 		try {
 			//if(account == null) throw new Exception("END_SESSION");
 			Integer iDisplayStart = Integer.parseInt(request.getParameter("iDisplayStart"));
 			Integer iDisplayLength = Integer.parseInt(request.getParameter("iDisplayLength"));
 			String sSearch = request.getParameter("sSearch").trim();
-			System.out.println("sSearch:"+sSearch);
 			Map<String, String> conditions = new LinkedHashMap<String, String>();
 			if(sSearch.isEmpty() == false) {
 				JSONArray arrayJson = (JSONArray) new JSONObject(sSearch).get("array");
@@ -449,7 +455,6 @@ public class SuCoAction implements Preparable {
 				}
 			}
 			SuCoDAO sucoDao = new SuCoDAO(daoFactory);
-			System.out.println("conditions="+conditions);
 			List<FN_FIND_SUCO> lstSuCo = sucoDao.findSuCoforthanhtoan(iDisplayStart, iDisplayLength+1, conditions);
 			int iTotalRecords = lstSuCo.size();
 			if(iTotalRecords > iDisplayLength) {

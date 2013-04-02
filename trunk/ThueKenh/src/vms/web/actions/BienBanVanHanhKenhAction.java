@@ -247,7 +247,6 @@ public class BienBanVanHanhKenhAction implements Preparable {
 					}
 				}
 			}
-			System.out.println("conditions="+conditions);
 			BienBanVanHanhKenhDAO bienbanvhkDao = new BienBanVanHanhKenhDAO(daoFactory);
 			List<BienBanVanHanhKenhDTO> lstBienbanvhk = bienbanvhkDao.findBienBanVanHanhKenh(iDisplayStart, iDisplayLength+1, conditions);
 			int iTotalRecords=lstBienbanvhk.size();

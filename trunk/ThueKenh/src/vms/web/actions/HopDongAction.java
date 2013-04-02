@@ -111,7 +111,7 @@ public class HopDongAction implements Preparable {
 		try {
 			this.inputStream =  new ByteArrayInputStream( str.getBytes("UTF-8") );
 		} catch (UnsupportedEncodingException e) {			
-			System.out.println("ERROR :" + e.getMessage());
+			log("ERROR :" + e.getMessage());
 		}
 	}
 	
@@ -119,7 +119,6 @@ public class HopDongAction implements Preparable {
 	@Override
 	public void prepare() throws Exception {
 		// TODO Auto-generated method stub
-		System.out.println("SuCoAction");
 		request = ServletActionContext.getRequest();
 		session = request.getSession();
 		account = (Map<String, Object>) session.getAttribute(Constances.SESS_USERLOGIN);
@@ -128,8 +127,16 @@ public class HopDongAction implements Preparable {
 			permission = false;
 		}
 	}
-	
+	private void log(String message){
+		if(account != null) {
+			message = "["+DateUtils.getCurrentTime()+"] ["+account.get("username").toString() + "] "+message;
+		} else {
+			message = "["+DateUtils.getCurrentTime()+"] "+message;
+		}
+		System.out.println(message);
+	}
 	public String execute() throws Exception {
+		log("HopDongAction.execute");
 		if(account == null) {
 			session.setAttribute("URL", VMSUtil.getFullURL(request));
 			return "login_page";
@@ -142,6 +149,7 @@ public class HopDongAction implements Preparable {
 	
 	//load form
 	public String form() {
+		log("HopDongAction.form");
 		try {
 			if(account == null) {
 				session.setAttribute("URL", VMSUtil.getFullURL(request));
@@ -150,12 +158,10 @@ public class HopDongAction implements Preparable {
 			DoiTacDAO doitacDao = new DoiTacDAO(daoFactory);
 			doiTacs = doitacDao.findAll();
 			form_data = "";
-			System.out.println("id:"+id);
 			if(id != null && id.isEmpty()==false) {
-				System.out.println("id=" + id);
+				log("id=" + id);
 				HopDongDAO hopdongDao = new HopDongDAO(daoFactory);
 				hopdongDTO = hopdongDao.findById(id);
-				System.out.println(hopdongDTO.getId());
 				Map<String,String> map = hopdongDTO.getMap();
 				form_data = JSONValue.toJSONString(map);
 			}
@@ -168,7 +174,7 @@ public class HopDongAction implements Preparable {
 	
 	// save hop dong
 	public String doSave() {
-		
+		log("HopDongAction.doSave");
 		try {
 			if(account == null) {
 				session.setAttribute("URL", VMSUtil.getFullURL(request));
@@ -196,7 +202,7 @@ public class HopDongAction implements Preparable {
 				}
 			}
 			
-			System.out.println("hopdongDTO.getSohopdong():"+hopdongDTO.getSohopdong());
+			log("hopdongDTO.getSohopdong():"+hopdongDTO.getSohopdong());
 			hopdongDTO.setUsercreate(account.get("username").toString());
 			hopdongDTO.setTimecreate(DateUtils.getCurrentDateSQL());
 			hopdongDTO.setNgayky(DateUtils.parseStringDateSQL(hopdongDTO.getNgayky(), "dd/MM/yyyy"));
@@ -216,12 +222,12 @@ public class HopDongAction implements Preparable {
 	
 	// load hop dong
 	public String ajLoadHopDong() {
+		log("HopDongAction.ajLoadHopDong");
 		try {
 			//if(account == null) throw new Exception("END_SESSION");
 			Integer iDisplayStart = Integer.parseInt(request.getParameter("iDisplayStart"));
 			Integer iDisplayLength = Integer.parseInt(request.getParameter("iDisplayLength"));
 			String sSearch = request.getParameter("sSearch").trim();
-			System.out.println("sSearch:"+sSearch);
 			Map<String, String> conditions = new LinkedHashMap<String, String>();
 			if(sSearch.isEmpty() == false) {
 				JSONArray arrayJson = (JSONArray) new JSONObject(sSearch).get("array");
@@ -234,7 +240,6 @@ public class HopDongAction implements Preparable {
 				}
 			}
 			HopDongDAO hopdongDao = new HopDongDAO(daoFactory);
-			System.out.println("conditions="+conditions);
 			List<Map<String, Object>> items = hopdongDao.search(iDisplayStart, iDisplayLength+1, conditions);
 			int iTotalRecords = items.size();
 			if(iTotalRecords > iDisplayLength) {
@@ -255,6 +260,7 @@ public class HopDongAction implements Preparable {
 	}
 		
 	public String delete() {
+		log("HopDongAction.delete");
 		try {
 			if(account == null) {
 				session.setAttribute("URL", VMSUtil.getFullURL(request));
@@ -273,6 +279,7 @@ public class HopDongAction implements Preparable {
 	}
 	
 	public String detail() {
+		log("HopDongAction.detail");
 		HopDongDAO hopdongDao = new HopDongDAO(daoFactory);
 		if(id == null) return Action.ERROR;
 		detail = hopdongDao.getDetail(id);

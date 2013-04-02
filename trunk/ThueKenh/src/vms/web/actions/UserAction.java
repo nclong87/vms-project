@@ -27,6 +27,7 @@ import vms.db.dto.KhuVuc;
 import vms.db.dto.Menu;
 import vms.db.dto.PhongBanDTO;
 import vms.utils.Constances;
+import vms.utils.DateUtils;
 import vms.utils.NumberUtil;
 import vms.utils.VMSUtil;
 import vms.web.models.MessageStore;
@@ -68,8 +69,16 @@ public class UserAction implements Preparable {
 			permission = false;
 		}
 	}
-	
+	private void log(String message){
+		if(account != null) {
+			message = "["+DateUtils.getCurrentTime()+"] ["+account.get("username").toString() + "] "+message;
+		} else {
+			message = "["+DateUtils.getCurrentTime()+"] "+message;
+		}
+		System.out.println(message);
+	}
 	public String execute() throws Exception {
+		log("UserAction.execute");
 		if(account == null) {
 			session.setAttribute("URL", VMSUtil.getFullURL(request));
 			return "login_page";
@@ -85,10 +94,10 @@ public class UserAction implements Preparable {
 	public String ajLoadAccounts() {
 		try {
 			//if(account == null) throw new Exception("END_SESSION");
+			log("UserAction.ajLoadAccounts");
 			Integer iDisplayStart = Integer.parseInt(request.getParameter("iDisplayStart"));
 			Integer iDisplayLength = Integer.parseInt(request.getParameter("iDisplayLength"));
 			String sSearch = request.getParameter("sSearch").trim();
-			System.out.println("sSearch="+sSearch);
 			Map<String, String> conditions = new LinkedHashMap<String, String>();
 			if(sSearch.isEmpty() == false) {
 				JSONArray arrayJson = (JSONArray) new JSONObject(sSearch).get("array");
@@ -120,6 +129,7 @@ public class UserAction implements Preparable {
 	
 	public String form() {
 		try {
+			log("UserAction.form");
 			if(account == null) {
 				session.setAttribute("URL", VMSUtil.getFullURL(request));
 				return "login_page";
@@ -152,6 +162,7 @@ public class UserAction implements Preparable {
 	}
 	
 	public String doSave() {
+		log("UserAction.doSave");
 		jsonData = new LinkedHashMap<String, Object>();
 		try {
 			if(account == null) {
@@ -171,6 +182,7 @@ public class UserAction implements Preparable {
 	}
 	
 	public String lockAccounts() {
+		log("UserAction.lockAccounts");
 		try {
 			if(account == null) {
 				session.setAttribute("URL", VMSUtil.getFullURL(request));
@@ -190,6 +202,7 @@ public class UserAction implements Preparable {
 	}
 	
 	public String chonKhuVucPhuTrach() throws Exception {
+		log("UserAction.chonKhuVucPhuTrach");
 		if(account == null) {
 			session.setAttribute("URL", VMSUtil.getFullURL(request));
 			return "login_page";
@@ -202,6 +215,7 @@ public class UserAction implements Preparable {
 	
 	public String updateAccount() {
 		try {
+			log("UserAction.updateAccount");
 			if(account == null) {
 				session.setAttribute("URL", VMSUtil.getFullURL(request));
 				return "login_page";
@@ -227,6 +241,7 @@ public class UserAction implements Preparable {
 		return Action.SUCCESS;
 	}
 	public String doUpdateAccount() {
+		log("UserAction.doUpdateAccount");
 		jsonData = new LinkedHashMap<String, Object>();
 		try {
 			if(account == null) {
@@ -270,7 +285,7 @@ public class UserAction implements Preparable {
 		try {
 			this.inputStream =  new ByteArrayInputStream( str.getBytes("UTF-8") );
 		} catch (UnsupportedEncodingException e) {			
-			System.out.println("ERROR :" + e.getMessage());
+			log("ERROR :" + e.getMessage());
 		}
 	}
 	
