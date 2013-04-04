@@ -1,3 +1,6 @@
+ALTER TABLE ACCOUNTS 
+ADD (LOGIN_TIME DATE );
+
 --------------------------------------------------------
 --  DDL for Procedure PROC_SCHEDULE
 --------------------------------------------------------
