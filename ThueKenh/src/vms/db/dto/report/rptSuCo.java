@@ -15,6 +15,7 @@ public class rptSuCo {
 		buffer.append(VMSUtil.xml("madiemcuoi", rs.getString("MADIEMCUOI")));
 		buffer.append(VMSUtil.xml("loaigiaotiep", rs.getString("LOAIGIAOTIEP")));
 		buffer.append(VMSUtil.xml("soluong", rs.getString("SOLUONG")));
+		buffer.append(VMSUtil.xml("dungluong", rs.getString("DUNGLUONG")));
 		Date dateFrom = new Date(rs.getLong("THOIDIEMBATDAU"));
 		Date dateEnd = new Date(rs.getLong("THOIDIEMKETTHUC"));
 		buffer.append(VMSUtil.xml("ngaybatdau", DateUtils.formatDate(dateFrom,DateUtils.SDF_DDMMYYYY)));
