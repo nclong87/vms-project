@@ -231,7 +231,7 @@ public class BienBanVanHanhKenhAction implements Preparable {
 	// load bien ban van hanh kenh
 	public String ajLoadBienbanvanhanhkenh() {
 		try {
-			System.out.println("begin ajLoadBienbanvanhanhkenh");
+			//System.out.println("begin ajLoadBienbanvanhanhkenh");
 			//if(account == null) throw new Exception("END_SESSION");
 			Integer iDisplayStart = Integer.parseInt(request.getParameter("iDisplayStart"));
 			Integer iDisplayLength = Integer.parseInt(request.getParameter("iDisplayLength"));

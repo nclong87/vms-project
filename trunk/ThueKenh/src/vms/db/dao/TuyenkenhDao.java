@@ -173,11 +173,12 @@ public class TuyenkenhDao {
 			ids[i] = "'"+ids[i]+"'";
 		}
 		String str = StringUtils.join(ids, ",");
+		System.out.println(str);
 		long time = System.currentTimeMillis();
 		String query = "update TUYENKENH set DELETED = "+time+" where ID in ("+str+")";
 		this.jdbcTemplate.update(query);
 		LichSuTuyenKenhDAO lichSuTuyenKenhDAO = new LichSuTuyenKenhDAO(daoFactory);
-		for (String tuyenkenh_id : lstId) {
+		for (String tuyenkenh_id : lstId) {		
 			lichSuTuyenKenhDAO.insertLichSu(account.get("username").toString(), tuyenkenh_id, 2, "");
 		}
 		

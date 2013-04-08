@@ -33,7 +33,7 @@ public class TuyenKenhBanGiaoDAO {
 	
 	private static final String SQL_FIND_TUYENKENHBANGIAO = "{ ? = call FIND_TUYENKENHBANGIAO(?,?,?,?,?,?,?,?,?,?,?,?,?,?) }";
 	public List<Map<String,Object>> search(int iDisplayStart,int iDisplayLength,Map<String, String> conditions) throws SQLException {
-		System.out.println("FIND_TUYENKENHBANGIAO tt="+conditions.get("iTrangThai"));
+		//System.out.println("FIND_TUYENKENHBANGIAO tt="+conditions.get("iTrangThai"));
 		Connection connection = jdbcDatasource.getConnection();
 		CallableStatement stmt = connection.prepareCall(SQL_FIND_TUYENKENHBANGIAO);
 		stmt.registerOutParameter(1, OracleTypes.CURSOR);
@@ -140,7 +140,7 @@ public class TuyenKenhBanGiaoDAO {
 	private static final String SQL_PROC_UPDATE_TIEN_DO = "{ call PROC_UPDATE_TIEN_DO(?,?,?,?) }";
 	public void capNhatTienDo(String tuyenkenh_tieuchuan_id, String[] tieuchuan_id,String username) throws Exception  {
 		Connection connection = this.jdbcDatasource.getConnection();
-		System.out.println("***BEGIN capNhatTienDo***");
+		//System.out.println("***BEGIN capNhatTienDo***");
 		ArrayDescriptor descriptor = ArrayDescriptor.createDescriptor( "TABLE_VARCHAR", connection );
 		ARRAY array =new ARRAY( descriptor, connection, tieuchuan_id );
 		CallableStatement stmt = connection.prepareCall(SQL_PROC_UPDATE_TIEN_DO);

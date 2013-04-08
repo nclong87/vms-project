@@ -12,6 +12,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.struts2.ServletActionContext;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -265,7 +266,7 @@ public class SuCoAction implements Preparable {
 	
 	// load su co
 	public String ajLoadSuCo() {
-		log("SuCoAction.ajLoadSuCo");
+		//log("SuCoAction.ajLoadSuCo");
 		try {
 			//if(account == null) throw new Exception("END_SESSION");
 			Integer iDisplayStart = Integer.parseInt(request.getParameter("iDisplayStart"));
@@ -304,7 +305,7 @@ public class SuCoAction implements Preparable {
 	
 	// load su co chưa thuộc biên bản vận hành kênh nào
 	public String ajLoadSuCoWithBBVH() {
-		log("SuCoAction.ajLoadSuCoWithBBVH");
+		//log("SuCoAction.ajLoadSuCoWithBBVH");
 		try {
 			//if(account == null) throw new Exception("END_SESSION");
 			Integer iDisplayStart = Integer.parseInt(request.getParameter("iDisplayStart"));
@@ -343,13 +344,14 @@ public class SuCoAction implements Preparable {
 	}
 		
 	public String delete() {
-		log("SuCoAction.delete");
+		log("SuCoAction.delete ");
 		try {
 			if(account == null) {
 				session.setAttribute("URL", VMSUtil.getFullURL(request));
 				throw new Exception("END_SESSION");
 			}
 			if(ids != null && ids.length >0 ) {
+				System.out.println(StringUtils.join(ids, ','));
 				SuCoDAO sucoDao = new SuCoDAO(daoFactory);
 				sucoDao.deleteByIds(ids);
 			}

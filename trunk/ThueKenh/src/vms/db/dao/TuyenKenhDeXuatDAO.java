@@ -17,12 +17,10 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
-import vms.db.dto.SuCoDTO;
 import vms.db.dto.TuyenKenh;
 import vms.db.dto.TuyenKenhDeXuatDTO;
 import vms.utils.DateUtils;
 import vms.utils.VMSUtil;
-import vms.web.models.FIND_TUYENKENHDEXUAT;
 
 public class TuyenKenhDeXuatDAO {
 	private JdbcTemplate jdbcTemplate;
@@ -108,7 +106,7 @@ public class TuyenKenhDeXuatDAO {
 	
 	public void deleteByIds(String[] ids,String username) throws SQLException {
 		Connection connection = this.jdbcDatasource.getConnection();
-		System.out.println("***BEGIN TuyenKenhDeXuatDAO.deleteByIds***");
+		System.out.println(StringUtils.join(ids, ','));
 		ArrayDescriptor descriptor = ArrayDescriptor.createDescriptor( "TABLE_VARCHAR", connection );
 		ARRAY array =new ARRAY( descriptor, connection, ids );
 		CallableStatement stmt = connection.prepareCall("call PROC_DELETE_TUYENKENHDEXUAT(?,?,?)");

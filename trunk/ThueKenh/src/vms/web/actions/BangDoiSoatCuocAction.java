@@ -284,7 +284,7 @@ public class BangDoiSoatCuocAction implements Preparable {
 		return Action.SUCCESS;
 	}
 	public String load() {
-		log("BangDoiSoatCuocAction.load");
+		//log("BangDoiSoatCuocAction.load");
 		try {
 			//if(account == null) throw new Exception("END_SESSION");
 			Integer iDisplayStart = Integer.parseInt(request.getParameter("iDisplayStart"));

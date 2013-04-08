@@ -101,7 +101,7 @@ public class TuyenkenhAction implements Preparable {
 	public String ajLoadTuyenkenh() {
 		try {
 			//if(account == null) throw new Exception("END_SESSION");
-			log("TuyenkenhAction.ajLoadTuyenkenh");
+			//log("TuyenkenhAction.ajLoadTuyenkenh");
 			Integer iDisplayStart = Integer.parseInt(request.getParameter("iDisplayStart"));
 			Integer iDisplayLength = Integer.parseInt(request.getParameter("iDisplayLength"));
 			String sSearch = request.getParameter("sSearch").trim();
@@ -169,7 +169,7 @@ public class TuyenkenhAction implements Preparable {
 	
 	public String doSave() {
 		try {
-			log("TuyenkenhAction.doSave");
+			log("TuyenkenhAction.doSave "+tuyenKenh.getId());
 			if(account == null) {
 				session.setAttribute("URL", VMSUtil.getFullURL(request));
 				return "login_page";
@@ -205,7 +205,7 @@ public class TuyenkenhAction implements Preparable {
 	
 	public String delete() {
 		try {
-			log("TuyenkenhAction.delete");
+			log("TuyenkenhAction.delete ");
 			if(account == null) {
 				session.setAttribute("URL", VMSUtil.getFullURL(request));
 				throw new Exception("END_SESSION");

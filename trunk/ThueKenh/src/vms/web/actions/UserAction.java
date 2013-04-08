@@ -94,7 +94,7 @@ public class UserAction implements Preparable {
 	public String ajLoadAccounts() {
 		try {
 			//if(account == null) throw new Exception("END_SESSION");
-			log("UserAction.ajLoadAccounts");
+			//log("UserAction.ajLoadAccounts");
 			Integer iDisplayStart = Integer.parseInt(request.getParameter("iDisplayStart"));
 			Integer iDisplayLength = Integer.parseInt(request.getParameter("iDisplayLength"));
 			String sSearch = request.getParameter("sSearch").trim();

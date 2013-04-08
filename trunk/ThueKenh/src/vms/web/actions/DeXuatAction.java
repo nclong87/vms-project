@@ -97,7 +97,7 @@ public class DeXuatAction implements Preparable {
 	}
 	
 	public String load() {
-		log("DeXuatAction.load");
+		//log("DeXuatAction.load");
 		try {
 			//if(account == null) throw new Exception("END_SESSION");
 			Integer iDisplayStart = Integer.parseInt(request.getParameter("iDisplayStart"));
