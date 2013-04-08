@@ -9,6 +9,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.struts2.ServletActionContext;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -174,7 +175,7 @@ public class HopDongAction implements Preparable {
 	
 	// save hop dong
 	public String doSave() {
-		log("HopDongAction.doSave");
+		log("HopDongAction.doSave " + hopdongDTO.getId());
 		try {
 			if(account == null) {
 				session.setAttribute("URL", VMSUtil.getFullURL(request));
@@ -222,7 +223,7 @@ public class HopDongAction implements Preparable {
 	
 	// load hop dong
 	public String ajLoadHopDong() {
-		log("HopDongAction.ajLoadHopDong");
+		//log("HopDongAction.ajLoadHopDong");
 		try {
 			//if(account == null) throw new Exception("END_SESSION");
 			Integer iDisplayStart = Integer.parseInt(request.getParameter("iDisplayStart"));
@@ -260,13 +261,14 @@ public class HopDongAction implements Preparable {
 	}
 		
 	public String delete() {
-		log("HopDongAction.delete");
+		log("HopDongAction.delete ");
 		try {
 			if(account == null) {
 				session.setAttribute("URL", VMSUtil.getFullURL(request));
 				throw new Exception("END_SESSION");
 			}
 			if(ids != null && ids.length >0 ) {
+				System.out.println(StringUtils.join(ids, ','));
 				HopDongDAO hopdongDao = new HopDongDAO(daoFactory);
 				hopdongDao.deleteByIds(ids);
 			}

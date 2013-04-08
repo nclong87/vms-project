@@ -9,6 +9,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.struts2.ServletActionContext;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -237,7 +238,7 @@ public class ThanhToanAction implements Preparable {
 	
 	// save ho so thanh toan
 	public String doSave() {
-		log("ThanhToanAction.doSave");
+		log("ThanhToanAction.doSave "+thanhtoanDTO.getId());
 		try {
 			if(account == null) {
 				session.setAttribute("URL", VMSUtil.getFullURL(request));
@@ -318,7 +319,7 @@ public class ThanhToanAction implements Preparable {
 	
 	// load ho so thanh toan
 	public String ajLoadThanhToan() {
-		log("ThanhToanAction.ajLoadThanhToan");
+		//log("ThanhToanAction.ajLoadThanhToan");
 		try {
 			//if(account == null) throw new Exception("END_SESSION");
 			Integer iDisplayStart = Integer.parseInt(request.getParameter("iDisplayStart"));
@@ -356,7 +357,7 @@ public class ThanhToanAction implements Preparable {
 	}
 		
 	public String delete() {
-		log("ThanhToanAction.delete");
+		log("ThanhToanAction.delete ");
 		try {
 			if(account == null) {
 				session.setAttribute("URL", VMSUtil.getFullURL(request));
@@ -364,6 +365,7 @@ public class ThanhToanAction implements Preparable {
 			}
 			if(ids != null && ids.length >0 ) {
 				ThanhToanDAO hosothanhtoanDao = new ThanhToanDAO(daoFactory);
+				System.out.println(StringUtils.join(ids, ','));
 				hosothanhtoanDao.deleteByIds(ids);
 				
 				

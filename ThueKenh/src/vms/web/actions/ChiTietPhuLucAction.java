@@ -10,6 +10,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.struts2.ServletActionContext;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -76,7 +77,7 @@ public class ChiTietPhuLucAction implements Preparable {
 	}
 	
 	public String load() {
-		log("ChiTietPhuLucAction.load");
+		//log("ChiTietPhuLucAction.load");
 		try {
 			//if(account == null) throw new Exception("END_SESSION");
 			Integer iDisplayStart = Integer.parseInt(request.getParameter("iDisplayStart"));
@@ -113,7 +114,7 @@ public class ChiTietPhuLucAction implements Preparable {
 	}
 	
 	public String doSave() {
-		log("ChiTietPhuLucAction.doSave");
+		log("ChiTietPhuLucAction.doSave ");
 		jsonData = new LinkedHashMap<String, Object>();
 		try {
 			if(account == null) {
@@ -126,7 +127,7 @@ public class ChiTietPhuLucAction implements Preparable {
 			for(int i=0;i<list.size();i++) {
 				mapCongThuc.put(list.get(i).get("id").toString(), list.get(i).get("chuoicongthuc").toString());
 			}
-			log("chiTietPhuLucTuyenKenhDTOs.length = " + chiTietPhuLucTuyenKenhDTOs.size());
+			//log("chiTietPhuLucTuyenKenhDTOs.length = " + chiTietPhuLucTuyenKenhDTOs.size());
 			Map<String,Object> result = chiTietPhuLucDAO.saveChiTietPhuLucTuyenKenh(chiTietPhuLucTuyenKenhDTOs, mapCongThuc);
 			jsonData.put("status", "OK");
 			jsonData.put("data", result);
@@ -185,7 +186,7 @@ public class ChiTietPhuLucAction implements Preparable {
 	}
 		
 	public String doSaveChiTietPhuLuc() {
-		log("ChiTietPhuLucAction.doSaveChiTietPhuLuc");
+		log("ChiTietPhuLucAction.doSaveChiTietPhuLuc "+chiTietPhuLucDTO.getId());
 		jsonData = new LinkedHashMap<String, Object>();
 		try {
 			if(account == null) {
@@ -222,13 +223,14 @@ public class ChiTietPhuLucAction implements Preparable {
 	}
 	
 	public String delete() {
-		log("ChiTietPhuLucAction.delete");
+		log("ChiTietPhuLucAction.delete ");
 		try {
 			if(account == null) {
 				session.setAttribute("URL", VMSUtil.getFullURL(request));
 				throw new Exception("END_SESSION");
 			}
 			if(ids != null && ids.length >0 ) {
+				System.out.println(StringUtils.join(ids, ','));
 				ChiTietPhuLucDAO chitietplDao = new ChiTietPhuLucDAO(daoFactory);
 				chitietplDao.deleteByIds(ids);
 			}

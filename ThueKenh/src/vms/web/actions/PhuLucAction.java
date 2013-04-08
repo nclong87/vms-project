@@ -12,6 +12,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.struts2.ServletActionContext;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -90,7 +91,7 @@ public class PhuLucAction implements Preparable {
 	}
 	
 	public String load() {
-		log("PhuLucAction.load");
+		//log("PhuLucAction.load");
 		try {
 			//if(account == null) throw new Exception("END_SESSION");
 			Integer iDisplayStart = Integer.parseInt(request.getParameter("iDisplayStart"));
@@ -151,7 +152,7 @@ public class PhuLucAction implements Preparable {
 	}
 	
 	public String doSave() {
-		log("PhuLucAction.doSave");
+		log("PhuLucAction.doSave " + phuLucDTO.getId());
 		jsonData = new LinkedHashMap<String, Object>();
 		try {
 			if(account == null) {
@@ -210,13 +211,14 @@ public class PhuLucAction implements Preparable {
 	}
 	
 	public String delete() {
-		log("PhuLucAction.delete");
+		log("PhuLucAction.delete ");
 		try {
 			if(account == null) {
 				session.setAttribute("URL", VMSUtil.getFullURL(request));
 				throw new Exception("END_SESSION");
 			}
 			if(ids != null && ids.length >0 ) {
+				System.out.println(StringUtils.join(ids, ','));
 				phuLucDAO.deleteByIds(ids,account.get("username").toString());
 			}
 			setInputStream("OK");

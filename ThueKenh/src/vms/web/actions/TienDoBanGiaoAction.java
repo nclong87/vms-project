@@ -10,6 +10,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.struts2.ServletActionContext;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -110,7 +111,7 @@ public class TienDoBanGiaoAction implements Preparable {
 	}
 
 	public String ajLoad() {
-		log("TienDoBanGiaoAction.ajLoad");
+		//log("TienDoBanGiaoAction.ajLoad");
 		if (account == null) {
 			session.setAttribute("URL", VMSUtil.getFullURL(request));
 			return "login_page";
@@ -196,7 +197,6 @@ public class TienDoBanGiaoAction implements Preparable {
 	}
 
 	public String doSave() {
-		log("TienDoBanGiaoAction.doSave");
 		try {
 			if (account == null) {
 				session.setAttribute("URL", VMSUtil.getFullURL(request));
@@ -204,6 +204,7 @@ public class TienDoBanGiaoAction implements Preparable {
 			}
 			try {
 				id = request.getParameter("id");
+				log("TienDoBanGiaoAction.doSave " + id);
 				TuyenKenhBanGiaoDAO TuyenKenhBanGiaoDAO = new TuyenKenhBanGiaoDAO(
 						daoFactory);
 				if(ids == null) {
@@ -224,13 +225,14 @@ public class TienDoBanGiaoAction implements Preparable {
 	}
 
 	public String delete() {
-		log("TienDoBanGiaoAction.delete");
+		log("TienDoBanGiaoAction.delete ");
 		try {
 			if (account == null) {
 				session.setAttribute("URL", VMSUtil.getFullURL(request));
 				throw new Exception("END_SESSION");
 			}
 			if (ids != null && ids.length > 0) {
+				System.out.println(StringUtils.join(ids, ','));
 				TuyenKenhBanGiaoDAO TuyenKenhBanGiaoDAO = new TuyenKenhBanGiaoDAO(
 						daoFactory);
 				TuyenKenhBanGiaoDAO.deleteByIds(ids);

@@ -58,7 +58,7 @@ public class ChiTietPhuLucDAO {
 					};
 			String exp = VMSUtil.replacements(mapCongThuc.get(dto.getCongthuc_id()), replacements);
 			Long thanhTien = (long)VMSUtil.calculate(exp);
-			System.out.println("thanhTien ="+thanhTien);
+			System.out.println("Tuyenkenh_id ="+dto.getTuyenkenh_id());
 			stmt.setString(1,dto.getTuyenkenh_id());
 			stmt.setString(2,dto.getCongthuc_id());
 			stmt.setInt(3,dto.getSoluong());
