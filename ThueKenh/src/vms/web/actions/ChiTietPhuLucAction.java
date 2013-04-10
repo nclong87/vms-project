@@ -67,7 +67,7 @@ public class ChiTietPhuLucAction implements Preparable {
 		System.out.println(message);
 	}
 	public String execute() throws Exception {
-		log("ChiTietPhuLucAction.execute");
+		//log("ChiTietPhuLucAction.execute");
 		if(account == null) {
 			session.setAttribute("URL", VMSUtil.getFullURL(request));
 			return "login_page";
