@@ -199,7 +199,7 @@ public class PhuLucDAO {
 		List<String> result = new ArrayList<String>();
 		Set<String> setPhuLucThayThe = new HashSet<String>();
 		for(int i=0;arrPhuLucThayThe != null && i<arrPhuLucThayThe.length;i++) {
-			System.out.println("arrPhuLucThayThe[i] = "+arrPhuLucThayThe[i]);
+			//System.out.println("arrPhuLucThayThe[i] = "+arrPhuLucThayThe[i]);
 			setPhuLucThayThe.add(arrPhuLucThayThe[i]);
 		}
 			
@@ -219,10 +219,7 @@ public class PhuLucDAO {
 			} else {
 				try {
 					Map<String, Object> mapPhuLuc = this.findPhuLucCoHieuLuc( list.get(i).get("tuyenkenh_id"), date);
-					System.out.println("1");
 					if(mapPhuLuc==null) continue;
-					System.out.println("mapPhuLuc.get(id)="+mapPhuLuc.get("id"));
-					System.out.println("phuLucDTO.getId()="+phuLucDTO.getId());
 					if(setPhuLucThayThe.contains(mapPhuLuc.get("id")) == false && mapPhuLuc.get("id").equals(phuLucDTO.getId()) == false) {
 						result.add("Tuyến kênh "+list.get(i).get("tuyenkenh_id")+" đang thuộc phụ lục "+mapPhuLuc.get("tenphuluc"));
 					}
