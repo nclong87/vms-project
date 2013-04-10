@@ -286,7 +286,7 @@ $(document).ready(function(){
 					},
 					{ "mDataProp": null,"bSortable": false,"bSearchable": false,"sClass":"td_center",
 						"fnRender": function( oObj ) {
-							if(oObj.aData.isblock==true)
+							if(oObj.aData.islock==true)
 								return '<center><img src="'+contextPath+'/images/icons/permission.png" title="Phụ lục này đã được sử dụng nên bạn không được phép sửa"></center>'; 
 							else
 								return '<center><span class="edit_icon editGTPL" data-ref-id="'+oObj.aData.chitietphuluc_id+'" title="Sửa" href="#"></span></center>'; 
@@ -299,7 +299,7 @@ $(document).ready(function(){
 					},
 					{ "mDataProp": null,"bSortable": false,"bSearchable": false,"sClass":"td_center",
 						"fnRender": function( oObj ) {
-							if(oObj.aData.isblock==true)
+							if(oObj.aData.islock==true)
 								return '<center><img src="'+contextPath+'/images/icons/permission.png" title="Phụ lục này đã được sử dụng nên bạn không được phép xóa"></center>'; 
 							else
 								return '<center><input type="checkbox" value="'+oObj.aData.id+'"/></center>'; 
