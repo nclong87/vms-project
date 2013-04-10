@@ -238,6 +238,7 @@ $(document).ready(function(){
 					message(" Lưu không thành công, vui lòng thử lại.",0);
 				}
 			});
+			
 		}
 	});
 	

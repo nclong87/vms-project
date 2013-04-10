@@ -219,7 +219,7 @@ function addRowForEdit(stt,data) {
 		'<input type="text" id="loaigiaotiep" style="display:none" value="'+data.loaigiaotiep+'"/><span id="stt"></span>',
 		'<a target="_blank" href="${detailTuyenKenhURL}?id='+data.id+'">'+data.id+'</a>',
 		data.madiemdau,data.madiemcuoi,data.loaigiaotiep,data.dungluong,
-		'<input type="text" id="soluong" disabled="true" style="width:30px;text-align:center" value="'+data.sltuyenkenh+'"/>',
+		'<input type="text" id="soluong" style="width:30px;text-align:center" value="'+data.sltuyenkenh+'"/>',
 		'<input type="text" class="currency" id="cuoccong" style="width:120px;text-align:right" value="'+data.cuoccong+'"/>',
 		'<input type="text" class="currency" id="cuocdaunoi" style="width:120px" value="'+data.cuocdaunoi+'"/>',
 		'<input type="text" class="currency" id="dongia" style="width:120px" value="'+data.dongia+'"/>',
