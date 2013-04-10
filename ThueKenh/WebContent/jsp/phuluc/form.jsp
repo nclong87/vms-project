@@ -335,10 +335,12 @@ $(document).ready(function() {
 				required : true
 			},
 			"phuLucDTO.ngayky" : {
-				required : true
+				required : true,
+				date: true
 			},
 			"phuLucDTO.ngayhieuluc" : {
-				required : true
+				required : true,
+				date:true
 			}
 		}
 	});
