@@ -10,6 +10,7 @@
 <s:url action="detail" namespace="/hopdong" id="detailHopDongURL"/>
 <s:url action="index" namespace="/chitietphuluc" id="indexChiTietPhuLucURL"/>
 <s:url action="giatriphuluc" namespace="/chitietphuluc" id="giatriphulucURL"/>
+<s:url action="edit" namespace="/chitietphuluc" id="editGTPLURL"/>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -148,6 +149,7 @@ margin-left: 10px;
 					<th>Ngày có hiệu lực</th>
 					<th>Ngày hết hiệu lực</th>
 					<th width="100px" align="center">Thay thế</th>
+					<th width="100px" align="center">Giá trị PL</th>
 					<th width="5px" align="center">Sửa</th>
 					<th width="5px" align="center"><input type="checkbox" onclick="selectAll(this)"/></th>
 				</tr>
@@ -223,9 +225,14 @@ $(document).ready(function(){
 			error: function(data){ alert (data);button.disabled = false;}	
 		});	
 	});
-	$("span.edit_icon").live("click",function(){
+	$("span.editPL").live("click",function(){
 		var id = $(this).attr("data-ref-id");
 		ShowWindow('Cập nhật phụ lục hợp đồng',750,500,"${formURL}?id="+id,false);
+		MaxWindow();
+	});
+	$("span.editGTPL").live("click",function(){
+		var id = $(this).attr("data-ref-id");
+		ShowWindow('Cập nhật thông tin giá trị phụ lục',800,600,"${editGTPLURL}?id="+id,true);
 		MaxWindow();
 	});
 	$("#btShowTinhGiaTriPhuLuc").click(function(){
@@ -277,14 +284,25 @@ $(document).ready(function(){
 							return str; 
 						}
 					},
-					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,
+					{ "mDataProp": null,"bSortable": false,"bSearchable": false,"sClass":"td_center",
 						"fnRender": function( oObj ) {
-							return '<center><span class="edit_icon" data-ref-id="'+oObj.aData.id+'" title="Edit" href="#"></span></center>'; 
+							if(oObj.aData.isblock==true)
+								return '<center><img src="'+contextPath+'/images/icons/permission.png" title="Phụ lục này đã được sử dụng nên bạn không được phép sửa"></center>'; 
+							else
+								return '<center><span class="edit_icon editGTPL" data-ref-id="'+oObj.aData.chitietphuluc_id+'" title="Sửa" href="#"></span></center>'; 
 						}
 					},
 					{ 	"mDataProp": null,"bSortable": false,"bSearchable": false,
 						"fnRender": function( oObj ) {
-							return '<center><input type="checkbox" value="'+oObj.aData.id+'"/></center>'; 
+							return '<center><span class="edit_icon editPL" data-ref-id="'+oObj.aData.id+'" title="Edit" href="#"></span></center>'; 
+						}
+					},
+					{ "mDataProp": null,"bSortable": false,"bSearchable": false,"sClass":"td_center",
+						"fnRender": function( oObj ) {
+							if(oObj.aData.isblock==true)
+								return '<center><img src="'+contextPath+'/images/icons/permission.png" title="Phụ lục này đã được sử dụng nên bạn không được phép xóa"></center>'; 
+							else
+								return '<center><input type="checkbox" value="'+oObj.aData.id+'"/></center>'; 
 						}
 					}
 				],
