@@ -266,7 +266,7 @@ public class BangDoiSoatCuocAction implements Preparable {
 					throw new Exception("DUPLICATE");
 				}
 			}
-			if(check.compareTo("1")==0) // luu
+			if(check != null && check.compareTo("1")==0) // luu
 			{
 				doisoatcuocDao.updateDoiSoatCuoc(tenbangdoisoatcuoc, id);
 			}
