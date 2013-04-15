@@ -12,6 +12,7 @@
 <link rel="stylesheet" href="<%= contextPath %>/css/cupertino/jquery-ui.css" type="text/css" media="screen" />
 <script type='text/javascript' src='<%= contextPath %>/js/jquery.js'></script>
 <script type='text/javascript' src='<%= contextPath %>/js/jquery-ui.js'></script>
+<script type="text/javascript" src="<%=contextPath%>/js/date.js"></script>
 <script type="text/javascript" src="<%=contextPath%>/js/jquery.validate.js"></script>
 <script type="text/javascript" src="<%=contextPath%>/js/mylibs/my.validate.js"></script>
 <script type='text/javascript' src='<%= contextPath %>/js/utils.js'></script>
@@ -135,7 +136,11 @@ $(document).ready(function(){
 		$("#form")[0].reset();
 		message('',0);
 	});
-
+	// Overwrite since it always validate date based on US format.
+  	$.validator.methods["date"] = function (value, element)
+  	{
+   		return (null != Date.parseExact(value, "dd/MM/yyyy HH:mm:ss"));
+  	}
 	//validation form
 	$("#form").validate({
 		rules : {
