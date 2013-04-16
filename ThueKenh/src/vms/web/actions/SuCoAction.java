@@ -195,10 +195,14 @@ public class SuCoAction implements Preparable {
 			}
 			// validation
 			Date dateThoiDiemBatDau = DateUtils.parseDate(sucoDTO.getThoidiembatdau(), "dd/MM/yyyy HH:mm:ss");
+			if(dateThoiDiemBatDau == null) throw new Exception("ERROR_FORMAT_BEGIN");
 			java.sql.Date sqlDateThoiDiemBatDau= DateUtils.convertToSQLDate(dateThoiDiemBatDau);
 			
 			long thoidiembatdau=dateThoiDiemBatDau.getTime();
-			long thoidiemketthuc=DateUtils.parseDate(sucoDTO.getThoidiemketthuc(), "dd/MM/yyyy HH:mm:ss").getTime();
+			Date dateThoiDiemKetThuc = DateUtils.parseDate(sucoDTO.getThoidiemketthuc(), "dd/MM/yyyy HH:mm:ss");
+			if(dateThoiDiemKetThuc == null) throw new Exception("ERROR_FORMAT_END");
+			
+			long thoidiemketthuc=dateThoiDiemKetThuc.getTime();
 			if( sucoDTO.getId().isEmpty())
 			{
 				Long ngayhientai=Calendar.getInstance().getTime().getTime();

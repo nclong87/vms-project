@@ -151,12 +151,10 @@ $(document).ready(function(){
 				required : true
 			},
 			"sucoDTO.thoidiembatdau" : {
-				required : true,
-				date : true
+				required : true
 			},
 			"sucoDTO.thoidiemketthuc" : {
-				required : true,
-				date : true
+				required : true
 			},
 			"sucoDTO.nguyennhan" : {
 				required : true
@@ -234,6 +232,18 @@ $(document).ready(function(){
 					{
 						button.disabled = false;
 						message(" Tuyến kênh bạn chọn không hiện tại không hoạt động, vui lòng chọn tuyến kênh khác",0);
+						return;
+					}
+					else if(response=="ERROR_FORMAT_BEGIN")
+					{
+						button.disabled = false;
+						message("Thời điểm bắt đầu không đúng định dạng dd/MM/yyyy HH:mm:ss",0);
+						return;
+					}
+					else if(response=="ERROR_FORMAT_END")
+					{
+						button.disabled = false;
+						message("Thời điểm kết thúc không đúng định dạng dd/MM/yyyy HH:mm:ss",0);
 						return;
 					}
 					message(" Lưu không thành công, vui lòng thử lại.",0);
