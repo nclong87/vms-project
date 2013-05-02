@@ -21,6 +21,7 @@ public class rptDoiSoatCuoc {
 		buffer.append(VMSUtil.xml("giatriphuluc", rs.getString("GIATRITRUOCTHUE")));
 		buffer.append(VMSUtil.xml("tungay", DateUtils.formatDate(rs.getDate("TUNGAY"), DateUtils.SDF_DDMMYYYY)));
 		buffer.append(VMSUtil.xml("denngay", DateUtils.formatDate(rs.getDate("DENNGAY"), DateUtils.SDF_DDMMYYYY)));
+		buffer.append(VMSUtil.xml("ngaycohieuluc", DateUtils.formatDate(rs.getDate("NGAYHIEULUC"), DateUtils.SDF_DDMMYYYY)));
 		buffer.append(VMSUtil.xml("sothang", rs.getString("SOTHANG")));
 		buffer.append(VMSUtil.xml("songay", rs.getString("SONGAY")));
 		buffer.append(VMSUtil.xml("soluongkenh", rs.getString("SOLUONGKENH")));
