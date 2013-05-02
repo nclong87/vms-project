@@ -900,7 +900,7 @@ xmlns:html="http://www.w3.org/TR/REC-html40"
   </Style>
  </Styles>
  <Worksheet ss:Name="Sheet1">
-  <Table ss:ExpandedColumnCount="15" ss:ExpandedRowCount="34" x:FullColumns="1"
+  <Table x:FullColumns="1"
    x:FullRows="1" ss:StyleID="s65" ss:DefaultRowHeight="15">
    <Column ss:StyleID="s65" ss:AutoFitWidth="0" ss:Width="23.25"/>
    <Column ss:StyleID="s65" ss:AutoFitWidth="0" ss:Width="99"/>
