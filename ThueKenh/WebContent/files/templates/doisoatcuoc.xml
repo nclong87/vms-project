@@ -9,99 +9,310 @@
 	<data>
 		<row>
 			<stt>1</stt>
-			<sohopdong>HDBD_VMSC6_01</sohopdong>
-			<num_child>4</num_child>
+			<sohopdong>994/VTBD-VMSC6/HĐSTM1-TK2011</sohopdong>
+			<num_child>5</num_child>
 			<childs>
 				<child>
-					<tenphuluc>PL01</tenphuluc>
-					<ngaycohieuluc>1/12/2012</ngaycohieuluc>
-					<giatriphuluc>1080000</giatriphuluc>
-					<tungay>01/12/2012</tungay>
-					<denngay>31/12/2012</denngay>
+					<tenphuluc>06</tenphuluc>
+					<ngaycohieuluc>20/03/2012</ngaycohieuluc>
+					<giatriphuluc>247973600</giatriphuluc>
+					<tungay>01/04/2013</tungay>
+					<denngay>30/04/2013</denngay>
 					<sothang>1</sothang>
 					<songay>0</songay>
-					<soluongkenh>2E</soluongkenh>
-					<thanhtien>1080000</thanhtien>
-					<cuocdaunoi>0</cuocdaunoi>
+					<soluongkenh>4 STM-1</soluongkenh>
+					<thanhtien>247973600</thanhtien>
 					<giamtrumll></giamtrumll>
+					<cuocdaunoi>0</cuocdaunoi>
 					<dathanhtoan>0</dathanhtoan>
-					<conthanhtoan>1080000</conthanhtoan>
-					<ghichu>Đã TT tháng 10,11/2012</ghichu>
+					<conthanhtoan>247973600</conthanhtoan>
+					<ghichu></ghichu>
 					<plthaythe>0</plthaythe>
 				</child>
 				<child>
-					<tenphuluc>PL01</tenphuluc>
-					<ngaycohieuluc>1/12/2012</ngaycohieuluc>
-					<giatriphuluc>1080000</giatriphuluc>
-					<tungay>01/12/2012</tungay>
-					<denngay>31/12/2012</denngay>
+					<tenphuluc>06</tenphuluc>
+					<ngaycohieuluc>20/03/2012</ngaycohieuluc>
+					<giatriphuluc>247973600</giatriphuluc>
+					<tungay>01/04/2013</tungay>
+					<denngay>30/04/2013</denngay>
 					<sothang>1</sothang>
 					<songay>0</songay>
-					<soluongkenh>2E</soluongkenh>
-					<thanhtien>1080000</thanhtien>
-					<cuocdaunoi>0</cuocdaunoi>
+					<soluongkenh>4 STM-1</soluongkenh>
+					<thanhtien>247973600</thanhtien>
 					<giamtrumll></giamtrumll>
+					<cuocdaunoi>0</cuocdaunoi>
 					<dathanhtoan>0</dathanhtoan>
-					<conthanhtoan>1080000</conthanhtoan>
-					<ghichu>Đã TT tháng 10,11/2012</ghichu>
+					<conthanhtoan>247973600</conthanhtoan>
+					<ghichu></ghichu>
 					<plthaythe>0</plthaythe>
 				</child>
 				<child>
-					<tenphuluc>PL01</tenphuluc>
-					<ngaycohieuluc>1/12/2012</ngaycohieuluc>
-					<giatriphuluc>1080000</giatriphuluc>
-					<tungay>01/12/2012</tungay>
-					<denngay>31/12/2012</denngay>
+					<tenphuluc>06</tenphuluc>
+					<ngaycohieuluc>20/03/2012</ngaycohieuluc>
+					<giatriphuluc>247973600</giatriphuluc>
+					<tungay>01/04/2013</tungay>
+					<denngay>30/04/2013</denngay>
 					<sothang>1</sothang>
 					<songay>0</songay>
-					<soluongkenh>2E</soluongkenh>
-					<thanhtien>1080000</thanhtien>
-					<cuocdaunoi>0</cuocdaunoi>
+					<soluongkenh>4 STM-1</soluongkenh>
+					<thanhtien>247973600</thanhtien>
 					<giamtrumll></giamtrumll>
+					<cuocdaunoi>0</cuocdaunoi>
 					<dathanhtoan>0</dathanhtoan>
-					<conthanhtoan>1080000</conthanhtoan>
-					<ghichu>Đã TT tháng 10,11/2012</ghichu>
+					<conthanhtoan>247973600</conthanhtoan>
+					<ghichu></ghichu>
 					<plthaythe>0</plthaythe>
 				</child>
 				<child>
-					<tenphuluc>PL01</tenphuluc>
-					<ngaycohieuluc>1/12/2012</ngaycohieuluc>
-					<giatriphuluc>1080000</giatriphuluc>
-					<tungay>01/12/2012</tungay>
-					<denngay>31/12/2012</denngay>
+					<tenphuluc>06</tenphuluc>
+					<ngaycohieuluc>20/03/2012</ngaycohieuluc>
+					<giatriphuluc>247973600</giatriphuluc>
+					<tungay>01/04/2013</tungay>
+					<denngay>30/04/2013</denngay>
 					<sothang>1</sothang>
 					<songay>0</songay>
-					<soluongkenh>2E</soluongkenh>
-					<thanhtien>1080000</thanhtien>
-					<cuocdaunoi>0</cuocdaunoi>
+					<soluongkenh>4 STM-1</soluongkenh>
+					<thanhtien>247973600</thanhtien>
 					<giamtrumll></giamtrumll>
+					<cuocdaunoi>0</cuocdaunoi>
 					<dathanhtoan>0</dathanhtoan>
-					<conthanhtoan>1080000</conthanhtoan>
-					<ghichu>Thay thế PL02</ghichu>
-					<plthaythe>1</plthaythe>
+					<conthanhtoan>247973600</conthanhtoan>
+					<ghichu></ghichu>
+					<plthaythe>0</plthaythe>
+				</child>
+				<child>
+					<tenphuluc>05</tenphuluc>
+					<ngaycohieuluc>01/01/2012</ngaycohieuluc>
+					<giatriphuluc>764340000</giatriphuluc>
+					<tungay>01/04/2013</tungay>
+					<denngay>30/04/2013</denngay>
+					<sothang>1</sothang>
+					<songay>0</songay>
+					<soluongkenh>15 STM-1</soluongkenh>
+					<thanhtien>764340000</thanhtien>
+					<giamtrumll></giamtrumll>
+					<cuocdaunoi>0</cuocdaunoi>
+					<dathanhtoan>0</dathanhtoan>
+					<conthanhtoan>764340000</conthanhtoan>
+					<ghichu></ghichu>
+					<plthaythe>0</plthaythe>
 				</child>
 			</childs>
 		</row>
 		<row>
 			<stt>2</stt>
-			<sohopdong>HDBD_VMSC6_02</sohopdong>
-			<num_child>1</num_child>
+			<sohopdong>995/VTBD-VMSC6/HĐE1-TK2011</sohopdong>
+			<num_child>8</num_child>
 			<childs>
 				<child>
-					<tenphuluc>PL01</tenphuluc>
-					<ngaycohieuluc>1/12/2012</ngaycohieuluc>
-					<giatriphuluc>1080000</giatriphuluc>
-					<tungay>01/12/2012</tungay>
-					<denngay>31/12/2012</denngay>
+					<tenphuluc>14</tenphuluc>
+					<ngaycohieuluc>26/10/2012</ngaycohieuluc>
+					<giatriphuluc>89817840</giatriphuluc>
+					<tungay></tungay>
+					<denngay></denngay>
+					<sothang>0</sothang>
+					<songay>0</songay>
+					<soluongkenh>26 E1</soluongkenh>
+					<thanhtien>0</thanhtien>
+					<giamtrumll></giamtrumll>
+					<cuocdaunoi>0</cuocdaunoi>
+					<dathanhtoan>0</dathanhtoan>
+					<conthanhtoan>0</conthanhtoan>
+					<ghichu>Thay thế 13</ghichu>
+					<plthaythe>1</plthaythe>
+				</child>
+				<child>
+					<tenphuluc>18</tenphuluc>
+					<ngaycohieuluc>08/03/2013</ngaycohieuluc>
+					<giatriphuluc>83734560</giatriphuluc>
+					<tungay>08/03/2013</tungay>
+					<denngay>30/04/2013</denngay>
+					<sothang>1</sothang>
+					<songay>24</songay>
+					<soluongkenh>24 E1</soluongkenh>
+					<thanhtien>150722208</thanhtien>
+					<giamtrumll></giamtrumll>
+					<cuocdaunoi>0</cuocdaunoi>
+					<dathanhtoan>0</dathanhtoan>
+					<conthanhtoan>150722208</conthanhtoan>
+					<ghichu>Thay thế 14</ghichu>
+					<plthaythe>1</plthaythe>
+				</child>
+				<child>
+					<tenphuluc>17</tenphuluc>
+					<ngaycohieuluc>05/02/2013</ngaycohieuluc>
+					<giatriphuluc>511840000</giatriphuluc>
+					<tungay>05/02/2013</tungay>
+					<denngay>30/04/2013</denngay>
+					<sothang>2</sothang>
+					<songay>24</songay>
+					<soluongkenh>187 E1</soluongkenh>
+					<thanhtien>1433152000</thanhtien>
+					<giamtrumll></giamtrumll>
+					<cuocdaunoi>0</cuocdaunoi>
+					<dathanhtoan>0</dathanhtoan>
+					<conthanhtoan>1433152000</conthanhtoan>
+					<ghichu>Thay thế 12</ghichu>
+					<plthaythe>1</plthaythe>
+				</child>
+				<child>
+					<tenphuluc>12</tenphuluc>
+					<ngaycohieuluc>01/09/2012</ngaycohieuluc>
+					<giatriphuluc>541380000</giatriphuluc>
+					<tungay></tungay>
+					<denngay></denngay>
+					<sothang>0</sothang>
+					<songay>0</songay>
+					<soluongkenh>198 E1</soluongkenh>
+					<thanhtien>0</thanhtien>
+					<giamtrumll></giamtrumll>
+					<cuocdaunoi>0</cuocdaunoi>
+					<dathanhtoan>0</dathanhtoan>
+					<conthanhtoan>0</conthanhtoan>
+					<ghichu></ghichu>
+					<plthaythe>0</plthaythe>
+				</child>
+				<child>
+					<tenphuluc>16</tenphuluc>
+					<ngaycohieuluc>30/11/2012</ngaycohieuluc>
+					<giatriphuluc>14000000</giatriphuluc>
+					<tungay>01/04/2013</tungay>
+					<denngay>30/04/2013</denngay>
 					<sothang>1</sothang>
 					<songay>0</songay>
-					<soluongkenh>2E</soluongkenh>
-					<thanhtien>1080000</thanhtien>
-					<cuocdaunoi>0</cuocdaunoi>
+					<soluongkenh>4 E1</soluongkenh>
+					<thanhtien>14000000</thanhtien>
 					<giamtrumll></giamtrumll>
+					<cuocdaunoi>0</cuocdaunoi>
 					<dathanhtoan>0</dathanhtoan>
-					<conthanhtoan>1080000</conthanhtoan>
-					<ghichu>Thay thế PL02</ghichu>
+					<conthanhtoan>14000000</conthanhtoan>
+					<ghichu>Thay thế 10</ghichu>
+					<plthaythe>1</plthaythe>
+				</child>
+				<child>
+					<tenphuluc>15</tenphuluc>
+					<ngaycohieuluc>20/11/2012</ngaycohieuluc>
+					<giatriphuluc>58800000</giatriphuluc>
+					<tungay>01/04/2013</tungay>
+					<denngay>30/04/2013</denngay>
+					<sothang>1</sothang>
+					<songay>0</songay>
+					<soluongkenh>21 E1</soluongkenh>
+					<thanhtien>58800000</thanhtien>
+					<giamtrumll></giamtrumll>
+					<cuocdaunoi>0</cuocdaunoi>
+					<dathanhtoan>0</dathanhtoan>
+					<conthanhtoan>58800000</conthanhtoan>
+					<ghichu>Thay thế 07</ghichu>
+					<plthaythe>1</plthaythe>
+				</child>
+				<child>
+					<tenphuluc>11</tenphuluc>
+					<ngaycohieuluc>10/07/2012</ngaycohieuluc>
+					<giatriphuluc>8400000</giatriphuluc>
+					<tungay>01/04/2013</tungay>
+					<denngay>30/04/2013</denngay>
+					<sothang>1</sothang>
+					<songay>0</songay>
+					<soluongkenh>3 E1</soluongkenh>
+					<thanhtien>8400000</thanhtien>
+					<giamtrumll></giamtrumll>
+					<cuocdaunoi>0</cuocdaunoi>
+					<dathanhtoan>0</dathanhtoan>
+					<conthanhtoan>8400000</conthanhtoan>
+					<ghichu></ghichu>
+					<plthaythe>0</plthaythe>
+				</child>
+				<child>
+					<tenphuluc>08</tenphuluc>
+					<ngaycohieuluc>20/03/2012</ngaycohieuluc>
+					<giatriphuluc>14000000</giatriphuluc>
+					<tungay>01/04/2013</tungay>
+					<denngay>30/04/2013</denngay>
+					<sothang>1</sothang>
+					<songay>0</songay>
+					<soluongkenh>4 E1</soluongkenh>
+					<thanhtien>14000000</thanhtien>
+					<giamtrumll></giamtrumll>
+					<cuocdaunoi>0</cuocdaunoi>
+					<dathanhtoan>0</dathanhtoan>
+					<conthanhtoan>14000000</conthanhtoan>
+					<ghichu></ghichu>
+					<plthaythe>0</plthaythe>
+				</child>
+			</childs>
+		</row>
+		<row>
+			<stt>3</stt>
+			<sohopdong>996/VTBD-VMSC6/HĐME-TK2011</sohopdong>
+			<num_child>4</num_child>
+			<childs>
+				<child>
+					<tenphuluc>09</tenphuluc>
+					<ngaycohieuluc>04/09/2012</ngaycohieuluc>
+					<giatriphuluc>348790050</giatriphuluc>
+					<tungay>04/09/2012</tungay>
+					<denngay>04/02/2013</denngay>
+					<sothang>4</sothang>
+					<songay>31</songay>
+					<soluongkenh>113 GE</soluongkenh>
+					<thanhtien>1406786535</thanhtien>
+					<giamtrumll></giamtrumll>
+					<cuocdaunoi>0</cuocdaunoi>
+					<dathanhtoan>2057861295</dathanhtoan>
+					<conthanhtoan>-651074760</conthanhtoan>
+					<ghichu>Thay thế 08</ghichu>
+					<plthaythe>1</plthaythe>
+				</child>
+				<child>
+					<tenphuluc>12</tenphuluc>
+					<ngaycohieuluc>05/02/2013</ngaycohieuluc>
+					<giatriphuluc>345805200</giatriphuluc>
+					<tungay>05/02/2013</tungay>
+					<denngay>30/04/2013</denngay>
+					<sothang>2</sothang>
+					<songay>24</songay>
+					<soluongkenh>112 GE</soluongkenh>
+					<thanhtien>968254560</thanhtien>
+					<giamtrumll></giamtrumll>
+					<cuocdaunoi>0</cuocdaunoi>
+					<dathanhtoan>0</dathanhtoan>
+					<conthanhtoan>968254560</conthanhtoan>
+					<ghichu>Thay thế 09</ghichu>
+					<plthaythe>1</plthaythe>
+				</child>
+				<child>
+					<tenphuluc>11</tenphuluc>
+					<ngaycohieuluc>25/12/2012</ngaycohieuluc>
+					<giatriphuluc>41787900</giatriphuluc>
+					<tungay>25/12/2012</tungay>
+					<denngay>30/04/2013</denngay>
+					<sothang>4</sothang>
+					<songay>7</songay>
+					<soluongkenh>14 GE</soluongkenh>
+					<thanhtien>176902110</thanhtien>
+					<giamtrumll></giamtrumll>
+					<cuocdaunoi>2500000</cuocdaunoi>
+					<dathanhtoan>0</dathanhtoan>
+					<conthanhtoan>179402110</conthanhtoan>
+					<ghichu>Thay thế 10</ghichu>
+					<plthaythe>1</plthaythe>
+				</child>
+				<child>
+					<tenphuluc>10</tenphuluc>
+					<ngaycohieuluc>20/11/2012</ngaycohieuluc>
+					<giatriphuluc>38803050</giatriphuluc>
+					<tungay>20/11/2012</tungay>
+					<denngay>24/12/2012</denngay>
+					<sothang>0</sothang>
+					<songay>35</songay>
+					<soluongkenh>13 GE</soluongkenh>
+					<thanhtien>6467175</thanhtien>
+					<giamtrumll></giamtrumll>
+					<cuocdaunoi>0</cuocdaunoi>
+					<dathanhtoan>160636935</dathanhtoan>
+					<conthanhtoan>-154169760</conthanhtoan>
+					<ghichu>Thay thế 06</ghichu>
 					<plthaythe>1</plthaythe>
 				</child>
 			</childs>
