@@ -1,215 +1,300 @@
 <root>
 	<header>
-		<cell id="madiemdau" type="String" style="Text">MÃ£ Äiá»m Äáº§u
-		</cell>
-		<cell id="madiemcuoi" type="String" style="Text">MÃ£ Äiá»m cuá»i
-		</cell>
-		<cell id="loaigiaotiep" type="String" style="Text">Giao tiáº¿p</cell>
-		<cell id="dungluong" type="Number" style="Double">Dung lÆ°á»£ng</cell>
-		<cell id="soluong" type="Number" style="Number">Sá» lÆ°á»£ng</cell>
-		<cell id="tenduan" type="String" style="Text">Dá»± Ã¡n</cell>
-		<cell id="tenphongban" type="String" style="Text">PhÃ²ng ban</cell>
-		<cell id="tendoitac" type="String" style="Text">Äá»i tÃ¡c</cell>
-		<cell id="trangthai" type="String" style="Text">Tráº¡ng thÃ¡i</cell>
+		<thang>04</thang>
+		<nam>2013</nam>
+		<matlienlactu></matlienlactu>
+		<matlienlacden></matlienlacden>
+		<tendoitac>VTBD</tendoitac>
 	</header>
-	<rows>
+	<data>
 		<row>
-			<cell hid="rn"><![CDATA[1]]></cell>
-			<cell hid="id"><![CDATA[VTBT_0045]]></cell>
-			<cell hid="madiemdau"><![CDATA[PTPQ00]]></cell>
-			<cell hid="madiemcuoi"><![CDATA[PTPT12]]></cell>
-			<cell hid="giaotiep_id"><![CDATA[101]]></cell>
-			<cell hid="duan_id"><![CDATA[31]]></cell>
-			<cell hid="phongban_id"><![CDATA[306]]></cell>
-			<cell hid="doitac_id"><![CDATA[181]]></cell>
-			<cell hid="dungluong"><![CDATA[2.5]]></cell>
-			<cell hid="trangthai"><![CDATA[3]]></cell>
-			<cell hid="usercreate"><![CDATA[ktkt]]></cell>
-			<cell hid="timecreate"><![CDATA[2012-11-29T00:00:00.000]]></cell>
-			<cell hid="deleted"><![CDATA[0]]></cell>
-			<cell hid="soluong"><![CDATA[1]]></cell>
-			<cell hid="trangthai_bak"><![CDATA[0]]></cell>
-			<cell hid="flag"><![CDATA[0]]></cell>
-			<cell hid="tenduan"><![CDATA[Pha 30A]]></cell>
-			<cell hid="tendoitac"><![CDATA[VTBT]]></cell>
-			<cell hid="loaigiaotiep"><![CDATA[E1]]></cell>
-			<cell hid="tenphongban"><![CDATA[Đài VTĐN]]></cell>
+			<stt>1</stt>
+			<sohopdong>994/VTBD-VMSC6/HĐSTM1-TK2011</sohopdong>
+			<num_child>2</num_child>
+			<childs>
+				<child>
+					<tenphuluc>06</tenphuluc>
+					<giatriphuluc>247973600</giatriphuluc>
+					<tungay>01/04/2013</tungay>
+					<denngay>30/04/2013</denngay>
+					<ngaycohieuluc>20/03/2012</ngaycohieuluc>
+					<sothang>1</sothang>
+					<songay>0</songay>
+					<soluongkenh>4 STM-1</soluongkenh>
+					<thanhtien>247973600</thanhtien>
+					<giamtrumll></giamtrumll>
+					<cuocdaunoi>0</cuocdaunoi>
+					<dathanhtoan>0</dathanhtoan>
+					<conthanhtoan>247973600</conthanhtoan>
+					<ghichu></ghichu>
+					<plthaythe>0</plthaythe>
+				</child>
+				<child>
+					<tenphuluc>05</tenphuluc>
+					<giatriphuluc>764340000</giatriphuluc>
+					<tungay>01/04/2013</tungay>
+					<denngay>30/04/2013</denngay>
+					<ngaycohieuluc>01/01/2012</ngaycohieuluc>
+					<sothang>1</sothang>
+					<songay>0</songay>
+					<soluongkenh>15 STM-1</soluongkenh>
+					<thanhtien>764340000</thanhtien>
+					<giamtrumll></giamtrumll>
+					<cuocdaunoi>0</cuocdaunoi>
+					<dathanhtoan>0</dathanhtoan>
+					<conthanhtoan>764340000</conthanhtoan>
+					<ghichu></ghichu>
+					<plthaythe>0</plthaythe>
+				</child>
+			</childs>
 		</row>
 		<row>
-			<cell hid="rn"><![CDATA[2]]></cell>
-			<cell hid="id"><![CDATA[VTBT_0046]]></cell>
-			<cell hid="madiemdau"><![CDATA[PTDL05]]></cell>
-			<cell hid="madiemcuoi"><![CDATA[PTHT06]]></cell>
-			<cell hid="giaotiep_id"><![CDATA[101]]></cell>
-			<cell hid="duan_id"><![CDATA[2]]></cell>
-			<cell hid="phongban_id"><![CDATA[306]]></cell>
-			<cell hid="doitac_id"><![CDATA[181]]></cell>
-			<cell hid="dungluong"><![CDATA[2]]></cell>
-			<cell hid="trangthai"><![CDATA[3]]></cell>
-			<cell hid="usercreate"><![CDATA[ktkt]]></cell>
-			<cell hid="timecreate"><![CDATA[2012-11-29T00:00:00.000]]></cell>
-			<cell hid="deleted"><![CDATA[0]]></cell>
-			<cell hid="soluong"><![CDATA[1]]></cell>
-			<cell hid="trangthai_bak"><![CDATA[0]]></cell>
-			<cell hid="flag"><![CDATA[0]]></cell>
-			<cell hid="tenduan"><![CDATA[1054Alcatel]]></cell>
-			<cell hid="tendoitac"><![CDATA[VTBT]]></cell>
-			<cell hid="loaigiaotiep"><![CDATA[E1]]></cell>
-			<cell hid="tenphongban"><![CDATA[Đài VTĐN]]></cell>
+			<stt>2</stt>
+			<sohopdong>995/VTBD-VMSC6/HĐE1-TK2011</sohopdong>
+			<num_child>8</num_child>
+			<childs>
+				<child>
+					<tenphuluc>14</tenphuluc>
+					<giatriphuluc>89817840</giatriphuluc>
+					<tungay></tungay>
+					<denngay></denngay>
+					<ngaycohieuluc>26/10/2012</ngaycohieuluc>
+					<sothang>0</sothang>
+					<songay>0</songay>
+					<soluongkenh>26 E1</soluongkenh>
+					<thanhtien>0</thanhtien>
+					<giamtrumll></giamtrumll>
+					<cuocdaunoi>0</cuocdaunoi>
+					<dathanhtoan>0</dathanhtoan>
+					<conthanhtoan>0</conthanhtoan>
+					<ghichu>Thay thế 13</ghichu>
+					<plthaythe>1</plthaythe>
+				</child>
+				<child>
+					<tenphuluc>18</tenphuluc>
+					<giatriphuluc>83734560</giatriphuluc>
+					<tungay>08/03/2013</tungay>
+					<denngay>30/04/2013</denngay>
+					<ngaycohieuluc>08/03/2013</ngaycohieuluc>
+					<sothang>1</sothang>
+					<songay>24</songay>
+					<soluongkenh>24 E1</soluongkenh>
+					<thanhtien>150722208</thanhtien>
+					<giamtrumll></giamtrumll>
+					<cuocdaunoi>0</cuocdaunoi>
+					<dathanhtoan>0</dathanhtoan>
+					<conthanhtoan>150722208</conthanhtoan>
+					<ghichu>Thay thế 14</ghichu>
+					<plthaythe>1</plthaythe>
+				</child>
+				<child>
+					<tenphuluc>17</tenphuluc>
+					<giatriphuluc>511840000</giatriphuluc>
+					<tungay>05/02/2013</tungay>
+					<denngay>30/04/2013</denngay>
+					<ngaycohieuluc>05/02/2013</ngaycohieuluc>
+					<sothang>2</sothang>
+					<songay>24</songay>
+					<soluongkenh>187 E1</soluongkenh>
+					<thanhtien>1433152000</thanhtien>
+					<giamtrumll></giamtrumll>
+					<cuocdaunoi>0</cuocdaunoi>
+					<dathanhtoan>0</dathanhtoan>
+					<conthanhtoan>1433152000</conthanhtoan>
+					<ghichu>Thay thế 12</ghichu>
+					<plthaythe>1</plthaythe>
+				</child>
+				<child>
+					<tenphuluc>12</tenphuluc>
+					<giatriphuluc>541380000</giatriphuluc>
+					<tungay></tungay>
+					<denngay></denngay>
+					<ngaycohieuluc>01/09/2012</ngaycohieuluc>
+					<sothang>0</sothang>
+					<songay>0</songay>
+					<soluongkenh>198 E1</soluongkenh>
+					<thanhtien>0</thanhtien>
+					<giamtrumll></giamtrumll>
+					<cuocdaunoi>0</cuocdaunoi>
+					<dathanhtoan>0</dathanhtoan>
+					<conthanhtoan>0</conthanhtoan>
+					<ghichu></ghichu>
+					<plthaythe>0</plthaythe>
+				</child>
+				<child>
+					<tenphuluc>16</tenphuluc>
+					<giatriphuluc>14000000</giatriphuluc>
+					<tungay>01/04/2013</tungay>
+					<denngay>30/04/2013</denngay>
+					<ngaycohieuluc>30/11/2012</ngaycohieuluc>
+					<sothang>1</sothang>
+					<songay>0</songay>
+					<soluongkenh>4 E1</soluongkenh>
+					<thanhtien>14000000</thanhtien>
+					<giamtrumll></giamtrumll>
+					<cuocdaunoi>0</cuocdaunoi>
+					<dathanhtoan>0</dathanhtoan>
+					<conthanhtoan>14000000</conthanhtoan>
+					<ghichu>Thay thế 10</ghichu>
+					<plthaythe>1</plthaythe>
+				</child>
+				<child>
+					<tenphuluc>15</tenphuluc>
+					<giatriphuluc>58800000</giatriphuluc>
+					<tungay>01/04/2013</tungay>
+					<denngay>30/04/2013</denngay>
+					<ngaycohieuluc>20/11/2012</ngaycohieuluc>
+					<sothang>1</sothang>
+					<songay>0</songay>
+					<soluongkenh>21 E1</soluongkenh>
+					<thanhtien>58800000</thanhtien>
+					<giamtrumll></giamtrumll>
+					<cuocdaunoi>0</cuocdaunoi>
+					<dathanhtoan>0</dathanhtoan>
+					<conthanhtoan>58800000</conthanhtoan>
+					<ghichu>Thay thế 07</ghichu>
+					<plthaythe>1</plthaythe>
+				</child>
+				<child>
+					<tenphuluc>11</tenphuluc>
+					<giatriphuluc>8400000</giatriphuluc>
+					<tungay>01/04/2013</tungay>
+					<denngay>30/04/2013</denngay>
+					<ngaycohieuluc>10/07/2012</ngaycohieuluc>
+					<sothang>1</sothang>
+					<songay>0</songay>
+					<soluongkenh>3 E1</soluongkenh>
+					<thanhtien>8400000</thanhtien>
+					<giamtrumll></giamtrumll>
+					<cuocdaunoi>0</cuocdaunoi>
+					<dathanhtoan>0</dathanhtoan>
+					<conthanhtoan>8400000</conthanhtoan>
+					<ghichu></ghichu>
+					<plthaythe>0</plthaythe>
+				</child>
+				<child>
+					<tenphuluc>08</tenphuluc>
+					<giatriphuluc>14000000</giatriphuluc>
+					<tungay>01/04/2013</tungay>
+					<denngay>30/04/2013</denngay>
+					<ngaycohieuluc>20/03/2012</ngaycohieuluc>
+					<sothang>1</sothang>
+					<songay>0</songay>
+					<soluongkenh>4 E1</soluongkenh>
+					<thanhtien>14000000</thanhtien>
+					<giamtrumll></giamtrumll>
+					<cuocdaunoi>0</cuocdaunoi>
+					<dathanhtoan>0</dathanhtoan>
+					<conthanhtoan>14000000</conthanhtoan>
+					<ghichu></ghichu>
+					<plthaythe>0</plthaythe>
+				</child>
+			</childs>
 		</row>
 		<row>
-			<cell hid="rn"><![CDATA[3]]></cell>
-			<cell hid="id"><![CDATA[VTBT_0047]]></cell>
-			<cell hid="madiemdau"><![CDATA[PTTL13]]></cell>
-			<cell hid="madiemcuoi"><![CDATA[PTHT06]]></cell>
-			<cell hid="giaotiep_id"><![CDATA[101]]></cell>
-			<cell hid="duan_id"><![CDATA[4]]></cell>
-			<cell hid="phongban_id"><![CDATA[306]]></cell>
-			<cell hid="doitac_id"><![CDATA[181]]></cell>
-			<cell hid="dungluong"><![CDATA[2]]></cell>
-			<cell hid="trangthai"><![CDATA[3]]></cell>
-			<cell hid="usercreate"><![CDATA[ktkt]]></cell>
-			<cell hid="timecreate"><![CDATA[2012-11-29T00:00:00.000]]></cell>
-			<cell hid="deleted"><![CDATA[0]]></cell>
-			<cell hid="soluong"><![CDATA[1]]></cell>
-			<cell hid="trangthai_bak"><![CDATA[0]]></cell>
-			<cell hid="flag"><![CDATA[0]]></cell>
-			<cell hid="tenduan"><![CDATA[2024ALC]]></cell>
-			<cell hid="tendoitac"><![CDATA[VTBT]]></cell>
-			<cell hid="loaigiaotiep"><![CDATA[E1]]></cell>
-			<cell hid="tenphongban"><![CDATA[Đài VTĐN]]></cell>
+			<stt>3</stt>
+			<sohopdong>996/VTBD-VMSC6/HĐME-TK2011</sohopdong>
+			<num_child>5</num_child>
+			<childs>
+				<child>
+					<tenphuluc>09</tenphuluc>
+					<giatriphuluc>348790050</giatriphuluc>
+					<tungay>04/09/2012</tungay>
+					<denngay>04/02/2013</denngay>
+					<ngaycohieuluc>04/09/2012</ngaycohieuluc>
+					<sothang>4</sothang>
+					<songay>31</songay>
+					<soluongkenh>113 GE</soluongkenh>
+					<thanhtien>1406786535</thanhtien>
+					<giamtrumll></giamtrumll>
+					<cuocdaunoi>0</cuocdaunoi>
+					<dathanhtoan>2057861295</dathanhtoan>
+					<conthanhtoan>-651074760</conthanhtoan>
+					<ghichu>Thay thế 08</ghichu>
+					<plthaythe>1</plthaythe>
+				</child>
+				<child>
+					<tenphuluc>12</tenphuluc>
+					<giatriphuluc>345805200</giatriphuluc>
+					<tungay>05/02/2013</tungay>
+					<denngay>30/04/2013</denngay>
+					<ngaycohieuluc>05/02/2013</ngaycohieuluc>
+					<sothang>2</sothang>
+					<songay>24</songay>
+					<soluongkenh>112 GE</soluongkenh>
+					<thanhtien>968254560</thanhtien>
+					<giamtrumll></giamtrumll>
+					<cuocdaunoi>0</cuocdaunoi>
+					<dathanhtoan>0</dathanhtoan>
+					<conthanhtoan>968254560</conthanhtoan>
+					<ghichu>Thay thế 09</ghichu>
+					<plthaythe>1</plthaythe>
+				</child>
+				<child>
+					<tenphuluc>11</tenphuluc>
+					<giatriphuluc>41787900</giatriphuluc>
+					<tungay>25/12/2012</tungay>
+					<denngay>30/04/2013</denngay>
+					<ngaycohieuluc>25/12/2012</ngaycohieuluc>
+					<sothang>4</sothang>
+					<songay>7</songay>
+					<soluongkenh>14 GE</soluongkenh>
+					<thanhtien>176902110</thanhtien>
+					<giamtrumll></giamtrumll>
+					<cuocdaunoi>2500000</cuocdaunoi>
+					<dathanhtoan>0</dathanhtoan>
+					<conthanhtoan>179402110</conthanhtoan>
+					<ghichu>Thay thế 10</ghichu>
+					<plthaythe>1</plthaythe>
+				</child>
+				<child>
+					<tenphuluc>10</tenphuluc>
+					<giatriphuluc>38803050</giatriphuluc>
+					<tungay>20/11/2012</tungay>
+					<denngay>24/12/2012</denngay>
+					<ngaycohieuluc>20/11/2012</ngaycohieuluc>
+					<sothang>0</sothang>
+					<songay>35</songay>
+					<soluongkenh>13 GE</soluongkenh>
+					<thanhtien>6467175</thanhtien>
+					<giamtrumll></giamtrumll>
+					<cuocdaunoi>0</cuocdaunoi>
+					<dathanhtoan>160636935</dathanhtoan>
+					<conthanhtoan>-154169760</conthanhtoan>
+					<ghichu>Thay thế 06</ghichu>
+					<plthaythe>1</plthaythe>
+				</child>
+				<child>
+					<tenphuluc>04</tenphuluc>
+					<giatriphuluc>38803050</giatriphuluc>
+					<tungay>01/04/2013</tungay>
+					<denngay>30/04/2013</denngay>
+					<ngaycohieuluc>15/01/2012</ngaycohieuluc>
+					<sothang>1</sothang>
+					<songay>0</songay>
+					<soluongkenh>13 GE</soluongkenh>
+					<thanhtien>38803050</thanhtien>
+					<giamtrumll></giamtrumll>
+					<cuocdaunoi>0</cuocdaunoi>
+					<dathanhtoan>0</dathanhtoan>
+					<conthanhtoan>38803050</conthanhtoan>
+					<ghichu></ghichu>
+					<plthaythe>0</plthaythe>
+				</child>
+			</childs>
 		</row>
-		<row>
-			<cell hid="rn"><![CDATA[4]]></cell>
-			<cell hid="id"><![CDATA[VTBT_0048]]></cell>
-			<cell hid="madiemdau"><![CDATA[PTDL08]]></cell>
-			<cell hid="madiemcuoi"><![CDATA[PTHT06]]></cell>
-			<cell hid="giaotiep_id"><![CDATA[101]]></cell>
-			<cell hid="duan_id"><![CDATA[27]]></cell>
-			<cell hid="phongban_id"><![CDATA[306]]></cell>
-			<cell hid="doitac_id"><![CDATA[181]]></cell>
-			<cell hid="dungluong"><![CDATA[2]]></cell>
-			<cell hid="trangthai"><![CDATA[3]]></cell>
-			<cell hid="usercreate"><![CDATA[ktkt]]></cell>
-			<cell hid="timecreate"><![CDATA[2012-11-29T00:00:00.000]]></cell>
-			<cell hid="deleted"><![CDATA[0]]></cell>
-			<cell hid="soluong"><![CDATA[1]]></cell>
-			<cell hid="trangthai_bak"><![CDATA[0]]></cell>
-			<cell hid="flag"><![CDATA[0]]></cell>
-			<cell hid="tenduan"><![CDATA[Pha 20]]></cell>
-			<cell hid="tendoitac"><![CDATA[VTBT]]></cell>
-			<cell hid="loaigiaotiep"><![CDATA[E1]]></cell>
-			<cell hid="tenphongban"><![CDATA[Đài VTĐN]]></cell>
-		</row>
-		<row>
-			<cell hid="rn"><![CDATA[5]]></cell>
-			<cell hid="id"><![CDATA[VTBT_0049]]></cell>
-			<cell hid="madiemdau"><![CDATA[PTPT04]]></cell>
-			<cell hid="madiemcuoi"><![CDATA[PTPT12]]></cell>
-			<cell hid="giaotiep_id"><![CDATA[101]]></cell>
-			<cell hid="duan_id"><![CDATA[27]]></cell>
-			<cell hid="phongban_id"><![CDATA[306]]></cell>
-			<cell hid="doitac_id"><![CDATA[181]]></cell>
-			<cell hid="dungluong"><![CDATA[2]]></cell>
-			<cell hid="trangthai"><![CDATA[3]]></cell>
-			<cell hid="usercreate"><![CDATA[ktkt]]></cell>
-			<cell hid="timecreate"><![CDATA[2012-11-29T00:00:00.000]]></cell>
-			<cell hid="deleted"><![CDATA[0]]></cell>
-			<cell hid="soluong"><![CDATA[1]]></cell>
-			<cell hid="trangthai_bak"><![CDATA[0]]></cell>
-			<cell hid="flag"><![CDATA[0]]></cell>
-			<cell hid="tenduan"><![CDATA[Pha 20]]></cell>
-			<cell hid="tendoitac"><![CDATA[VTBT]]></cell>
-			<cell hid="loaigiaotiep"><![CDATA[E1]]></cell>
-			<cell hid="tenphongban"><![CDATA[Đài VTĐN]]></cell>
-		</row>
-		<row>
-			<cell hid="rn"><![CDATA[6]]></cell>
-			<cell hid="id"><![CDATA[VTBT_0050]]></cell>
-			<cell hid="madiemdau"><![CDATA[PTPT07]]></cell>
-			<cell hid="madiemcuoi"><![CDATA[PTPT12]]></cell>
-			<cell hid="giaotiep_id"><![CDATA[101]]></cell>
-			<cell hid="duan_id"><![CDATA[2]]></cell>
-			<cell hid="phongban_id"><![CDATA[306]]></cell>
-			<cell hid="doitac_id"><![CDATA[181]]></cell>
-			<cell hid="dungluong"><![CDATA[2]]></cell>
-			<cell hid="trangthai"><![CDATA[3]]></cell>
-			<cell hid="usercreate"><![CDATA[ktkt]]></cell>
-			<cell hid="timecreate"><![CDATA[2012-11-29T00:00:00.000]]></cell>
-			<cell hid="deleted"><![CDATA[0]]></cell>
-			<cell hid="soluong"><![CDATA[1]]></cell>
-			<cell hid="trangthai_bak"><![CDATA[0]]></cell>
-			<cell hid="flag"><![CDATA[0]]></cell>
-			<cell hid="tenduan"><![CDATA[1054Alcatel]]></cell>
-			<cell hid="tendoitac"><![CDATA[VTBT]]></cell>
-			<cell hid="loaigiaotiep"><![CDATA[E1]]></cell>
-			<cell hid="tenphongban"><![CDATA[Đài VTĐN]]></cell>
-		</row>
-		<row>
-			<cell hid="rn"><![CDATA[7]]></cell>
-			<cell hid="id"><![CDATA[VTBT_0051]]></cell>
-			<cell hid="madiemdau"><![CDATA[PTPT02]]></cell>
-			<cell hid="madiemcuoi"><![CDATA[PTPT12]]></cell>
-			<cell hid="giaotiep_id"><![CDATA[101]]></cell>
-			<cell hid="duan_id"><![CDATA[28]]></cell>
-			<cell hid="phongban_id"><![CDATA[306]]></cell>
-			<cell hid="doitac_id"><![CDATA[181]]></cell>
-			<cell hid="dungluong"><![CDATA[2]]></cell>
-			<cell hid="trangthai"><![CDATA[3]]></cell>
-			<cell hid="usercreate"><![CDATA[ktkt]]></cell>
-			<cell hid="timecreate"><![CDATA[2012-11-29T00:00:00.000]]></cell>
-			<cell hid="deleted"><![CDATA[0]]></cell>
-			<cell hid="soluong"><![CDATA[1]]></cell>
-			<cell hid="trangthai_bak"><![CDATA[0]]></cell>
-			<cell hid="flag"><![CDATA[0]]></cell>
-			<cell hid="tenduan"><![CDATA[Pha 23]]></cell>
-			<cell hid="tendoitac"><![CDATA[VTBT]]></cell>
-			<cell hid="loaigiaotiep"><![CDATA[E1]]></cell>
-			<cell hid="tenphongban"><![CDATA[Đài VTĐN]]></cell>
-		</row>
-		<row>
-			<cell hid="rn"><![CDATA[8]]></cell>
-			<cell hid="id"><![CDATA[VTBT_0052]]></cell>
-			<cell hid="madiemdau"><![CDATA[PTPT08]]></cell>
-			<cell hid="madiemcuoi"><![CDATA[PTPT12]]></cell>
-			<cell hid="giaotiep_id"><![CDATA[101]]></cell>
-			<cell hid="duan_id"><![CDATA[28]]></cell>
-			<cell hid="phongban_id"><![CDATA[306]]></cell>
-			<cell hid="doitac_id"><![CDATA[181]]></cell>
-			<cell hid="dungluong"><![CDATA[2]]></cell>
-			<cell hid="trangthai"><![CDATA[3]]></cell>
-			<cell hid="usercreate"><![CDATA[ktkt]]></cell>
-			<cell hid="timecreate"><![CDATA[2012-11-29T00:00:00.000]]></cell>
-			<cell hid="deleted"><![CDATA[0]]></cell>
-			<cell hid="soluong"><![CDATA[2]]></cell>
-			<cell hid="trangthai_bak"><![CDATA[0]]></cell>
-			<cell hid="flag"><![CDATA[0]]></cell>
-			<cell hid="tenduan"><![CDATA[Pha 23]]></cell>
-			<cell hid="tendoitac"><![CDATA[VTBT]]></cell>
-			<cell hid="loaigiaotiep"><![CDATA[E1]]></cell>
-			<cell hid="tenphongban"><![CDATA[Đài VTĐN]]></cell>
-		</row>
-		<row>
-			<cell hid="rn"><![CDATA[9]]></cell>
-			<cell hid="id"><![CDATA[VTBT_0053]]></cell>
-			<cell hid="madiemdau"><![CDATA[PTPT13]]></cell>
-			<cell hid="madiemcuoi"><![CDATA[PTHT06]]></cell>
-			<cell hid="giaotiep_id"><![CDATA[101]]></cell>
-			<cell hid="duan_id"><![CDATA[27]]></cell>
-			<cell hid="phongban_id"><![CDATA[306]]></cell>
-			<cell hid="doitac_id"><![CDATA[181]]></cell>
-			<cell hid="dungluong"><![CDATA[2]]></cell>
-			<cell hid="trangthai"><![CDATA[3]]></cell>
-			<cell hid="usercreate"><![CDATA[ktkt]]></cell>
-			<cell hid="timecreate"><![CDATA[2012-11-29T00:00:00.000]]></cell>
-			<cell hid="deleted"><![CDATA[0]]></cell>
-			<cell hid="soluong"><![CDATA[1]]></cell>
-			<cell hid="trangthai_bak"><![CDATA[0]]></cell>
-			<cell hid="flag"><![CDATA[0]]></cell>
-			<cell hid="tenduan"><![CDATA[Pha 20]]></cell>
-			<cell hid="tendoitac"><![CDATA[VTBT]]></cell>
-			<cell hid="loaigiaotiep"><![CDATA[E1]]></cell>
-			<cell hid="tenphongban"><![CDATA[Đài VTĐN]]></cell>
-		</row>
-	</rows>
+	</data>
+	<summary>
+		<tongsokenh>- Số kênh STM-1: 19&amp;#10;- Số kênh E1: 467&amp;#10;- Số
+			kênh GE: 265&amp;#10;</tongsokenh>
+		<tongthanhtien>5288601238</tongthanhtien>
+		<tonggiamtru>0</tonggiamtru>
+		<tongdaunoihoamang>2500000</tongdaunoihoamang>
+		<tongdathanhtoan>2218498230</tongdathanhtoan>
+		<tongconthanhtoan>3072603008</tongconthanhtoan>
+		<tongvat>307260300</tongvat>
+		<tongcong>3379863308</tongcong>
+		<bangchu>Ba tỷ ba trăm bảy mươi chín triệu tám trăm sáu mươi ba nghìn
+			ba trăm tám đồng</bangchu>
+	</summary>
 </root>
