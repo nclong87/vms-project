@@ -261,18 +261,15 @@ public class SuCoDAO {
 	}
 	
 	private static final String SQL_SUCOKENH_UPDATE_PHULUC = "{ call SUCOKENH_UPDATE_PHULUC(?,?,?,?) }";
-	public void updatePhuLuc(Map<String,Object> map,String sPhuLucId,int flag) throws Exception {
+	public void updatePhuLuc(String sucoId,String sPhuLucId,String sThoigianmll,String sDongia) throws Exception {
 		Connection connection = jdbcTemplate.getDataSource().getConnection();
 		CallableStatement stmt = connection.prepareCall(SQL_SUCOKENH_UPDATE_PHULUC);
-		stmt.setLong(1, NumberUtil.parseLong(map.get("id").toString()));
+		stmt.setLong(1, NumberUtil.parseLong(sucoId));
 		stmt.setLong(2, NumberUtil.parseLong(sPhuLucId));
-		double giamtrumll = 0;
-		float thoigianmatll = NumberUtil.parseFloat(map.get("thoigianmll").toString());
-		if(thoigianmatll > 30) {
-			giamtrumll=(thoigianmatll*NumberUtil.parseLong(map.get("dongia").toString()))/(30*24*60);
-		}
-		stmt.setDouble(3, Math.floor(giamtrumll));
-		stmt.setInt(4, flag);
+		float thoigianmatll = NumberUtil.parseFloat(sThoigianmll);
+		long dongia = NumberUtil.parseLong(sDongia);
+		stmt.setDouble(3, VMSUtil.tinhGiamtruMLL(thoigianmatll, dongia));
+		stmt.setInt(4, 0);
 		stmt.execute();
 		stmt.close();
 		connection.close();
@@ -286,5 +283,23 @@ public class SuCoDAO {
 		stmt.execute();
 		stmt.close();
 		connection.close();
+	}
+	
+	private static final String SQL_FIND_SUCOBYPHULUC2 = "{ ? = call FIND_SUCOBYPHULUC2(?) }";
+	public List<Map<String,Object>> findSuCoByPhuLuc2(String phulucId) throws SQLException {
+		Connection connection = jdbcDatasource.getConnection();
+		CallableStatement stmt = connection.prepareCall(SQL_FIND_SUCOBYPHULUC2);
+		stmt.registerOutParameter(1, OracleTypes.CURSOR);
+		stmt.setString(2, phulucId);
+		stmt.execute();
+		ResultSet rs = (ResultSet) stmt.getObject(1);
+		List<Map<String,Object>> result = new ArrayList<Map<String,Object>>();
+		while(rs.next()) {
+			Map<String,Object> map = VMSUtil.resultSetToMap(rs);
+			result.add(map);
+		}
+		stmt.close();
+		connection.close();
+		return result;
 	}
 }
