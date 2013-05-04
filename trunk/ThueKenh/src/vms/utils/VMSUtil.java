@@ -240,4 +240,11 @@ public class VMSUtil {
 		}
 		System.out.println(message);
 	}
+    public static double tinhGiamtruMLL(float thoigianmatll,long dongia) {
+    	double giamtrumll = 0;
+		if(thoigianmatll > 30) {
+			giamtrumll=(thoigianmatll*dongia)/(30*24*60);
+		}
+		return Math.floor(giamtrumll);
+    }
 }

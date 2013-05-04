@@ -177,27 +177,30 @@ public class PhuLucAction implements Preparable {
 			phuLucDTO.setNgayhieuluc(DateUtils.parseStringDateSQL(phuLucDTO.getNgayhieuluc(), "dd/MM/yyyy"));
 			id = phuLucDAO.save(phuLucDTO);
 			if(id == null) throw new Exception(Constances.MSG_ERROR);
-			SuCoDAO suCoDAO = new SuCoDAO(daoFactory);
-			if(phuLucDTO.getId().isEmpty() == false) { //update phu luc
-				suCoDAO.resetSuco(id);
-			}
-			List<Map<String,Object>> listSuco = suCoDAO.findSuCoByPhuLuc(id);
-			if(listSuco.isEmpty()==false) {
-				log("listSuco.size()="+listSuco.size());
-				for(int i=0; i < listSuco.size(); i++) {
-					Map<String,Object> map = listSuco.get(i);
-					if(map.get("suco_phuluc").toString().isEmpty()) { //su co chua co phu luc
-						suCoDAO.updatePhuLuc(map, id, 0);
-					} else {
-						suCoDAO.updatePhuLuc(map, id, 1);
-					}
-				}
-			}
 			phuLucDTO.setId(id);
 			if(phuLucDTO.getLoaiphuluc() == Constances.PHU_LUC_THAY_THE) {
 				if(arrPhuLucThayThe!= null && arrPhuLucThayThe.length>0) {
 					date = DateUtils.add(date, Calendar.DATE, -1);
 					phuLucDAO.updatePhuLucThayThe(phuLucDTO, arrPhuLucThayThe,date,account.get("username").toString());
+				}
+			}
+			//cap nhat lai su co
+			SuCoDAO suCoDAO = new SuCoDAO(daoFactory);
+			List<Map<String,Object>> listSuco = suCoDAO.findSuCoByPhuLuc(id);
+			if(listSuco.isEmpty()==false) {
+				//log("listSuco.size()="+listSuco.size());
+				for(int i=0; i < listSuco.size(); i++) {
+					Map<String,Object> map = listSuco.get(i);
+					suCoDAO.updatePhuLuc(map.get("id").toString(),id, map.get("thoigianmll").toString(),map.get("dongia").toString());
+				}
+			}
+			if(phuLucDTO.getId().isEmpty() == false) { //update phu luc
+				listSuco = suCoDAO.findSuCoByPhuLuc2(id);
+				if(listSuco.isEmpty()==false) {
+					for(int i=0; i < listSuco.size(); i++) {
+						Map<String,Object> map = listSuco.get(i);
+						suCoDAO.updatePhuLuc(map.get("id").toString(),map.get("phuluc_id").toString(), map.get("thoigianmll").toString(),map.get("dongia").toString());
+					}
 				}
 			}
 			jsonData.put("status", "OK");
