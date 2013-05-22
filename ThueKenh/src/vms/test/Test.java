@@ -31,6 +31,9 @@ import vms.utils.VMSUtil;
 public class Test {
 	public static void main(String arg[]) {
 		System.out.println("Begin");
+		long l1 = 453640675;
+		long l = (long) Math.floor( l1* 0.1);
+		System.out.println(l);
 		/*Workbook workBook = null;
 		try {
 			System.out.println("Begin upload");
@@ -64,8 +67,8 @@ public class Test {
 		} finally {
 			workBook.close();
 		}*/
-		Date date = DateUtils.parseDate("1/3/2013", "dd/MM/yyyy");
-		System.out.println(date.getTime());
+		//Date date = DateUtils.parseDate("1/3/2013", "dd/MM/yyyy");
+		//System.out.println(date.getTime());
 		System.out.println("Done!");
     }
 }

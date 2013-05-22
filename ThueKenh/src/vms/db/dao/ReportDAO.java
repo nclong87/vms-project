@@ -262,7 +262,7 @@ public class ReportDAO {
 		System.out.println("map.size()="+map.size());
 		stringBuffer.append("</data>");
 		stringBuffer.append("<summary>");
-		long tongvat = (int) Math.floor(tongconthanhtoan * 10 / 100);
+		long tongvat = (int) Math.ceil(tongconthanhtoan * 0.1);
 		long tongcong = tongconthanhtoan + tongvat;
 		String sTongsokenh = "";
 		for (Entry<String, Integer> entry : tongsokenh.entrySet()) {
