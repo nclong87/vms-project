@@ -100,7 +100,9 @@ public class PhuLucDAO {
 		stmt.setString(11, dto.getFilename());
 		stmt.setString(12, dto.getFilepath());
 		stmt.setString(13, dto.getFilesize());
-		stmt.setString(14, String.valueOf(dto.getCuocdaunoi()));
+		//System.out.println("dto.getCuocdaunoi() = "+dto.getCuocdaunoi());
+		if(dto.getCuocdaunoi() == null) dto.setCuocdaunoi(Long.valueOf(0));
+		stmt.setLong(14, dto.getCuocdaunoi());
 		stmt.setString(15, String.valueOf(dto.getGiatritruocthue()));
 		stmt.setString(16, String.valueOf(dto.getGiatrisauthue()));
 		stmt.setString(17, dto.getSoluongkenh());
