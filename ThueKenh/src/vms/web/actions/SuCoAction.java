@@ -228,7 +228,8 @@ public class SuCoAction implements Preparable {
 			}    
 			SuCoDAO sucoDao=new SuCoDAO(daoFactory);
 			LoaiGiaoTiepDao giaotiepDao=new LoaiGiaoTiepDao(daoFactory);
-			LoaiGiaoTiepDTO giaotiepDto=giaotiepDao.get(tuyenkenhDto.getId());
+			System.out.println("loai giao tiep:"+tuyenkenhDto.getGiaotiep_id());
+			LoaiGiaoTiepDTO giaotiepDto=giaotiepDao.get(tuyenkenhDto.getGiaotiep_id());
 			float thoigianmatll= (float)Math.round(((float)(thoidiemketthuc-thoidiembatdau)/(60000))*100)/100;
 			if(giaotiepDto.getMa().equals("GE")==true || giaotiepDto.getMa().equals("FE")==true)
 			{
@@ -280,7 +281,7 @@ public class SuCoAction implements Preparable {
 				log("setPhuluc_id:"+mapPhuluc.get("id").toString());
 				sucoDTO.setPhuluc_id(mapPhuluc.get("id").toString());
 				// tinh giam tru mat lien lac
-	
+				System.out.println("cuocthang:"+mapPhuluc.get("dongia").toString());
 				giamtrumatll=(thoigianmatll*NumberUtil.parseLong(mapPhuluc.get("dongia").toString()))/(30*24*60);
 				sucoDTO.setGiamtrumll(Math.floor(giamtrumatll));
 				sucoDTO.setCuocthang(NumberUtil.parseLong(mapPhuluc.get("dongia").toString()));
@@ -288,7 +289,10 @@ public class SuCoAction implements Preparable {
 			Map<String, Object> map = new LinkedHashMap<String, Object>();
 			map.put("thoigianmll",thoigianmatll);
 			map.put("giamtrumll", giamtrumatll);
-			map.put("cuocthang",NumberUtil.parseLong(mapPhuluc.get("dongia").toString()) );
+			if(mapPhuluc!=null)
+				map.put("cuocthang",NumberUtil.parseLong(mapPhuluc.get("dongia").toString()));
+			else
+				map.put("cuocthang", 0);
  			String id=sucoDao.save(sucoDTO);
 			if(id==null) throw new Exception(Constances.MSG_ERROR);
 			setInputStream("OK");
