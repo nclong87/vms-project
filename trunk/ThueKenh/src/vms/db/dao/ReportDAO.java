@@ -294,6 +294,7 @@ public class ReportDAO {
 		if(connection == null)
 			connection = this.jdbcDatasource.getConnection();
 		System.out.println("***BEGIN reportGiamTruMatLienLac***");
+		System.out.println("from:"+from+",to:"+end);
 		String tendoitac = "";
 		if(doitac_id.isEmpty() == false) {
 			DoiTacDAO doiTacDAO = new DoiTacDAO(daoFactory);
