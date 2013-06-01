@@ -256,7 +256,7 @@ public class VMSUtil {
 		return Math.floor(giamtrumll);
     }
 
-    public Map<String, Object> getSuCoData(SuCoDTO sucoDTO) throws Exception
+    public static Map<String, Object> getSuCoData(SuCoDTO sucoDTO,DaoFactory daoFactory) throws Exception
 	{
 		// validation
 		Date dateThoiDiemBatDau = DateUtils.parseDate(sucoDTO.getThoidiembatdau(), "dd/MM/yyyy HH:mm:ss");
@@ -280,7 +280,6 @@ public class VMSUtil {
 		{
 			return null;
 		}
-		DaoFactory daoFactory=new DaoFactory();
 		TuyenkenhDao tuyenkenhDao=new TuyenkenhDao(daoFactory);
 		TuyenKenh tuyenkenhDto=tuyenkenhDao.findById(sucoDTO.getTuyenkenh_id());
 		if(tuyenkenhDto==null)

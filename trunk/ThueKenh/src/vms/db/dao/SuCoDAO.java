@@ -303,4 +303,14 @@ public class SuCoDAO {
 		connection.close();
 		return result;
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Map<String,Object>> findAll() {
+		return this.jdbcTemplate.query("SELECT * FROM SUCOKENH WHERE ID=421 AND DELETED = 0", new Object[] {}, new RowMapper() {
+			@Override
+			public Object mapRow(ResultSet rs, int arg1) throws SQLException {
+				return VMSUtil.resultSetToMap(rs);
+			}
+		});
+	}
 }

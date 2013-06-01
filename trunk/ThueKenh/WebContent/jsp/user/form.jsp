@@ -201,7 +201,7 @@ $(document).ready(function() {
 		for (key in form_data) {
 			$("#form #" + key).val(form_data[key]);
 		}
-		$('#username').attr("readonly", "true");
+		//$('#username').attr("readonly", "true");
 		$("#username").rules("remove");
 	} else {
 		$("legend#title").text("Thêm mới tài khoản");
@@ -223,6 +223,10 @@ $(document).ready(function() {
 					if(response.result == "ERROR") {
 						if(response.data == "ERROR") {
 							message(ERROR_MESSAGE,0);
+							return;
+						}
+						if(response.data == "EXIST") {
+							message("Username "+$("#username").val()+" đã tồn tại, vui lòng nhập username khác!",0);
 							return;
 						}
 						message(response.data,0);
