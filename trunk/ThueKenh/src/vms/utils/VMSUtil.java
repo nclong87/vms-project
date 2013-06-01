@@ -324,7 +324,7 @@ public class VMSUtil {
 		Map<String, Object> mapPhuluc = phuLucDAO.findPhuLucCoHieuLuc(sucoDTO.getTuyenkenh_id(), sqlDateThoiDiemBatDau);
 		if(mapPhuluc != null) {
 			// tinh giam tru mat lien lac
-			giamtrumatll=(thoigianmatll*NumberUtil.parseLong(mapPhuluc.get("dongia").toString()))/(30*24*60);
+			giamtrumatll=Math.floor((thoigianmatll*NumberUtil.parseLong(mapPhuluc.get("dongia").toString()))/(30*24*60));
 		}
 		Map<String, Object> map = new LinkedHashMap<String, Object>();
 		map.put("thoigianmll",thoigianmatll);
