@@ -169,7 +169,16 @@ public class UserAction implements Preparable {
 				session.setAttribute("URL", VMSUtil.getFullURL(request));
 				return "login_page";
 			}
+			user.setUsername(user.getUsername().toLowerCase());
 			AccountDao accountDao = new AccountDao(daoFactory);
+			if(user.getId().isEmpty() == false) { //update
+				Map<String, Object> account = accountDao.findByUsername(user.getUsername());
+				if(account != null) {
+					if(account.get("id").toString().equals(user.getId()) == false) { //exist username
+						throw new Exception("EXIST");
+					}
+				}
+			}
 			id = String.valueOf(accountDao.save(user));
 			if(id == null) throw new Exception("ERROR");
 			jsonData.put("result", "OK");

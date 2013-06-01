@@ -3,13 +3,19 @@ package vms.web.actions;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
+import oracle.jdbc.OracleTypes;
 
 import org.apache.struts2.ServletActionContext;
 
@@ -26,12 +32,15 @@ import vms.db.dao.LichSuTuyenKenhDAO;
 import vms.db.dao.LoaiGiaoTiepDao;
 import vms.db.dao.MenuDao;
 import vms.db.dao.PhuLucDAO;
+import vms.db.dao.SuCoDAO;
 import vms.db.dao.ThanhToanDAO;
 import vms.db.dao.TramDAO;
 import vms.db.dao.VmsgroupDao;
 import vms.db.dto.Menu;
 import vms.db.dto.Rootmenu;
+import vms.db.dto.SuCoDTO;
 import vms.utils.Constances;
+import vms.utils.DateUtils;
 import vms.utils.NumberUtil;
 import vms.utils.VMSUtil;
 
@@ -349,6 +358,44 @@ public class AjaxAction implements Preparable {
 			conditions.put("hopdong_id", hopdong_id);
 			List<Map<String, Object>> result = dao.search(0, 1000, conditions);
 			jsonData.put("status", 1);
+			jsonData.put("data", result);
+		} catch (Exception e) {
+			jsonData.put("status", 0);
+			jsonData.put("data", e.getMessage());
+		}
+		return Action.SUCCESS;
+	}
+	
+	public String job() {
+		jsonData =  new LinkedHashMap<String, Object>();
+		String token = request.getParameter("token");
+		try {
+			if(token == null || token.equals("@bc123456") == false) throw new Exception("ERROR_TOKEN");
+			jsonData.put("status", 1);
+			List<String> result = new ArrayList<String>();
+			SuCoDAO dao = new SuCoDAO(daoFactory);
+			List<Map<String, Object>> list = dao.findAll();
+			Connection connection = daoFactory.getDataSource().getConnection();
+			CallableStatement stmt = connection.prepareCall("{ call PROC_JOB_UPDATE(?,?,?,?) }");
+			for(int i=0;i<list.size();i++) {
+				Map<String, Object> map = list.get(i);
+				SuCoDTO sucoDTO = new SuCoDTO();
+				sucoDTO.setId(map.get("id").toString());
+				sucoDTO.setTuyenkenh_id(map.get("tuyenkenh_id").toString());
+				String date = DateUtils.formatDate(new Date(Long.valueOf(map.get("thoidiembatdau").toString())), DateUtils.SDF_DDMMYYYYHHMMSS2);
+				sucoDTO.setThoidiembatdau(date);
+				date = DateUtils.formatDate(new Date(Long.valueOf(map.get("thoidiemketthuc").toString())), DateUtils.SDF_DDMMYYYYHHMMSS2);
+				sucoDTO.setThoidiemketthuc(date);
+				Map<String, Object> data = VMSUtil.getSuCoData(sucoDTO, daoFactory);
+				stmt.setString(1, sucoDTO.getId());
+				stmt.setString(2, data.get("thoigianmll").toString());
+				stmt.setString(3, data.get("giamtrumll").toString());
+				stmt.setString(4, data.get("cuocthang").toString());
+				result.add(sucoDTO.getId());
+				stmt.execute();
+			}
+			stmt.close();
+			connection.close();
 			jsonData.put("data", result);
 		} catch (Exception e) {
 			jsonData.put("status", 0);
