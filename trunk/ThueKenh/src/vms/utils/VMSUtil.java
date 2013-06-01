@@ -8,6 +8,8 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Enumeration;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -20,6 +22,12 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.io.IOUtils;
 
 import vms.db.dao.DaoFactory;
+import vms.db.dao.LoaiGiaoTiepDao;
+import vms.db.dao.PhuLucDAO;
+import vms.db.dao.TuyenkenhDao;
+import vms.db.dto.LoaiGiaoTiepDTO;
+import vms.db.dto.SuCoDTO;
+import vms.db.dto.TuyenKenh;
 
 public class VMSUtil {
     @SuppressWarnings("unchecked")
@@ -247,4 +255,85 @@ public class VMSUtil {
 		}
 		return Math.floor(giamtrumll);
     }
+
+    public Map<String, Object> getSuCoData(SuCoDTO sucoDTO) throws Exception
+	{
+		// validation
+		Date dateThoiDiemBatDau = DateUtils.parseDate(sucoDTO.getThoidiembatdau(), "dd/MM/yyyy HH:mm:ss");
+		if(dateThoiDiemBatDau == null) throw new Exception("ERROR_FORMAT_BEGIN");
+		java.sql.Date sqlDateThoiDiemBatDau= DateUtils.convertToSQLDate(dateThoiDiemBatDau);
+		
+		long thoidiembatdau=dateThoiDiemBatDau.getTime();
+		Date dateThoiDiemKetThuc = DateUtils.parseDate(sucoDTO.getThoidiemketthuc(), "dd/MM/yyyy HH:mm:ss");
+		if(dateThoiDiemKetThuc == null) throw new Exception("ERROR_FORMAT_END");
+		
+		long thoidiemketthuc=dateThoiDiemKetThuc.getTime();
+		if( sucoDTO.getId().isEmpty())
+		{
+			Long ngayhientai=Calendar.getInstance().getTime().getTime();
+			if(thoidiembatdau>ngayhientai || thoidiemketthuc>ngayhientai)
+			{
+				return null;
+			}
+		}
+		if(thoidiembatdau>thoidiemketthuc) // thoi diem bat dau lon hon thoi diem ket thuc
+		{
+			return null;
+		}
+		DaoFactory daoFactory=new DaoFactory();
+		TuyenkenhDao tuyenkenhDao=new TuyenkenhDao(daoFactory);
+		TuyenKenh tuyenkenhDto=tuyenkenhDao.findById(sucoDTO.getTuyenkenh_id());
+		if(tuyenkenhDto==null)
+		{
+			return null;
+		}    
+		LoaiGiaoTiepDao giaotiepDao=new LoaiGiaoTiepDao(daoFactory);
+		LoaiGiaoTiepDTO giaotiepDto=giaotiepDao.get(tuyenkenhDto.getGiaotiep_id());
+		float thoigianmatll= (float)Math.round(((float)(thoidiemketthuc-thoidiembatdau)/(60000))*100)/100;
+
+		if(giaotiepDto.getMa().equals("GE")==true || giaotiepDto.getMa().equals("FE")==true)
+		{
+			int sodu=(int)thoigianmatll%60;
+			if(sodu!=0)
+			{
+				if(sodu<30)
+				{
+					thoigianmatll=60*(int)(thoigianmatll/60);
+				}
+				else
+				{
+					if(thoigianmatll<=60)
+						thoigianmatll=60;
+					else
+						thoigianmatll=60*(int)(thoigianmatll/60)+60;
+				}
+			}
+			else 
+			{
+				thoigianmatll=60*(int)(thoigianmatll/60);
+			}
+		}
+		else
+		{
+			if(thoigianmatll<30)
+				thoigianmatll=0;
+			else if(thoigianmatll>=30 && thoigianmatll<60)
+				thoigianmatll=60;
+		}
+		PhuLucDAO phuLucDAO = new PhuLucDAO(daoFactory);
+		double giamtrumatll=0;
+		Map<String, Object> mapPhuluc = phuLucDAO.findPhuLucCoHieuLuc(sucoDTO.getTuyenkenh_id(), sqlDateThoiDiemBatDau);
+		if(mapPhuluc != null) {
+			// tinh giam tru mat lien lac
+			giamtrumatll=(thoigianmatll*NumberUtil.parseLong(mapPhuluc.get("dongia").toString()))/(30*24*60);
+		}
+		Map<String, Object> map = new LinkedHashMap<String, Object>();
+		map.put("thoigianmll",thoigianmatll);
+		map.put("giamtrumll", giamtrumatll);
+		if(mapPhuluc!=null)
+			map.put("cuocthang",NumberUtil.parseLong(mapPhuluc.get("dongia").toString()));
+		else
+			map.put("cuocthang", 0);
+		return map;
+	}
 }
