@@ -249,6 +249,7 @@ public class ImportAction implements Preparable {
 			TuyenKenh tuyenKenh = null;
 			String thoidiembatdau="";
 			String thoidiemketthuc="";
+			String magiaotiep="";
 			for(int i=1;i<maxrow;i++) {
 				SuCoImportDTO dto = new SuCoImportDTO();
 				dto.setStt(i);
@@ -259,7 +260,11 @@ public class ImportAction implements Preparable {
 				if( (index = map.get("DUNGLUONG")) != null)
 					dto.setDungluong(sheet.getCell(index, i).getContents());
 				if( (index = map.get("MAGIAOTIEP")) != null)
+				{
 					dto.setMagiaotiep(sheet.getCell(index, i).getContents());
+					magiaotiep=sheet.getCell(index, i).getContents();
+					System.out.println("Ma giao tiep luc dau:"+magiaotiep);
+				}
 				if( (index = map.get("THOIDIEMBATDAU")) != null)
 				{
 					thoidiembatdau=sheet.getCell(index, i).getContents();
@@ -311,14 +316,46 @@ public class ImportAction implements Preparable {
 						long batdau=dateThoiDiemBatDau.getTime();
 						long ketthuc=DateUtils.parseDate(thoidiemketthuc, "dd/MM/yyyy HH:mm:ss").getTime();
 						float thoigianmatll= (float)Math.round(((float)(ketthuc-batdau)/(60000))*100)/100;
-						// tinh giam tru mat lien lac
-						if(thoigianmatll<=30)
-							dto.setGiamtrumll("0");
-						else 
+						System.out.println("thoi gian mat lien lac before:"+thoigianmatll);
+						
+						System.out.println("Ma giao tiep:"+dto.getMagiaotiep());
+						if(dto.getMagiaotiep().equals("GE")==true || dto.getMagiaotiep().equals("FE")==true)
 						{
-							double giamtrumatll=(thoigianmatll*NumberUtil.parseLong(mapPhuluc.get("dongia").toString()))/(30*24*60);
-							dto.setGiamtrumll(String.valueOf(Math.floor(giamtrumatll)));
+							System.out.println("Ma giao tiep là GE hoac FE:");
+							int sodu=(int)thoigianmatll%60;
+							if(sodu!=0)
+							{
+								if(sodu<30)
+								{
+									thoigianmatll=60*(int)(thoigianmatll/60);
+								}
+								else
+								{
+									if(thoigianmatll<=60)
+										thoigianmatll=60;
+									else
+										thoigianmatll=60*(int)(thoigianmatll/60)+60;
+								}
+							}
+							else 
+							{
+								thoigianmatll=60*(int)(thoigianmatll/60);
+							}
 						}
+						else
+						{
+							if(thoigianmatll<30)
+								thoigianmatll=0;
+							else if(thoigianmatll>=30 && thoigianmatll<60)
+								thoigianmatll=60;
+						}
+						dto.setThoidiembatdau(String.valueOf(batdau));
+						dto.setThoidiemketthuc(String.valueOf(ketthuc));
+						System.out.println("thoi gian mat lien lac:"+thoigianmatll);
+						dto.setThoigianmll(String.valueOf(thoigianmatll));
+						double giamtrumatll=Math.floor((thoigianmatll*NumberUtil.parseLong(mapPhuluc.get("dongia").toString()))/(30*24*60));
+						dto.setGiamtrumll(String.valueOf(giamtrumatll));
+						dto.setCuocthang(mapPhuluc.get("dongia").toString());
 					}
 				}
 			}
