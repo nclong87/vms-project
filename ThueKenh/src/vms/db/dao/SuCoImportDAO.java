@@ -51,6 +51,7 @@ public class SuCoImportDAO {
 		stmt.setString(14,dto.getGiamtrumll());
 		System.out.println("dto.getLoaisuco()"+dto.getLoaisuco());
 		stmt.setString(15,dto.getLoaisuco());
+		System.out.println("dto.getCuocthang():"+dto.getCuocthang());
 		stmt.setString(16,dto.getCuocthang());
 		stmt.execute();
 		stmt.close();
