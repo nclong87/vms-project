@@ -386,6 +386,7 @@ public class AjaxAction implements Preparable {
 				sucoDTO.setThoidiembatdau(date);
 				date = DateUtils.formatDate(new Date(Long.valueOf(map.get("thoidiemketthuc").toString())), DateUtils.SDF_DDMMYYYYHHMMSS2);
 				sucoDTO.setThoidiemketthuc(date);
+				System.out.println("Update suco Id = "+sucoDTO.getId());
 				Map<String, Object> data = VMSUtil.getSuCoData(sucoDTO, daoFactory);
 				stmt.setString(1, sucoDTO.getId());
 				stmt.setString(2, data.get("thoigianmll").toString());

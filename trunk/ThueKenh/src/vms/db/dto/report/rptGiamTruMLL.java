@@ -25,7 +25,7 @@ public class rptGiamTruMLL {
 		buffer.append(VMSUtil.xml("thoigianmll", rs.getString("THOIGIANMLL")));
 		buffer.append(VMSUtil.xml("nguyennhan", rs.getString("NGUYENNHAN")));
 		buffer.append(VMSUtil.xml("hopdong", rs.getString("SOHOPDONG")+" / "+rs.getString("TENPHULUC")));
-		buffer.append(VMSUtil.xml("cuocthang", rs.getString("THANHTIEN")));
+		buffer.append(VMSUtil.xml("cuocthang", rs.getString("CUOCTHANG")));
 		buffer.append(VMSUtil.xml("giamtrumll", rs.getString("GIAMTRUMLL")));
 		return buffer.toString();
 	}
