@@ -63,3 +63,41 @@ END SAVE_SUCOKENH;
 
 /
 
+ALTER TABLE SUCO_IMPORT 
+ADD (CUOCTHANG NUMBER DEFAULT 0 );
+
+--------------------------------------------------------
+--  DDL for Procedure SAVE_SUCO_IMPORT
+--------------------------------------------------------
+set define off;
+
+  CREATE OR REPLACE PROCEDURE "THUEKENH"."SAVE_SUCO_IMPORT" (
+stt_ in NUMBER,
+madiemdau_ in VARCHAR2,
+madiemcuoi_ in VARCHAR2,
+dungluong_ in VARCHAR2,
+magiaotiep_ in VARCHAR2,
+thoidiembatdau_ in NUMBER,
+thoidiemketthuc_ in NUMBER,
+nguyennhan_ in VARCHAR2,
+phuonganxuly_ in VARCHAR2,
+nguoixacnhan_ in VARCHAR2,
+tuyenkenh_id_ in VARCHAR2,
+phuluc_id_ in VARCHAR2,
+thoigianmll_ in VARCHAR2,
+giamtrumll_ in VARCHAR2,
+loaisuco_ in NUMBER,
+cuocthang_ in varchar2
+) AS
+i INTEGER := 0;
+BEGIN
+    i:=SEQ_SUCOIMPORT.nextval;
+    --test(to_char(thoidiembatdau_,'DD-MON-YYYY HH24:MI'));
+    insert into SUCO_IMPORT(STT,MADIEMDAU,MADIEMCUOI,DUNGLUONG,MAGIAOTIEP,THOIDIEMBATDAU,THOIDIEMKETTHUC,NGUYENNHAN,PHUONGANXULY,NGUOIXACNHAN,ID,TUYENKENH_ID,PHULUC_ID,THOIGIANMLL,GIAMTRUMLL,LOAISUCO,CUOCTHANG) 
+    values (stt_,madiemdau_,madiemcuoi_,dungluong_,magiaotiep_,thoidiembatdau_,thoidiemketthuc_,nguyennhan_,phuonganxuly_,nguoixacnhan_,i,tuyenkenh_id_,phuluc_id_,thoigianmll_,giamtrumll_,loaisuco_,cuocthang_);
+END SAVE_SUCO_IMPORT;
+
+/
+
+
+
