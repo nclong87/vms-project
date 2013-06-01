@@ -228,37 +228,44 @@ public class SuCoAction implements Preparable {
 			}    
 			SuCoDAO sucoDao=new SuCoDAO(daoFactory);
 			LoaiGiaoTiepDao giaotiepDao=new LoaiGiaoTiepDao(daoFactory);
-			System.out.println("loai giao tiep:"+tuyenkenhDto.getGiaotiep_id());
 			LoaiGiaoTiepDTO giaotiepDto=giaotiepDao.get(tuyenkenhDto.getGiaotiep_id());
+			log("loai giao tiep:"+giaotiepDto.getMa());
 			float thoigianmatll= (float)Math.round(((float)(thoidiemketthuc-thoidiembatdau)/(60000))*100)/100;
+			log("thoi gian mat lien lac before:"+thoigianmatll);
 			if(giaotiepDto.getMa().equals("GE")==true || giaotiepDto.getMa().equals("FE")==true)
 			{
+				log("loai giao tiep la GE");
 				int sodu=(int)thoigianmatll%60;
+				log("so du ="+sodu);
+				log("ket qua so chia:"+(int)thoigianmatll/60);
 				if(sodu!=0)
 				{
 					if(sodu<30)
-						thoigianmatll=60*(thoigianmatll/60);
+					{
+						thoigianmatll=60*(int)(thoigianmatll/60);
+					}
 					else
 					{
 						if(thoigianmatll<=60)
 							thoigianmatll=60;
 						else
-							thoigianmatll=60*(thoigianmatll/60)+30;	
+							thoigianmatll=60*(int)(thoigianmatll/60)+60;
 					}
 				}
 				else 
 				{
-					thoigianmatll=60*(thoigianmatll/60);
+					thoigianmatll=60*(int)(thoigianmatll/60);
 				}
 			}
 			else
 			{
+				log("loai giao tiep khong la GE hoac FE");
 				if(thoigianmatll<30)
 					thoigianmatll=0;
 				else if(thoigianmatll>=30 && thoigianmatll<60)
 					thoigianmatll=60;
 			}
-			log("thoigianmatlienlac:"+thoigianmatll);
+			log("thoi gian mat lien lac after:"+thoigianmatll);
 			sucoDTO.setThoidiembatdau(String.valueOf(thoidiembatdau));
 			sucoDTO.setThoidiemketthuc(String.valueOf(thoidiemketthuc));
 			sucoDTO.setThoigianmll(thoigianmatll);
@@ -305,90 +312,6 @@ public class SuCoAction implements Preparable {
 		return Action.SUCCESS;
 	}
 	
-	public Map<String,Object> getSuCoData(SuCoDTO sucoDTO) throws Exception
-	{
-		// validation
-		Date dateThoiDiemBatDau = DateUtils.parseDate(sucoDTO.getThoidiembatdau(), "dd/MM/yyyy HH:mm:ss");
-		if(dateThoiDiemBatDau == null) 
-			return null;
-		java.sql.Date sqlDateThoiDiemBatDau= DateUtils.convertToSQLDate(dateThoiDiemBatDau);
-		
-		long thoidiembatdau=dateThoiDiemBatDau.getTime();
-		Date dateThoiDiemKetThuc = DateUtils.parseDate(sucoDTO.getThoidiemketthuc(), "dd/MM/yyyy HH:mm:ss");
-		if(dateThoiDiemKetThuc == null) 
-			return null;
-		
-		long thoidiemketthuc=dateThoiDiemKetThuc.getTime();
-		if( sucoDTO.getId().isEmpty())
-		{
-			Long ngayhientai=Calendar.getInstance().getTime().getTime();
-			if(thoidiembatdau>ngayhientai || thoidiemketthuc>ngayhientai)
-			{
-				return null;
-			}
-		}
-		if(thoidiembatdau>thoidiemketthuc) // thoi diem bat dau lon hon thoi diem ket thuc
-		{
-			return null;
-		}
-		TuyenkenhDao tuyenkenhDao=new TuyenkenhDao(daoFactory);
-		TuyenKenh tuyenkenhDto=tuyenkenhDao.findById(sucoDTO.getTuyenkenh_id());
-		if(tuyenkenhDto==null)
-		{
-			setInputStream("TuyenKenhNotExist");
-		}    
-		LoaiGiaoTiepDao giaotiepDao=new LoaiGiaoTiepDao(daoFactory);
-		LoaiGiaoTiepDTO giaotiepDto=giaotiepDao.get(tuyenkenhDto.getId());
-		float thoigianmatll= (float)Math.round(((float)(thoidiemketthuc-thoidiembatdau)/(60000))*100)/100;
-		if(giaotiepDto.getMa().equals("GE")==true || giaotiepDto.getMa().equals("FE")==true)
-		{
-			int sodu=(int)thoigianmatll%60;
-			if(sodu!=0)
-			{
-				if(sodu<30)
-					thoigianmatll=60*(thoigianmatll/60);
-				else
-				{
-					if(thoigianmatll<=60)
-						thoigianmatll=60;
-					else
-						thoigianmatll=60*(thoigianmatll/60)+30;	
-				}
-			}
-			else 
-			{
-				thoigianmatll=60*(thoigianmatll/60);
-			}
-		}
-		else
-		{
-			if(thoigianmatll<30)
-				thoigianmatll=0;
-			else if(thoigianmatll>=30 && thoigianmatll<60)
-				thoigianmatll=60;
-		}
-		PhuLucDAO phuLucDAO = new PhuLucDAO(daoFactory);
-		log("sqlDateThoiDiemBatDau:"+sqlDateThoiDiemBatDau);
-		log("sucoDTO.getTuyenkenh_id():"+sucoDTO.getTuyenkenh_id());
-		double giamtrumatll=0;
-		Map<String, Object> mapPhuluc = phuLucDAO.findPhuLucCoHieuLuc(sucoDTO.getTuyenkenh_id(), sqlDateThoiDiemBatDau);
-		if(mapPhuluc == null) {
-			sucoDTO.setGiamtrumll(0);
-		} else {
-			log("setPhuluc_id:"+mapPhuluc.get("id").toString());
-			sucoDTO.setPhuluc_id(mapPhuluc.get("id").toString());
-			// tinh giam tru mat lien lac
-
-			giamtrumatll=(thoigianmatll*NumberUtil.parseLong(mapPhuluc.get("dongia").toString()))/(30*24*60);
-			sucoDTO.setGiamtrumll(Math.floor(giamtrumatll));
-			sucoDTO.setCuocthang(NumberUtil.parseLong(mapPhuluc.get("dongia").toString()));
-		}
-		Map<String, Object> map = new LinkedHashMap<String, Object>();
-		map.put("thoigianmll",thoigianmatll);
-		map.put("giamtrumll", giamtrumatll);
-		map.put("cuocthang",NumberUtil.parseLong(mapPhuluc.get("dongia").toString()) );
-		return map;
-	}
 	// load su co
 	public String ajLoadSuCo() {
 		//log("SuCoAction.ajLoadSuCo");
