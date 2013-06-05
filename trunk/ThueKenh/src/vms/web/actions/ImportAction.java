@@ -353,10 +353,10 @@ public class ImportAction implements Preparable {
 						dto.setThoidiemketthuc(String.valueOf(ketthuc));
 						System.out.println("thoi gian mat lien lac:"+thoigianmatll);
 						dto.setThoigianmll(String.valueOf(thoigianmatll));
-						double giamtrumatll=Math.floor((thoigianmatll*NumberUtil.parseLong(mapPhuluc.get("dongia").toString()))/(30*24*60));
+						double giamtrumatll=Math.floor((thoigianmatll*NumberUtil.parseLong(mapPhuluc.get("thanhtien").toString()))/(30*24*60));
 						dto.setGiamtrumll(String.valueOf(giamtrumatll));
-						System.out.println("cuoc thang:"+mapPhuluc.get("dongia").toString());
-						dto.setCuocthang(mapPhuluc.get("dongia").toString());
+						System.out.println("cuoc thang:"+mapPhuluc.get("thanhtien").toString());
+						dto.setCuocthang(mapPhuluc.get("thanhtien").toString());
 					}
 				}
 			}
