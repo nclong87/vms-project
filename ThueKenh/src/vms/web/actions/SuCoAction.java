@@ -288,16 +288,16 @@ public class SuCoAction implements Preparable {
 				log("setPhuluc_id:"+mapPhuluc.get("id").toString());
 				sucoDTO.setPhuluc_id(mapPhuluc.get("id").toString());
 				// tinh giam tru mat lien lac
-				System.out.println("cuocthang:"+mapPhuluc.get("dongia").toString());
-				giamtrumatll=Math.floor((thoigianmatll*NumberUtil.parseLong(mapPhuluc.get("dongia").toString()))/(30*24*60));
+				System.out.println("cuocthang:"+mapPhuluc.get("thanhtien").toString());
+				giamtrumatll=Math.floor((thoigianmatll*NumberUtil.parseLong(mapPhuluc.get("thanhtien").toString()))/(30*24*60));
 				sucoDTO.setGiamtrumll(giamtrumatll);
-				sucoDTO.setCuocthang(NumberUtil.parseLong(mapPhuluc.get("dongia").toString()));
+				sucoDTO.setCuocthang(NumberUtil.parseLong(mapPhuluc.get("thanhtien").toString()));
 			}
 			Map<String, Object> map = new LinkedHashMap<String, Object>();
 			map.put("thoigianmll",thoigianmatll);
 			map.put("giamtrumll", giamtrumatll);
 			if(mapPhuluc!=null)
-				map.put("cuocthang",NumberUtil.parseLong(mapPhuluc.get("dongia").toString()));
+				map.put("cuocthang",NumberUtil.parseLong(mapPhuluc.get("thanhtien").toString()));
 			else
 				map.put("cuocthang", 0);
  			String id=sucoDao.save(sucoDTO);
