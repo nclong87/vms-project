@@ -426,34 +426,35 @@ xmlns:html="http://www.w3.org/TR/REC-html40"
     <Cell ss:Index="9" ss:MergeAcross="6" ss:StyleID="s105"><Data ss:Type="String">Độc Lập – Tự Do – Hạnh Phúc</Data></Cell>
    </Row>
    <Row>
-    <Cell ss:MergeAcross="4" ss:StyleID="s49"><Data ss:Type="String">VNPT <xsl:value-of select="/root/header/tendoitac"/></Data></Cell>
-    <Cell ss:Index="9" ss:MergeAcross="6"><Data ss:Type="String" x:Ticked="1">&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;-</Data></Cell>
+    <Cell ss:MergeAcross="4" ss:StyleID="s106"><Data ss:Type="String">VNPT <xsl:value-of select="/root/header/tendoitac"/></Data></Cell>
+    <Cell ss:Index="9" ss:MergeAcross="6" ss:StyleID="s107"><Data ss:Type="String"
+      x:Ticked="1">&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;-</Data></Cell>
    </Row>
    <Row>
-    <Cell ss:Index="9" ss:MergeAcross="6"><Data ss:Type="String">……………………..., ngày……..tháng….....năm……...</Data></Cell>
+    <Cell ss:Index="9" ss:MergeAcross="6" ss:StyleID="s104"><Data ss:Type="String">……………………..., ngày……..tháng….....năm……...</Data></Cell>
    </Row>
    <Row ss:Index="6" ss:AutoFitHeight="0" ss:Height="50.25">
-    <Cell ss:MergeAcross="14" ss:StyleID="s56"><Data ss:Type="String">BẢNG ĐỐI SOÁT GIẢM TRỪ MẤT LIÊN LẠC KÊNH THUÊ THÁNG <xsl:value-of select="/root/header/thang"/> GIỮA VNPT <xsl:value-of select="/root/header/tendoitac"/> VÀ TRUNG TÂM THÔNG TIN DI ĐỘNG KHU VỰC VI</Data></Cell>
+    <Cell ss:MergeAcross="14" ss:StyleID="s112"><Data ss:Type="String">BẢNG ĐỐI SOÁT GIẢM TRỪ MẤT LIÊN LẠC KÊNH THUÊ THÁNG 04/2013 GIỮA VNPT VTBRVT VÀ TRUNG TÂM THÔNG TIN DI ĐỘNG KHU VỰC VI</Data></Cell>
    </Row>
    <Row ss:Index="8" ss:AutoFitHeight="0" ss:Height="20.25">
-    <Cell ss:MergeDown="1" ss:StyleID="m60555904"><Data ss:Type="String">STT</Data></Cell>
-    <Cell ss:MergeAcross="1" ss:StyleID="s21"><Data ss:Type="String">Tuyến kênh</Data></Cell>
-    <Cell ss:MergeDown="1" ss:StyleID="s21"><Data ss:Type="String">Giao tiếp</Data></Cell>
-    <Cell ss:MergeDown="1" ss:StyleID="s21"><Data ss:Type="String">Số lượng</Data></Cell>
-    <Cell ss:MergeDown="1" ss:StyleID="s58"><Data ss:Type="String">Ngày xảy ra sự cố</Data></Cell>
-    <Cell ss:MergeDown="1" ss:StyleID="s58"><Data ss:Type="String">Ngày kết thúc sự cố</Data></Cell>
-    <Cell ss:MergeDown="1" ss:StyleID="m60555924"><Data ss:Type="String">Thời gian bắt đầu</Data></Cell>
-    <Cell ss:MergeDown="1" ss:StyleID="m60555944"><Data ss:Type="String">Thời gian  kết thúc</Data></Cell>
-    <Cell ss:MergeDown="1" ss:StyleID="m60555964"><Data ss:Type="String">Thời gian MLL (phút)</Data></Cell>
-    <Cell ss:MergeDown="1" ss:StyleID="m60556004"><Data ss:Type="String"> Thời gian MLL thực tế giảm trừ (phút)</Data></Cell>
-    <Cell ss:MergeDown="1" ss:StyleID="m60555984"><Data ss:Type="String">Nguyên nhân</Data></Cell>
-    <Cell ss:MergeDown="1" ss:StyleID="m60555524"><Data ss:Type="String">Hợp đồng/PLHĐ</Data></Cell>
-    <Cell ss:MergeDown="1" ss:StyleID="m60555544"><Data ss:Type="String">Cước tháng</Data></Cell>
-    <Cell ss:MergeDown="1" ss:StyleID="m60555264"><Data ss:Type="String">Số tiền giảm trừ (VNĐ)</Data></Cell>
+    <Cell ss:MergeDown="1" ss:StyleID="m45896412"><Data ss:Type="String">STT</Data></Cell>
+    <Cell ss:MergeAcross="1" ss:StyleID="m45896422"><Data ss:Type="String">Tuyến kênh</Data></Cell>
+    <Cell ss:MergeDown="1" ss:StyleID="m45896432"><Data ss:Type="String">Giao tiếp</Data></Cell>
+    <Cell ss:MergeDown="1" ss:StyleID="m45896442"><Data ss:Type="String">Số lượng</Data></Cell>
+    <Cell ss:MergeDown="1" ss:StyleID="m45896504"><Data ss:Type="String">Ngày xảy ra sự cố</Data></Cell>
+    <Cell ss:MergeDown="1" ss:StyleID="m45896514"><Data ss:Type="String">Ngày kết thúc sự cố</Data></Cell>
+    <Cell ss:MergeDown="1" ss:StyleID="m45896524"><Data ss:Type="String">Thời gian bắt đầu</Data></Cell>
+    <Cell ss:MergeDown="1" ss:StyleID="m45896534"><Data ss:Type="String">Thời gian  kết thúc</Data></Cell>
+    <Cell ss:MergeDown="1" ss:StyleID="m45896666"><Data ss:Type="String">Thời gian MLL (phút)</Data></Cell>
+    <Cell ss:MergeDown="1" ss:StyleID="m45896656"><Data ss:Type="String">Thời gian MLL thực tế giảm trừ(phút)</Data></Cell>
+    <Cell ss:MergeDown="1" ss:StyleID="m45896676"><Data ss:Type="String">Nguyên nhân</Data></Cell>
+    <Cell ss:MergeDown="1" ss:StyleID="m45896686"><Data ss:Type="String">Hợp đồng/PLHĐ</Data></Cell>
+    <Cell ss:MergeDown="1" ss:StyleID="m45896808"><Data ss:Type="String">Cước tháng</Data></Cell>
+    <Cell ss:MergeDown="1" ss:StyleID="m45896372"><Data ss:Type="String">Số tiền giảm trừ (VNĐ)</Data></Cell>
    </Row>
-   <Row ss:AutoFitHeight="0" ss:Height="41.25">
-    <Cell ss:Index="2" ss:StyleID="s21"><Data ss:Type="String">Điểm đầu</Data></Cell>
-    <Cell ss:StyleID="s21"><Data ss:Type="String">Điểm cuối</Data></Cell>
+   <Row ss:AutoFitHeight="0" ss:Height="40.5">
+    <Cell ss:Index="2" ss:StyleID="s67"><Data ss:Type="String">Điểm đầu</Data></Cell>
+    <Cell ss:StyleID="s67"><Data ss:Type="String">Điểm cuối</Data></Cell>
    </Row>
 	<xsl:apply-templates select="/root/data/row"/>
    <Row ss:Height="15">
@@ -477,7 +478,7 @@ xmlns:html="http://www.w3.org/TR/REC-html40"
     <Cell ss:StyleID="s76"/>
    </Row>
    <Row ss:Height="15">
-    <Cell ss:MergeAcross="7" ss:StyleID="s110"><Data ss:Type="String">Tổng cước giảm trừ: <xsl:value-of select="/root/summary/sotienbangchu"/></Data></Cell>
+    <Cell ss:MergeAcross="7" ss:StyleID="s110"><Data ss:Type="String">Tổng cước giảm trừ: </Data></Cell>
     <Cell ss:StyleID="s73"><Data ss:Type="Number"><xsl:value-of select="/root/summary/tongcuocgiamtru"/></Data></Cell>
     <Cell ss:StyleID="s73"/>
     <Cell ss:StyleID="s73"/>
@@ -487,7 +488,7 @@ xmlns:html="http://www.w3.org/TR/REC-html40"
     <Cell ss:StyleID="s76"/>
    </Row>
    <Row ss:Height="15">
-    <Cell ss:MergeAcross="14" ss:StyleID="m45896838"><Data ss:Type="String">Bằng chữ: </Data></Cell>
+    <Cell ss:MergeAcross="14" ss:StyleID="m45896838"><Data ss:Type="String">Bằng chữ: <xsl:value-of select="/root/summary/sotienbangchu"/></Data></Cell>
    </Row>
    <Row>
     <Cell ss:MergeAcross="5" ss:StyleID="s126"><Data ss:Type="String">ĐẠI DIỆN VNPT</Data></Cell>
