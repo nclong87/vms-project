@@ -316,6 +316,7 @@ public class ImportAction implements Preparable {
 						long batdau=dateThoiDiemBatDau.getTime();
 						long ketthuc=DateUtils.parseDate(thoidiemketthuc, "dd/MM/yyyy HH:mm:ss").getTime();
 						float thoigianmatll= (float)Math.round(((float)(ketthuc-batdau)/(60000))*100)/100;
+						dto.setThoigianmllchuagiamtru(String.valueOf(thoigianmatll));
 						System.out.println("thoi gian mat lien lac before:"+thoigianmatll);
 						
 						System.out.println("Ma giao tiep:"+dto.getMagiaotiep());

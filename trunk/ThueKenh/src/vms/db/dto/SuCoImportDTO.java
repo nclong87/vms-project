@@ -24,6 +24,7 @@ public class SuCoImportDTO {
 	private String nguoixacnhan = "";
 	private String loaisuco="";
 	private String cuocthang="";
+	private String thoigianmllchuagiamtru="";
 	
     public String getLoaisuco() {
 		return loaisuco;
@@ -163,6 +164,14 @@ public class SuCoImportDTO {
 
 	public void setCuocthang(String cuocthang) {
 		this.cuocthang = cuocthang;
+	}
+
+	public String getThoigianmllchuagiamtru() {
+		return thoigianmllchuagiamtru;
+	}
+
+	public void setThoigianmllchuagiamtru(String thoigianmllchuagiamtru) {
+		this.thoigianmllchuagiamtru = thoigianmllchuagiamtru;
 	}
 	
 }
