@@ -334,6 +334,9 @@ public class ReportDAO {
 		stringBuffer.append(VMSUtil.xml("tong", String.valueOf(tonggiamtru)));
 		stringBuffer.append(VMSUtil.xml("vat", String.valueOf(vat)));
 		stringBuffer.append(VMSUtil.xml("tongcuocgiamtru", String.valueOf(tong)));
+		String bangchu = ReadNumber.read(String.valueOf(tong)) + " đồng";
+		bangchu = Character.toUpperCase(bangchu.charAt(0)) + bangchu.substring(1);
+		stringBuffer.append(VMSUtil.xml("sotienbangchu", bangchu));
 		stringBuffer.append("</summary>");
 		stringBuffer.append("</root>");
 		stmt.close();
