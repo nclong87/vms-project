@@ -31,6 +31,7 @@ public class SuCoDTO {
 	public String filesize="";
 	public String bienbanvanhanh_id="";
 	public double cuocthang=0;
+	public double thoigianmllchuagiamtru=0;
 	
 	public String getFilename() {
 		return filename;
@@ -201,6 +202,15 @@ public class SuCoDTO {
 	public void setCuocthang(double cuocthang) {
 		this.cuocthang = cuocthang;
 	}
+	
+
+	public double getThoigianmllchuagiamtru() {
+		return thoigianmllchuagiamtru;
+	}
+
+	public void setThoigianmllchuagiamtru(double thoigianmllchuagiamtru) {
+		this.thoigianmllchuagiamtru = thoigianmllchuagiamtru;
+	}
 
 	public Map<String,String> getMap() {
 		Map<String, String> map = new LinkedHashMap<String, String>();
@@ -225,6 +235,7 @@ public class SuCoDTO {
 		map.put("filesize",this.filesize);
 		map.put("bienbanvanhanh_id", this.bienbanvanhanh_id);
 		map.put("cuocthang", String.valueOf(this.cuocthang));
+		map.put("thoigianmllchuagiamtru",String.valueOf(this.thoigianmllchuagiamtru));
 		return map;
 	}
 	
@@ -251,6 +262,7 @@ public class SuCoDTO {
 		dto.setBienbanvanhanh_id(rs.getString("BIENBANVANHANH_ID"));
 		dto.setPhuluc_id(rs.getString("PHULUC_ID"));
 		dto.setCuocthang(rs.getLong("CUOCTHANG"));
+		dto.setThoigianmllchuagiamtru(rs.getLong("thoigianmllchuagiamtru"));
         return dto;
 	}
 }
