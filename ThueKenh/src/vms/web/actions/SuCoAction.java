@@ -231,6 +231,7 @@ public class SuCoAction implements Preparable {
 			LoaiGiaoTiepDTO giaotiepDto=giaotiepDao.get(tuyenkenhDto.getGiaotiep_id());
 			log("loai giao tiep:"+giaotiepDto.getMa());
 			float thoigianmatll= (float)Math.round(((float)(thoidiemketthuc-thoidiembatdau)/(60000))*100)/100;
+			sucoDTO.setThoigianmllchuagiamtru(thoigianmatll);
 			log("thoi gian mat lien lac before:"+thoigianmatll);
 			if(giaotiepDto.getMa().equals("GE")==true || giaotiepDto.getMa().equals("FE")==true)
 			{

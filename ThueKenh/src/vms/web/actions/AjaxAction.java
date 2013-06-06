@@ -388,6 +388,9 @@ public class AjaxAction implements Preparable {
 				sucoDTO.setThoidiemketthuc(date);
 				System.out.println("Update suco Id = "+sucoDTO.getId());
 				Map<String, Object> data = VMSUtil.getSuCoData(sucoDTO, daoFactory);
+				System.out.println("1");;
+				System.out.println(data.get("thoigianmll").toString());
+				System.out.println("2");
 				stmt.setString(1, sucoDTO.getId());
 				stmt.setString(2, data.get("thoigianmll").toString());
 				stmt.setString(3, data.get("giamtrumll").toString());
@@ -399,6 +402,7 @@ public class AjaxAction implements Preparable {
 			connection.close();
 			jsonData.put("data", result);
 		} catch (Exception e) {
+			e.printStackTrace();
 			jsonData.put("status", 0);
 			jsonData.put("data", e.getMessage());
 		}

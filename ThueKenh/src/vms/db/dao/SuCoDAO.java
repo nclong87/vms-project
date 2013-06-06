@@ -30,7 +30,7 @@ public class SuCoDAO {
 		this.jdbcDatasource = daoFactory.getJdbcDataSource();
 	}
 	
-	private static final String SQL_SAVE_SUCO = "{ ? = call SAVE_SUCOKENH(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) }";
+	private static final String SQL_SAVE_SUCO = "{ ? = call SAVE_SUCOKENH(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) }";
 	public String save(SuCoDTO dto) throws Exception {
 		System.out.println("begin call SAVE_SUCOKENH");
 		Connection connection = jdbcTemplate.getDataSource().getConnection();
@@ -57,6 +57,7 @@ public class SuCoDAO {
 		stmt.setString(20, dto.getFilesize());
 		stmt.setString(21,dto.getBienbanvanhanh_id());
 		stmt.setString(22,String.valueOf(dto.getCuocthang()));
+		stmt.setString(23, String.valueOf(dto.getThoigianmllchuagiamtru()));
 		stmt.execute();
 		System.out.println("end call SAVE_SUCOKENH");
 		String s = stmt.getString(1);
