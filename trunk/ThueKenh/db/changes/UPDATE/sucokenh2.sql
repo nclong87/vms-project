@@ -1,5 +1,6 @@
 ALTER TABLE SUCOKENH 
-ADD (THOIGIANMLLCHUAGIAMTRU NUMBER );
+ADD (THOIGIANMLLCHUAGIAMTRU NUMBER DEFAULT 0 );
+
 
 --------------------------------------------------------
 --  DDL for Function SAVE_SUCOKENH
