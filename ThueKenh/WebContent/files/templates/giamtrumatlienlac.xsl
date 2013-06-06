@@ -477,7 +477,7 @@ xmlns:html="http://www.w3.org/TR/REC-html40"
     <Cell ss:StyleID="s76"/>
    </Row>
    <Row ss:Height="15">
-    <Cell ss:MergeAcross="7" ss:StyleID="s110"><Data ss:Type="String">Tổng cước giảm trừ: </Data></Cell>
+    <Cell ss:MergeAcross="7" ss:StyleID="s110"><Data ss:Type="String">Tổng cước giảm trừ: <xsl:value-of select="/root/summary/sotienbangchu"/></Data></Cell>
     <Cell ss:StyleID="s73"><Data ss:Type="Number"><xsl:value-of select="/root/summary/tongcuocgiamtru"/></Data></Cell>
     <Cell ss:StyleID="s73"/>
     <Cell ss:StyleID="s73"/>
@@ -523,21 +523,21 @@ xmlns:html="http://www.w3.org/TR/REC-html40"
 </xsl:template>
 <xsl:template match="row">
 	<Row>
-		<Cell ss:StyleID="s22"><Data ss:Type="Number"><xsl:value-of select='./stt'/></Data></Cell>
-		<Cell ss:StyleID="s22"><Data ss:Type="String"><xsl:value-of select='./madiemdau'/></Data></Cell>
-		<Cell ss:StyleID="s22"><Data ss:Type="String"><xsl:value-of select='./madiemcuoi'/></Data></Cell>
-		<Cell ss:StyleID="s22"><Data ss:Type="String"><xsl:value-of select='./loaigiaotiep'/></Data></Cell>
-		<Cell ss:StyleID="s22"><Data ss:Type="Number"><xsl:value-of select='./soluong'/></Data></Cell>
-		<Cell ss:StyleID="s23"><Data ss:Type="String"><xsl:value-of select='./ngaybatdau'/></Data></Cell>
-		<Cell ss:StyleID="s23"><Data ss:Type="String"><xsl:value-of select='./ngayketthuc'/></Data></Cell>
-		<Cell ss:StyleID="s24"><Data ss:Type="String"><xsl:value-of select='./thoigianbatdau'/></Data></Cell>
-		<Cell ss:StyleID="s24"><Data ss:Type="String"><xsl:value-of select='./thoigianketthuc'/></Data></Cell>
-		<Cell ss:StyleID="s25"><Data ss:Type="Number"><xsl:value-of select='./thoigianmll'/></Data></Cell>
-		<Cell ss:StyleID="s25"><Data ss:Type="Number"><xsl:value-of select='./thoigianmllchuagiamtru'/></Data></Cell>
-		<Cell ss:StyleID="s25"><Data ss:Type="String"><xsl:value-of select='./nguyennhan'/></Data></Cell>
-		<Cell ss:StyleID="s22"><Data ss:Type="String"><xsl:value-of select='./hopdong'/></Data></Cell>
-		<Cell ss:StyleID="s22"><Data ss:Type="Number"><xsl:value-of select='./cuocthang'/></Data></Cell>
-		<Cell ss:StyleID="s22"><Data ss:Type="Number"><xsl:value-of select='./giamtrumll'/></Data></Cell>
+		<Cell ss:StyleID="s68"><Data ss:Type="Number"><xsl:value-of select='./stt'/></Data></Cell>
+		<Cell ss:StyleID="s68"><Data ss:Type="String"><xsl:value-of select='./madiemdau'/></Data></Cell>
+		<Cell ss:StyleID="s68"><Data ss:Type="String"><xsl:value-of select='./madiemcuoi'/></Data></Cell>
+		<Cell ss:StyleID="s68"><Data ss:Type="String"><xsl:value-of select='./loaigiaotiep'/></Data></Cell>
+		<Cell ss:StyleID="s68"><Data ss:Type="Number"><xsl:value-of select='./soluong'/></Data></Cell>
+		<Cell ss:StyleID="s69"><Data ss:Type="String"><xsl:value-of select='./ngaybatdau'/></Data></Cell>
+		<Cell ss:StyleID="s69"><Data ss:Type="String"><xsl:value-of select='./ngayketthuc'/></Data></Cell>
+		<Cell ss:StyleID="s70"><Data ss:Type="String"><xsl:value-of select='./thoigianbatdau'/></Data></Cell>
+		<Cell ss:StyleID="s70"><Data ss:Type="String"><xsl:value-of select='./thoigianketthuc'/></Data></Cell>
+		<Cell ss:StyleID="s71"><Data ss:Type="Number"><xsl:value-of select='./thoigianmll'/></Data></Cell>
+		<Cell ss:StyleID="s78"><Data ss:Type="Number"><xsl:value-of select='./thoigianmllchuagiamtru'/></Data></Cell>
+		<Cell ss:StyleID="s71"><Data ss:Type="String"><xsl:value-of select='./nguyennhan'/></Data></Cell>
+		<Cell ss:StyleID="s68"><Data ss:Type="String"><xsl:value-of select='./hopdong'/></Data></Cell>
+		<Cell ss:StyleID="s72"><Data ss:Type="Number"><xsl:value-of select='./cuocthang'/></Data></Cell>
+		<Cell ss:StyleID="s72"><Data ss:Type="Number"><xsl:value-of select='./giamtrumll'/></Data></Cell>
    </Row>
 </xsl:template>
 </xsl:stylesheet>
