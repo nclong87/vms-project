@@ -304,17 +304,19 @@ public class ImportAction implements Preparable {
 				{
 					Date dateThoiDiemBatDau = DateUtils.parseDate(thoidiembatdau, "dd/MM/yyyy HH:mm:ss");
 					java.sql.Date sqlDateThoiDiemBatDau= DateUtils.convertToSQLDate(dateThoiDiemBatDau);
-					System.out.println(thoidiembatdau);
-					System.out.println(dto.getTuyenkenh_id());
+					System.out.println("thoi diem bat dau:"+thoidiembatdau);
+					System.out.println("tuyen kenh ID:"+dto.getTuyenkenh_id());
+					System.out.println(sqlDateThoiDiemBatDau.toString());
+					long batdau=dateThoiDiemBatDau.getTime();
+					long ketthuc=DateUtils.parseDate(thoidiemketthuc, "dd/MM/yyyy HH:mm:ss").getTime();
 					Map<String, Object> mapPhuluc = phuLucDAO.findPhuLucCoHieuLuc(dto.getTuyenkenh_id(), sqlDateThoiDiemBatDau);
 					if(mapPhuluc != null) {
+						System.out.println("mapPhuluc.get(id).toString(): "+mapPhuluc.get("id").toString());
 						dto.setPhuluc_id(mapPhuluc.get("id").toString());
 					
 						//Tim don gia tuyen kenh
 						//ChiTietPhuLucTuyenKenhDAO ptDao=new ChiTietPhuLucTuyenKenhDAO(daoFactory);
 						//ChiTietPhuLucTuyenKenhDTO ptDto=ptDao.findByPhuLuc_TuyenKenh(mapPhuluc.get("id").toString(), dto.getTuyenkenh_id());
-						long batdau=dateThoiDiemBatDau.getTime();
-						long ketthuc=DateUtils.parseDate(thoidiemketthuc, "dd/MM/yyyy HH:mm:ss").getTime();
 						float thoigianmatll= (float)Math.round(((float)(ketthuc-batdau)/(60000))*100)/100;
 						dto.setThoigianmllchuagiamtru(String.valueOf(thoigianmatll));
 						System.out.println("thoi gian mat lien lac before:"+thoigianmatll);
@@ -358,6 +360,13 @@ public class ImportAction implements Preparable {
 						dto.setGiamtrumll(String.valueOf(giamtrumatll));
 						System.out.println("cuoc thang:"+mapPhuluc.get("thanhtien").toString());
 						dto.setCuocthang(mapPhuluc.get("thanhtien").toString());
+					}
+					else
+					{
+						dto.setCuocthang("0");
+						dto.setThoigianmll("0");
+						dto.setThoidiembatdau(String.valueOf(batdau));
+						dto.setThoidiemketthuc(String.valueOf(ketthuc));
 					}
 				}
 			}
