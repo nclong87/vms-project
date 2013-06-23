@@ -238,7 +238,7 @@ public class ReportAction implements Preparable {
 		String pathXslTemplate = ServletActionContext.getServletContext().getRealPath("files/templates/baocaotruyendankenhthue.xsl");
 		String transformedString = XMLUtil.transformStringXML_FileXSL(xmlData, pathXslTemplate);
 		//System.out.println("transformedString = "+transformedString);
-		FileUtils.writeStringToFile(new File("D:\\log.txt"), transformedString,"UTF-8");
+		FileUtils.writeStringToFile(new File("z:\\log.txt"), transformedString,"UTF-8");
 		setExcelStream(transformedString);
 		filename = "BaoCaoTruyenDanKenhThue_"+System.currentTimeMillis()+".xls";
 		return Action.SUCCESS;
