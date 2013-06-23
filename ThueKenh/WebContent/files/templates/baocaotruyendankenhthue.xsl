@@ -83,7 +83,7 @@ xmlns:html="http://www.w3.org/TR/REC-html40"
   </Style>
  </Styles>
  <Worksheet ss:Name="Báo cáo truyền dẫn kênh thuê">
-  <Table ss:ExpandedColumnCount="11" ss:ExpandedRowCount="5" x:FullColumns="1"
+  <Table ss:ExpandedColumnCount="11" x:FullColumns="1"
    x:FullRows="1">
    <Column ss:StyleID="s64" ss:AutoFitWidth="0"/>
    <Column ss:AutoFitWidth="0" ss:Width="287.25"/>
