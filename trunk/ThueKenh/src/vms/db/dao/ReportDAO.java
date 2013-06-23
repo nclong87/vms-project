@@ -423,7 +423,7 @@ public class ReportDAO {
 			if(rs.getString("LOAIKENH") == null) {
 				loaikenh = "";
 			}else if(rs.getString("LOAIKENH").equals("1")) {
-				loaikenh = "Nội hạt";
+				loaikenh = "Nội tỉnh";
 			} else if(rs.getString("LOAIKENH").equals("2")) {
 				loaikenh = "Liên tỉnh";	
 			}
@@ -437,7 +437,7 @@ public class ReportDAO {
 			List<Map<String,String>> list = XMLUtil.parseXMLString(rs.getString("SUCOKENH"));
 			buffer.append(VMSUtil.xml("solanmatlienlac",list.get(0).get("solanmll")));
 			buffer.append(VMSUtil.xml("tongthoigianmatlienlac",list.get(0).get("thoigianmll")));
-			buffer.append(VMSUtil.xml("trungtam", "TT6"));
+			buffer.append(VMSUtil.xml("trungtam", "center6"));
 			buffer.append(VMSUtil.xml("thang", String.valueOf(thang)));
 			buffer.append(VMSUtil.xml("nam", String.valueOf(nam)));
 			stringBuffer.append("<row>");
