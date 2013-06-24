@@ -267,7 +267,7 @@ public class SuCoAction implements Preparable {
 					thoigianmatll=60;
 			}
 			log("thoi gian mat lien lac after:"+thoigianmatll);
-			sucoDTO.setThoidiembatdau(String.valueOf(thoidiembatdau));
+			sucoDTO.setThoidiembatdau(String.valueOf(thoidiembatdau));	
 			sucoDTO.setThoidiemketthuc(String.valueOf(thoidiemketthuc));
 			sucoDTO.setThoigianmll(thoigianmatll);
 			sucoDTO.setUsercreate(account.get("username").toString());
@@ -287,10 +287,14 @@ public class SuCoAction implements Preparable {
 				sucoDTO.setGiamtrumll(0);
 			} else {
 				log("setPhuluc_id:"+mapPhuluc.get("id").toString());
-				sucoDTO.setPhuluc_id(mapPhuluc.get("id").toString());
+				sucoDTO.setPhuluc_id(mapPhuluc.get("id").toString());	
 				// tinh giam tru mat lien lac
 				System.out.println("cuocthang:"+mapPhuluc.get("thanhtien").toString());
-				giamtrumatll=Math.floor((thoigianmatll*NumberUtil.parseLong(mapPhuluc.get("thanhtien").toString()))/(30*24*60));
+				Calendar cal = Calendar.getInstance();
+				cal.setTime(dateThoiDiemBatDau);
+				int dayOfMonth = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
+				System.out.println("day of month:"+dayOfMonth);
+				giamtrumatll=Math.floor((thoigianmatll*NumberUtil.parseLong(mapPhuluc.get("thanhtien").toString()))/(dayOfMonth*24*60));
 				sucoDTO.setGiamtrumll(giamtrumatll);
 				sucoDTO.setCuocthang(NumberUtil.parseLong(mapPhuluc.get("thanhtien").toString()));
 			}

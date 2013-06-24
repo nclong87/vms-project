@@ -325,7 +325,11 @@ public class VMSUtil {
 		if(mapPhuluc != null) {
 			// tinh giam tru mat lien lac
 			System.out.println(mapPhuluc.get("thanhtien").toString());
-			giamtrumatll=Math.floor((thoigianmatll*NumberUtil.parseLong(mapPhuluc.get("thanhtien").toString()))/(30*24*60));
+			Calendar cal = Calendar.getInstance();
+			cal.setTime(dateThoiDiemBatDau);
+			int dayOfMonth = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
+			System.out.println("day of month:"+dayOfMonth);
+			giamtrumatll=Math.floor((thoigianmatll*NumberUtil.parseLong(mapPhuluc.get("thanhtien").toString()))/(dayOfMonth*24*60));
 		}
 		Map<String, Object> map = new LinkedHashMap<String, Object>();
 		map.put("thoigianmll",thoigianmatll);
