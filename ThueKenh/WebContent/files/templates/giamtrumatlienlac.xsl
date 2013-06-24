@@ -434,7 +434,7 @@ xmlns:html="http://www.w3.org/TR/REC-html40"
     <Cell ss:Index="9" ss:MergeAcross="6" ss:StyleID="s104"><Data ss:Type="String">……………………..., ngày……..tháng….....năm……...</Data></Cell>
    </Row>
    <Row ss:Index="6" ss:AutoFitHeight="0" ss:Height="50.25">
-    <Cell ss:MergeAcross="14" ss:StyleID="s112"><Data ss:Type="String">BẢNG ĐỐI SOÁT GIẢM TRỪ MẤT LIÊN LẠC KÊNH THUÊ THÁNG 04/2013 GIỮA VNPT VTBRVT VÀ TRUNG TÂM THÔNG TIN DI ĐỘNG KHU VỰC VI</Data></Cell>
+    <Cell ss:MergeAcross="14" ss:StyleID="s112"><Data ss:Type="String">BẢNG ĐỐI SOÁT GIẢM TRỪ MẤT LIÊN LẠC KÊNH THUÊ THÁNG <xsl:value-of select="/root/header/thang"/> GIỮA VNPT <xsl:value-of select="/root/header/tendoitac"/> VÀ TRUNG TÂM THÔNG TIN DI ĐỘNG KHU VỰC VI</Data></Cell>
    </Row>
    <Row ss:Index="8" ss:AutoFitHeight="0" ss:Height="20.25">
     <Cell ss:MergeDown="1" ss:StyleID="m45896412"><Data ss:Type="String">STT</Data></Cell>
