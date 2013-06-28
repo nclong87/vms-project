@@ -402,7 +402,7 @@ xmlns:html="http://www.w3.org/TR/REC-html40"
   </Style>
  </Styles>
  <Worksheet ss:Name="Doi soat giam tru MLL">
-  <Table ss:ExpandedColumnCount="16" ss:ExpandedRowCount="29" x:FullColumns="1"
+  <Table ss:ExpandedColumnCount="16" x:FullColumns="1"
    x:FullRows="1" ss:DefaultRowHeight="15.75">
    <Column ss:StyleID="s62" ss:Width="27"/>
    <Column ss:StyleID="s62" ss:AutoFitWidth="0" ss:Width="57.75"/>
