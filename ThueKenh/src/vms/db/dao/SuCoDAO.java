@@ -307,7 +307,7 @@ public class SuCoDAO {
 	
 	@SuppressWarnings("unchecked")
 	public List<Map<String,Object>> findAll() {
-		return this.jdbcTemplate.query("SELECT * FROM SUCOKENH WHERE DELETED = 0 AND CUOCTHANG = 0 and rownum < 100", new Object[] {}, new RowMapper() {
+		return this.jdbcTemplate.query("SELECT * FROM SUCOKENH WHERE DELETED = 0 AND CUOCTHANG = 0", new Object[] {}, new RowMapper() {
 			@Override
 			public Object mapRow(ResultSet rs, int arg1) throws SQLException {
 				return VMSUtil.resultSetToMap(rs);

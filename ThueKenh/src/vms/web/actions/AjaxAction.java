@@ -369,38 +369,48 @@ public class AjaxAction implements Preparable {
 	public String job() {
 		jsonData =  new LinkedHashMap<String, Object>();
 		String token = request.getParameter("token");
+		String action = request.getParameter("action");
 		try {
 			if(token == null || token.equals("@bc123456") == false) throw new Exception("ERROR_TOKEN");
 			jsonData.put("status", 1);
-			List<String> result = new ArrayList<String>();
-			SuCoDAO dao = new SuCoDAO(daoFactory);
-			List<Map<String, Object>> list = dao.findAll();
-			Connection connection = daoFactory.getDataSource().getConnection();
-			CallableStatement stmt = connection.prepareCall("{ call PROC_JOB_UPDATE(?,?,?,?) }");
-			for(int i=0;i<list.size();i++) {
-				Map<String, Object> map = list.get(i);
-				SuCoDTO sucoDTO = new SuCoDTO();
-				sucoDTO.setId(map.get("id").toString());
-				sucoDTO.setTuyenkenh_id(map.get("tuyenkenh_id").toString());
-				String date = DateUtils.formatDate(new Date(Long.valueOf(map.get("thoidiembatdau").toString())), DateUtils.SDF_DDMMYYYYHHMMSS2);
-				sucoDTO.setThoidiembatdau(date);
-				date = DateUtils.formatDate(new Date(Long.valueOf(map.get("thoidiemketthuc").toString())), DateUtils.SDF_DDMMYYYYHHMMSS2);
-				sucoDTO.setThoidiemketthuc(date);
-				System.out.println("Update suco Id = "+sucoDTO.getId());
-				Map<String, Object> data = VMSUtil.getSuCoData(sucoDTO, daoFactory);
-				System.out.println("1");;
-				System.out.println(data.get("thoigianmll").toString());
-				System.out.println("2");
-				stmt.setString(1, sucoDTO.getId());
-				stmt.setString(2, data.get("thoigianmll").toString());
-				stmt.setString(3, data.get("giamtrumll").toString());
-				stmt.setString(4, data.get("cuocthang").toString());
-				result.add(sucoDTO.getId());
+			if(action == "1") {
+				List<String> result = new ArrayList<String>();
+				SuCoDAO dao = new SuCoDAO(daoFactory);
+				List<Map<String, Object>> list = dao.findAll();
+				Connection connection = daoFactory.getDataSource().getConnection();
+				CallableStatement stmt = connection.prepareCall("{ call PROC_JOB_UPDATE(?,?,?,?) }");
+				for(int i=0;i<list.size();i++) {
+					Map<String, Object> map = list.get(i);
+					SuCoDTO sucoDTO = new SuCoDTO();
+					sucoDTO.setId(map.get("id").toString());
+					sucoDTO.setTuyenkenh_id(map.get("tuyenkenh_id").toString());
+					String date = DateUtils.formatDate(new Date(Long.valueOf(map.get("thoidiembatdau").toString())), DateUtils.SDF_DDMMYYYYHHMMSS2);
+					sucoDTO.setThoidiembatdau(date);
+					date = DateUtils.formatDate(new Date(Long.valueOf(map.get("thoidiemketthuc").toString())), DateUtils.SDF_DDMMYYYYHHMMSS2);
+					sucoDTO.setThoidiemketthuc(date);
+					System.out.println("Update suco Id = "+sucoDTO.getId());
+					Map<String, Object> data = VMSUtil.getSuCoData(sucoDTO, daoFactory);
+					System.out.println("1");;
+					System.out.println(data.get("thoigianmll").toString());
+					System.out.println("2");
+					stmt.setString(1, sucoDTO.getId());
+					stmt.setString(2, data.get("thoigianmll").toString());
+					stmt.setString(3, data.get("giamtrumll").toString());
+					stmt.setString(4, data.get("cuocthang").toString());
+					result.add(sucoDTO.getId());
+					stmt.execute();
+					jsonData.put("data", result);
+				}
+				stmt.close();
+				connection.close();
+			} else if(action == "2") {
+				Connection connection = daoFactory.getDataSource().getConnection();
+				CallableStatement stmt = connection.prepareCall("{ call PROC_JOB_UPDATE2() }");
 				stmt.execute();
+				stmt.close();
+				connection.close();
 			}
-			stmt.close();
-			connection.close();
-			jsonData.put("data", result);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			jsonData.put("status", 0);
