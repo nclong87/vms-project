@@ -373,7 +373,7 @@ public class AjaxAction implements Preparable {
 		try {
 			if(token == null || token.equals("@bc123456") == false) throw new Exception("ERROR_TOKEN");
 			jsonData.put("status", 1);
-			if(action == "1") {
+			if(action.equals("1")) {
 				List<String> result = new ArrayList<String>();
 				SuCoDAO dao = new SuCoDAO(daoFactory);
 				List<Map<String, Object>> list = dao.findAll();
@@ -403,7 +403,7 @@ public class AjaxAction implements Preparable {
 				}
 				stmt.close();
 				connection.close();
-			} else if(action == "2") {
+			} else if(action.equals("2")) {
 				Connection connection = daoFactory.getDataSource().getConnection();
 				CallableStatement stmt = connection.prepareCall("{ call PROC_JOB_UPDATE2() }");
 				stmt.execute();
