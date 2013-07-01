@@ -34,7 +34,7 @@ set define off;
   CREATE OR REPLACE PROCEDURE "THUEKENH"."PROC_JOB_UPDATE2" AS 
 BEGIN
   for rec in (select * from tmp) loop
-    update SUCOKENH t0 set THOIGIANMLL = rec.column2,GIAMTRUMLL=rec.column3,CUOCTHANG =rec.column4 where ID = rec.column1;
+    update SUCOKENH t0 set THOIGIANMLLCHUAGIAMTRU = THOIGIANMLL, THOIGIANMLL = rec.column2,GIAMTRUMLL=rec.column3,CUOCTHANG =rec.column4 where ID = rec.column1;
   end loop;
   
   NULL;
