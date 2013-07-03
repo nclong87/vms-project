@@ -150,10 +150,16 @@ public class AccountDao {
 	
 	private static final String PROC_SAVE_ACCOUNTMENU = "{ call PROC_SAVE_ACCOUNTMENU(?,?) }";
 	public void saveAccountMenus(String[] menu_id,String account_id) throws Exception {
+		List<String> menus = new ArrayList<String>();
+		for(int i = 0; i < menu_id.length;i++) {
+			if(menus.contains(menu_id[i]) == false) {
+				menus.add(menu_id[i]);
+			}
+		}
 		Connection connection = this.jdbcDatasource.getConnection();
 		System.out.println("***BEGIN saveAccountMenus***");
 		ArrayDescriptor descriptor = ArrayDescriptor.createDescriptor( "TABLE_VARCHAR", connection );
-		ARRAY array =new ARRAY( descriptor, connection, menu_id );
+		ARRAY array =new ARRAY( descriptor, connection, menus.toArray() );
 		CallableStatement stmt = connection.prepareCall(PROC_SAVE_ACCOUNTMENU);
 		stmt.setArray(1, array);
 		stmt.setString(2, account_id);

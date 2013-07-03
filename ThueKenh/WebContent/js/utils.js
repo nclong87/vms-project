@@ -108,7 +108,7 @@ function MultiSelect(btadd,btremove,btaddall,btremoveall,select_left,select_righ
 		return !$(select_right+' option:selected').remove().appendTo(select_left);  
 	});  
 	$(btaddall).click(function() {  
-		return !$(select_left+' option').remove().appendTo(select_right);  
+		return !$(select_left+' option:not([disabled])').remove().appendTo(select_right);  
 	});  
 	$(btremoveall).click(function() {  
 		return !$(select_right+' option').remove().appendTo(select_left);  
