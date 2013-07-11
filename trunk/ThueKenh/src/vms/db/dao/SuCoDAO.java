@@ -226,11 +226,11 @@ public class SuCoDAO {
 		stmt.setInt(3, iDisplayLength);
 		String tungay="";
 		if(conditions.get("tungay")!=null)
-			tungay=String.valueOf(DateUtils.parseDate(conditions.get("tungay"), "dd/MM/yyyy").getTime());
+			tungay=String.valueOf(DateUtils.parseDate(conditions.get("tungay")+" 00:00:00", "dd/MM/yyyy HH:mm:ss").getTime());
 		stmt.setString(4, tungay);
 		String denngay="";
 		if(conditions.get("denngay")!=null)
-			denngay=String.valueOf(DateUtils.parseDate(conditions.get("denngay"), "dd/MM/yyyy").getTime());
+			denngay=String.valueOf(DateUtils.parseDate(conditions.get("denngay")+" 23:59:59", "dd/MM/yyyy HH:mm:ss").getTime());
 		stmt.setString(5, denngay);
 		stmt.setString(6, conditions.get("phulucids"));
 		stmt.execute();
