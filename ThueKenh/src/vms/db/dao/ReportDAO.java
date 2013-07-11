@@ -262,7 +262,7 @@ public class ReportDAO {
 		System.out.println("map.size()="+map.size());
 		stringBuffer.append("</data>");
 		stringBuffer.append("<summary>");
-		long tongvat = (int) Math.ceil(tongconthanhtoan * 0.1);
+		long tongvat = (long) Math.round(tongconthanhtoan * 0.1);
 		long tongcong = tongconthanhtoan + tongvat;
 		String sTongsokenh = "";
 		for (Entry<String, Integer> entry : tongsokenh.entrySet()) {
@@ -318,7 +318,7 @@ public class ReportDAO {
 		stringBuffer.append("</header>");
 		stringBuffer.append("<data>");
 		int stt = 1;
-		int tonggiamtru = 0;
+		long tonggiamtru = 0;
 		while(rs.next()) {
 			stringBuffer.append("<row>");
 			stringBuffer.append("<stt>"+stt+"</stt>");
@@ -327,8 +327,8 @@ public class ReportDAO {
 			stt++;
 			tonggiamtru+=rs.getLong("GIAMTRUMLL");
 		}
-		int vat = (int) Math.floor(tonggiamtru * 10 / 100);
-		int tong = tonggiamtru + vat;
+		long vat = (long) Math.round(tonggiamtru * 0.1);
+		long tong = tonggiamtru + vat;
 		stringBuffer.append("</data>");
 		stringBuffer.append("<summary>");
 		stringBuffer.append(VMSUtil.xml("tong", String.valueOf(tonggiamtru)));

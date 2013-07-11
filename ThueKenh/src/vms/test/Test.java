@@ -32,8 +32,10 @@ public class Test {
 	public static void main(String arg[]) {
 		System.out.println("Begin");
 		long l1 = 453640675;
-		long l = (long) Math.floor( l1* 0.1);
-		System.out.println(l);
+		//l1 = 450746553;
+		l1 = (long)Math.round(l1*0.1);
+		//long l = (long) Math.ceil( l1* 0.1);
+		System.out.println(l1);
 		/*Workbook workBook = null;
 		try {
 			System.out.println("Begin upload");
