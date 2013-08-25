@@ -55,6 +55,7 @@ margin-left: 10px;
 	<%@include file="/include/top.jsp"%>
 	<div id="bg_wrapper">
 		<center>
+		<a class="help" target="_blank" href="<%= request.getContextPath() %>/files/HDSD_v4.0.htm#_Toc352351976" title="Hướng dẫn"></a>
 		<div class="ovf" style="width: 100%; margin-bottom: 5px;">
 				<div class="s10">
 					<div class="fl">
@@ -117,7 +118,6 @@ margin-left: 10px;
 				<input type="button" value="Thêm tài khoản" id="btThem" class="button"  onclick="doNew('${formURL}')" >
 				<input type="button" value="Mở Khóa" id="btUnlock" class="button" >
 				<input type="button" value="Khóa" id="btLock" class="button"  >
-				<a class="help" target="_blank" href="<%= request.getContextPath() %>/files/HDSD_v4.0.htm#_Toc352351976" title="Hướng dẫn"></a>
 				</div>
 			
 			<div style="display: block; height: 5px;"></div>
