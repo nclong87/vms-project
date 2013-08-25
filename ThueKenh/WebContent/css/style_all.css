@@ -592,3 +592,12 @@ width: 202px;
 {
 	display: none !important;
 }
+a.help {
+background-image: url("../images/help.jpg");
+background-position: 9px 0;
+background-repeat: no-repeat;
+display: block;
+float: right;
+height: 25px;
+width: 50px;
+}
