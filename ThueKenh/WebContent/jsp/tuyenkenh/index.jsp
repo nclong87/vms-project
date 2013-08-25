@@ -51,6 +51,7 @@ margin-left: 10px;
 <body>
 	<%@include file="/include/top.jsp"%>
 	<div id="bg_wrapper">
+		<a class="help" target="_blank" href="<%= request.getContextPath() %>/files/HDSD_v4.0.htm#_Toc352351951" title="Hướng dẫn"></a>
 		<div style="width: 100%; margin-bottom: 10px;" class="ovf">
 			<div class="s10">
 				<div class="fl">
