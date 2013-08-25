@@ -60,6 +60,7 @@
 	<%@include file="/include/top.jsp"%>
 	<div id="bg_wrapper">
 		<center>
+		<a class="help" target="_blank" href="<%= request.getContextPath() %>/files/HDSD_v4.0.htm#_Toc352351982" title="Hướng dẫn"></a>
 		<div class="ovf" style="width: 100%; margin-bottom: 5px;">
 			<div class="s10">
 				<div class="fl">

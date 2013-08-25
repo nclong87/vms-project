@@ -20,6 +20,7 @@
 <body>
 	<%@include file="/include/top.jsp"%>
 		<div id="bg_wrapper">
+			<a class="help" target="_blank" href="<%= request.getContextPath() %>/files/HDSD_v4.0.htm#_Toc352351967" title="Hướng dẫn"></a>
 			<div style="width: 100%" class="ovf">
 				<div class="s10">
 					<div class="fl">
@@ -84,8 +85,7 @@
 			</div>
 			<div style="clear: both; margin: 5px 0 0 0">
 				<input type="button" class="button" value="Thêm hồ sơ thanh toán" onclick="ShowWindow('Thêm hồ sơ thanh toán',800,600,'${formURL}',true);MaxWindow();"></input>
-				<input class="button" type="button" id="btXoa" value="Xóa"/>
-				<a class="help" target="_blank" href="<%= request.getContextPath() %>/files/HDSD_v4.0.htm#_Toc352351967" title="Hướng dẫn"></a>
+				<input class="button" type="button" id="btXoa" value="Xóa" style="float: right; margin-right: 10px;"/>
 			</div>
 			<table width="100%" id="dataTable" class="display">
 				<thead>
