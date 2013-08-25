@@ -40,6 +40,7 @@
 <body>
 	<%@include file="/include/top.jsp"%>
 		<div id="bg_wrapper">
+			<a class="help" target="_blank" href="<%= request.getContextPath() %>/files/HDSD_v4.0.htm#_Toc352351971" title="Hướng dẫn"></a>
 			<table width="100%" align="center" style="" class="reporttb">
 				<tr>
 					<td align="center" class="parent">

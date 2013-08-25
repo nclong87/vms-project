@@ -117,7 +117,7 @@ margin-left: 10px;
 				<input type="button" value="Thêm tài khoản" id="btThem" class="button"  onclick="doNew('${formURL}')" >
 				<input type="button" value="Mở Khóa" id="btUnlock" class="button" >
 				<input type="button" value="Khóa" id="btLock" class="button"  >
-				<a class="help" target="_blank" href="<%= request.getContextPath() %>/files/hdsd.htm#_Toc352351976" title="Hướng dẫn"></a>
+				<a class="help" target="_blank" href="<%= request.getContextPath() %>/files/HDSD_v4.0.htm#_Toc352351976" title="Hướng dẫn"></a>
 				</div>
 			
 			<div style="display: block; height: 5px;"></div>

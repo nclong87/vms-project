@@ -84,7 +84,8 @@
 			</div>
 			<div style="clear: both; margin: 5px 0 0 0">
 				<input type="button" class="button" value="Thêm hồ sơ thanh toán" onclick="ShowWindow('Thêm hồ sơ thanh toán',800,600,'${formURL}',true);MaxWindow();"></input>
-				<input class="button" type="button" id="btXoa" value="Xóa" style="float: right; margin-right: 10px;"/>
+				<input class="button" type="button" id="btXoa" value="Xóa"/>
+				<a class="help" target="_blank" href="<%= request.getContextPath() %>/files/HDSD_v4.0.htm#_Toc352351967" title="Hướng dẫn"></a>
 			</div>
 			<table width="100%" id="dataTable" class="display">
 				<thead>
