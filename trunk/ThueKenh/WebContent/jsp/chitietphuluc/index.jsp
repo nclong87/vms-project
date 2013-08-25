@@ -47,6 +47,7 @@ color:red;
 <body>
 	<div id="dialog" title="Welcome to VMS"><center>Loading...</center></div>
 	<div id="bg_wrapper">
+		<a class="help" target="_blank" href="<%= request.getContextPath() %>/files/HDSD_v4.0.htm#_Toc352351964" title="Hướng dẫn"></a>
 		<div style="width: 100%; margin-bottom: 10px;" class="ovf">
 			<div id="divSearch" class="ovf" style="padding-right: 0px;">
 				<div class="kc4 p5l p15t bgw">
