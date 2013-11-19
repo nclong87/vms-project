@@ -248,10 +248,13 @@ public class VMSUtil {
 		}
 		System.out.println(message);
 	}
-    public static double tinhGiamtruMLL(float thoigianmatll,long dongia) {
+    public static double tinhGiamtruMLL(float thoigianmatll,long dongia, long thoidiembatdau) {
     	double giamtrumll = 0;
 		if(thoigianmatll > 30) {
-			giamtrumll=(thoigianmatll*dongia)/(30*24*60);
+			Calendar cal = Calendar.getInstance();
+			cal.setTime(new Date(thoidiembatdau));
+			int dayOfMonth = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
+			giamtrumll=(thoigianmatll*dongia)/(dayOfMonth*24*60);
 		}
 		return Math.floor(giamtrumll);
     }

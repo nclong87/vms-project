@@ -191,7 +191,7 @@ public class PhuLucAction implements Preparable {
 				//log("listSuco.size()="+listSuco.size());
 				for(int i=0; i < listSuco.size(); i++) {
 					Map<String,Object> map = listSuco.get(i);
-					suCoDAO.updatePhuLuc(map.get("id").toString(),id, map.get("thoigianmll").toString(),map.get("dongia").toString());
+					suCoDAO.updatePhuLuc(map.get("id").toString(),id, map.get("thoigianmll").toString(),map.get("dongia").toString(),Long.valueOf(map.get("thoidiembatdau").toString()));
 				}
 			}
 			if(phuLucDTO.getId().isEmpty() == false) { //update phu luc
@@ -199,7 +199,7 @@ public class PhuLucAction implements Preparable {
 				if(listSuco.isEmpty()==false) {
 					for(int i=0; i < listSuco.size(); i++) {
 						Map<String,Object> map = listSuco.get(i);
-						suCoDAO.updatePhuLuc(map.get("id").toString(),map.get("phuluc_id").toString(), map.get("thoigianmll").toString(),map.get("dongia").toString());
+						suCoDAO.updatePhuLuc(map.get("id").toString(),map.get("phuluc_id").toString(), map.get("thoigianmll").toString(),map.get("dongia").toString(),Long.valueOf(map.get("thoidiembatdau").toString()));
 					}
 				}
 			}
