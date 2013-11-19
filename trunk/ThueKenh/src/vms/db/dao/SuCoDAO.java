@@ -262,16 +262,17 @@ public class SuCoDAO {
 		return result;
 	}
 	
-	private static final String SQL_SUCOKENH_UPDATE_PHULUC = "{ call SUCOKENH_UPDATE_PHULUC(?,?,?,?) }";
-	public void updatePhuLuc(String sucoId,String sPhuLucId,String sThoigianmll,String sDongia) throws Exception {
+	private static final String SQL_SUCOKENH_UPDATE_PHULUC = "{ call SUCOKENH_UPDATE_PHULUC(?,?,?,?,?) }";
+	public void updatePhuLuc(String sucoId,String sPhuLucId,String sThoigianmll,String sDongia, long thoidiembatdau) throws Exception {
 		Connection connection = jdbcTemplate.getDataSource().getConnection();
 		CallableStatement stmt = connection.prepareCall(SQL_SUCOKENH_UPDATE_PHULUC);
 		stmt.setLong(1, NumberUtil.parseLong(sucoId));
 		stmt.setLong(2, NumberUtil.parseLong(sPhuLucId));
 		float thoigianmatll = NumberUtil.parseFloat(sThoigianmll);
 		long dongia = NumberUtil.parseLong(sDongia);
-		stmt.setDouble(3, VMSUtil.tinhGiamtruMLL(thoigianmatll, dongia));
-		stmt.setInt(4, 0);
+		stmt.setDouble(3, VMSUtil.tinhGiamtruMLL(thoigianmatll, dongia,thoidiembatdau));
+		stmt.setLong(4, dongia);
+		stmt.setInt(5, 0);
 		stmt.execute();
 		stmt.close();
 		connection.close();
