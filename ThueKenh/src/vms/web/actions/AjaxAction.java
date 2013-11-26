@@ -37,6 +37,7 @@ import vms.db.dao.ThanhToanDAO;
 import vms.db.dao.TramDAO;
 import vms.db.dao.VmsgroupDao;
 import vms.db.dto.Menu;
+import vms.db.dto.PhuLucDTO;
 import vms.db.dto.Rootmenu;
 import vms.db.dto.SuCoDTO;
 import vms.utils.Constances;
@@ -409,6 +410,30 @@ public class AjaxAction implements Preparable {
 				stmt.execute();
 				stmt.close();
 				connection.close();
+			} else if (action.equals("3")) {
+				String id = request.getParameter("id");
+				List<String> result = new ArrayList<String>();
+				if(id != null && id.isEmpty() == false) {
+					SuCoDAO suCoDAO = new SuCoDAO(daoFactory);
+					List<Map<String,Object>> listSuco = suCoDAO.findSuCoByPhuLuc(id);
+					if(listSuco.isEmpty()==false) {
+						//log("listSuco.size()="+listSuco.size());
+						for(int i=0; i < listSuco.size(); i++) {
+							Map<String,Object> map = listSuco.get(i);
+							suCoDAO.updatePhuLuc(map.get("id").toString(),id, map.get("thoigianmll").toString(),map.get("dongia").toString(),Long.valueOf(map.get("thoidiembatdau").toString()));
+							result.add(map.get("tuyenkenh_id").toString());
+						}
+					}
+					listSuco = suCoDAO.findSuCoByPhuLuc2(id);
+					if(listSuco.isEmpty()==false) {
+						for(int i=0; i < listSuco.size(); i++) {
+							Map<String,Object> map = listSuco.get(i);
+							suCoDAO.updatePhuLuc(map.get("id").toString(),map.get("phuluc_id").toString(), map.get("thoigianmll").toString(),map.get("dongia").toString(),Long.valueOf(map.get("thoidiembatdau").toString()));
+							result.add(map.get("tuyenkenh_id").toString());
+						}
+					}
+				}
+				
 			}
 			
 		} catch (Exception e) {
