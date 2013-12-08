@@ -37,7 +37,12 @@ set define off;
 p_madiemdau varchar2(20);
 p_madiemcuoi varchar2(20);
 BEGIN
-  select MADIEMDAU,MADIEMCUOI into p_madiemdau,p_madiemcuoi FROM tuyenkenh where id = tuyenkenh_id_;
+  for rec in (select distinct(t.phone) from v_sts_sys_users t left join accounts t0 on t.username = t0.username right join (select phongban_id,t1.khuvuc_id,t0.ID,ACCOUNT_ID  from TUYENKENH t0 left join doitac t1 on t0.DOITAC_ID = t1.ID  left join account_khuvuc t2 on t2.KHUVUC_ID =t1.khuvuc_id
+where t0.ID = tuyenkenh_id_) dl on t0.id=dl.ACCOUNT_ID and t0.IDPHONGBAN = dl.phongban_id
+where t0.active=1 and t.is_enable = 'Y' and t.receiving_sms = 'Y' and t.phone is not null) loop
+    insert into sms_user (PHONE_NUMBER,TUYENKENH_ID,TYPE,CREATE_TIME) values (rec.phone,tuyenkenh_id_,type_,sysdate);
+  end loop;
+  /*select MADIEMDAU,MADIEMCUOI into p_madiemdau,p_madiemcuoi FROM tuyenkenh where id = tuyenkenh_id_;
   if(p_madiemdau is not null) then
     for rec in (select t0.username,t1.RECEIVING_SMS,t1.receiving_email,t1.phone,t1.email from v_sts_sys_user_area t0 left join v_sts_sys_users t1 on t0.username = t1.username 
 where t1.IS_ENABLE = 'Y' AND INSTR(p_madiemdau,district,1) > 0) loop
@@ -54,10 +59,12 @@ where t1.IS_ENABLE = 'Y' AND INSTR(p_madiemcuoi,district,1) > 0) loop
       end if;
     end loop;
   end if;
-  NULL;
+  NULL;*/
 END PROC_INSERT_SMS;
 
 /
+
+
 
 --------------------------------------------------------
 --  DDL for Procedure PROC_SEND_SMS
@@ -73,7 +80,8 @@ p_sms_content  varchar2(900);
 BEGIN
   insert into sms values (sysdate,v_phone,v_sms_content,v_type);
   p_sms_content := SUBSTR(v_sms_content,0,799);
-  INSERT INTO SMS_QUEUE@SMS6(ID, CALLLED_NUMBER,SMS_CONTENT,REQUEST_DATE_TIME,SMS_TYPE,STATUS,SCHEDULE_DATE_TIME,USER_NAME,PC,SMSC_CODE) VALUES(SMS_QUEUE_SEQ.NEXTVAL@SMS6, v_phone,p_sms_content, sysdate, 0, 0, sysdate, 'SYSTEM', '10.18.18.52','NOIMANG');
+  SEND_SMS_TK(v_phone,p_sms_content);
+  --INSERT INTO SMS_QUEUE@SMS6(ID, CALLLED_NUMBER,SMS_CONTENT,REQUEST_DATE_TIME,SMS_TYPE,STATUS,SCHEDULE_DATE_TIME,USER_NAME,PC,SMSC_CODE) VALUES(SMS_QUEUE_SEQ.NEXTVAL@SMS6, v_phone,p_sms_content, sysdate, 0, 0, sysdate, 'SYSTEM', '10.18.18.52','NOIMANG');
 END PROC_SEND_SMS;
 
 /
@@ -149,9 +157,9 @@ where t.DELETED = 0 and t.NGAYHENBANGIAO < sysdate and t.TRANGTHAI = 0 and t.FLA
     v_sms_content := 'Da 3 ngay, user '||rec.username|| ' khong cap nhat su co truyen dan thue, vui long cap nhat su co, neu khong co su co nao xay ra, vui long bo qua sms nay';
     PROC_SEND_SMS(rec.phone,v_sms_content,4);
   end loop;
-  for rec in (select * from sucokenh where DELETED=0 and filename is null and filepath is null and filesize is null and timecreate <= sysdate-3) loop
+  /*for rec in (select * from sucokenh where DELETED=0 and filename is null and filepath is null and filesize is null and timecreate <= sysdate-3) loop
       PROC_INSERT_SMS(rec.TUYENKENH_ID,1);               
-   END LOOP ;
+   END LOOP ;*/
   --PROC_INSERT_SMS('VTBD_0192',1);
   COMMIT;
   FOR rec in (select distinct phone_number from sms_user where CREATE_TIME >= SYSDATE - 1 and phone_number is not null) loop
