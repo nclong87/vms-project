@@ -255,25 +255,25 @@ public class ImportAction implements Preparable {
 				SuCoImportDTO dto = new SuCoImportDTO();
 				dto.setStt(i);
 				if( (index = map.get("MADIEMDAU")) != null)
-					dto.setMadiemdau(sheet.getCell(index, i).getContents());
+					dto.setMadiemdau(VMSUtil.cleanString(sheet.getCell(index, i).getContents()));
 				if( (index = map.get("MADIEMCUOI")) != null)
-					dto.setMadiemcuoi(sheet.getCell(index, i).getContents());
+					dto.setMadiemcuoi(VMSUtil.cleanString(sheet.getCell(index, i).getContents()));
 				if( (index = map.get("DUNGLUONG")) != null)
-					dto.setDungluong(sheet.getCell(index, i).getContents());
+					dto.setDungluong(VMSUtil.cleanString(sheet.getCell(index, i).getContents()));
 				if( (index = map.get("MAGIAOTIEP")) != null)
 				{
-					dto.setMagiaotiep(sheet.getCell(index, i).getContents());
+					dto.setMagiaotiep(VMSUtil.cleanString(sheet.getCell(index, i).getContents()));
 					magiaotiep=sheet.getCell(index, i).getContents();
 					System.out.println("Ma giao tiep luc dau:"+magiaotiep);
 				}
 				if( (index = map.get("THOIDIEMBATDAU")) != null)
 				{
-					thoidiembatdau=sheet.getCell(index, i).getContents();
+					thoidiembatdau=VMSUtil.cleanString(sheet.getCell(index, i).getContents());
 					dto.setThoidiembatdau(thoidiembatdau);
 				}
 				if( (index = map.get("THOIDIEMKETTHUC")) != null)
 				{
-					thoidiemketthuc=sheet.getCell(index, i).getContents();
+					thoidiemketthuc=VMSUtil.cleanString(sheet.getCell(index, i).getContents());
 					dto.setThoidiemketthuc(thoidiemketthuc);
 				}
 				if( (index = map.get("NGUYENNHAN")) != null)
@@ -284,7 +284,7 @@ public class ImportAction implements Preparable {
 					dto.setNguoixacnhan(sheet.getCell(index, i).getContents());
 				if( (index = map.get("LOAISUCO")) != null)
 				{
-					String loaisuco=sheet.getCell(index, i).getContents().trim();
+					String loaisuco=VMSUtil.cleanString(sheet.getCell(index, i).getContents());
 					System.out.println("loaisuco:"+loaisuco);
 					if(loaisuco.compareTo("BT")==0)
 						dto.setLoaisuco("0");
