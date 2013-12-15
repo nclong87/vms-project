@@ -343,4 +343,8 @@ public class VMSUtil {
 			map.put("cuocthang", 0);
 		return map;
 	}
+    
+    public static String cleanString(String str) {
+    	return str.trim().replaceAll("[^\\p{ASCII}]", "");
+    }
 }
