@@ -181,18 +181,21 @@ public class DeXuatAction implements Preparable {
 				if(tkdxDto!=null)
 				{
 					String content="";
+					VMSUtil.cronInitSMS(daoFactory);
 					for(int i=0;i<dexuat_ids.length;i++)
 					{
 						TuyenKenhDeXuatDTO temptkdxDto=tuyenKenhDeXuatDAO.findById(dexuat_ids[i]);
 						if(temptkdxDto!=null)
 						{
-							if(!content.isEmpty())
-								content+=", ";
+							System.out.println("temptkdxDto.getTuyenkenh_id():"+temptkdxDto.getTuyenkenh_id());
+							VMSUtil.insertSMS(daoFactory, temptkdxDto.getTuyenkenh_id(), 1);
+							//if(!content.isEmpty())
+							//	content+=", ";
 						}
-						content+=temptkdxDto.getTuyenkenh_id();
+						//content+=temptkdxDto.getTuyenkenh_id();*/
+						
 					}
-					VMSUtil.sendMail(daoFactory,tkdxDto.getTuyenkenh_id(), 1, "Danh sách các tuyến kênh đề xuất: " +content);
-					VMSUtil.sendSMS(daoFactory, tkdxDto.getTuyenkenh_id(), 1, "Danh sach cac tuyen kenh de xuat: "+content);
+					VMSUtil.cronSMS(daoFactory);
 				}
 			}
 			setInputStream("OK");
