@@ -347,4 +347,48 @@ public class VMSUtil {
     public static String cleanString(String str) {
     	return str.trim().replaceAll("[^\\p{ASCII}]", "");
     }
+    
+    private static final String SQL_CRON_SMS_INIT = "{ call PROC_CRON_SMS_INIT }";
+    public static boolean cronInitSMS(DaoFactory daoFactory){
+    	try {
+    		Connection connection = daoFactory.getDataSource().getConnection();
+    		CallableStatement stmt = connection.prepareCall(SQL_CRON_SMS_INIT);
+    		stmt.execute();
+    		stmt.close();
+    		connection.close();
+		} catch (Exception e) {
+			return false;
+		}
+    	return true;
+    }
+    
+    private static final String SQL_INSERT_SMS = "{ call PROC_INSERT_SMS(?,?) }";
+    public static boolean insertSMS(DaoFactory daoFactory,String tuyenkenhId, int type){
+    	try {
+    		Connection connection = daoFactory.getDataSource().getConnection();
+    		CallableStatement stmt = connection.prepareCall(SQL_INSERT_SMS);
+    		stmt.setString(1, tuyenkenhId);
+    		stmt.setInt(2, type);
+    		stmt.execute();
+    		stmt.close();
+    		connection.close();
+		} catch (Exception e) {
+			return false;
+		}
+    	return true;
+    }
+    
+    private static final String SQL_CRON_SMS = "{ call PROC_CRON_SMS }";
+    public static boolean cronSMS(DaoFactory daoFactory){
+    	try {
+    		Connection connection = daoFactory.getDataSource().getConnection();
+    		CallableStatement stmt = connection.prepareCall(SQL_CRON_SMS);
+    		stmt.execute();
+    		stmt.close();
+    		connection.close();
+		} catch (Exception e) {
+			return false;
+		}
+    	return true;
+    }
 }
