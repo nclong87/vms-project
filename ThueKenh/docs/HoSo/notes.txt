@@ -1,0 +1,7 @@
+Hiện tại chương trình truyền dẫn đang sử dụng dữ liệu chung để xác định user nhận thông báo SMS.
+	Phòng CNTT sẽ cung cấp 2 view  V_STS_SYS_USERS và  V_STS_SYS_USER_AREA để chương trình truyền dẫn sử dụng.
+	Cách xác định user nhận SMS như sau:
+	1. Căn cứ vào dữ liệu USERNAME, PHONE và IS_SMS_LEASELINE = 'Y' trong view V_STS_SYS_USERS để lấy thông tin số điện thoại và xác định user đó có thể nhận SMS thông báo của chương trình truyền dẫn hay không.
+	2. So khớp 4 ký tự đầu của mã điểm đầu, mã điểm cuối của tuyến kênh và dữ liệu DISTRICT trong view  V_STS_SYS_USER_AREA để xác định user sẽ nhận SMS liên quan đến tuyến kênh đó.
+
+
