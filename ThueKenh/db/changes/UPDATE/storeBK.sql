@@ -71,3 +71,29 @@ END PROC_CRON_SMS;
 
 /
 
+
+
+create or replace
+FUNCTION unix_ts_to_date( p_unix_ts IN NUMBER )
+  RETURN DATE
+IS
+  l_date DATE;
+BEGIN
+  l_date := date '1970-01-01' + p_unix_ts/60/60/24/1000;
+  RETURN l_date;
+END;
+
+
+select t.TUYENKENH_ID,t1.madiemdau,t1.madiemcuoi,t2.loaigiaotiep,t1.dungluong||'M',tendoitac,NGAYHENBANGIAO from 
+TUYENKENHDEXUAT t left join TUYENKENH t1 on t.TUYENKENH_ID=t1.ID
+left join loaigiaotiep t2 on t1.GIAOTIEP_ID = t2.id
+left join doitac t3 on t1.DOITAC_ID = t3.id
+where t.DELETED = 0 and t1.DELETED = 0 and t.NGAYHENBANGIAO <= TO_DATE(TO_CHAR(sysdate + 3,'DD-MM-RRRR'),'DD-MM-RRRR') and t.TRANGTHAI = 0
+
+select t.TUYENKENH_ID,t1.madiemdau,t1.madiemcuoi,t2.loaigiaotiep,t1.dungluong||'M',tendoitac, t1.USERCREATE as DEXUAT,t.USERCREATE as BAOCAO,
+to_char(unix_ts_to_date( THOIDIEMBATDAU ) + 7/24,'dd/mm/yyyy hh24:mi:ss') as THOIDIEMBATDAU,
+to_char(unix_ts_to_date( THOIDIEMKETTHUC ) + 7/24,'dd/mm/yyyy hh24:mi:ss') as THOIDIEMKETTHUC
+from sucokenh t left join TUYENKENH t1 on t.TUYENKENH_ID=t1.ID
+left join loaigiaotiep t2 on t1.GIAOTIEP_ID = t2.id
+left join doitac t3 on t1.DOITAC_ID = t3.id
+where t.DELETED=0 and filename is null and filepath is null and filesize is null and t.timecreate <= sysdate-3
