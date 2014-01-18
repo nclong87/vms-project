@@ -305,7 +305,7 @@ where t.DELETED = 0 and t1.DELETED = 0 and t.NGAYHENBANGIAO < TO_DATE(TO_CHAR(sy
   end loop;
   
   -- Su co sau 3 ngay ko co file scan
-  for rec in (select * from sucokenh where DELETED=0 and filename is null and filepath is null and filesize is null and timecreate <= sysdate-3 and TIMECREATE > TO_DATE('01-01-2014','DD-MM-RRRR')) loop
+  for rec in (select * from sucokenh where DELETED=0 and filename is null and filepath is null and filesize is null and timecreate <= sysdate-3 and TIMECREATE >= TO_DATE('15-01-2014','DD-MM-RRRR')) loop
       PROC_INSERT_SMS_SUCO(rec.ID,7);               
    END LOOP ;
   
