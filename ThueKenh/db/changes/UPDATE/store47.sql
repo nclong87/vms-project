@@ -19,7 +19,7 @@ p_sms_content  varchar2(3000);
 BEGIN
   insert into sms values (sysdate,v_phone,v_sms_content,v_type);
   p_sms_content := SUBSTR(v_sms_content,0,1000);
-  SEND_SMS_BRANCH(v_phone,p_sms_content,'DDH-LEASELINE',null);
+  --SEND_SMS_BRANCH(v_phone,p_sms_content,'DDH-LEASELINE',null);
   --SEND_SMS_TK(v_phone,p_sms_content);
   --INSERT INTO SMS_QUEUE@SMS6(ID, CALLLED_NUMBER,SMS_CONTENT,REQUEST_DATE_TIME,SMS_TYPE,STATUS,SCHEDULE_DATE_TIME,USER_NAME,PC,SMSC_CODE) VALUES(SMS_QUEUE_SEQ.NEXTVAL@SMS6, v_phone,p_sms_content, sysdate, 0, 0, sysdate, 'SYSTEM', '10.18.18.52','NOIMANG');
 END PROC_SEND_SMS;
@@ -330,3 +330,9 @@ BEGIN
 END PROC_SCHEDULE;
 
 /
+
+CREATE OR REPLACE PROCEDURE PROC_CRON_SMS_INIT AS 
+BEGIN
+  DELETE FROM sms_user;
+  COMMIT;
+END PROC_CRON_SMS_INIT;
