@@ -4,13 +4,13 @@
 set define off;
 
   CREATE OR REPLACE PROCEDURE "THUEKENH"."PROC_CRON_SMS" AS
-TYPE sms_content IS TABLE OF VARCHAR2(200);
+TYPE sms_content IS TABLE OF VARCHAR2(1000);
 TYPE array_smscontent IS TABLE OF sms_content;
 v_sms_content array_smscontent;
 v_phone varchar2(20);
 i number := 1;
 j number := 1;
-which VARCHAR2(200);
+which VARCHAR2(1000);
 v_content varchar(200);
 BEGIN
   i:= 0;
@@ -33,7 +33,7 @@ BEGIN
           i := v_sms_content(rec2.type).count;
           which := v_sms_content(rec2.type)(i);
           which := which || ' ' || rec2.content;
-          if(LENGTH(which) < 140) then
+          if(LENGTH(which) < 799) then
             v_sms_content(rec2.type)(i) := which;
           else
             v_sms_content(rec2.type).EXTEND;
@@ -96,4 +96,6 @@ to_char(unix_ts_to_date( THOIDIEMKETTHUC ) + 7/24,'dd/mm/yyyy hh24:mi:ss') as TH
 from sucokenh t left join TUYENKENH t1 on t.TUYENKENH_ID=t1.ID
 left join loaigiaotiep t2 on t1.GIAOTIEP_ID = t2.id
 left join doitac t3 on t1.DOITAC_ID = t3.id
-where t.DELETED=0 and filename is null and filepath is null and filesize is null and t.timecreate <= sysdate-3
+where t.DELETED=0 and filename is null and filepath is null and filesize is null and t.timecreate <= sysdate-3 and t.TIMECREATE >= TO_DATE('15-01-2014','DD-MM-RRRR')
+
+
