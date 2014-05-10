@@ -294,7 +294,10 @@ public class SuCoAction implements Preparable {
 				cal.setTime(dateThoiDiemBatDau);
 				int dayOfMonth = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
 				System.out.println("day of month:"+dayOfMonth);
+				System.out.println("thanh tien:"+mapPhuluc.get("thanhtien"));
+				System.out.println("thoi gian mat lien lac:"+thoigianmatll);
 				giamtrumatll=Math.floor((thoigianmatll*NumberUtil.parseLong(mapPhuluc.get("thanhtien").toString()))/(dayOfMonth*24*60));
+				System.out.println("giam tru mat ll:"+giamtrumatll);
 				sucoDTO.setGiamtrumll(giamtrumatll);
 				sucoDTO.setCuocthang(NumberUtil.parseLong(mapPhuluc.get("thanhtien").toString()));
 			}

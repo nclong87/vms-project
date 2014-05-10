@@ -66,7 +66,7 @@ public class SuCoDAO {
 		return s;
 	}
 	
-	private static final String SQL_FN_FIND_SUCO = "{ ? = call FN_FIND_SUCO(?,?,?,?,?,?,?,?,?,?,?,?,?,?) }";
+	private static final String SQL_FN_FIND_SUCO = "{ ? = call FN_FIND_SUCO(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) }";
 	public List<Map<String,Object>> findSuCo(int iDisplayStart,int iDisplayLength,Map<String, String> conditions) throws SQLException {
 		System.out.println("Begin FindSuCo");
 		Connection connection = jdbcDatasource.getConnection();
@@ -99,6 +99,8 @@ public class SuCoDAO {
 		stmt.setString(13, conditions.get("nguoixacnhan"));
 		stmt.setString(14, conditions.get("bienbanvanhanh_id"));
 		stmt.setString(15, conditions.get("doitac"));
+		System.out.println("cobienban:"+conditions.get("cobienban"));
+		stmt.setString(16, conditions.get("cobienban"));
 		stmt.execute();
 		ResultSet rs = (ResultSet) stmt.getObject(1);
 		List<Map<String,Object>> result = new ArrayList<Map<String,Object>>();
@@ -231,6 +233,8 @@ public class SuCoDAO {
 		String denngay="";
 		if(conditions.get("denngay")!=null)
 			denngay=String.valueOf(DateUtils.parseDate(conditions.get("denngay")+" 23:59:59", "dd/MM/yyyy HH:mm:ss").getTime());
+		System.out.println("tungay:"+tungay);
+		System.out.println("denngay:"+denngay);
 		stmt.setString(5, denngay);
 		stmt.setString(6, conditions.get("phulucids"));
 		stmt.execute();
