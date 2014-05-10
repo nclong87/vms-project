@@ -46,12 +46,20 @@
 									<table>
 										<tr>
 											<td>Đối tác</td>
-											<td colspan="3">
+											<td>
 												<select name="doitac" id="doitac" style="width:220px">
 													<option value="">---Tất cả---</option>
 													<s:iterator value="doiTacDTOs">
 														<option value='<s:property value="id" />'><s:property value="tendoitac" /></option>									
 													</s:iterator>
+												</select>
+											</td>
+											<td>Biên bản</td>
+											<td colspan="3">
+												<select name="cobienban" id="cobienban" style="width:220px">
+													<option value="">Tất cả</option>
+													<option value="1">Có</option>
+													<option value="0">Không</option>
 												</select>
 											</td>
 										</tr>
@@ -144,6 +152,7 @@
 						<th width="50px">Phương án xử lý</th>
 						<th width="50px">Loại sự cố</th>
 						<th width="50px">Người xác nhận</th>
+						<th width="50px">Có biên bản</th>
 						<th width="50px">Chi tiết</th>
 						<th width="5px">Sửa</th>
 						<th width="5px" align="center"><input type="checkbox" onclick="selectAll(this)"/></th>
@@ -228,6 +237,11 @@ $(document).ready(function(){
 						}
 					},
 					{ "mDataProp": "nguoixacnhan","bSortable": false,"bSearchable": false},
+					{ "mDataProp": null,"bSortable": false,"bSearchable": false,"sClass":'td_center',
+						"fnRender": function( oObj ) {
+							return oObj.aData.bienbanvanhanh_id!=0 ? 'Có' : 'Không';
+						}
+					},
 					{ "mDataProp": null,"bSortable": false,"bSearchable": false,"sClass":'td_center',
 						"fnRender": function( oObj ) {
 							return '<a target="_blank" href="${detailURL}?id='+oObj.aData.id+'" title="Xem chi tiết sự cố"><div class="detail"></div></a>';  
