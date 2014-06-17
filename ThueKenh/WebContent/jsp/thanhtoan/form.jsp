@@ -416,7 +416,7 @@ function byId(id) { //Viet tat cua ham document.getElementById
 				},
 				"thanhtoanDTO.ngaychuyenkt":{
 					required: true,
-					date:true
+					date:false
 				}
 			}
 		});

@@ -630,11 +630,11 @@ margin:0;
 			rules : {
 				"thoidiembatdautu" : {
 					required : true,
-					date:true
+					date:false
 				},
 				"thoidiembatdauden" : {
 					required : true,
-					date:true
+					date:false
 				}
 			}
 		});

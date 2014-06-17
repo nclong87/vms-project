@@ -336,11 +336,11 @@ $(document).ready(function() {
 			},
 			"phuLucDTO.ngayky" : {
 				required : true,
-				date: true
+				date: false
 			},
 			"phuLucDTO.ngayhieuluc" : {
 				required : true,
-				date:true
+				date:false
 			}
 		}
 	});
