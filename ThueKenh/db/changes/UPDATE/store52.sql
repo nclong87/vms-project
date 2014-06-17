@@ -1,0 +1,1 @@
+update TUYENKENH set DELETED = 0 where ID IN ('VTBP_0101','VTBP_0073');
