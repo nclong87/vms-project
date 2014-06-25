@@ -593,6 +593,9 @@
 		<action name="popupSearch" class="sucoAction">
 			<result>/jsp/sucokenh/popupSearch.jsp</result>
 		</action>
+		<action name="exportpage" class="sucoAction">
+			<result>/jsp/sucokenh/export.jsp</result>
+		</action>
 		<action name="popupSearchForThanhToan" class="sucoAction" method="popupSearchForThanhToan">
 			<result>/jsp/sucokenh/popupSearchForThanhToan.jsp</result>
 		</action>
@@ -611,6 +614,14 @@
 			<result name="success" type="json">
 				<param name="root">jsonData</param>
 			</result>
+		</action>
+		<action name="doexport" class="sucoAction" method="doexport">
+			<result name="success" type="stream">
+				<param name="contentType">application/vnd.ms-excel</param>
+				<param name="inputName">excelStream</param>
+				<param name="contentDisposition">attachment; filename="${filename}"</param>
+				<param name="bufferSize">1024</param>
+			 </result>
 		</action>
 	</package>
 

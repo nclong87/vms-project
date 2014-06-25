@@ -9,6 +9,7 @@
 <s:url action="suco" namespace="/import" id="importSuCoURL"/>
 <s:url action="detail" namespace="/tuyenkenh" id="tuyenkenhdetailURL"/>
 <s:url action="detailLoaiGiaoTiep" namespace="/danhmuc" id="detailGiaoTiepURL"/>
+<s:url action="exportpage" namespace="/sucokenh" id="exportURL"/>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -117,7 +118,7 @@
 											<td colspan="3">
 												<div class="buttonwrapper">
 													<input type="button" class="button" value="Tìm kiếm" onclick="doSearch()"></input>
-													<input type="button" class="button" value="Xuất excel"></input>
+													<input id="btExport" type="button" class="button" value="Xuất excel"></input>
 												</div>
 											</td>
 										</tr>
@@ -190,6 +191,9 @@ function newPopupWindow(file, window, width, height) {
     if (msgWindow.opener == null) msgWindow.opener = self;
 }
 $(document).ready(function(){	
+	$("#btExport").click(function(){
+		ShowWindow('Export sự cố kênh',500,500,"${exportURL}",false);
+	});
 	popup_search_tuyenkenh.init({
 		url : "${popupSearchForSuCoURL}",
 		afterSelected : function(data) {

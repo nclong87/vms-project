@@ -319,4 +319,96 @@ public class SuCoDAO {
 			}
 		});
 	}
+	
+	private static String resultSetToXMLWithProperties(ResultSet rs,String[] fields) {
+    	StringBuffer buffer = new StringBuffer(512);
+    	try {
+    		for(int i=0;i<fields.length;i++)
+    		{
+    			String tagName = fields[i];
+    			String data = "";
+    			if(tagName.equals("thoidiembatdau") || tagName.equals("thoidiemketthuc")) {
+    				data = DateUtils.formatDate(new Date(rs.getLong(tagName.toUpperCase())), DateUtils.SDF_DDMMYYYYHHMMSS2);
+    			} else {
+    				data = rs.getString(tagName)==null?"":rs.getString(tagName);
+    				if(tagName.equals("loaisuco"))
+					{
+						if(data.equals("0"))
+							data="Sự cố bình thường";
+						else
+							data= "Sự cố lớn";
+					} else if(tagName.equals("bienbanvanhanh_id")) {
+						if(data.equals("0"))
+							data="Không";
+						else
+							data= "Có";
+					}
+    				
+    			}
+    			buffer.append("<cell hid=\""+tagName+"\" "+">"+VMSUtil.cData(data)+"</cell>");
+    		}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+    	return buffer.toString();
+    }
+
+	public String exportExcel(Map<String, String> conditions,String[] fields,String[] fieldNames) throws Exception {
+		StringBuffer stringBuffer = new StringBuffer(1024);
+		stringBuffer.append("<root>");
+		stringBuffer.append("<header>");
+		
+		for(int i=0;i<fields.length;i++)
+		{
+			if(fields[i].equals("ngaygui") || fields[i].equals("ngaydenghibangiao"))
+				stringBuffer.append("<cell id=\""+fields[i]+"\" type=\"DateTime\" style=\"Date\">"+fieldNames[i]+"</cell>");
+			else
+				stringBuffer.append("<cell id=\""+fields[i]+"\" type=\"String\" style=\"Text\">"+fieldNames[i]+"</cell>");
+		}
+		stringBuffer.append("</header>");
+		Connection connection = jdbcDatasource.getConnection();
+		CallableStatement stmt = connection.prepareCall(SQL_FN_FIND_SUCO);
+		stmt.registerOutParameter(1, OracleTypes.CURSOR);
+		stmt.setInt(2, 0);
+		stmt.setInt(3, 999999999);
+		stmt.setString(4, conditions.get("tuyenkenh_id"));
+		stmt.setString(5, conditions.get("loaisuco"));
+		stmt.setString(6, conditions.get("madiemdau"));
+		stmt.setString(7, conditions.get("madiemcuoi"));
+		stmt.setString(8, conditions.get("dungluong"));
+		String thoidiembatdautu="";
+		if(conditions.get("thoidiembatdautu")!=null)
+			thoidiembatdautu=String.valueOf(DateUtils.parseDate(conditions.get("thoidiembatdautu"), "dd/MM/yyyy HH:mm:ss").getTime());
+		stmt.setString(9, thoidiembatdautu);
+		String thoidiembatdauden="";
+		if(conditions.get("thoidiembatdauden")!=null)
+			thoidiembatdauden=String.valueOf(DateUtils.parseDate(conditions.get("thoidiembatdauden"), "dd/MM/yyyy HH:mm:ss").getTime());
+		stmt.setString(10, thoidiembatdauden);
+		String thoidiemketthuctu="";
+		if(conditions.get("thoidiemketthuctu")!=null)
+			thoidiemketthuctu=String.valueOf(DateUtils.parseDate(conditions.get("thoidiemketthuctu"), "dd/MM/yyyy HH:mm:ss").getTime());
+		stmt.setString(11, thoidiemketthuctu);
+		String thoidiemketthucden="";
+		if(conditions.get("thoidiemketthucden")!=null)
+			thoidiemketthucden=String.valueOf(DateUtils.parseDate(conditions.get("thoidiemketthucden"), "dd/MM/yyyy HH:mm:ss").getTime());
+		stmt.setString(12, thoidiemketthucden);
+		stmt.setString(13, conditions.get("nguoixacnhan"));
+		stmt.setString(14, conditions.get("bienbanvanhanh_id"));
+		stmt.setString(15, conditions.get("doitac"));
+		stmt.setString(16, conditions.get("cobienban"));
+		stmt.execute();
+		ResultSet rs = (ResultSet) stmt.getObject(1);
+		stringBuffer.append("<rows>");
+		while(rs.next()) {
+			stringBuffer.append("<row>");
+			stringBuffer.append(SuCoDAO.resultSetToXMLWithProperties(rs,fields));
+			stringBuffer.append("</row>");
+		}
+		stringBuffer.append("</rows>");
+		stringBuffer.append("</root>");
+		stmt.close();
+		connection.close();
+		return stringBuffer.toString();
+	}
 }
