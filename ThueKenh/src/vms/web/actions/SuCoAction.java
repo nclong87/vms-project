@@ -31,6 +31,7 @@ import vms.utils.Constances;
 import vms.utils.DateUtils;
 import vms.utils.NumberUtil;
 import vms.utils.VMSUtil;
+import vms.utils.XMLUtil;
 import vms.web.models.FN_FIND_SUCO;
 
 import com.opensymphony.xwork2.Action;
@@ -50,7 +51,33 @@ public class SuCoAction implements Preparable {
 	private String denngay;
 	private String[] phulucids;
 	private List<Map<String,Object>> doiTacDTOs;
+	private String[] fields;
+	private String[] fieldNames;
+	private String filename = "";
+	private InputStream excelStream;
 	
+	
+	public String getFilename() {
+		return filename;
+	}
+
+	public void setFilename(String filename) {
+		this.filename = filename;
+	}
+	public String[] getFields() {
+		return fields;
+	}
+
+	public void setFields(String[] fields) {
+		this.fields = fields;
+	}
+	public String[] getFieldNames() {
+		return fieldNames;
+	}
+
+	public void setFieldNames(String[] fieldNames) {
+		this.fieldNames = fieldNames;
+	}
 	public String[] getPhulucids() {
 		return phulucids;
 	}
@@ -124,6 +151,19 @@ public class SuCoAction implements Preparable {
 			log("ERROR :" + e.getMessage());
 		}
 	}
+	
+	public InputStream getExcelStream() {
+		return excelStream;
+	}
+
+	public void setExcelStream(String str) {
+		try {
+			this.excelStream =  new ByteArrayInputStream( str.getBytes("UTF-8") );
+		} catch (UnsupportedEncodingException e) {			
+			log("ERROR :" + e.getMessage());
+		}
+	}
+
 	public List<Map<String,Object>> getDoiTacDTOs() {
 		return doiTacDTOs;
 	}
@@ -339,6 +379,7 @@ public class SuCoAction implements Preparable {
 					}
 				}
 			}
+			session.setAttribute("sucokenh_conditions", conditions);
 			SuCoDAO sucoDao = new SuCoDAO(daoFactory);
 			List<Map<String,Object>> lstSuCo = sucoDao.findSuCo(iDisplayStart, iDisplayLength+1, conditions);
 			int iTotalRecords = lstSuCo.size();
@@ -537,4 +578,26 @@ public class SuCoAction implements Preparable {
 		}
 		return Action.SUCCESS;
 	}
+	
+	public String doexport() throws Exception {
+		log("DeXuatAction.doexport");
+		if(account == null) {
+			session.setAttribute("URL", VMSUtil.getFullURL(request));
+			return "login_page";
+		}
+		/*for(int i=0;i<fieldNames.length;i++)
+			log("fieldNames[i]:"+fields[i]);*/
+		if(fields != null && fields.length >0 && fieldNames!=null && fieldNames.length>0) {
+			SuCoDAO sucoDao = new SuCoDAO(daoFactory);
+			String xmlData = sucoDao.exportExcel((Map<String, String>) session.getAttribute("sucokenh_conditions"),fields, fieldNames);
+			String pathXslTemplate = ServletActionContext.getServletContext().getRealPath("files/templates/export.xsl");
+			String transformedString = XMLUtil.transformStringXML_FileXSL(xmlData, pathXslTemplate);
+			//log("transformedString = "+transformedString);
+			//FileUtils.writeStringToFile(new File("D:\\log2.txt"), "Nguyễn Chí Long "+fieldNames[0],"UTF-8");
+			setExcelStream(transformedString);
+			filename = "SuCoKenh_"+System.currentTimeMillis()+".xls";
+		}	
+		return Action.SUCCESS;
+	}
+	
 }
