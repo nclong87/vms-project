@@ -243,7 +243,7 @@ $(document).ready(function(){
 					{ "mDataProp": "nguoixacnhan","bSortable": false,"bSearchable": false},
 					{ "mDataProp": null,"bSortable": false,"bSearchable": false,"sClass":'td_center',
 						"fnRender": function( oObj ) {
-							return oObj.aData.bienbanvanhanh_id!=0 ? 'Có' : 'Không';
+							return oObj.aData.filepath!="" ? 'Có' : 'Không';
 						}
 					},
 					{ "mDataProp": null,"bSortable": false,"bSearchable": false,"sClass":'td_center',
